@@ -76,9 +76,6 @@ directly to Supabase.
 docker compose exec backend alembic upgrade head
 ```
 
-(Once models exist from Phase 2 onward — there are no migrations yet in
-this Phase 1 commit.)
-
 ### 5. Local development without Docker (backend)
 
 ```bash
@@ -111,6 +108,29 @@ cd backend
 pytest
 ```
 
+## API endpoints
+
+All routes are versioned under `/api/v1` (see `/api/v1/docs` for the live,
+authoritative schema). Every route except `/auth/login` and `/auth/refresh`
+requires a bearer access token; role-restricted routes are noted below.
+
+- **Auth** — `POST /auth/login`, `POST /auth/refresh`, `POST /auth/logout`,
+  `GET /auth/me`
+- **Users** (ADMIN only) — `POST /users`, `GET /users`, `GET /users/{id}`,
+  `PATCH /users/{id}`
+- **Customers** — `POST /customers`, `GET /customers`,
+  `GET /customers/{id}`, `PATCH /customers/{id}`,
+  `POST /customers/{id}/deactivate`. Reads: any role. Writes:
+  ADMIN/MANAGER/STAFF. Deactivate: ADMIN/MANAGER.
+- **Products** — same shape and role rules as Customers, under `/products`.
+- **Quotes** — `POST /quotes`, `GET /quotes`, `GET /quotes/{id}`,
+  `PATCH /quotes/{id}` (draft only), `DELETE /quotes/{id}` (draft only),
+  `POST /quotes/{id}/send`, `/accept`, `/reject`, `/expire`. Reads: any
+  role. Writes/transitions: ADMIN/MANAGER/STAFF.
+
+Invoices, payments, and reporting endpoints land in later phases (see
+Roadmap below).
+
 ## Environment variables
 
 See `.env.example` for the full list: database URLs, JWT settings, Redis
@@ -133,7 +153,7 @@ docker-compose.yml
 3. Authentication & users ✅
 4. Customer management ✅
 5. Products/services ✅
-6. Quotes ✅ (this commit)
+6. Quotes ✅
 7. Invoices
 8. Payments
 9. Invoice status engine
