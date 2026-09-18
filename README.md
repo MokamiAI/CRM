@@ -15,15 +15,22 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 8 — Payments.** Recording a payment
-(`POST /invoices/{id}/payments`) validates it doesn't exceed the
-invoice's remaining balance, then updates `amount_paid` and recomputes
-the invoice's status (`sent → partially_paid → paid`) directly —
-`partially_paid`/`paid` are set by payment recording itself, not by a
-separate engine. Deleting a payment (`DELETE /payments/{id}`,
-ADMIN-only, for correcting mistakes) reverses both. `overdue` detection
-based on `due_date` is still pending — that's the invoice status engine
-in the next phase.
+**Phase 9 — Invoice status engine.** `POST /invoices/refresh-overdue`
+(ADMIN/MANAGER) flips `sent`/`partially_paid` invoices whose `due_date`
+has passed to `overdue`; the same logic runs automatically on the
+existing hourly Celery beat entry (`app/tasks/invoice_tasks.py`), so
+manual and scheduled refreshes share one implementation.
+
+Alongside this phase, company-level settings gained outgoing-email
+configuration: `GET`/`PATCH /settings` (ADMIN only) now manage the
+company's sending address and SMTP credentials (falling back to the
+server-wide `SMTP_*` env vars when unset — see
+`app/services/email_settings.py`), plus company info, branding, and
+invoice/quote numbering, all previously only settable by editing `.env`
+or the database directly. The frontend also gained the auth wiring
+(login page, access/refresh-token interceptor, protected routes) needed
+to reach any API route at all, plus a Settings page for the above.
+Actually sending email through the configured account is Phase 10.
 
 ## Why Supabase, and how it's wired in
 
@@ -135,6 +142,12 @@ requires a bearer access token; role-restricted routes are noted below.
 - **Payments** — `POST /invoices/{invoice_id}/payments`,
   `GET /invoices/{invoice_id}/payments`, `DELETE /payments/{id}`. Reads:
   any role. Record: ADMIN/MANAGER/STAFF. Delete (correction): ADMIN only.
+- **Invoice status engine** — `POST /invoices/refresh-overdue`
+  (ADMIN/MANAGER), also run automatically every hour by Celery beat.
+- **Settings** (ADMIN only) — `GET /settings`, `PATCH /settings`: company
+  info, invoice/quote numbering, payment terms, and outgoing email
+  (sender address + SMTP host/port/username/password/TLS). `smtp_password`
+  is write-only — omit it on PATCH to leave the stored value unchanged.
 
 Reporting endpoints land in later phases (see Roadmap below).
 
@@ -163,7 +176,7 @@ docker-compose.yml
 6. Quotes ✅
 7. Invoices ✅
 8. Payments ✅
-9. Invoice status engine
+9. Invoice status engine ✅
 10. Email service
 11. Automated reminders
 12. PDF invoices
