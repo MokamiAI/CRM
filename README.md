@@ -15,12 +15,15 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 5 — Products/services.** CRUD routes under `/products`, mirroring
-the customer pattern (search/active filtering, soft-delete deactivation,
-same role rules) plus SKU-uniqueness checks. Money fields (`unit_price`,
-`tax_rate`) are handled as `Decimal` end-to-end to avoid float rounding
-in prices. Quotes and invoice business logic are added in subsequent
-phases.
+**Phase 6 — Quotes.** CRUD + line items under `/quotes`, with
+server-computed `subtotal`/`tax_total`/`total` (Decimal, half-up rounded
+to the cent) and auto-generated `quote_number`s reserved from
+`company_settings` under a row lock (`FOR UPDATE`) to avoid duplicate
+numbers under concurrent creates. Status is enforced through an explicit
+transition table (`draft → sent → accepted/rejected/expired`, with
+`accepted → converted` reserved for the invoice-conversion flow in the
+next phase); edits and deletes are only allowed while a quote is still a
+draft. Invoice business logic is added next.
 
 ## Why Supabase, and how it's wired in
 
@@ -129,8 +132,8 @@ docker-compose.yml
 2. Database & models ✅
 3. Authentication & users ✅
 4. Customer management ✅
-5. Products/services ✅ (this commit)
-6. Quotes
+5. Products/services ✅
+6. Quotes ✅ (this commit)
 7. Invoices
 8. Payments
 9. Invoice status engine
