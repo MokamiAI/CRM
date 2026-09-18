@@ -1,7 +1,25 @@
-# Model modules are added here (and imported) as they're built in Phase 2,
-# e.g.:
-#   from app.models.user import User
-#   from app.models.customer import Customer
-# Alembic's env.py imports this package with `from app.models import *`,
-# so every new model file must be imported here to be picked up by
-# autogenerate.
+# Every model module is imported here so Base.metadata is fully populated
+# before Alembic autogenerate/upgrade runs (see alembic/env.py, which does
+# `from app.models import *`).
+from app.models.company_settings import CompanySettings
+from app.models.customer import Customer
+from app.models.invoice import Invoice, InvoiceItem
+from app.models.payment import Payment
+from app.models.product import Product
+from app.models.quote import Quote, QuoteItem
+from app.models.reminder import ReminderLog
+from app.models.user import RefreshToken, User
+
+__all__ = [
+    "CompanySettings",
+    "Customer",
+    "Invoice",
+    "InvoiceItem",
+    "Payment",
+    "Product",
+    "Quote",
+    "QuoteItem",
+    "ReminderLog",
+    "RefreshToken",
+    "User",
+]

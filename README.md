@@ -15,10 +15,11 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 1 — Architecture & project setup.** This commit contains the
-skeleton only: config, DB engine wiring, exception handling, Celery app,
-Alembic scaffold, Docker Compose, and a placeholder frontend. Models,
-routes, auth, and business logic are added in subsequent phases.
+**Phase 2 — Database & models.** SQLAlchemy models for users, customers,
+products, quotes/quote items, invoices/invoice items, payments, reminder
+logs, and company settings are in place, along with the hand-written
+initial Alembic migration (`alembic/versions/e6489ac0f07a_initial_schema.py`).
+Routes, auth, and business logic are added in subsequent phases.
 
 ## Why Supabase, and how it's wired in
 
@@ -123,8 +124,8 @@ docker-compose.yml
 
 ## Roadmap (development phases)
 
-1. Architecture & project setup ✅ (this commit)
-2. Database & models
+1. Architecture & project setup ✅
+2. Database & models ✅ (this commit)
 3. Authentication & users
 4. Customer management
 5. Products/services
