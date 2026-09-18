@@ -16,6 +16,14 @@ node_modules/
 frontend/dist/
 frontend/.vite/
 
+# Expo (mobile/)
+mobile/.expo/
+mobile/dist/
+mobile/web-build/
+mobile/expo-env.d.ts
+mobile/ios/
+mobile/android/
+
 # IDE / OS
 .vscode/
 .idea/

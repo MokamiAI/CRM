@@ -8,6 +8,9 @@ tracking, and automated invoice reminder system.
 - **Auth:** custom JWT (access + revocable refresh tokens), bcrypt password hashing
 - **Frontend:** React (Vite), Tailwind CSS, TanStack Query — mobile-first,
   and wrapped with **Capacitor** for native Android + iOS builds
+- **Mobile app:** separate **Expo/React Native** app (`mobile/`) for live
+  testing in **Expo Go** — see [Mobile apps](#mobile-apps) for why there
+  are two mobile approaches in this repo
 - **Background jobs:** Celery + Redis (worker + beat)
 - **Docs:** OpenAPI/Swagger via FastAPI at `/api/v1/docs`
 
@@ -122,12 +125,30 @@ pytest
 
 ## Mobile apps
 
-The frontend is wrapped with [Capacitor](https://capacitorjs.com) so the
-same React app also ships as native Android and iOS apps, in
-`frontend/android/` and `frontend/ios/`. It isn't a separate codebase —
-there's no mobile-specific UI to maintain; the native project is just a
-thin shell that loads the same built web app, and gains access to native
-device APIs if/when the app needs them (push notifications, camera, etc.).
+There are **two** mobile approaches in this repo, because they solve
+different problems:
+
+- **`frontend/` + Capacitor** — the real long-term mobile app. Wraps the
+  actual product UI for native Android/iOS builds and eventual App
+  Store/Play Store submission. No separate UI to maintain.
+- **`mobile/` (Expo/React Native)** — exists solely so **Expo Go** can be
+  used for quick live testing on a phone. Expo Go cannot load the
+  Capacitor/web app at all (different tech stack entirely — it only runs
+  React Native), so this is a second, independent UI built with React
+  Native components, hand-kept in sync with the same backend API and the
+  same screens (login, dashboard, settings). It is not where new product
+  features should go by default — that's `frontend/`. Reach for `mobile/`
+  specifically when you want to iterate with Expo Go's instant reload on
+  a physical phone without any native build step.
+
+### Capacitor (`frontend/`)
+
+Wraps the existing React app so the same UI also ships as native Android
+and iOS apps, in `frontend/android/` and `frontend/ios/`. It isn't a
+separate codebase — there's no mobile-specific UI to maintain; the native
+project is just a thin shell that loads the same built web app, and gains
+access to native device APIs if/when the app needs them (push
+notifications, camera, etc.).
 
 The UI itself is mobile-first: a bottom tab bar below the `sm` breakpoint
 (top nav above it), `safe-area-inset` padding for the iOS notch/home
@@ -192,6 +213,37 @@ Any time you change `frontend/src/**`, re-run `npm run cap:sync` (or
 apps — Capacitor only copies the built web assets in on sync, it doesn't
 watch for changes.
 
+### Expo / Expo Go (`mobile/`)
+
+Install the [Expo Go](https://expo.dev/go) app on your phone (App
+Store/Play Store — this one you actually can download today), then:
+
+```bash
+cd mobile
+npm install
+cp .env.example .env
+# edit .env: set EXPO_PUBLIC_API_BASE_URL to your machine's LAN IP
+#   (e.g. http://10.10.49.51:8000/api/v1) or a real deployed backend —
+#   never "localhost", which means the phone itself here, not your machine
+npm start
+```
+
+Scan the QR code Metro prints with Expo Go (Android: in-app scanner;
+iOS: system Camera app), with your phone on the **same Wi-Fi network** as
+your dev machine. Edits to `mobile/src/**` hot-reload on the phone
+immediately — no rebuild, no Xcode, no Android Studio.
+
+No `CORS_ORIGINS` changes needed here, unlike the Capacitor app: CORS is
+a browser same-origin policy, enforced by the WebView the Capacitor app
+runs in — Expo Go's networking goes through native HTTP APIs instead, so
+the backend's CORS allowlist simply doesn't apply to it.
+
+This app deliberately duplicates only what's needed for parity with the
+web app's current screens (login, dashboard placeholder, settings form)
+using React Native components (`View`/`TextInput`/`StyleSheet`) instead
+of the web app's Tailwind/DOM — a genuinely different UI layer, not a
+config variant. Keep both in sync by hand when either changes.
+
 ## API endpoints
 
 All routes are versioned under `/api/v1` (see `/api/v1/docs` for the live,
@@ -240,9 +292,10 @@ URL, SMTP credentials, company defaults, and CORS origins. Never commit
 
 ```
 backend/           FastAPI app, services, repositories, Celery tasks, Alembic migrations
-frontend/          React + Vite + Tailwind SPA
+frontend/          React + Vite + Tailwind SPA (the product UI)
 frontend/android/  Capacitor-generated native Android project
 frontend/ios/      Capacitor-generated native Xcode project
+mobile/            Separate Expo/React Native app, for Expo Go testing only
 docker-compose.yml
 .env.example
 ```
