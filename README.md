@@ -15,11 +15,12 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 3 — Authentication & users.** JWT access tokens + revocable,
-hashed, rotating refresh tokens; `/auth/login`, `/auth/refresh`,
-`/auth/logout`, `/auth/me`; admin-only user management under `/users`;
-`get_current_user` / `require_role` dependencies for route protection.
-Customer/product/quote/invoice business logic is added in subsequent
+**Phase 4 — Customer management.** CRUD routes under `/customers`
+(create/list/get/update/deactivate) with search and active-status
+filtering. Reads are open to any authenticated role; writes require
+ADMIN/MANAGER/STAFF; deactivation (soft delete, since quotes/invoices
+reference customers with `ON DELETE RESTRICT`) requires ADMIN/MANAGER.
+Products, quotes, and invoice business logic are added in subsequent
 phases.
 
 ## Why Supabase, and how it's wired in
@@ -127,8 +128,8 @@ docker-compose.yml
 
 1. Architecture & project setup ✅
 2. Database & models ✅
-3. Authentication & users ✅ (this commit)
-4. Customer management
+3. Authentication & users ✅
+4. Customer management ✅ (this commit)
 5. Products/services
 6. Quotes
 7. Invoices
