@@ -48,6 +48,10 @@ class InvoiceUpdate(BaseModel):
     items: list[InvoiceItemCreate] | None = Field(default=None, min_length=1)
 
 
+class OverdueRefreshResult(BaseModel):
+    updated: int
+
+
 class InvoiceOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

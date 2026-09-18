@@ -6,7 +6,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user, get_db, require_role
 from app.models.enums import InvoiceStatus, UserRole
 from app.models.user import User
-from app.schemas.invoice import InvoiceCreate, InvoiceFromQuote, InvoiceOut, InvoiceUpdate
+from app.schemas.invoice import (
+    InvoiceCreate,
+    InvoiceFromQuote,
+    InvoiceOut,
+    InvoiceUpdate,
+    OverdueRefreshResult,
+)
 from app.services.invoice_service import InvoiceService
 
 router = APIRouter(prefix="/invoices", tags=["invoices"])
@@ -45,6 +51,15 @@ async def list_invoices(
     return await InvoiceService(db).list_invoices(
         offset=offset, limit=limit, customer_id=customer_id, status=status_filter
     )
+
+
+@router.post("/refresh-overdue", response_model=OverdueRefreshResult)
+async def refresh_overdue_invoices(
+    db: AsyncSession = Depends(get_db),
+    _: User = Depends(require_role(UserRole.ADMIN, UserRole.MANAGER)),
+):
+    updated = await InvoiceService(db).refresh_overdue_invoices()
+    return OverdueRefreshResult(updated=updated)
 
 
 @router.get("/{invoice_id}", response_model=InvoiceOut)

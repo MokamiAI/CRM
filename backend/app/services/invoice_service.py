@@ -1,6 +1,7 @@
 import uuid
 from datetime import date, timedelta
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import ConflictError, NotFoundError
@@ -14,9 +15,10 @@ from app.schemas.invoice import InvoiceCreate, InvoiceFromQuote, InvoiceUpdate
 from app.services.pricing import build_line_items
 
 _ALLOWED_TRANSITIONS: dict[InvoiceStatus, set[InvoiceStatus]] = {
-    # PARTIALLY_PAID/PAID/OVERDUE are driven automatically by the payment
-    # recording flow and the invoice status engine (later phases), not by
-    # manual transition here.
+    # PARTIALLY_PAID/PAID are set by the payment recording flow
+    # (app/services/payment_service.py); OVERDUE is set by the invoice
+    # status engine below. Neither is reachable through this manual
+    # transition table.
     InvoiceStatus.DRAFT: {InvoiceStatus.SENT, InvoiceStatus.VOID},
     InvoiceStatus.SENT: {InvoiceStatus.VOID},
     InvoiceStatus.PARTIALLY_PAID: set(),
@@ -24,6 +26,10 @@ _ALLOWED_TRANSITIONS: dict[InvoiceStatus, set[InvoiceStatus]] = {
     InvoiceStatus.OVERDUE: {InvoiceStatus.VOID},
     InvoiceStatus.VOID: set(),
 }
+
+# Invoices in these statuses can lapse into OVERDUE once past due_date.
+# DRAFT hasn't been sent yet, PAID/VOID/OVERDUE have nothing further to do.
+_OVERDUE_ELIGIBLE = {InvoiceStatus.SENT, InvoiceStatus.PARTIALLY_PAID}
 
 
 class InvoiceService:
@@ -142,3 +148,18 @@ class InvoiceService:
         if invoice.status != InvoiceStatus.DRAFT:
             raise ConflictError("Only draft invoices can be deleted", "INVOICE_NOT_DELETABLE")
         await self.invoices.delete(invoice)
+
+    async def refresh_overdue_invoices(self) -> int:
+        """Flips SENT/PARTIALLY_PAID invoices whose due_date has passed to
+        OVERDUE. Called on-demand via the API and on a schedule by the
+        Celery beat task in app/tasks/invoice_tasks.py."""
+        result = await self.db.execute(
+            select(Invoice).where(
+                Invoice.status.in_(_OVERDUE_ELIGIBLE), Invoice.due_date < date.today()
+            )
+        )
+        invoices = list(result.scalars().all())
+        for invoice in invoices:
+            invoice.status = InvoiceStatus.OVERDUE
+        await self.db.flush()
+        return len(invoices)
