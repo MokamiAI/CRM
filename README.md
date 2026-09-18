@@ -15,11 +15,12 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 2 — Database & models.** SQLAlchemy models for users, customers,
-products, quotes/quote items, invoices/invoice items, payments, reminder
-logs, and company settings are in place, along with the hand-written
-initial Alembic migration (`alembic/versions/e6489ac0f07a_initial_schema.py`).
-Routes, auth, and business logic are added in subsequent phases.
+**Phase 3 — Authentication & users.** JWT access tokens + revocable,
+hashed, rotating refresh tokens; `/auth/login`, `/auth/refresh`,
+`/auth/logout`, `/auth/me`; admin-only user management under `/users`;
+`get_current_user` / `require_role` dependencies for route protection.
+Customer/product/quote/invoice business logic is added in subsequent
+phases.
 
 ## Why Supabase, and how it's wired in
 
@@ -125,8 +126,8 @@ docker-compose.yml
 ## Roadmap (development phases)
 
 1. Architecture & project setup ✅
-2. Database & models ✅ (this commit)
-3. Authentication & users
+2. Database & models ✅
+3. Authentication & users ✅ (this commit)
 4. Customer management
 5. Products/services
 6. Quotes

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routes import auth, users
 from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
 
@@ -21,12 +22,10 @@ app.add_middleware(
 
 register_exception_handlers(app)
 
+app.include_router(auth.router, prefix=settings.API_V1_PREFIX)
+app.include_router(users.router, prefix=settings.API_V1_PREFIX)
+
 
 @app.get("/health", tags=["health"])
 async def health_check():
     return {"status": "ok", "environment": settings.ENVIRONMENT}
-
-
-# Routers are registered here as each module is built (Phase 3+):
-# from app.api.routes import auth
-# app.include_router(auth.router, prefix=settings.API_V1_PREFIX)

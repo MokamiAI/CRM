@@ -18,6 +18,11 @@ class NotFoundError(AppError):
         super().__init__(message, error_code, status.HTTP_404_NOT_FOUND)
 
 
+class UnauthorizedError(AppError):
+    def __init__(self, message: str = "Invalid or expired credentials", error_code: str = "UNAUTHORIZED"):
+        super().__init__(message, error_code, status.HTTP_401_UNAUTHORIZED)
+
+
 class PermissionDeniedError(AppError):
     def __init__(self, message: str = "You do not have permission to perform this action", error_code: str = "PERMISSION_DENIED"):
         super().__init__(message, error_code, status.HTTP_403_FORBIDDEN)
