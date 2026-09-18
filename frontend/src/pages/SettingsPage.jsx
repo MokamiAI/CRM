@@ -31,8 +31,10 @@ function Field({ label, children, hint }) {
   );
 }
 
+// text-base (16px), not text-sm, so focusing an input doesn't trigger
+// iOS Safari/webview's auto-zoom-on-focus for fields under 16px.
 const inputClass =
-  "w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none";
+  "w-full rounded border border-gray-300 px-3 py-2 text-base focus:border-indigo-500 focus:outline-none";
 
 export default function SettingsPage() {
   const queryClient = useQueryClient();

@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Pads content clear of the iOS notch/status bar and home indicator when
+   running full-screen inside the Capacitor shell (env(safe-area-inset-*)
+   is 0 in an ordinary browser tab, so this is a no-op on the web). */
+.safe-top {
+  padding-top: max(env(safe-area-inset-top), 0.75rem);
+}
+
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+}
+
+html,
+body {
+  /* Prevents the iOS/Android bounce-scroll and pull-to-refresh gestures
+     from fighting with in-app scrolling once wrapped in a native shell. */
+  overscroll-behavior-y: none;
+}

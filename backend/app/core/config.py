@@ -45,7 +45,14 @@ class Settings(BaseSettings):
     DEFAULT_TIMEZONE: str = "Africa/Johannesburg"
 
     # CORS
-    CORS_ORIGINS: list[str] = ["http://localhost:5173"]
+    # capacitor://localhost (iOS) and https://localhost (Android) are the
+    # default origins a Capacitor-wrapped mobile build sends its API
+    # requests from.
+    CORS_ORIGINS: list[str] = [
+        "http://localhost:5173",
+        "capacitor://localhost",
+        "https://localhost",
+    ]
 
 
 @lru_cache
