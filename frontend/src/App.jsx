@@ -1,22 +1,31 @@
 import { Routes, Route } from "react-router-dom";
-
-function Placeholder({ title }) {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-2xl font-semibold text-gray-800">{title}</h1>
-        <p className="mt-2 text-gray-500">
-          CRM & Invoice Management System — frontend scaffold (Phase 1)
-        </p>
-      </div>
-    </div>
-  );
-}
+import ProtectedRoute from "./components/ProtectedRoute";
+import AppLayout from "./layouts/AppLayout";
+import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
+import SettingsPage from "./pages/SettingsPage";
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Placeholder title="Dashboard" />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/" element={<DashboardPage />} />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
     </Routes>
   );
 }

@@ -47,3 +47,7 @@ class CompanySettingsRepository:
         row.next_invoice_number = number + 1
         await self.db.flush()
         return f"{row.invoice_prefix}{number:04d}"
+
+    async def save(self, row: CompanySettings) -> CompanySettings:
+        await self.db.flush()
+        return row
