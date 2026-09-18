@@ -15,17 +15,15 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 7 — Invoices.** CRUD + line items under `/invoices`, either
-created directly or converted from an accepted quote
-(`POST /invoices/from-quote/{quote_id}`), which copies the quote's items,
-carries its customer/notes across, marks the quote `converted`, and
-defaults `due_date` from `company_settings.payment_terms_days` when not
-given explicitly. Line-item pricing math (`build_line_items` in
-`app/services/pricing.py`) is now shared between quotes and invoices
-rather than duplicated. Manual status transitions are limited to
-`draft → sent/void` and `sent/overdue → void`; `partially_paid`, `paid`,
-and `overdue` are reserved for the payment-recording and invoice-status-
-engine phases that follow, not settable directly through the API.
+**Phase 8 — Payments.** Recording a payment
+(`POST /invoices/{id}/payments`) validates it doesn't exceed the
+invoice's remaining balance, then updates `amount_paid` and recomputes
+the invoice's status (`sent → partially_paid → paid`) directly —
+`partially_paid`/`paid` are set by payment recording itself, not by a
+separate engine. Deleting a payment (`DELETE /payments/{id}`,
+ADMIN-only, for correcting mistakes) reverses both. `overdue` detection
+based on `due_date` is still pending — that's the invoice status engine
+in the next phase.
 
 ## Why Supabase, and how it's wired in
 
@@ -134,9 +132,11 @@ requires a bearer access token; role-restricted routes are noted below.
   `PATCH /invoices/{id}` (draft only), `DELETE /invoices/{id}` (draft
   only), `POST /invoices/{id}/send`, `POST /invoices/{id}/void`. Reads:
   any role. Writes/send: ADMIN/MANAGER/STAFF. Void: ADMIN/MANAGER.
+- **Payments** — `POST /invoices/{invoice_id}/payments`,
+  `GET /invoices/{invoice_id}/payments`, `DELETE /payments/{id}`. Reads:
+  any role. Record: ADMIN/MANAGER/STAFF. Delete (correction): ADMIN only.
 
-Payments and reporting endpoints land in later phases (see Roadmap
-below).
+Reporting endpoints land in later phases (see Roadmap below).
 
 ## Environment variables
 
@@ -162,7 +162,7 @@ docker-compose.yml
 5. Products/services ✅
 6. Quotes ✅
 7. Invoices ✅
-8. Payments
+8. Payments ✅
 9. Invoice status engine
 10. Email service
 11. Automated reminders
