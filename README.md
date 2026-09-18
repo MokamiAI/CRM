@@ -15,12 +15,11 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 4 — Customer management.** CRUD routes under `/customers`
-(create/list/get/update/deactivate) with search and active-status
-filtering. Reads are open to any authenticated role; writes require
-ADMIN/MANAGER/STAFF; deactivation (soft delete, since quotes/invoices
-reference customers with `ON DELETE RESTRICT`) requires ADMIN/MANAGER.
-Products, quotes, and invoice business logic are added in subsequent
+**Phase 5 — Products/services.** CRUD routes under `/products`, mirroring
+the customer pattern (search/active filtering, soft-delete deactivation,
+same role rules) plus SKU-uniqueness checks. Money fields (`unit_price`,
+`tax_rate`) are handled as `Decimal` end-to-end to avoid float rounding
+in prices. Quotes and invoice business logic are added in subsequent
 phases.
 
 ## Why Supabase, and how it's wired in
@@ -129,8 +128,8 @@ docker-compose.yml
 1. Architecture & project setup ✅
 2. Database & models ✅
 3. Authentication & users ✅
-4. Customer management ✅ (this commit)
-5. Products/services
+4. Customer management ✅
+5. Products/services ✅ (this commit)
 6. Quotes
 7. Invoices
 8. Payments
