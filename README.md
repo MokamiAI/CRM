@@ -15,15 +15,17 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 6 — Quotes.** CRUD + line items under `/quotes`, with
-server-computed `subtotal`/`tax_total`/`total` (Decimal, half-up rounded
-to the cent) and auto-generated `quote_number`s reserved from
-`company_settings` under a row lock (`FOR UPDATE`) to avoid duplicate
-numbers under concurrent creates. Status is enforced through an explicit
-transition table (`draft → sent → accepted/rejected/expired`, with
-`accepted → converted` reserved for the invoice-conversion flow in the
-next phase); edits and deletes are only allowed while a quote is still a
-draft. Invoice business logic is added next.
+**Phase 7 — Invoices.** CRUD + line items under `/invoices`, either
+created directly or converted from an accepted quote
+(`POST /invoices/from-quote/{quote_id}`), which copies the quote's items,
+carries its customer/notes across, marks the quote `converted`, and
+defaults `due_date` from `company_settings.payment_terms_days` when not
+given explicitly. Line-item pricing math (`build_line_items` in
+`app/services/pricing.py`) is now shared between quotes and invoices
+rather than duplicated. Manual status transitions are limited to
+`draft → sent/void` and `sent/overdue → void`; `partially_paid`, `paid`,
+and `overdue` are reserved for the payment-recording and invoice-status-
+engine phases that follow, not settable directly through the API.
 
 ## Why Supabase, and how it's wired in
 
@@ -127,9 +129,14 @@ requires a bearer access token; role-restricted routes are noted below.
   `PATCH /quotes/{id}` (draft only), `DELETE /quotes/{id}` (draft only),
   `POST /quotes/{id}/send`, `/accept`, `/reject`, `/expire`. Reads: any
   role. Writes/transitions: ADMIN/MANAGER/STAFF.
+- **Invoices** — `POST /invoices`, `POST /invoices/from-quote/{quote_id}`
+  (accepted quotes only), `GET /invoices`, `GET /invoices/{id}`,
+  `PATCH /invoices/{id}` (draft only), `DELETE /invoices/{id}` (draft
+  only), `POST /invoices/{id}/send`, `POST /invoices/{id}/void`. Reads:
+  any role. Writes/send: ADMIN/MANAGER/STAFF. Void: ADMIN/MANAGER.
 
-Invoices, payments, and reporting endpoints land in later phases (see
-Roadmap below).
+Payments and reporting endpoints land in later phases (see Roadmap
+below).
 
 ## Environment variables
 
@@ -154,7 +161,7 @@ docker-compose.yml
 4. Customer management ✅
 5. Products/services ✅
 6. Quotes ✅
-7. Invoices
+7. Invoices ✅
 8. Payments
 9. Invoice status engine
 10. Email service

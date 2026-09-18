@@ -1,5 +1,4 @@
 import uuid
-from decimal import ROUND_HALF_UP, Decimal
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -9,9 +8,8 @@ from app.models.quote import Quote, QuoteItem
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.repositories.customer_repository import CustomerRepository
 from app.repositories.quote_repository import QuoteRepository
-from app.schemas.quote import QuoteCreate, QuoteItemCreate, QuoteUpdate
-
-CENT = Decimal("0.01")
+from app.schemas.quote import QuoteCreate, QuoteUpdate
+from app.services.pricing import build_line_items
 
 _ALLOWED_TRANSITIONS: dict[QuoteStatus, set[QuoteStatus]] = {
     QuoteStatus.DRAFT: {QuoteStatus.SENT},
@@ -21,33 +19,6 @@ _ALLOWED_TRANSITIONS: dict[QuoteStatus, set[QuoteStatus]] = {
     QuoteStatus.EXPIRED: set(),
     QuoteStatus.CONVERTED: set(),
 }
-
-
-def _money(value: Decimal) -> Decimal:
-    return value.quantize(CENT, rounding=ROUND_HALF_UP)
-
-
-def _build_items(items_data: list[QuoteItemCreate]) -> tuple[list[QuoteItem], Decimal, Decimal, Decimal]:
-    items: list[QuoteItem] = []
-    subtotal = Decimal("0")
-    tax_total = Decimal("0")
-    for sort_order, item in enumerate(items_data):
-        line_total = _money(item.quantity * item.unit_price)
-        line_tax = _money(line_total * item.tax_rate / Decimal("100"))
-        items.append(
-            QuoteItem(
-                product_id=item.product_id,
-                description=item.description,
-                quantity=item.quantity,
-                unit_price=item.unit_price,
-                tax_rate=item.tax_rate,
-                line_total=line_total,
-                sort_order=sort_order,
-            )
-        )
-        subtotal += line_total
-        tax_total += line_tax
-    return items, subtotal, tax_total, subtotal + tax_total
 
 
 class QuoteService:
@@ -62,7 +33,7 @@ class QuoteService:
         if customer is None or not customer.is_active:
             raise NotFoundError("Customer not found or inactive", "CUSTOMER_NOT_FOUND")
 
-        items, subtotal, tax_total, total = _build_items(data.items)
+        items, subtotal, tax_total, total = build_line_items(QuoteItem, data.items)
         quote_number = await self.company_settings.reserve_next_quote_number()
 
         quote = Quote(
@@ -102,7 +73,7 @@ class QuoteService:
         if data.notes is not None:
             quote.notes = data.notes
         if data.items is not None:
-            items, subtotal, tax_total, total = _build_items(data.items)
+            items, subtotal, tax_total, total = build_line_items(QuoteItem, data.items)
             quote.items.clear()
             quote.items.extend(items)
             quote.subtotal = subtotal
