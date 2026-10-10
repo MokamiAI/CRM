@@ -1,0 +1,56 @@
+{% extends "_layout.html" %}
+{% block preheader %}{{ preheader or "" }}{% endblock %}
+{% block content %}
+{% for paragraph in paragraphs %}
+<p style="margin:0 0 14px;">{% for line in paragraph %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+{% endfor %}
+
+{% if products %}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:8px 0 6px;">
+  {% for row in products|batch(2) %}
+  <tr>
+    {% for p in row %}
+    <td width="50%" valign="top" style="padding:6px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:8px;">
+        {% if p.image_url %}
+        <tr><td style="padding:0;"><img src="{{ p.image_url }}" alt="{{ p.name }}" width="100%" style="display:block;width:100%;max-height:180px;object-fit:cover;border-radius:8px 8px 0 0;"></td></tr>
+        {% endif %}
+        <tr>
+          <td style="padding:12px 14px;">
+            {% if p.on_special %}
+            <span style="display:inline-block;background:#fee2e2;color:#b91c1c;font-size:11px;font-weight:bold;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-bottom:6px;">Special</span><br>
+            {% endif %}
+            <strong style="font-size:15px;">{{ p.name }}</strong>
+            {% if p.description %}<div style="color:#6b7280;font-size:13px;margin-top:4px;">{{ p.description|truncate(120) }}</div>{% endif %}
+            <div style="margin-top:8px;font-size:16px;">
+              {% if p.on_special %}
+              <strong style="color:#b91c1c;">{{ money(p.special_price) }}</strong>
+              <span style="color:#9ca3af;text-decoration:line-through;font-size:13px;margin-left:6px;">{{ money(p.price) }}</span>
+              {% if p.special_until %}<div style="color:#6b7280;font-size:12px;margin-top:2px;">Until {{ p.special_until.strftime("%d %b %Y") }}</div>{% endif %}
+              {% else %}
+              <strong>{{ money(p.price) }}</strong>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+    {% endfor %}
+    {% if row|length == 1 %}<td width="50%"></td>{% endif %}
+  </tr>
+  {% endfor %}
+</table>
+<p style="margin:0 0 14px;color:#9ca3af;font-size:12px;">Prices exclude VAT.</p>
+{% endif %}
+
+{% if cta_text and cta_url %}
+<p style="margin:18px 0 6px;">
+  <a href="{{ cta_url }}" style="display:inline-block;background:#4f46e5;color:#ffffff;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:8px;">{{ cta_text }}</a>
+</p>
+{% endif %}
+{% endblock %}
+{% block footer_extra %}
+<div style="margin-top:10px;">You're receiving this because you're a customer of {{ company.company_name }}.
+<a href="{{ unsubscribe_url }}" style="color:#6b7280;">Unsubscribe</a></div>
+{% if pixel_url %}<img src="{{ pixel_url }}" width="1" height="1" alt="" style="display:block;border:0;">{% endif %}
+{% endblock %}

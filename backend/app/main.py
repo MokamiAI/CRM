@@ -3,12 +3,21 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import (
     auth,
+    billing,
+    channels,
     company_settings,
+    crm,
+    custom_fields,
     customers,
     invoices,
+    marketing,
+    messaging,
+    onboarding,
     payments,
     products,
+    public,
     quotes,
+    reports,
     users,
 )
 from app.core.config import settings
@@ -39,6 +48,16 @@ app.include_router(quotes.router, prefix=settings.API_V1_PREFIX)
 app.include_router(invoices.router, prefix=settings.API_V1_PREFIX)
 app.include_router(payments.router, prefix=settings.API_V1_PREFIX)
 app.include_router(company_settings.router, prefix=settings.API_V1_PREFIX)
+app.include_router(company_settings.profile_router, prefix=settings.API_V1_PREFIX)
+app.include_router(crm.router, prefix=settings.API_V1_PREFIX)
+app.include_router(reports.router, prefix=settings.API_V1_PREFIX)
+app.include_router(custom_fields.router, prefix=settings.API_V1_PREFIX)
+app.include_router(marketing.router, prefix=settings.API_V1_PREFIX)
+app.include_router(messaging.router, prefix=settings.API_V1_PREFIX)
+app.include_router(channels.router, prefix=settings.API_V1_PREFIX)
+app.include_router(onboarding.router, prefix=settings.API_V1_PREFIX)
+app.include_router(billing.router, prefix=settings.API_V1_PREFIX)
+app.include_router(public.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/health", tags=["health"])

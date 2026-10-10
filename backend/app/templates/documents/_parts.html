@@ -1,0 +1,37 @@
+{# Shared pieces of the printable documents. #}
+{% macro lines_of(text) %}{% for line in (text or "").splitlines() %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% endmacro %}
+
+{% macro bank_box(reference) %}
+{% if t.has_bank_details %}
+<div class="box">
+  <p class="label">Banking details</p>
+  <table>
+    {% if t.bank_name %}<tr><td>Bank</td><td>{{ t.bank_name }}</td></tr>{% endif %}
+    {% if t.account_holder %}<tr><td>Account holder</td><td>{{ t.account_holder }}</td></tr>{% endif %}
+    {% if t.account_number %}<tr><td>Account number</td><td>{{ t.account_number }}</td></tr>{% endif %}
+    {% if t.account_type %}<tr><td>Account type</td><td>{{ t.account_type }}</td></tr>{% endif %}
+    {% if t.branch_code %}<tr><td>Branch code</td><td>{{ t.branch_code }}</td></tr>{% endif %}
+    {% if t.swift_code %}<tr><td>SWIFT</td><td>{{ t.swift_code }}</td></tr>{% endif %}
+    {% if reference %}<tr><td>Reference</td><td><strong>{{ reference }}</strong></td></tr>{% endif %}
+  </table>
+  {% if t.payment_reference %}<p class="muted" style="margin-top:6px;">{{ t.payment_reference }}</p>{% endif %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{% macro items_table(doc) %}
+<table class="items">
+  <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit price</th><th class="num">{{ tax_short }}</th><th class="num">Amount</th></tr></thead>
+  <tbody>
+    {% for item in doc.items %}
+    <tr>
+      <td>{{ lines_of(item.description) }}</td>
+      <td class="num">{{ quantity(item.quantity) }}</td>
+      <td class="num">{{ money(item.unit_price) }}</td>
+      <td class="num">{{ quantity(item.tax_rate) }}%</td>
+      <td class="num">{{ money(item.line_total) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endmacro %}

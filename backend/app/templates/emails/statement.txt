@@ -1,0 +1,17 @@
+{% from "_signature.txt" import sign_off with context %}
+{% from "_bank.txt" import bank_details_text with context %}
+Hi {{ customer.name }},
+
+Here is your {{ t.statement_title|lower }} from {{ company.company_name }} for {{ statement.start.strftime("%d %b %Y") }} to {{ statement.end.strftime("%d %b %Y") }}.
+
+{{ statement.start.strftime("%d %b") }}  Opening balance  {{ money(statement.opening_balance) }}
+{% for line in statement.lines %}
+{{ line.date.strftime("%d %b") }}  {{ line.reference }} · {{ line.description }}  {% if line.debit %}{{ money(line.debit) }}{% else %}-{{ money(line.credit) }}{% endif %}  (balance {{ money(line.balance) }})
+{% endfor %}
+
+Amount due: {{ money(statement.closing_balance) }}
+
+{{ bank_details_text(customer.name) }}
+Please reply to this email if anything doesn't look right.
+
+{{ sign_off("Thank you") }}

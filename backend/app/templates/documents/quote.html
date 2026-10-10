@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+{% from "_parts.html" import items_table, lines_of with context %}
+{% block title %}{{ t.quote_title }} {{ doc.quote_number }}{% endblock %}
+{% block doc_title %}{{ t.quote_title }}{% endblock %}
+{% block to_label %}Prepared for{% endblock %}
+{% block meta %}
+<table>
+  <tr><td>Number</td><td><strong>{{ doc.quote_number }}</strong></td></tr>
+  <tr><td>Date</td><td>{{ doc.issue_date.strftime("%d %b %Y") }}</td></tr>
+  {% if doc.expiry_date %}<tr><td>Valid until</td><td>{{ doc.expiry_date.strftime("%d %b %Y") }}</td></tr>{% endif %}
+</table>
+{% endblock %}
+{% block body %}
+{{ items_table(doc) }}
+<div class="totals">
+  <table>
+    <tr><td class="muted">Subtotal</td><td class="num">{{ money(doc.subtotal) }}</td></tr>
+    <tr><td class="muted">{{ tax_short }}</td><td class="num">{{ money(doc.tax_total) }}</td></tr>
+    <tr class="grand"><td>Total</td><td class="num">{{ money(doc.total) }}</td></tr>
+  </table>
+</div>
+{% if doc.notes %}<div class="terms"><p class="label">Notes</p><p>{{ lines_of(doc.notes) }}</p></div>{% endif %}
+{% if t.quote_terms %}<div class="terms"><p class="label">Terms</p><p class="muted">{{ lines_of(t.quote_terms) }}</p></div>{% endif %}
+{% endblock %}

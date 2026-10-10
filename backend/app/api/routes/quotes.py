@@ -1,15 +1,20 @@
 import uuid
 
 from fastapi import APIRouter, Depends, Query, status
+from fastapi.responses import HTMLResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, require_role
+from app.api.email_dispatch import commit_and_enqueue
+from app.core.database import CommitBeforeResponseRoute
 from app.models.enums import QuoteStatus, UserRole
 from app.models.user import User
 from app.schemas.quote import QuoteCreate, QuoteOut, QuoteUpdate
+from app.services.document_service import DocumentService
 from app.services.quote_service import QuoteService
+from app.tasks.email_tasks import send_quote_email_task
 
-router = APIRouter(prefix="/quotes", tags=["quotes"])
+router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/quotes", tags=["quotes"])
 
 _can_write = require_role(UserRole.ADMIN, UserRole.MANAGER, UserRole.STAFF)
 
@@ -68,10 +73,14 @@ async def delete_quote(
 @router.post("/{quote_id}/send", response_model=QuoteOut)
 async def send_quote(
     quote_id: uuid.UUID,
+    notify: bool = Query(True, description="Email the quote to the customer"),
     db: AsyncSession = Depends(get_db),
     _: User = Depends(_can_write),
 ):
-    return await QuoteService(db).transition_status(quote_id, QuoteStatus.SENT)
+    quote = await QuoteService(db).transition_status(quote_id, QuoteStatus.SENT)
+    if notify:
+        await commit_and_enqueue(db, send_quote_email_task, str(quote.id))
+    return quote
 
 
 @router.post("/{quote_id}/accept", response_model=QuoteOut)
@@ -99,3 +108,9 @@ async def expire_quote(
     _: User = Depends(_can_write),
 ):
     return await QuoteService(db).transition_status(quote_id, QuoteStatus.EXPIRED)
+
+
+@router.get("/{quote_id}/document", response_class=HTMLResponse)
+async def quote_document(quote_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    """The quote as a printable A4 page, styled by Settings > Documents."""
+    return HTMLResponse(await DocumentService(db).quote_html(quote_id))

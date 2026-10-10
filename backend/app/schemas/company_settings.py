@@ -1,7 +1,8 @@
 import uuid
 from datetime import datetime
+from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 
 class CompanySettingsUpdate(BaseModel):
@@ -25,6 +26,21 @@ class CompanySettingsUpdate(BaseModel):
     smtp_username: str | None = Field(default=None, max_length=255)
     smtp_password: str | None = Field(default=None, max_length=255)
     smtp_use_tls: bool | None = None
+
+    customer_term: Literal["customer", "client"] | None = None
+    email_signature: str | None = Field(default=None, max_length=1000)
+
+    reminders_enabled: bool | None = None
+    reminder_offsets: list[int] | None = Field(default=None, max_length=10)
+
+    @field_validator("reminder_offsets")
+    @classmethod
+    def _normalize_offsets(cls, value: list[int] | None) -> list[int] | None:
+        if value is None:
+            return value
+        if any(not -60 <= day <= 365 for day in value):
+            raise ValueError("reminder days must be between -60 and 365")
+        return sorted(set(value))
 
 
 class CompanySettingsOut(BaseModel):
@@ -50,6 +66,10 @@ class CompanySettingsOut(BaseModel):
     smtp_use_tls: bool
     # smtp_password is intentionally omitted: write-only, never echoed back.
     smtp_password_set: bool
+    customer_term: str
+    email_signature: str | None
+    reminders_enabled: bool
+    reminder_offsets: list[int]
     created_at: datetime
     updated_at: datetime
 
@@ -61,3 +81,25 @@ class CompanySettingsOut(BaseModel):
                 "smtp_password_set": bool(row.smtp_password),
             }
         )
+
+
+class TestEmailRequest(BaseModel):
+    # Defaults to the requesting admin's own address when omitted.
+    to: EmailStr | None = None
+
+
+class TestEmailResult(BaseModel):
+    sent_to: str
+
+
+class CompanyProfileOut(BaseModel):
+    """The non-sensitive slice of company settings every signed-in user
+    needs (branding in the app shell, currency for display)."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    company_name: str
+    default_currency: str
+    logo_url: str | None
+    customer_term: str
+    email_signature: str | None = None

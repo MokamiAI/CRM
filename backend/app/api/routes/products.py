@@ -4,12 +4,13 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, require_role
+from app.core.database import CommitBeforeResponseRoute
 from app.models.enums import UserRole
 from app.models.user import User
 from app.schemas.product import ProductCreate, ProductOut, ProductUpdate
 from app.services.product_service import ProductService
 
-router = APIRouter(prefix="/products", tags=["products"])
+router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/products", tags=["products"])
 
 _can_write = require_role(UserRole.ADMIN, UserRole.MANAGER, UserRole.STAFF)
 

@@ -1,0 +1,50 @@
+{% extends "_base.html" %}
+{% from "_parts.html" import bank_box with context %}
+{% block title %}{{ t.statement_title }} · {{ customer.name }}{% endblock %}
+{% block doc_title %}{{ t.statement_title }}{% endblock %}
+{% block to_label %}Account{% endblock %}
+{% block meta %}
+<table>
+  <tr><td>Period</td><td>{{ statement.start.strftime("%d %b %Y") }} – {{ statement.end.strftime("%d %b %Y") }}</td></tr>
+  <tr><td>Amount due</td><td><strong>{{ money(statement.closing_balance) }}</strong></td></tr>
+</table>
+{% endblock %}
+{% block body %}
+<table class="items">
+  <thead><tr><th>Date</th><th>Reference</th><th>Details</th><th class="num">Debit</th><th class="num">Credit</th><th class="num">Balance</th></tr></thead>
+  <tbody>
+    <tr><td>{{ statement.start.strftime("%d %b %Y") }}</td><td></td><td class="muted">Opening balance</td><td></td><td></td><td class="num">{{ money(statement.opening_balance) }}</td></tr>
+    {% for line in statement.lines %}
+    <tr>
+      <td style="white-space:nowrap;">{{ line.date.strftime("%d %b %Y") }}</td>
+      <td style="white-space:nowrap;">{{ line.reference }}</td>
+      <td>{{ line.description }}</td>
+      <td class="num">{% if line.debit %}{{ money(line.debit) }}{% endif %}</td>
+      <td class="num">{% if line.credit %}{{ money(line.credit) }}{% endif %}</td>
+      <td class="num">{{ money(line.balance) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="totals">
+  <table>
+    <tr><td class="muted">Opening balance</td><td class="num">{{ money(statement.opening_balance) }}</td></tr>
+    <tr><td class="muted">Invoiced</td><td class="num">{{ money(statement.invoiced) }}</td></tr>
+    <tr><td class="muted">Paid</td><td class="num">− {{ money(statement.paid) }}</td></tr>
+    <tr class="grand"><td>Amount due</td><td class="num">{{ money(statement.closing_balance) }}</td></tr>
+  </table>
+</div>
+<table class="items" style="margin-top:22px;">
+  <thead><tr><th class="num">Current</th><th class="num">1–30 days</th><th class="num">31–60 days</th><th class="num">61–90 days</th><th class="num">90+ days</th></tr></thead>
+  <tbody><tr>
+    <td class="num">{{ money(statement.ageing.current) }}</td>
+    <td class="num">{{ money(statement.ageing.days_30) }}</td>
+    <td class="num">{{ money(statement.ageing.days_60) }}</td>
+    <td class="num">{{ money(statement.ageing.days_90) }}</td>
+    <td class="num">{{ money(statement.ageing.days_120) }}</td>
+  </tr></tbody>
+</table>
+<div class="boxes">
+  {{ bank_box(customer.name) }}
+</div>
+{% endblock %}

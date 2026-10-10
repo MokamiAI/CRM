@@ -1,0 +1,10 @@
+{% for paragraph in paragraphs %}
+{{ paragraph|join("\n") }}
+
+{% endfor %}
+{% if signature %}{{ signature }}
+{% else %}{{ author_name }}
+{{ company.company_name }}
+{% endif %}
+--
+Reply to this email to continue the conversation.

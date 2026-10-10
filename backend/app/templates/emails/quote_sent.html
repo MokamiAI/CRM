@@ -1,0 +1,23 @@
+{% extends "_layout.html" %}
+{% from "_signature.html" import sign_off with context %}
+{% from "_bank.html" import terms with context %}
+{% from "_items.html" import line_items with context %}
+{% block content %}
+<p>Hi {{ customer.name }},</p>
+<p>Thank you for your interest. Here is quote <strong>{{ quote.quote_number }}</strong> from {{ company.company_name }}.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:14px;">
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Issue date</td><td>{{ quote.issue_date.strftime("%d %b %Y") }}</td></tr>
+  {% if quote.expiry_date %}
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Valid until</td><td>{{ quote.expiry_date.strftime("%d %b %Y") }}</td></tr>
+  {% endif %}
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Total</td><td><strong>{{ money(quote.total) }}</strong></td></tr>
+  {% if t and t.show_customer_tax_number and customer.tax_number %}
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Your {{ t.tax_label }}</td><td>{{ customer.tax_number }}</td></tr>
+  {% endif %}
+</table>
+{{ line_items(quote, money) }}
+{% if quote.notes %}<p style="white-space:pre-line;">{{ quote.notes }}</p>{% endif %}
+{{ terms(t.quote_terms if t else None) }}
+<p>Reply to this email to accept the quote or to ask any questions.</p>
+{{ sign_off("Kind regards") }}
+{% endblock %}

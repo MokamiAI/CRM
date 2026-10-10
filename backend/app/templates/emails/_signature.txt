@@ -1,0 +1,4 @@
+{% macro sign_off(greeting) -%}
+{{ greeting }},
+{{ signature or company.company_name }}
+{%- endmacro %}

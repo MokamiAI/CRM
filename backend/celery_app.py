@@ -10,6 +10,8 @@ celery_app = Celery(
     include=[
         "app.tasks.email_tasks",
         "app.tasks.invoice_tasks",
+        "app.tasks.marketing_tasks",
+        "app.tasks.messaging_tasks",
         "app.tasks.reminder_tasks",
     ],
 )
@@ -18,6 +20,8 @@ celery_app.conf.update(
     task_default_queue="default",
     task_routes={
         "app.tasks.email_tasks.*": {"queue": "emails"},
+        "app.tasks.marketing_tasks.*": {"queue": "emails"},
+        "app.tasks.messaging_tasks.*": {"queue": "emails"},
         "app.tasks.invoice_tasks.*": {"queue": "reports"},
     },
     timezone=settings.DEFAULT_TIMEZONE,
@@ -28,6 +32,14 @@ celery_app.conf.beat_schedule = {
     "daily-invoice-reminder": {
         "task": "app.tasks.reminder_tasks.daily_invoice_reminder_task",
         "schedule": crontab(hour=7, minute=0),
+    },
+    "scheduled-campaigns": {
+        "task": "app.tasks.marketing_tasks.dispatch_scheduled_campaigns_task",
+        "schedule": crontab(),  # every minute
+    },
+    "poll-company-mailboxes": {
+        "task": "app.tasks.messaging_tasks.poll_mailboxes_task",
+        "schedule": crontab(),  # every minute
     },
     "hourly-invoice-status-refresh": {
         "task": "app.tasks.invoice_tasks.invoice_status_refresh_task",

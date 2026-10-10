@@ -1,0 +1,23 @@
+{% from "_bank.txt" import bank_details_text with context %}
+{% from "_signature.txt" import sign_off with context %}
+Hi {{ customer.name }},
+
+{% if days_past_due > 0 %}
+Invoice {{ invoice.invoice_number }} was due on {{ invoice.due_date.strftime("%d %b %Y") }} and is now {{ days_past_due }} day{{ "s" if days_past_due != 1 }} overdue. If you've already paid, thank you, and please ignore this email.
+{% elif days_past_due == 0 %}
+A quick reminder that invoice {{ invoice.invoice_number }} is due today.
+{% else %}
+A friendly reminder that invoice {{ invoice.invoice_number }} is due on {{ invoice.due_date.strftime("%d %b %Y") }}, in {{ -days_past_due }} day{{ "s" if days_past_due != -1 }}.
+{% endif %}
+
+Invoice:      {{ invoice.invoice_number }}
+Due date:     {{ invoice.due_date.strftime("%d %b %Y") }}
+{% if invoice.amount_paid > 0 %}
+Already paid: {{ money(invoice.amount_paid) }}
+{% endif %}
+Amount due:   {{ money(amount_due) }}
+
+{{ bank_details_text(invoice.invoice_number) }}
+Please reply to this email if you have any questions about this invoice.
+
+{{ sign_off("Thank you") }}

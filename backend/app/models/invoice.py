@@ -1,19 +1,21 @@
 import uuid
 from datetime import date
 
-from sqlalchemy import Date, Enum, ForeignKey, Integer, Numeric, String, Text
+from sqlalchemy import Date, Enum, ForeignKey, Integer, Numeric, String, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+from app.core.tenancy import TenantMixin
 from app.models.base import TimestampMixin, UUIDPKMixin
 from app.models.enums import InvoiceStatus
 
 
-class Invoice(UUIDPKMixin, TimestampMixin, Base):
+class Invoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     __tablename__ = "invoices"
+    __table_args__ = (UniqueConstraint("company_id", "invoice_number", name="uq_invoices_company_number"),)
 
-    invoice_number: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
+    invoice_number: Mapped[str] = mapped_column(String(50), index=True, nullable=False)
     customer_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), ForeignKey("customers.id", ondelete="RESTRICT"), nullable=False, index=True
     )
@@ -50,7 +52,7 @@ class Invoice(UUIDPKMixin, TimestampMixin, Base):
     )
 
 
-class InvoiceItem(UUIDPKMixin, Base):
+class InvoiceItem(TenantMixin, UUIDPKMixin, Base):
     __tablename__ = "invoice_items"
 
     invoice_id: Mapped[uuid.UUID] = mapped_column(

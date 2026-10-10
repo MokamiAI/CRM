@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 from decimal import Decimal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -11,6 +11,9 @@ class ProductCreate(BaseModel):
     sku: str | None = Field(default=None, max_length=100)
     unit_price: Decimal = Field(ge=0)
     tax_rate: Decimal = Field(default=Decimal("0"), ge=0, le=100)
+    image_url: str | None = Field(default=None, max_length=500)
+    special_price: Decimal | None = Field(default=None, ge=0)
+    special_until: date | None = None
 
 
 class ProductUpdate(BaseModel):
@@ -20,6 +23,9 @@ class ProductUpdate(BaseModel):
     unit_price: Decimal | None = Field(default=None, ge=0)
     tax_rate: Decimal | None = Field(default=None, ge=0, le=100)
     is_active: bool | None = None
+    image_url: str | None = Field(default=None, max_length=500)
+    special_price: Decimal | None = Field(default=None, ge=0)
+    special_until: date | None = None
 
 
 class ProductOut(BaseModel):
@@ -32,5 +38,8 @@ class ProductOut(BaseModel):
     unit_price: Decimal
     tax_rate: Decimal
     is_active: bool
+    image_url: str | None = None
+    special_price: Decimal | None = None
+    special_until: date | None = None
     created_at: datetime
     updated_at: datetime

@@ -1,0 +1,11 @@
+{% extends "_layout.html" %}
+{% from "_signature.html" import signature_lines with context %}
+{% block content %}
+{% for paragraph in paragraphs %}
+<p style="margin:0 0 14px;">{% for line in paragraph %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+{% endfor %}
+<p style="margin:18px 0 0;color:#4b5563;">{% if signature %}{{ signature_lines("") }}{% else %}{{ author_name }}<br>{{ company.company_name }}{% endif %}</p>
+{% endblock %}
+{% block footer_extra %}
+<div style="margin-top:10px;">Reply to this email to continue the conversation.</div>
+{% endblock %}

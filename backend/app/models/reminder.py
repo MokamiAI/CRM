@@ -6,10 +6,11 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+from app.core.tenancy import TenantMixin
 from app.models.base import UUIDPKMixin
 
 
-class ReminderLog(UUIDPKMixin, Base):
+class ReminderLog(TenantMixin, UUIDPKMixin, Base):
     """Tracks which reminder emails have already been sent per invoice, to
     prevent the Celery beat schedule from sending duplicates."""
 

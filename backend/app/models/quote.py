@@ -1,21 +1,27 @@
 import uuid
 from datetime import date
 
-from sqlalchemy import Date, Enum, ForeignKey, Integer, Numeric, String, Text
+from sqlalchemy import Date, Enum, ForeignKey, Integer, Numeric, String, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+from app.core.tenancy import TenantMixin
 from app.models.base import TimestampMixin, UUIDPKMixin
 from app.models.enums import QuoteStatus
 
 
-class Quote(UUIDPKMixin, TimestampMixin, Base):
+class Quote(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     __tablename__ = "quotes"
+    __table_args__ = (UniqueConstraint("company_id", "quote_number", name="uq_quotes_company_number"),)
 
-    quote_number: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
+    quote_number: Mapped[str] = mapped_column(String(50), index=True, nullable=False)
     customer_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), ForeignKey("customers.id", ondelete="RESTRICT"), nullable=False, index=True
+    )
+    # The sales opportunity this quote was written for, if any (models/crm.py).
+    deal_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("deals.id", ondelete="SET NULL"), nullable=True, index=True
     )
     status: Mapped[QuoteStatus] = mapped_column(
         Enum(QuoteStatus, name="quote_status", values_callable=lambda e: [m.value for m in e]),
@@ -39,7 +45,7 @@ class Quote(UUIDPKMixin, TimestampMixin, Base):
     invoices: Mapped[list["Invoice"]] = relationship(back_populates="quote")
 
 
-class QuoteItem(UUIDPKMixin, Base):
+class QuoteItem(TenantMixin, UUIDPKMixin, Base):
     __tablename__ = "quote_items"
 
     quote_id: Mapped[uuid.UUID] = mapped_column(

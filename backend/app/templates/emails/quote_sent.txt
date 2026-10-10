@@ -1,0 +1,23 @@
+{% from "_signature.txt" import sign_off with context %}
+{% from "_items.html" import text_line_items with context %}
+Hi {{ customer.name }},
+
+Thank you for your interest. Here is quote {{ quote.quote_number }} from {{ company.company_name }}.
+
+Issue date:  {{ quote.issue_date.strftime("%d %b %Y") }}
+{% if quote.expiry_date %}
+Valid until: {{ quote.expiry_date.strftime("%d %b %Y") }}
+{% endif %}
+Total:       {{ money(quote.total) }}
+
+{{ text_line_items(quote, money) }}
+{% if quote.notes %}
+
+{{ quote.notes }}
+{% endif %}
+
+{% if t and t.quote_terms %}{{ t.quote_terms }}
+
+{% endif %}Reply to this email to accept the quote or to ask any questions.
+
+{{ sign_off("Kind regards") }}

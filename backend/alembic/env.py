@@ -19,8 +19,10 @@ target_metadata = Base.metadata
 
 # Alembic always uses the direct/session connection to Supabase, never the
 # pgbouncer transaction-mode pooler (see app/core/config.py comments).
+# "%" is doubled because the ini parser treats it as interpolation syntax,
+# and URL-encoded passwords (e.g. %23 for "#") are full of them.
 config.set_main_option(
-    "sqlalchemy.url", settings.DATABASE_URL_MIGRATIONS.replace("+asyncpg", "")
+    "sqlalchemy.url", settings.DATABASE_URL_MIGRATIONS.replace("+asyncpg", "").replace("%", "%%")
 )
 
 

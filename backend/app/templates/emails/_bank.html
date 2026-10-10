@@ -1,0 +1,22 @@
+{# Banking details and terms from Settings > Documents, for invoice emails. #}
+{% macro bank_details(reference) -%}
+{% if t and t.has_bank_details %}
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:18px 0 0;width:100%;background:#f9fafb;border-radius:6px;font-size:14px;">
+  <tr><td style="padding:12px 16px;">
+    <strong style="display:block;margin-bottom:6px;">Banking details</strong>
+    {% if t.bank_name %}<div><span style="color:#6b7280;">Bank:</span> {{ t.bank_name }}</div>{% endif %}
+    {% if t.account_holder %}<div><span style="color:#6b7280;">Account holder:</span> {{ t.account_holder }}</div>{% endif %}
+    {% if t.account_number %}<div><span style="color:#6b7280;">Account number:</span> {{ t.account_number }}</div>{% endif %}
+    {% if t.account_type %}<div><span style="color:#6b7280;">Account type:</span> {{ t.account_type }}</div>{% endif %}
+    {% if t.branch_code %}<div><span style="color:#6b7280;">Branch code:</span> {{ t.branch_code }}</div>{% endif %}
+    {% if t.swift_code %}<div><span style="color:#6b7280;">SWIFT:</span> {{ t.swift_code }}</div>{% endif %}
+    {% if reference %}<div><span style="color:#6b7280;">Reference:</span> <strong>{{ reference }}</strong></div>{% endif %}
+    {% if t.payment_reference %}<div style="margin-top:6px;color:#6b7280;">{{ t.payment_reference }}</div>{% endif %}
+  </td></tr>
+</table>
+{% endif %}
+{%- endmacro %}
+
+{% macro terms(text) -%}
+{% if text %}<p style="margin:18px 0 0;font-size:13px;color:#6b7280;">{% for line in text.splitlines() %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>{% endif %}
+{%- endmacro %}

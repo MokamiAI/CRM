@@ -15,7 +15,7 @@ class UserService:
         self.users = UserRepository(db)
 
     async def create_user(self, data: UserCreate) -> User:
-        if await self.users.get_by_email(data.email) is not None:
+        if await self.users.email_taken(data.email):
             raise ConflictError("A user with this email already exists", "USER_EMAIL_TAKEN")
         user = User(
             email=data.email,

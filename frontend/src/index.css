@@ -2,20 +2,732 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Pads content clear of the iOS notch/status bar and home indicator when
-   running full-screen inside the Capacitor shell (env(safe-area-inset-*)
-   is 0 in an ordinary browser tab, so this is a no-op on the web). */
-.safe-top {
-  padding-top: max(env(safe-area-inset-top), 0.75rem);
+:root {
+  /* Motion tokens. Strong custom curves: the built-in easings lack punch.
+     ease-out for anything entering/exiting, ease-in-out for on-screen
+     movement, the drawer curve (iOS-like) for sheets. Never ease-in. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Mobile bottom tab bar: 3.5rem of tabs plus the home-indicator inset.
+     Anything pinned above it (e.g. the document editor's total bar) uses
+     this instead of guessing. */
+  --tabbar-height: calc(3.5rem + max(env(safe-area-inset-bottom, 0px), 0.5rem));
+
+  /* The multi-colour spectrum, from the sign-in page. In the app it's used
+     only where colour encodes progress (pipeline stages), never on the
+     data itself. */
+  --spectrum: linear-gradient(90deg, #8b5cf6, #0ea5e9, #10b981, #f59e0b, #f43f5e);
+
+  /* The brand itself: one violet-to-indigo gradient for identity marks
+     (logo, current-page marker, name, focus). The multi-colour spectrum
+     is kept only where it encodes progress (the pipeline stages); on a
+     logo or a stripe it reads as a flag rather than a brand. */
+  --brand: linear-gradient(135deg, #8b5cf6, #4f46e5);
+  --brand-vertical: linear-gradient(180deg, #8b5cf6, #4f46e5);
 }
 
-.safe-bottom {
-  padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+::selection {
+  background: rgb(139 92 246 / 0.18);
+}
+
+/* ---- Platform baseline: make the web app feel installed on a phone ---- */
+
+html {
+  /* The gray tap flash is the loudest "this is a website" tell; every
+     control gets its own :active feedback instead (see .btn, .pressable). */
+  -webkit-tap-highlight-color: transparent;
+  /* No font inflation when the phone rotates to landscape. */
+  -webkit-text-size-adjust: 100%;
 }
 
 html,
 body {
-  /* Prevents the iOS/Android bounce-scroll and pull-to-refresh gestures
-     from fighting with in-app scrolling once wrapped in a native shell. */
-  overscroll-behavior-y: none;
+  /* The app owns its scrolling: no pull-to-refresh or whole-page bounce
+     fighting in-app scroll once wrapped in a native shell. */
+  overscroll-behavior: none;
+}
+
+/* iOS zooms the page into any input under 16px and never zooms back out. */
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+
+/* Controls: fire click immediately (no double-tap-zoom wait) and don't let
+   a long-press select the label. Content text stays selectable. */
+button,
+a,
+[role="button"],
+.pressable {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Pads content clear of the iOS notch/status bar and home indicator when
+   running full-screen inside the Capacitor shell (env(safe-area-inset-*)
+   is 0 in an ordinary browser tab, so this is a no-op on the web). */
+.safe-top {
+  padding-top: max(env(safe-area-inset-top, 0px), 0.75rem);
+}
+
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 0.5rem);
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased;
+    /* Inter's open digits and single-storey forms read cleaner at UI sizes. */
+    font-feature-settings: "cv11", "ss01";
+  }
+  /* Tight tracking on headings: Inter is drawn for text sizes, so display
+     sizes need pulling in to stop looking loose. */
+  h1,
+  h2 {
+    letter-spacing: -0.015em;
+  }
+}
+
+@layer components {
+  /* Press feedback: a subtle scale on :active confirms the interface heard
+     the touch the instant the finger lands, not when it lifts. Only
+     transform/background transition: exact properties, never "all". */
+  .pressable {
+    transition: transform 160ms var(--ease-out);
+  }
+  .pressable:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  /* 40px tall on touch screens (comfortable thumb target), 36px with a
+     precise pointer, where density reads as polish. */
+  .btn {
+    @apply inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-lg px-3.5 text-sm font-medium;
+    transition:
+      transform 160ms var(--ease-out),
+      background-color 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+  @media (pointer: fine) {
+    .btn {
+      @apply h-9;
+    }
+  }
+  .btn:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+  .btn:focus-visible {
+    @apply outline-none ring-2 ring-zinc-900/15 ring-offset-1;
+  }
+  /* Ink primary with a 1px top highlight: reads as a physical key rather
+     than a flat colored rectangle. */
+  .btn-primary {
+    @apply bg-zinc-900 text-white hover:bg-zinc-800 active:bg-zinc-800;
+    box-shadow:
+      inset 0 1px 0 0 rgb(255 255 255 / 0.12),
+      0 1px 2px 0 rgb(0 0 0 / 0.2);
+  }
+  .btn-secondary {
+    @apply border border-zinc-200 bg-white text-zinc-800 shadow-xs hover:bg-zinc-50 active:bg-zinc-100;
+  }
+  .btn-danger {
+    @apply border border-zinc-200 bg-white text-red-600 shadow-xs hover:border-red-200 hover:bg-red-50 active:bg-red-50;
+  }
+  .btn-ghost {
+    @apply px-2.5 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 active:bg-zinc-100;
+  }
+
+  .input {
+    @apply h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-base text-zinc-900 shadow-xs placeholder:text-zinc-400;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+  textarea.input {
+    @apply h-auto py-2;
+  }
+  .input:focus {
+    @apply border-zinc-400 outline-none ring-4 ring-zinc-900/5;
+  }
+
+  .card {
+    @apply rounded-xl border border-zinc-200/80 bg-white shadow-card;
+  }
+
+  .label {
+    @apply mb-1.5 block text-[13px] font-medium text-zinc-700;
+  }
+
+  /* Data tables (md and up; phones get stacked rows instead). */
+  .table-head {
+    @apply border-b border-zinc-200/80 bg-zinc-50/60 text-left text-xs font-medium text-zinc-500;
+  }
+  .table-head th {
+    @apply px-4 py-2.5 font-medium first:pl-5 last:pr-5;
+  }
+  .table-row {
+    @apply cursor-pointer border-b border-zinc-100 text-sm transition-colors duration-150 last:border-0 hover:bg-zinc-50/80;
+  }
+  .table-row td {
+    @apply px-4 py-3 first:pl-5 last:pr-5;
+  }
+}
+
+/* ---- Sheet / dialog ----
+   Bottom sheet on phones, centered dialog from sm up. Opens occasionally,
+   so it gets a standard animation; the purpose is to avoid a jarring
+   appear/disappear. Exit is faster than enter: slow where the user is
+   looking, snappy where the system is responding. */
+.sheet-overlay {
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+}
+.sheet-overlay[data-state="open"] {
+  opacity: 1;
+}
+
+.sheet-panel {
+  transform: translateY(100%);
+  transition: transform 320ms var(--ease-drawer);
+}
+.sheet-panel[data-state="open"] {
+  transform: translateY(0);
+}
+.sheet-panel[data-state="closed"] {
+  transition-duration: 200ms;
+}
+
+@media (min-width: 640px) {
+  /* Dialogs aren't anchored to a trigger, so they scale from the center.
+     Never from scale(0): nothing appears out of nowhere. */
+  .sheet-panel {
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+      transform 200ms var(--ease-out),
+      opacity 200ms var(--ease-out);
+  }
+  .sheet-panel[data-state="open"] {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .sheet-panel[data-state="closed"] {
+    transition-duration: 150ms;
+  }
+}
+
+.sheet-content {
+  /* Scroll inside the sheet without dragging the page behind it. */
+  overscroll-behavior: contain;
+}
+
+/* Reduced motion means fewer and gentler animations, not none: keep the
+   opacity fades that aid comprehension, drop movement and scaling. */
+@media (prefers-reduced-motion: reduce) {
+  .pressable:active:not(:disabled),
+  .btn:active:not(:disabled) {
+    transform: none;
+  }
+  .sheet-panel,
+  .sheet-panel[data-state="open"] {
+    transform: none;
+    transition: opacity 200ms ease;
+  }
+  .sheet-panel {
+    opacity: 0;
+  }
+  .sheet-panel[data-state="open"] {
+    opacity: 1;
+  }
+}
+
+/* ---- Activity completion (tens/day: feedback, kept near-imperceptible) ----
+   The check draws itself in; then, in lists of open work, the row collapses
+   away instead of vanishing. grid-template-rows is the one layout property
+   tolerated here (accordion-style collapse has no transform equivalent). */
+.check-path {
+  stroke-dasharray: 14;
+  stroke-dashoffset: 14;
+  transition: stroke-dashoffset 160ms var(--ease-out);
+}
+[aria-checked="true"] > svg .check-path {
+  stroke-dashoffset: 0;
+}
+
+.row-collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows 220ms var(--ease-out),
+    opacity 180ms var(--ease-out);
+}
+.row-collapse[data-leaving="true"] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+.row-collapse > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ---- One-off entrances (occasional: bridge content that would teleport) ----
+   Keyframes are fine here: each runs once on a single element, never
+   retriggered rapidly. Never from scale(0). */
+@keyframes land-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+@keyframes badge-swap {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    transform: scale(0.97);
+  }
+}
+.card-land {
+  animation: land-in 200ms var(--ease-out);
+}
+.timeline-enter {
+  animation: rise-in 220ms var(--ease-out);
+}
+/* Blur bridges old and new badge so the swap reads as one state change. */
+.badge-swap {
+  animation: badge-swap 200ms ease;
+}
+
+/* ---- Tooltips (icon-only buttons; pointer devices only) ---- */
+.tooltip {
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity 125ms var(--ease-out),
+    transform 125ms var(--ease-out);
+  pointer-events: none;
+}
+.tooltip[data-open="true"] {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Once one tooltip has shown, neighbours appear instantly: skip delay and motion. */
+.tooltip[data-instant="true"] {
+  transition-duration: 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check-path {
+    transition: none;
+  }
+  .row-collapse {
+    transition: opacity 180ms ease;
+  }
+  .row-collapse[data-leaving="true"] {
+    grid-template-rows: 1fr;
+  }
+  .card-land,
+  .timeline-enter,
+  .badge-swap {
+    animation-name: fade-in;
+  }
+  .tooltip {
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- Login: animated colour ring on focus (rare screen: delight budget) ----
+   The ring is a conic gradient on an oversized square that rotates behind
+   a 1.5px gap around the input. Rotating it (transform) instead of
+   animating the gradient angle keeps it on the compositor. Constant motion,
+   so linear. It only runs while the field has focus. */
+.glow-field {
+  position: relative;
+  border-radius: 0.6rem;
+  padding: 1.5px;
+  background: rgb(228 228 231); /* the resting border: zinc-200 */
+  isolation: isolate;
+}
+.glow-field__clip {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: -1;
+}
+.glow-field__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(250%, 30rem);
+  aspect-ratio: 1;
+  background: conic-gradient(from 0deg, #8b5cf6, #0ea5e9, #10b981, #f59e0b, #f43f5e, #8b5cf6);
+  transform: translate(-50%, -50%) rotate(0deg);
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+  animation: glow-spin 3s linear infinite;
+  animation-play-state: paused;
+}
+.glow-field:focus-within .glow-field__ring {
+  opacity: 1;
+  animation-play-state: running;
+}
+/* Soft halo behind the field: brighter while typing, fades back after. */
+.glow-field__halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 0.9rem;
+  background: linear-gradient(90deg, #8b5cf6, #0ea5e9, #10b981, #f59e0b, #f43f5e);
+  filter: blur(14px);
+  opacity: 0;
+  z-index: -2;
+  transition: opacity 400ms var(--ease-out);
+}
+.glow-field:focus-within .glow-field__halo {
+  opacity: 0.18;
+}
+.glow-field[data-typing="true"] .glow-field__halo {
+  opacity: 0.4;
+  transition-duration: 120ms;
+}
+.glow-field .input {
+  border-color: transparent;
+  box-shadow: none;
+}
+.glow-field .input:focus {
+  border-color: transparent;
+  background: white;
+  box-shadow: none;
+  outline: none;
+}
+@keyframes glow-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* ---- Login: ambient colour behind the form ----
+   Three soft blobs drifting very slowly. Decorative, on a screen seen once
+   a day; transform-only, long ease-in-out loops so it never draws the eye. */
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.35;
+  animation: aurora-drift 18s var(--ease-in-out) infinite alternate;
+}
+.aurora-blob:nth-child(2) {
+  animation-duration: 22s;
+  animation-delay: -6s;
+}
+.aurora-blob:nth-child(3) {
+  animation-duration: 26s;
+  animation-delay: -12s;
+}
+@keyframes aurora-drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(40px, -30px) scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the colour (it still marks the focused field), drop the motion. */
+  .glow-field__ring,
+  .aurora-blob {
+    animation: none;
+  }
+}
+
+/* ---- Login showcase (explanatory tier: the product demoing itself) ---- */
+.showcase-float {
+  animation: showcase-float 5s var(--ease-in-out) infinite alternate;
+}
+.showcase-float--late {
+  animation-duration: 6s;
+  animation-delay: -2.5s;
+}
+@keyframes showcase-float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+/* A light sweep across the card the moment it's paid. */
+.showcase-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.14) 50%, transparent 65%);
+  transform: translateX(-100%);
+  animation: showcase-shine 1100ms var(--ease-out) forwards;
+}
+@keyframes showcase-shine {
+  to {
+    transform: translateX(100%);
+  }
+}
+.showcase-swap {
+  animation: badge-swap 260ms ease;
+}
+.showcase-gradient-text {
+  background: linear-gradient(90deg, #a78bfa, #38bdf8, #34d399, #fbbf24, #f472b6, #a78bfa);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: showcase-gradient 6s linear infinite;
+}
+@keyframes showcase-gradient {
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-float,
+  .showcase-shine,
+  .showcase-gradient-text {
+    animation: none;
+  }
+  .showcase-shine {
+    display: none;
+  }
+}
+
+.login-card {
+  animation: rise-in 400ms var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .login-card {
+    animation-name: fade-in;
+  }
+}
+
+
+/* ---- In-app brand layer (seen dozens of times a day: static, no motion) ---- */
+
+/* Ambient colour wash at the top of every page: the sign-in aurora,
+   frozen and faint. Painted once; nothing here animates. */
+.app-ambient {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 32rem;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 30%, transparent);
+}
+.ambient-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.2;
+}
+
+.brand-bg {
+  background-image: var(--brand);
+}
+.brand-bg-vertical {
+  background-image: var(--brand-vertical);
+}
+.brand-text {
+  background-image: linear-gradient(90deg, #7c3aed, #4f46e5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* One continuous spectrum sliced across N siblings (pipeline columns,
+   stage bar): each piece shows its own segment, so the run of pieces
+   reads as progress from violet to rose. Set --slices and --slice. */
+.spectrum-slice {
+  background-image: var(--spectrum);
+  background-size: calc(var(--slices) * 100%) 100%;
+  background-position: calc(var(--slice) / (var(--slices) - 1) * 100%) 0;
+}
+
+/* Static brand-gradient focus ring for text fields: a gradient border via
+   background-clip, so no extra markup. Focus happens constantly, so it
+   just appears (the moving ring is for the sign-in screen only). Selects
+   keep the neutral ring: overriding their background drops the native arrow. */
+input.input:focus,
+textarea.input:focus {
+  border-color: transparent;
+  background:
+    linear-gradient(white, white) padding-box,
+    var(--brand) border-box;
+  box-shadow: 0 0 0 4px rgb(139 92 246 / 0.08);
+}
+
+/* ---- YGT mark: the letters rise into place, one after another ----
+   Only on the sign-in and About pages: rare views, a small moment of
+   arrival. The sidebar mark is seen all day, so it never moves. */
+.brand-join > span {
+  display: inline-block;
+  animation: letter-rise 520ms var(--ease-out) both;
+}
+.brand-join > span:nth-child(2) {
+  animation-delay: 70ms;
+}
+.brand-join > span:nth-child(3) {
+  animation-delay: 140ms;
+}
+@keyframes letter-rise {
+  from {
+    opacity: 0;
+    transform: translateY(40%);
+  }
+}
+
+/* ---- Staggered reveal (About feature cards) ---- */
+.stagger-rise {
+  animation: rise-in 320ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 50ms);
+}
+
+/* ---- New chat bubbles: grow from the corner they belong to ---- */
+.bubble-in {
+  animation: bubble-in 220ms var(--ease-out) both;
+}
+.bubble-in.bubble-out {
+  transform-origin: bottom right;
+}
+.bubble-in.bubble-from {
+  transform-origin: bottom left;
+}
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-join > span,
+  .stagger-rise {
+    animation: none;
+  }
+  .bubble-in {
+    animation: fade-in 150ms ease both;
+  }
+}
+
+/* ---- Guided tour ----
+   One element whose huge shadow dims everything except the target. It
+   moves between steps (on-screen movement: ease-in-out); the box lands
+   with a quick ease-out so each step reads as a fresh card. */
+.tour-spotlight {
+  top: 0;
+  left: 0;
+  box-shadow:
+    0 0 0 2px rgb(255 255 255 / 0.9),
+    0 0 0 9999px rgb(9 9 11 / 0.55);
+  transition:
+    transform 320ms var(--ease-in-out),
+    width 320ms var(--ease-in-out),
+    height 320ms var(--ease-in-out);
+}
+.tour-dim {
+  background: rgb(9 9 11 / 0.55);
+  animation: fade-in 200ms ease both;
+}
+.tour-box {
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  animation: land-in 200ms var(--ease-out) both;
+}
+.tour-box-center {
+  left: 50%;
+  top: 50%;
+  width: min(400px, calc(100vw - 32px));
+  transform: translate(-50%, -50%);
+  animation-name: land-in-center;
+}
+@keyframes land-in-center {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.97);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-spotlight {
+    transition: none;
+  }
+  .tour-box,
+  .tour-box-center {
+    animation: fade-in 150ms ease both;
+  }
+}
+
+/* ---- Sales quote of the week: rises from the bottom edge once a week ---- */
+.quote-week {
+  animation: quote-week-in 420ms var(--ease-out) both;
+}
+.quote-week-out {
+  animation: quote-week-out 200ms var(--ease-out) both;
+}
+@keyframes quote-week-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+}
+@keyframes quote-week-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quote-week {
+    animation-name: quote-week-fade;
+  }
+  .quote-week-out {
+    animation-name: quote-week-fade;
+    animation-direction: reverse;
+  }
+}
+@keyframes quote-week-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- Document viewer: rises in once when opened ---- */
+.doc-viewer {
+  animation: doc-viewer-in 240ms var(--ease-out) both;
+}
+@keyframes doc-viewer-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doc-viewer {
+    animation-name: quote-week-fade;
+  }
 }

@@ -1,16 +1,17 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, String
+from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+from app.core.tenancy import TenantMixin
 from app.models.base import TimestampMixin, UUIDPKMixin
 from app.models.enums import UserRole
 
 
-class User(UUIDPKMixin, TimestampMixin, Base):
+class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     __tablename__ = "users"
 
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False)
@@ -22,6 +23,14 @@ class User(UUIDPKMixin, TimestampMixin, Base):
         default=UserRole.STAFF,
     )
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    # UI language (ISO 639 code, see enums.SUPPORTED_LANGUAGES). Stored per
+    # user so it follows them across devices.
+    language: Mapped[str] = mapped_column(String(8), nullable=False, default="en")
+    # When this person finished (or skipped) the first-run guided tour.
+    tour_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # Plain text, line by line, added to the emails this person sends from
+    # Messages. Empty: the company signature, else name and company.
+    email_signature: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     refresh_tokens: Mapped[list["RefreshToken"]] = relationship(
         back_populates="user", cascade="all, delete-orphan"

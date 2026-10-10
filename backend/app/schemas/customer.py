@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
@@ -11,6 +12,7 @@ class CustomerCreate(BaseModel):
     billing_address: str | None = None
     tax_number: str | None = Field(default=None, max_length=100)
     notes: str | None = None
+    custom_fields: dict[str, Any] = Field(default_factory=dict)
 
 
 class CustomerUpdate(BaseModel):
@@ -21,6 +23,8 @@ class CustomerUpdate(BaseModel):
     tax_number: str | None = Field(default=None, max_length=100)
     notes: str | None = None
     is_active: bool | None = None
+    custom_fields: dict[str, Any] | None = None
+    marketing_opt_out: bool | None = None
 
 
 class CustomerOut(BaseModel):
@@ -34,5 +38,8 @@ class CustomerOut(BaseModel):
     tax_number: str | None
     notes: str | None
     is_active: bool
+    custom_fields: dict[str, Any] = {}
+    marketing_opt_out: bool = False
+    marketing_opt_out_at: datetime | None = None
     created_at: datetime
     updated_at: datetime

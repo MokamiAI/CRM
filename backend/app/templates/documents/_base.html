@@ -1,0 +1,108 @@
+{% macro lines_of(text) %}{% for line in (text or "").split("\n") %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% endmacro %}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% endblock %}</title>
+<style>
+  @page { size: A4; margin: 14mm 14mm 16mm; }
+  * { box-sizing: border-box; }
+  :root { --accent: {{ t.accent }}; --ink: #18181b; --muted: #71717a; --line: #e4e4e7; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; color: var(--ink); font: 10.5pt/1.5 "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif; background: #fff; }
+  .page { max-width: 182mm; margin: 0 auto; }
+  @media screen {
+    body { background: #f4f4f5; padding: 24px 12px; }
+    .page { background: #fff; padding: 14mm; border-radius: 6px; box-shadow: 0 1px 3px rgb(0 0 0 / .08), 0 8px 24px rgb(0 0 0 / .06); }
+  }
+  h1, h2, h3, p { margin: 0; }
+  .muted { color: var(--muted); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  header.top { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+  .brand img { max-height: 56px; max-width: 220px; display: block; margin-bottom: 8px; }
+  .brand .name { font-size: 15pt; font-weight: 700; letter-spacing: -.01em; margin-bottom: 4px; }
+  .brand p, .meta p { font-size: 9.5pt; }
+  .doc-title { font-size: 20pt; font-weight: 700; letter-spacing: -.02em; text-align: right; }
+  .meta { text-align: right; }
+  .meta table { margin-left: auto; margin-top: 8px; border-collapse: collapse; font-size: 9.5pt; }
+  .meta td { padding: 1px 0 1px 14px; }
+  .meta td:first-child { color: var(--muted); }
+  .parties { display: flex; gap: 24px; margin-top: 26px; }
+  .parties > div { flex: 1; }
+  .label { font-size: 8pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  table.items { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 9.5pt; }
+  table.items th { text-align: left; font-size: 8pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 8px 8px; }
+  table.items td { padding: 9px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.items th.num, table.items td.num { text-align: right; }
+  .totals { display: flex; justify-content: flex-end; margin-top: 14px; }
+  .totals table { border-collapse: collapse; min-width: 64mm; font-size: 10pt; }
+  .totals td { padding: 4px 8px; }
+  .totals tr.grand td { font-size: 12.5pt; font-weight: 700; padding-top: 8px; }
+  .boxes { display: flex; gap: 16px; margin-top: 26px; }
+  .box { flex: 1; border-radius: 6px; padding: 12px 14px; font-size: 9.5pt; }
+  .box table { border-collapse: collapse; }
+  .box td { padding: 1px 12px 1px 0; }
+  .box td:first-child { color: var(--muted); }
+  .terms { margin-top: 22px; font-size: 9pt; }
+  footer.bottom { margin-top: 30px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 8.5pt; color: var(--muted); text-align: center; }
+  tr, .box, .totals { break-inside: avoid; }
+
+  /* Modern: a band of colour, coloured title and headings. */
+  .layout-modern .page { border-top: 6px solid var(--accent); }
+  .layout-modern .doc-title, .layout-modern .label { color: var(--accent); }
+  .layout-modern table.items th { background: {{ t.accent }}14; color: var(--accent); }
+  .layout-modern .totals tr.grand td { color: var(--accent); border-top: 2px solid var(--accent); }
+  .layout-modern .box { background: {{ t.accent }}0d; }
+
+  /* Classic: serif title, ruled table with a solid heading row. */
+  .layout-classic .doc-title, .layout-classic .brand .name { font-family: Georgia, "Times New Roman", serif; letter-spacing: 0; }
+  .layout-classic table.items { border: 1px solid var(--line); }
+  .layout-classic table.items th { background: var(--accent); color: #fff; }
+  .layout-classic table.items td { border: 1px solid var(--line); }
+  .layout-classic .totals tr.grand td { border-top: 1px solid var(--ink); border-bottom: 3px double var(--ink); }
+  .layout-classic .box { border: 1px solid var(--line); }
+
+  /* Minimal: black and white with one accent line under the total. */
+  .layout-minimal table.items th { border-bottom: 1px solid var(--ink); }
+  .layout-minimal .doc-title { font-weight: 600; }
+  .layout-minimal .totals tr.grand td { border-top: 2px solid var(--accent); }
+  .layout-minimal .box { border-left: 2px solid var(--accent); border-radius: 0; padding: 4px 14px; }
+</style>
+</head>
+<body class="layout-{{ t.layout }}">
+<div class="page">
+  <header class="top">
+    <div class="brand">
+      {% if t.show_logo and company.logo_url %}<img src="{{ company.logo_url }}" alt="{{ company.company_name }}">{% endif %}
+      <p class="name">{{ company.company_name }}</p>
+      {% if company.address %}<p class="muted">{{ lines_of(company.address) }}</p>{% endif %}
+      {% if company.tax_number %}<p><span class="muted">{{ t.tax_label }}:</span> {{ company.tax_number }}</p>{% endif %}
+      {% if t.registration_number %}<p><span class="muted">Reg. no.:</span> {{ t.registration_number }}</p>{% endif %}
+      {% if company.sender_email %}<p class="muted">{{ company.sender_email }}</p>{% endif %}
+    </div>
+    <div class="meta">
+      <h1 class="doc-title">{% block doc_title %}{% endblock %}</h1>
+      {% block meta %}{% endblock %}
+    </div>
+  </header>
+
+  <section class="parties">
+    <div>
+      <p class="label">{% block to_label %}Bill to{% endblock %}</p>
+      <p><strong>{{ customer.name }}</strong></p>
+      {% if customer.billing_address %}<p class="muted">{{ lines_of(customer.billing_address) }}</p>{% endif %}
+      {% if customer.email %}<p class="muted">{{ customer.email }}</p>{% endif %}
+      {% if t.show_customer_tax_number and customer.tax_number %}<p><span class="muted">{{ t.tax_label }}:</span> {{ customer.tax_number }}</p>{% endif %}
+    </div>
+    {% block party_extra %}{% endblock %}
+  </section>
+
+  {% block body %}{% endblock %}
+
+  {% if t.footer or t.registration_number %}
+  <footer class="bottom">{% if t.footer %}{{ lines_of(t.footer) }}{% else %}{{ company.company_name }} · Reg. no. {{ t.registration_number }}{% endif %}</footer>
+  {% endif %}
+</div>
+</body>
+</html>

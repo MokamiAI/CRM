@@ -1,0 +1,30 @@
+{% extends "_base.html" %}
+{% from "_parts.html" import bank_box, items_table, lines_of with context %}
+{% block title %}{{ t.invoice_title }} {{ doc.invoice_number }}{% endblock %}
+{% block doc_title %}{{ t.invoice_title }}{% endblock %}
+{% block meta %}
+<table>
+  <tr><td>Number</td><td><strong>{{ doc.invoice_number }}</strong></td></tr>
+  <tr><td>Date</td><td>{{ doc.issue_date.strftime("%d %b %Y") }}</td></tr>
+  <tr><td>Due</td><td>{{ doc.due_date.strftime("%d %b %Y") }}</td></tr>
+</table>
+{% endblock %}
+{% block body %}
+{{ items_table(doc) }}
+<div class="totals">
+  <table>
+    <tr><td class="muted">Subtotal</td><td class="num">{{ money(doc.subtotal) }}</td></tr>
+    <tr><td class="muted">{{ tax_short }}</td><td class="num">{{ money(doc.tax_total) }}</td></tr>
+    <tr><td>Total</td><td class="num">{{ money(doc.total) }}</td></tr>
+    {% if doc.amount_paid and doc.amount_paid > 0 %}
+    <tr><td class="muted">Paid</td><td class="num">− {{ money(doc.amount_paid) }}</td></tr>
+    {% endif %}
+    <tr class="grand"><td>Amount due</td><td class="num">{{ money(amount_due) }}</td></tr>
+  </table>
+</div>
+<div class="boxes">
+  {{ bank_box(doc.invoice_number) }}
+</div>
+{% if doc.notes %}<div class="terms"><p class="label">Notes</p><p>{{ lines_of(doc.notes) }}</p></div>{% endif %}
+{% if t.invoice_terms %}<div class="terms"><p class="label">Terms</p><p class="muted">{{ lines_of(t.invoice_terms) }}</p></div>{% endif %}
+{% endblock %}

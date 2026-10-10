@@ -27,7 +27,10 @@ services:
 
   celery_worker:
     build: ./backend
-    command: celery -A celery_app.celery_app worker --loglevel=info
+    # Must list every queue in celery_app.conf.task_routes: a worker only
+    # consumes "default" unless told otherwise, and tasks routed to a queue
+    # nobody consumes just sit in Redis forever.
+    command: celery -A celery_app.celery_app worker --loglevel=info -Q default,emails,reports
     env_file: .env
     volumes:
       - ./backend:/app

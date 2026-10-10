@@ -1,8 +1,94 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
+import LanguagePicker from "../components/LanguagePicker";
+import GlowField from "../components/GlowField";
+import LoginShowcase from "../components/LoginShowcase";
+import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
+import QuoteOfTheWeek from "../components/QuoteOfTheWeek";
+
+/** The sign-in screens' frame: brand, language, ambient colour and the
+ *  product showcase; each screen supplies its own card contents. */
+function AuthShell({ children }) {
+  const { t } = useTranslation();
+  return (
+    <div className="grid min-h-[100dvh] bg-white md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+      <div className="safe-top safe-bottom relative flex flex-col overflow-hidden px-6">
+        {/* Ambient colour, kept faint so the form stays the focus. */}
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <span className="aurora-blob -left-24 top-[12%] h-72 w-72 bg-violet-300" />
+          <span className="aurora-blob -right-20 top-[40%] h-80 w-80 bg-sky-300" />
+          <span className="aurora-blob bottom-[-6rem] left-[20%] h-72 w-72 bg-emerald-200" />
+        </div>
+
+        <header className="relative flex items-center gap-2.5 py-6">
+          <Link to="/login" className="flex items-center gap-2.5 rounded-lg">
+            <BrandMark join />
+            <span className="text-[15px] font-semibold tracking-tight text-zinc-900">
+              {APP_NAME} <span className="font-normal text-zinc-400">· {APP_FULL_NAME}</span>
+            </span>
+          </Link>
+          <div className="ml-auto">
+            <LanguagePicker />
+          </div>
+        </header>
+
+        <div className="relative flex flex-1 items-center justify-center py-8">
+          {/* Rises in once when the page opens: the only entrance on the screen. */}
+          <div className="login-card w-full max-w-sm rounded-2xl border border-white/70 bg-white/75 p-6 shadow-pop backdrop-blur-xl sm:p-8">
+            {children}
+          </div>
+        </div>
+        {/* Desktop: kept within this (left) half, clear of the showcase. */}
+        <QuoteOfTheWeek className="bottom-[max(env(safe-area-inset-bottom,0px),1rem)] md:bottom-6 md:right-auto md:mx-0 md:left-6 md:w-[min(28rem,calc(46.5vw-3rem))]" />
+
+        <footer className="relative flex items-center justify-between py-6 text-xs text-zinc-400">
+          <span>
+            © {new Date().getFullYear()} {APP_NAME} ·{" "}
+            <Link to="/about" className="hover:text-zinc-600">
+              {t("about.link")}
+            </Link>
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <svg viewBox="0 0 16 16" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
+              <path fillRule="evenodd" d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H4a1.5 1.5 0 0 0-1.5 1.5v5A1.5 1.5 0 0 0 4 14h8a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 12 6h-.5V4.5A3.5 3.5 0 0 0 8 1Zm2 5V4.5a2 2 0 1 0-4 0V6h4Z" clipRule="evenodd" />
+            </svg>
+            {t("login.encrypted")}
+          </span>
+        </footer>
+      </div>
+
+      {/* Brand panel, tablet and up: the product demoing itself. */}
+      <div className="relative hidden md:block">
+        <LoginShowcase />
+      </div>
+    </div>
+  );
+}
+
+function FormError({ children }) {
+  if (!children) return null;
+  return (
+    <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 ring-1 ring-inset ring-red-200/70" role="alert">
+      {children}
+    </p>
+  );
+}
+
+function SwitchLink({ prompt, to, label }) {
+  return (
+    <p className="mt-6 text-center text-sm text-zinc-500">
+      {prompt}{" "}
+      <Link to={to} className="font-medium text-indigo-600 hover:text-indigo-700">
+        {label}
+      </Link>
+    </p>
+  );
+}
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,57 +105,110 @@ export default function LoginPage() {
       await login(email, password);
       navigate(location.state?.from ?? "/", { replace: true });
     } catch {
-      setError("Incorrect email or password.");
+      setError(t("login.failed"));
     } finally {
       setIsSubmitting(false);
     }
   }
 
   return (
-    <div className="safe-top safe-bottom flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm rounded-lg bg-white p-6 shadow-sm ring-1 ring-gray-200 sm:p-8"
-      >
-        <h1 className="mb-6 text-xl font-semibold text-gray-800">Sign in</h1>
+    <AuthShell>
+      <h1 className="text-2xl font-semibold text-zinc-900">{t("login.title")}</h1>
+      <p className="mt-1.5 text-sm text-zinc-500">{t("login.subtitle")}</p>
 
-        <label className="mb-1 block text-sm font-medium text-gray-700" htmlFor="email">
-          Email
-        </label>
-        <input
-          id="email"
-          type="email"
-          inputMode="email"
-          autoComplete="username"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 text-base focus:border-indigo-500 focus:outline-none"
-        />
-
-        <label className="mb-1 block text-sm font-medium text-gray-700" htmlFor="password">
-          Password
-        </label>
-        <input
-          id="password"
-          type="password"
-          autoComplete="current-password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 text-base focus:border-indigo-500 focus:outline-none"
-        />
-
-        {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full rounded bg-indigo-600 px-3 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-60"
-        >
-          {isSubmitting ? "Signing in…" : "Sign in"}
+      <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+        <div>
+          <label className="label" htmlFor="email">
+            {t("login.email")}
+          </label>
+          <GlowField
+            id="email"
+            type="email"
+            inputMode="email"
+            autoComplete="username"
+            autoCapitalize="none"
+            autoCorrect="off"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label className="label" htmlFor="password">
+            {t("login.password")}
+          </label>
+          <GlowField
+            id="password"
+            type="password"
+            autoComplete="current-password"
+            enterKeyHint="go"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <FormError>{error}</FormError>
+        <button type="submit" disabled={isSubmitting} className="btn btn-primary w-full">
+          {isSubmitting ? t("login.signingIn") : t("login.signIn")}
         </button>
       </form>
-    </div>
+      <SwitchLink prompt={t("login.noAccount")} to="/register" label={t("login.createAccount")} />
+    </AuthShell>
+  );
+}
+
+/** Self-service sign-up: creates a new company with this person as its admin. */
+export function RegisterPage() {
+  const { t } = useTranslation();
+  const { register } = useAuth();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ company_name: "", full_name: "", email: "", password: "" });
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const set = (field) => (event) => setForm((prev) => ({ ...prev, [field]: event.target.value }));
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+    try {
+      await register(form);
+      navigate("/", { replace: true });
+    } catch (err) {
+      setError(t(err?.response?.data?.error_code === "USER_EMAIL_TAKEN" ? "register.emailTaken" : "register.failed"));
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  const fields = [
+    { id: "company_name", autoComplete: "organization", autoFocus: true },
+    { id: "full_name", autoComplete: "name" },
+    { id: "email", type: "email", inputMode: "email", autoComplete: "email", autoCapitalize: "none", autoCorrect: "off" },
+    { id: "password", type: "password", autoComplete: "new-password", minLength: 8, hint: t("register.passwordHint") },
+  ];
+
+  return (
+    <AuthShell>
+      <h1 className="text-2xl font-semibold text-zinc-900">{t("register.title")}</h1>
+      <p className="mt-1.5 text-sm text-zinc-500">{t("register.subtitle")}</p>
+
+      <form onSubmit={handleSubmit} className="mt-7 space-y-4">
+        {fields.map(({ id, hint, ...props }) => (
+          <div key={id}>
+            <label className="label" htmlFor={id}>
+              {t(`register.${id}`)}
+            </label>
+            <GlowField id={id} required value={form[id]} onChange={set(id)} {...props} />
+            {hint && <span className="mt-1.5 block text-xs text-zinc-500">{hint}</span>}
+          </div>
+        ))}
+        <FormError>{error}</FormError>
+        <button type="submit" disabled={isSubmitting} className="btn btn-primary w-full">
+          {isSubmitting ? t("register.submitting") : t("register.submit")}
+        </button>
+      </form>
+      <SwitchLink prompt={t("register.haveAccount")} to="/login" label={t("login.signIn")} />
+    </AuthShell>
   );
 }

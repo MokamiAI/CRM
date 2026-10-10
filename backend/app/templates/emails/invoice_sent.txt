@@ -1,0 +1,24 @@
+{% from "_bank.txt" import bank_details_text with context %}
+{% from "_signature.txt" import sign_off with context %}
+{% from "_items.html" import text_line_items with context %}
+Hi {{ customer.name }},
+
+Please find invoice {{ invoice.invoice_number }} from {{ company.company_name }} below.
+
+Issue date: {{ invoice.issue_date.strftime("%d %b %Y") }}
+Due date:   {{ invoice.due_date.strftime("%d %b %Y") }}
+Amount due: {{ money(amount_due) }}
+{% if t and t.show_customer_tax_number and customer.tax_number %}Your {{ t.tax_label }}: {{ customer.tax_number }}
+{% endif %}
+{{ text_line_items(invoice, money) }}
+{% if invoice.notes %}
+
+{{ invoice.notes }}
+{% endif %}
+
+{{ bank_details_text(invoice.invoice_number) }}
+{% if t and t.invoice_terms %}{{ t.invoice_terms }}
+
+{% endif %}Please reply to this email if you have any questions.
+
+{{ sign_off("Thank you") }}

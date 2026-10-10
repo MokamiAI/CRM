@@ -81,6 +81,10 @@ export default function SettingsScreen() {
     },
   });
 
+  const testEmail = useMutation({
+    mutationFn: () => apiClient.post("/settings/test-email", {}).then((res) => res.data),
+  });
+
   function update(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
@@ -245,6 +249,26 @@ export default function SettingsScreen() {
             onValueChange={(v) => update("smtp_use_tls", v)}
           />
         </View>
+        <TouchableOpacity
+          style={[styles.secondaryButton, testEmail.isPending && styles.buttonDisabled]}
+          onPress={() => testEmail.mutate()}
+          disabled={testEmail.isPending}
+        >
+          <Text style={styles.secondaryButtonText}>
+            {testEmail.isPending ? "Sending…" : "Send test email"}
+          </Text>
+        </TouchableOpacity>
+        {testEmail.isSuccess ? (
+          <Text style={styles.success}>Test email sent to {testEmail.data.sent_to}.</Text>
+        ) : testEmail.isError ? (
+          <Text style={styles.error}>
+            {testEmail.error.response?.data?.message ?? "Failed to send test email."}
+          </Text>
+        ) : (
+          <Text style={styles.hint}>
+            Sends to your own address using the saved settings, so save any changes first.
+          </Text>
+        )}
       </Section>
 
       <TouchableOpacity
@@ -333,6 +357,19 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingVertical: 12,
     alignItems: "center",
+  },
+  secondaryButton: {
+    borderWidth: 1,
+    borderColor: "#d1d5db",
+    borderRadius: 6,
+    paddingVertical: 10,
+    alignItems: "center",
+    marginTop: 16,
+  },
+  secondaryButtonText: {
+    color: "#374151",
+    fontSize: 15,
+    fontWeight: "500",
   },
   buttonDisabled: {
     opacity: 0.6,

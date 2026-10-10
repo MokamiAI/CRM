@@ -19,22 +19,57 @@ status engine, payment workflow, and reminder-deduplication design.
 
 ## Project status
 
-**Phase 9 — Invoice status engine.** `POST /invoices/refresh-overdue`
-(ADMIN/MANAGER) flips `sent`/`partially_paid` invoices whose `due_date`
-has passed to `overdue`; the same logic runs automatically on the
-existing hourly Celery beat entry (`app/tasks/invoice_tasks.py`), so
-manual and scheduled refreshes share one implementation.
+**CRM core (modelled on HubSpot / Pipedrive / Attio).** The app now has
+the standard CRM object model around the billing core: **customers** are
+the companies, with **contacts** (the people there, one primary);
+**deals** move through a fixed pipeline (lead → qualified → proposal →
+negotiation → won/lost) on a drag-and-drop board whose cards show each
+deal's *next activity* (overdue / due today / nothing planned), the way
+Pipedrive does; **activities** (calls, meetings, tasks, emails,
+deadlines) with due dates form a daily work queue (Overdue / Today /
+Upcoming / Done); **notes** capture history. Customer and deal pages use
+HubSpot's three-column record layout (details · next steps + one
+chronological timeline of notes, activities, deals, quotes, invoices,
+payments and reminders · related records), and Ctrl/Cmd+K opens a
+command palette that searches every record type (Attio/Linear-style).
+Quotes can be linked to the deal they were written for.
 
-Alongside this phase, company-level settings gained outgoing-email
-configuration: `GET`/`PATCH /settings` (ADMIN only) now manage the
-company's sending address and SMTP credentials (falling back to the
-server-wide `SMTP_*` env vars when unset — see
-`app/services/email_settings.py`), plus company info, branding, and
-invoice/quote numbering, all previously only settable by editing `.env`
-or the database directly. The frontend also gained the auth wiring
-(login page, access/refresh-token interceptor, protected routes) needed
-to reach any API route at all, plus a Settings page for the above.
-Actually sending email through the configured account is Phase 10.
+**Phase 11 — Automated reminders.** Every morning at 07:00 (`DEFAULT_TIMEZONE`)
+Celery beat emails a payment reminder to customers with unpaid
+invoices (`sent`/`partially_paid`/`overdue`) once each reaches a step in
+the company's reminder schedule: days relative to the due date, `-3, 0,
+7, 14` by default, editable (and switchable off) under Settings → Payment
+reminders. Each step is sent at most once per invoice, enforced by the
+unique `(invoice_id, reminder_type)` constraint on `reminder_logs`: the
+reminder is claimed in the database before the email is queued, so
+overlapping runs can't duplicate it. Only the latest step reached is
+sent, so a scheduler outage never produces a burst of stale reminders.
+The email wording (due soon / due today / N days overdue) is worked out
+when it's sent, and nothing is sent if the invoice was paid in the
+meantime. Staff can also send a reminder by hand from an invoice, and
+each invoice shows its reminder history.
+
+**Phase 10 — Email service.** Customers are now emailed automatically
+when an invoice or quote is sent (`POST /invoices/{id}/send`,
+`POST /quotes/{id}/send`) and when a payment is recorded against their
+invoice (a receipt showing the remaining balance). Each of those routes
+takes `?notify=false` to skip the email. Messages are rendered from
+Jinja templates in `app/templates/emails/` (HTML plus a plain-text
+fallback) and sent by Celery tasks in `app/tasks/email_tasks.py` through
+the company's SMTP settings, falling back to the server-wide `SMTP_*`
+env vars. SMTP/network failures retry with backoff (up to 5 times);
+customers with no email address, or a server with no SMTP configured,
+are skipped with a log line rather than failing the request.
+`POST /settings/test-email` (ADMIN) sends a test message synchronously
+so a bad SMTP configuration shows up immediately, and the Settings page
+has a button for it.
+
+Previous phase: **Phase 9 — Invoice status engine.**
+`POST /invoices/refresh-overdue` (ADMIN/MANAGER) flips
+`sent`/`partially_paid` invoices whose `due_date` has passed to
+`overdue`, and the same logic runs hourly on Celery beat. Company
+settings (`GET`/`PATCH /settings`, ADMIN only) manage company info,
+numbering, payment terms and the outgoing email account.
 
 ## Why Supabase, and how it's wired in
 
@@ -112,7 +147,9 @@ See [Mobile apps](#mobile-apps) below.
 
 ```bash
 cd backend
-celery -A celery_app.celery_app worker --loglevel=info
+# -Q must list every queue in celery_app's task_routes, or tasks routed
+# there (e.g. all emails) are never picked up.
+celery -A celery_app.celery_app worker --loglevel=info -Q default,emails,reports
 celery -A celery_app.celery_app beat --loglevel=info
 ```
 
@@ -273,10 +310,30 @@ requires a bearer access token; role-restricted routes are noted below.
   any role. Record: ADMIN/MANAGER/STAFF. Delete (correction): ADMIN only.
 - **Invoice status engine** — `POST /invoices/refresh-overdue`
   (ADMIN/MANAGER), also run automatically every hour by Celery beat.
+- **CRM** — `GET/POST /customers/{id}/contacts`, `PATCH/DELETE
+  /contacts/{id}`; `GET/POST /deals` (`?status=open|won|lost|all`,
+  `?mine=true`), `GET/PATCH /deals/{id}`, `DELETE /deals/{id}`
+  (ADMIN/MANAGER), `GET /deals/{id}/timeline`, `GET /deals/{id}/quotes`;
+  `GET/POST /activities` (`?scope=overdue|today|upcoming|done|all`,
+  `?mine=true`), `GET /activities/counts`, `PATCH/DELETE
+  /activities/{id}`; `GET/POST /notes`, `DELETE /notes/{id}` (author or
+  ADMIN); `GET /customers/{id}/timeline`; `GET /search?q=`; `GET /team`
+  (active users, names only); `GET /company` (name/currency/logo for any
+  signed-in user). Reads: any role. Writes: ADMIN/MANAGER/STAFF.
+- **Reminders** — `POST /invoices/send-reminders` (ADMIN/MANAGER) runs
+  the daily reminder pass now (same logic as the 07:00 beat job; safe to
+  repeat), `POST /invoices/{id}/remind` (ADMIN/MANAGER/STAFF) sends one
+  immediately, `GET /invoices/{id}/reminders` lists what was sent. The
+  schedule is `reminders_enabled` + `reminder_offsets` on `/settings`.
 - **Settings** (ADMIN only) — `GET /settings`, `PATCH /settings`: company
   info, invoice/quote numbering, payment terms, and outgoing email
   (sender address + SMTP host/port/username/password/TLS). `smtp_password`
   is write-only — omit it on PATCH to leave the stored value unchanged.
+  `POST /settings/test-email` (optional body `{"to": "..."}`, defaults to
+  the admin's own address) sends a test message with the saved settings.
+- **Customer emails** — `POST /invoices/{id}/send`, `POST /quotes/{id}/send`
+  and `POST /invoices/{id}/payments` email the customer by default; pass
+  `?notify=false` to skip it.
 
 Reporting endpoints land in later phases (see Roadmap below).
 
@@ -311,8 +368,8 @@ docker-compose.yml
 7. Invoices ✅
 8. Payments ✅
 9. Invoice status engine ✅
-10. Email service
-11. Automated reminders
+10. Email service ✅
+11. Automated reminders ✅
 12. PDF invoices
 13. Dashboard
 14. Reports

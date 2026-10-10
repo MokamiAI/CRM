@@ -41,7 +41,7 @@ class InvoiceService:
         self.company_settings = CompanySettingsRepository(db)
 
     async def _default_due_date(self, issue_date: date) -> date:
-        settings_row = await self.company_settings.get_singleton()
+        settings_row = await self.company_settings.get_current()
         return issue_date + timedelta(days=settings_row.payment_terms_days)
 
     async def create_invoice(self, data: InvoiceCreate, created_by_id: uuid.UUID) -> Invoice:

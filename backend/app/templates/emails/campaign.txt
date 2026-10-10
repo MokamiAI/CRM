@@ -1,0 +1,20 @@
+{% for paragraph in paragraphs %}
+{{ paragraph|join("\n") }}
+
+{% endfor %}
+{% for p in products %}
+- {{ p.name }}: {% if p.on_special %}{{ money(p.special_price) }} (was {{ money(p.price) }}){% if p.special_until %}, until {{ p.special_until.strftime("%d %b %Y") }}{% endif %}{% else %}{{ money(p.price) }}{% endif %}
+
+{% endfor %}
+{% if products %}
+Prices exclude VAT.
+
+{% endif %}
+{% if cta_text and cta_url %}
+{{ cta_text }}: {{ cta_url }}
+
+{% endif %}
+--
+{{ company.company_name }}
+You're receiving this because you're a customer of {{ company.company_name }}.
+Unsubscribe: {{ unsubscribe_url }}

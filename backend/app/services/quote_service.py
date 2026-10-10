@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import ConflictError, NotFoundError
 from app.models.enums import QuoteStatus
+from app.models.crm import Deal
 from app.models.quote import Quote, QuoteItem
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.repositories.customer_repository import CustomerRepository
@@ -32,6 +33,10 @@ class QuoteService:
         customer = await self.customers.get_by_id(data.customer_id)
         if customer is None or not customer.is_active:
             raise NotFoundError("Customer not found or inactive", "CUSTOMER_NOT_FOUND")
+        if data.deal_id is not None:
+            deal = await self.db.get(Deal, data.deal_id)
+            if deal is None or deal.customer_id != data.customer_id:
+                raise ConflictError("The deal must belong to the same customer", "DEAL_CUSTOMER_MISMATCH")
 
         items, subtotal, tax_total, total = build_line_items(QuoteItem, data.items)
         quote_number = await self.company_settings.reserve_next_quote_number()
@@ -39,6 +44,7 @@ class QuoteService:
         quote = Quote(
             quote_number=quote_number,
             customer_id=data.customer_id,
+            deal_id=data.deal_id,
             issue_date=data.issue_date,
             expiry_date=data.expiry_date,
             notes=data.notes,

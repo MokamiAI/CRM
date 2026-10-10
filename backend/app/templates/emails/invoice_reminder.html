@@ -1,0 +1,24 @@
+{% extends "_layout.html" %}
+{% from "_signature.html" import sign_off with context %}
+{% from "_bank.html" import bank_details with context %}
+{% block content %}
+<p>Hi {{ customer.name }},</p>
+{% if days_past_due > 0 %}
+<p>Invoice <strong>{{ invoice.invoice_number }}</strong> was due on {{ invoice.due_date.strftime("%d %b %Y") }} and is now {{ days_past_due }} day{{ "s" if days_past_due != 1 }} overdue. If you've already paid, thank you, and please ignore this email.</p>
+{% elif days_past_due == 0 %}
+<p>A quick reminder that invoice <strong>{{ invoice.invoice_number }}</strong> is due today.</p>
+{% else %}
+<p>A friendly reminder that invoice <strong>{{ invoice.invoice_number }}</strong> is due on {{ invoice.due_date.strftime("%d %b %Y") }}, in {{ -days_past_due }} day{{ "s" if days_past_due != -1 }}.</p>
+{% endif %}
+<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:14px;margin:16px 0;">
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Invoice</td><td>{{ invoice.invoice_number }}</td></tr>
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Due date</td><td>{{ invoice.due_date.strftime("%d %b %Y") }}</td></tr>
+  {% if invoice.amount_paid > 0 %}
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Already paid</td><td>{{ money(invoice.amount_paid) }}</td></tr>
+  {% endif %}
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Amount due</td><td><strong>{{ money(amount_due) }}</strong></td></tr>
+</table>
+{{ bank_details(invoice.invoice_number) }}
+<p>Please reply to this email if you have any questions about this invoice.</p>
+{{ sign_off("Thank you") }}
+{% endblock %}

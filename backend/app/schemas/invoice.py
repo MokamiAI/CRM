@@ -70,3 +70,17 @@ class InvoiceOut(BaseModel):
     items: list[InvoiceItemOut]
     created_at: datetime
     updated_at: datetime
+
+
+class ReminderOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    # "schedule:<days from due date>" for automatic reminders,
+    # "manual:<timestamp>" for ones sent with POST /invoices/{id}/remind.
+    reminder_type: str
+    sent_at: datetime
+
+
+class RemindersQueued(BaseModel):
+    queued: int

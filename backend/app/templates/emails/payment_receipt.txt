@@ -1,0 +1,18 @@
+{% from "_signature.txt" import sign_off with context %}
+Hi {{ customer.name }},
+
+Thank you, we have received your payment for invoice {{ invoice.invoice_number }}.
+
+Amount paid:       {{ money(payment.amount) }}
+Date:              {{ payment.paid_at.strftime("%d %b %Y") }}
+{% if payment.reference %}
+Reference:         {{ payment.reference }}
+{% endif %}
+Invoice total:     {{ money(invoice.total) }}
+Balance remaining: {{ money(balance) }}
+{% if balance <= 0 %}
+
+This invoice is now paid in full.
+{% endif %}
+
+{{ sign_off("Thank you") }}

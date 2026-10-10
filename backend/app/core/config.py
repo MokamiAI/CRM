@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     # App
-    APP_NAME: str = "CRM & Invoice Management System"
+    APP_NAME: str = "YGT"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
     API_V1_PREFIX: str = "/api/v1"
@@ -37,7 +37,38 @@ class Settings(BaseSettings):
     SMTP_USERNAME: str | None = None
     SMTP_PASSWORD: str | None = None
     SMTP_FROM_EMAIL: str | None = None
-    SMTP_FROM_NAME: str = "CRM System"
+    SMTP_FROM_NAME: str = "YGT"
+
+    # Public base URL of this API, used in links inside emails (unsubscribe,
+    # open tracking) that customers' mail clients call without signing in.
+    PUBLIC_API_URL: str = "http://localhost:8000"
+
+    # Key that encrypts credentials companies enter in Settings (Fernet key:
+    # python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())").
+    # Unset in development: derived from JWT_SECRET.
+    CREDENTIALS_KEY: str | None = None
+    # Testing only: send WhatsApp/SMS API calls to this base URL (a local
+    # mock) instead of the real providers. Never set in production.
+    CHANNEL_API_OVERRIDE: str | None = None
+
+    # Two-way customer email. Outgoing messages set Reply-To to
+    # reply+<thread token>@INBOUND_EMAIL_DOMAIN; the mail provider's inbound
+    # webhook (Mailgun Routes, SendGrid Inbound Parse, Postmark Inbound...)
+    # posts replies to /api/v1/public/inbound/email with this secret.
+    INBOUND_EMAIL_DOMAIN: str = "inbound.localhost"
+    INBOUND_EMAIL_SECRET: str = "change-me-inbound-secret"
+
+    # Subscriptions, paid through YGT's own Paystack account (Paystack
+    # dashboard > Settings > API Keys & Webhooks). Set the webhook URL there
+    # to <PUBLIC_API_URL>/api/v1/public/paystack/webhook. Unset: the plans
+    # still show, but checkout says online payments aren't set up yet.
+    PAYSTACK_SECRET_KEY: str | None = None
+    # Testing only: a local mock instead of api.paystack.co.
+    PAYSTACK_API_BASE: str = "https://api.paystack.co"
+    # Where the web app lives; Paystack sends people back here after paying.
+    FRONTEND_URL: str = "http://localhost:5173"
+    # New companies try the Grow plan free for this many days.
+    TRIAL_DAYS: int = 14
 
     # Company defaults (seed values; overridden by company_settings table)
     COMPANY_NAME: str = "My Company"

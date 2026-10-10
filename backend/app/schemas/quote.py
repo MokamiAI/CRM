@@ -30,6 +30,7 @@ class QuoteItemOut(BaseModel):
 
 class QuoteCreate(BaseModel):
     customer_id: uuid.UUID
+    deal_id: uuid.UUID | None = None
     issue_date: date
     expiry_date: date | None = None
     notes: str | None = None
@@ -49,6 +50,7 @@ class QuoteOut(BaseModel):
     id: uuid.UUID
     quote_number: str
     customer_id: uuid.UUID
+    deal_id: uuid.UUID | None
     status: QuoteStatus
     issue_date: date
     expiry_date: date | None

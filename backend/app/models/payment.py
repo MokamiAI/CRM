@@ -6,11 +6,12 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
+from app.core.tenancy import TenantMixin
 from app.models.base import UUIDPKMixin
 from app.models.enums import PaymentMethod
 
 
-class Payment(UUIDPKMixin, Base):
+class Payment(TenantMixin, UUIDPKMixin, Base):
     __tablename__ = "payments"
 
     invoice_id: Mapped[uuid.UUID] = mapped_column(

@@ -3,15 +3,17 @@ import uuid
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_db, require_role
+from app.api.deps import get_db, plan_room, require_role
+from app.core.database import CommitBeforeResponseRoute
 from app.models.enums import UserRole
 from app.schemas.user import UserCreate, UserOut, UserUpdate
+from app.services.billing_service import BillingService
 from app.services.user_service import UserService
 
-router = APIRouter(prefix="/users", tags=["users"], dependencies=[Depends(require_role(UserRole.ADMIN))])
+router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/users", tags=["users"], dependencies=[Depends(require_role(UserRole.ADMIN))])
 
 
-@router.post("", response_model=UserOut, status_code=201)
+@router.post("", response_model=UserOut, status_code=201, dependencies=[Depends(plan_room("users"))])
 async def create_user(data: UserCreate, db: AsyncSession = Depends(get_db)):
     return await UserService(db).create_user(data)
 
@@ -32,4 +34,7 @@ async def get_user(user_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
 
 @router.patch("/{user_id}", response_model=UserOut)
 async def update_user(user_id: uuid.UUID, data: UserUpdate, db: AsyncSession = Depends(get_db)):
-    return await UserService(db).update_user(user_id, data)
+    service = UserService(db)
+    if data.is_active and not (await service.get_user(user_id)).is_active:
+        await BillingService(db).check_room("users")  # reactivating takes a seat
+    return await service.update_user(user_id, data)

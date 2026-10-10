@@ -28,6 +28,9 @@ class ProductService:
             sku=data.sku,
             unit_price=data.unit_price,
             tax_rate=data.tax_rate,
+            image_url=data.image_url,
+            special_price=data.special_price,
+            special_until=data.special_until,
         )
         return await self.products.create(product)
 
