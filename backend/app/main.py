@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import (
+    admin,
     auth,
     billing,
     channels,
@@ -9,6 +10,7 @@ from app.api.routes import (
     crm,
     custom_fields,
     customers,
+    data,
     invoices,
     marketing,
     messaging,
@@ -18,10 +20,12 @@ from app.api.routes import (
     public,
     quotes,
     reports,
+    support,
     users,
 )
 from app.core.config import settings
 from app.core.exceptions import register_exception_handlers
+from app.core.middleware import RateLimitMiddleware, RequestContextMiddleware
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -30,6 +34,10 @@ app = FastAPI(
     docs_url=f"{settings.API_V1_PREFIX}/docs",
 )
 
+# Last added runs first: CORS outermost (so even a 429 carries CORS
+# headers), then request ids and the activity log, then rate limits.
+app.add_middleware(RateLimitMiddleware)
+app.add_middleware(RequestContextMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
@@ -57,6 +65,9 @@ app.include_router(messaging.router, prefix=settings.API_V1_PREFIX)
 app.include_router(channels.router, prefix=settings.API_V1_PREFIX)
 app.include_router(onboarding.router, prefix=settings.API_V1_PREFIX)
 app.include_router(billing.router, prefix=settings.API_V1_PREFIX)
+app.include_router(support.router, prefix=settings.API_V1_PREFIX)
+app.include_router(data.router, prefix=settings.API_V1_PREFIX)
+app.include_router(admin.router, prefix=settings.API_V1_PREFIX)
 app.include_router(public.router, prefix=settings.API_V1_PREFIX)
 
 

@@ -6,6 +6,7 @@
 <p>Hi {{ customer.name }},</p>
 <p>Please find invoice <strong>{{ invoice.invoice_number }}</strong> from {{ company.company_name }} below.</p>
 <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:14px;">
+  {% if invoice.po_number %}<tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Your order no.</td><td>{{ invoice.po_number }}</td></tr>{% endif %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Issue date</td><td>{{ invoice.issue_date.strftime("%d %b %Y") }}</td></tr>
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Due date</td><td>{{ invoice.due_date.strftime("%d %b %Y") }}</td></tr>
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Amount due</td><td><strong>{{ money(amount_due) }}</strong></td></tr>

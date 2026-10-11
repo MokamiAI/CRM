@@ -56,3 +56,12 @@ def test_billing_periods():
     assert _add_interval(datetime(2026, 1, 31, tzinfo=timezone.utc), "monthly") == datetime(2026, 2, 28, tzinfo=timezone.utc)
     assert _add_interval(datetime(2026, 12, 15, tzinfo=timezone.utc), "monthly") == datetime(2027, 1, 15, tzinfo=timezone.utc)
     assert _add_interval(datetime(2028, 2, 29, tzinfo=timezone.utc), "annually") == datetime(2029, 2, 28, tzinfo=timezone.utc)
+
+
+def test_trial_is_the_plan_chosen_at_sign_up():
+    hustle = effective(new_trial(uuid.uuid4(), "hustle"))
+    assert (hustle.plan.key, hustle.users, hustle.state) == ("hustle", 3, "trialing")
+    assert hustle.plan.features == frozenset()  # what Hustle pays for, nothing more
+    scale = effective(new_trial(uuid.uuid4(), "scale"))
+    assert scale.plan.key == "scale" and "priority_support" in scale.plan.features and scale.users == TRIAL_USERS
+    assert effective(new_trial(uuid.uuid4(), "unknown")).plan.key == "grow"

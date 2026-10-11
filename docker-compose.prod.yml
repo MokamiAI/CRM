@@ -1,0 +1,74 @@
+# Production: one server runs everything except the database (Supabase).
+#   docker compose -f docker-compose.prod.yml up -d --build
+# See DEPLOY.md.
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file: .env
+    # Brings the database up to date, then serves the API behind Caddy.
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2
+             --proxy-headers --forwarded-allow-ips='*'"
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  celery_worker:
+    build: ./backend
+    restart: unless-stopped
+    command: celery -A celery_app.celery_app worker --loglevel=info -Q default,emails,reports --concurrency=2
+    env_file: .env
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  celery_beat:
+    build: ./backend
+    restart: unless-stopped
+    command: celery -A celery_app.celery_app beat --loglevel=info --schedule /tmp/celerybeat-schedule
+    env_file: .env
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.web
+      args:
+        VITE_SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - backend
+
+volumes:
+  redis-data:
+  caddy-data:
+  caddy-config:

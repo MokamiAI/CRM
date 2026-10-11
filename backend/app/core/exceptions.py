@@ -51,8 +51,13 @@ def register_exception_handlers(app: FastAPI) -> None:
 
     @app.exception_handler(Exception)
     async def handle_unexpected_error(request: Request, exc: Exception):
-        # Never leak internal stack traces to the client (spec #46).
+        # Never leak internal stack traces to the client (spec #46); they go
+        # to the admin site's error log, findable by the request id.
+        from app.core.middleware import record_error
+
+        record_error(request, exc)
+        request_id = getattr(request.state, "request_id", None)
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content=_envelope("An unexpected error occurred", "INTERNAL_ERROR"),
+            content=_envelope("An unexpected error occurred", "INTERNAL_ERROR") | {"request_id": request_id},
         )

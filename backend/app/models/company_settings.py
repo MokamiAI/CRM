@@ -53,6 +53,10 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
     # app/schemas/documents.py for the fields and their defaults.
     document_template: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
 
+    # Set by YGT's team in the admin site: nobody in the company can use the app.
+    suspended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    suspended_reason: Mapped[str | None] = mapped_column(String(300), nullable=True)
+
     # Customers can email the company's inbox at inbox+<inbox_token>@<inbound
     # domain>; the token says which company a new conversation belongs to.
     inbox_token: Mapped[str | None] = mapped_column(String(40), nullable=True, unique=True)

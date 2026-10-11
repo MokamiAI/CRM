@@ -193,7 +193,7 @@ def _sample(company):
     doc = SimpleNamespace(
         invoice_number=f"{company.invoice_prefix}0042", quote_number=f"{company.quote_prefix}0017",
         issue_date=today, due_date=today + timedelta(days=company.payment_terms_days or 30), expiry_date=today + timedelta(days=30),
-        subtotal=subtotal, tax_total=tax, total=subtotal + tax, amount_paid=Decimal("0"), notes="Thank you for your business.", items=items,
+        subtotal=subtotal, tax_total=tax, total=subtotal + tax, amount_paid=Decimal("0"), notes="Thank you for your business.", items=items, po_number="PO-7781",
     )
     inv = lambda n, d, total, due: SimpleNamespace(id=n, invoice_number=f"{company.invoice_prefix}00{n}", issue_date=today - timedelta(days=d), due_date=today - timedelta(days=d - 30), total=Decimal(total))  # noqa: E731
     invoices = [inv(38, 75, "8625.00", 0), inv(40, 40, "4312.50", 0), inv(42, 5, "23517.50", 0)]

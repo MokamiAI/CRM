@@ -92,3 +92,12 @@ def signature_ok(raw_body: bytes, signature: str | None) -> bool:
         return False
     expected = hmac.new(settings.PAYSTACK_SECRET_KEY.encode(), raw_body, hashlib.sha512).hexdigest()
     return hmac.compare_digest(expected, signature)
+
+
+async def refund(reference: str, amount_cents: int | None = None) -> dict:
+    """Refunds a charge, in full or in part. Paystack returns the refund
+    (status pending, then processed once the money goes back to the card)."""
+    body = {"transaction": reference}
+    if amount_cents:
+        body["amount"] = amount_cents
+    return await _call("POST", "/refund", json=body)

@@ -38,6 +38,10 @@ class OutgoingEmail:
     text: str
     # Extra headers, e.g. List-Unsubscribe on marketing email.
     headers: dict[str, str] = field(default_factory=dict)
+    # A calendar invite (iCalendar text) and its METHOD (REQUEST or CANCEL):
+    # sent as a calendar part so mail apps offer to add it to the calendar.
+    calendar: str | None = None
+    calendar_method: str = "REQUEST"
 
 
 def clean_signature(value: str | None) -> str | None:
@@ -78,6 +82,10 @@ def send_email(config: EffectiveEmailConfig, email: OutgoingEmail) -> None:
         message[name] = value
     message.set_content(email.text)
     message.add_alternative(email.html, subtype="html")
+    if email.calendar:
+        # Gmail and Apple read the inline part; Outlook prefers the attachment.
+        message.add_alternative(email.calendar, subtype="calendar", params={"method": email.calendar_method})
+        message.add_attachment(email.calendar.encode(), maintype="text", subtype="calendar", filename="invite.ics", params={"method": email.calendar_method})
 
     tls_context = ssl.create_default_context()
     if config.port == 465:

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCustomers, useProducts } from "../hooks/useApi";
 import { Button, Field } from "./ui";
@@ -48,6 +49,7 @@ export default function DocumentEditor({ dateField, dateLabel, dateHint, submitL
   const [issueDate, setIssueDate] = useState(todayISO());
   const [secondDate, setSecondDate] = useState("");
   const [notes, setNotes] = useState("");
+  const [poNumber, setPoNumber] = useState("");
   const [items, setItems] = useState(() => [blankItem()]);
 
   const totals = computeTotals(items);
@@ -78,6 +80,7 @@ export default function DocumentEditor({ dateField, dateLabel, dateHint, submitL
       issue_date: issueDate,
       ...(secondDate && { [dateField]: secondDate }),
       notes: notes || null,
+      po_number: poNumber.trim() || null,
       items: items.map(({ product_id, description, quantity, unit_price, tax_rate }) => ({
         product_id,
         description,
@@ -199,9 +202,18 @@ export default function DocumentEditor({ dateField, dateLabel, dateHint, submitL
       </section>
 
       <section className="card p-4 sm:p-5">
+        <Field label={t("editor.poNumber")} hint={t("editor.poNumberHint")} className="mb-4">
+          <input className="input" maxLength={60} value={poNumber} onChange={(e) => setPoNumber(e.target.value)} placeholder="PO-1234" />
+        </Field>
         <Field label={t("editor.notes")} hint={t("editor.notesHint")}>
           <textarea className="input" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} />
         </Field>
+        <p className="mt-3 text-xs text-zinc-500">
+          {t("editor.bankingHint")}{" "}
+          <Link to="/settings?tab=documents" className="font-medium text-indigo-600 hover:text-indigo-700">
+            {t("editor.bankingLink")}
+          </Link>
+        </p>
       </section>
 
       {/* Totals + submit: pinned above the tab bar on phones so the total is

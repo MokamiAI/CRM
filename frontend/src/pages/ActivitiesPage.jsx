@@ -51,11 +51,16 @@ export default function ActivitiesPage() {
         title={t("nav.activities")}
         subtitle={t("activities.subtitle")}
         actions={
-          canWrite && (
-            <Button onClick={() => setCreating(true)}>
-              <PlusIcon className="h-4 w-4" /> {t("activities.new")}
-            </Button>
-          )
+          <>
+            <Link to="/support?tab=sessions" className="btn btn-secondary">
+              {t("sessions.bookCta")}
+            </Link>
+            {canWrite && (
+              <Button onClick={() => setCreating(true)}>
+                <PlusIcon className="h-4 w-4" /> {t("activities.new")}
+              </Button>
+            )}
+          </>
         }
       />
       <div className="md:flex md:items-start md:justify-between md:gap-3">

@@ -10,6 +10,7 @@ from app.core.database import get_db
 from app.core.exceptions import PermissionDeniedError, UnauthorizedError
 from app.core.tenancy import set_system, set_tenant
 from app.core.security import decode_token
+from app.models.company_settings import CompanySettings
 from app.models.enums import UserRole
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
@@ -22,8 +23,8 @@ _bearer_scheme = HTTPBearer(auto_error=False)
 
 _READ_ONLY = {"GET", "HEAD", "OPTIONS"}
 # Still usable after a trial or plan ends: choosing and paying for a plan,
-# and the person's own profile and sign-out.
-_ALWAYS_OPEN = ("/billing", "/auth/")
+# the person's own profile and sign-out, and asking YGT for help.
+_ALWAYS_OPEN = ("/billing", "/auth/", "/support", "/bookings", "/admin")
 
 
 async def get_current_user(
@@ -54,7 +55,15 @@ async def get_current_user(
     if user is None or not user.is_active:
         raise UnauthorizedError("Account is no longer active")
     set_tenant(db, user.company_id)
+    # For the activity and error logs (app/core/middleware.py).
+    request.state.user_id = str(user.id)
+    request.state.company_id = str(user.company_id)
+    request.state.actor_email = user.email
     path = request.url.path.removeprefix(settings.API_V1_PREFIX)
+    if not user.is_platform_admin and not path.startswith("/auth/"):
+        company = await db.get(CompanySettings, user.company_id)
+        if company is not None and company.suspended_at is not None:
+            raise PermissionDeniedError("This account has been suspended. Please contact YGT support.", "ACCOUNT_SUSPENDED")
     if request.method not in _READ_ONLY and not path.startswith(_ALWAYS_OPEN):
         await BillingService(db).ensure_active()
     return user
@@ -88,3 +97,12 @@ def require_role(*allowed_roles: UserRole):
         return user
 
     return _check
+
+
+async def require_platform_admin(user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> User:
+    """YGT's own team only (PLATFORM_ADMIN_EMAILS). Admin queries then run
+    across every company."""
+    if not user.is_platform_admin:
+        raise PermissionDeniedError("YGT team only", "NOT_PLATFORM_ADMIN")
+    set_system(db)
+    return user

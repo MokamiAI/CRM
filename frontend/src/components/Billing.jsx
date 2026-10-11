@@ -310,8 +310,9 @@ export default function BillingSettings() {
                 interval={interval}
                 users={usersFor(plan)}
                 onUsers={(n) => setUsers((prev) => ({ ...prev, [plan.key]: n }))}
-                highlight={plan.key === "grow"}
-                badge={plan.key === "grow" ? t("billing.popular") : undefined}
+                // During a trial, the plan they chose at sign-up stands out.
+                highlight={billing.state === "trialing" ? plan.key === billing.plan : plan.key === "grow"}
+                badge={billing.state === "trialing" && plan.key === billing.plan ? t("billing.state.trialing") : plan.key === "grow" ? t("billing.popular") : undefined}
                 action={
                   <Button
                     className="w-full"

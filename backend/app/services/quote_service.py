@@ -48,6 +48,7 @@ class QuoteService:
             issue_date=data.issue_date,
             expiry_date=data.expiry_date,
             notes=data.notes,
+            po_number=(data.po_number or "").strip() or None,
             subtotal=subtotal,
             tax_total=tax_total,
             total=total,
@@ -78,6 +79,8 @@ class QuoteService:
             quote.expiry_date = data.expiry_date
         if data.notes is not None:
             quote.notes = data.notes
+        if data.po_number is not None:
+            quote.po_number = data.po_number.strip() or None
         if data.items is not None:
             items, subtotal, tax_total, total = build_line_items(QuoteItem, data.items)
             quote.items.clear()

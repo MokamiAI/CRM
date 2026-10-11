@@ -328,6 +328,7 @@ export function QuoteDetailPage() {
             rows={[
               [t("invoices.col.customer"), customer?.name ?? "…"],
               [t("invoices.col.issued"), formatDate(quote.issue_date)],
+              ...(quote.po_number ? [[t("editor.poNumber"), quote.po_number]] : []),
               [t("quotes.validUntil"), formatDate(quote.expiry_date)],
               [t("document.lineItems"), quote.items.length],
             ]}

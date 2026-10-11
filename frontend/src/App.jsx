@@ -22,6 +22,10 @@ import ProductsPage from "./pages/ProductsPage";
 import { NewQuotePage, QuoteDetailPage, QuotesPage } from "./pages/QuotesPage";
 import SettingsPage from "./pages/SettingsPage";
 import StatementPage from "./pages/StatementPage";
+import SupportPage, { TicketPage } from "./pages/SupportPage";
+import { ContactPage, ForgotPasswordPage, LegalPage, ResetPasswordPage } from "./pages/PublicPages";
+import AdminLayout from "./layouts/AdminLayout";
+import { AdminActivity, AdminBookings, AdminContact, AdminErrors, AdminOverview, AdminTenant, AdminTenants, AdminTicket, AdminTickets } from "./pages/admin/AdminPages";
 
 const WRITERS = ["admin", "manager", "staff"];
 
@@ -40,6 +44,31 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
+      <Route path="/terms" element={<LegalPage kind="terms" />} />
+      <Route path="/privacy" element={<LegalPage kind="privacy" />} />
+      <Route path="/refunds" element={<LegalPage kind="refunds" />} />
+      {/* YGT's own admin site; AdminLayout lets only platform admins in. */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<AdminOverview />} />
+        <Route path="tenants" element={<AdminTenants />} />
+        <Route path="tenants/:id" element={<AdminTenant />} />
+        <Route path="tickets" element={<AdminTickets />} />
+        <Route path="tickets/:id" element={<AdminTicket />} />
+        <Route path="contact" element={<AdminContact />} />
+        <Route path="bookings" element={<AdminBookings />} />
+        <Route path="errors" element={<AdminErrors />} />
+        <Route path="activity" element={<AdminActivity />} />
+      </Route>
       <Route
         element={
           <ProtectedRoute>
@@ -71,6 +100,8 @@ export default function App() {
         <Route path="/activities" element={<ActivitiesPage />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/help" element={<HelpPage />} />
+        <Route path="/support" element={<SupportPage />} />
+        <Route path="/support/tickets/:id" element={<TicketPage />} />
         <Route path="/deals" element={<DealsPage />} />
         <Route path="/deals/:id" element={<DealDetailPage />} />
         <Route path="/customers" element={<CustomersPage />} />

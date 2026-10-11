@@ -8,6 +8,7 @@ import apiClient from "../services/apiClient";
 import CustomFieldsManager from "../components/CustomFieldsManager";
 import BillingSettings, { PlanNotice } from "../components/Billing";
 import { DocumentTemplateSettings } from "../components/Documents";
+import DataSettings from "../components/DataSettings";
 import { SignatureEditor } from "../components/Signature";
 import TeamManager from "../components/TeamManager";
 import { ConnectionCard, MAIL_PRESETS } from "../components/ChannelSettings";
@@ -60,7 +61,7 @@ function Field({ label, children, hint }) {
 // iOS Safari/webview's auto-zoom-on-focus for fields under 16px.
 const inputClass = "input";
 
-const TABS = ["general", "team", "billing", "documents", "email", "whatsapp", "sms", "fields"];
+const TABS = ["general", "team", "billing", "documents", "email", "whatsapp", "sms", "fields", "data"];
 const WHATSAPP_STEPS = ["app", "ids", "token", "save", "webhook", "window"];
 const SMS_STEPS = ["account", "keys", "sender", "webhook"];
 
@@ -462,6 +463,7 @@ export default function SettingsPage() {
       {tab === "fields" && <CustomFieldsManager />}
       {tab === "billing" && <BillingSettings />}
       {tab === "documents" && <DocumentTemplateSettings />}
+      {tab === "data" && <DataSettings />}
     </div>
   );
 }

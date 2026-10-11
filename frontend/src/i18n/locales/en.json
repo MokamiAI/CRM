@@ -345,12 +345,33 @@
   "contact": {
     "addTitle": "Add a person",
     "added": "Contact added",
+    "company": "Company (optional)",
     "editTitle": "Edit contact",
+    "email": "Email",
+    "failed": "Couldn't send your message. Please try again.",
     "firstName": "First name",
+    "intro": "Questions about YGT, pricing or getting set up? Send us a message and we'll get back to you, usually within one working day.",
     "jobTitle": "Job title",
     "lastName": "Last name",
+    "link": "Contact us",
+    "message": "Message",
+    "name": "Your name",
+    "orEmail": "Or email us at",
+    "phone": "Phone (optional)",
     "primary": "Primary contact for this customer",
     "removed": "Contact removed",
+    "send": "Send message",
+    "sentBody": "We'll reply to {{email}} soon.",
+    "sentTitle": "Thank you, your message is on its way",
+    "title": "Contact us",
+    "topic": "What it's about",
+    "topics": {
+      "billing": "Billing",
+      "other": "Something else",
+      "partnership": "Partnering with YGT",
+      "sales": "Pricing and plans",
+      "support": "I need help"
+    },
     "updated": "Contact updated"
   },
   "customFields": {
@@ -472,6 +493,79 @@
     "topDeals": "Top open deals",
     "validUntil": "valid until {{date}}",
     "yourDay": "Your day"
+  },
+  "data": {
+    "chooseFile": "Choose CSV file",
+    "done": "Import finished: {{created}} added, {{updated}} updated",
+    "entities": {
+      "customers": "Clients (with a contact person)",
+      "deals": "Deals",
+      "products": "Products and services"
+    },
+    "errors_one": "{{count}} row wasn't imported:",
+    "errors_other": "{{count}} rows weren't imported:",
+    "excelHint": "Tip: the first row should hold the column names. Columns we recognise are matched for you.",
+    "exportIntro": "Download your information as CSV files that open in Excel or Google Sheets. Your data is always yours.",
+    "exportTitle": "Export",
+    "exports": {
+      "contacts": "Contact people",
+      "customers": "Clients",
+      "deals": "Deals",
+      "invoices": "Invoices",
+      "payments": "Payments",
+      "products": "Products",
+      "quotes": "Quotes"
+    },
+    "fields": {
+      "billing_address": "Address",
+      "contact_email": "Contact email",
+      "contact_first_name": "Contact first name",
+      "contact_job_title": "Contact job title",
+      "contact_last_name": "Contact surname",
+      "contact_phone": "Contact phone",
+      "customer": "Client",
+      "description": "Description",
+      "email": "Email",
+      "expected_close_date": "Expected close date",
+      "industry": "Industry",
+      "name": "Name",
+      "notes": "Notes",
+      "owner_email": "Owner's email",
+      "phone": "Phone",
+      "sku": "Code (SKU)",
+      "stage": "Stage",
+      "tax_number": "VAT number",
+      "tax_rate": "VAT %",
+      "title": "Deal name",
+      "unit_price": "Price (excl. VAT)",
+      "value": "Value"
+    },
+    "fileSummary_one": "{{name}}: {{count}} row",
+    "fileSummary_other": "{{name}}: {{count}} rows",
+    "importIntro": "Bring in your clients, products and deals from a spreadsheet or another system. Save it as CSV first (in Excel: File > Save As > CSV UTF-8).",
+    "importTitle": "Import",
+    "import_one": "Import {{count}} row",
+    "import_other": "Import {{count}} rows",
+    "importing": "Importing…",
+    "matchIntro": "Match your columns to YGT's fields. Fields marked * are needed.",
+    "needs": "Match these first: {{fields}}",
+    "otherFile": "Choose another file",
+    "previewNote_one": "Showing {{count}} of {{total}} row.",
+    "previewNote_other": "Showing {{count}} of {{total}} rows.",
+    "ready_one": "Ready to import {{count}} row.",
+    "ready_other": "Ready to import {{count}} rows.",
+    "results": {
+      "created": "Added",
+      "skipped": "Already there",
+      "updated": "Updated"
+    },
+    "row": "Row {{row}}:",
+    "skip": "Don't import",
+    "template": "Download a template",
+    "tooMany": "Only the first {{max}} rows will be imported. Split bigger files.",
+    "unreadable": "That file couldn't be read as CSV.",
+    "updateExisting": "Update records that already exist (matched by email, code or name) instead of skipping them",
+    "what": "What are you importing?"
   },
   "deal": {
     "created": "Created",
@@ -612,6 +706,8 @@
   },
   "editor": {
     "addLine": "Add line item",
+    "bankingHint": "Your banking details are added to every invoice automatically.",
+    "bankingLink": "Change them in Settings > Documents",
     "customItem": "Custom item (no product)",
     "customer": "Customer",
     "description": "Description",
@@ -619,6 +715,8 @@
     "item": "Item {{n}}",
     "notes": "Notes",
     "notesHint": "Shown to the customer on the document and email",
+    "poNumber": "Client's order (PO) number",
+    "poNumberHint": "Shown on the document and in the email.",
     "product": "Product",
     "qty": "Qty",
     "remove": "Remove",
@@ -626,6 +724,7 @@
     "unitPrice": "Unit price"
   },
   "errors": {
+    "ACCOUNT_SUSPENDED": "This account is suspended. Please contact YGT support.",
     "BILLING_NOTHING_TO_CANCEL": "There's no paid plan to cancel.",
     "BILLING_NOT_CONFIGURED": "Online payments aren't switched on yet.",
     "BILLING_NO_SUBSCRIPTION": "There's no card on file yet.",
@@ -633,6 +732,7 @@
     "CHANNEL_NOT_SET": "That channel isn't set up yet. An admin can connect it in Settings.",
     "CUSTOMER_NO_EMAIL": "This customer has no email address.",
     "CUSTOMER_NO_PHONE": "This customer has no valid phone number.",
+    "IMPORT_TOO_MANY_ROWS": "That's too many rows for one import. Split the file and try again.",
     "PLAN_EXPIRED": "Your free trial has ended. Choose a plan in Settings > Billing to keep adding and sending.",
     "PLAN_FEATURE_CUSTOM_FIELDS": "Custom fields are part of the Grow plan.",
     "PLAN_FEATURE_MARKETING": "Marketing campaigns are part of the Grow plan.",
@@ -641,7 +741,11 @@
     "PLAN_LIMIT_CUSTOMERS": "You've reached your plan's customer limit. Choose a plan in Settings > Billing for unlimited customers.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "You've used this month's invoices on the Free plan. Choose a plan in Settings > Billing for unlimited invoices.",
     "PLAN_LIMIT_USERS": "Your plan has no room for another person. An admin can add people in Settings > Billing.",
+    "RATE_LIMITED": "Too many attempts. Please wait a moment and try again.",
+    "RESET_LINK_INVALID": "This reset link has expired or was already used. Ask for a new one.",
+    "SLOT_TAKEN": "That time was just taken. Please choose another.",
     "STATEMENT_PERIOD_INVALID": "The start date must be before the end date.",
+    "TICKET_CLOSED": "This ticket is closed. Open a new one if you still need help.",
     "generic": "Something went wrong."
   },
   "feed": {
@@ -953,6 +1057,13 @@
     "label": "Language",
     "reviewNote": "Translations other than English are being reviewed by first-language speakers. If something reads oddly, tell your admin."
   },
+  "legal": {
+    "englishOnly": "This page is available in English.",
+    "privacy": "Privacy",
+    "refunds": "Refund policy",
+    "terms": "Terms",
+    "updated": "Last updated {{date}}"
+  },
   "login": {
     "createAccount": "Create a company account",
     "email": "Email",
@@ -1151,6 +1262,7 @@
   "nav": {
     "about": "About",
     "activities": "Activities",
+    "admin": "YGT admin",
     "customers": "Customers",
     "dashboard": "Dashboard",
     "deals": "Deals",
@@ -1169,7 +1281,8 @@
     "profile": "Your profile",
     "quotes": "Quotes",
     "search": "Search",
-    "settings": "Settings"
+    "settings": "Settings",
+    "support": "Support"
   },
   "palette": {
     "action": {
@@ -1197,6 +1310,21 @@
     "placeholder": "Search customers, people, deals, invoices…",
     "sales": "Sales",
     "searching": "Searching…"
+  },
+  "password": {
+    "confirm": "Type it again",
+    "done": "Password changed. Sign in with your new password.",
+    "forgot": "Forgot password?",
+    "forgotIntro": "Enter your email and we'll send you a link to choose a new password.",
+    "forgotTitle": "Reset your password",
+    "mismatch": "The two passwords don't match.",
+    "new": "New password",
+    "remembered": "Remembered it?",
+    "resetIntro": "At least 8 characters. You'll be signed out on other devices.",
+    "resetTitle": "Choose a new password",
+    "save": "Save password",
+    "sendLink": "Send reset link",
+    "sent": "If {{email}} has a YGT account, a reset link is on its way. Check your inbox (and spam folder)."
   },
   "paymentMethod": {
     "bank_transfer": "Bank transfer",
@@ -1293,16 +1421,48 @@
     "haveAccount": "Already have an account?",
     "password": "Password",
     "passwordHint": "At least 8 characters",
+    "planHint": "Every plan starts with a 14-day free trial. No card needed; you can change plans any time.",
+    "planTitle": "Choose your plan",
     "submit": "Create account",
     "submitting": "Creating account…",
     "subtitle": "Set up YGT for your company in a minute. You'll be its admin and can add your team afterwards.",
-    "title": "Set up your business"
+    "title": "Set up your business",
+    "trialNote": "Free for 14 days, then {{price}}"
   },
   "role": {
     "admin": "Admin",
     "manager": "Manager",
     "staff": "Staff",
     "viewer": "Viewer"
+  },
+  "sessions": {
+    "book": "Book this time",
+    "bookCta": "Book a session",
+    "booked": "Session booked",
+    "bookedHint": "A calendar invite is on its way to your email.",
+    "cancel": "Cancel this session",
+    "cancelled": "Session cancelled",
+    "chooseFirst": "Choose a time.",
+    "chosen": "{{when}}",
+    "intro": "Pick a time for a video call with our team: onboarding, training, or help with a problem.",
+    "inviteNote": "Booking sends a calendar invite to you and to our team, with the meeting link.",
+    "noSlots": "There are no open times right now. Log a ticket and we'll find a time with you.",
+    "noneUpcoming": "Nothing booked yet.",
+    "notes": "Anything we should prepare?",
+    "notesPlaceholder": "e.g. We'd like to import our clients",
+    "orTicket": "Prefer to write? Log a ticket",
+    "pickDay": "Day",
+    "pickTime": "Time ({{tz}}, {{minutes}} minutes)",
+    "title": "Book a session with YGT",
+    "topic": "What it's about",
+    "topics": {
+      "billing": "Billing",
+      "onboarding": "Getting started",
+      "other": "Something else",
+      "support": "Help with a problem",
+      "training": "Training my team"
+    },
+    "upcoming": "Your sessions"
   },
   "settings": {
     "company": {
@@ -1357,6 +1517,7 @@
     "saved": "Settings saved",
     "tabs": {
       "billing": "Billing",
+      "data": "Import & export",
       "documents": "Documents",
       "email": "Email",
       "fields": "Custom fields",
@@ -1470,6 +1631,56 @@
     "sent": "Sent",
     "void": "Void",
     "won": "Won"
+  },
+  "support": {
+    "categories": {
+      "account": "My account",
+      "billing": "Billing",
+      "feature": "Feature idea",
+      "problem": "Something isn't working",
+      "question": "Question"
+    },
+    "category": "What it's about",
+    "close": "Close ticket",
+    "closed": "Ticket closed",
+    "closedHint": "This ticket is closed. Open a new one if you still need help.",
+    "created": "Ticket #{{number}} logged. We'll reply soon.",
+    "details": "Details",
+    "detailsHint": "What happened, what you expected, and the screen you were on. If you saw an error reference, include it.",
+    "newHint": "Tell us what you need. The more detail, the faster we can help.",
+    "newTicket": "New ticket",
+    "none": "No tickets yet",
+    "noneHint": "Stuck, found a problem, or have an idea? Log a ticket and our team will reply here and by email.",
+    "opened": "opened {{date}}",
+    "priority": "Priority support: your plan puts this ticket at the front of the queue.",
+    "reply": "Send reply",
+    "replyPlaceholder": "Write a reply…",
+    "send": "Send ticket",
+    "status": {
+      "closed": "Closed",
+      "in_progress": "Being worked on",
+      "open": "Open",
+      "resolved": "Resolved",
+      "waiting": "Waiting for you"
+    },
+    "subject": "Subject",
+    "subtitle": "Ask YGT's team for help, and book a session with us.",
+    "tabs": {
+      "sessions": "Book a session",
+      "tickets": "Tickets"
+    },
+    "team": "YGT support",
+    "urgencies": {
+      "high": "Urgent: it's stopping our work",
+      "low": "Not urgent",
+      "normal": "Normal"
+    },
+    "urgency": "How urgent is it?",
+    "yourTurn": "We replied"
+  },
+  "suspended": {
+    "body": "Your company's YGT account has been suspended, so it can't be used right now. Please contact us and we'll help sort it out.",
+    "title": "This account is suspended"
   },
   "team": {
     "add": "Add person",

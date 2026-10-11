@@ -34,6 +34,8 @@ class QuoteCreate(BaseModel):
     issue_date: date
     expiry_date: date | None = None
     notes: str | None = None
+    # The client's purchase order number, quoted on the document.
+    po_number: str | None = Field(default=None, max_length=60)
     items: list[QuoteItemCreate] = Field(min_length=1)
 
 
@@ -41,6 +43,8 @@ class QuoteUpdate(BaseModel):
     issue_date: date | None = None
     expiry_date: date | None = None
     notes: str | None = None
+    # The client's purchase order number, quoted on the document.
+    po_number: str | None = Field(default=None, max_length=60)
     items: list[QuoteItemCreate] | None = Field(default=None, min_length=1)
 
 
@@ -58,6 +62,7 @@ class QuoteOut(BaseModel):
     tax_total: Decimal
     total: Decimal
     notes: str | None
+    po_number: str | None = None
     items: list[QuoteItemOut]
     created_at: datetime
     updated_at: datetime

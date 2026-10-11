@@ -10,6 +10,17 @@ from app.models.invoice import Invoice, InvoiceItem
 from app.models.marketing import Campaign, CampaignRecipient, Segment
 from app.models.messaging import ChannelConnection, Conversation, Message, TeamChannel, TeamMessage
 from app.models.payment import Payment
+from app.models.platform import (
+    AuditEvent,
+    BillingRefund,
+    ContactRequest,
+    ErrorLog,
+    PasswordReset,
+    PlatformSetting,
+    SessionBooking,
+    SupportTicket,
+    TicketMessage,
+)
 from app.models.product import Product
 from app.models.quote import Quote, QuoteItem
 from app.models.reminder import ReminderLog
@@ -17,6 +28,15 @@ from app.models.user import RefreshToken, User
 
 __all__ = [
     "Activity",
+    "AuditEvent",
+    "BillingRefund",
+    "ContactRequest",
+    "ErrorLog",
+    "PasswordReset",
+    "PlatformSetting",
+    "SessionBooking",
+    "SupportTicket",
+    "TicketMessage",
     "BillingPayment",
     "Contact",
     "PaystackPlan",

@@ -50,7 +50,8 @@ def effective(sub: Subscription, now: datetime | None = None) -> Effective:
     now = now or _now()
     if sub.status == "trialing":
         if sub.trial_ends_at and sub.trial_ends_at > now:
-            return Effective(PLANS[TRIAL_PLAN], TRIAL_USERS, "trialing")
+            plan = PLANS.get(sub.plan, PLANS[TRIAL_PLAN])
+            return Effective(plan, trial_users(plan), "trialing")
         return Effective(LOCKED, None, "trial_ended")
     if sub.status in ("active", "past_due", "cancelled") and sub.plan in PLANS:
         plan = PLANS[sub.plan]
@@ -63,13 +64,21 @@ def effective(sub: Subscription, now: datetime | None = None) -> Effective:
     return Effective(LOCKED, None, "trial_ended")
 
 
-def new_trial(company_id: uuid.UUID) -> Subscription:
+def trial_users(plan: Plan) -> int:
+    """People allowed during a trial: the plan's own limit, or TRIAL_USERS
+    for plans priced per person."""
+    return TRIAL_USERS if plan.per_user else plan.max_users
+
+
+def new_trial(company_id: uuid.UUID, plan_key: str = TRIAL_PLAN) -> Subscription:
+    """A free trial of the plan chosen at sign-up, with exactly its features."""
+    plan = PLANS.get(plan_key, PLANS[TRIAL_PLAN])
     return Subscription(
         company_id=company_id,
-        plan=TRIAL_PLAN,
+        plan=plan.key,
         status="trialing",
         interval="monthly",
-        seats=TRIAL_USERS,
+        seats=trial_users(plan),
         trial_ends_at=_now() + timedelta(days=settings.TRIAL_DAYS),
     )
 
@@ -155,7 +164,7 @@ class BillingService:
 
     # ------------------------------------------------------------ checkout
 
-    async def _plan_code(self, plan: Plan, interval: str, users: int) -> tuple[str, int]:
+    async def _plan_code(self, plan: Plan, interval: str, users: int, fresh: bool = False) -> tuple[str, int]:
         users = users if plan.per_user else 1
         # Plans belong to one Paystack account and mode (test and live keys
         # see different plans), so remember them per secret key.
@@ -163,7 +172,7 @@ class BillingService:
         key = f"{account}:{plan.key}:{interval}:{users}"
         amount = plan.price_cents(interval, users)
         saved = await self.db.scalar(select(PaystackPlan).where(PaystackPlan.key == key))
-        if saved and saved.amount_cents == amount:
+        if saved and saved.amount_cents == amount and not fresh:
             return saved.plan_code, amount
         label = f"YGT {plan.name} ({interval}" + (f", {users} users)" if plan.per_user else ")")
         code = await paystack.create_plan(label, amount, interval)
@@ -181,17 +190,27 @@ class BillingService:
         users = max(users, plan.min_users) if plan.per_user else 1
         if plan.per_user and users < (await self.usage())["users"]:
             raise AppError("Choose at least as many users as are active now", "BILLING_TOO_FEW_USERS")
-        code, amount = await self._plan_code(plan, interval, users)
         sub = await self.subscription()
-        reference = f"ygt_{uuid.uuid4().hex}"
-        return await paystack.initialize(
-            email=sub.billing_email or user.email,
-            amount_cents=amount,
-            plan_code=code,
-            reference=reference,
-            callback_url=f"{settings.FRONTEND_URL.rstrip('/')}/settings?tab=billing",
-            metadata={"company_id": str(sub.company_id), "plan": plan.key, "interval": interval, "seats": users},
-        )
+
+        async def start(fresh: bool) -> str:
+            code, amount = await self._plan_code(plan, interval, users, fresh=fresh)
+            return await paystack.initialize(
+                email=sub.billing_email or user.email,
+                amount_cents=amount,
+                plan_code=code,
+                reference=f"ygt_{uuid.uuid4().hex}",
+                callback_url=f"{settings.FRONTEND_URL.rstrip('/')}/settings?tab=billing",
+                metadata={"company_id": str(sub.company_id), "plan": plan.key, "interval": interval, "seats": users},
+            )
+
+        try:
+            return await start(fresh=False)
+        except paystack.PaystackError as exc:
+            # The remembered plan is gone on Paystack's side (deleted in the
+            # dashboard, or a different account): make it again, once.
+            if "plan not found" not in exc.message.lower():
+                raise
+            return await start(fresh=True)
 
     async def confirm(self, reference: str) -> bool:
         """After Paystack sends the person back: check the payment and switch

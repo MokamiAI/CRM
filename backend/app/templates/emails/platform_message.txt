@@ -1,0 +1,20 @@
+{{ title }}
+
+{% for paragraph in paragraphs %}
+{{ paragraph }}
+
+{% endfor %}
+{% for label, value in details %}
+{{ label }}: {{ value }}
+{% endfor %}
+{% if quote %}
+
+{{ quote }}
+{% endif %}
+{% if button_url %}
+
+{{ button_label }}: {{ button_url }}
+{% endif %}
+
+--
+{{ footer or "YGT · You Got This" }}

@@ -5,7 +5,8 @@ Hi {{ customer.name }},
 
 Please find invoice {{ invoice.invoice_number }} from {{ company.company_name }} below.
 
-Issue date: {{ invoice.issue_date.strftime("%d %b %Y") }}
+{% if invoice.po_number %}Your order no.: {{ invoice.po_number }}
+{% endif %}Issue date: {{ invoice.issue_date.strftime("%d %b %Y") }}
 Due date:   {{ invoice.due_date.strftime("%d %b %Y") }}
 Amount due: {{ money(amount_due) }}
 {% if t and t.show_customer_tax_number and customer.tax_number %}Your {{ t.tax_label }}: {{ customer.tax_number }}

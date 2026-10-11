@@ -345,12 +345,33 @@
   "contact": {
     "addTitle": "Engeta umuntfu",
     "added": "Lochumana naye wengetiwe",
+    "company": "Inkampani (nawutsandza)",
     "editTitle": "Hlela lochumana naye",
+    "email": "I-imeyili",
+    "failed": "Ayikhonanga kutfumela umlayeto wakho. Sicela uphindze ulinge.",
     "firstName": "Libito",
+    "intro": "Imibuto nge-YGT, emanani noma kuhlela? Sitfumelele umlayeto futsi sitawubuya kuwe, kanyenti ngelilanga linye lemsebenti.",
     "jobTitle": "Sikhundla",
     "lastName": "Sibongo",
+    "link": "Sitsintse",
+    "message": "Umlayeto",
+    "name": "Libito lakho",
+    "orEmail": "Noma sitfumelele i-imeyili ku-",
+    "phone": "Lucingo (nawutsandza)",
     "primary": "Lochumana naye lomkhulu walomtsengi",
     "removed": "Lochumana naye ususiwe",
+    "send": "Tfumela umlayeto",
+    "sentBody": "Sitawuphendvula ku-{{email}} masinyane.",
+    "sentTitle": "Siyabonga, umlayeto wakho usendleleni",
+    "title": "Sitsintse",
+    "topic": "Kumayelana nani",
+    "topics": {
+      "billing": "Inkhokhelo",
+      "other": "Lokunye",
+      "partnership": "Kubambisana ne-YGT",
+      "sales": "Emanani netinhlelo",
+      "support": "Ngidzinga lusito"
+    },
     "updated": "Lochumana naye uvuseletiwe"
   },
   "customFields": {
@@ -472,6 +493,79 @@
     "topDeals": "Tivumelwano letinkhulu letivulekile",
     "validUntil": "isebenta kuze kube nga-{{date}}",
     "yourDay": "Lilanga lakho"
+  },
+  "data": {
+    "chooseFile": "Khetsa ifayela le-CSV",
+    "done": "Kungenisa kuphelile: kwengetwe {{created}}, kwabuyeketwa {{updated}}",
+    "entities": {
+      "customers": "Batsengi (nemuntfu lotsintsanako)",
+      "deals": "Tivumelwano",
+      "products": "Imikhicito netinsita"
+    },
+    "errors_one": "Umugca lo-{{count}} awungeniswanga:",
+    "errors_other": "Imigca lengu-{{count}} ayingeniswanga:",
+    "excelHint": "Seluleko: umugca wekucala kufanele ube nemabito etinsika. Tinsika lesitatiko tiyafaniswa.",
+    "exportIntro": "Dawuniloda imininingwane yakho njengemafayela e-CSV lavuleka ku-Excel noma Google Sheets. Idatha yakho ihlala iyakho.",
+    "exportTitle": "Khipha",
+    "exports": {
+      "contacts": "Bantfu labatsintsanako",
+      "customers": "Batsengi",
+      "deals": "Tivumelwano",
+      "invoices": "Ema-invoyisi",
+      "payments": "Tinkhokhelo",
+      "products": "Imikhicito",
+      "quotes": "Emakhotheshini"
+    },
+    "fields": {
+      "billing_address": "Likheli",
+      "contact_email": "I-imeyili yemuntfu lotsintsanako",
+      "contact_first_name": "Libito lemuntfu lotsintsanako",
+      "contact_job_title": "Sikhundla semuntfu lotsintsanako",
+      "contact_last_name": "Sibongo semuntfu lotsintsanako",
+      "contact_phone": "Lucingo lwemuntfu lotsintsanako",
+      "customer": "Umtsengi",
+      "description": "Incazelo",
+      "email": "I-imeyili",
+      "expected_close_date": "Lilanga lelilindzelekile lekuvala",
+      "industry": "Imboni",
+      "name": "Libito",
+      "notes": "Emanotsi",
+      "owner_email": "I-imeyili yemnikati",
+      "phone": "Lucingo",
+      "sku": "Ikhodi (SKU)",
+      "stage": "Sigaba",
+      "tax_number": "Inombolo ye-VAT",
+      "tax_rate": "VAT %",
+      "title": "Libito lesivumelwano",
+      "unit_price": "Inani (ngaphandle kwe-VAT)",
+      "value": "Livelu"
+    },
+    "fileSummary_one": "{{name}}: umugca lo-{{count}}",
+    "fileSummary_other": "{{name}}: imigca lengu-{{count}}",
+    "importIntro": "Letsa batsengi bakho, imikhicito netivumelwano kusuka kusipredishithi noma kulolunye luhlelo. Cala uyilondvolote njenge-CSV (ku-Excel: File > Save As > CSV UTF-8).",
+    "importTitle": "Ngenisa",
+    "import_one": "Ngenisa umugca lo-{{count}}",
+    "import_other": "Ngenisa imigca lengu-{{count}}",
+    "importing": "Kuyangeniswa…",
+    "matchIntro": "Fanisa tinsika takho netindzawo te-YGT. Tindzawo letimakwe nga-* tiyadzingeka.",
+    "needs": "Fanisa leti kucala: {{fields}}",
+    "otherFile": "Khetsa lelinye ifayela",
+    "previewNote_one": "Kuboniswa lo-{{count}} kwangu-{{total}}.",
+    "previewNote_other": "Kuboniswa langu-{{count}} kwangu-{{total}}.",
+    "ready_one": "Kulungele kungenisa umugca lo-{{count}}.",
+    "ready_other": "Kulungele kungenisa imigca lengu-{{count}}.",
+    "results": {
+      "created": "Kwengetiwe",
+      "skipped": "Bekuvele kukhona",
+      "updated": "Kubuyeketiwe"
+    },
+    "row": "Umugca {{row}}:",
+    "skip": "Ungangenisi",
+    "template": "Dawuniloda ithempulethi",
+    "tooMany": "Kutawungeniswa imigca yekucala lengu-{{max}} kuphela. Hlukanisa emafayela lamakhulu.",
+    "unreadable": "Lelo fayela alikhonanga kufundvwa njenge-CSV.",
+    "updateExisting": "Buyeketa emarekhodi lavele akhona (afaniswa nge-imeyili, ikhodi noma libito) esikhundleni sekuwayeca",
+    "what": "Ungenisani?"
   },
   "deal": {
     "created": "Kwentiwe",
@@ -612,6 +706,8 @@
   },
   "editor": {
     "addLine": "Engeta intfo",
+    "bankingHint": "Imininingwane yakho yasebhange yengetwa ngekutentekela kuyo yonkhe i-invoyisi.",
+    "bankingLink": "Yishintje ku-Kuhlela > Emadokhumenti",
     "customItem": "Intfo lekhetsekile (akusiyo umkhicito)",
     "customer": "Umtsengi",
     "description": "Inchazelo",
@@ -619,6 +715,8 @@
     "item": "Intfo {{n}}",
     "notes": "Emanothi",
     "notesHint": "Akhonjiswa umtsengi kumbhalo nase-imeyilini",
+    "poNumber": "Inombolo ye-oda (PO) yemtsengi",
+    "poNumberHint": "Iboniswa kulidokhumenti nase-imeyilini.",
     "product": "Umkhicito",
     "qty": "Linani",
     "remove": "Susa",
@@ -626,6 +724,7 @@
     "unitPrice": "Intsengo yinye"
   },
   "errors": {
+    "ACCOUNT_SUSPENDED": "Le-akhawunti imisiwe. Sicela utsintse kusekela kwe-YGT.",
     "BILLING_NOTHING_TO_CANCEL": "Kute luhlelo lolukhokhelwako lekulukhansela.",
     "BILLING_NOT_CONFIGURED": "Tinkhokhelo te-inthanethi atikavulwa.",
     "BILLING_NO_SUBSCRIPTION": "Kute likhadi lelilondvoloziwe nyalo.",
@@ -633,6 +732,7 @@
     "CHANNEL_NOT_SET": "Lesitesheni asikasetjwa. Umphatsi angasixhumanisa ku-Kuhlela.",
     "CUSTOMER_NO_EMAIL": "Lomtsengi akanalo likheli le-imeyili.",
     "CUSTOMER_NO_PHONE": "Lomtsengi akanayo inombolo yelucingo lesebentako.",
+    "IMPORT_TOO_MANY_ROWS": "Imigca minyenti kakhulu kungenisa kanye. Hlukanisa ifayela bese uphindza ulinga.",
     "PLAN_EXPIRED": "Sikhatsi sakho sekuzama mahhala siphelile. Khetsa luhlelo ku-Kuhlela > Inkhokhelo kute uchubeke wengeta futsi utfumela.",
     "PLAN_FEATURE_CUSTOM_FIELDS": "Tindzawo letengetiwe tiyincenye yeluhlelo lwe-Grow.",
     "PLAN_FEATURE_MARKETING": "Imikhankaso yekukhangisa iyincenye yeluhlelo lwe-Grow.",
@@ -641,7 +741,11 @@
     "PLAN_LIMIT_CUSTOMERS": "Ufike emkhawulweni webatsengi weluhlelo lwakho. Khetsa luhlelo ku-Kuhlela > Inkhokhelo kute utfole batsengi labangenamkhawulo.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "Usebentisile ema-invoyisi alenyanga ehlelweni le-Free. Khetsa luhlelo ku-Kuhlela > Inkhokhelo kute utfole ema-invoyisi langenamkhawulo.",
     "PLAN_LIMIT_USERS": "Luhlelo lwakho alunandzawo yalomunye umuntfu. Umphatsi angengeta bantfu ku-Kuhlela > Inkhokhelo.",
+    "RATE_LIMITED": "Imizamo leminyenti kakhulu. Sicela ulindze kancane bese uphindza ulinga.",
+    "RESET_LINK_INVALID": "Lelinki seliphelelwe sikhatsi noma selisetjentisiwe. Cela lelinye.",
+    "SLOT_TAKEN": "Lesikhatsi sisandza kutsatfwa. Sicela ukhetse lesinye.",
     "STATEMENT_PERIOD_INVALID": "Lilanga lekucala kufanele libe ngaphambi kwelilanga lekugcina.",
+    "TICKET_CLOSED": "Lelithikithi livaliwe. Vula lelisha nawusadzinga lusito.",
     "generic": "Kukhona lokungakahambi kahle."
   },
   "feed": {
@@ -953,6 +1057,13 @@
     "label": "Lulwimi",
     "reviewNote": "Kuhumusha lokungasiko kweSingisi kubuketwa tikhulumi telulwimi lwasekhaya. Nangabe lokutsite kufundzeka ngendlela lengakajwayeleki, tjela umphatsi wakho."
   },
+  "legal": {
+    "englishOnly": "Leli khasi litfolakala ngesiNgisi.",
+    "privacy": "Imfihlo",
+    "refunds": "Inchubomgomo yekubuyisela imali",
+    "terms": "Imibandzela",
+    "updated": "Kubuyeketwe nga-{{date}}"
+  },
   "login": {
     "createAccount": "Yenta i-akhawunti yenkampani",
     "email": "I-imeyili",
@@ -1151,6 +1262,7 @@
   "nav": {
     "about": "Mayelana",
     "activities": "Imisebenti",
+    "admin": "Umphatsi we-YGT",
     "customers": "Batsengi",
     "dashboard": "Lideshibhodi",
     "deals": "Tivumelwano",
@@ -1169,7 +1281,8 @@
     "profile": "Iphrofayili yakho",
     "quotes": "Emakhotheshini",
     "search": "Sesha",
-    "settings": "Kuhlela"
+    "settings": "Kuhlela",
+    "support": "Kusekela"
   },
   "palette": {
     "action": {
@@ -1197,6 +1310,21 @@
     "placeholder": "Sesha batsengi, bantfu, tivumelwano, ema-invoyisi…",
     "sales": "Kutsengisa",
     "searching": "Iyasesha…"
+  },
+  "password": {
+    "confirm": "Yibhale futsi",
+    "done": "Iphasiwedi ishintjiwe. Ngena ngephasiwedi yakho lensha.",
+    "forgot": "Ukhohlwe iphasiwedi?",
+    "forgotIntro": "Faka i-imeyili yakho futsi sitakutfumelela linki yekukhetsa iphasiwedi lensha.",
+    "forgotTitle": "Setha kabusha iphasiwedi yakho",
+    "mismatch": "Emaphasiwedi lamabili akafani.",
+    "new": "Iphasiwedi lensha",
+    "remembered": "Uyikhumbulile?",
+    "resetIntro": "Lokungenani tinhlavu leti-8. Utawukhishwa kuletinye tinsita.",
+    "resetTitle": "Khetsa iphasiwedi lensha",
+    "save": "Londvolota iphasiwedi",
+    "sendLink": "Tfumela linki",
+    "sent": "Nangabe {{email}} ine-akhawunti ye-YGT, linki iyeta. Hlola libhokisi lakho (nelemayeyi)."
   },
   "paymentMethod": {
     "bank_transfer": "Kudlulisa ngelibhange",
@@ -1293,16 +1421,48 @@
     "haveAccount": "Sewunayo i-akhawunti?",
     "password": "Iphasiwedi",
     "passwordHint": "Lokungenani tinhlamvu leti-8",
+    "planHint": "Lonkhe luhlelo lucala ngesikhatsi sekuzama mahhala semalanga la-14. Alidzingeki likhadi; ungashintja luhlelo nanoma nini.",
+    "planTitle": "Khetsa luhlelo lwakho",
     "submit": "Yenta i-akhawunti",
     "submitting": "Iyenta i-akhawunti…",
     "subtitle": "Yenta i-YGT yenkampani yakho ngemzuzu. Utawuba ngumphatsi futsi ungengeta licembu lakho ngemuva.",
-    "title": "Setha libhizinisi lakho"
+    "title": "Setha libhizinisi lakho",
+    "trialNote": "Mahhala emalanga la-14, bese kuba {{price}}"
   },
   "role": {
     "admin": "Umphatsi",
     "manager": "Imenenja",
     "staff": "Basebenti",
     "viewer": "Lobukelako"
+  },
+  "sessions": {
+    "book": "Bhukha lesikhatsi",
+    "bookCta": "Bhukha seshini",
+    "booked": "Seshini ibhukhiwe",
+    "bookedHint": "Simemo sekhalenda siyeta ku-imeyili yakho.",
+    "cancel": "Khansela leseshini",
+    "cancelled": "Seshini ikhanseliwe",
+    "chooseFirst": "Khetsa sikhatsi.",
+    "chosen": "{{when}}",
+    "intro": "Khetsa sikhatsi selucingo levidiyo nelithimba letfu: kucala, kucecesha, noma lusito ngenkinga.",
+    "inviteNote": "Kubhukha kutfumela simemo sekhalenda kuwe nakulithimba letfu, kanye nelinki yemhlangano.",
+    "noSlots": "Kute tikhatsi letivulekile nyalo. Faka lithikithi futsi sitawutfola sikhatsi nawe.",
+    "noneUpcoming": "Akukabhukhwa lutfo.",
+    "notes": "Kukhona lokufanele sikulungiselele?",
+    "notesPlaceholder": "sib. Sifuna kungenisa batsengi betfu",
+    "orTicket": "Ukhetsa kubhala? Faka lithikithi",
+    "pickDay": "Lilanga",
+    "pickTime": "Sikhatsi ({{tz}}, imizuzu lengu-{{minutes}})",
+    "title": "Bhukha seshini ne-YGT",
+    "topic": "Kumayelana nani",
+    "topics": {
+      "billing": "Inkhokhelo",
+      "onboarding": "Kucala",
+      "other": "Lokunye",
+      "support": "Lusito ngenkinga",
+      "training": "Kucecesha lithimba lami"
+    },
+    "upcoming": "Emaseshini akho"
   },
   "settings": {
     "company": {
@@ -1357,6 +1517,7 @@
     "saved": "Kuhlela kugciniwe",
     "tabs": {
       "billing": "Inkhokhelo",
+      "data": "Ngenisa futsi ukhiphe",
       "documents": "Emadokhumenti",
       "email": "I-imeyili",
       "fields": "Tindzawo letengetiwe",
@@ -1470,6 +1631,56 @@
     "sent": "Kutfunyelwe",
     "void": "Akusebenti",
     "won": "Kuphumelele"
+  },
+  "support": {
+    "categories": {
+      "account": "I-akhawunti yami",
+      "billing": "Inkhokhelo",
+      "feature": "Umcondvo welusito",
+      "problem": "Kukhona lokungasebenti",
+      "question": "Umbuto"
+    },
+    "category": "Kumayelana nani",
+    "close": "Vala lithikithi",
+    "closed": "Lithikithi livaliwe",
+    "closedHint": "Lelithikithi livaliwe. Vula lelisha nawusadzinga lusito.",
+    "created": "Lithikithi #{{number}} lifakiwe. Sitawuphendvula masinyane.",
+    "details": "Imininingwane",
+    "detailsHint": "Lokwentekile, lobekukulindzele, nesikrini lobekukuso. Nawubone ireferensi yeliphutsa, yifake.",
+    "newHint": "Sitjele lokudzingako. Nangabe imininingwane iyinyenti, siyasita ngekushesha.",
+    "newTicket": "Lithikithi lelisha",
+    "none": "Akukabi khona emathikithi",
+    "noneHint": "Ubambekile, utfole inkinga, noma unemcondvo? Faka lithikithi futsi lithimba letfu litawuphendvula lapha nange-imeyili.",
+    "opened": "livulwe nga-{{date}}",
+    "priority": "Kusekela kwekucala: luhlelo lwakho lubeka lelithikithi embili kulayini.",
+    "reply": "Tfumela imphendvulo",
+    "replyPlaceholder": "Bhala imphendvulo…",
+    "send": "Tfumela lithikithi",
+    "status": {
+      "closed": "Kuvaliwe",
+      "in_progress": "Kuyasetjentwa",
+      "open": "Kuvulekile",
+      "resolved": "Kuxazululiwe",
+      "waiting": "Kulindze wena"
+    },
+    "subject": "Sihloko",
+    "subtitle": "Cela lusito elithimbeni le-YGT, futsi ubhukhe seshini natsi.",
+    "tabs": {
+      "sessions": "Bhukha seshini",
+      "tickets": "Emathikithi"
+    },
+    "team": "Kusekela kwe-YGT",
+    "urgencies": {
+      "high": "Kuphutfuma: kumisa umsebenti wetfu",
+      "low": "Akuphutfumi",
+      "normal": "Lokuvamile"
+    },
+    "urgency": "Kuphutfuma kangakanani?",
+    "yourTurn": "Siphendvulile"
+  },
+  "suspended": {
+    "body": "I-akhawunti ye-YGT yenkampani yakho imisiwe, ngako-ke angeke isetjentiswe nyalo. Sicela usitsintse sitakusita.",
+    "title": "Le-akhawunti imisiwe"
   },
   "team": {
     "add": "Engeta umuntfu",

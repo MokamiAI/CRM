@@ -345,12 +345,33 @@
   "contact": {
     "addTitle": "Tsenya motho",
     "added": "Motho wa kgolagano o tsentswe",
+    "company": "Khampani (fa o rata)",
     "editTitle": "Fetola motho wa kgolagano",
+    "email": "Imeile",
+    "failed": "Ga e a kgona go romela molaetsa wa gago. Tswee-tswee leka gape.",
     "firstName": "Leina",
+    "intro": "Dipotso ka YGT, ditlhwatlhwa kgotsa go baakanya? Re romele molaetsa mme re tla go araba, gantsi mo letsatsing le le lengwe la tiro.",
     "jobTitle": "Maemo a tiro",
     "lastName": "Sefane",
+    "link": "Ikgolaganye le rona",
+    "message": "Molaetsa",
+    "name": "Leina la gago",
+    "orEmail": "Kgotsa re romele imeile kwa",
+    "phone": "Mogala (fa o rata)",
     "primary": "Motho yo mogolo wa kgolagano wa moreki yo",
     "removed": "Motho wa kgolagano o tlositswe",
+    "send": "Romela molaetsa",
+    "sentBody": "Re tla araba kwa {{email}} ka bonako.",
+    "sentTitle": "Re a leboga, molaetsa wa gago o mo tseleng",
+    "title": "Ikgolaganye le rona",
+    "topic": "E ka ga eng",
+    "topics": {
+      "billing": "Tuelo",
+      "other": "Sengwe se sengwe",
+      "partnership": "Tirisano le YGT",
+      "sales": "Ditlhwatlhwa le maano",
+      "support": "Ke tlhoka thuso"
+    },
     "updated": "Motho wa kgolagano o ntšhafaditswe"
   },
   "customFields": {
@@ -472,6 +493,79 @@
     "topDeals": "Ditumalano tse dikgolo tse di buletsweng",
     "validUntil": "e dira go fitlha {{date}}",
     "yourDay": "Letsatsi la gago"
+  },
+  "data": {
+    "chooseFile": "Tlhopha faele ya CSV",
+    "done": "Go tsenya go weditswe: go okeditswe {{created}}, go ntšhafaditswe {{updated}}",
+    "entities": {
+      "customers": "Bareki (le motho wa kgolagano)",
+      "deals": "Ditumalano",
+      "products": "Ditlhagiswa le ditirelo"
+    },
+    "errors_one": "Mola o le {{count}} ga o a tsenngwa:",
+    "errors_other": "Mela e le {{count}} ga e a tsenngwa:",
+    "excelHint": "Kgakololo: mola wa ntlha o tshwanetse go nna le maina a dikholomo. Dikholomo tse re di itseng di a tsamaisiwa.",
+    "exportIntro": "Folosa tshedimosetso ya gago jaaka difaele tsa CSV tse di bulegang mo Excel kgotsa Google Sheets. Data ya gago ke ya gago ka metlha.",
+    "exportTitle": "Ntsha",
+    "exports": {
+      "contacts": "Batho ba kgolagano",
+      "customers": "Bareki",
+      "deals": "Ditumalano",
+      "invoices": "Di-invoice",
+      "payments": "Dituelo",
+      "products": "Ditlhagiswa",
+      "quotes": "Ditekanyetso"
+    },
+    "fields": {
+      "billing_address": "Aterese",
+      "contact_email": "Imeile ya motho wa kgolagano",
+      "contact_first_name": "Leina la motho wa kgolagano",
+      "contact_job_title": "Maemo a motho wa kgolagano",
+      "contact_last_name": "Sefane sa motho wa kgolagano",
+      "contact_phone": "Mogala wa motho wa kgolagano",
+      "customer": "Moreki",
+      "description": "Tlhaloso",
+      "email": "Imeile",
+      "expected_close_date": "Letlha le le lebeletsweng la go tswala",
+      "industry": "Intaseteri",
+      "name": "Leina",
+      "notes": "Dintlha",
+      "owner_email": "Imeile ya mong",
+      "phone": "Mogala",
+      "sku": "Khoutu (SKU)",
+      "stage": "Legato",
+      "tax_number": "Nomoro ya VAT",
+      "tax_rate": "VAT %",
+      "title": "Leina la tumalano",
+      "unit_price": "Tlhwatlhwa (kwa ntle ga VAT)",
+      "value": "Boleng"
+    },
+    "fileSummary_one": "{{name}}: mola o le {{count}}",
+    "fileSummary_other": "{{name}}: mela e le {{count}}",
+    "importIntro": "Tlisa bareki ba gago, ditlhagiswa le ditumalano go tswa mo spreadsheet kgotsa mo thulaganyong e nngwe. Pele e boloke jaaka CSV (mo Excel: File > Save As > CSV UTF-8).",
+    "importTitle": "Tsenya",
+    "import_one": "Tsenya mola o le {{count}}",
+    "import_other": "Tsenya mela e le {{count}}",
+    "importing": "E a tsenya…",
+    "matchIntro": "Tsamaisa dikholomo tsa gago le mafelo a YGT. Mafelo a a tshwailweng ka * a a tlhokega.",
+    "needs": "Tsamaisa tseno pele: {{fields}}",
+    "otherFile": "Tlhopha faele e nngwe",
+    "previewNote_one": "Go bontshiwa o le {{count}} mo go {{total}}.",
+    "previewNote_other": "Go bontshiwa e le {{count}} mo go {{total}}.",
+    "ready_one": "E siametse go tsenya mola o le {{count}}.",
+    "ready_other": "E siametse go tsenya mela e le {{count}}.",
+    "results": {
+      "created": "Go okeditswe",
+      "skipped": "Go setse go le teng",
+      "updated": "Go ntšhafaditswe"
+    },
+    "row": "Mola {{row}}:",
+    "skip": "O se tsenye",
+    "template": "Folosa thempoleite",
+    "tooMany": "Go tla tsenngwa mela ya ntlha e le {{max}} fela. Kgaoganya difaele tse dikgolo.",
+    "unreadable": "Faele eo ga e a kgona go balwa jaaka CSV.",
+    "updateExisting": "Ntšhafatsa direkoto tse di setseng di le teng (di tsamaisiwa ka imeile, khoutu kgotsa leina) go na le go di tlola",
+    "what": "O tsenya eng?"
   },
   "deal": {
     "created": "E dirilwe",
@@ -612,6 +706,8 @@
   },
   "editor": {
     "addLine": "Tsenya selo",
+    "bankingHint": "Dintlha tsa gago tsa banka di okelediwa mo invoice nngwe le nngwe ka boyone.",
+    "bankingLink": "Di fetole mo Dithulaganyo > Ditokomane",
     "customItem": "Selo se se ikgethileng (ga se setlhagiswa)",
     "customer": "Moreki",
     "description": "Tlhaloso",
@@ -619,6 +715,8 @@
     "item": "Selo {{n}}",
     "notes": "Dintlha",
     "notesHint": "Di bontshiwa moreki mo tokomaneng le mo imeileng",
+    "poNumber": "Nomoro ya taelo (PO) ya moreki",
+    "poNumberHint": "E bontshiwa mo tokomaneng le mo imeileng.",
     "product": "Setlhagiswa",
     "qty": "Palo",
     "remove": "Tlosa",
@@ -626,6 +724,7 @@
     "unitPrice": "Tlhwatlhwa ya se le sengwe"
   },
   "errors": {
+    "ACCOUNT_SUSPENDED": "Akhaonto eno e emisitswe. Tswee-tswee ikgolaganye le tshegetso ya YGT.",
     "BILLING_NOTHING_TO_CANCEL": "Ga go na leano le le duelelwang go le khansela.",
     "BILLING_NOT_CONFIGURED": "Dituelo tsa inthanete ga di ise di bulwe.",
     "BILLING_NO_SUBSCRIPTION": "Ga go na karata e e bolokilweng ga jaana.",
@@ -633,6 +732,7 @@
     "CHANNEL_NOT_SET": "Kanale eo ga e ise e rulaganngwe. Motsamaisi a ka e golaganya mo Dithulaganyong.",
     "CUSTOMER_NO_EMAIL": "Moreki yo ga a na aterese ya imeile.",
     "CUSTOMER_NO_PHONE": "Moreki yo ga a na nomoro ya mogala e e dirang.",
+    "IMPORT_TOO_MANY_ROWS": "Mela e mentsi thata go tsenya gangwe. Kgaoganya faele o leke gape.",
     "PLAN_EXPIRED": "Nako ya gago ya teko ya mahala e fedile. Tlhopha leano mo Dithulaganyo > Tuelo go tswelela o oketsa le go romela.",
     "PLAN_FEATURE_CUSTOM_FIELDS": "Mafelo a tlaleletso ke karolo ya leano la Grow.",
     "PLAN_FEATURE_MARKETING": "Matsholo a papatso ke karolo ya leano la Grow.",
@@ -641,7 +741,11 @@
     "PLAN_LIMIT_CUSTOMERS": "O fitlhile selekanyo sa bareki sa leano la gago. Tlhopha leano mo Dithulaganyo > Tuelo go bona bareki ba ba senang selekanyo.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "O dirisitse di-invoice tsa kgwedi eno mo leanong la Free. Tlhopha leano mo Dithulaganyo > Tuelo go bona di-invoice tse di senang selekanyo.",
     "PLAN_LIMIT_USERS": "Leano la gago ga le na sebaka sa motho yo mongwe. Motsamaisi a ka oketsa batho mo Dithulaganyo > Tuelo.",
+    "RATE_LIMITED": "Maiteko a le mantsi thata. Tswee-tswee ema sebakanyana o leke gape.",
+    "RESET_LINK_INVALID": "Kgolagano eno e fetilwe ke nako kgotsa e setse e dirisitswe. Kopa e ntšha.",
+    "SLOT_TAKEN": "Nako eo e sa tswa go tsewa. Tswee-tswee tlhopha e nngwe.",
     "STATEMENT_PERIOD_INVALID": "Letlha la go simolola le tshwanetse go nna pele ga la bofelo.",
+    "TICKET_CLOSED": "Tekete eno e tswetswe. Bula e ntšha fa o santse o tlhoka thuso.",
     "generic": "Go na le se se sa tsamaang sentle."
   },
   "feed": {
@@ -953,6 +1057,13 @@
     "label": "Puo",
     "reviewNote": "Diranolo tse e seng tsa Sekgoa di tlhatlhobiwa ke dibui tsa puo ya segae. Fa sengwe se balega ka tsela e e sa tlwaelegang, itsise motsamaisi wa gago."
   },
+  "legal": {
+    "englishOnly": "Tsebe eno e bonala ka Sekgowa.",
+    "privacy": "Sephiri",
+    "refunds": "Pholisi ya go busetsa madi",
+    "terms": "Mabaka",
+    "updated": "E ntšhafaditswe ka {{date}}"
+  },
   "login": {
     "createAccount": "Dira akhaonto ya khampani",
     "email": "Imeile",
@@ -1151,6 +1262,7 @@
   "nav": {
     "about": "Ka ga",
     "activities": "Ditiro",
+    "admin": "Motsamaisi wa YGT",
     "customers": "Bareki",
     "dashboard": "Tešeboto",
     "deals": "Ditumalano",
@@ -1169,7 +1281,8 @@
     "profile": "Porofaele ya gago",
     "quotes": "Ditekanyetso",
     "search": "Batla",
-    "settings": "Dithulaganyo"
+    "settings": "Dithulaganyo",
+    "support": "Tshegetso"
   },
   "palette": {
     "action": {
@@ -1197,6 +1310,21 @@
     "placeholder": "Batla bareki, batho, ditumalano, di-invoice…",
     "sales": "Thekiso",
     "searching": "E a batla…"
+  },
+  "password": {
+    "confirm": "Le kwale gape",
+    "done": "Lefoko-sephiri le fetotswe. Tsena ka lefoko-sephiri la gago le lešwa.",
+    "forgot": "O lebetse lefoko-sephiri?",
+    "forgotIntro": "Tsenya imeile ya gago mme re tla go romela kgolagano ya go tlhopha lefoko-sephiri le lešwa.",
+    "forgotTitle": "Baakanya lefoko-sephiri sešwa",
+    "mismatch": "Mafoko-sephiri a mabedi ga a tshwane.",
+    "new": "Lefoko-sephiri le lešwa",
+    "remembered": "O le gakologetswe?",
+    "resetIntro": "Bonnye ditlhaka di le 8. O tla ntshiwa mo didirisiweng tse dingwe.",
+    "resetTitle": "Tlhopha lefoko-sephiri le lešwa",
+    "save": "Boloka lefoko-sephiri",
+    "sendLink": "Romela kgolagano",
+    "sent": "Fa {{email}} e na le akhaonto ya YGT, kgolagano e mo tseleng. Leba mo lebokoseng la gago (le la spam)."
   },
   "paymentMethod": {
     "bank_transfer": "Phetisetso ya banka",
@@ -1293,16 +1421,48 @@
     "haveAccount": "A o setse o na le akhaonto?",
     "password": "Lefoko la sephiri",
     "passwordHint": "Bonnye ditlhaka di le 8",
+    "planHint": "Leano lengwe le lengwe le simolola ka nako ya teko ya mahala ya malatsi a le 14. Ga go tlhokege karata; o ka fetola leano nako nngwe le nngwe.",
+    "planTitle": "Tlhopha leano la gago",
     "submit": "Dira akhaonto",
     "submitting": "E dira akhaonto…",
     "subtitle": "Dira YGT ya khampani ya gago ka motsotso. O tla nna motsamaisi mme o ka tsenya setlhopha sa gago moragonyana.",
-    "title": "Rulaganya kgwebo ya gago"
+    "title": "Rulaganya kgwebo ya gago",
+    "trialNote": "Mahala malatsi a le 14, morago {{price}}"
   },
   "role": {
     "admin": "Motsamaisi",
     "manager": "Mookamedi",
     "staff": "Badiri",
     "viewer": "Molebelele"
+  },
+  "sessions": {
+    "book": "Beya nako eno",
+    "bookCta": "Beya seshene",
+    "booked": "Seshene e beilwe",
+    "bookedHint": "Taletso ya khalendara e tla kwa imeileng ya gago.",
+    "cancel": "Khansela seshene eno",
+    "cancelled": "Seshene e khanseletswe",
+    "chooseFirst": "Tlhopha nako.",
+    "chosen": "{{when}}",
+    "intro": "Tlhopha nako ya mogala wa bidio le setlhopha sa rona: go simolola, katiso, kgotsa thuso ka bothata.",
+    "inviteNote": "Go beya go romela taletso ya khalendara go wena le setlhopha sa rona, le kgolagano ya kopano.",
+    "noSlots": "Ga go na dinako tse di bulegileng ga jaana. Tsenya tekete mme re tla bona nako le wena.",
+    "noneUpcoming": "Ga go se se beilweng ga jaana.",
+    "notes": "A go na le se re tshwanetseng go se baakanyetsa?",
+    "notesPlaceholder": "sk. Re batla go tsenya bareki ba rona",
+    "orTicket": "O rata go kwala? Tsenya tekete",
+    "pickDay": "Letsatsi",
+    "pickTime": "Nako ({{tz}}, metsotso e le {{minutes}})",
+    "title": "Beya seshene le YGT",
+    "topic": "E ka ga eng",
+    "topics": {
+      "billing": "Tuelo",
+      "onboarding": "Go simolola",
+      "other": "Sengwe se sengwe",
+      "support": "Thuso ka bothata",
+      "training": "Go katisa setlhopha sa me"
+    },
+    "upcoming": "Dishene tsa gago"
   },
   "settings": {
     "company": {
@@ -1357,6 +1517,7 @@
     "saved": "Dithulaganyo di bolokilwe",
     "tabs": {
       "billing": "Tuelo",
+      "data": "Tsenya le go ntsha",
       "documents": "Ditokomane",
       "email": "Imeile",
       "fields": "Mafelo a tlaleletso",
@@ -1470,6 +1631,56 @@
     "sent": "E rometswe",
     "void": "E phimotswe",
     "won": "E fentswe"
+  },
+  "support": {
+    "categories": {
+      "account": "Akhaonto ya me",
+      "billing": "Tuelo",
+      "feature": "Kakanyo ya sebopego",
+      "problem": "Sengwe ga se dire",
+      "question": "Potso"
+    },
+    "category": "E ka ga eng",
+    "close": "Tswala tekete",
+    "closed": "Tekete e tswetswe",
+    "closedHint": "Tekete eno e tswetswe. Bula e ntšha fa o santse o tlhoka thuso.",
+    "created": "Tekete #{{number}} e tsentswe. Re tla araba ka bonako.",
+    "details": "Dintlha",
+    "detailsHint": "Se se diragetseng, se o neng o se lebeletse, le sekirini se o neng o le mo go sone. Fa o bone tshupiso ya phoso, e tsenye.",
+    "newHint": "Re bolelele se o se tlhokang. Fa dintlha di le dintsi, re thusa ka bonako.",
+    "newTicket": "Tekete e ntšha",
+    "none": "Ga go na ditekete ga jaana",
+    "noneHint": "O kgomaretse, o bone bothata, kgotsa o na le kakanyo? Tsenya tekete mme setlhopha sa rona se tla araba fa le ka imeile.",
+    "opened": "e butswe ka {{date}}",
+    "priority": "Tshegetso ya ntlha: leano la gago le beya tekete eno kwa pele mo moleng.",
+    "reply": "Romela karabo",
+    "replyPlaceholder": "Kwala karabo…",
+    "send": "Romela tekete",
+    "status": {
+      "closed": "E tswetswe",
+      "in_progress": "E a dirwa",
+      "open": "E bulegile",
+      "resolved": "E rarabolotswe",
+      "waiting": "E emetse wena"
+    },
+    "subject": "Setlhogo",
+    "subtitle": "Kopa thuso mo setlhopheng sa YGT, mme o beye seshene le rona.",
+    "tabs": {
+      "sessions": "Beya seshene",
+      "tickets": "Ditekete"
+    },
+    "team": "Tshegetso ya YGT",
+    "urgencies": {
+      "high": "E potlakile: e emisa tiro ya rona",
+      "low": "Ga e potlake",
+      "normal": "Ya tlwaelo"
+    },
+    "urgency": "E potlakile go le kae?",
+    "yourTurn": "Re arabile"
+  },
+  "suspended": {
+    "body": "Akhaonto ya YGT ya khampani ya gago e emisitswe, ka jalo ga e kgone go dirisiwa ga jaana. Tswee-tswee ikgolaganye le rona re go thuse.",
+    "title": "Akhaonto eno e emisitswe"
   },
   "team": {
     "add": "Oketsa motho",

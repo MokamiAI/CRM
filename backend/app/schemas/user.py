@@ -31,7 +31,15 @@ class UserOut(BaseModel):
     language: str
     tour_completed_at: datetime | None = None
     email_signature: str | None = None
+    # YGT's own team: may open the admin site.
+    is_platform_admin: bool = False
     created_at: datetime
+
+
+class MeOut(UserOut):
+    # The company is suspended: the app shows a notice instead of the screens.
+    account_suspended: bool = False
+    suspended_reason: str | None = None
 
 
 class ProfileUpdate(BaseModel):

@@ -1,0 +1,30 @@
+# {$DOMAIN} comes from .env (e.g. app.ygt.co.za). Caddy gets and renews the
+# HTTPS certificate on its own once the domain points at this server.
+{$DOMAIN} {
+	encode zstd gzip
+
+	# The API (and the public webhook/unsubscribe links it serves).
+	handle /api/* {
+		reverse_proxy backend:8000
+	}
+	handle /health {
+		reverse_proxy backend:8000
+	}
+
+	# The web app: real files first, everything else is a page of the app.
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+		@assets path /assets/*
+		header @assets Cache-Control "public, max-age=31536000, immutable"
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "SAMEORIGIN"
+		-Server
+	}
+}

@@ -12,6 +12,7 @@ celery_app = Celery(
         "app.tasks.invoice_tasks",
         "app.tasks.marketing_tasks",
         "app.tasks.messaging_tasks",
+        "app.tasks.platform_tasks",
         "app.tasks.reminder_tasks",
     ],
 )
@@ -22,6 +23,7 @@ celery_app.conf.update(
         "app.tasks.email_tasks.*": {"queue": "emails"},
         "app.tasks.marketing_tasks.*": {"queue": "emails"},
         "app.tasks.messaging_tasks.*": {"queue": "emails"},
+        "app.tasks.platform_tasks.*": {"queue": "emails"},
         "app.tasks.invoice_tasks.*": {"queue": "reports"},
     },
     timezone=settings.DEFAULT_TIMEZONE,

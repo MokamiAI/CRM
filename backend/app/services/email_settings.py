@@ -26,7 +26,7 @@ def resolve_email_config(company: CompanySettings) -> EffectiveEmailConfig:
         port=company.smtp_port or settings.SMTP_PORT,
         username=company.smtp_username or settings.SMTP_USERNAME,
         password=decrypt(company.smtp_password) or settings.SMTP_PASSWORD,
-        use_tls=company.smtp_use_tls,
+        use_tls=company.smtp_use_tls if company.smtp_host else settings.SMTP_USE_TLS,
         from_email=company.sender_email or settings.SMTP_FROM_EMAIL or "",
         from_name=company.sender_name or settings.SMTP_FROM_NAME,
     )

@@ -32,6 +32,13 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # Messages. Empty: the company signature, else name and company.
     email_signature: Mapped[str | None] = mapped_column(Text, nullable=True)
 
+    @property
+    def is_platform_admin(self) -> bool:
+        """YGT's own team: emails listed in PLATFORM_ADMIN_EMAILS can use the admin site."""
+        from app.core.config import settings
+
+        return self.email.lower() in settings.platform_admins
+
     refresh_tokens: Mapped[list["RefreshToken"]] = relationship(
         back_populates="user", cascade="all, delete-orphan"
     )

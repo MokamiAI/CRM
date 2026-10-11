@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
 import LanguagePicker from "../components/LanguagePicker";
 import { IntervalToggle, PlanCard } from "../components/Billing";
+import { ContactForm } from "./PublicPages";
 import { usePlans } from "../hooks/useApi";
 import { LANGUAGES } from "../i18n/languages";
 import pkg from "../../package.json";
@@ -88,6 +89,16 @@ export default function AboutPage() {
 
         <Pricing />
 
+        <section className="mt-14 grid gap-6 rounded-2xl p-6 ring-1 ring-inset ring-zinc-200 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]" aria-labelledby="about-contact">
+          <div>
+            <h2 id="about-contact" className="text-2xl font-semibold tracking-tight text-zinc-900">
+              {t("contact.title")}
+            </h2>
+            <p className="mt-2 text-sm text-zinc-600">{t("contact.intro")}</p>
+          </div>
+          <ContactForm compact />
+        </section>
+
         <section className="mt-10 grid gap-6 rounded-2xl bg-zinc-50 p-6 ring-1 ring-inset ring-zinc-200/70 sm:grid-cols-2 sm:p-8">
           <div>
             <h2 className="font-semibold text-zinc-900">{t("about.privacyTitle")}</h2>
@@ -120,7 +131,18 @@ export default function AboutPage() {
           <span>
             © {new Date().getFullYear()} {APP_NAME} · {t("about.madeIn")}
           </span>
-          <span className="tabular-nums">{t("about.version", { version: pkg.version })}</span>
+          <span className="flex flex-wrap gap-x-4 gap-y-1">
+            <Link to="/terms" className="hover:text-zinc-700">
+              {t("legal.terms")}
+            </Link>
+            <Link to="/privacy" className="hover:text-zinc-700">
+              {t("legal.privacy")}
+            </Link>
+            <Link to="/refunds" className="hover:text-zinc-700">
+              {t("legal.refunds")}
+            </Link>
+            <span className="tabular-nums">{t("about.version", { version: pkg.version })}</span>
+          </span>
         </footer>
       </div>
     </div>
@@ -137,7 +159,7 @@ function Pricing() {
   const cta = (plan) => {
     if (!user) {
       return (
-        <Link to="/register" className={`btn ${plan.key === "grow" ? "btn-primary" : "btn-secondary"} w-full`}>
+        <Link to={`/register?plan=${plan.key}`} className={`btn ${plan.key === "grow" ? "btn-primary" : "btn-secondary"} w-full`}>
           {t("about.pricing.startTrial")}
         </Link>
       );

@@ -345,12 +345,33 @@
   "contact": {
     "addTitle": "Engeza umuntu",
     "added": "Oxhumana naye wengeziwe",
+    "company": "Inkampani (uma uthanda)",
     "editTitle": "Hlela oxhumana naye",
+    "email": "I-imeyili",
+    "failed": "Ayikwazanga ukuthumela umlayezo wakho. Sicela uzame futhi.",
     "firstName": "Igama",
+    "intro": "Imibuzo nge-YGT, amanani noma ukusetha? Sithumelele umlayezo futhi sizobuya kuwe, imvamisa phakathi kosuku olulodwa lomsebenzi.",
     "jobTitle": "Isikhundla",
     "lastName": "Isibongo",
+    "link": "Xhumana nathi",
+    "message": "Umlayezo",
+    "name": "Igama lakho",
+    "orEmail": "Noma sithumelele i-imeyili ku-",
+    "phone": "Ucingo (uma uthanda)",
     "primary": "Oxhumana naye oyinhloko waleli khasimende",
     "removed": "Oxhumana naye ususiwe",
+    "send": "Thumela umlayezo",
+    "sentBody": "Sizophendula ku-{{email}} maduze.",
+    "sentTitle": "Siyabonga, umlayezo wakho usendleleni",
+    "title": "Xhumana nathi",
+    "topic": "Kumayelana nani",
+    "topics": {
+      "billing": "Ukukhokha",
+      "other": "Okunye",
+      "partnership": "Ukubambisana ne-YGT",
+      "sales": "Amanani nezinhlelo",
+      "support": "Ngidinga usizo"
+    },
     "updated": "Oxhumana naye ubuyekeziwe"
   },
   "customFields": {
@@ -472,6 +493,79 @@
     "topDeals": "Amadili amakhulu avulekile",
     "validUntil": "isebenza kuze kube ngu-{{date}}",
     "yourDay": "Usuku lwakho"
+  },
+  "data": {
+    "chooseFile": "Khetha ifayela le-CSV",
+    "done": "Ukungenisa kuqediwe: kwengezwe {{created}}, kwabuyekezwa {{updated}}",
+    "entities": {
+      "customers": "Amakhasimende (nomuntu oxhumana naye)",
+      "deals": "Amadili",
+      "products": "Imikhiqizo nezinsizakalo"
+    },
+    "errors_one": "Umugqa o-{{count}} awungeniswanga:",
+    "errors_other": "Imigqa engu-{{count}} ayingeniswanga:",
+    "excelHint": "Ithiphu: umugqa wokuqala kufanele ube namagama ezinsika. Izinsika esiziqaphelayo zifaniswa wena.",
+    "exportIntro": "Landa imininingwane yakho njengamafayela e-CSV avuleka ku-Excel noma ku-Google Sheets. Idatha yakho ihlala ingeyakho.",
+    "exportTitle": "Khipha",
+    "exports": {
+      "contacts": "Abantu oxhumana nabo",
+      "customers": "Amakhasimende",
+      "deals": "Amadili",
+      "invoices": "Ama-invoyisi",
+      "payments": "Izinkokhelo",
+      "products": "Imikhiqizo",
+      "quotes": "Izilinganiso"
+    },
+    "fields": {
+      "billing_address": "Ikheli",
+      "contact_email": "I-imeyili yomuntu oxhumana naye",
+      "contact_first_name": "Igama lomuntu oxhumana naye",
+      "contact_job_title": "Isikhundla somuntu oxhumana naye",
+      "contact_last_name": "Isibongo somuntu oxhumana naye",
+      "contact_phone": "Ucingo lomuntu oxhumana naye",
+      "customer": "Ikhasimende",
+      "description": "Incazelo",
+      "email": "I-imeyili",
+      "expected_close_date": "Usuku olulindelekile lokuvala",
+      "industry": "Imboni",
+      "name": "Igama",
+      "notes": "Amanothi",
+      "owner_email": "I-imeyili yomnikazi",
+      "phone": "Ucingo",
+      "sku": "Ikhodi (SKU)",
+      "stage": "Isigaba",
+      "tax_number": "Inombolo ye-VAT",
+      "tax_rate": "VAT %",
+      "title": "Igama ledili",
+      "unit_price": "Inani (ngaphandle kwe-VAT)",
+      "value": "Inani"
+    },
+    "fileSummary_one": "{{name}}: umugqa o-{{count}}",
+    "fileSummary_other": "{{name}}: imigqa engu-{{count}}",
+    "importIntro": "Letha amakhasimende akho, imikhiqizo namadili kusuka kuspredishithi noma kwenye isistimu. Qala uyilondoloze njenge-CSV (ku-Excel: File > Save As > CSV UTF-8).",
+    "importTitle": "Ngenisa",
+    "import_one": "Ngenisa umugqa o-{{count}}",
+    "import_other": "Ngenisa imigqa engu-{{count}}",
+    "importing": "Kuyangeniswa…",
+    "matchIntro": "Fanisa izinsika zakho nezinkambu ze-YGT. Izinkambu ezimakwe ngo-* ziyadingeka.",
+    "needs": "Fanisa lezi kuqala: {{fields}}",
+    "otherFile": "Khetha elinye ifayela",
+    "previewNote_one": "Kuboniswa o-{{count}} kwangu-{{total}}.",
+    "previewNote_other": "Kuboniswa abangu-{{count}} kwangu-{{total}}.",
+    "ready_one": "Kulungele ukungenisa umugqa o-{{count}}.",
+    "ready_other": "Kulungele ukungenisa imigqa engu-{{count}}.",
+    "results": {
+      "created": "Kwengeziwe",
+      "skipped": "Bekuvele kukhona",
+      "updated": "Kubuyekeziwe"
+    },
+    "row": "Umugqa {{row}}:",
+    "skip": "Ungangenisi",
+    "template": "Landa isifanekiso",
+    "tooMany": "Kuzongeniswa imigqa yokuqala engu-{{max}} kuphela. Hlukanisa amafayela amakhulu.",
+    "unreadable": "Lelo fayela alikwazanga ukufundwa njenge-CSV.",
+    "updateExisting": "Buyekeza amarekhodi asevele ekhona (afaniswa nge-imeyili, ikhodi noma igama) esikhundleni sokuwagxuma",
+    "what": "Ungenisani?"
   },
   "deal": {
     "created": "Kwenziwe",
@@ -612,6 +706,8 @@
   },
   "editor": {
     "addLine": "Engeza into",
+    "bankingHint": "Imininingwane yakho yasebhange yengezwa ngokuzenzakalelayo kuyo yonke i-invoyisi.",
+    "bankingLink": "Yishintshe ku-Izilungiselelo > Amadokhumenti",
     "customItem": "Into ekhethekile (ayikho emkhiqizweni)",
     "customer": "Ikhasimende",
     "description": "Incazelo",
@@ -619,6 +715,8 @@
     "item": "Into {{n}}",
     "notes": "Amanothi",
     "notesHint": "Iboniswa ikhasimende kudokhumenti nase-imeyilini",
+    "poNumber": "Inombolo ye-oda (PO) yekhasimende",
+    "poNumberHint": "Iboniswa kudokhumenti nase-imeyili.",
     "product": "Umkhiqizo",
     "qty": "Inani",
     "remove": "Susa",
@@ -626,6 +724,7 @@
     "unitPrice": "Intengo ngayinye"
   },
   "errors": {
+    "ACCOUNT_SUSPENDED": "Le akhawunti imisiwe. Sicela uxhumane nosizo lwe-YGT.",
     "BILLING_NOTHING_TO_CANCEL": "Alukho uhlelo olukhokhelwayo ongalukhansela.",
     "BILLING_NOT_CONFIGURED": "Izinkokhelo ze-inthanethi azikavulwa.",
     "BILLING_NO_SUBSCRIPTION": "Alikho ikhadi eligciniwe okwamanje.",
@@ -633,6 +732,7 @@
     "CHANNEL_NOT_SET": "Leso siteshi asikasethwa. Umphathi angasixhuma ku-Izilungiselelo.",
     "CUSTOMER_NO_EMAIL": "Leli khasimende alinalo ikheli le-imeyili.",
     "CUSTOMER_NO_PHONE": "Leli khasimende alinayo inombolo yocingo evumelekile.",
+    "IMPORT_TOO_MANY_ROWS": "Imigqa iningi kakhulu ukungenisa kanye. Hlukanisa ifayela bese uzama futhi.",
     "PLAN_EXPIRED": "Isikhathi sakho sokuzama samahhala siphelile. Khetha uhlelo ku-Izilungiselelo > Ukukhokha ukuze uqhubeke wengeza futhi uthumela.",
     "PLAN_FEATURE_CUSTOM_FIELDS": "Izinkambu ezengeziwe ziyingxenye yohlelo lwe-Grow.",
     "PLAN_FEATURE_MARKETING": "Imikhankaso yokumaketha iyingxenye yohlelo lwe-Grow.",
@@ -641,7 +741,11 @@
     "PLAN_LIMIT_CUSTOMERS": "Ufinyelele umkhawulo wamakhasimende wohlelo lwakho. Khetha uhlelo ku-Izilungiselelo > Ukukhokha ukuze uthole amakhasimende angenamkhawulo.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "Usuwasebenzisile ama-invoyisi ale nyanga ohlelweni lwe-Free. Khetha uhlelo ku-Izilungiselelo > Ukukhokha ukuze uthole ama-invoyisi angenamkhawulo.",
     "PLAN_LIMIT_USERS": "Uhlelo lwakho alunandawo yomunye umuntu. Umphathi angengeza abantu ku-Izilungiselelo > Ukukhokha.",
+    "RATE_LIMITED": "Imizamo eminingi kakhulu. Sicela ulinde kancane bese uzama futhi.",
+    "RESET_LINK_INVALID": "Lesi sixhumanisi siphelelwe yisikhathi noma sesisetshenzisiwe. Cela esisha.",
+    "SLOT_TAKEN": "Leso sikhathi sisanda kuthathwa. Sicela ukhethe esinye.",
     "STATEMENT_PERIOD_INVALID": "Usuku lokuqala kufanele lube ngaphambi kosuku lokugcina.",
+    "TICKET_CLOSED": "Leli thikithi livaliwe. Vula elisha uma usadinga usizo.",
     "generic": "Kukhona okungahambanga kahle."
   },
   "feed": {
@@ -953,6 +1057,13 @@
     "label": "Ulimi",
     "reviewNote": "Ukuhumusha okungesona isiNgisi kubuyekezwa izikhulumi zolimi lwebele. Uma okuthile kufundeka kungajwayelekile, tshela umphathi wakho."
   },
+  "legal": {
+    "englishOnly": "Leli khasi litholakala ngesiNgisi.",
+    "privacy": "Ubumfihlo",
+    "refunds": "Inqubomgomo yembuyiselo",
+    "terms": "Imigomo",
+    "updated": "Kubuyekezwe ngo-{{date}}"
+  },
   "login": {
     "createAccount": "Dala i-akhawunti yenkampani",
     "email": "I-imeyili",
@@ -1151,6 +1262,7 @@
   "nav": {
     "about": "Mayelana",
     "activities": "Imisebenzi",
+    "admin": "Umphathi we-YGT",
     "customers": "Amakhasimende",
     "dashboard": "Ideshibhodi",
     "deals": "Amadili",
@@ -1169,7 +1281,8 @@
     "profile": "Iphrofayela yakho",
     "quotes": "Izilinganiso",
     "search": "Sesha",
-    "settings": "Izilungiselelo"
+    "settings": "Izilungiselelo",
+    "support": "Usizo"
   },
   "palette": {
     "action": {
@@ -1197,6 +1310,21 @@
     "placeholder": "Sesha amakhasimende, abantu, amadili, ama-invoyisi…",
     "sales": "Ukuthengisa",
     "searching": "Iyasesha…"
+  },
+  "password": {
+    "confirm": "Yibhale futhi",
+    "done": "Iphasiwedi ishintshiwe. Ngena ngephasiwedi yakho entsha.",
+    "forgot": "Ukhohlwe iphasiwedi?",
+    "forgotIntro": "Faka i-imeyili yakho futhi sizokuthumelela isixhumanisi sokukhetha iphasiwedi entsha.",
+    "forgotTitle": "Setha kabusha iphasiwedi yakho",
+    "mismatch": "Amaphasiwedi amabili awafani.",
+    "new": "Iphasiwedi entsha",
+    "remembered": "Uyikhumbulile?",
+    "resetIntro": "Okungenani izinhlamvu ezi-8. Uzokhishwa kwamanye amadivayisi.",
+    "resetTitle": "Khetha iphasiwedi entsha",
+    "save": "Londoloza iphasiwedi",
+    "sendLink": "Thumela isixhumanisi",
+    "sent": "Uma u-{{email}} ene-akhawunti ye-YGT, isixhumanisi siyeza. Hlola ibhokisi lakho (nogaxekile)."
   },
   "paymentMethod": {
     "bank_transfer": "Ukudlulisa ngebhange",
@@ -1293,16 +1421,48 @@
     "haveAccount": "Usunayo i-akhawunti?",
     "password": "Iphasiwedi",
     "passwordHint": "Okungenani izinhlamvu ezi-8",
+    "planHint": "Lonke uhlelo luqala ngesikhathi sokuzama samahhala sezinsuku ezi-14. Alidingeki ikhadi; ungashintsha uhlelo noma nini.",
+    "planTitle": "Khetha uhlelo lwakho",
     "submit": "Dala i-akhawunti",
     "submitting": "Idala i-akhawunti…",
     "subtitle": "Dala i-YGT yenkampani yakho ngomzuzu. Uzoba ngumphathi futhi ungangeza ithimba lakho kamuva.",
-    "title": "Setha ibhizinisi lakho"
+    "title": "Setha ibhizinisi lakho",
+    "trialNote": "Mahhala izinsuku ezi-14, bese kuba {{price}}"
   },
   "role": {
     "admin": "Umphathi",
     "manager": "Umphathi wohlelo",
     "staff": "Abasebenzi",
     "viewer": "Obukayo"
+  },
+  "sessions": {
+    "book": "Bhuka lesi sikhathi",
+    "bookCta": "Bhuka iseshini",
+    "booked": "Iseshini ibhukiwe",
+    "bookedHint": "Isimemo sekhalenda siyeza ku-imeyili yakho.",
+    "cancel": "Khansela le seshini",
+    "cancelled": "Iseshini ikhanseliwe",
+    "chooseFirst": "Khetha isikhathi.",
+    "chosen": "{{when}}",
+    "intro": "Khetha isikhathi socingo lwevidiyo nethimba lethu: ukuqala, ukuqeqeshwa, noma usizo ngenkinga.",
+    "inviteNote": "Ukubhuka kuthumela isimemo sekhalenda kuwe nasethimbeni lethu, nesixhumanisi somhlangano.",
+    "noSlots": "Azikho izikhathi ezivulekile manje. Faka ithikithi futhi sizothola isikhathi nawe.",
+    "noneUpcoming": "Akukho okubhukiwe okwamanje.",
+    "notes": "Ukhona okufanele sikulungiselele?",
+    "notesPlaceholder": "isb. Sifuna ukungenisa amakhasimende ethu",
+    "orTicket": "Ukhetha ukubhala? Faka ithikithi",
+    "pickDay": "Usuku",
+    "pickTime": "Isikhathi ({{tz}}, imizuzu engu-{{minutes}})",
+    "title": "Bhuka iseshini ne-YGT",
+    "topic": "Kumayelana nani",
+    "topics": {
+      "billing": "Ukukhokha",
+      "onboarding": "Ukuqala",
+      "other": "Okunye",
+      "support": "Usizo ngenkinga",
+      "training": "Ukuqeqesha ithimba lami"
+    },
+    "upcoming": "Amaseshini akho"
   },
   "settings": {
     "company": {
@@ -1357,6 +1517,7 @@
     "saved": "Izilungiselelo zilondoloziwe",
     "tabs": {
       "billing": "Ukukhokha",
+      "data": "Ngenisa futhi ukhiphe",
       "documents": "Amadokhumenti",
       "email": "I-imeyili",
       "fields": "Izinkambu ezengeziwe",
@@ -1470,6 +1631,56 @@
     "sent": "Kuthunyelwe",
     "void": "Akusebenzi",
     "won": "Kuphumelele"
+  },
+  "support": {
+    "categories": {
+      "account": "I-akhawunti yami",
+      "billing": "Ukukhokha",
+      "feature": "Umqondo wesici",
+      "problem": "Kukhona okungasebenzi",
+      "question": "Umbuzo"
+    },
+    "category": "Kumayelana nani",
+    "close": "Vala ithikithi",
+    "closed": "Ithikithi livaliwe",
+    "closedHint": "Leli thikithi livaliwe. Vula elisha uma usadinga usizo.",
+    "created": "Ithikithi #{{number}} lifakiwe. Sizophendula maduze.",
+    "details": "Imininingwane",
+    "detailsHint": "Okwenzekile, obukulindele, nesikrini obukuso. Uma ubone ireferensi yephutha, yifake.",
+    "newHint": "Sitshele ukuthi udingani. Uma imininingwane iminingi, siyasiza ngokushesha.",
+    "newTicket": "Ithikithi elisha",
+    "none": "Awekho amathikithi okwamanje",
+    "noneHint": "Ubambekile, uthole inkinga, noma unomqondo? Faka ithikithi futhi ithimba lethu lizophendula lapha nange-imeyili.",
+    "opened": "livulwe ngo-{{date}}",
+    "priority": "Usizo olusheshayo: uhlelo lwakho lubeka leli thikithi phambili ohlwini.",
+    "reply": "Thumela impendulo",
+    "replyPlaceholder": "Bhala impendulo…",
+    "send": "Thumela ithikithi",
+    "status": {
+      "closed": "Kuvaliwe",
+      "in_progress": "Kuyasetshenzwa",
+      "open": "Kuvuliwe",
+      "resolved": "Kuxazululiwe",
+      "waiting": "Kulinde wena"
+    },
+    "subject": "Isihloko",
+    "subtitle": "Cela usizo ethimbeni le-YGT, futhi ubhuke iseshini nathi.",
+    "tabs": {
+      "sessions": "Bhuka iseshini",
+      "tickets": "Amathikithi"
+    },
+    "team": "Usizo lwe-YGT",
+    "urgencies": {
+      "high": "Kuphuthuma: kumisa umsebenzi wethu",
+      "low": "Akuphuthumi",
+      "normal": "Okujwayelekile"
+    },
+    "urgency": "Kuphuthuma kangakanani?",
+    "yourTurn": "Siphendulile"
+  },
+  "suspended": {
+    "body": "I-akhawunti ye-YGT yenkampani yakho imisiwe, ngakho ayikwazi ukusetshenziswa manje. Sicela uxhumane nathi sizokusiza.",
+    "title": "Le akhawunti imisiwe"
   },
   "team": {
     "add": "Engeza umuntu",

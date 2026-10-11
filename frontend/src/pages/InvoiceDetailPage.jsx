@@ -174,6 +174,7 @@ export default function InvoiceDetailPage() {
             rows={[
               [t("invoices.col.customer"), customer?.name ?? "…"],
               [t("invoices.col.issued"), formatDate(invoice.issue_date)],
+              ...(invoice.po_number ? [[t("editor.poNumber"), invoice.po_number]] : []),
               [t("invoices.col.due"), formatDate(invoice.due_date)],
               [t("document.total"), formatMoney(invoice.total)],
               [t("status.paid"), formatMoney(invoice.amount_paid)],

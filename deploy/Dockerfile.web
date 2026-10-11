@@ -1,0 +1,16 @@
+# The web app, built once and served by Caddy (which also proxies /api to
+# the backend and gets HTTPS certificates automatically).
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --include=dev
+COPY frontend/ .
+# Same origin as the API (Caddy routes /api), so no CORS in production.
+ARG VITE_API_BASE_URL=/api/v1
+ARG VITE_SUPPORT_EMAIL=
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL VITE_SUPPORT_EMAIL=$VITE_SUPPORT_EMAIL
+RUN npm run build
+
+FROM caddy:2-alpine
+COPY deploy/Caddyfile /etc/caddy/Caddyfile
+COPY --from=build /app/dist /srv

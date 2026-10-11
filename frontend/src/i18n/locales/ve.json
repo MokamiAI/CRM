@@ -345,12 +345,33 @@
   "contact": {
     "addTitle": "Engedzani muthu",
     "added": "Muthu wa vhukwamani o engedzwa",
+    "company": "Khamphani (arali ni tshi funa)",
     "editTitle": "Shandukisani muthu wa vhukwamani",
+    "email": "Imeiḽi",
+    "failed": "A yo ngo kona u rumela mulaedza waṋu. Ri humbela ni lingedze hafhu.",
     "firstName": "Dzina",
+    "intro": "Mbudziso nga ha YGT, mitengo kana u dzudzanya? Ri rumeleni mulaedza nahone ri ḓo ni fhindula, kanzhi nga ḓuvha ḽithihi ḽa mushumo.",
     "jobTitle": "Vhuimo ha mushumo",
     "lastName": "Dzina ḽa muṱa",
+    "link": "Kwamani riṋe",
+    "message": "Mulaedza",
+    "name": "Dzina ḽaṋu",
+    "orEmail": "Kana ri rumeleni imeiḽi kha",
+    "phone": "Founu (arali ni tshi funa)",
     "primary": "Muthu muhulwane wa vhukwamani wa uyu murengi",
     "removed": "Muthu wa vhukwamani o bviswa",
+    "send": "Rumelani mulaedza",
+    "sentBody": "Ri ḓo fhindula kha {{email}} hu si kale.",
+    "sentTitle": "Ri a livhuwa, mulaedza waṋu u nḓilani",
+    "title": "Kwamani riṋe",
+    "topic": "Zwi kha mini",
+    "topics": {
+      "billing": "Mbadelo",
+      "other": "Zwiṅwe",
+      "partnership": "U shumisana na YGT",
+      "sales": "Mitengo na pulane",
+      "support": "Ndi ṱoḓa thuso"
+    },
     "updated": "Muthu wa vhukwamani o khwiniswa"
   },
   "customFields": {
@@ -472,6 +493,79 @@
     "topDeals": "Thendelano khulwane dzo vuleaho",
     "validUntil": "i shuma u swika {{date}}",
     "yourDay": "Ḓuvha ḽaṋu"
+  },
+  "data": {
+    "chooseFile": "Nangani faela ya CSV",
+    "done": "U dzhenisa ho fhela: ho engedzwa {{created}}, ho vusuludzwa {{updated}}",
+    "entities": {
+      "customers": "Vharengi (na muthu wa u kwama)",
+      "deals": "Thendelano",
+      "products": "Zwibveledzwa na tshumelo"
+    },
+    "errors_one": "Mutaladzi wa {{count}} a wo ngo dzheniswa:",
+    "errors_other": "Mitaladzi ya {{count}} a yo ngo dzheniswa:",
+    "excelHint": "Nyeletshedzo: mutaladzi wa u thoma u fanela u vha na madzina a khoḽomu. Khoḽomu dzine ra dzi ḓivha dzi a ṱanganyiswa.",
+    "exportIntro": "Dawunilodani mafhungo aṋu sa faela dza CSV dzine dza vulea kha Excel kana Google Sheets. Data yaṋu ndi yaṋu tshifhinga tshoṱhe.",
+    "exportTitle": "Bvisa",
+    "exports": {
+      "contacts": "Vhathu vha u kwama",
+      "customers": "Vharengi",
+      "deals": "Thendelano",
+      "invoices": "Dzi-invoice",
+      "payments": "Mbadelo",
+      "products": "Zwibveledzwa",
+      "quotes": "Zwiṱangadzamitengo"
+    },
+    "fields": {
+      "billing_address": "Aḓirese",
+      "contact_email": "Imeiḽi ya muthu wa u kwama",
+      "contact_first_name": "Dzina ḽa muthu wa u kwama",
+      "contact_job_title": "Vhuimo ha muthu wa u kwama",
+      "contact_last_name": "Tshina tsha muthu wa u kwama",
+      "contact_phone": "Founu ya muthu wa u kwama",
+      "customer": "Murengi",
+      "description": "Ṱhaluso",
+      "email": "Imeiḽi",
+      "expected_close_date": "Ḓuvha ḽi lavheleswaho ḽa u vala",
+      "industry": "Indasiṱiri",
+      "name": "Dzina",
+      "notes": "Notsi",
+      "owner_email": "Imeiḽi ya muṋe",
+      "phone": "Founu",
+      "sku": "Khoudu (SKU)",
+      "stage": "Tshiimo",
+      "tax_number": "Nomboro ya VAT",
+      "tax_rate": "VAT %",
+      "title": "Dzina ḽa thendelano",
+      "unit_price": "Mutengo (hu si na VAT)",
+      "value": "Ndeme"
+    },
+    "fileSummary_one": "{{name}}: mutaladzi wa {{count}}",
+    "fileSummary_other": "{{name}}: mitaladzi ya {{count}}",
+    "importIntro": "Ḓisani vharengi vhaṋu, zwibveledzwa na thendelano u bva kha spreadsheet kana kha sisiṱeme iṅwe. Thomani nga u i vhulunga sa CSV (kha Excel: File > Save As > CSV UTF-8).",
+    "importTitle": "Dzhenisa",
+    "import_one": "Dzhenisani mutaladzi wa {{count}}",
+    "import_other": "Dzhenisani mitaladzi ya {{count}}",
+    "importing": "Hu khou dzheniswa…",
+    "matchIntro": "Ṱanganyisani khoḽomu dzaṋu na fhethu ha YGT. Fhethu ho swayiwaho nga * hu a ṱoḓea.",
+    "needs": "Ṱanganyisani hezwi u thoma: {{fields}}",
+    "otherFile": "Nangani iṅwe faela",
+    "previewNote_one": "Hu khou sumbedzwa {{count}} kha {{total}}.",
+    "previewNote_other": "Hu khou sumbedzwa {{count}} kha {{total}}.",
+    "ready_one": "Zwo lugela u dzhenisa mutaladzi wa {{count}}.",
+    "ready_other": "Zwo lugela u dzhenisa mitaladzi ya {{count}}.",
+    "results": {
+      "created": "Zwo engedzwa",
+      "skipped": "Zwo vha zwi hone",
+      "updated": "Zwo vusuludzwa"
+    },
+    "row": "Mutaladzi {{row}}:",
+    "skip": "Ni songo dzhenisa",
+    "template": "Dawunilodani thempuleithi",
+    "tooMany": "Hu ḓo dzheniswa mitaladzi ya u thoma ya {{max}} fhedzi. Khethekanyani faela khulwane.",
+    "unreadable": "Faela iyo a yo ngo kona u vhaliwa sa CSV.",
+    "updateExisting": "Vusuludzani rekhodo dzo no vhaho hone (dzi ṱanganyiswa nga imeiḽi, khoudu kana dzina) nṱhani ha u dzi fhira",
+    "what": "Ni khou dzhenisa mini?"
   },
   "deal": {
     "created": "Yo itwa",
@@ -612,6 +706,8 @@
   },
   "editor": {
     "addLine": "Engedzani tshithu",
+    "bankingHint": "Zwidodombedzwa zwaṋu zwa bannga zwi engedzwa kha invoice iṅwe na iṅwe nga u ḓiitela.",
+    "bankingLink": "Zwi shandukiseni kha Nzudzanyo > Manwalwa",
     "customItem": "Tshithu tsho khetheaho (a si bveledzwa)",
     "customer": "Murengi",
     "description": "Ṱhaluso",
@@ -619,6 +715,8 @@
     "item": "Tshithu {{n}}",
     "notes": "Noutu",
     "notesHint": "Dzi sumbedzwa murengi kha ḽiṅwalwa na kha imeiḽi",
+    "poNumber": "Nomboro ya oda (PO) ya murengi",
+    "poNumberHint": "I sumbedzwa kha ḽiṅwalwa na kha imeiḽi.",
     "product": "Bveledzwa",
     "qty": "Tshivhalo",
     "remove": "Bvisa",
@@ -626,6 +724,7 @@
     "unitPrice": "Mutengo wa tshithihi"
   },
   "errors": {
+    "ACCOUNT_SUSPENDED": "Akhaunthe iyi yo imiswa. Ri humbela ni kwame thikhedzo ya YGT.",
     "BILLING_NOTHING_TO_CANCEL": "A hu na pulane i badelwaho ya u khansela.",
     "BILLING_NOT_CONFIGURED": "Mbadelo dza inthanete a dzi athu vulwa.",
     "BILLING_NO_SUBSCRIPTION": "A hu na garaṱa yo vhulungwaho zwino.",
@@ -633,6 +732,7 @@
     "CHANNEL_NOT_SET": "Iyo tshanele a i athu u dzudzanywa. Mulanguli a nga i ṱumanya kha Nzudzanyo.",
     "CUSTOMER_NO_EMAIL": "Uyu murengi a na ḓiresi ya imeiḽi.",
     "CUSTOMER_NO_PHONE": "Uyu murengi a na nomboro ya founu i shumaho.",
+    "IMPORT_TOO_MANY_ROWS": "Mitaladzi minzhi vhukuma u dzhenisa luthihi. Khethekanyani faela ni lingedze hafhu.",
     "PLAN_EXPIRED": "Tshifhinga tshaṋu tsha ndingo tsha mahala tsho fhela. Nangani pulane kha Nzudzanyo > Mbadelo u bvela phanḓa ni tshi engedza na u rumela.",
     "PLAN_FEATURE_CUSTOM_FIELDS": "Fhethu ho engedzwaho ndi tshipiḓa tsha pulane ya Grow.",
     "PLAN_FEATURE_MARKETING": "Mafulo a ndivhadzo ndi tshipiḓa tsha pulane ya Grow.",
@@ -641,7 +741,11 @@
     "PLAN_LIMIT_CUSTOMERS": "No swika kha mukano wa vharengi wa pulane yaṋu. Nangani pulane kha Nzudzanyo > Mbadelo u wana vharengi vha si na mukano.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "No shumisa dzi-invoice dza nwedzi uno kha pulane ya Free. Nangani pulane kha Nzudzanyo > Mbadelo u wana dzi-invoice dzi si na mukano.",
     "PLAN_LIMIT_USERS": "Pulane yaṋu a i na fhethu ha muṅwe muthu. Mulanguli a nga engedza vhathu kha Nzudzanyo > Mbadelo.",
+    "RATE_LIMITED": "Ndingedzo nnzhi vhukuma. Ri humbela ni lindele tshifhinganyana ni lingedze hafhu.",
+    "RESET_LINK_INVALID": "Linki iyi yo fhirwa nga tshifhinga kana yo no shumiswa. Humbelani ntswa.",
+    "SLOT_TAKEN": "Tshifhinga itsho tsho kha ḓi dzhiiwa. Ri humbela ni nange tshiṅwe.",
     "STATEMENT_PERIOD_INVALID": "Ḓuvha ḽa u thoma ḽi fanela u vha phanḓa ha ḽa u fhedza.",
+    "TICKET_CLOSED": "Thekhethe iyi yo valiwa. Vulani ntswa arali ni kha ḓi ṱoḓa thuso.",
     "generic": "Hu na zwi songo tshimbila zwavhuḓi."
   },
   "feed": {
@@ -953,6 +1057,13 @@
     "label": "Luambo",
     "reviewNote": "Ṱhalutshedzo dzi si dza English dzi khou sedzuluswa nga vhaambi vha luambo lwa hayani. Arali tshiṅwe tshithu tshi tshi vhalea nga nḓila i sa ḓoweleaho, ḓivhadzani mulanguli waṋu."
   },
+  "legal": {
+    "englishOnly": "Siaṱari iḽi ḽi wanala nga Tshiisimane.",
+    "privacy": "Tshiphiri",
+    "refunds": "Mbekanyamaitele ya u vhuisa tshelede",
+    "terms": "Milayo",
+    "updated": "Yo vusuludzwa nga {{date}}"
+  },
   "login": {
     "createAccount": "Itani akhaunthu ya khamphani",
     "email": "Imeiḽi",
@@ -1151,6 +1262,7 @@
   "nav": {
     "about": "Nga ha",
     "activities": "Mishumo",
+    "admin": "Mulanguli wa YGT",
     "customers": "Vharengi",
     "dashboard": "Ḓeshibodo",
     "deals": "Thendelano",
@@ -1169,7 +1281,8 @@
     "profile": "Phurofaiḽi yaṋu",
     "quotes": "Zwiṱangadzamitengo",
     "search": "Ṱoḓa",
-    "settings": "Nzudzanyo"
+    "settings": "Nzudzanyo",
+    "support": "Thikhedzo"
   },
   "palette": {
     "action": {
@@ -1197,6 +1310,21 @@
     "placeholder": "Ṱoḓani vharengi, vhathu, thendelano, dzi-invoice…",
     "sales": "Thengiso",
     "searching": "Zwi khou ṱoḓa…"
+  },
+  "password": {
+    "confirm": "I ṅwaleni hafhu",
+    "done": "Phasiwede yo shandukiswa. Dzhenani nga phasiwede yaṋu ntswa.",
+    "forgot": "No hangwa phasiwede?",
+    "forgotIntro": "Dzhenisani imeiḽi yaṋu nahone ri ḓo ni rumela linki ya u nanga phasiwede ntswa.",
+    "forgotTitle": "Vhetshelani hafhu phasiwede yaṋu",
+    "mismatch": "Phasiwede mbili a dzi fani.",
+    "new": "Phasiwede ntswa",
+    "remembered": "No i humbula?",
+    "resetIntro": "Nyana ya zwiṅwalwa zwa 8. Ni ḓo bviswa kha zwishumiswa zwiṅwe.",
+    "resetTitle": "Nangani phasiwede ntswa",
+    "save": "Vhulungani phasiwede",
+    "sendLink": "Rumelani linki",
+    "sent": "Arali {{email}} i na akhaunthe ya YGT, linki i nḓilani. Sedzani bogisi ḽaṋu (na ḽa spam)."
   },
   "paymentMethod": {
     "bank_transfer": "Phiriselo ya bannga",
@@ -1293,16 +1421,48 @@
     "haveAccount": "No vha na akhaunthu naa?",
     "password": "Phasiwede",
     "passwordHint": "Nyana ya zwiḽedzwa zwa 8",
+    "planHint": "Pulane iṅwe na iṅwe i thoma nga tshifhinga tsha ndingo tsha mahala tsha maḓuvha a 14. A hu ṱoḓei garaṱa; ni nga shandukisa pulane tshifhinga tshiṅwe na tshiṅwe.",
+    "planTitle": "Nangani pulane yaṋu",
     "submit": "Itani akhaunthu",
     "submitting": "Zwi khou ita akhaunthu…",
     "subtitle": "Itani YGT ya khamphani yaṋu nga mininthi. Ni ḓo vha mulanguli nahone ni nga engedza tshigwada tshaṋu nga murahu.",
-    "title": "Dzudzanyani bindu ḽaṋu"
+    "title": "Dzudzanyani bindu ḽaṋu",
+    "trialNote": "Mahala maḓuvha a 14, nga murahu {{price}}"
   },
   "role": {
     "admin": "Mulanguli",
     "manager": "Mulavhelesi",
     "staff": "Vhashumi",
     "viewer": "Muvhoni"
+  },
+  "sessions": {
+    "book": "Dzhenisani tshifhinga itshi",
+    "bookCta": "Dzhenisani sesheni",
+    "booked": "Sesheni yo dzheniswa",
+    "bookedHint": "Ramba ya khalenda i khou ḓa kha imeiḽi yaṋu.",
+    "cancel": "Khanselani sesheni iyi",
+    "cancelled": "Sesheni yo khanselwa",
+    "chooseFirst": "Nangani tshifhinga.",
+    "chosen": "{{when}}",
+    "intro": "Nangani tshifhinga tsha founu ya vidio na tshigwada tshashu: u thoma, vhugudisi, kana thuso nga thaidzo.",
+    "inviteNote": "U dzhenisa zwi rumela ramba ya khalenda kha inwi na kha tshigwada tshashu, na linki ya muṱangano.",
+    "noSlots": "A hu na zwifhinga zwo vuleaho zwino. Dzhenisani thekhethe nahone ri ḓo wana tshifhinga na inwi.",
+    "noneUpcoming": "A hu na zwo dzheniswaho zwino.",
+    "notes": "Hu na zwine ra fanela u zwi lugiselela?",
+    "notesPlaceholder": "tsumbo Ri ṱoḓa u dzhenisa vharengi vhashu",
+    "orTicket": "Ni funa u ṅwala? Dzhenisani thekhethe",
+    "pickDay": "Ḓuvha",
+    "pickTime": "Tshifhinga ({{tz}}, minithi dza {{minutes}})",
+    "title": "Dzhenisani sesheni na YGT",
+    "topic": "Zwi kha mini",
+    "topics": {
+      "billing": "Mbadelo",
+      "onboarding": "U thoma",
+      "other": "Zwiṅwe",
+      "support": "Thuso nga thaidzo",
+      "training": "U gudisa tshigwada tshanga"
+    },
+    "upcoming": "Sesheni dzaṋu"
   },
   "settings": {
     "company": {
@@ -1357,6 +1517,7 @@
     "saved": "Nzudzanyo yo vhulungwa",
     "tabs": {
       "billing": "Mbadelo",
+      "data": "Dzhenisani na u bvisa",
       "documents": "Manwalwa",
       "email": "Imeiḽi",
       "fields": "Fhethu ho engedzwaho",
@@ -1470,6 +1631,56 @@
     "sent": "Yo rumelwa",
     "void": "Yo fheliswa",
     "won": "Yo kundwa"
+  },
+  "support": {
+    "categories": {
+      "account": "Akhaunthe yanga",
+      "billing": "Mbadelo",
+      "feature": "Muhumbulo wa tshiṱaluli",
+      "problem": "Hu na zwi sa shumi",
+      "question": "Mbudziso"
+    },
+    "category": "Zwi kha mini",
+    "close": "Valani thekhethe",
+    "closed": "Thekhethe yo valiwa",
+    "closedHint": "Thekhethe iyi yo valiwa. Vulani ntswa arali ni kha ḓi ṱoḓa thuso.",
+    "created": "Thekhethe #{{number}} yo dzheniswa. Ri ḓo fhindula hu si kale.",
+    "details": "Zwidodombedzwa",
+    "detailsHint": "Zwo itea, zwe na vha ni tshi zwi lavhelela, na tshikirini tshe na vha ni khatsho. Arali no vhona refarentsi ya vhukhakhi, i dzhenisani.",
+    "newHint": "Ri vhudzeni zwine na zwi ṱoḓa. Arali zwidodombedzwa zwo anda, ri thusa nga u ṱavhanya.",
+    "newTicket": "Thekhethe ntswa",
+    "none": "A hu na thekhethe zwino",
+    "noneHint": "No khakhea, no wana thaidzo, kana ni na muhumbulo? Dzhenisani thekhethe nahone tshigwada tshashu tshi ḓo fhindula fhano na nga imeiḽi.",
+    "opened": "yo vulwa nga {{date}}",
+    "priority": "Thikhedzo ya u thoma: pulane yaṋu i vhea thekhethe iyi phanḓa kha mutevhe.",
+    "reply": "Rumelani phindulo",
+    "replyPlaceholder": "Ṅwalani phindulo…",
+    "send": "Rumelani thekhethe",
+    "status": {
+      "closed": "Yo valiwa",
+      "in_progress": "I khou shumiwa",
+      "open": "Yo vulea",
+      "resolved": "Yo tandululwa",
+      "waiting": "I lindela inwi"
+    },
+    "subject": "Ṱhoho",
+    "subtitle": "Humbelani thuso kha tshigwada tsha YGT, ni dzhenise sesheni na riṋe.",
+    "tabs": {
+      "sessions": "Dzhenisani sesheni",
+      "tickets": "Thekhethe"
+    },
+    "team": "Thikhedzo ya YGT",
+    "urgencies": {
+      "high": "Zwi ṱavhanya: zwi imisa mushumo washu",
+      "low": "A zwi ṱavhanyi",
+      "normal": "Zwa misi yoṱhe"
+    },
+    "urgency": "Zwi ṱavhanya hani?",
+    "yourTurn": "Ro fhindula"
+  },
+  "suspended": {
+    "body": "Akhaunthe ya YGT ya khamphani yaṋu yo imiswa, ngauralo a i nga shumiswi zwino. Ri humbela ni ri kwame ri ni thuse.",
+    "title": "Akhaunthe iyi yo imiswa"
   },
   "team": {
     "add": "Engedzani muthu",

@@ -56,7 +56,7 @@ class AuthService:
         )
         self.db.add(company)
         await self.db.flush()
-        self.db.add(new_trial(company.id))
+        self.db.add(new_trial(company.id, data.plan))
         user = User(
             company_id=company.id,
             email=data.email,

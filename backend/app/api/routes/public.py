@@ -21,6 +21,10 @@ from app.schemas.billing import PlanOut
 from app.schemas.messaging import InboundEmail
 from app.services import channel_providers as providers
 from app.services import paystack
+from app.core.middleware import client_ip
+from app.models.platform import ContactRequest
+from app.schemas.platform import ContactCreate
+from app.services import platform_email
 from app.services.billing_service import BillingService
 from app.services.campaign_service import CampaignService
 from app.services.channel_service import ChannelService, webhook_url
@@ -171,4 +175,36 @@ async def paystack_webhook(
         raise UnauthorizedError("Bad signature", "PAYSTACK_SIGNATURE_INVALID")
     payload = await request.json()
     await BillingService(db).handle_event(payload.get("event", ""), payload.get("data") or {})
+    return {"ok": True}
+
+
+
+# ---------- Contact us (the public pages, before signing in) ----------
+
+
+@router.post("/contact", status_code=202)
+async def contact_us(data: ContactCreate, request: Request, db: AsyncSession = Depends(get_db)):
+    if data.website:  # the hidden honeypot field: a bot, quietly ignored
+        return {"ok": True}
+    set_system(db)
+    row = ContactRequest(
+        name=data.name.strip(), email=data.email, phone=(data.phone or "").strip() or None, company=(data.company or "").strip() or None,
+        topic=data.topic, message=data.message.strip(), ip=client_ip(request)[:64],
+    )
+    db.add(row)
+    await db.flush()
+    if settings.SUPPORT_EMAIL:
+        await platform_email.queue(
+            db,
+            platform_email.compose(
+                to=settings.SUPPORT_EMAIL,
+                subject=f"Contact us ({data.topic}): {data.name}" + (f", {data.company}" if data.company else ""),
+                title="New message from the website",
+                paragraphs=[],
+                details=[("Name", data.name), ("Email", data.email), ("Phone", data.phone or "—"), ("Company", data.company or "—"), ("Topic", data.topic.title())],
+                quote=data.message,
+                button=("Open in the admin site", platform_email.app_link("/admin/contact")),
+                reply_to=data.email,
+            ),
+        )
     return {"ok": True}

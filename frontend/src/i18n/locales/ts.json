@@ -345,12 +345,33 @@
   "contact": {
     "addTitle": "Engetela munhu",
     "added": "Munhu wa vuhlanganisi u engeteriwile",
+    "company": "Khampani (loko u lava)",
     "editTitle": "Lulamisa munhu wa vuhlanganisi",
+    "email": "Imeyili",
+    "failed": "A yi swi kotanga ku rhumela rungula ra wena. Hi kombela u ringeta nakambe.",
     "firstName": "Vito",
+    "intro": "Swivutiso hi YGT, mintsengo kumbe ku lulamisa? Hi rhumele rungula naswona hi ta ku hlamula, hi ntolovelo endzeni ka siku rin'we ra ntirho.",
     "jobTitle": "Xikhundlha",
     "lastName": "Xivongo",
+    "link": "Hi tihlanganise na hina",
+    "message": "Rungula",
+    "name": "Vito ra wena",
+    "orEmail": "Kumbe hi rhumele imeyili eka",
+    "phone": "Riqingho (loko u lava)",
     "primary": "Munhu nkulu wa vuhlanganisi wa muxavi loyi",
     "removed": "Munhu wa vuhlanganisi u susiwile",
+    "send": "Rhumela rungula",
+    "sentBody": "Hi ta hlamula eka {{email}} ku nga ri khale.",
+    "sentTitle": "Ha khensa, rungula ra wena ri le ndleleni",
+    "title": "Tihlanganise na hina",
+    "topic": "Swi khumbana na yini",
+    "topics": {
+      "billing": "Hakelo",
+      "other": "Swin'wana",
+      "partnership": "Ntirhisano na YGT",
+      "sales": "Mintsengo ni tipulani",
+      "support": "Ndzi lava mpfuno"
+    },
     "updated": "Munhu wa vuhlanganisi u pfuxetiwile"
   },
   "customFields": {
@@ -472,6 +493,79 @@
     "topDeals": "Mintwanano leyikulu leyi pfulekeke",
     "validUntil": "yi tirha ku fikela {{date}}",
     "yourDay": "Siku ra wena"
+  },
+  "data": {
+    "chooseFile": "Hlawula fayili ya CSV",
+    "done": "Ku nghenisa ku hetile: ku engeteriwe {{created}}, ku pfuxetiwe {{updated}}",
+    "entities": {
+      "customers": "Vaxavi (ni munhu wo vulavurisana na yena)",
+      "deals": "Mintwanano",
+      "products": "Swiendliwa ni vukorhokeri"
+    },
+    "errors_one": "Layini ya {{count}} a yi nghenisiwanga:",
+    "errors_other": "Tilayini ta {{count}} a ti nghenisiwanga:",
+    "excelHint": "Xitsundzuxo: layini yo sungula yi fanele ku va na mavito ya tikholomu. Tikholomu leti hi ti tivaka ti fambisiwa.",
+    "exportIntro": "Dawuniloda vuxokoxoko bya wena tanihi tifayili ta CSV leti pfulekaka eka Excel kumbe Google Sheets. Data ya wena i ya wena minkarhi hinkwayo.",
+    "exportTitle": "Humesa",
+    "exports": {
+      "contacts": "Vanhu vo vulavurisana na vona",
+      "customers": "Vaxavi",
+      "deals": "Mintwanano",
+      "invoices": "Tinhlayo-xikoloto",
+      "payments": "Tihakelo",
+      "products": "Swiendliwa",
+      "quotes": "Swiringanyeto"
+    },
+    "fields": {
+      "billing_address": "Adirese",
+      "contact_email": "Imeyili ya munhu wo vulavurisana",
+      "contact_first_name": "Vito ra munhu wo vulavurisana",
+      "contact_job_title": "Xikhundlha xa munhu wo vulavurisana",
+      "contact_last_name": "Xivongo xa munhu wo vulavurisana",
+      "contact_phone": "Riqingho ra munhu wo vulavurisana",
+      "customer": "Muxavi",
+      "description": "Nhlamuselo",
+      "email": "Imeyili",
+      "expected_close_date": "Siku leri langutiweke ro pfala",
+      "industry": "Indasitiri",
+      "name": "Vito",
+      "notes": "Swilemukiso",
+      "owner_email": "Imeyili ya n'wini",
+      "phone": "Riqingho",
+      "sku": "Khodi (SKU)",
+      "stage": "Xiyimo",
+      "tax_number": "Nomboro ya VAT",
+      "tax_rate": "VAT %",
+      "title": "Vito ra ntwanano",
+      "unit_price": "Ntsengo (handle ka VAT)",
+      "value": "Nkoka"
+    },
+    "fileSummary_one": "{{name}}: layini ya {{count}}",
+    "fileSummary_other": "{{name}}: tilayini ta {{count}}",
+    "importIntro": "Tisa vaxavi va wena, swiendliwa ni mintwanano ku suka eka spredxiti kumbe eka sisiteme yin'wana. Sungula u yi hlayisa tanihi CSV (eka Excel: File > Save As > CSV UTF-8).",
+    "importTitle": "Nghenisa",
+    "import_one": "Nghenisa layini ya {{count}}",
+    "import_other": "Nghenisa tilayini ta {{count}}",
+    "importing": "Ya nghenisa…",
+    "matchIntro": "Fambisa tikholomu ta wena ni swivandla swa YGT. Swivandla leswi funghiweke hi * swa laveka.",
+    "needs": "Fambisa leswi ku sungula: {{fields}}",
+    "otherFile": "Hlawula fayili yin'wana",
+    "previewNote_one": "Ku kombisiwa {{count}} ka {{total}}.",
+    "previewNote_other": "Ku kombisiwa {{count}} ka {{total}}.",
+    "ready_one": "Swi lunghekele ku nghenisa layini ya {{count}}.",
+    "ready_other": "Swi lunghekele ku nghenisa tilayini ta {{count}}.",
+    "results": {
+      "created": "Ku engeteriwile",
+      "skipped": "A swi ri kona",
+      "updated": "Ku pfuxetiwile"
+    },
+    "row": "Layini {{row}}:",
+    "skip": "U nga nghenisi",
+    "template": "Dawuniloda thempileti",
+    "tooMany": "Ku ta nghenisiwa tilayini to sungula ta {{max}} ntsena. Avanyisa tifayili letikulu.",
+    "unreadable": "Fayili yoleyo a yi hlayeki tanihi CSV.",
+    "updateExisting": "Pfuxeta tirhekhodo leti nga kona (ti fambisiwa hi imeyili, khodi kumbe vito) ematshan'wini yo ti tlula",
+    "what": "U nghenisa yini?"
   },
   "deal": {
     "created": "Wu endliwile",
@@ -612,6 +706,8 @@
   },
   "editor": {
     "addLine": "Engetela xilo",
+    "bankingHint": "Vuxokoxoko bya wena bya bangi byi engeteriwa eka nhlayo-xikoloto yin'wana ni yin'wana hi xiviri.",
+    "bankingLink": "Byi cinca eka Mavekelo > Matsalwa",
     "customItem": "Xilo xo hlawuleka (a hi xiendliwa)",
     "customer": "Muxavi",
     "description": "Nhlamuselo",
@@ -619,6 +715,8 @@
     "item": "Xilo {{n}}",
     "notes": "Switsundzuxo",
     "notesHint": "Swi kombisiwa muxavi eka dokumente ni le ka imeyili",
+    "poNumber": "Nomboro ya oda (PO) ya muxavi",
+    "poNumberHint": "Yi kombisiwa eka tsalwa ni le ka imeyili.",
     "product": "Xiendliwa",
     "qty": "Nhlayo",
     "remove": "Susa",
@@ -626,6 +724,7 @@
     "unitPrice": "Nxavo wa xin'we"
   },
   "errors": {
+    "ACCOUNT_SUSPENDED": "Akhawunti leyi yi yimisiwile. Hi kombela u tihlanganisa na nseketelo wa YGT.",
     "BILLING_NOTHING_TO_CANCEL": "A ku na pulani leyi hakeriwaka yo khansela.",
     "BILLING_NOT_CONFIGURED": "Tihakelo ta inthanete a ti si pfuriwa.",
     "BILLING_NO_SUBSCRIPTION": "A ku na karata leyi hlayisiweke sweswi.",
@@ -633,6 +732,7 @@
     "CHANNEL_NOT_SET": "Chanele yoleyo a yi si hleriwa. Mulawuri a nga yi hlanganisa eka Mavekelo.",
     "CUSTOMER_NO_EMAIL": "Muxavi loyi a nga na adirese ya imeyili.",
     "CUSTOMER_NO_PHONE": "Muxavi loyi a nga na nomboro ya riqingho leyi tirhaka.",
+    "IMPORT_TOO_MANY_ROWS": "Tilayini ti tele ngopfu ku nghenisa kan'we. Avanyisa fayili u ringeta nakambe.",
     "PLAN_EXPIRED": "Nkarhi wa wena wo ringeta mahala wu herile. Hlawula pulani eka Mavekelo > Hakelo ku ya emahlweni u engetela ni ku rhumela.",
     "PLAN_FEATURE_CUSTOM_FIELDS": "Swivandla swo engetela i xiphemu xa pulani ya Grow.",
     "PLAN_FEATURE_MARKETING": "Matsima ya vuxavisi i xiphemu xa pulani ya Grow.",
@@ -641,7 +741,11 @@
     "PLAN_LIMIT_CUSTOMERS": "U fikile eka ndzilakano wa vaxavi wa pulani ya wena. Hlawula pulani eka Mavekelo > Hakelo ku kuma vaxavi lava nga riki na ndzilakano.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "U tirhisile tinhlayo-xikoloto ta n'hweti leyi eka pulani ya Free. Hlawula pulani eka Mavekelo > Hakelo ku kuma tinhlayo-xikoloto leti nga riki na ndzilakano.",
     "PLAN_LIMIT_USERS": "Pulani ya wena a yi na ndhawu ya munhu un'wana. Mulawuri a nga engetela vanhu eka Mavekelo > Hakelo.",
+    "RATE_LIMITED": "Matshalatshala yo tala ngopfu. Hi kombela u rindza nkarhinyana u ringeta nakambe.",
+    "RESET_LINK_INVALID": "Xihlanganisi lexi xi hundzeriwile hi nkarhi kumbe xi tirhisiwile. Kombela lexintshwa.",
+    "SLOT_TAKEN": "Nkarhi wolowo wa ha ku tekiwa. Hi kombela u hlawula wun'wana.",
     "STATEMENT_PERIOD_INVALID": "Siku ro sungula ri fanele ku va emahlweni ka ro hetelela.",
+    "TICKET_CLOSED": "Thikithi leyi yi pfariwile. Pfula leyintshwa loko wa ha lava mpfuno.",
     "generic": "Ku na leswi nga fambangiki kahle."
   },
   "feed": {
@@ -953,6 +1057,13 @@
     "label": "Ririmi",
     "reviewNote": "Vuhundzuluxeri lebyi nga riki bya Xinghezi byi kambisisiwa hi vavulavuri va ririmi ra le kaya. Loko swin'wana swi hlayeka hi ndlela yo hlamarisa, tivisa mulawuri wa wena."
   },
+  "legal": {
+    "englishOnly": "Pheji leyi yi kumeka hi Xinghezi.",
+    "privacy": "Xihundla",
+    "refunds": "Pholisi yo vuyisa mali",
+    "terms": "Swipimelo",
+    "updated": "Yi pfuxetiwe hi {{date}}"
+  },
   "login": {
     "createAccount": "Endla akhawunti ya khamphani",
     "email": "Imeyili",
@@ -1151,6 +1262,7 @@
   "nav": {
     "about": "Hi ta",
     "activities": "Mintirho",
+    "admin": "Mulawuri wa YGT",
     "customers": "Vaxavi",
     "dashboard": "Dexibodo",
     "deals": "Mintwanano",
@@ -1169,7 +1281,8 @@
     "profile": "Phurofayili ya wena",
     "quotes": "Swiringanyeto",
     "search": "Lavisisa",
-    "settings": "Mavekelo"
+    "settings": "Mavekelo",
+    "support": "Nseketelo"
   },
   "palette": {
     "action": {
@@ -1197,6 +1310,21 @@
     "placeholder": "Lavisisa vaxavi, vanhu, mintwanano, tinhlayo-xikoloto…",
     "sales": "Vuxavisi",
     "searching": "Ku lavisisa…"
+  },
+  "password": {
+    "confirm": "Yi tsale nakambe",
+    "done": "Phasiwedi yi cinciwile. Nghena hi phasiwedi ya wena leyintshwa.",
+    "forgot": "U rivale phasiwedi?",
+    "forgotIntro": "Nghenisa imeyili ya wena naswona hi ta ku rhumela xihlanganisi xo hlawula phasiwedi leyintshwa.",
+    "forgotTitle": "Veka phasiwedi ya wena nakambe",
+    "mismatch": "Tiphasiwedi timbirhi a ti fani.",
+    "new": "Phasiwedi leyintshwa",
+    "remembered": "U yi tsundzukile?",
+    "resetIntro": "Kwalomu ka marito ya 8. U ta humesiwa eka switirhisiwa swin'wana.",
+    "resetTitle": "Hlawula phasiwedi leyintshwa",
+    "save": "Hlayisa phasiwedi",
+    "sendLink": "Rhumela xihlanganisi",
+    "sent": "Loko {{email}} yi ri na akhawunti ya YGT, xihlanganisi xi le ndleleni. Languta eka bokisi ra wena (ni ra spam)."
   },
   "paymentMethod": {
     "bank_transfer": "Ku hundzisela hi bangi",
@@ -1293,16 +1421,48 @@
     "haveAccount": "Xana se u na akhawunti?",
     "password": "Phasiwedi",
     "passwordHint": "Kwalomu ka 8 wa swiletelo",
+    "planHint": "Pulani yin'wana ni yin'wana yi sungula hi nkarhi wo ringeta mahala wa masiku ya 14. A ku laveki karata; u nga cinca pulani nkarhi wun'wana ni wun'wana.",
+    "planTitle": "Hlawula pulani ya wena",
     "submit": "Endla akhawunti",
     "submitting": "Ku endla akhawunti…",
     "subtitle": "Endla YGT ya khamphani ya wena hi minete. U ta va mulawuri naswona u nga engetela ntlawa wa wena endzhaku.",
-    "title": "Hlela bindzu ra wena"
+    "title": "Hlela bindzu ra wena",
+    "trialNote": "Mahala masiku ya 14, endzhaku {{price}}"
   },
   "role": {
     "admin": "Mulawuri",
     "manager": "Murhangeri",
     "staff": "Vatirhi",
     "viewer": "Mulanguti"
+  },
+  "sessions": {
+    "book": "Veka nkarhi lowu",
+    "bookCta": "Veka sešeni",
+    "booked": "Sešeni yi vekiwile",
+    "bookedHint": "Xirhambo xa khalendara xi le ndleleni ku ya eka imeyili ya wena.",
+    "cancel": "Khansela sešeni leyi",
+    "cancelled": "Sešeni yi khanseriwile",
+    "chooseFirst": "Hlawula nkarhi.",
+    "chosen": "{{when}}",
+    "intro": "Hlawula nkarhi wa qhingo ra vhidiyo na ntlawa wa hina: ku sungula, ndzetelo, kumbe mpfuno hi xiphiqo.",
+    "inviteNote": "Ku veka swi rhumela xirhambo xa khalendara eka wena ni le ka ntlawa wa hina, swin'we ni xihlanganisi xa nhlangano.",
+    "noSlots": "A ku na minkarhi leyi pfulekeke sweswi. Nghenisa thikithi naswona hi ta kuma nkarhi na wena.",
+    "noneUpcoming": "A ku na leswi vekiweke sweswi.",
+    "notes": "Xana ku na leswi hi faneleke ku swi lunghiselela?",
+    "notesPlaceholder": "xik. Hi lava ku nghenisa vaxavi va hina",
+    "orTicket": "U tsakela ku tsala? Nghenisa thikithi",
+    "pickDay": "Siku",
+    "pickTime": "Nkarhi ({{tz}}, timinete ta {{minutes}})",
+    "title": "Veka sešeni na YGT",
+    "topic": "Swi khumbana na yini",
+    "topics": {
+      "billing": "Hakelo",
+      "onboarding": "Ku sungula",
+      "other": "Swin'wana",
+      "support": "Mpfuno hi xiphiqo",
+      "training": "Ku letela ntlawa wa mina"
+    },
+    "upcoming": "Tisešeni ta wena"
   },
   "settings": {
     "company": {
@@ -1357,6 +1517,7 @@
     "saved": "Mavekelo ma hlayisiwile",
     "tabs": {
       "billing": "Hakelo",
+      "data": "Nghenisa ni ku humesa",
       "documents": "Matsalwa",
       "email": "Imeyili",
       "fields": "Swivandla swo engetela",
@@ -1470,6 +1631,56 @@
     "sent": "Swi rhumeriwile",
     "void": "Swi herisiwile",
     "won": "Swi hluriwile"
+  },
+  "support": {
+    "categories": {
+      "account": "Akhawunti ya mina",
+      "billing": "Hakelo",
+      "feature": "Mianakanyo ya xihlawulekisi",
+      "problem": "Ku na leswi nga tirhiki",
+      "question": "Xivutiso"
+    },
+    "category": "Swi khumbana na yini",
+    "close": "Pfala thikithi",
+    "closed": "Thikithi yi pfariwile",
+    "closedHint": "Thikithi leyi yi pfariwile. Pfula leyintshwa loko wa ha lava mpfuno.",
+    "created": "Thikithi #{{number}} yi nghenisiwile. Hi ta hlamula ku nga ri khale.",
+    "details": "Vuxokoxoko",
+    "detailsHint": "Leswi humeleleke, leswi a u swi langutele, ni xikirini lexi a u ri eka xona. Loko u vone nkombo wa xihoxo, wu nghenisa.",
+    "newHint": "Hi byele leswi u swi lavaka. Loko vuxokoxoko byi tele, hi pfuna hi ku hatlisa.",
+    "newTicket": "Thikithi leyintshwa",
+    "none": "A ku na tithikithi sweswi",
+    "noneHint": "U khomekile, u kume xiphiqo, kumbe u ni mianakanyo? Nghenisa thikithi naswona ntlawa wa hina wu ta hlamula laha ni hi imeyili.",
+    "opened": "yi pfuriwe hi {{date}}",
+    "priority": "Nseketelo wo rhanga: pulani ya wena yi veka thikithi leyi emahlweni ka layini.",
+    "reply": "Rhumela nhlamulo",
+    "replyPlaceholder": "Tsala nhlamulo…",
+    "send": "Rhumela thikithi",
+    "status": {
+      "closed": "Yi pfariwile",
+      "in_progress": "Ya tirhiwa",
+      "open": "Yi pfulekile",
+      "resolved": "Yi tlhantlhiwile",
+      "waiting": "Yi rindzele wena"
+    },
+    "subject": "Nhlokomhaka",
+    "subtitle": "Kombela mpfuno eka ntlawa wa YGT, u veka sešeni na hina.",
+    "tabs": {
+      "sessions": "Veka sešeni",
+      "tickets": "Tithikithi"
+    },
+    "team": "Nseketelo wa YGT",
+    "urgencies": {
+      "high": "Swa hatlisa: swi yimisa ntirho wa hina",
+      "low": "A swi hatlisi",
+      "normal": "Swa ntolovelo"
+    },
+    "urgency": "Swi hatlisa ku fikela kwihi?",
+    "yourTurn": "Hi hlamurile"
+  },
+  "suspended": {
+    "body": "Akhawunti ya YGT ya khampani ya wena yi yimisiwile, kutani a yi nge tirhisiwi sweswi. Hi kombela u tihlanganisa na hina hi ta ku pfuna.",
+    "title": "Akhawunti leyi yi yimisiwile"
   },
   "team": {
     "add": "Engetela munhu",

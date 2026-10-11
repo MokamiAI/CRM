@@ -51,6 +51,10 @@ const AboutIcon = (props) => (
 const HelpIcon = (props) => (
   <Icon {...props} d={<><circle cx="12" cy="12" r="9" /><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01" /></>} />
 );
+const SupportIcon = (props) => (
+  <Icon {...props} d={<><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="3.5" /><path d="m5.6 5.6 3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9" /></>} />
+);
+const ShieldIcon = (props) => <Icon {...props} d={<><path d="M12 3 4 6.5v5c0 4.4 3.4 8.4 8 9.5 4.6-1.1 8-5.1 8-9.5v-5L12 3Z" /><path d="m9 12 2 2 4-4" /></>} />;
 const SearchIcon = (props) => <Icon {...props} d={<><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></>} />;
 const MoreIcon = (props) => <Icon {...props} d={<><circle cx="5" cy="12" r="1.2" /><circle cx="12" cy="12" r="1.2" /><circle cx="19" cy="12" r="1.2" /></>} />;
 const GearIcon = (props) => (
@@ -76,6 +80,8 @@ const NAV = {
   settings: { to: "/settings", navKey: "settings", icon: GearIcon },
   about: { to: "/about", navKey: "about", icon: AboutIcon },
   help: { to: "/help", navKey: "help", icon: HelpIcon },
+  support: { to: "/support", navKey: "support", icon: SupportIcon },
+  admin: { to: "/admin", navKey: "admin", icon: ShieldIcon },
 };
 
 // Grouped the way the work flows: your day, then selling, then records.
@@ -252,6 +258,8 @@ export default function AppLayout() {
           ))}
         </nav>
         <div className="space-y-0.5 border-t border-zinc-200/80 p-3">
+          {user?.is_platform_admin && <SidebarLink {...NAV.admin} />}
+          <SidebarLink {...NAV.support} />
           {isAdmin && <SidebarLink {...NAV.settings} />}
           <SidebarLink {...NAV.help} />
           <SidebarLink {...NAV.about} />
@@ -325,7 +333,7 @@ export default function AppLayout() {
 
       <Sheet open={moreOpen} onClose={() => setMoreOpen(false)} title={t("nav.more")}>
         <div className="-mx-2 space-y-0.5">
-          {[...MORE_ITEMS, ...(isAdmin ? [NAV.settings] : []), NAV.help, NAV.about].map(({ to, navKey, icon: ItemIcon }) => (
+          {[...MORE_ITEMS, NAV.support, ...(isAdmin ? [NAV.settings] : []), ...(user?.is_platform_admin ? [NAV.admin] : []), NAV.help, NAV.about].map(({ to, navKey, icon: ItemIcon }) => (
             <Link
               key={to}
               to={to}

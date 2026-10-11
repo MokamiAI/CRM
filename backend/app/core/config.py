@@ -38,6 +38,8 @@ class Settings(BaseSettings):
     SMTP_PASSWORD: str | None = None
     SMTP_FROM_EMAIL: str | None = None
     SMTP_FROM_NAME: str = "YGT"
+    # STARTTLS on port 587 (port 465 always uses TLS). Off only for a local test server.
+    SMTP_USE_TLS: bool = True
 
     # Public base URL of this API, used in links inside emails (unsubscribe,
     # open tracking) that customers' mail clients call without signing in.
@@ -69,6 +71,31 @@ class Settings(BaseSettings):
     FRONTEND_URL: str = "http://localhost:5173"
     # New companies try the Grow plan free for this many days.
     TRIAL_DAYS: int = 14
+
+    # ---- YGT's own team (the admin site) ----
+    # Comma-separated emails of people who may open /admin. They sign in
+    # with their normal YGT account.
+    PLATFORM_ADMIN_EMAILS: str = ""
+    # Where new help desk tickets and Contact us messages are emailed, and
+    # the sender of YGT's own emails (password resets, ticket replies,
+    # booking invites). Sent with the SMTP_* settings above.
+    SUPPORT_EMAIL: str | None = None
+    # The calendar address that session bookings are sent to as invites
+    # (e.g. your Google Calendar Gmail address). Defaults to SUPPORT_EMAIL.
+    BOOKING_CALENDAR_EMAIL: str | None = None
+
+    # ---- Rate limiting ----
+    # memory: per server process (fine for one server); redis: shared
+    # across processes and servers, using REDIS_URL.
+    RATE_LIMIT_STORAGE: str = "memory"
+    RATE_LIMIT_ENABLED: bool = True
+    # Behind a proxy (Caddy, Nginx, a platform's load balancer) the client's
+    # address is in X-Forwarded-For; only trust it when that's true.
+    TRUST_PROXY_HEADERS: bool = False
+
+    @property
+    def platform_admins(self) -> set[str]:
+        return {e.strip().lower() for e in self.PLATFORM_ADMIN_EMAILS.split(",") if e.strip()}
 
     # Company defaults (seed values; overridden by company_settings table)
     COMPANY_NAME: str = "My Company"

@@ -6,11 +6,13 @@ import LanguagePicker from "../components/LanguagePicker";
 import GlowField from "../components/GlowField";
 import LoginShowcase from "../components/LoginShowcase";
 import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
+import { usePlans } from "../hooks/useApi";
+import { formatMoneyWhole } from "../utils/format";
 import QuoteOfTheWeek from "../components/QuoteOfTheWeek";
 
 /** The sign-in screens' frame: brand, language, ambient colour and the
  *  product showcase; each screen supplies its own card contents. */
-function AuthShell({ children }) {
+export function AuthShell({ children }) {
   const { t } = useTranslation();
   return (
     <div className="grid min-h-[100dvh] bg-white md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
@@ -49,6 +51,18 @@ function AuthShell({ children }) {
             <Link to="/about" className="hover:text-zinc-600">
               {t("about.link")}
             </Link>
+            {" · "}
+            <Link to="/contact" className="hover:text-zinc-600">
+              {t("contact.link")}
+            </Link>
+            {" · "}
+            <Link to="/terms" className="hover:text-zinc-600">
+              {t("legal.terms")}
+            </Link>
+            {" · "}
+            <Link to="/privacy" className="hover:text-zinc-600">
+              {t("legal.privacy")}
+            </Link>
           </span>
           <span className="inline-flex items-center gap-1.5">
             <svg viewBox="0 0 16 16" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
@@ -67,7 +81,7 @@ function AuthShell({ children }) {
   );
 }
 
-function FormError({ children }) {
+export function FormError({ children }) {
   if (!children) return null;
   return (
     <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 ring-1 ring-inset ring-red-200/70" role="alert">
@@ -76,7 +90,7 @@ function FormError({ children }) {
   );
 }
 
-function SwitchLink({ prompt, to, label }) {
+export function SwitchLink({ prompt, to, label }) {
   return (
     <p className="mt-6 text-center text-sm text-zinc-500">
       {prompt}{" "}
@@ -115,6 +129,11 @@ export default function LoginPage() {
     <AuthShell>
       <h1 className="text-2xl font-semibold text-zinc-900">{t("login.title")}</h1>
       <p className="mt-1.5 text-sm text-zinc-500">{t("login.subtitle")}</p>
+      {location.state?.notice && (
+        <p className="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-800" role="status">
+          {location.state.notice}
+        </p>
+      )}
 
       <form onSubmit={handleSubmit} className="mt-7 space-y-5">
         <div>
@@ -134,9 +153,14 @@ export default function LoginPage() {
           />
         </div>
         <div>
-          <label className="label" htmlFor="password">
-            {t("login.password")}
-          </label>
+          <div className="flex items-baseline justify-between gap-3">
+            <label className="label" htmlFor="password">
+              {t("login.password")}
+            </label>
+            <Link to="/forgot-password" className="text-xs font-medium text-indigo-600 hover:text-indigo-700">
+              {t("password.forgot")}
+            </Link>
+          </div>
           <GlowField
             id="password"
             type="password"
@@ -162,7 +186,10 @@ export function RegisterPage() {
   const { t } = useTranslation();
   const { register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [form, setForm] = useState({ company_name: "", full_name: "", email: "", password: "" });
+  // ?plan=scale from a "Start free trial" button; Grow otherwise.
+  const [plan, setPlan] = useState(() => (["hustle", "grow", "scale"].includes(location.search.match(/plan=(\w+)/)?.[1]) ? location.search.match(/plan=(\w+)/)[1] : "grow"));
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const set = (field) => (event) => setForm((prev) => ({ ...prev, [field]: event.target.value }));
@@ -172,7 +199,7 @@ export function RegisterPage() {
     setError("");
     setIsSubmitting(true);
     try {
-      await register(form);
+      await register({ ...form, plan });
       navigate("/", { replace: true });
     } catch (err) {
       setError(t(err?.response?.data?.error_code === "USER_EMAIL_TAKEN" ? "register.emailTaken" : "register.failed"));
@@ -203,6 +230,7 @@ export function RegisterPage() {
             {hint && <span className="mt-1.5 block text-xs text-zinc-500">{hint}</span>}
           </div>
         ))}
+        <PlanPicker value={plan} onChange={setPlan} />
         <FormError>{error}</FormError>
         <button type="submit" disabled={isSubmitting} className="btn btn-primary w-full">
           {isSubmitting ? t("register.submitting") : t("register.submit")}
@@ -210,5 +238,47 @@ export function RegisterPage() {
       </form>
       <SwitchLink prompt={t("register.haveAccount")} to="/login" label={t("login.signIn")} />
     </AuthShell>
+  );
+}
+
+/** Sign-up: which plan to try. Every plan starts with the same free trial. */
+function PlanPicker({ value, onChange }) {
+  const { t } = useTranslation();
+  const { data: plans } = usePlans();
+  if (!plans) return null;
+  return (
+    <fieldset>
+      <legend className="label">{t("register.planTitle")}</legend>
+      <div className="space-y-2" role="radiogroup">
+        {plans.map((plan) => {
+          const chosen = value === plan.key;
+          const price = `${formatMoneyWhole(plan.monthly_cents / 100)} ${plan.per_user ? t("billing.perPerson") : ""} / ${t("billing.perMonth")}`;
+          return (
+            <button
+              key={plan.key}
+              type="button"
+              role="radio"
+              aria-checked={chosen}
+              onClick={() => onChange(plan.key)}
+              className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left ring-1 ring-inset transition-colors duration-150 ${
+                chosen ? "bg-indigo-50/70 ring-2 ring-indigo-500" : "bg-white/60 ring-zinc-200 hover:bg-white"
+              }`}
+            >
+              <span className={`mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1 ring-inset ${chosen ? "bg-indigo-600 ring-indigo-600" : "ring-zinc-300"}`} aria-hidden="true">
+                {chosen && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="flex items-baseline justify-between gap-2">
+                  <span className="font-semibold text-zinc-900">{plan.name}</span>
+                  <span className="text-xs tabular-nums text-zinc-500">{price.replace(/\s+/g, " ")}</span>
+                </span>
+                <span className="block text-xs text-zinc-500">{t(`billing.tagline.${plan.key}`)}</span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+      <p className="mt-2 text-xs text-zinc-500">{t("register.planHint")}</p>
+    </fieldset>
   );
 }

@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel, EmailStr, Field
 
 
@@ -27,3 +29,5 @@ class RegisterRequest(BaseModel):
     full_name: str = Field(min_length=1, max_length=255)
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)
+    # The plan they're trying (free for the trial; chosen again at checkout).
+    plan: Literal["hustle", "grow", "scale"] = "grow"

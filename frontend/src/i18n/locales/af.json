@@ -345,12 +345,33 @@
   "contact": {
     "addTitle": "Voeg 'n persoon by",
     "added": "Kontak bygevoeg",
+    "company": "Maatskappy (opsioneel)",
     "editTitle": "Wysig kontak",
+    "email": "E-pos",
+    "failed": "Kon nie jou boodskap stuur nie. Probeer asseblief weer.",
     "firstName": "Voornaam",
+    "intro": "Vrae oor YGT, pryse of opstelling? Stuur vir ons 'n boodskap en ons antwoord, gewoonlik binne een werksdag.",
     "jobTitle": "Postitel",
     "lastName": "Van",
+    "link": "Kontak ons",
+    "message": "Boodskap",
+    "name": "Jou naam",
+    "orEmail": "Of e-pos ons by",
+    "phone": "Telefoon (opsioneel)",
     "primary": "Hoofkontak vir hierdie kliënt",
     "removed": "Kontak verwyder",
+    "send": "Stuur boodskap",
+    "sentBody": "Ons antwoord binnekort aan {{email}}.",
+    "sentTitle": "Dankie, jou boodskap is op pad",
+    "title": "Kontak ons",
+    "topic": "Waaroor dit gaan",
+    "topics": {
+      "billing": "Fakturering",
+      "other": "Iets anders",
+      "partnership": "Vennootskap met YGT",
+      "sales": "Pryse en planne",
+      "support": "Ek het hulp nodig"
+    },
     "updated": "Kontak bygewerk"
   },
   "customFields": {
@@ -472,6 +493,79 @@
     "topDeals": "Grootste oop transaksies",
     "validUntil": "geldig tot {{date}}",
     "yourDay": "Jou dag"
+  },
+  "data": {
+    "chooseFile": "Kies CSV-lêer",
+    "done": "Invoer klaar: {{created}} bygevoeg, {{updated}} bygewerk",
+    "entities": {
+      "customers": "Kliënte (met 'n kontakpersoon)",
+      "deals": "Transaksies",
+      "products": "Produkte en dienste"
+    },
+    "errors_one": "{{count}} ry is nie ingevoer nie:",
+    "errors_other": "{{count}} rye is nie ingevoer nie:",
+    "excelHint": "Wenk: die eerste ry moet die kolomname bevat. Kolomme wat ons herken, word vir jou gepas.",
+    "exportIntro": "Laai jou inligting af as CSV-lêers wat in Excel of Google Sheets oopmaak. Jou data is altyd joune.",
+    "exportTitle": "Uitvoer",
+    "exports": {
+      "contacts": "Kontakpersone",
+      "customers": "Kliënte",
+      "deals": "Transaksies",
+      "invoices": "Fakture",
+      "payments": "Betalings",
+      "products": "Produkte",
+      "quotes": "Kwotasies"
+    },
+    "fields": {
+      "billing_address": "Adres",
+      "contact_email": "Kontak se e-pos",
+      "contact_first_name": "Kontak se voornaam",
+      "contact_job_title": "Kontak se pos",
+      "contact_last_name": "Kontak se van",
+      "contact_phone": "Kontak se telefoon",
+      "customer": "Kliënt",
+      "description": "Beskrywing",
+      "email": "E-pos",
+      "expected_close_date": "Verwagte sluitingsdatum",
+      "industry": "Bedryf",
+      "name": "Naam",
+      "notes": "Notas",
+      "owner_email": "Eienaar se e-pos",
+      "phone": "Telefoon",
+      "sku": "Kode (SKU)",
+      "stage": "Fase",
+      "tax_number": "BTW-nommer",
+      "tax_rate": "BTW %",
+      "title": "Transaksienaam",
+      "unit_price": "Prys (sonder BTW)",
+      "value": "Waarde"
+    },
+    "fileSummary_one": "{{name}}: {{count}} ry",
+    "fileSummary_other": "{{name}}: {{count}} rye",
+    "importIntro": "Bring jou kliënte, produkte en transaksies in vanaf 'n sigblad of 'n ander stelsel. Stoor dit eers as CSV (in Excel: Lêer > Stoor as > CSV UTF-8).",
+    "importTitle": "Invoer",
+    "import_one": "Voer {{count}} ry in",
+    "import_other": "Voer {{count}} rye in",
+    "importing": "Voer in…",
+    "matchIntro": "Pas jou kolomme by YGT se velde. Velde gemerk * is nodig.",
+    "needs": "Pas eers hierdie: {{fields}}",
+    "otherFile": "Kies 'n ander lêer",
+    "previewNote_one": "Wys {{count}} van {{total}} ry.",
+    "previewNote_other": "Wys {{count}} van {{total}} rye.",
+    "ready_one": "Gereed om {{count}} ry in te voer.",
+    "ready_other": "Gereed om {{count}} rye in te voer.",
+    "results": {
+      "created": "Bygevoeg",
+      "skipped": "Reeds daar",
+      "updated": "Bygewerk"
+    },
+    "row": "Ry {{row}}:",
+    "skip": "Moenie invoer nie",
+    "template": "Laai 'n sjabloon af",
+    "tooMany": "Net die eerste {{max}} rye sal ingevoer word. Verdeel groter lêers.",
+    "unreadable": "Daardie lêer kon nie as CSV gelees word nie.",
+    "updateExisting": "Werk rekords by wat reeds bestaan (gepas volgens e-pos, kode of naam) in plaas daarvan om hulle oor te slaan",
+    "what": "Wat voer jy in?"
   },
   "deal": {
     "created": "Geskep",
@@ -612,6 +706,8 @@
   },
   "editor": {
     "addLine": "Voeg lynitem by",
+    "bankingHint": "Jou bankbesonderhede word outomaties by elke faktuur gevoeg.",
+    "bankingLink": "Verander dit in Instellings > Dokumente",
     "customItem": "Pasgemaakte item (geen produk nie)",
     "customer": "Kliënt",
     "description": "Beskrywing",
@@ -619,6 +715,8 @@
     "item": "Item {{n}}",
     "notes": "Notas",
     "notesHint": "Word aan die kliënt gewys op die dokument en e-pos",
+    "poNumber": "Kliënt se bestelnommer (PO)",
+    "poNumberHint": "Word op die dokument en in die e-pos gewys.",
     "product": "Produk",
     "qty": "Hoev.",
     "remove": "Verwyder",
@@ -626,6 +724,7 @@
     "unitPrice": "Eenheidsprys"
   },
   "errors": {
+    "ACCOUNT_SUSPENDED": "Hierdie rekening is opgeskort. Kontak asseblief YGT-ondersteuning.",
     "BILLING_NOTHING_TO_CANCEL": "Daar is geen betaalde plan om te kanselleer nie.",
     "BILLING_NOT_CONFIGURED": "Aanlynbetalings is nog nie aangeskakel nie.",
     "BILLING_NO_SUBSCRIPTION": "Daar is nog geen kaart op lêer nie.",
@@ -633,6 +732,7 @@
     "CHANNEL_NOT_SET": "Daardie kanaal is nog nie opgestel nie. 'n Administrateur kan dit in Instellings koppel.",
     "CUSTOMER_NO_EMAIL": "Hierdie kliënt het geen e-posadres nie.",
     "CUSTOMER_NO_PHONE": "Hierdie kliënt het geen geldige telefoonnommer nie.",
+    "IMPORT_TOO_MANY_ROWS": "Dis te veel rye vir een invoer. Verdeel die lêer en probeer weer.",
     "PLAN_EXPIRED": "Jou gratis proeftydperk is verby. Kies 'n plan in Instellings > Intekening om voort te gaan met byvoeg en stuur.",
     "PLAN_FEATURE_CUSTOM_FIELDS": "Pasgemaakte velde is deel van die Grow-plan.",
     "PLAN_FEATURE_MARKETING": "Bemarkingsveldtogte is deel van die Grow-plan.",
@@ -641,7 +741,11 @@
     "PLAN_LIMIT_CUSTOMERS": "Jy het jou plan se kliëntelimiet bereik. Kies 'n plan in Instellings > Intekening vir onbeperkte kliënte.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "Jy het hierdie maand se fakture op die Free-plan gebruik. Kies 'n plan in Instellings > Intekening vir onbeperkte fakture.",
     "PLAN_LIMIT_USERS": "Jou plan het nie plek vir nog 'n persoon nie. 'n Administrateur kan mense byvoeg in Instellings > Intekening.",
+    "RATE_LIMITED": "Te veel pogings. Wag asseblief 'n oomblik en probeer weer.",
+    "RESET_LINK_INVALID": "Hierdie terugstelskakel het verval of is reeds gebruik. Vra vir 'n nuwe een.",
+    "SLOT_TAKEN": "Daardie tyd is pas geneem. Kies asseblief 'n ander.",
     "STATEMENT_PERIOD_INVALID": "Die begindatum moet voor die einddatum wees.",
+    "TICKET_CLOSED": "Hierdie kaartjie is gesluit. Maak 'n nuwe een oop as jy nog hulp nodig het.",
     "generic": "Iets het skeefgeloop."
   },
   "feed": {
@@ -953,6 +1057,13 @@
     "label": "Taal",
     "reviewNote": "Vertalings anders as Engels word deur moedertaalsprekers nagegaan. As iets vreemd lees, laat weet jou administrateur."
   },
+  "legal": {
+    "englishOnly": "Hierdie bladsy is in Engels beskikbaar.",
+    "privacy": "Privaatheid",
+    "refunds": "Terugbetalingsbeleid",
+    "terms": "Terme",
+    "updated": "Laas bygewerk {{date}}"
+  },
   "login": {
     "createAccount": "Skep 'n maatskappyrekening",
     "email": "E-pos",
@@ -1151,6 +1262,7 @@
   "nav": {
     "about": "Oor",
     "activities": "Aktiwiteite",
+    "admin": "YGT-admin",
     "customers": "Kliënte",
     "dashboard": "Paneelbord",
     "deals": "Transaksies",
@@ -1169,7 +1281,8 @@
     "profile": "Jou profiel",
     "quotes": "Kwotasies",
     "search": "Soek",
-    "settings": "Instellings"
+    "settings": "Instellings",
+    "support": "Ondersteuning"
   },
   "palette": {
     "action": {
@@ -1197,6 +1310,21 @@
     "placeholder": "Soek kliënte, mense, transaksies, fakture…",
     "sales": "Verkope",
     "searching": "Soek tans…"
+  },
+  "password": {
+    "confirm": "Tik dit weer",
+    "done": "Wagwoord verander. Meld aan met jou nuwe wagwoord.",
+    "forgot": "Wagwoord vergeet?",
+    "forgotIntro": "Voer jou e-pos in en ons stuur vir jou 'n skakel om 'n nuwe wagwoord te kies.",
+    "forgotTitle": "Stel jou wagwoord terug",
+    "mismatch": "Die twee wagwoorde stem nie ooreen nie.",
+    "new": "Nuwe wagwoord",
+    "remembered": "Onthou jy dit?",
+    "resetIntro": "Minstens 8 karakters. Jy word op ander toestelle afgemeld.",
+    "resetTitle": "Kies 'n nuwe wagwoord",
+    "save": "Stoor wagwoord",
+    "sendLink": "Stuur terugstelskakel",
+    "sent": "As {{email}} 'n YGT-rekening het, is 'n terugstelskakel op pad. Kyk in jou inkassie (en gemorspos)."
   },
   "paymentMethod": {
     "bank_transfer": "Bankoorplasing",
@@ -1293,16 +1421,48 @@
     "haveAccount": "Het jy reeds 'n rekening?",
     "password": "Wagwoord",
     "passwordHint": "Minstens 8 karakters",
+    "planHint": "Elke plan begin met 'n gratis proeftydperk van 14 dae. Geen kaart nodig nie; jy kan enige tyd van plan verander.",
+    "planTitle": "Kies jou plan",
     "submit": "Skep rekening",
     "submitting": "Skep tans rekening…",
     "subtitle": "Skep jou maatskappy se YGT in 'n minuut. Jy sal die administrateur wees en kan later jou span byvoeg.",
-    "title": "Stel jou besigheid op"
+    "title": "Stel jou besigheid op",
+    "trialNote": "Gratis vir 14 dae, dan {{price}}"
   },
   "role": {
     "admin": "Administrateur",
     "manager": "Bestuurder",
     "staff": "Personeel",
     "viewer": "Kyker"
+  },
+  "sessions": {
+    "book": "Bespreek hierdie tyd",
+    "bookCta": "Bespreek 'n sessie",
+    "booked": "Sessie bespreek",
+    "bookedHint": "'n Kalenderuitnodiging is op pad na jou e-pos.",
+    "cancel": "Kanselleer hierdie sessie",
+    "cancelled": "Sessie gekanselleer",
+    "chooseFirst": "Kies 'n tyd.",
+    "chosen": "{{when}}",
+    "intro": "Kies 'n tyd vir 'n video-oproep met ons span: aan die gang kom, opleiding, of hulp met 'n probleem.",
+    "inviteNote": "'n Bespreking stuur 'n kalenderuitnodiging aan jou en ons span, met die vergaderskakel.",
+    "noSlots": "Daar is nou geen oop tye nie. Skep 'n kaartjie en ons vind 'n tyd saam met jou.",
+    "noneUpcoming": "Nog niks bespreek nie.",
+    "notes": "Iets wat ons moet voorberei?",
+    "notesPlaceholder": "bv. Ons wil ons kliënte invoer",
+    "orTicket": "Verkies jy om te skryf? Skep 'n kaartjie",
+    "pickDay": "Dag",
+    "pickTime": "Tyd ({{tz}}, {{minutes}} minute)",
+    "title": "Bespreek 'n sessie met YGT",
+    "topic": "Waaroor dit gaan",
+    "topics": {
+      "billing": "Fakturering",
+      "onboarding": "Aan die gang kom",
+      "other": "Iets anders",
+      "support": "Hulp met 'n probleem",
+      "training": "My span oplei"
+    },
+    "upcoming": "Jou sessies"
   },
   "settings": {
     "company": {
@@ -1357,6 +1517,7 @@
     "saved": "Instellings gestoor",
     "tabs": {
       "billing": "Intekening",
+      "data": "Invoer en uitvoer",
       "documents": "Dokumente",
       "email": "E-pos",
       "fields": "Pasgemaakte velde",
@@ -1470,6 +1631,56 @@
     "sent": "Gestuur",
     "void": "Gekanselleer",
     "won": "Gewen"
+  },
+  "support": {
+    "categories": {
+      "account": "My rekening",
+      "billing": "Fakturering",
+      "feature": "Idee vir 'n funksie",
+      "problem": "Iets werk nie",
+      "question": "Vraag"
+    },
+    "category": "Waaroor dit gaan",
+    "close": "Sluit kaartjie",
+    "closed": "Kaartjie gesluit",
+    "closedHint": "Hierdie kaartjie is gesluit. Maak 'n nuwe een oop as jy nog hulp nodig het.",
+    "created": "Kaartjie #{{number}} aangeteken. Ons antwoord binnekort.",
+    "details": "Besonderhede",
+    "detailsHint": "Wat gebeur het, wat jy verwag het, en op watter skerm jy was. Sluit enige foutverwysing in.",
+    "newHint": "Vertel ons wat jy nodig het. Hoe meer besonderhede, hoe vinniger kan ons help.",
+    "newTicket": "Nuwe kaartjie",
+    "none": "Nog geen kaartjies nie",
+    "noneHint": "Vas, 'n probleem gevind, of het jy 'n idee? Skep 'n kaartjie en ons span antwoord hier en per e-pos.",
+    "opened": "oopgemaak {{date}}",
+    "priority": "Voorkeurondersteuning: jou plan plaas hierdie kaartjie voor in die tou.",
+    "reply": "Stuur antwoord",
+    "replyPlaceholder": "Skryf 'n antwoord…",
+    "send": "Stuur kaartjie",
+    "status": {
+      "closed": "Gesluit",
+      "in_progress": "Word aan gewerk",
+      "open": "Oop",
+      "resolved": "Opgelos",
+      "waiting": "Wag vir jou"
+    },
+    "subject": "Onderwerp",
+    "subtitle": "Vra YGT se span om hulp, en bespreek 'n sessie met ons.",
+    "tabs": {
+      "sessions": "Bespreek 'n sessie",
+      "tickets": "Kaartjies"
+    },
+    "team": "YGT-ondersteuning",
+    "urgencies": {
+      "high": "Dringend: dit keer ons werk",
+      "low": "Nie dringend nie",
+      "normal": "Normaal"
+    },
+    "urgency": "Hoe dringend is dit?",
+    "yourTurn": "Ons het geantwoord"
+  },
+  "suspended": {
+    "body": "Jou maatskappy se YGT-rekening is opgeskort en kan nou nie gebruik word nie. Kontak ons asseblief en ons help om dit uit te sorteer.",
+    "title": "Hierdie rekening is opgeskort"
   },
   "team": {
     "add": "Voeg persoon by",

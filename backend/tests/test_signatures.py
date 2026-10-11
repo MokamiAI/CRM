@@ -23,6 +23,7 @@ def _quote_email(company):
         tax_total=Decimal("15.00"),
         total=Decimal("115.00"),
         notes=None,
+        po_number=None,
         items=[],
     )
     return render_email(

@@ -1,0 +1,431 @@
+import { useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import apiClient from "../services/apiClient";
+import { useAuth } from "../context/AuthContext";
+import { APP_NAME, BrandMark } from "../components/Brand";
+import LanguagePicker from "../components/LanguagePicker";
+import GlowField from "../components/GlowField";
+import { AuthShell, FormError, SwitchLink } from "./LoginPage";
+import { Field } from "../components/ui";
+import { errorMessage } from "../utils/format";
+
+// Your business details for the legal pages. Fill these in before going
+// live (Paystack checks them when it reviews your account).
+export const LEGAL = {
+  company: "YGT (You Got This)",
+  registration: "", // CIPC registration number, e.g. 2026/123456/07
+  address: "", // physical address in South Africa
+  email: import.meta.env.VITE_SUPPORT_EMAIL || "",
+  informationOfficer: "Mokami Johannes",
+  updated: "11 October 2026",
+};
+const missing = (value) => value || "[to be added]";
+
+/** The frame for public pages: brand, language, sign in, and the footer links. */
+export function PublicShell({ children, narrow = false }) {
+  const { t } = useTranslation();
+  const { user } = useAuth();
+  return (
+    <div className="min-h-[100dvh] bg-white">
+      <div className={`safe-top mx-auto px-6 ${narrow ? "max-w-3xl" : "max-w-4xl"}`}>
+        <header className="flex items-center gap-2.5 py-6">
+          <Link to={user ? "/" : "/login"} className="flex items-center gap-2.5 rounded-lg">
+            <BrandMark size="sm" />
+            <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
+          </Link>
+          <div className="ml-auto flex items-center gap-3">
+            <LanguagePicker />
+            <Link to={user ? "/" : "/login"} className="btn btn-secondary !h-9 !text-sm">
+              {t(user ? "about.backToApp" : "login.signIn")}
+            </Link>
+          </div>
+        </header>
+        {children}
+        <PublicFooter />
+      </div>
+    </div>
+  );
+}
+
+export function PublicFooter() {
+  const { t } = useTranslation();
+  const links = [
+    ["/about", t("about.link")],
+    ["/contact", t("contact.link")],
+    ["/terms", t("legal.terms")],
+    ["/privacy", t("legal.privacy")],
+    ["/refunds", t("legal.refunds")],
+  ];
+  return (
+    <footer className="safe-bottom mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-zinc-100 py-8 text-xs text-zinc-500">
+      <span>
+        © {new Date().getFullYear()} {APP_NAME}
+      </span>
+      {links.map(([to, label]) => (
+        <Link key={to} to={to} className="hover:text-zinc-800">
+          {label}
+        </Link>
+      ))}
+    </footer>
+  );
+}
+
+// ---------------------------------------------------------------- contact
+
+const TOPICS = ["sales", "support", "billing", "partnership", "other"];
+
+export function ContactForm({ compact = false }) {
+  const { t } = useTranslation();
+  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", topic: "sales", message: "", website: "" });
+  const [state, setState] = useState("idle"); // idle | sending | sent
+  const [error, setError] = useState("");
+  const set = (field) => (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
+
+  async function submit(e) {
+    e.preventDefault();
+    setError("");
+    setState("sending");
+    try {
+      await apiClient.post("/public/contact", form);
+      setState("sent");
+    } catch (err) {
+      setError(errorMessage(err, t("contact.failed")));
+      setState("idle");
+    }
+  }
+
+  if (state === "sent") {
+    return (
+      <div className="rounded-2xl bg-emerald-50 p-6 ring-1 ring-inset ring-emerald-200/70" role="status">
+        <p className="font-semibold text-emerald-900">{t("contact.sentTitle")}</p>
+        <p className="mt-1 text-sm text-emerald-900/80">{t("contact.sentBody", { email: form.email })}</p>
+      </div>
+    );
+  }
+  return (
+    <form onSubmit={submit} className={`grid gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
+      <Field label={t("contact.name")}>
+        <input className="input" required minLength={2} maxLength={200} autoComplete="name" value={form.name} onChange={set("name")} />
+      </Field>
+      <Field label={t("contact.email")}>
+        <input className="input" required type="email" autoComplete="email" value={form.email} onChange={set("email")} />
+      </Field>
+      <Field label={t("contact.phone")}>
+        <input className="input" type="tel" autoComplete="tel" maxLength={50} value={form.phone} onChange={set("phone")} />
+      </Field>
+      <Field label={t("contact.company")}>
+        <input className="input" autoComplete="organization" maxLength={200} value={form.company} onChange={set("company")} />
+      </Field>
+      <Field label={t("contact.topic")} className={compact ? "" : "sm:col-span-2"}>
+        <select className="input" value={form.topic} onChange={set("topic")}>
+          {TOPICS.map((v) => (
+            <option key={v} value={v}>
+              {t(`contact.topics.${v}`)}
+            </option>
+          ))}
+        </select>
+      </Field>
+      <Field label={t("contact.message")} className={compact ? "" : "sm:col-span-2"}>
+        <textarea className="input min-h-[8rem]" required minLength={5} maxLength={5000} value={form.message} onChange={set("message")} />
+      </Field>
+      {/* Hidden from people; spam bots fill it in. */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} className="hidden" aria-hidden="true" />
+      <div className={`flex flex-wrap items-center justify-between gap-3 ${compact ? "" : "sm:col-span-2"}`}>
+        <FormError>{error}</FormError>
+        <button type="submit" className="btn btn-primary ml-auto" disabled={state === "sending"}>
+          {state === "sending" ? t("common.sending") : t("contact.send")}
+        </button>
+      </div>
+    </form>
+  );
+}
+
+export function ContactPage() {
+  const { t } = useTranslation();
+  return (
+    <PublicShell narrow>
+      <section className="py-8">
+        <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">{t("contact.title")}</h1>
+        <p className="mt-2 max-w-xl text-zinc-600">{t("contact.intro")}</p>
+        {LEGAL.email && (
+          <p className="mt-2 text-sm text-zinc-500">
+            {t("contact.orEmail")}{" "}
+            <a href={`mailto:${LEGAL.email}`} className="font-medium text-indigo-600 hover:text-indigo-700">
+              {LEGAL.email}
+            </a>
+          </p>
+        )}
+        <div className="card mt-8 p-5 sm:p-7">
+          <ContactForm />
+        </div>
+      </section>
+    </PublicShell>
+  );
+}
+
+// ---------------------------------------------------------------- passwords
+
+export function ForgotPasswordPage() {
+  const { t } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  async function submit(e) {
+    e.preventDefault();
+    setBusy(true);
+    setError("");
+    try {
+      await apiClient.post("/auth/forgot-password", { email });
+      setSent(true);
+    } catch (err) {
+      setError(errorMessage(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <AuthShell>
+      <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">{t("password.forgotTitle")}</h1>
+      {sent ? (
+        <p className="mt-3 text-sm text-zinc-600" role="status">
+          {t("password.sent", { email })}
+        </p>
+      ) : (
+        <>
+          <p className="mt-1.5 text-sm text-zinc-500">{t("password.forgotIntro")}</p>
+          <form onSubmit={submit} className="mt-7 space-y-5">
+            <div>
+              <label className="label" htmlFor="email">
+                {t("login.email")}
+              </label>
+              <GlowField id="email" type="email" inputMode="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+            <FormError>{error}</FormError>
+            <button type="submit" className="btn btn-primary w-full" disabled={busy}>
+              {busy ? t("common.sending") : t("password.sendLink")}
+            </button>
+          </form>
+        </>
+      )}
+      <SwitchLink prompt={t("password.remembered")} to="/login" label={t("login.signIn")} />
+    </AuthShell>
+  );
+}
+
+export function ResetPasswordPage() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const token = params.get("token") || "";
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  async function submit(e) {
+    e.preventDefault();
+    if (password !== confirm) {
+      setError(t("password.mismatch"));
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      await apiClient.post("/auth/reset-password", { token, password });
+      navigate("/login", { replace: true, state: { notice: t("password.done") } });
+    } catch (err) {
+      setError(errorMessage(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <AuthShell>
+      <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">{t("password.resetTitle")}</h1>
+      <p className="mt-1.5 text-sm text-zinc-500">{t("password.resetIntro")}</p>
+      <form onSubmit={submit} className="mt-7 space-y-5">
+        <div>
+          <label className="label" htmlFor="password">
+            {t("password.new")}
+          </label>
+          <GlowField id="password" type="password" autoComplete="new-password" minLength={8} required value={password} onChange={(e) => setPassword(e.target.value)} />
+        </div>
+        <div>
+          <label className="label" htmlFor="confirm">
+            {t("password.confirm")}
+          </label>
+          <GlowField id="confirm" type="password" autoComplete="new-password" minLength={8} required value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+        </div>
+        <FormError>{error}</FormError>
+        <button type="submit" className="btn btn-primary w-full" disabled={busy || !token}>
+          {busy ? t("common.saving") : t("password.save")}
+        </button>
+      </form>
+      <SwitchLink prompt={t("password.remembered")} to="/login" label={t("login.signIn")} />
+    </AuthShell>
+  );
+}
+
+// ---------------------------------------------------------------- legal
+
+function Section({ title, children }) {
+  return (
+    <section className="mt-8">
+      <h2 className="text-lg font-semibold text-zinc-900">{title}</h2>
+      <div className="mt-2 space-y-3 text-[15px] leading-relaxed text-zinc-700">{children}</div>
+    </section>
+  );
+}
+
+const LEGAL_PAGES = {
+  terms: {
+    titleKey: "legal.terms",
+    body: () => (
+      <>
+        <p>
+          These terms apply when you or your organisation (“you”) use {LEGAL.company} (“YGT”, “we”), a customer relationship management and invoicing
+          service run from South Africa. By creating an account you agree to them on behalf of your organisation.
+        </p>
+        <Section title="1. Your account">
+          <p>You are responsible for the people you invite, for keeping passwords safe, and for the information you put into YGT. Each person must use their own sign-in.</p>
+        </Section>
+        <Section title="2. Free trial, plans and payment">
+          <p>
+            New organisations get a 14-day free trial; no card is needed. After the trial you choose a plan (Hustle, Grow or Scale). Plans are billed in South African
+            rand, monthly or yearly, in advance, through Paystack. Subscriptions renew automatically until cancelled.
+          </p>
+          <p>
+            If a trial ends or a payment fails and isn't fixed within a few days, your account becomes read-only: you can still view and export your information, but
+            you can't add, change or send anything until a plan is active again. We may change prices with at least 30 days' notice.
+          </p>
+        </Section>
+        <Section title="3. Cancelling">
+          <p>You can cancel at any time in Settings &gt; Billing. Your plan stays active until the end of the period you've paid for. Refunds are covered in our Refund policy.</p>
+        </Section>
+        <Section title="4. Your information">
+          <p>
+            Everything you add (clients, invoices, messages and so on) belongs to you. You can export it at any time. Under the Protection of Personal Information Act
+            (POPIA) you are the responsible party for your clients' personal information and YGT is your operator: we process it only to provide the service, keep it
+            secure, keep each organisation's information separate, and don't sell it. See our Privacy policy.
+          </p>
+        </Section>
+        <Section title="5. Acceptable use">
+          <p>
+            Don't use YGT to send spam or unlawful messages, to break the law (including POPIA and the Consumer Protection Act), or to interfere with the service. Marketing
+            emails must go only to people who agreed to receive them; every campaign includes an unsubscribe link. We may suspend accounts that break these terms.
+          </p>
+        </Section>
+        <Section title="6. Your invoices and tax">
+          <p>
+            YGT helps you prepare quotes, invoices and statements, but you are responsible for their content and for your tax obligations, including whether you are
+            registered for VAT. YGT doesn't give tax, legal or accounting advice.
+          </p>
+        </Section>
+        <Section title="7. Availability and liability">
+          <p>
+            We work to keep YGT available and your information backed up, but the service is provided “as is”. To the extent the law allows, our total liability for any
+            claim is limited to the fees you paid in the three months before it arose, and we aren't liable for indirect or consequential loss.
+          </p>
+        </Section>
+        <Section title="8. Changes and law">
+          <p>We'll tell you about material changes to these terms by email or in the app. These terms are governed by the laws of the Republic of South Africa.</p>
+        </Section>
+        <Section title="9. Contact">
+          <p>
+            {LEGAL.company}, registration number {missing(LEGAL.registration)}, {missing(LEGAL.address)}. Email: {missing(LEGAL.email)}.
+          </p>
+        </Section>
+      </>
+    ),
+  },
+  privacy: {
+    titleKey: "legal.privacy",
+    body: () => (
+      <>
+        <p>This policy explains how {LEGAL.company} handles personal information, in line with the Protection of Personal Information Act, 2013 (POPIA).</p>
+        <Section title="1. Two roles">
+          <p>
+            <strong>Your account:</strong> for the details of the people who use YGT (names, email addresses, sign-in activity, billing details), we are the responsible
+            party.
+          </p>
+          <p>
+            <strong>Your clients' information:</strong> for the information organisations add about their own clients, the organisation is the responsible party and we
+            are its operator. We process it only on their instructions, to provide the service.
+          </p>
+        </Section>
+        <Section title="2. What we collect and why">
+          <p>
+            Account details, to run your account and support you; usage and security logs (such as sign-ins, errors and IP addresses), to keep the service secure and
+            working; billing records, to charge for plans (card details are handled by Paystack, never stored by us); and messages you send our support team.
+          </p>
+        </Section>
+        <Section title="3. Sharing">
+          <p>
+            We share information only with service providers that help us run YGT (hosting, email delivery, payments through Paystack, and WhatsApp or SMS providers you
+            connect yourself), under agreements that protect it, or when the law requires it. Some providers store information outside South Africa; we only use
+            providers with adequate protection, as POPIA requires.
+          </p>
+        </Section>
+        <Section title="4. Security and retention">
+          <p>
+            Information is encrypted in transit, passwords and connection secrets are stored encrypted, and each organisation's information is kept separate. We keep
+            account information while your account is open and for as long as the law requires afterwards; organisations can export or ask us to delete their information.
+          </p>
+        </Section>
+        <Section title="5. Your rights">
+          <p>
+            You may ask what personal information we hold about you, ask us to correct or delete it, object to processing, and complain to the Information Regulator
+            (inforegulator.org.za). Clients of organisations using YGT should contact that organisation first.
+          </p>
+        </Section>
+        <Section title="6. Information officer">
+          <p>
+            {LEGAL.informationOfficer}, {missing(LEGAL.email)}. {LEGAL.company}, {missing(LEGAL.address)}.
+          </p>
+        </Section>
+      </>
+    ),
+  },
+  refunds: {
+    titleKey: "legal.refunds",
+    body: () => (
+      <>
+        <Section title="Free trial">
+          <p>Every new organisation gets 14 days free. We don't ask for a card, so nothing is charged during the trial.</p>
+        </Section>
+        <Section title="Monthly plans">
+          <p>You can cancel at any time; your plan runs to the end of the month you've paid for and isn't renewed. We don't refund part-months.</p>
+        </Section>
+        <Section title="Yearly plans">
+          <p>If you cancel within 14 days of a yearly payment, we refund it in full. After that the plan runs to the end of the year and isn't renewed.</p>
+        </Section>
+        <Section title="Mistakes and outages">
+          <p>If you were charged in error, or a serious outage on our side stopped you working, we'll refund the affected amount.</p>
+        </Section>
+        <Section title="How to ask">
+          <p>
+            Log a ticket in the app under Support, or email {missing(LEGAL.email)}. Approved refunds go back to the card you paid with through Paystack, usually within 5 to
+            10 business days.
+          </p>
+        </Section>
+      </>
+    ),
+  },
+};
+
+export function LegalPage({ kind }) {
+  const { t } = useTranslation();
+  const page = LEGAL_PAGES[kind];
+  return (
+    <PublicShell narrow>
+      <article className="py-6">
+        <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">{t(page.titleKey)}</h1>
+        <p className="mt-2 text-sm text-zinc-500">
+          {t("legal.updated", { date: LEGAL.updated })} · {t("legal.englishOnly")}
+        </p>
+        <div className="mt-4 text-[15px] leading-relaxed text-zinc-700">{page.body()}</div>
+      </article>
+    </PublicShell>
+  );
+}

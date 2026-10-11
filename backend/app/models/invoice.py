@@ -35,6 +35,8 @@ class Invoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     total: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     amount_paid: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # The client's purchase order (order) number, quoted back on the document.
+    po_number: Mapped[str | None] = mapped_column(String(60), nullable=True, index=True)
     created_by: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )
