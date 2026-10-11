@@ -1,4 +1,5 @@
 {% macro line_items(document, money) %}
+{% set vat = "VAT" if "vat" in ((t.tax_label if t is defined and t else "VAT")|lower) else "Tax" %}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:14px;margin:16px 0;">
   <tr>
     <th align="left" style="padding:8px 0;border-bottom:2px solid #e5e7eb;">Description</th>
@@ -15,26 +16,27 @@
   </tr>
   {% endfor %}
   <tr>
-    <td colspan="3" align="right" style="padding:8px 0 2px;">Subtotal</td>
+    <td colspan="3" align="right" style="padding:8px 0 2px;">Total excl. {{ vat }}</td>
     <td align="right" style="padding:8px 0 2px 12px;white-space:nowrap;">{{ money(document.subtotal) }}</td>
   </tr>
   <tr>
-    <td colspan="3" align="right" style="padding:2px 0;">Tax</td>
+    <td colspan="3" align="right" style="padding:2px 0;">{{ vat }}</td>
     <td align="right" style="padding:2px 0 2px 12px;white-space:nowrap;">{{ money(document.tax_total) }}</td>
   </tr>
   <tr>
-    <td colspan="3" align="right" style="padding:2px 0;"><strong>Total</strong></td>
+    <td colspan="3" align="right" style="padding:2px 0;"><strong>Total incl. {{ vat }}</strong></td>
     <td align="right" style="padding:2px 0 2px 12px;white-space:nowrap;"><strong>{{ money(document.total) }}</strong></td>
   </tr>
 </table>
 {% endmacro %}
 
 {% macro text_line_items(document, money) %}
+{% set vat = "VAT" if "vat" in ((t.tax_label if t is defined and t else "VAT")|lower) else "Tax" %}
 {% for item in document.items %}
 - {{ item.description }}: {{ quantity(item.quantity) }} x {{ money(item.unit_price) }} = {{ money(item.line_total) }}
 {% endfor %}
 
-Subtotal: {{ money(document.subtotal) }}
-Tax:      {{ money(document.tax_total) }}
-Total:    {{ money(document.total) }}
+Total excl. {{ vat }}: {{ money(document.subtotal) }}
+{{ vat }}: {{ money(document.tax_total) }}
+Total incl. {{ vat }}: {{ money(document.total) }}
 {% endmacro %}

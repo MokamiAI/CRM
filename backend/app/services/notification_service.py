@@ -102,6 +102,25 @@ class NotificationService:
             **self._base_context(company),
         )
 
+    async def compose_purchase_order_sent(self, po_id: uuid.UUID) -> OutgoingEmail | None:
+        from app.models.purchasing import Supplier
+        from app.services.purchasing_service import PurchaseOrderService
+
+        po = await PurchaseOrderService(self.db).get(po_id)
+        self._adopt(po)
+        supplier = await self.db.get(Supplier, po.supplier_id)
+        if supplier is None or not supplier.email:
+            return None
+        company = await self.company_settings.get_current()
+        return render_email(
+            "purchase_order_sent",
+            to=supplier.email,
+            subject=f"Purchase order {po.po_number} from {company.company_name}",
+            supplier=supplier,
+            po=po,
+            **self._base_context(company),
+        )
+
     async def compose_payment_receipt(self, payment_id: uuid.UUID) -> OutgoingEmail | None:
         payment = await self.payments.get_by_id(payment_id)
         if payment is None:

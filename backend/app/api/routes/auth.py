@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, Request, status
+from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db
@@ -13,6 +14,7 @@ from app.schemas.platform import ForgotPassword, ResetPassword
 from app.repositories.user_repository import UserRepository
 from app.services.auth_service import AuthService
 from app.services.password_service import PasswordService
+from app.services.verification_service import VerificationService
 from app.services.email_service import clean_signature
 
 router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/auth", tags=["auth"])
@@ -32,7 +34,27 @@ async def login(data: LoginRequest, request: Request, db: AsyncSession = Depends
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 async def register(data: RegisterRequest, db: AsyncSession = Depends(get_db)):
     """Sign up a new company; the person signing up becomes its admin."""
-    return await AuthService(db).register(data)
+    tokens = await AuthService(db).register(data)
+    user = await UserRepository(db).get_by_email(data.email)
+    await VerificationService(db).send(user)
+    return tokens
+
+
+class VerifyEmail(BaseModel):
+    token: str = Field(min_length=20, max_length=1000)
+
+
+@router.post("/verify-email", status_code=status.HTTP_204_NO_CONTENT)
+async def verify_email(data: VerifyEmail, db: AsyncSession = Depends(get_db)):
+    """The link in "Confirm your email". Works signed in or not."""
+    await VerificationService(db).verify(data.token)
+
+
+@router.post("/verify-email/resend", status_code=status.HTTP_202_ACCEPTED)
+async def resend_verification(db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    if current_user.email_verified_at is None:
+        await VerificationService(db).send(current_user)
+    return {"ok": True}
 
 
 @router.post("/refresh", response_model=TokenResponse)

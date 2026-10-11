@@ -31,13 +31,18 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # Plain text, line by line, added to the emails this person sends from
     # Messages. Empty: the company signature, else name and company.
     email_signature: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # When this person clicked the link we emailed them, proving the inbox is
+    # theirs. Until then the app asks them to; YGT admin access needs it.
+    email_verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     @property
     def is_platform_admin(self) -> bool:
         """YGT's own team: emails listed in PLATFORM_ADMIN_EMAILS can use the admin site."""
         from app.core.config import settings
 
-        return self.email.lower() in settings.platform_admins
+        # A confirmed email too: otherwise whoever signs up with the address
+        # first (before its owner) would get the keys to every company.
+        return self.email_verified_at is not None and self.email.lower() in settings.platform_admins
 
     refresh_tokens: Mapped[list["RefreshToken"]] = relationship(
         back_populates="user", cascade="all, delete-orphan"

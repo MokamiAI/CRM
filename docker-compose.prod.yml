@@ -50,6 +50,30 @@ services:
       redis:
         condition: service_healthy
 
+  # A full copy of the database every 24 hours (and once at start), kept for
+  # 14 days in ./backups on the server. Copy that folder off the server too:
+  # see DEPLOY.md, Backups.
+  backup:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./backups:/backups
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          url=$$(echo "$$DATABASE_URL_MIGRATIONS" | sed 's#+asyncpg##')
+          file=/backups/ygt-$$(date +%Y-%m-%d-%H%M).dump
+          if pg_dump --format=custom --no-owner --no-privileges --dbname="$$url" --file="$$file.part"; then
+            mv "$$file.part" "$$file" && echo "backup ok: $$file ($$(du -h "$$file" | cut -f1))"
+          else
+            rm -f "$$file.part"; echo "BACKUP FAILED"
+          fi
+          find /backups -name 'ygt-*.dump' -mtime +14 -delete
+          sleep 86400
+        done
+
   web:
     build:
       context: .

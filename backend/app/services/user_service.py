@@ -18,7 +18,7 @@ class UserService:
         if await self.users.email_taken(data.email):
             raise ConflictError("A user with this email already exists", "USER_EMAIL_TAKEN")
         user = User(
-            email=data.email,
+            email=data.email.lower(),
             password_hash=hash_password(data.password),
             full_name=data.full_name,
             role=data.role,

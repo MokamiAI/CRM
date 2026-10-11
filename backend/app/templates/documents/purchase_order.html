@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+{% from "_parts.html" import items_table, lines_of with context %}
+{% block title %}Purchase order {{ doc.po_number }}{% endblock %}
+{% block doc_title %}Purchase order{% endblock %}
+{% block to_label %}Supplier{% endblock %}
+{% block meta %}
+<table>
+  <tr><td>Number</td><td><strong>{{ doc.po_number }}</strong></td></tr>
+  <tr><td>Date</td><td>{{ doc.issue_date.strftime("%d %b %Y") }}</td></tr>
+  {% if doc.delivery_date %}<tr><td>Deliver by</td><td>{{ doc.delivery_date.strftime("%d %b %Y") }}</td></tr>{% endif %}
+  {% if doc.reference %}<tr><td>Reference</td><td>{{ doc.reference }}</td></tr>{% endif %}
+</table>
+{% endblock %}
+{% block body %}
+{{ items_table(doc) }}
+<div class="totals">
+  <table>
+    <tr><td class="muted">Total excl. {{ tax_short }}</td><td class="num">{{ money(doc.subtotal) }}</td></tr>
+    <tr><td class="muted">{{ tax_short }}</td><td class="num">{{ money(doc.tax_total) }}</td></tr>
+    <tr class="grand"><td>Total incl. {{ tax_short }}</td><td class="num">{{ money(doc.total) }}</td></tr>
+  </table>
+</div>
+{% if doc.delivery_address %}
+<div class="boxes">
+  <div class="box">
+    <p class="label">Deliver to</p>
+    <p>{{ lines_of(doc.delivery_address) }}</p>
+  </div>
+</div>
+{% endif %}
+<div class="terms"><p class="muted">Please quote our order number <strong>{{ doc.po_number }}</strong> on your delivery note and invoice.</p></div>
+{% if doc.notes %}<div class="terms"><p class="label">Notes</p><p>{{ lines_of(doc.notes) }}</p></div>{% endif %}
+{% endblock %}

@@ -641,8 +641,11 @@
     "subtotal": "Isixa esincinci",
     "summary": "Isishwankathelo",
     "tax": "Irhafu",
-    "taxRate": "{{rate}}% irhafu",
-    "total": "Isixa"
+    "taxRate": "{{rate}}% I-VAT",
+    "total": "Isixa",
+    "totalExcl": "Iyonke ngaphandle kwe-VAT",
+    "vat": "I-VAT",
+    "totalIncl": "Iyonke iquka i-VAT"
   },
   "documents": {
     "accent": "Umbala wophawu",
@@ -720,8 +723,32 @@
     "product": "Imveliso",
     "qty": "Inani",
     "remove": "Susa",
-    "taxPercent": "Irhafu %",
-    "unitPrice": "Ixabiso ngalinye"
+    "taxPercent": "I-VAT %",
+    "unitPrice": "Ixabiso ngalinye",
+    "supplier": "Umboneleli",
+    "chooseSupplier": "Khetha umboneleli",
+    "noSuppliers": "Awukabongezi baboneleli.",
+    "addSupplier": "Yongeza omnye",
+    "reference": "Isalathiso",
+    "referenceHint": "Isalathiso sakho, umz. iprojekthi okanye indawo. Siboniswa kuxwebhu.",
+    "referencePlaceholder": "umz. I-ofisi yaseRosebank",
+    "itemColumn": "Into",
+    "itemPlaceholder": "Chwetheza into, okanye ukhethe imveliso",
+    "amount": "Isixa",
+    "removeLine": "Susa umgca {{n}}",
+    "loadSaved": "Layisha izinto ezigciniweyo",
+    "saveItems": "Gcina ezi zinto",
+    "saveAsName": "Igama lezi zinto",
+    "saveAsPlaceholder": "umz. Ufakelo oluqhelekileyo lwe-ofisi",
+    "saved": "Kugcinwe “{{name}}”",
+    "savedShared": "Wonke umntu kwinkampani yakho angakulayisha ngoku.",
+    "savedHint": "Izinto ezigciniweyo zabelwana nabo bonke kwinkampani yakho. Ukugcina phantsi kwegama elikhoyo kuyalitshintsha.",
+    "savedLoaded": "Kulayishwe “{{name}}”",
+    "savedDeleted": "Kucinyiwe “{{name}}”",
+    "deleteSaved": "Cima {{name}}",
+    "deliveryAddress": "Idilesi yokuhanjiswa",
+    "deliveryAddressHint": "Apho umboneleli kufuneka ahambise khona.",
+    "notesHintSupplier": "Kuboniswa kumboneleli kwi-odolo nakwi-imeyile"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Le akhawunti inqunyanyisiwe. Nceda uqhagamshelane nenkxaso ye-YGT.",
@@ -746,7 +773,16 @@
     "SLOT_TAKEN": "Elo xesha lisandula ukuthathwa. Nceda ukhethe elinye.",
     "STATEMENT_PERIOD_INVALID": "Umhla wokuqala kufuneka ube phambi komhla wokugqibela.",
     "TICKET_CLOSED": "Eli tikiti livaliwe. Vula elitsha ukuba usafuna uncedo.",
-    "generic": "Kukho into engahambanga kakuhle."
+    "generic": "Kukho into engahambanga kakuhle.",
+    "INVOICE_NOT_RESENDABLE": "Yi-invoyisi esele ithunyelwe kuphela enokuthunyelwa kwakhona.",
+    "QUOTE_NOT_RESENDABLE": "Yikowuteshini esele ithunyelwe kuphela enokuthunyelwa kwakhona.",
+    "VERIFY_LINK_INVALID": "Eli khonkco alisasebenzi. Ngena uze ucele elitsha.",
+    "SUPPLIER_NOT_FOUND": "Loo mboneleli akafumanekanga, okanye akasebenzi.",
+    "PURCHASE_ORDER_NOT_EDITABLE": "Yi-odolo eyidrafti kuphela enokutshintshwa.",
+    "PURCHASE_ORDER_INVALID_TRANSITION": "Oko akunakwenziwa kule odolo kwimeko ekuyo ngoku.",
+    "PURCHASE_ORDER_NOT_DELETABLE": "Yi-odolo eyidrafti kuphela enokucinywa.",
+    "PURCHASE_ORDER_NOT_RESENDABLE": "Yi-odolo esele ithunyelwe kuphela enokuthunyelwa kwakhona.",
+    "LINE_TEMPLATE_EXISTS": "Izinto ezigciniweyo ezinelo gama sele zikhona."
   },
   "feed": {
     "activityDone": "{{type}} igqityiwe",
@@ -944,6 +980,17 @@
         "q1": "Ndiliongeza phi iqela lam?",
         "summary": "Abalawuli kuphela: indlela inkampani yakho esekwe ngayo.",
         "title": "Iisetingi"
+      },
+      "purchaseOrders": {
+        "title": "Ii-odolo zokuthenga",
+        "summary": "Odola isitokhwe neenkonzo kubaboneleli bakho, kwaye ulandele okufikileyo.",
+        "p1": "Iimeko: idrafti, ithunyelwe, ifunyenwe kwaye irhoxisiwe",
+        "p2": "Uluhlu lwababoneleli, ne-imeyile apho i-odolo nganye iya khona",
+        "p3": "Izinto ezigciniweyo: layisha iseti yemigca oyisebenzisa rhoqo",
+        "q1": "Yahluke njani kwinombolo ye-odolo kwi-invoyisi?",
+        "a1": "Inombolo ye-odolo kwikowuteshini okanye kwi-invoyisi yinombolo yomthengi wakho yento abayithenga kuwe. I-odolo yokuthenga apha yinto oyithumela kumboneleli wakho.",
+        "q2": "Ndingayitshintsha i-odolo emva kokuyithumela?",
+        "a2": "Hayi. Yirhoxise uze wenze entsha, ukuze umboneleli wakho neerekhodi zakho zihlale zihambelana."
       }
     },
     "shortcuts": {
@@ -1024,7 +1071,9 @@
     "voidBody": "I-invoyisi engasebenziyo ihlala kwirekhodi kodwa ayinakuhlawulwa okanye ivulwe kwakhona. Umthengi akaziswa.",
     "voidInvoice": "Yenza i-invoyisi ingasebenzi",
     "voidTitle": "Yenza i-{{number}} ingasebenzi?",
-    "voided": "I-invoyisi yenziwe ayasebenza"
+    "voided": "I-invoyisi yenziwe ayasebenza",
+    "resend": "Thumela i-invoyisi kwakhona",
+    "resent": "I-invoyisi ithunyelwe kwakhona"
   },
   "invoices": {
     "amountDue": "{{amount}} efanele ihlawulwe",
@@ -1282,7 +1331,8 @@
     "quotes": "Iikowuteshini",
     "search": "Khangela",
     "settings": "Iisetingi",
-    "support": "Inkxaso"
+    "support": "Inkxaso",
+    "purchaseOrders": "Ii-odolo zokuthenga"
   },
   "palette": {
     "action": {
@@ -1391,7 +1441,9 @@
     },
     "send": "Thumela ikowuteshini",
     "sendBody": "Ikowuteshini ayinakuhlelwa xa sele ithunyelwe. Isixa {{total}}.",
-    "sent": "Ikowuteshini ithunyelwe"
+    "sent": "Ikowuteshini ithunyelwe",
+    "resend": "Thumela ikowuteshini kwakhona",
+    "resent": "Ikowuteshini ithunyelwe kwakhona"
   },
   "quoteWeek": {
     "footer": "Entsha rhoqo ngoMvulo ngo-9:00",
@@ -1427,7 +1479,11 @@
     "submitting": "Iyenza iakhawunti…",
     "subtitle": "Yenza i-YGT yenkampani yakho ngomzuzu. Uya kuba ngumlawuli kwaye unokongeza iqela lakho kamva.",
     "title": "Seta ishishini lakho",
-    "trialNote": "Simahla iintsuku ezili-14, emva koko {{price}}"
+    "trialNote": "Simahla iintsuku ezili-14, emva koko {{price}}",
+    "step": "Inyathelo {{n}} kwezi-{{total}}",
+    "stepDetails": "Iinkcukacha zakho",
+    "continue": "Qhubeka",
+    "back": "Buyela umva"
   },
   "role": {
     "admin": "Umlawuli",
@@ -1479,7 +1535,8 @@
       "quotePrefix": "Isiqalo senombolo yekowuteshini",
       "terms": "Imimiselo yentlawulo (iintsuku)",
       "termsHint": "Umhla wokuhlawula ongagqibekanga = umhla wokukhutshwa + ezi ntsuku",
-      "title": "Iikowuteshini nee-invoyisi"
+      "title": "Iikowuteshini nee-invoyisi",
+      "poPrefix": "Isiqalo senombolo ye-odolo yokuthenga"
     },
     "email": {
       "host": "Umamkeli we-SMTP",
@@ -1630,7 +1687,9 @@
     "sending": "Iyathunyelwa",
     "sent": "Ithunyelwe",
     "void": "Ayisebenzi",
-    "won": "Iphumelele"
+    "won": "Iphumelele",
+    "received": "Ifunyenwe",
+    "cancelled": "Irhoxisiwe"
   },
   "support": {
     "categories": {
@@ -1748,6 +1807,71 @@
     "stepOf": "Inyathelo {{step}} kwezi-{{total}}",
     "welcomeBody": "Ukhenketho lomzuzu omnye lwento yonke ukuba ikuphi. Sebenzisa izitshixo zeentolo okanye amaqhosha, uze utsibe nanini na. Ungaphinda ulubukele kwi-Uncedo.",
     "welcomeTitle": "Wamkelekile kwi-{{app}}, {{name}}",
-    "whatsHere": "Okukho apha"
+    "supportBody": "Faka itikiti xa ufuna uncedo, ulandele iimpendulo zethu, okanye ubhukishe umnxeba wevidiyo neqela le-YGT.",
+    "whatsHere": "Okukho apha",
+    "helpBody": "Izikhokelo zenyathelo ngenyathelo zesikrini ngasinye. Ungaphinda olu khenketho ukusuka apho."
+  },
+  "verify": {
+    "bannerTitle": "Nceda uqinisekise idilesi yakho ye-imeyile",
+    "bannerBody": "Sithumele ikhonkco ku-{{email}}. Licofe ukuze sikwazi ukuqhagamshelana nawe malunga neakhawunti yakho.",
+    "resend": "Thumela ikhonkco kwakhona",
+    "resent": "Ikhonkco lokuqinisekisa lithunyelwe",
+    "checking": "Siqinisekisa i-imeyile yakho…",
+    "doneTitle": "I-imeyile yakho iqinisekisiwe",
+    "doneBody": "Enkosi. Ulungile.",
+    "failedTitle": "Asikwazanga ukuqinisekisa i-imeyile yakho",
+    "goToApp": "Yiya kwi-YGT"
+  },
+  "purchases": {
+    "subtitle": "Odola kubaboneleli bakho kwaye ulandele okufikileyo.",
+    "tabs": {
+      "orders": "Ii-odolo",
+      "suppliers": "Ababoneleli"
+    },
+    "new": "I-odolo entsha yokuthenga",
+    "allSuppliers": "Bonke ababoneleli",
+    "none": "Akukabikho zi-odolo zokuthenga",
+    "noneHint": "Odola isitokhwe okanye iinkonzo kubaboneleli bakho kwaye ulandele okufikileyo.",
+    "noneHere": "Akukho zi-odolo zihambelanayo",
+    "col": {
+      "number": "Inombolo ye-odolo"
+    },
+    "deliverBy": "Hambisa ngomhla",
+    "send": "Thumela kumboneleli",
+    "sendBody": "Phawula le odolo njengethunyelwe kumboneleli. Iyonke: {{total}}.",
+    "emailToSupplier": "Yithumele nge-imeyile kumboneleli",
+    "noEmail": "Lo mboneleli akanayo idilesi ye-imeyile. Yongeze phantsi kwaBaboneleli.",
+    "sentToast": "I-odolo ithunyelwe",
+    "markReceived": "Phawula ifunyenwe",
+    "receivedToast": "Iphawulwe njengefunyenweyo",
+    "cancel": "Rhoxisa i-odolo",
+    "cancelled": "I-odolo irhoxisiwe",
+    "resend": "Thumela kwakhona",
+    "resent": "I-odolo ithunyelwe kwakhona"
+  },
+  "suppliers": {
+    "add": "Yongeza umboneleli",
+    "edit": "Hlela umboneleli",
+    "search": "Khangela ababoneleli",
+    "showInactive": "Bonisa abangasebenziyo",
+    "none": "Akukabikho baboneleli",
+    "noneHint": "Yongeza amashishini othenga kuwo. I-imeyile yawo kulapho ii-odolo zakho ziya khona.",
+    "noneFound": "Akukho baboneleli bahambelanayo",
+    "noContact": "Akukho nkcukacha zoqhagamshelwano",
+    "fields": {
+      "name": "Igama lomboneleli",
+      "contact_name": "Umntu woqhagamshelwano",
+      "email": "I-imeyile",
+      "phone": "Ifowuni",
+      "tax_number": "Inombolo ye-VAT",
+      "address": "Idilesi",
+      "notes": "Amanqaku"
+    },
+    "emailHint": "Ii-odolo zithunyelwa nge-imeyile kule dilesi.",
+    "saved": "Umboneleli ugciniwe",
+    "deactivate": "Yekisa",
+    "reactivate": "Buyisela",
+    "deactivated": "Umboneleli uyekisiwe",
+    "reactivated": "Umboneleli ubuyiselwe"
   }
 }

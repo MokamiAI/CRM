@@ -22,6 +22,7 @@ from app.models.platform import (
     TicketMessage,
 )
 from app.models.product import Product
+from app.models.purchasing import LineTemplate, PurchaseOrder, PurchaseOrderItem, Supplier
 from app.models.quote import Quote, QuoteItem
 from app.models.reminder import ReminderLog
 from app.models.user import RefreshToken, User
@@ -55,6 +56,10 @@ __all__ = [
     "Message",
     "Payment",
     "Product",
+    "LineTemplate",
+    "PurchaseOrder",
+    "PurchaseOrderItem",
+    "Supplier",
     "Quote",
     "QuoteItem",
     "ReminderLog",

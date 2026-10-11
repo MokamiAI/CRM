@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user, get_db, plan_room, require_role
 from app.api.email_dispatch import commit_and_enqueue, commit_and_enqueue_each
 from app.core.database import CommitBeforeResponseRoute
+from app.core.exceptions import ConflictError
 from app.models.enums import InvoiceStatus, UserRole
 from app.models.reminder import ReminderLog
 from app.models.user import User
@@ -124,6 +125,24 @@ async def send_invoice(
     invoice = await InvoiceService(db).transition_status(invoice_id, InvoiceStatus.SENT)
     if notify:
         await commit_and_enqueue(db, send_invoice_email_task, str(invoice.id))
+    return invoice
+
+
+_RESENDABLE = {InvoiceStatus.SENT, InvoiceStatus.PARTIALLY_PAID, InvoiceStatus.OVERDUE, InvoiceStatus.PAID}
+
+
+@router.post("/{invoice_id}/resend", response_model=InvoiceOut)
+async def resend_invoice(
+    invoice_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    _: User = Depends(_can_write),
+):
+    """Emails an invoice that has already gone out again ("please resend"),
+    without changing its status."""
+    invoice = await InvoiceService(db).get_invoice(invoice_id)
+    if invoice.status not in _RESENDABLE:
+        raise ConflictError("Only an invoice that has been sent can be sent again", "INVOICE_NOT_RESENDABLE")
+    await commit_and_enqueue(db, send_invoice_email_task, str(invoice.id))
     return invoice
 
 

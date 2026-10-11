@@ -25,6 +25,9 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
     quote_prefix: Mapped[str] = mapped_column(String(20), nullable=False, default="QUO-")
     next_invoice_number: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     next_quote_number: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+    # Purchase orders to suppliers: PO-0001, PO-0002...
+    po_prefix: Mapped[str] = mapped_column(String(20), nullable=False, default="PO-", server_default="PO-")
+    next_po_number: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
     payment_terms_days: Mapped[int] = mapped_column(Integer, nullable=False, default=30)
 
     # Outgoing-email configuration for sending invoices/quotes/reminders.

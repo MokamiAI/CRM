@@ -186,6 +186,7 @@ export function AdminTenant() {
   const errors = useQuery({ queryKey: ["admin", "errors", id], queryFn: () => get("/admin/errors", { company_id: id, limit: 20 }) });
   const tickets = useQuery({ queryKey: ["admin", "tickets", id], queryFn: () => get("/admin/tickets", { company_id: id }) });
   const [refundOf, setRefundOf] = useState(null);
+  const [deleting, setDeleting] = useState(null);
   const done = (data) => {
     queryClient.setQueryData(["admin", "tenant", id], data);
     queryClient.invalidateQueries({ queryKey: ["admin", "tenants"] });
@@ -233,6 +234,9 @@ export function AdminTenant() {
                     Extend trial
                   </Button>
                 )}
+                <Button variant="danger" onClick={() => setDeleting(t)}>
+                  Delete company
+                </Button>
               </>
             }
           >
@@ -337,9 +341,60 @@ export function AdminTenant() {
             <ErrorList rows={errors.data ?? []} />
           </section>
           <RefundSheet payment={refundOf} onClose={() => setRefundOf(null)} onDone={() => queryClient.invalidateQueries({ queryKey: ["admin", "tenant", id] })} />
+          <DeleteCompanySheet tenant={deleting} onClose={() => setDeleting(null)} />
         </>
       )}
     </Loading>
+  );
+}
+
+/** POPIA deletion requests and closed accounts: erases the company and everything it holds. */
+function DeleteCompanySheet({ tenant, onClose }) {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [typed, setTyped] = useState("");
+  const remove = useMutation({
+    mutationFn: () => apiClient.post(`/admin/tenants/${tenant.id}/delete`, { confirm_name: typed }).then((r) => r.data),
+    onSuccess: (r) => {
+      toast.success(`${r.deleted} deleted`, { description: `${r.people} people, ${r.customers} clients and ${r.invoices} invoices erased.` });
+      queryClient.invalidateQueries({ queryKey: ["admin"] });
+      setTyped("");
+      onClose();
+      navigate("/admin/tenants", { replace: true });
+    },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  const matches = tenant && typed.trim() === tenant.name.trim();
+  return (
+    <Sheet
+      open={Boolean(tenant)}
+      onClose={onClose}
+      title="Delete this company"
+      footer={
+        <div className="flex justify-end gap-2">
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => remove.mutate()} disabled={!matches || remove.isPending}>
+            {remove.isPending ? "Deleting…" : "Delete everything"}
+          </Button>
+        </div>
+      }
+    >
+      {tenant && (
+        <div className="space-y-4 text-sm">
+          <p className="text-zinc-600">
+            This permanently erases <strong className="text-zinc-900">{tenant.name}</strong>: its people, clients, deals, quotes, invoices, messages, tickets and
+            settings. It can't be undone. Their Paystack subscription is cancelled first, so they won't be charged again.
+          </p>
+          <p className="text-zinc-600">Use this for a POPIA deletion request or a closed account. Export anything they asked for before you delete.</p>
+          <label className="block">
+            <span className="label">Type the company name to confirm</span>
+            <input className="input" value={typed} onChange={(e) => setTyped(e.target.value)} placeholder={tenant.name} autoComplete="off" />
+          </label>
+        </div>
+      )}
+    </Sheet>
   );
 }
 

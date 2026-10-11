@@ -70,6 +70,37 @@ def test_rate_limit_window():
     assert asyncio.run(run())[-1] == 12  # the middleware refuses once past the rule's limit (10)
 
 
+def _request(path, token=None, body=b""):
+    from starlette.requests import Request
+
+    headers = [(b"authorization", f"Bearer {token}".encode())] if token else []
+
+    async def receive():
+        return {"type": "http.request", "body": body, "more_body": False}
+
+    return Request({"type": "http", "method": "POST", "path": path, "headers": headers, "client": ("1.2.3.4", 5000)}, receive)
+
+
+def test_rate_limits_count_sign_in_per_address_whatever_the_token():
+    from app.core.middleware import _who
+    from app.core.security import create_access_token
+
+    real = create_access_token("user-1", "admin")
+    # A made-up token used to buy every sign-in attempt a fresh allowance.
+    assert _who(_request("/auth/login", "made-up-token"), "/auth/login") == "ip:1.2.3.4"
+    assert _who(_request("/auth/login", real), "/auth/login") == "ip:1.2.3.4"
+    # Elsewhere, signed-in people count separately; bad tokens count per address.
+    assert _who(_request("/customers", real), "/customers") == "u:user-1"
+    assert _who(_request("/customers", "made-up-token"), "/customers") == "ip:1.2.3.4"
+
+
+def test_sign_in_attempts_also_count_per_account():
+    from app.core.middleware import _login_email
+
+    assert asyncio.run(_login_email(_request("/auth/login", body=b'{"email": " Thandi@Example.com ", "password": "x"}'))) == "thandi@example.com"
+    assert asyncio.run(_login_email(_request("/auth/login", body=b"not json"))) is None
+
+
 def test_each_plan_gets_what_it_pays_for():
     """The features on each price card are exactly what the API allows."""
     assert PLANS["hustle"].features == frozenset()
@@ -79,3 +110,46 @@ def test_each_plan_gets_what_it_pays_for():
     assert PLANS[TRIAL_PLAN] is PLANS["grow"]  # the trial is Grow
     assert LOCKED.features == frozenset()
     assert PLANS["hustle"].user_limit(1) == 3 and PLANS["grow"].user_limit(7) == 7
+
+
+def test_production_refuses_example_secrets():
+    from app.core.config import Settings
+
+    base = dict(DATABASE_URL="postgresql+asyncpg://x:y@h/db", DATABASE_URL_MIGRATIONS="postgresql+asyncpg://x:y@h/db", ENVIRONMENT="production", DEBUG=False)
+    with pytest.raises(ValueError, match="JWT_SECRET"):
+        Settings(_env_file=None, JWT_SECRET="change-me-to-a-long-random-string", CREDENTIALS_KEY="k", INBOUND_EMAIL_SECRET="r" * 40, **base)
+    with pytest.raises(ValueError, match="CREDENTIALS_KEY"):
+        Settings(_env_file=None, JWT_SECRET="s" * 48, INBOUND_EMAIL_SECRET="r" * 40, **base)
+    assert Settings(_env_file=None, JWT_SECRET="s" * 48, CREDENTIALS_KEY="k", INBOUND_EMAIL_SECRET="r" * 40, **base).ENVIRONMENT == "production"
+
+
+def test_exports_never_run_customer_text_as_formulas():
+    from decimal import Decimal
+
+    from app.services.data_service import _fmt
+
+    assert _fmt('=HYPERLINK("http://evil.example","Click")') == '\'=HYPERLINK("http://evil.example","Click")'
+    assert _fmt("@SUM(A1)") == "'@SUM(A1)" and _fmt("+27 82 555 0101") == "'+27 82 555 0101"
+    assert _fmt("Café Zoë") == "Café Zoë" and _fmt(Decimal("-150.00")) == "-150.00"
+
+
+def test_confirm_email_links_are_not_sign_in_tokens():
+    from app.core.security import create_email_token, decode_token
+
+    payload = decode_token(create_email_token("user-1", "Thandi@Example.com"))
+    assert payload["type"] == "verify-email" and payload["email"] == "thandi@example.com"
+    # get_current_user only accepts type "access", so the link can't sign anyone in.
+    assert payload["type"] != "access"
+
+
+def test_admin_site_needs_a_confirmed_email(monkeypatch):
+    from datetime import datetime, timezone
+
+    from app.core.config import settings
+    from app.models.user import User
+
+    monkeypatch.setattr(settings, "PLATFORM_ADMIN_EMAILS", "owner@ygt.example.com")
+    squatter = User(email="Owner@YGT.example.com", email_verified_at=None)
+    owner = User(email="owner@ygt.example.com", email_verified_at=datetime.now(timezone.utc))
+    assert not squatter.is_platform_admin  # signed up with the address first, never confirmed it
+    assert owner.is_platform_admin

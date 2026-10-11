@@ -641,8 +641,11 @@
     "subtotal": "Palomoka ye nnyane",
     "summary": "Kakaretšo",
     "tax": "Motšhelo",
-    "taxRate": "{{rate}}% motšhelo",
-    "total": "Palomoka"
+    "taxRate": "{{rate}}% VAT",
+    "total": "Palomoka",
+    "totalExcl": "Palomoka ntle le VAT",
+    "vat": "VAT",
+    "totalIncl": "Palomoka go akaretšwa VAT"
   },
   "documents": {
     "accent": "Mmala wa leswao",
@@ -720,8 +723,32 @@
     "product": "Setšweletšwa",
     "qty": "Palo",
     "remove": "Tloša",
-    "taxPercent": "Motšhelo %",
-    "unitPrice": "Theko ya se tee"
+    "taxPercent": "VAT %",
+    "unitPrice": "Theko ya se tee",
+    "supplier": "Mofepi",
+    "chooseSupplier": "Kgetha mofepi",
+    "noSuppliers": "Ga o šoro oketša bafepi.",
+    "addSupplier": "Oketša o tee",
+    "reference": "Tšhupetšo",
+    "referenceHint": "Tšhupetšo ya gago, mohl. protšeke goba lefelo. E bontšhwa tokumenteng.",
+    "referencePlaceholder": "mohl. Ofisi ya Rosebank",
+    "itemColumn": "Selo",
+    "itemPlaceholder": "Tlanya selo, goba o kgethe setšweletšwa",
+    "amount": "Tšhelete",
+    "removeLine": "Tloša mothalo {{n}}",
+    "loadSaved": "Laiša dilo tše di bolokilwego",
+    "saveItems": "Boloka dilo tše",
+    "saveAsName": "Leina la dilo tše",
+    "saveAsPlaceholder": "mohl. Go tsenya ofisi ka mokgwa wo o tlwaelegilego",
+    "saved": "“{{name}}” e bolokilwe",
+    "savedShared": "Mang le mang khamphaning ya gago a ka e laiša bjale.",
+    "savedHint": "Dilo tše di bolokilwego di abelanwa le bohle khamphaning ya gago. Go boloka ka leina leo le šetšego le le gona go le tšeela legato.",
+    "savedLoaded": "“{{name}}” e laišitšwe",
+    "savedDeleted": "“{{name}}” e phumotšwe",
+    "deleteSaved": "Phumola {{name}}",
+    "deliveryAddress": "Aterese ya go iša",
+    "deliveryAddressHint": "Moo mofepi a swanetšego go iša gona.",
+    "notesHintSupplier": "E bontšhwa go mofepi tabeng ya taelo le imeileng"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhaonte ye e emišitšwe. Hle ikgokaganye le thekgo ya YGT.",
@@ -746,7 +773,16 @@
     "SLOT_TAKEN": "Nako yeo e sa tšwa go tšewa. Hle kgetha ye nngwe.",
     "STATEMENT_PERIOD_INVALID": "Letšatši la go thoma le swanetše go ba pele ga la mafelelo.",
     "TICKET_CLOSED": "Thekethe ye e tswaletšwe. Bula ye mpsha ge o sa nyaka thušo.",
-    "generic": "Go na le se se sa sepelego gabotse."
+    "generic": "Go na le se se sa sepelego gabotse.",
+    "INVOICE_NOT_RESENDABLE": "Ke invoice yeo e šetšego e rometšwe fela yeo e ka romelwago gape.",
+    "QUOTE_NOT_RESENDABLE": "Ke tekanyetšo yeo e šetšego e rometšwe fela yeo e ka romelwago gape.",
+    "VERIFY_LINK_INVALID": "Kgokagano ye ga e sa šoma. Tsena gomme o kgopele ye mpsha.",
+    "SUPPLIER_NOT_FOUND": "Mofepi yoo ga a hwetšwe, goba ga a šome.",
+    "PURCHASE_ORDER_NOT_EDITABLE": "Ke taelo ya theko ya draft fela yeo e ka fetolwago.",
+    "PURCHASE_ORDER_INVALID_TRANSITION": "Seo se ka se dirwe go taelo ye seemong sa yona sa bjale.",
+    "PURCHASE_ORDER_NOT_DELETABLE": "Ke taelo ya theko ya draft fela yeo e ka phumolwago.",
+    "PURCHASE_ORDER_NOT_RESENDABLE": "Ke taelo yeo e šetšego e rometšwe fela yeo e ka romelwago gape.",
+    "LINE_TEMPLATE_EXISTS": "Dilo tše di bolokilwego tša leina leo di šetše di le gona."
   },
   "feed": {
     "activityDone": "{{type}} e fetšitšwe",
@@ -944,6 +980,17 @@
         "q1": "Ke oketša sehlopha sa ka kae?",
         "summary": "Balaodi fela: ka moo khamphani ya gago e beakantšwego ka gona.",
         "title": "Dipeakanyo"
+      },
+      "purchaseOrders": {
+        "title": "Ditaelo tša theko",
+        "summary": "Odara setoko le ditirelo go bafepi ba gago, gomme o latele tšeo di fihlilego.",
+        "p1": "Maemo: draft, e rometšwe, e amogetšwe le e khansetšwe",
+        "p2": "Lenaneo la bafepi, le imeile yeo taelo ye nngwe le ye nngwe e yago go yona",
+        "p3": "Dilo tše di bolokilwego: laiša sehlopha sa methalo yeo o e dirišago gantši",
+        "q1": "Se fapana bjang le nomoro ya taelo go invoice?",
+        "a1": "Nomoro ya taelo go tekanyetšo goba invoice ke nomoro ya moreki wa gago ya seo ba se rekago go wena. Taelo ya theko mo ke seo o se romelago mofepi wa gago.",
+        "q2": "Na nka fetola taelo ka morago ga go e romela?",
+        "a2": "Aowa. E khansele gomme o dire ye mpsha, gore mofepi wa gago le direkoto tša gago di dule di sepelelana."
       }
     },
     "shortcuts": {
@@ -1024,7 +1071,9 @@
     "voidBody": "Invoice ye e fedišitšwego e dula rekhoteng eupša e ka se lefelwe goba ya bulwa gape. Moreki ga a tsebišwe.",
     "voidInvoice": "Fediša invoice",
     "voidTitle": "Fediša {{number}}?",
-    "voided": "Invoice e fedišitšwe"
+    "voided": "Invoice e fedišitšwe",
+    "resend": "Romela invoice gape",
+    "resent": "Invoice e rometšwe gape"
   },
   "invoices": {
     "amountDue": "{{amount}} e swanetše go lefša",
@@ -1282,7 +1331,8 @@
     "quotes": "Ditekanyetšo",
     "search": "Nyaka",
     "settings": "Dipeakanyo",
-    "support": "Thekgo"
+    "support": "Thekgo",
+    "purchaseOrders": "Ditaelo tša theko"
   },
   "palette": {
     "action": {
@@ -1391,7 +1441,9 @@
     },
     "send": "Romela tekanyetšo",
     "sendBody": "Tekanyetšo e ka se fetolwe ge e šetše e romilwe. Palomoka {{total}}.",
-    "sent": "Tekanyetšo e romilwe"
+    "sent": "Tekanyetšo e romilwe",
+    "resend": "Romela tekanyetšo gape",
+    "resent": "Tekanyetšo e rometšwe gape"
   },
   "quoteWeek": {
     "footer": "Le lefsa Mošupologo o mongwe le o mongwe ka 9:00",
@@ -1427,7 +1479,11 @@
     "submitting": "E hlama akhaonte…",
     "subtitle": "Hlama YGT ya khamphani ya gago ka motsotso. O tla ba molaodi gomme o ka oketša sehlopha sa gago ka morago.",
     "title": "Beakanya kgwebo ya gago",
-    "trialNote": "Mahala matšatši a 14, ke moka {{price}}"
+    "trialNote": "Mahala matšatši a 14, ke moka {{price}}",
+    "step": "Kgato ya {{n}} go tše {{total}}",
+    "stepDetails": "Dintlha tša gago",
+    "continue": "Tšwela pele",
+    "back": "Morago"
   },
   "role": {
     "admin": "Molaodi",
@@ -1479,7 +1535,8 @@
       "quotePrefix": "Tlhogo ya nomoro ya tekanyetšo",
       "terms": "Mabaka a tefo (matšatši)",
       "termsHint": "Letšatši la tefo la tlwaelo = letšatši la go ntšhwa + matšatši a",
-      "title": "Ditekanyetšo le di-invoice"
+      "title": "Ditekanyetšo le di-invoice",
+      "poPrefix": "Tlhago ya nomoro ya taelo ya theko"
     },
     "email": {
       "host": "Moamogedi wa SMTP",
@@ -1630,7 +1687,9 @@
     "sending": "E a romelwa",
     "sent": "E romilwe",
     "void": "E fedišitšwe",
-    "won": "E fentšwe"
+    "won": "E fentšwe",
+    "received": "E amogetšwe",
+    "cancelled": "E khansetšwe"
   },
   "support": {
     "categories": {
@@ -1748,6 +1807,71 @@
     "stepOf": "Kgato {{step}} go {{total}}",
     "welcomeBody": "Leeto la motsotso o tee la moo dilo ka moka di lego. Šomiša dinotlelo tša mesebe goba dikonopo, o tlole neng le neng. O ka le bogela gape go Thušo.",
     "welcomeTitle": "O amogetšwe go {{app}}, {{name}}",
-    "whatsHere": "Se se lego mo"
+    "supportBody": "Bula thekethe ge o hloka thušo, latela dikarabo tša rena, goba o beele pitšo ya bidio le sehlopha sa YGT.",
+    "whatsHere": "Se se lego mo",
+    "helpBody": "Ditlhahlo tša kgato ka kgato tša sekirini se sengwe le se sengwe. O ka bušeletša leeto le go tloga moo."
+  },
+  "verify": {
+    "bannerTitle": "Hle netefatša aterese ya gago ya imeile",
+    "bannerBody": "Re rometše kgokagano go {{email}}. E kgotle gore re kgone go ikgokaganya le wena mabapi le akhaonto ya gago.",
+    "resend": "Romela kgokagano gape",
+    "resent": "Kgokagano ya netefatšo e rometšwe",
+    "checking": "Re netefatša imeile ya gago…",
+    "doneTitle": "Imeile ya gago e netefaditšwe",
+    "doneBody": "Re a leboga. O lokile.",
+    "failedTitle": "Ga re a kgona go netefatša imeile ya gago",
+    "goToApp": "Eya go YGT"
+  },
+  "purchases": {
+    "subtitle": "Odara go bafepi ba gago gomme o latele tšeo di fihlilego.",
+    "tabs": {
+      "orders": "Ditaelo",
+      "suppliers": "Bafepi"
+    },
+    "new": "Taelo ye mpsha ya theko",
+    "allSuppliers": "Bafepi ka moka",
+    "none": "Ga go na ditaelo tša theko ga bjale",
+    "noneHint": "Odara setoko goba ditirelo go bafepi ba gago gomme o latele tšeo di fihlilego.",
+    "noneHere": "Ga go na ditaelo tše di sepelelanago",
+    "col": {
+      "number": "Nomoro ya taelo"
+    },
+    "deliverBy": "Iša ka la",
+    "send": "Romela go mofepi",
+    "sendBody": "Swaya taelo ye bjalo ka ye e rometšwego go mofepi. Palomoka: {{total}}.",
+    "emailToSupplier": "E romele ka imeile go mofepi",
+    "noEmail": "Mofepi yo ga a na aterese ya imeile. E oketše ka fase ga Bafepi.",
+    "sentToast": "Taelo e rometšwe",
+    "markReceived": "Swaya e amogetšwe",
+    "receivedToast": "E swailwe bjalo ka ye e amogetšwego",
+    "cancel": "Khansela taelo",
+    "cancelled": "Taelo e khansetšwe",
+    "resend": "Romela gape",
+    "resent": "Taelo e rometšwe gape"
+  },
+  "suppliers": {
+    "add": "Oketša mofepi",
+    "edit": "Fetola mofepi",
+    "search": "Nyaka bafepi",
+    "showInactive": "Bontšha bao ba sa šomego",
+    "none": "Ga go na bafepi ga bjale",
+    "noneHint": "Oketša dikgwebo tšeo o rekago go tšona. Imeile ya bona ke moo ditaelo tša gago di yago gona.",
+    "noneFound": "Ga go na bafepi bao ba sepelelanago",
+    "noContact": "Ga go na dintlha tša kgokagano",
+    "fields": {
+      "name": "Leina la mofepi",
+      "contact_name": "Motho wa kgokagano",
+      "email": "Imeile",
+      "phone": "Mogala",
+      "tax_number": "Nomoro ya VAT",
+      "address": "Aterese",
+      "notes": "Dintlha"
+    },
+    "emailHint": "Ditaelo di romelwa ka imeile go aterese ye.",
+    "saved": "Mofepi o bolokilwe",
+    "deactivate": "Emiša",
+    "reactivate": "Bušetša",
+    "deactivated": "Mofepi o emišitšwe",
+    "reactivated": "Mofepi o bušeditšwe"
   }
 }

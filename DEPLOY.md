@@ -54,7 +54,9 @@ ordering. Open ports 22, 80 and 443 in the instance's security group.
    `frontend/src/pages/PublicPages.jsx` (`LEGAL`), have Terms/Privacy/Refunds
    reviewed, then rebuild (`docker compose -f docker-compose.prod.yml up -d --build web`).
 6. **Sign up** at `https://app.ygt.co.za/register` with the email in
-   `PLATFORM_ADMIN_EMAILS`; "YGT admin" appears in your menu.
+   `PLATFORM_ADMIN_EMAILS`, then click the link in the "Confirm your email"
+   message. "YGT admin" appears in your menu only once that email is
+   confirmed, so nobody else can claim it by signing up with it first.
 
 ## Development and releases
 
@@ -86,6 +88,39 @@ docker compose -f docker-compose.prod.yml up -d --build
 
 - **Errors**: the admin site's Error log shows every server error and failed
   background job, per company.
-- **Backups**: Supabase's free plan has no point-in-time recovery; upgrade, or
-  run a nightly `pg_dump` to storage you control.
 - **Logs**: `docker compose -f docker-compose.prod.yml logs -f backend celery_worker`
+- **Uptime**: add a free monitor at uptimerobot.com for
+  `https://app.ygt.co.za/health` (every 5 minutes, alerts to your phone).
+
+## Backups
+
+The `backup` service copies the whole database every 24 hours into
+`~/CRM/backups` on the server and keeps 14 days. Check it ran:
+
+```
+docker compose -f docker-compose.prod.yml logs backup | tail -3
+ls -lh backups/
+```
+
+A copy on the same server doesn't survive losing the server, so also copy
+them somewhere else, e.g. weekly to your PC (PowerShell):
+
+```
+scp ubuntu@YOUR.SERVER.IP:CRM/backups/*.dump C:\YGT-backups\
+```
+
+To restore (replaces what's in the database, so test on a spare Supabase
+project first):
+
+```
+docker compose -f docker-compose.prod.yml run --rm --entrypoint sh backup -c \
+  'pg_restore --clean --if-exists --no-owner --dbname="$(echo $DATABASE_URL_MIGRATIONS | sed s/+asyncpg//)" /backups/ygt-YYYY-MM-DD-HHMM.dump'
+```
+
+## Deleting a company's data
+
+For a POPIA deletion request or a closed account: YGT admin › Tenants › the
+company › Delete company. Type its name to confirm. Their Paystack
+subscription is cancelled first; everything they stored is erased; the
+activity log keeps who deleted it and when. Export anything they asked for
+first (Settings › Import & export, signed in as them, or ask them to).

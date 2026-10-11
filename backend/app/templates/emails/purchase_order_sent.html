@@ -1,0 +1,19 @@
+{% extends "_layout.html" %}
+{% from "_signature.html" import sign_off with context %}
+{% from "_items.html" import line_items with context %}
+{% block content %}
+<p>Hi {{ supplier.contact_name or supplier.name }},</p>
+<p>Please supply the items below for {{ company.company_name }}, on purchase order <strong>{{ po.po_number }}</strong>.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:14px;">
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Order no.</td><td><strong>{{ po.po_number }}</strong></td></tr>
+  {% if po.reference %}<tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Reference</td><td>{{ po.reference }}</td></tr>{% endif %}
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Date</td><td>{{ po.issue_date.strftime("%d %b %Y") }}</td></tr>
+  {% if po.delivery_date %}<tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Deliver by</td><td>{{ po.delivery_date.strftime("%d %b %Y") }}</td></tr>{% endif %}
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Total</td><td><strong>{{ money(po.total) }}</strong></td></tr>
+</table>
+{{ line_items(po, money) }}
+{% if po.delivery_address %}<p><strong>Deliver to</strong><br><span style="white-space:pre-line;">{{ po.delivery_address }}</span></p>{% endif %}
+{% if po.notes %}<p style="white-space:pre-line;">{{ po.notes }}</p>{% endif %}
+<p>Please quote order number <strong>{{ po.po_number }}</strong> on your delivery note and invoice, and reply to confirm the order.</p>
+{{ sign_off("Kind regards") }}
+{% endblock %}

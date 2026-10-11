@@ -20,6 +20,7 @@ from app.schemas.platform import (
     BookingOut,
     ContactOut,
     ContactUpdate,
+    DeleteCompanyIn,
     ExtendTrialIn,
     RefundIn,
     SuspendIn,
@@ -61,6 +62,14 @@ async def suspend(company_id: uuid.UUID, data: SuspendIn, db: AsyncSession = Dep
     service = AdminService(db)
     await service.suspend(company_id, data.reason)
     return await service.tenant(company_id)
+
+
+@router.post("/tenants/{company_id}/delete")
+async def delete_company(
+    company_id: uuid.UUID, data: DeleteCompanyIn, db: AsyncSession = Depends(get_db), admin: User = Depends(require_platform_admin)
+):
+    """Erases a company and all its data. Can't be undone."""
+    return await AdminService(db).delete_company(company_id, data.confirm_name, admin)
 
 
 @router.post("/tenants/{company_id}/unsuspend")

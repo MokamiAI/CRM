@@ -47,6 +47,7 @@ def _invoice():
         amount_paid=Decimal("0.00"),
         notes=None,
         po_number=None,
+        reference=None,
         items=[item],
     )
 

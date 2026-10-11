@@ -641,8 +641,11 @@
     "subtotal": "Subtotal",
     "summary": "Summary",
     "tax": "Tax",
-    "taxRate": "{{rate}}% tax",
-    "total": "Total"
+    "taxRate": "{{rate}}% VAT",
+    "total": "Total",
+    "totalExcl": "Total excl. VAT",
+    "vat": "VAT",
+    "totalIncl": "Total incl. VAT"
   },
   "documents": {
     "accent": "Brand colour",
@@ -720,8 +723,32 @@
     "product": "Product",
     "qty": "Qty",
     "remove": "Remove",
-    "taxPercent": "Tax %",
-    "unitPrice": "Unit price"
+    "taxPercent": "VAT %",
+    "unitPrice": "Unit price",
+    "supplier": "Supplier",
+    "chooseSupplier": "Choose a supplier",
+    "noSuppliers": "You haven't added any suppliers yet.",
+    "addSupplier": "Add one",
+    "reference": "Reference",
+    "referenceHint": "Your own reference, e.g. a project or site. Shown on the document.",
+    "referencePlaceholder": "e.g. Rosebank office",
+    "itemColumn": "Item",
+    "itemPlaceholder": "Type an item, or pick a product",
+    "amount": "Amount",
+    "removeLine": "Remove line {{n}}",
+    "loadSaved": "Load saved items",
+    "saveItems": "Save these items",
+    "saveAsName": "Name for these items",
+    "saveAsPlaceholder": "e.g. Standard office install",
+    "saved": "Saved “{{name}}”",
+    "savedShared": "Everyone in your company can load it now.",
+    "savedHint": "Saved items are shared with everyone in your company. Saving under a name that exists replaces it.",
+    "savedLoaded": "Loaded “{{name}}”",
+    "savedDeleted": "Deleted “{{name}}”",
+    "deleteSaved": "Delete {{name}}",
+    "deliveryAddress": "Delivery address",
+    "deliveryAddressHint": "Where the supplier should deliver.",
+    "notesHintSupplier": "Shown to the supplier on the purchase order and email"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "This account is suspended. Please contact YGT support.",
@@ -746,7 +773,16 @@
     "SLOT_TAKEN": "That time was just taken. Please choose another.",
     "STATEMENT_PERIOD_INVALID": "The start date must be before the end date.",
     "TICKET_CLOSED": "This ticket is closed. Open a new one if you still need help.",
-    "generic": "Something went wrong."
+    "generic": "Something went wrong.",
+    "INVOICE_NOT_RESENDABLE": "Only an invoice that has already been sent can be sent again.",
+    "QUOTE_NOT_RESENDABLE": "Only a quote that has already been sent can be sent again.",
+    "VERIFY_LINK_INVALID": "This link isn't valid any more. Sign in and ask for a new one.",
+    "SUPPLIER_NOT_FOUND": "That supplier wasn't found, or is inactive.",
+    "PURCHASE_ORDER_NOT_EDITABLE": "Only a draft purchase order can be changed.",
+    "PURCHASE_ORDER_INVALID_TRANSITION": "That can't be done to this purchase order in its current state.",
+    "PURCHASE_ORDER_NOT_DELETABLE": "Only a draft purchase order can be deleted.",
+    "PURCHASE_ORDER_NOT_RESENDABLE": "Only a purchase order that has been sent can be sent again.",
+    "LINE_TEMPLATE_EXISTS": "Saved items with that name already exist."
   },
   "feed": {
     "activityDone": "{{type}} completed",
@@ -944,6 +980,17 @@
         "q1": "Where do I add my team?",
         "summary": "Admin only: how your company is set up.",
         "title": "Settings"
+      },
+      "purchaseOrders": {
+        "title": "Purchase orders",
+        "summary": "Order stock and services from your suppliers, and track what's arrived.",
+        "p1": "Statuses: draft, sent, received and cancelled",
+        "p2": "A supplier list, with the email each order goes to",
+        "p3": "Saved items: load a set of lines you use often",
+        "q1": "How is this different from the order number on an invoice?",
+        "a1": "The order (PO) number on a quote or invoice is your client's number for what they buy from you. A purchase order here is what you send your own supplier.",
+        "q2": "Can I change a purchase order after sending it?",
+        "a2": "No. Cancel it and create a new one, so your supplier and your records always match."
       }
     },
     "shortcuts": {
@@ -1024,7 +1071,9 @@
     "voidBody": "A voided invoice stays on record but can't be paid or reopened. The customer isn't notified.",
     "voidInvoice": "Void invoice",
     "voidTitle": "Void {{number}}?",
-    "voided": "Invoice voided"
+    "voided": "Invoice voided",
+    "resend": "Resend invoice",
+    "resent": "Invoice sent again"
   },
   "invoices": {
     "amountDue": "{{amount}} due",
@@ -1282,7 +1331,8 @@
     "quotes": "Quotes",
     "search": "Search",
     "settings": "Settings",
-    "support": "Support"
+    "support": "Support",
+    "purchaseOrders": "Purchase orders"
   },
   "palette": {
     "action": {
@@ -1391,7 +1441,9 @@
     },
     "send": "Send quote",
     "sendBody": "The quote can't be edited once it's sent. Total {{total}}.",
-    "sent": "Quote sent"
+    "sent": "Quote sent",
+    "resend": "Resend quote",
+    "resent": "Quote sent again"
   },
   "quoteWeek": {
     "footer": "A new one every Monday at 9:00",
@@ -1427,7 +1479,11 @@
     "submitting": "Creating account…",
     "subtitle": "Set up YGT for your company in a minute. You'll be its admin and can add your team afterwards.",
     "title": "Set up your business",
-    "trialNote": "Free for 14 days, then {{price}}"
+    "trialNote": "Free for 14 days, then {{price}}",
+    "step": "Step {{n}} of {{total}}",
+    "stepDetails": "Your details",
+    "continue": "Continue",
+    "back": "Back"
   },
   "role": {
     "admin": "Admin",
@@ -1479,7 +1535,8 @@
       "quotePrefix": "Quote number prefix",
       "terms": "Payment terms (days)",
       "termsHint": "Default due date = issue date + this many days",
-      "title": "Quotes & invoices"
+      "title": "Quotes & invoices",
+      "poPrefix": "Purchase order number prefix"
     },
     "email": {
       "host": "SMTP host",
@@ -1630,7 +1687,9 @@
     "sending": "Sending",
     "sent": "Sent",
     "void": "Void",
-    "won": "Won"
+    "won": "Won",
+    "received": "Received",
+    "cancelled": "Cancelled"
   },
   "support": {
     "categories": {
@@ -1748,6 +1807,71 @@
     "stepOf": "Step {{step}} of {{total}}",
     "welcomeBody": "A one-minute tour of where everything lives. Use the arrow keys or the buttons, and skip any time. You can replay it from Help.",
     "welcomeTitle": "Welcome to {{app}}, {{name}}",
-    "whatsHere": "What's here"
+    "supportBody": "Log a ticket when you need help, follow our replies, or book a video call with the YGT team.",
+    "whatsHere": "What's here",
+    "helpBody": "Step-by-step guides to every screen. You can replay this tour from there."
+  },
+  "verify": {
+    "bannerTitle": "Please confirm your email address",
+    "bannerBody": "We sent a link to {{email}}. Click it so we can reach you about your account.",
+    "resend": "Send the link again",
+    "resent": "Confirmation link sent",
+    "checking": "Confirming your email…",
+    "doneTitle": "Your email is confirmed",
+    "doneBody": "Thank you. You're all set.",
+    "failedTitle": "We couldn't confirm your email",
+    "goToApp": "Go to YGT"
+  },
+  "purchases": {
+    "subtitle": "Order from your suppliers and track what's arrived.",
+    "tabs": {
+      "orders": "Orders",
+      "suppliers": "Suppliers"
+    },
+    "new": "New purchase order",
+    "allSuppliers": "All suppliers",
+    "none": "No purchase orders yet",
+    "noneHint": "Order stock or services from your suppliers and keep track of what's arrived.",
+    "noneHere": "No purchase orders match",
+    "col": {
+      "number": "PO number"
+    },
+    "deliverBy": "Deliver by",
+    "send": "Send to supplier",
+    "sendBody": "Mark this purchase order as sent to the supplier. Total: {{total}}.",
+    "emailToSupplier": "Email it to the supplier",
+    "noEmail": "This supplier has no email address. Add one under Suppliers.",
+    "sentToast": "Purchase order sent",
+    "markReceived": "Mark received",
+    "receivedToast": "Marked as received",
+    "cancel": "Cancel order",
+    "cancelled": "Purchase order cancelled",
+    "resend": "Resend",
+    "resent": "Purchase order sent again"
+  },
+  "suppliers": {
+    "add": "Add supplier",
+    "edit": "Edit supplier",
+    "search": "Search suppliers",
+    "showInactive": "Show inactive",
+    "none": "No suppliers yet",
+    "noneHint": "Add the businesses you buy from. Their email is where your purchase orders go.",
+    "noneFound": "No suppliers match",
+    "noContact": "No contact details",
+    "fields": {
+      "name": "Supplier name",
+      "contact_name": "Contact person",
+      "email": "Email",
+      "phone": "Phone",
+      "tax_number": "VAT number",
+      "address": "Address",
+      "notes": "Notes"
+    },
+    "emailHint": "Purchase orders are emailed to this address.",
+    "saved": "Supplier saved",
+    "deactivate": "Deactivate",
+    "reactivate": "Reactivate",
+    "deactivated": "Supplier deactivated",
+    "reactivated": "Supplier reactivated"
   }
 }

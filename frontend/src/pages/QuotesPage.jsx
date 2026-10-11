@@ -174,6 +174,7 @@ export function NewQuotePage() {
     <div className="max-w-3xl">
       <PageHeader eyebrow={<BackLink to="/quotes">{t("nav.quotes")}</BackLink>} title={t("quotes.new")} subtitle={t("invoices.draftNote")} />
       <DocumentEditor
+        kind="quote"
         dateField="expiry_date"
         dateLabel={t("quotes.validUntil")}
         dateHint={t("quotes.optional")}
@@ -222,6 +223,12 @@ export function QuoteDetailPage() {
         description: notify && customer?.email ? t("invoice.emailing", { email: customer.email }) : t("invoice.sentNoEmail"),
       });
     },
+    onError,
+  });
+
+  const resend = useMutation({
+    mutationFn: () => apiClient.post(`/quotes/${id}/resend`),
+    onSuccess: () => toast.success(t("quote.resent"), { description: customer?.email }),
     onError,
   });
 
@@ -285,6 +292,11 @@ export function QuoteDetailPage() {
                   <Button onClick={() => setSheet("send")}>{t("quote.send")}</Button>
                 </>
               )}
+              {["sent", "accepted"].includes(quote.status) && hasEmail && (
+                <Button variant="secondary" disabled={resend.isPending} onClick={() => resend.mutate()}>
+                  {resend.isPending ? t("common.sending") : t("quote.resend")}
+                </Button>
+              )}
               {quote.status === "sent" &&
                 [...OUTCOMES].reverse().map((outcome) => (
                   <Button
@@ -329,10 +341,11 @@ export function QuoteDetailPage() {
               [t("invoices.col.customer"), customer?.name ?? "…"],
               [t("invoices.col.issued"), formatDate(quote.issue_date)],
               ...(quote.po_number ? [[t("editor.poNumber"), quote.po_number]] : []),
+              ...(quote.reference ? [[t("editor.reference"), quote.reference]] : []),
               [t("quotes.validUntil"), formatDate(quote.expiry_date)],
               [t("document.lineItems"), quote.items.length],
             ]}
-            emphasis={[t("document.total"), formatMoney(quote.total)]}
+            emphasis={[t("document.totalIncl"), formatMoney(quote.total)]}
           />
         </aside>
       </div>

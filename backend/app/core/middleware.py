@@ -2,6 +2,7 @@
 and rate limiting. Logs are written after the response, on their own
 database session, so they never slow down or break the request itself."""
 import asyncio
+import json
 import logging
 import time
 import traceback
@@ -13,6 +14,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.core.config import settings
+from app.core.security import decode_token
 
 logger = logging.getLogger(__name__)
 
@@ -128,14 +130,42 @@ _RULES = [
     ("/public/paystack/", None, None, 0),
     ("/public/channels/", None, None, 0),
     ("/public/inbound/", None, None, 0),
-    ("/auth/login", {"POST"}, 10, 300),
-    ("/auth/register", {"POST"}, 5, 3600),
+    # Per address: generous enough for an office signing in together.
+    ("/auth/login", {"POST"}, 30, 300),
+    ("/auth/register", {"POST"}, 10, 3600),
     ("/auth/forgot-password", {"POST"}, 5, 3600),
     ("/auth/reset-password", {"POST"}, 10, 3600),
+    ("/auth/verify-email/resend", {"POST"}, 10, 3600),
+    ("/auth/verify-email", {"POST"}, 30, 3600),
     ("/public/contact", {"POST"}, 5, 3600),
     ("/imports/", {"POST"}, 20, 3600),
 ]
 _GENERAL = (300, 60)
+# Per account, whichever addresses the attempts come from.
+_LOGIN_PER_EMAIL = (10, 900)
+
+
+def _who(request: Request, path: str) -> str:
+    """Who a request counts against. Sign-in, sign-up, password resets and
+    Contact us always count per address: a made-up Authorization header must
+    not buy a fresh allowance. Everything else counts per signed-in person
+    (verified token), so an office behind one address isn't one person."""
+    if not path.startswith(("/auth/", "/public/")):
+        auth = request.headers.get("authorization", "")
+        if auth[:7].lower() == "bearer ":
+            try:
+                return "u:" + str(decode_token(auth[7:]).get("sub"))
+            except Exception:
+                pass
+    return "ip:" + client_ip(request)
+
+
+async def _login_email(request: Request) -> str | None:
+    try:
+        email = json.loads(await request.body() or b"{}").get("email")
+    except (ValueError, AttributeError):
+        return None
+    return email.strip().lower()[:255] if isinstance(email, str) and email.strip() else None
 
 
 class _MemoryCounter:
@@ -184,16 +214,20 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         if rule and rule[2] is None:
             return await call_next(request)
         limit, window = (rule[2], rule[3]) if rule else _GENERAL
-        # Signed-in requests count per token, so an office behind one
-        # address isn't limited as a single person.
-        who = request.headers.get("authorization", "")[-24:] or client_ip(request)
-        key = f"{rule[0] if rule else 'api'}:{who}"
+        checks = [(f"{rule[0] if rule else 'api'}:{_who(request, path)}", limit, window)]
+        if path == "/auth/login" and request.method == "POST" and (email := await _login_email(request)):
+            checks.append((f"login-email:{email}", *_LOGIN_PER_EMAIL))
         try:
-            count, retry_after = await self.counter.hit(key, window)
+            over = None
+            for key, key_limit, key_window in checks:
+                count, retry_after = await self.counter.hit(key, key_window)
+                if count > key_limit:
+                    over = retry_after
         except Exception:  # a broken limiter must not take the API down
             logger.exception("Rate limiter unavailable")
             return await call_next(request)
-        if count > limit:
+        if over is not None:
+            retry_after = over
             return JSONResponse(
                 status_code=429,
                 content={"success": False, "message": "Too many requests. Please wait a moment and try again.", "error_code": "RATE_LIMITED"},

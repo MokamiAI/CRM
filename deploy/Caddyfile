@@ -21,6 +21,10 @@
 	}
 
 	header {
+		# Only YGT's own scripts may run. Inline styles are allowed (the app
+		# sets some colours and sizes inline); logos may come from any https
+		# address. A smuggled script tag in a customer's name would be blocked.
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self'; frame-src 'self' blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
 		Strict-Transport-Security "max-age=31536000; includeSubDomains"
 		X-Content-Type-Options "nosniff"
 		Referrer-Policy "strict-origin-when-cross-origin"

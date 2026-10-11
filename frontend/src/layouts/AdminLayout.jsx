@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import { Link, NavLink, Navigate, Outlet } from "react-router-dom";
+import { ListSkeleton } from "../components/ui";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
@@ -67,7 +69,9 @@ export default function AdminLayout() {
       </aside>
       <main className="min-w-0 px-4 py-6 md:px-8 md:py-8">
         <div className="mx-auto max-w-6xl">
-          <Outlet />
+          <Suspense fallback={<ListSkeleton rows={5} />}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
     </div>

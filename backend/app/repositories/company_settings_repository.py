@@ -38,6 +38,13 @@ class CompanySettingsRepository:
         await self.db.flush()
         return f"{row.quote_prefix}{number:04d}"
 
+    async def reserve_next_po_number(self) -> str:
+        row = await self.get_for(current_company_id(self.db), for_update=True)
+        number = row.next_po_number
+        row.next_po_number = number + 1
+        await self.db.flush()
+        return f"{row.po_prefix}{number:04d}"
+
     async def reserve_next_invoice_number(self) -> str:
         row = await self.get_for(current_company_id(self.db), for_update=True)
         number = row.next_invoice_number

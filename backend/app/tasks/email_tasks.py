@@ -69,6 +69,14 @@ def send_quote_email_task(quote_id: str) -> bool:
     )
 
 
+@celery_app.task(name="app.tasks.email_tasks.send_purchase_order_email_task", **_RETRY_OPTIONS)
+def send_purchase_order_email_task(po_id: str) -> bool:
+    return _deliver(
+        lambda service: service.compose_purchase_order_sent(uuid.UUID(po_id)),
+        f"purchase order {po_id}",
+    )
+
+
 @celery_app.task(name="app.tasks.email_tasks.send_invoice_reminder_task", **_RETRY_OPTIONS)
 def send_invoice_reminder_task(invoice_id: str) -> bool:
     return _deliver(

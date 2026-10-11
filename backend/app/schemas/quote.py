@@ -36,6 +36,8 @@ class QuoteCreate(BaseModel):
     notes: str | None = None
     # The client's purchase order number, quoted on the document.
     po_number: str | None = Field(default=None, max_length=60)
+    # Your own reference: a project, job or site name.
+    reference: str | None = Field(default=None, max_length=100)
     items: list[QuoteItemCreate] = Field(min_length=1)
 
 
@@ -45,6 +47,8 @@ class QuoteUpdate(BaseModel):
     notes: str | None = None
     # The client's purchase order number, quoted on the document.
     po_number: str | None = Field(default=None, max_length=60)
+    # Your own reference: a project, job or site name.
+    reference: str | None = Field(default=None, max_length=100)
     items: list[QuoteItemCreate] | None = Field(default=None, min_length=1)
 
 
@@ -63,6 +67,7 @@ class QuoteOut(BaseModel):
     total: Decimal
     notes: str | None
     po_number: str | None = None
+    reference: str | None = None
     items: list[QuoteItemOut]
     created_at: datetime
     updated_at: datetime

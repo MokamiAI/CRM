@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import VerifyEmailBanner from "../components/VerifyEmailBanner";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
-import { Avatar, Tooltip } from "../components/ui";
+import { Avatar, ListSkeleton, Tooltip } from "../components/ui";
 import CommandPalette, { openCommandPalette } from "../components/CommandPalette";
 import LanguagePicker from "../components/LanguagePicker";
 import i18n, { setCustomerTerm } from "../i18n";
@@ -23,6 +24,9 @@ const Icon = ({ d, ...props }) => (
 const HomeIcon = (props) => <Icon {...props} d={<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-9.5Z" />} />;
 const InvoiceIcon = (props) => (
   <Icon {...props} d={<><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></>} />
+);
+const PurchaseIcon = (props) => (
+  <Icon {...props} d={<><path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h8.6a1 1 0 0 0 1-.8L20 8H6.2" /><circle cx="9" cy="19" r="1.5" /><circle cx="17" cy="19" r="1.5" /></>} />
 );
 const QuoteIcon = (props) => (
   <Icon {...props} d={<><path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4 3v-3H5a1 1 0 0 1-1-1V5Z" /><path d="M8 9h8M8 12h5" /></>} />
@@ -74,6 +78,7 @@ const NAV = {
   deals: { to: "/deals", navKey: "deals", icon: DealsIcon },
   quotes: { to: "/quotes", navKey: "quotes", icon: QuoteIcon },
   invoices: { to: "/invoices", navKey: "invoices", icon: InvoiceIcon },
+  purchaseOrders: { to: "/purchase-orders", navKey: "purchaseOrders", icon: PurchaseIcon },
   marketing: { to: "/marketing", navKey: "marketing", icon: MarketingIcon },
   customers: { to: "/customers", navKey: "customers", icon: CustomersIcon },
   products: { to: "/products", navKey: "products", icon: ProductsIcon },
@@ -87,13 +92,13 @@ const NAV = {
 // Grouped the way the work flows: your day, then selling, then records.
 const NAV_GROUPS = [
   { items: [NAV.home, NAV.activities, NAV.messages] },
-  { title: "sales", items: [NAV.deals, NAV.quotes, NAV.invoices, NAV.marketing] },
+  { title: "sales", items: [NAV.deals, NAV.quotes, NAV.invoices, NAV.purchaseOrders, NAV.marketing] },
   { title: "records", items: [NAV.customers, NAV.products] },
 ];
 
 // Phones get the four most-used places plus "More" for the rest.
 const TAB_ITEMS = [NAV.home, NAV.deals, NAV.activities, NAV.invoices];
-const MORE_ITEMS = [NAV.messages, NAV.customers, NAV.quotes, NAV.products, NAV.marketing];
+const MORE_ITEMS = [NAV.messages, NAV.customers, NAV.quotes, NAV.purchaseOrders, NAV.products, NAV.marketing];
 
 // Overdue + due today: the number of things that need doing now.
 function useActionCount() {
@@ -309,7 +314,11 @@ export default function AppLayout() {
       <main className="relative z-[1] px-4 pb-[calc(var(--tabbar-height)+1.5rem)] pt-5 md:ml-60 md:px-8 md:pb-12 md:pt-8">
         <div className="mx-auto max-w-6xl">
           <LockedBanner />
-          <Outlet />
+          <VerifyEmailBanner />
+          {/* Some pages load on first visit; the frame and menu stay put meanwhile. */}
+          <Suspense fallback={<ListSkeleton rows={5} />}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
 

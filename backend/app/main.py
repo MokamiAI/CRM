@@ -18,6 +18,7 @@ from app.api.routes import (
     payments,
     products,
     public,
+    purchasing,
     quotes,
     reports,
     support,
@@ -30,8 +31,10 @@ from app.core.middleware import RateLimitMiddleware, RequestContextMiddleware
 app = FastAPI(
     title=settings.APP_NAME,
     version="0.1.0",
-    openapi_url=f"{settings.API_V1_PREFIX}/openapi.json",
-    docs_url=f"{settings.API_V1_PREFIX}/docs",
+    # The API reference is for development; production doesn't advertise it.
+    openapi_url=None if settings.ENVIRONMENT == "production" else f"{settings.API_V1_PREFIX}/openapi.json",
+    docs_url=None if settings.ENVIRONMENT == "production" else f"{settings.API_V1_PREFIX}/docs",
+    redoc_url=None,
 )
 
 # Last added runs first: CORS outermost (so even a 429 carries CORS
@@ -53,6 +56,7 @@ app.include_router(users.router, prefix=settings.API_V1_PREFIX)
 app.include_router(customers.router, prefix=settings.API_V1_PREFIX)
 app.include_router(products.router, prefix=settings.API_V1_PREFIX)
 app.include_router(quotes.router, prefix=settings.API_V1_PREFIX)
+app.include_router(purchasing.router, prefix=settings.API_V1_PREFIX)
 app.include_router(invoices.router, prefix=settings.API_V1_PREFIX)
 app.include_router(payments.router, prefix=settings.API_V1_PREFIX)
 app.include_router(company_settings.router, prefix=settings.API_V1_PREFIX)

@@ -1,5 +1,5 @@
 from functools import lru_cache
-from pydantic import AnyUrl
+from pydantic import AnyUrl, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -92,6 +92,25 @@ class Settings(BaseSettings):
     # Behind a proxy (Caddy, Nginx, a platform's load balancer) the client's
     # address is in X-Forwarded-For; only trust it when that's true.
     TRUST_PROXY_HEADERS: bool = False
+
+    @model_validator(mode="after")
+    def _safe_in_production(self):
+        """Refuses to start a production server on example or missing secrets:
+        a known JWT_SECRET would let anyone forge a sign-in."""
+        if self.ENVIRONMENT != "production":
+            return self
+        problems = []
+        if len(self.JWT_SECRET) < 32 or "change-me" in self.JWT_SECRET:
+            problems.append("JWT_SECRET must be a long random value")
+        if "change-me" in self.INBOUND_EMAIL_SECRET:
+            problems.append("INBOUND_EMAIL_SECRET must be a random value")
+        if not self.CREDENTIALS_KEY:
+            problems.append("CREDENTIALS_KEY must be set")
+        if self.DEBUG:
+            problems.append("DEBUG must be false")
+        if problems:
+            raise ValueError("Unsafe production settings: " + "; ".join(problems))
+        return self
 
     @property
     def platform_admins(self) -> set[str]:

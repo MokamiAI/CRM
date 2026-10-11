@@ -24,6 +24,7 @@ const EMPTY_FORM = {
   logo_url: "",
   invoice_prefix: "",
   quote_prefix: "",
+  po_prefix: "",
   payment_terms_days: 30,
   sender_name: "",
   sender_email: "",
@@ -222,7 +223,7 @@ export default function SettingsPage() {
         {tab === "general" && (
         <section className="card p-4 sm:p-6">
           <h2 className="mb-4 text-base font-semibold text-zinc-900">{t("settings.documents.title")}</h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Field label={t("settings.documents.quotePrefix")}>
               <input
                 className={inputClass}
@@ -238,6 +239,9 @@ export default function SettingsPage() {
                 onChange={(e) => update("invoice_prefix", e.target.value)}
                 required
               />
+            </Field>
+            <Field label={t("settings.documents.poPrefix")}>
+              <input className={inputClass} value={form.po_prefix} onChange={(e) => update("po_prefix", e.target.value)} required />
             </Field>
             <Field label={t("settings.documents.terms")} hint={t("settings.documents.termsHint")}>
               <input

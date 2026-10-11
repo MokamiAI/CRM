@@ -62,6 +62,29 @@ export function useQuote(id) {
   return useQuery({ queryKey: ["quote", id], queryFn: () => get(`/quotes/${id}`) });
 }
 
+export function useSuppliers(params = {}) {
+  return useQuery({ queryKey: ["suppliers", params], queryFn: () => get("/suppliers", params) });
+}
+
+// Purchase orders only carry supplier_id; lists resolve names through this.
+export function useSupplierMap() {
+  const { data } = useSuppliers({ include_inactive: true });
+  return useMemo(() => new Map((data ?? []).map((s) => [s.id, s])), [data]);
+}
+
+export function usePurchaseOrders(params = {}) {
+  return useQuery({ queryKey: ["purchase-orders", params], queryFn: () => get("/purchase-orders", { limit: LIST_LIMIT, ...params }) });
+}
+
+export function usePurchaseOrder(id) {
+  return useQuery({ queryKey: ["purchase-order", id], queryFn: () => get(`/purchase-orders/${id}`) });
+}
+
+// Saved sets of line items, shared by everyone in the company.
+export function useLineTemplates() {
+  return useQuery({ queryKey: ["line-templates"], queryFn: () => get("/line-templates") });
+}
+
 // Invoices and quotes only carry customer_id; lists resolve names through
 // this map (one cached customers query shared by every screen).
 export function useCustomerMap() {

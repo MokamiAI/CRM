@@ -190,6 +190,8 @@ export function RegisterPage() {
   const [form, setForm] = useState({ company_name: "", full_name: "", email: "", password: "" });
   // ?plan=scale from a "Start free trial" button; Grow otherwise.
   const [plan, setPlan] = useState(() => (["hustle", "grow", "scale"].includes(location.search.match(/plan=(\w+)/)?.[1]) ? location.search.match(/plan=(\w+)/)[1] : "grow"));
+  // Step 1: who you are; step 2: which plan to try.
+  const [step, setStep] = useState(1);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const set = (field) => (event) => setForm((prev) => ({ ...prev, [field]: event.target.value }));
@@ -197,12 +199,17 @@ export function RegisterPage() {
   async function handleSubmit(event) {
     event.preventDefault();
     setError("");
+    if (step === 1) {
+      setStep(2); // the browser has already checked the fields
+      return;
+    }
     setIsSubmitting(true);
     try {
       await register({ ...form, plan });
       navigate("/", { replace: true });
     } catch (err) {
       const code = err?.response?.data?.error_code;
+      if (code === "USER_EMAIL_TAKEN") setStep(1); // the fix is on the first step
       setError(t(code === "USER_EMAIL_TAKEN" ? "register.emailTaken" : code === "RATE_LIMITED" ? "errors.RATE_LIMITED" : "register.failed"));
     } finally {
       setIsSubmitting(false);
@@ -221,21 +228,45 @@ export function RegisterPage() {
       <h1 className="text-2xl font-semibold text-zinc-900">{t("register.title")}</h1>
       <p className="mt-1.5 text-sm text-zinc-500">{t("register.subtitle")}</p>
 
-      <form onSubmit={handleSubmit} className="mt-7 space-y-4">
-        {fields.map(({ id, hint, ...props }) => (
-          <div key={id}>
-            <label className="label" htmlFor={id}>
-              {t(`register.${id}`)}
-            </label>
-            <GlowField id={id} required value={form[id]} onChange={set(id)} {...props} />
-            {hint && <span className="mt-1.5 block text-xs text-zinc-500">{hint}</span>}
-          </div>
-        ))}
-        <PlanPicker value={plan} onChange={setPlan} />
+      <div className="mt-6 flex items-center gap-3" aria-live="polite">
+        <span className="text-xs font-semibold uppercase tracking-[0.12em] text-indigo-600">{t("register.step", { n: step, total: 2 })}</span>
+        <span className="text-sm font-medium text-zinc-700">{t(step === 1 ? "register.stepDetails" : "register.planTitle")}</span>
+        <span className="ml-auto flex gap-1.5" aria-hidden="true">
+          {[1, 2].map((n) => (
+            <span key={n} className={`h-1.5 w-6 rounded-full ${n <= step ? "bg-indigo-600" : "bg-zinc-200"}`} />
+          ))}
+        </span>
+      </div>
+
+      <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+        {step === 1 ? (
+          fields.map(({ id, hint, ...props }) => (
+            <div key={id}>
+              <label className="label" htmlFor={id}>
+                {t(`register.${id}`)}
+              </label>
+              <GlowField id={id} required value={form[id]} onChange={set(id)} {...props} />
+              {hint && <span className="mt-1.5 block text-xs text-zinc-500">{hint}</span>}
+            </div>
+          ))
+        ) : (
+          <PlanPicker value={plan} onChange={setPlan} />
+        )}
         <FormError>{error}</FormError>
-        <button type="submit" disabled={isSubmitting} className="btn btn-primary w-full">
-          {isSubmitting ? t("register.submitting") : t("register.submit")}
-        </button>
+        {step === 1 ? (
+          <button type="submit" className="btn btn-primary w-full">
+            {t("register.continue")}
+          </button>
+        ) : (
+          <div className="flex gap-2">
+            <button type="button" className="btn btn-secondary" onClick={() => { setError(""); setStep(1); }}>
+              {t("register.back")}
+            </button>
+            <button type="submit" disabled={isSubmitting} className="btn btn-primary flex-1">
+              {isSubmitting ? t("register.submitting") : t("register.submit")}
+            </button>
+          </div>
+        )}
       </form>
       <SwitchLink prompt={t("register.haveAccount")} to="/login" label={t("login.signIn")} />
     </AuthShell>
@@ -249,7 +280,7 @@ function PlanPicker({ value, onChange }) {
   if (!plans) return null;
   return (
     <fieldset>
-      <legend className="label">{t("register.planTitle")}</legend>
+      <legend className="sr-only">{t("register.planTitle")}</legend>
       <div className="space-y-2" role="radiogroup">
         {plans.map((plan) => {
           const chosen = value === plan.key;

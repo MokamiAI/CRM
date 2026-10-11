@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user, get_db, require_role
 from app.api.email_dispatch import commit_and_enqueue
 from app.core.database import CommitBeforeResponseRoute
+from app.core.exceptions import ConflictError
 from app.models.enums import QuoteStatus, UserRole
 from app.models.user import User
 from app.schemas.quote import QuoteCreate, QuoteOut, QuoteUpdate
@@ -80,6 +81,20 @@ async def send_quote(
     quote = await QuoteService(db).transition_status(quote_id, QuoteStatus.SENT)
     if notify:
         await commit_and_enqueue(db, send_quote_email_task, str(quote.id))
+    return quote
+
+
+@router.post("/{quote_id}/resend", response_model=QuoteOut)
+async def resend_quote(
+    quote_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    _: User = Depends(_can_write),
+):
+    """Emails a quote that has already gone out again, without changing its status."""
+    quote = await QuoteService(db).get_quote(quote_id)
+    if quote.status not in (QuoteStatus.SENT, QuoteStatus.ACCEPTED):
+        raise ConflictError("Only a quote that has been sent can be sent again", "QUOTE_NOT_RESENDABLE")
+    await commit_and_enqueue(db, send_quote_email_task, str(quote.id))
     return quote
 
 

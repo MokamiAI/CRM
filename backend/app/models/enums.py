@@ -8,6 +8,13 @@ class UserRole(str, enum.Enum):
     VIEWER = "viewer"
 
 
+class PurchaseOrderStatus(str, enum.Enum):
+    DRAFT = "draft"
+    SENT = "sent"  # emailed to the supplier
+    RECEIVED = "received"  # the goods or service arrived
+    CANCELLED = "cancelled"
+
+
 class QuoteStatus(str, enum.Enum):
     DRAFT = "draft"
     SENT = "sent"

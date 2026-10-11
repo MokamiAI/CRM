@@ -5,8 +5,9 @@ import { useAuth } from "../context/AuthContext";
 import { APP_NAME, BrandMark } from "./Brand";
 
 /*
- * First-run guided tour. A dimmed backdrop with a spotlight on one part of
- * the app at a time, and a box explaining what it is and what's on it.
+ * First-run guided tour. A dimmed backdrop with a spotlight on one tab of
+ * the menu at a time, and one line on what that tab is for. The detail of
+ * each screen lives in Help, not here.
  *
  * Steps point at elements by their data-tour attribute. A step whose
  * element isn't on screen (e.g. the sidebar on a phone) still shows, as a
@@ -14,27 +15,22 @@ import { APP_NAME, BrandMark } from "./Brand";
  */
 const STEPS = [
   { key: "welcome" },
-  { key: "dashboard", target: "dash-kpis" },
-  { key: "charts", target: "dash-charts" },
-  { key: "day", target: "dash-day" },
-  { key: "getStarted", target: "get-started" },
+  { key: "dashboard", target: "dashboard" },
   { key: "activities", target: "activities" },
   { key: "messages", target: "messages" },
   { key: "deals", target: "deals" },
   { key: "quotes", target: "quotes" },
   { key: "invoices", target: "invoices" },
+  { key: "purchaseOrders", target: "purchaseOrders" },
   { key: "marketing", target: "marketing" },
   { key: "customers", target: "customers" },
   { key: "products", target: "products" },
+  { key: "support", target: "support" },
+  { key: "help", target: "help" },
   { key: "search", target: "search" },
   { key: "settings", target: "settings", admin: true },
-  { key: "language", target: "language" },
-  { key: "about", target: "about" },
-  { key: "help", target: "help" },
   { key: "done" },
 ];
-// Steps with "what's on it" bullets (help.sections.<key>.p1..p4).
-const PARTS = ["p1", "p2", "p3", "p4"];
 const PAD = 6;
 const BOX_WIDTH = 340;
 
@@ -111,11 +107,6 @@ export function TourProvider({ children }) {
   useLayoutEffect(() => {
     if (!open) return undefined;
     let el = visibleTarget(step?.target);
-    // An optional step (e.g. Get started, once dismissed) is skipped entirely.
-    if (step?.target === "get-started" && !el) {
-      setIndex((i) => i + 1);
-      return undefined;
-    }
     el?.scrollIntoView({ block: "nearest" });
     const update = () => {
       el = visibleTarget(step?.target);
@@ -150,8 +141,10 @@ export function TourProvider({ children }) {
   const last = index === steps.length - 1;
   const box = placeBox(rect, boxHeight);
   const name = (user?.full_name || "").split(" ")[0];
+  // A tab's name and its one-line summary from Help.
   const section = `help.sections.${step?.key}`;
-  const parts = PARTS.filter((p) => i18n.exists(`${section}.${p}`)).map((p) => t(`${section}.${p}`));
+  const title = t(`tour.${step?.key}Title`, { defaultValue: i18n.exists(`${section}.title`) ? t(`${section}.title`) : t(`nav.${step?.key}`), name: name || "", app: APP_NAME });
+  const body = t(`tour.${step?.key}Body`, { defaultValue: t(`${section}.summary`), app: APP_NAME });
 
   return (
     // busy: the tour is showing, or is about to on a first sign-in.
@@ -187,24 +180,9 @@ export function TourProvider({ children }) {
 
             {(step.key === "welcome" || step.key === "done") && <BrandMark size="md" join className="mb-3" />}
             <h2 id="tour-title" className="text-lg font-semibold text-zinc-900">
-              {t(`tour.${step.key}Title`, { defaultValue: t(`${section}.title`), name: name || "", app: APP_NAME })}
+              {title}
             </h2>
-            <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
-              {t(`tour.${step.key}Body`, { defaultValue: t(`${section}.summary`), app: APP_NAME })}
-            </p>
-            {parts.length > 0 && (
-              <div className="mt-3 rounded-lg bg-zinc-50 p-3 ring-1 ring-inset ring-zinc-200/70">
-                <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-zinc-500">{t("tour.whatsHere")}</p>
-                <ul className="space-y-1 text-[13px] text-zinc-700">
-                  {parts.map((part) => (
-                    <li key={part} className="flex gap-2">
-                      <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-indigo-500" aria-hidden="true" />
-                      {part}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">{body}</p>
 
             <div className="mt-4 flex items-center justify-between gap-3">
               <div className="h-1 min-w-0 max-w-24 flex-1 overflow-hidden rounded-full bg-zinc-200" aria-hidden="true">

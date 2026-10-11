@@ -35,6 +35,8 @@ class InvoiceCreate(BaseModel):
     notes: str | None = None
     # The client's purchase order number, quoted on the document.
     po_number: str | None = Field(default=None, max_length=60)
+    # Your own reference: a project, job or site name.
+    reference: str | None = Field(default=None, max_length=100)
     items: list[InvoiceItemCreate] = Field(min_length=1)
 
 
@@ -42,6 +44,8 @@ class InvoiceFromQuote(BaseModel):
     issue_date: date | None = None
     # The client's purchase order number, quoted on the document.
     po_number: str | None = Field(default=None, max_length=60)
+    # Your own reference: a project, job or site name.
+    reference: str | None = Field(default=None, max_length=100)
     due_date: date | None = None
 
 
@@ -51,6 +55,8 @@ class InvoiceUpdate(BaseModel):
     notes: str | None = None
     # The client's purchase order number, quoted on the document.
     po_number: str | None = Field(default=None, max_length=60)
+    # Your own reference: a project, job or site name.
+    reference: str | None = Field(default=None, max_length=100)
     items: list[InvoiceItemCreate] | None = Field(default=None, min_length=1)
 
 
@@ -74,6 +80,7 @@ class InvoiceOut(BaseModel):
     amount_paid: Decimal
     notes: str | None
     po_number: str | None = None
+    reference: str | None = None
     items: list[InvoiceItemOut]
     created_at: datetime
     updated_at: datetime

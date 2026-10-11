@@ -6,7 +6,7 @@ import { Toaster } from "sonner";
 import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext";
 import "@fontsource-variable/inter";
-import "./i18n";
+import { i18nReady } from "./i18n";
 import "./index.css";
 
 const queryClient = new QueryClient({
@@ -21,7 +21,8 @@ const queryClient = new QueryClient({
   }),
 });
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+// Render once the chosen language has loaded (a broken network still renders, in English).
+i18nReady.catch(() => {}).finally(() => ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -40,4 +41,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
-);
+));

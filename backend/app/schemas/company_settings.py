@@ -14,6 +14,7 @@ class CompanySettingsUpdate(BaseModel):
     logo_url: str | None = Field(default=None, max_length=500)
     invoice_prefix: str | None = Field(default=None, min_length=1, max_length=20)
     quote_prefix: str | None = Field(default=None, min_length=1, max_length=20)
+    po_prefix: str | None = Field(default=None, min_length=1, max_length=20)
     payment_terms_days: int | None = Field(default=None, ge=0, le=365)
 
     # Outgoing email / SMTP. sender_email is who invoices appear to come
@@ -55,6 +56,7 @@ class CompanySettingsOut(BaseModel):
     logo_url: str | None
     invoice_prefix: str
     quote_prefix: str
+    po_prefix: str = "PO-"
     next_invoice_number: int
     next_quote_number: int
     payment_terms_days: int

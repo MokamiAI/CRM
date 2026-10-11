@@ -26,6 +26,8 @@ function describeReminder(reminderType) {
   return i18n.t(days < 0 ? "invoice.reminderBefore" : "invoice.reminderAfter", { count: Math.abs(days) });
 }
 const VOIDABLE = ["draft", "sent", "overdue"];
+// Already emailed: can be emailed again ("please resend").
+const RESENDABLE = ["sent", "partially_paid", "overdue", "paid"];
 
 export default function InvoiceDetailPage() {
   const { t } = useTranslation();
@@ -73,6 +75,12 @@ export default function InvoiceDetailPage() {
       close();
       toast.success(t("invoice.reminderSent"), { description: customer?.email });
     },
+    onError,
+  });
+
+  const resend = useMutation({
+    mutationFn: () => apiClient.post(`/invoices/${id}/resend`),
+    onSuccess: () => toast.success(t("invoice.resent"), { description: customer?.email }),
     onError,
   });
 
@@ -138,6 +146,11 @@ export default function InvoiceDetailPage() {
                   {t("invoice.void")}
                 </Button>
               )}
+              {RESENDABLE.includes(invoice.status) && hasEmail && (
+                <Button variant="secondary" disabled={resend.isPending} onClick={() => resend.mutate()}>
+                  {resend.isPending ? t("common.sending") : t("invoice.resend")}
+                </Button>
+              )}
               {PAYABLE.includes(invoice.status) && hasEmail && (
                 <Button variant="secondary" onClick={() => setSheet("remind")}>
                   {t("invoice.sendReminder")}
@@ -175,8 +188,9 @@ export default function InvoiceDetailPage() {
               [t("invoices.col.customer"), customer?.name ?? "…"],
               [t("invoices.col.issued"), formatDate(invoice.issue_date)],
               ...(invoice.po_number ? [[t("editor.poNumber"), invoice.po_number]] : []),
+              ...(invoice.reference ? [[t("editor.reference"), invoice.reference]] : []),
               [t("invoices.col.due"), formatDate(invoice.due_date)],
-              [t("document.total"), formatMoney(invoice.total)],
+              [t("document.totalIncl"), formatMoney(invoice.total)],
               [t("status.paid"), formatMoney(invoice.amount_paid)],
             ]}
             emphasis={[t("invoice.balanceDue"), formatMoney(balance)]}

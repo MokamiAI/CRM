@@ -24,6 +24,14 @@ def create_access_token(subject: str, role: str) -> str:
     return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
 
 
+def create_email_token(user_id: str, email: str) -> str:
+    """The link in "Confirm your email". Carries the address, so it stops
+    working if the account's email is ever changed."""
+    expire = datetime.now(timezone.utc) + timedelta(days=7)
+    payload = {"sub": user_id, "email": email.lower(), "type": "verify-email", "exp": expire}
+    return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+
+
 def decode_token(token: str) -> dict:
     return jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM])
 

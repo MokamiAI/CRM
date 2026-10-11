@@ -54,14 +54,14 @@ class AuthService:
             default_timezone=settings.DEFAULT_TIMEZONE,
             sender_name=data.company_name.strip(),
             # Customer replies reach the founder until they set up email.
-            sender_email=data.email,
+            sender_email=data.email.lower(),
         )
         self.db.add(company)
         await self.db.flush()
         self.db.add(new_trial(company.id, data.plan))
         user = User(
             company_id=company.id,
-            email=data.email,
+            email=data.email.lower(),
             password_hash=hash_password(data.password),
             full_name=data.full_name.strip(),
             role=UserRole.ADMIN,

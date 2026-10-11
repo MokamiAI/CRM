@@ -2,12 +2,13 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { LANGUAGE_CODES } from "./languages";
 
-// Every catalog is bundled (they're small) so switching language is instant
-// and works offline inside the Capacitor app.
-const catalogs = import.meta.glob("./locales/*.json", { eager: true, import: "default" });
-const resources = Object.fromEntries(
-  Object.entries(catalogs).map(([path, translation]) => [path.match(/\/(\w+)\.json$/)[1], { translation }])
-);
+import en from "./locales/en.json";
+
+// English is built in (it's also the fallback for anything missing). Every
+// other language is its own file, fetched the first time someone picks it,
+// so a phone doesn't download all eleven to show one. The Capacitor app
+// ships these files inside the app, so it still works offline.
+const loaders = import.meta.glob(["./locales/*.json", "!./locales/en.json"], { import: "default" });
 
 const STORAGE_KEY = "language";
 
@@ -69,9 +70,26 @@ i18n.use({
   },
 });
 
-i18n.use(initReactI18next).init({
+i18n.use({
+  type: "backend",
+  read(language, _namespace, callback) {
+    const load = loaders[`./locales/${language}.json`];
+    if (!load) return callback(null, {});
+    load().then(
+      (translation) => callback(null, translation),
+      (error) => callback(error, null)
+    );
+  },
+});
+
+// main.jsx waits for this, so the first screen is already in the right language.
+export const i18nReady = i18n.use(initReactI18next).init({
   postProcess: ["customerTerm"],
-  resources,
+  resources: { en: { translation: en } },
+  partialBundledLanguages: true,
+  // Languages load before they're switched to (changeLanguage waits), so
+  // components never need to suspend for a translation.
+  react: { useSuspense: false },
   // Before sign-in we only know what this browser last used; after sign-in
   // the user's saved preference wins (AuthContext applies it).
   lng: storedLanguage() ?? "en",

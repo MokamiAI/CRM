@@ -20,7 +20,8 @@ class UserRepository:
         return (await self.db.execute(query, execution_options={ALL_TENANTS: True})).first() is not None
 
     async def get_by_email(self, email: str) -> User | None:
-        result = await self.db.execute(select(User).where(User.email == email))
+        # Ignoring case: phones often capitalise the first letter of an email.
+        result = await self.db.execute(select(User).where(func.lower(User.email) == email.strip().lower()))
         return result.scalar_one_or_none()
 
     async def list_all(self, offset: int = 0, limit: int = 50) -> list[User]:

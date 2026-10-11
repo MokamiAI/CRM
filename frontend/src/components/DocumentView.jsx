@@ -24,15 +24,15 @@ export function LineItems({ document }) {
       </ul>
       <dl className="space-y-1.5 border-t border-zinc-200/80 bg-zinc-50/60 px-5 py-4 text-sm">
         <div className="flex justify-between text-zinc-600">
-          <dt>{t("document.subtotal")}</dt>
+          <dt>{t("document.totalExcl")}</dt>
           <dd className="tabular-nums">{formatMoney(document.subtotal)}</dd>
         </div>
         <div className="flex justify-between text-zinc-600">
-          <dt>{t("document.tax")}</dt>
+          <dt>{t("document.vat")}</dt>
           <dd className="tabular-nums">{formatMoney(document.tax_total)}</dd>
         </div>
         <div className="flex justify-between pt-1 text-base font-semibold text-zinc-900">
-          <dt>{t("document.total")}</dt>
+          <dt>{t("document.totalIncl")}</dt>
           <dd className="tabular-nums">{formatMoney(document.total)}</dd>
         </div>
       </dl>

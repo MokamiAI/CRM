@@ -57,6 +57,8 @@ const STATUS_STYLES = {
   rejected: ["bg-red-50 text-red-700 ring-red-200/70", "bg-red-500"],
   expired: ["bg-zinc-100 text-zinc-500 ring-zinc-200", "bg-zinc-400"],
   converted: ["bg-violet-50 text-violet-700 ring-violet-200/70", "bg-violet-500"],
+  received: ["bg-emerald-50 text-emerald-700 ring-emerald-200/70", "bg-emerald-500"],
+  cancelled: ["bg-zinc-50 text-zinc-400 ring-zinc-200", "bg-zinc-300"],
   won: ["bg-emerald-50 text-emerald-700 ring-emerald-200/70", "bg-emerald-500"],
   lost: ["bg-red-50 text-red-700 ring-red-200/70", "bg-red-500"],
   active: ["bg-emerald-50 text-emerald-700 ring-emerald-200/70", "bg-emerald-500"],

@@ -641,8 +641,11 @@
     "subtotal": "Tshanḓanyiso tshiṱuku",
     "summary": "Manweledzo",
     "tax": "Muthelo",
-    "taxRate": "{{rate}}% muthelo",
-    "total": "Tshanḓanyiso"
+    "taxRate": "{{rate}}% VAT",
+    "total": "Tshanḓanyiso",
+    "totalExcl": "Tshoṱhe nga nnḓa ha VAT",
+    "vat": "VAT",
+    "totalIncl": "Tshoṱhe hu tshi katelwa VAT"
   },
   "documents": {
     "accent": "Muvhala wa luswayo",
@@ -720,8 +723,32 @@
     "product": "Bveledzwa",
     "qty": "Tshivhalo",
     "remove": "Bvisa",
-    "taxPercent": "Muthelo %",
-    "unitPrice": "Mutengo wa tshithihi"
+    "taxPercent": "VAT %",
+    "unitPrice": "Mutengo wa tshithihi",
+    "supplier": "Muṋetshedzi",
+    "chooseSupplier": "Nangani muṋetshedzi",
+    "noSuppliers": "A ni athu u engedza vhaṋetshedzi.",
+    "addSupplier": "Engedzani muthihi",
+    "reference": "Tsumbo",
+    "referenceHint": "Tsumbo yaṋu, tsumbo. purojeke kana fhethu. I sumbedzwa kha ḽiṅwalo.",
+    "referencePlaceholder": "tsumbo. Ofisi ya Rosebank",
+    "itemColumn": "Tshithu",
+    "itemPlaceholder": "Thaipani tshithu, kana ni nange mveledzwa",
+    "amount": "Tshelede",
+    "removeLine": "Bvisani mutalo {{n}}",
+    "loadSaved": "Lodani zwithu zwo vhulungwaho",
+    "saveItems": "Vhulungani zwithu izwi",
+    "saveAsName": "Dzina ḽa zwithu izwi",
+    "saveAsPlaceholder": "tsumbo. U dzhenisa ofisi nga nḓila yo ḓoweleaho",
+    "saved": "Ho vhulungwa “{{name}}”",
+    "savedShared": "Muṅwe na muṅwe kha khamphani yaṋu a nga zwi loda zwino.",
+    "savedHint": "Zwithu zwo vhulungwaho zwi kovhekana na vhoṱhe kha khamphani yaṋu. U vhulunga nga dzina ḽi re hone zwi ḽi dzhiela vhudzulo.",
+    "savedLoaded": "Ho lodwa “{{name}}”",
+    "savedDeleted": "Ho phumulwa “{{name}}”",
+    "deleteSaved": "Phumulani {{name}}",
+    "deliveryAddress": "Ḓiresi ya u isa",
+    "deliveryAddressHint": "Hune muṋetshedzi a fanela u isa hone.",
+    "notesHintSupplier": "Zwi sumbedzwa muṋetshedzi kha oda na kha imeiḽi"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhaunthe iyi yo imiswa. Ri humbela ni kwame thikhedzo ya YGT.",
@@ -746,7 +773,16 @@
     "SLOT_TAKEN": "Tshifhinga itsho tsho kha ḓi dzhiiwa. Ri humbela ni nange tshiṅwe.",
     "STATEMENT_PERIOD_INVALID": "Ḓuvha ḽa u thoma ḽi fanela u vha phanḓa ha ḽa u fhedza.",
     "TICKET_CLOSED": "Thekhethe iyi yo valiwa. Vulani ntswa arali ni kha ḓi ṱoḓa thuso.",
-    "generic": "Hu na zwi songo tshimbila zwavhuḓi."
+    "generic": "Hu na zwi songo tshimbila zwavhuḓi.",
+    "INVOICE_NOT_RESENDABLE": "Ndi invoice yo no rumelwaho fhedzi ine ya nga rumelwa hafhu.",
+    "QUOTE_NOT_RESENDABLE": "Ndi tshiṱangadzamitengo tsho no rumelwaho fhedzi tshine tsha nga rumelwa hafhu.",
+    "VERIFY_LINK_INVALID": "Vhukwamani uvhu a vhu tsha shuma. Dzhenani ni humbele vhuswa.",
+    "SUPPLIER_NOT_FOUND": "Uyo muṋetshedzi ha ngo wanala, kana ha shumi.",
+    "PURCHASE_ORDER_NOT_EDITABLE": "Ndi oda ya u renga ya bammbiri ḽa u thoma fhedzi ine ya nga shandukiswa.",
+    "PURCHASE_ORDER_INVALID_TRANSITION": "Izwo a zwi nga itwi kha oda iyi nga nyimele yayo ya zwino.",
+    "PURCHASE_ORDER_NOT_DELETABLE": "Ndi oda ya u renga ya bammbiri ḽa u thoma fhedzi ine ya nga phumulwa.",
+    "PURCHASE_ORDER_NOT_RESENDABLE": "Ndi oda yo no rumelwaho fhedzi ine ya nga rumelwa hafhu.",
+    "LINE_TEMPLATE_EXISTS": "Zwithu zwo vhulungwaho zwa dzina iḽo zwo no vha hone."
   },
   "feed": {
     "activityDone": "{{type}} yo fhela",
@@ -944,6 +980,17 @@
         "q1": "Ndi engedza ngafhi tshigwada tshanga?",
         "summary": "Vhalanguli fhedzi: nḓila ine khamphani yaṋu ya dzudzanywa ngayo.",
         "title": "Nzudzanyo"
+      },
+      "purchaseOrders": {
+        "title": "Dzioda dza u renga",
+        "summary": "Odani tshitoko na tshumelo kha vhaṋetshedzi vhaṋu, ni tevhele zwo swikaho.",
+        "p1": "Nyimele: bammbiri ḽa u thoma, zwo rumelwa, zwo ṱanganedzwa na zwo khantselwa",
+        "p2": "Mutevhe wa vhaṋetshedzi, na imeiḽi ine oda iṅwe na iṅwe ya ya khayo",
+        "p3": "Zwithu zwo vhulungwaho: lodani tshigwada tsha mitalo ine na i shumisa kanzhi",
+        "q1": "Zwi fhambana hani na nomboro ya oda kha invoice?",
+        "a1": "Nomboro ya oda kha tshiṱangadzamitengo kana invoice ndi nomboro ya muthengi waṋu ya zwine vha zwi renga khaṋu. Oda ya u renga fhano ndi zwine na zwi rumela muṋetshedzi waṋu.",
+        "q2": "Ndi nga shandukisa oda nga murahu ha u i rumela?",
+        "a2": "Hai. I khantseleni ni ite ntswa, uri muṋetshedzi waṋu na rekhodo dzaṋu zwi dzule zwi tshi tshimbilelana."
       }
     },
     "shortcuts": {
@@ -1024,7 +1071,9 @@
     "voidBody": "Invoice yo fheliswaho i sala kha rekhodo fhedzi a i nga badelwi kana u vulwa hafhu. Murengi a ḓivhadzwi.",
     "voidInvoice": "Fhelisani invoice",
     "voidTitle": "Fhelisa {{number}}?",
-    "voided": "Invoice yo fheliswa"
+    "voided": "Invoice yo fheliswa",
+    "resend": "Rumelani invoice hafhu",
+    "resent": "Invoice yo rumelwa hafhu"
   },
   "invoices": {
     "amountDue": "{{amount}} i fanela u badelwa",
@@ -1282,7 +1331,8 @@
     "quotes": "Zwiṱangadzamitengo",
     "search": "Ṱoḓa",
     "settings": "Nzudzanyo",
-    "support": "Thikhedzo"
+    "support": "Thikhedzo",
+    "purchaseOrders": "Dzioda dza u renga"
   },
   "palette": {
     "action": {
@@ -1391,7 +1441,9 @@
     },
     "send": "Rumelani tshiṱangadzamitengo",
     "sendBody": "Tshiṱangadzamitengo a tshi nga shandukiswi musi tsho no rumelwa. Tshanḓanyiso {{total}}.",
-    "sent": "Tshiṱangadzamitengo tsho rumelwa"
+    "sent": "Tshiṱangadzamitengo tsho rumelwa",
+    "resend": "Rumelani tshiṱangadzamitengo hafhu",
+    "resent": "Tshiṱangadzamitengo tsho rumelwa hafhu"
   },
   "quoteWeek": {
     "footer": "Ḽiswa Musumbuluwo muṅwe na muṅwe nga 9:00",
@@ -1427,7 +1479,11 @@
     "submitting": "Zwi khou ita akhaunthu…",
     "subtitle": "Itani YGT ya khamphani yaṋu nga mininthi. Ni ḓo vha mulanguli nahone ni nga engedza tshigwada tshaṋu nga murahu.",
     "title": "Dzudzanyani bindu ḽaṋu",
-    "trialNote": "Mahala maḓuvha a 14, nga murahu {{price}}"
+    "trialNote": "Mahala maḓuvha a 14, nga murahu {{price}}",
+    "step": "Khwiṱhi ya {{n}} kha {{total}}",
+    "stepDetails": "Zwidodombedzwa zwaṋu",
+    "continue": "Bvelaphanḓa",
+    "back": "Murahu"
   },
   "role": {
     "admin": "Mulanguli",
@@ -1479,7 +1535,8 @@
       "quotePrefix": "Mathomo a nomboro ya tshiṱangadzamitengo",
       "terms": "Milayo ya mbadelo (maḓuvha)",
       "termsHint": "Ḓuvha ḽa mbadelo ḽa tshiofisi = ḓuvha ḽa u bviswa + maḓuvha aya",
-      "title": "Zwiṱangadzamitengo na dzi-invoice"
+      "title": "Zwiṱangadzamitengo na dzi-invoice",
+      "poPrefix": "Mathomo a nomboro ya oda ya u renga"
     },
     "email": {
       "host": "Muṱanganedzi wa SMTP",
@@ -1630,7 +1687,9 @@
     "sending": "Zwi khou rumelwa",
     "sent": "Yo rumelwa",
     "void": "Yo fheliswa",
-    "won": "Yo kundwa"
+    "won": "Yo kundwa",
+    "received": "Zwo ṱanganedzwa",
+    "cancelled": "Zwo khantselwa"
   },
   "support": {
     "categories": {
@@ -1748,6 +1807,71 @@
     "stepOf": "Khwiṱha {{step}} kha {{total}}",
     "welcomeBody": "Lwendo lwa minithi nthihi lwa uri zwoṱhe zwi ngafhi. Shumisani khiyi dza miseve kana zwiṱatisi, ni fhire tshifhinga tshiṅwe na tshiṅwe. Ni nga lu sedza hafhu kha Thuso.",
     "welcomeTitle": "Ni a ṱanganedzwa kha {{app}}, {{name}}",
-    "whatsHere": "Zwi re fhano"
+    "supportBody": "Vulani thikhithi musi ni tshi ṱoḓa thuso, ni tevhele phindulo dzashu, kana ni buke luṱingo lwa vidio na tshigwada tsha YGT.",
+    "whatsHere": "Zwi re fhano",
+    "helpBody": "Vhulivhisi ha khwiṱhi nga khwiṱhi ha skirini iṅwe na iṅwe. Ni nga dovha na ita lwendo ulu u bva henefho."
+  },
+  "verify": {
+    "bannerTitle": "Ri humbela ni khwaṱhisedze ḓiresi yaṋu ya imeiḽi",
+    "bannerBody": "Ro rumela vhukwamani kha {{email}}. Vhu kwatisheni uri ri kone u kwamana naṋwi nga ha akhaunthe yaṋu.",
+    "resend": "Rumelani vhukwamani hafhu",
+    "resent": "Vhukwamani ha u khwaṱhisedza ho rumelwa",
+    "checking": "Ri khou khwaṱhisedza imeiḽi yaṋu…",
+    "doneTitle": "Imeiḽi yaṋu yo khwaṱhisedzwa",
+    "doneBody": "Ri a livhuwa. No lugela.",
+    "failedTitle": "A ro ngo kona u khwaṱhisedza imeiḽi yaṋu",
+    "goToApp": "Iyani kha YGT"
+  },
+  "purchases": {
+    "subtitle": "Odani kha vhaṋetshedzi vhaṋu ni tevhele zwo swikaho.",
+    "tabs": {
+      "orders": "Dzioda",
+      "suppliers": "Vhaṋetshedzi"
+    },
+    "new": "Oda ntswa ya u renga",
+    "allSuppliers": "Vhaṋetshedzi vhoṱhe",
+    "none": "A hu athu u vha na dzioda dza u renga",
+    "noneHint": "Odani tshitoko kana tshumelo kha vhaṋetshedzi vhaṋu ni tevhele zwo swikaho.",
+    "noneHere": "A hu na dzioda dzi tshimbilelanaho",
+    "col": {
+      "number": "Nomboro ya oda"
+    },
+    "deliverBy": "Isani nga ḓuvha",
+    "send": "Rumelani kha muṋetshedzi",
+    "sendBody": "Swayani oda iyi sa yo rumelwaho kha muṋetshedzi. Tshoṱhe: {{total}}.",
+    "emailToSupplier": "I rumeleni nga imeiḽi kha muṋetshedzi",
+    "noEmail": "Muṋetshedzi uyu a na ḓiresi ya imeiḽi. I engedzeni fhasi ha Vhaṋetshedzi.",
+    "sentToast": "Oda yo rumelwa",
+    "markReceived": "Swayani zwo ṱanganedzwa",
+    "receivedToast": "Zwo swaywa sa zwo ṱanganedzwaho",
+    "cancel": "Khantselani oda",
+    "cancelled": "Oda yo khantselwa",
+    "resend": "Rumelani hafhu",
+    "resent": "Oda yo rumelwa hafhu"
+  },
+  "suppliers": {
+    "add": "Engedzani muṋetshedzi",
+    "edit": "Lulamisani muṋetshedzi",
+    "search": "Ṱoḓani vhaṋetshedzi",
+    "showInactive": "Sumbedzani vha sa shumi",
+    "none": "A hu athu u vha na vhaṋetshedzi",
+    "noneHint": "Engedzani mabindu ane na renga khao. Imeiḽi yavho ndi hune dzioda dzaṋu dza ya hone.",
+    "noneFound": "A hu na vhaṋetshedzi vha tshimbilelanaho",
+    "noContact": "A hu na zwidodombedzwa zwa u kwamana",
+    "fields": {
+      "name": "Dzina ḽa muṋetshedzi",
+      "contact_name": "Muthu wa u kwamana",
+      "email": "Imeiḽi",
+      "phone": "Luṱingo",
+      "tax_number": "Nomboro ya VAT",
+      "address": "Ḓiresi",
+      "notes": "Notsi"
+    },
+    "emailHint": "Dzioda dzi rumelwa nga imeiḽi kha ḓiresi iyi.",
+    "saved": "Muṋetshedzi o vhulungwa",
+    "deactivate": "Imisani",
+    "reactivate": "Vhuedzedzani",
+    "deactivated": "Muṋetshedzi o imiswa",
+    "reactivated": "Muṋetshedzi o vhuedzedzwa"
   }
 }

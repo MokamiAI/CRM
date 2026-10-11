@@ -90,6 +90,16 @@ export function AuthProvider({ children }) {
     return data;
   }
 
+  // After something changed on the server (e.g. the email was confirmed).
+  async function reloadUser() {
+    try {
+      const { data } = await apiClient.get("/auth/me");
+      setUser(data);
+    } catch {
+      /* not signed in */
+    }
+  }
+
   // The guided tour: done (finished or skipped) or wanted again from Help.
   async function markTourDone(done) {
     setUser((prev) => (prev ? { ...prev, tour_completed_at: done ? new Date().toISOString() : null } : prev));
@@ -102,7 +112,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout, setLanguage, markTourDone, updateProfile }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, setLanguage, markTourDone, updateProfile, reloadUser }}>
       {children}
     </AuthContext.Provider>
   );

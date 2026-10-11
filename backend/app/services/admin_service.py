@@ -1,9 +1,11 @@
 """The admin site's view across every company: tenants and their totals,
 subscriptions and refunds, errors and activity. Runs in a SYSTEM session
 (see require_platform_admin), so nothing here is filtered by company."""
+import logging
 import uuid
 from datetime import datetime, timedelta, timezone
 
+from sqlalchemy import delete as sa_delete
 from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -19,6 +21,8 @@ from app.models.quote import Quote
 from app.models.user import User
 from app.services import paystack
 from app.services.billing_service import effective
+
+logger = logging.getLogger(__name__)
 
 _BILLED = (InvoiceStatus.SENT, InvoiceStatus.PARTIALLY_PAID, InvoiceStatus.PAID, InvoiceStatus.OVERDUE)
 
@@ -176,6 +180,34 @@ class AdminService:
         company.suspended_at = _now()
         company.suspended_reason = reason
         await self.db.flush()
+
+    async def delete_company(self, company_id: uuid.UUID, confirm_name: str, admin: User) -> dict:
+        """Erases a company and everything it holds (a POPIA deletion request
+        or a closed account). Every table cascades from company_settings.
+        The admin site's activity log keeps who did it and when; Paystack
+        keeps its own record of what they paid."""
+        company = await self.company(company_id)
+        if confirm_name.strip() != company.company_name.strip():
+            raise AppError("Type the company's name exactly as shown to confirm.", "COMPANY_NAME_MISMATCH")
+        if admin.company_id == company_id:
+            raise AppError("You can't delete the company your own YGT admin account belongs to.", "CANNOT_DELETE_OWN_COMPANY")
+        sub = await self.db.scalar(select(Subscription).where(Subscription.company_id == company_id))
+        if sub and sub.status in ("active", "past_due") and sub.paystack_subscription_code and sub.paystack_email_token:
+            try:
+                await paystack.disable(sub.paystack_subscription_code, sub.paystack_email_token)
+            except Exception as exc:
+                # Never leave a card being charged for a company that no longer exists.
+                raise AppError("Couldn't stop their Paystack subscription, so nothing was deleted. Cancel it in the Paystack dashboard, then try again.", "PAYSTACK_CANCEL_FAILED") from exc
+        counts = {
+            "people": await self.db.scalar(select(func.count()).select_from(User).where(User.company_id == company_id)),
+            "customers": await self.db.scalar(select(func.count()).select_from(Customer).where(Customer.company_id == company_id)),
+            "invoices": await self.db.scalar(select(func.count()).select_from(Invoice).where(Invoice.company_id == company_id)),
+        }
+        name = company.company_name
+        await self.db.execute(sa_delete(CompanySettings).where(CompanySettings.id == company_id))
+        await self.db.flush()
+        logger.warning("Company %s (%s) deleted by %s: %s", name, company_id, admin.email, counts)
+        return {"deleted": name, **counts}
 
     async def unsuspend(self, company_id: uuid.UUID) -> None:
         company = await self.company(company_id)

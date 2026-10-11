@@ -186,6 +186,11 @@ class SuspendIn(BaseModel):
     reason: str = Field(min_length=3, max_length=300)
 
 
+class DeleteCompanyIn(BaseModel):
+    # The company's name, typed out: a deliberate step, not a stray click.
+    confirm_name: str = Field(min_length=1, max_length=255)
+
+
 class ExtendTrialIn(BaseModel):
     days: int = Field(ge=1, le=90)
 

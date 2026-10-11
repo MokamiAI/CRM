@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
@@ -210,6 +210,44 @@ export function ForgotPasswordPage() {
         </>
       )}
       <SwitchLink prompt={t("password.remembered")} to="/login" label={t("login.signIn")} />
+    </AuthShell>
+  );
+}
+
+/** The link in "Confirm your email". Works signed in or not. */
+export function VerifyEmailPage() {
+  const { t } = useTranslation();
+  const { user, reloadUser } = useAuth();
+  const [params] = useSearchParams();
+  const [state, setState] = useState("checking"); // checking | done | failed
+  const [error, setError] = useState("");
+  const sent = useRef(false);
+  useEffect(() => {
+    if (sent.current) return; // once, even in React's double-run dev mode
+    sent.current = true;
+    apiClient
+      .post("/auth/verify-email", { token: params.get("token") || "" })
+      .then(() => {
+        setState("done");
+        reloadUser();
+      })
+      .catch((err) => {
+        setError(errorMessage(err));
+        setState("failed");
+      });
+  }, [params, reloadUser]);
+  return (
+    <AuthShell>
+      <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+        {t(state === "done" ? "verify.doneTitle" : state === "failed" ? "verify.failedTitle" : "verify.checking")}
+      </h1>
+      {state === "done" && <p className="mt-1.5 text-sm text-zinc-500">{t("verify.doneBody")}</p>}
+      {state === "failed" && <FormError>{error}</FormError>}
+      {state !== "checking" && (
+        <Link to={user ? "/" : "/login"} className="btn btn-primary mt-7 w-full">
+          {t(user ? "verify.goToApp" : "login.signIn")}
+        </Link>
+      )}
     </AuthShell>
   );
 }

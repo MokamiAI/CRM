@@ -254,6 +254,10 @@ def _fmt(value) -> str:
         return value.isoformat()
     if hasattr(value, "value"):  # enums
         return str(value.value)
+    if isinstance(value, str) and value[:1] in ("=", "+", "-", "@", chr(9), chr(13)):
+        # Text from customers (names arriving by WhatsApp or email) must not
+        # run as a formula when the export is opened in Excel.
+        return "'" + value
     return str(value)
 
 
@@ -289,13 +293,13 @@ async def export_csv(db: AsyncSession, entity: str) -> str:
              await db.scalars(select(Deal).order_by(Deal.created_at)),
              lambda d: [d.title, names.get(d.customer_id), d.value, d.stage, d.expected_close_date, d.industry, owners.get(d.owner_id), d.created_at, d.closed_at])
     elif entity == "invoices":
-        rows(["number", "customer", "po_number", "status", "issue_date", "due_date", "subtotal", "vat", "total", "paid", "balance"],
+        rows(["number", "customer", "po_number", "reference", "status", "issue_date", "due_date", "subtotal", "vat", "total", "paid", "balance"],
              await db.scalars(select(Invoice).order_by(Invoice.issue_date)),
-             lambda i: [i.invoice_number, names.get(i.customer_id), i.po_number, i.status, i.issue_date, i.due_date, i.subtotal, i.tax_total, i.total, i.amount_paid, Decimal(str(i.total)) - Decimal(str(i.amount_paid))])
+             lambda i: [i.invoice_number, names.get(i.customer_id), i.po_number, i.reference, i.status, i.issue_date, i.due_date, i.subtotal, i.tax_total, i.total, i.amount_paid, Decimal(str(i.total)) - Decimal(str(i.amount_paid))])
     elif entity == "quotes":
-        rows(["number", "customer", "po_number", "status", "issue_date", "valid_until", "subtotal", "vat", "total"],
+        rows(["number", "customer", "po_number", "reference", "status", "issue_date", "valid_until", "subtotal", "vat", "total"],
              await db.scalars(select(Quote).order_by(Quote.issue_date)),
-             lambda q: [q.quote_number, names.get(q.customer_id), q.po_number, q.status, q.issue_date, q.expiry_date, q.subtotal, q.tax_total, q.total])
+             lambda q: [q.quote_number, names.get(q.customer_id), q.po_number, q.reference, q.status, q.issue_date, q.expiry_date, q.subtotal, q.tax_total, q.total])
     elif entity == "payments":
         numbers = {i.id: (i.invoice_number, names.get(i.customer_id)) for i in await db.scalars(select(Invoice))}
         rows(["invoice", "customer", "amount", "method", "reference", "paid_at"],

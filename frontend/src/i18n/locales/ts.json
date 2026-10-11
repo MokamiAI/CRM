@@ -641,8 +641,11 @@
     "subtotal": "Nhlayo-ntsongo",
     "summary": "Nkomiso",
     "tax": "Xibalo",
-    "taxRate": "{{rate}}% xibalo",
-    "total": "Nhlayo-hinkwayo"
+    "taxRate": "{{rate}}% VAT",
+    "total": "Nhlayo-hinkwayo",
+    "totalExcl": "Hinkwaswo handle ka VAT",
+    "vat": "VAT",
+    "totalIncl": "Hinkwaswo ku katsa VAT"
   },
   "documents": {
     "accent": "Muhlovo wa mfungho",
@@ -720,8 +723,32 @@
     "product": "Xiendliwa",
     "qty": "Nhlayo",
     "remove": "Susa",
-    "taxPercent": "Xibalo %",
-    "unitPrice": "Nxavo wa xin'we"
+    "taxPercent": "VAT %",
+    "unitPrice": "Nxavo wa xin'we",
+    "supplier": "Muphakeri",
+    "chooseSupplier": "Hlawula muphakeri",
+    "noSuppliers": "A wu si engetela vaphakeri.",
+    "addSupplier": "Engetela un'we",
+    "reference": "Xikombo",
+    "referenceHint": "Xikombo xa wena, xik. phurojeke kumbe ndhawu. Xi kombisiwa eka dokumente.",
+    "referencePlaceholder": "xik. Hofisi ya Rosebank",
+    "itemColumn": "Nchumu",
+    "itemPlaceholder": "Thayipa nchumu, kumbe u hlawula xiendliwa",
+    "amount": "Mali",
+    "removeLine": "Susa layini {{n}}",
+    "loadSaved": "Layicha swilo leswi hlayisiweke",
+    "saveItems": "Hlayisa swilo leswi",
+    "saveAsName": "Vito ra swilo leswi",
+    "saveAsPlaceholder": "xik. Ku nghenisa hofisi hi ndlela leyi tolovelekeke",
+    "saved": "Ku hlayisiwile “{{name}}”",
+    "savedShared": "Un'wana na un'wana ekhamphanini ya wena a nga swi layicha sweswi.",
+    "savedHint": "Swilo leswi hlayisiweke swi avelaniwa na hinkwavo ekhamphanini ya wena. Ku hlayisa hi vito leri se ri nga kona swi ri siva.",
+    "savedLoaded": "Ku layichiwile “{{name}}”",
+    "savedDeleted": "Ku susiwile “{{name}}”",
+    "deleteSaved": "Susa {{name}}",
+    "deliveryAddress": "Adirese yo yisa",
+    "deliveryAddressHint": "Laha muphakeri a faneleke ku yisa kona.",
+    "notesHintSupplier": "Swi kombisiwa muphakeri eka oda ni le ka imeyili"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhawunti leyi yi yimisiwile. Hi kombela u tihlanganisa na nseketelo wa YGT.",
@@ -746,7 +773,16 @@
     "SLOT_TAKEN": "Nkarhi wolowo wa ha ku tekiwa. Hi kombela u hlawula wun'wana.",
     "STATEMENT_PERIOD_INVALID": "Siku ro sungula ri fanele ku va emahlweni ka ro hetelela.",
     "TICKET_CLOSED": "Thikithi leyi yi pfariwile. Pfula leyintshwa loko wa ha lava mpfuno.",
-    "generic": "Ku na leswi nga fambangiki kahle."
+    "generic": "Ku na leswi nga fambangiki kahle.",
+    "INVOICE_NOT_RESENDABLE": "I nhlayo-xikoloto leyi se yi rhumeriweke ntsena leyi nga rhumeriwaka nakambe.",
+    "QUOTE_NOT_RESENDABLE": "I xiringanyeto lexi se xi rhumeriweke ntsena lexi nga rhumeriwaka nakambe.",
+    "VERIFY_LINK_INVALID": "Xihlanganisi lexi a xa ha tirhi. Nghena kutani u kombela lexintshwa.",
+    "SUPPLIER_NOT_FOUND": "Muphakeri yoloye a nga kumekanga, kumbe a nga tirhi.",
+    "PURCHASE_ORDER_NOT_EDITABLE": "I oda yo xava ya xiyimiso ntsena leyi nga cinciwaka.",
+    "PURCHASE_ORDER_INVALID_TRANSITION": "Sweswo a swi koteki ku endliwa eka oda leyi hi xiyimo xa yona xa sweswi.",
+    "PURCHASE_ORDER_NOT_DELETABLE": "I oda yo xava ya xiyimiso ntsena leyi nga susiwaka.",
+    "PURCHASE_ORDER_NOT_RESENDABLE": "I oda leyi se yi rhumeriweke ntsena leyi nga rhumeriwaka nakambe.",
+    "LINE_TEMPLATE_EXISTS": "Swilo leswi hlayisiweke swa vito rero se swi kona."
   },
   "feed": {
     "activityDone": "{{type}} yi hetiwile",
@@ -944,6 +980,17 @@
         "q1": "Ndzi engetela kwihi ntlawa wa mina?",
         "summary": "Valawuri ntsena: ndlela leyi khampani ya wena yi lulamisiweke ha yona.",
         "title": "Mavekelo"
+      },
+      "purchaseOrders": {
+        "title": "Tioda to xava",
+        "summary": "Oda xitoko na vukorhokeri eka vaphakeri va wena, u landzelela leswi fikeke.",
+        "p1": "Swiyimo: xiyimiso, swi rhumeriwile, swi amukeriwile na swi khanseriwile",
+        "p2": "Nxaxamelo wa vaphakeri, na imeyili leyi oda yin'wana na yin'wana yi yaka eka yona",
+        "p3": "Swilo leswi hlayisiweke: layicha ntlawa wa tilayini leti u ti tirhisaka nkarhi na nkarhi",
+        "q1": "Swi hambana njhani na nomboro ya oda eka nhlayo-xikoloto?",
+        "a1": "Nomboro ya oda eka xiringanyeto kumbe nhlayo-xikoloto i nomboro ya khasimende ra wena ya leswi va swi xavaka eka wena. Oda yo xava laha i leswi u swi rhumelaka muphakeri wa wena.",
+        "q2": "Xana ndzi nga cinca oda endzhaku ko yi rhumela?",
+        "a2": "E-e. Yi khansela kutani u endla leyintshwa, leswaku muphakeri wa wena na tirhekhodo ta wena swi tshama swi fambelana."
       }
     },
     "shortcuts": {
@@ -1024,7 +1071,9 @@
     "voidBody": "Nhlayo-xikoloto leyi herisiweke yi sala eka rhekhodo kambe a yi nge hakeriwi kumbe ku pfuriwa nakambe. Muxavi a nga tivisiwi.",
     "voidInvoice": "Herisa nhlayo-xikoloto",
     "voidTitle": "Herisa {{number}}?",
-    "voided": "Nhlayo-xikoloto yi herisiwile"
+    "voided": "Nhlayo-xikoloto yi herisiwile",
+    "resend": "Rhumela nhlayo-xikoloto nakambe",
+    "resent": "Nhlayo-xikoloto yi rhumeriwile nakambe"
   },
   "invoices": {
     "amountDue": "{{amount}} yi fanele ku hakeriwa",
@@ -1282,7 +1331,8 @@
     "quotes": "Swiringanyeto",
     "search": "Lavisisa",
     "settings": "Mavekelo",
-    "support": "Nseketelo"
+    "support": "Nseketelo",
+    "purchaseOrders": "Tioda to xava"
   },
   "palette": {
     "action": {
@@ -1391,7 +1441,9 @@
     },
     "send": "Rhumela xiringanyeto",
     "sendBody": "Xiringanyeto a xi nge lulamisiwi loko xi rhumeriwile. Nhlayo-hinkwayo {{total}}.",
-    "sent": "Xiringanyeto xi rhumeriwile"
+    "sent": "Xiringanyeto xi rhumeriwile",
+    "resend": "Rhumela xiringanyeto nakambe",
+    "resent": "Xiringanyeto xi rhumeriwile nakambe"
   },
   "quoteWeek": {
     "footer": "Lexintshwa Musumbhunuku wun'wana ni wun'wana hi 9:00",
@@ -1427,7 +1479,11 @@
     "submitting": "Ku endla akhawunti…",
     "subtitle": "Endla YGT ya khamphani ya wena hi minete. U ta va mulawuri naswona u nga engetela ntlawa wa wena endzhaku.",
     "title": "Hlela bindzu ra wena",
-    "trialNote": "Mahala masiku ya 14, endzhaku {{price}}"
+    "trialNote": "Mahala masiku ya 14, endzhaku {{price}}",
+    "step": "Goza ra {{n}} eka {{total}}",
+    "stepDetails": "Vuxokoxoko bya wena",
+    "continue": "Yisa emahlweni",
+    "back": "Endzhaku"
   },
   "role": {
     "admin": "Mulawuri",
@@ -1479,7 +1535,8 @@
       "quotePrefix": "Masungulo ya nomboro ya xiringanyeto",
       "terms": "Swipimelo swa ntsengo (masiku)",
       "termsHint": "Siku ro hakela ra ntolovelo = siku ro humesiwa + masiku lawa",
-      "title": "Swiringanyeto ni tinhlayo-xikoloto"
+      "title": "Swiringanyeto ni tinhlayo-xikoloto",
+      "poPrefix": "Masungulo ya nomboro ya oda yo xava"
     },
     "email": {
       "host": "Muamukeri wa SMTP",
@@ -1630,7 +1687,9 @@
     "sending": "Swa rhumeriwa",
     "sent": "Swi rhumeriwile",
     "void": "Swi herisiwile",
-    "won": "Swi hluriwile"
+    "won": "Swi hluriwile",
+    "received": "Swi amukeriwile",
+    "cancelled": "Swi khanseriwile"
   },
   "support": {
     "categories": {
@@ -1748,6 +1807,71 @@
     "stepOf": "Goza {{step}} ka {{total}}",
     "welcomeBody": "Rendzo ra minete yin'we ra laha hinkwaswo swi nga kona. Tirhisa swilotlelo swa miseve kumbe tikonopo, u tlula nkarhi wun'wana ni wun'wana. U nga ri languta nakambe eka Mpfuno.",
     "welcomeTitle": "U amukeriwa eka {{app}}, {{name}}",
-    "whatsHere": "Leswi nga kona laha"
+    "supportBody": "Pfula thikithi loko u lava mpfuno, landzelela tinhlamulo ta hina, kumbe u buka riqingho ra vhidiyo na ntlawa wa YGT.",
+    "whatsHere": "Leswi nga kona laha",
+    "helpBody": "Swikombiso swa goza hi goza swa xikirini xin'wana na xin'wana. U nga tlhela u endla rendzo leri ku suka kwalaho."
+  },
+  "verify": {
+    "bannerTitle": "Hi kombela u tiyisisa adirese ya wena ya imeyili",
+    "bannerBody": "Hi rhumele xihlanganisi eka {{email}}. Xi tsindzirhi leswaku hi ta kota ku vulavula na wena hi akhawunti ya wena.",
+    "resend": "Rhumela xihlanganisi nakambe",
+    "resent": "Xihlanganisi xa ku tiyisisa xi rhumeriwile",
+    "checking": "Hi tiyisisa imeyili ya wena…",
+    "doneTitle": "Imeyili ya wena yi tiyisisiwile",
+    "doneBody": "Hi khensile. U lunghekile.",
+    "failedTitle": "A hi swi kotanga ku tiyisisa imeyili ya wena",
+    "goToApp": "Yana eka YGT"
+  },
+  "purchases": {
+    "subtitle": "Oda eka vaphakeri va wena u landzelela leswi fikeke.",
+    "tabs": {
+      "orders": "Tioda",
+      "suppliers": "Vaphakeri"
+    },
+    "new": "Oda leyintshwa yo xava",
+    "allSuppliers": "Vaphakeri hinkwavo",
+    "none": "A ku si va na tioda to xava",
+    "noneHint": "Oda xitoko kumbe vukorhokeri eka vaphakeri va wena u landzelela leswi fikeke.",
+    "noneHere": "A ku na tioda leti fambelanaka",
+    "col": {
+      "number": "Nomboro ya oda"
+    },
+    "deliverBy": "Yisa hi siku",
+    "send": "Rhumela eka muphakeri",
+    "sendBody": "Funghela oda leyi tanihi leyi rhumeriweke eka muphakeri. Hinkwaswo: {{total}}.",
+    "emailToSupplier": "Yi rhumela hi imeyili eka muphakeri",
+    "noEmail": "Muphakeri loyi a nga na adirese ya imeyili. Yi engetele ehansi ka Vaphakeri.",
+    "sentToast": "Oda yi rhumeriwile",
+    "markReceived": "Funghela swi amukeriwile",
+    "receivedToast": "Swi funghiwile tanihi leswi amukeriweke",
+    "cancel": "Khansela oda",
+    "cancelled": "Oda yi khanseriwile",
+    "resend": "Rhumela nakambe",
+    "resent": "Oda yi rhumeriwile nakambe"
+  },
+  "suppliers": {
+    "add": "Engetela muphakeri",
+    "edit": "Lulamisa muphakeri",
+    "search": "Lava vaphakeri",
+    "showInactive": "Kombisa lava nga tirhiki",
+    "none": "A ku si va na vaphakeri",
+    "noneHint": "Engetela mabindzu lawa u xavaka eka wona. Imeyili ya wona hi laha tioda ta wena ti yaka kona.",
+    "noneFound": "A ku na vaphakeri lava fambelanaka",
+    "noContact": "A ku na vuxokoxoko bya vuhlanganisi",
+    "fields": {
+      "name": "Vito ra muphakeri",
+      "contact_name": "Munhu wa vuhlanganisi",
+      "email": "Imeyili",
+      "phone": "Riqingho",
+      "tax_number": "Nomboro ya VAT",
+      "address": "Adirese",
+      "notes": "Tinotsi"
+    },
+    "emailHint": "Tioda ti rhumeriwa hi imeyili eka adirese leyi.",
+    "saved": "Muphakeri u hlayisiwile",
+    "deactivate": "Yimisa",
+    "reactivate": "Vuyisa",
+    "deactivated": "Muphakeri u yimisiwile",
+    "reactivated": "Muphakeri u vuyisiwile"
   }
 }

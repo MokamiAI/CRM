@@ -60,6 +60,7 @@ class InvoiceService:
             due_date=due_date,
             notes=data.notes,
             po_number=(data.po_number or "").strip() or None,
+            reference=(data.reference or "").strip() or None,
             subtotal=subtotal,
             tax_total=tax_total,
             total=total,
@@ -92,6 +93,7 @@ class InvoiceService:
             due_date=due_date,
             notes=quote.notes,
             po_number=((data.po_number or "").strip() or None) or quote.po_number,
+            reference=((data.reference or "").strip() or None) or quote.reference,
             subtotal=subtotal,
             tax_total=tax_total,
             total=total,
@@ -127,6 +129,8 @@ class InvoiceService:
             invoice.notes = data.notes
         if data.po_number is not None:
             invoice.po_number = data.po_number.strip() or None
+        if data.reference is not None:
+            invoice.reference = data.reference.strip() or None
         if data.items is not None:
             items, subtotal, tax_total, total = build_line_items(InvoiceItem, data.items)
             invoice.items.clear()

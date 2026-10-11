@@ -641,8 +641,11 @@
     "subtotal": "Sigaba lesincane",
     "summary": "Sifinyeto",
     "tax": "Intsela",
-    "taxRate": "{{rate}}% intsela",
-    "total": "Sigaba"
+    "taxRate": "{{rate}}% I-VAT",
+    "total": "Sigaba",
+    "totalExcl": "Konkhe ngaphandle kwe-VAT",
+    "vat": "I-VAT",
+    "totalIncl": "Konkhe kufaka i-VAT"
   },
   "documents": {
     "accent": "Umbala welibhrendi",
@@ -720,8 +723,32 @@
     "product": "Umkhicito",
     "qty": "Linani",
     "remove": "Susa",
-    "taxPercent": "Intsela %",
-    "unitPrice": "Intsengo yinye"
+    "taxPercent": "I-VAT %",
+    "unitPrice": "Intsengo yinye",
+    "supplier": "Umhlinzeki",
+    "chooseSupplier": "Khetsa umhlinzeki",
+    "noSuppliers": "Awukangeti bahlinzeki.",
+    "addSupplier": "Engeta munye",
+    "reference": "Inkhomba",
+    "referenceHint": "Inkhomba yakho, sib. liphrojekthi noma indzawo. Ikhonjiswa kudokhumenti.",
+    "referencePlaceholder": "sib. Lihhovisi laseRosebank",
+    "itemColumn": "Intfo",
+    "itemPlaceholder": "Thayipha intfo, noma ukhetse umkhicito",
+    "amount": "Imali",
+    "removeLine": "Susa umugca {{n}}",
+    "loadSaved": "Layisha tintfo letilondvolotiwe",
+    "saveItems": "Londvolota leti tintfo",
+    "saveAsName": "Libito laleti tintfo",
+    "saveAsPlaceholder": "sib. Kufakwa kwelihhovisi lokujwayelekile",
+    "saved": "Kulondvolotwe “{{name}}”",
+    "savedShared": "Wonkhe umuntfu enkampanini yakho angakulayisha nyalo.",
+    "savedHint": "Tintfo letilondvolotiwe tabelwana nabo bonkhe enkampanini yakho. Kulondvolota ngelibito lelikhona kuyalishintja.",
+    "savedLoaded": "Kulayishwe “{{name}}”",
+    "savedDeleted": "Kususiwe “{{name}}”",
+    "deleteSaved": "Susa {{name}}",
+    "deliveryAddress": "Likheli lekuletsa",
+    "deliveryAddressHint": "Lapho umhlinzeki kufanele aletse khona.",
+    "notesHintSupplier": "Kukhonjiswa umhlinzeki ku-oda nakwi-imeyili"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Le-akhawunti imisiwe. Sicela utsintse kusekela kwe-YGT.",
@@ -746,7 +773,16 @@
     "SLOT_TAKEN": "Lesikhatsi sisandza kutsatfwa. Sicela ukhetse lesinye.",
     "STATEMENT_PERIOD_INVALID": "Lilanga lekucala kufanele libe ngaphambi kwelilanga lekugcina.",
     "TICKET_CLOSED": "Lelithikithi livaliwe. Vula lelisha nawusadzinga lusito.",
-    "generic": "Kukhona lokungakahambi kahle."
+    "generic": "Kukhona lokungakahambi kahle.",
+    "INVOICE_NOT_RESENDABLE": "Yi-invoyisi lesesitfunyelwe kuphela lengaphindze itfunyelwe.",
+    "QUOTE_NOT_RESENDABLE": "Yikhotheshini lesesitfunyelwe kuphela lengaphindze itfunyelwe.",
+    "VERIFY_LINK_INVALID": "Lesi sixhumanisi asisasebenti. Ngena bese ucela lesisha.",
+    "SUPPLIER_NOT_FOUND": "Lomhlinzeki akatfolakalanga, noma akasebenti.",
+    "PURCHASE_ORDER_NOT_EDITABLE": "I-oda lelisalukhuni kuphela lelingashintjwa.",
+    "PURCHASE_ORDER_INVALID_TRANSITION": "Loko akunakwentiwa kuleli-oda esimeni salo sanyalo.",
+    "PURCHASE_ORDER_NOT_DELETABLE": "I-oda lelisalukhuni kuphela lelingasuswa.",
+    "PURCHASE_ORDER_NOT_RESENDABLE": "I-oda leselitfunyelwe kuphela lelingaphindze litfunyelwe.",
+    "LINE_TEMPLATE_EXISTS": "Tintfo letilondvolotiwe tanalelo libito setikhona."
   },
   "feed": {
     "activityDone": "{{type}} kuphetsiwe",
@@ -944,6 +980,17 @@
         "q1": "Ngilengeta kuphi lithimba lami?",
         "summary": "Baphatsi kuphela: indlela inkampani yakho lehlelwe ngayo.",
         "title": "Kuhlela"
+      },
+      "purchaseOrders": {
+        "title": "Ema-oda ekutsenga",
+        "summary": "Oda sitoko netinsita kubahlinzeki bakho, bese ulandzelela loku sekufikile.",
+        "p1": "Timo: lisalukhuni, kutfunyelwe, kwemukelwe nekukhanseliwe",
+        "p2": "Luhlu lwebahlinzeki, ne-imeyili lapho i-oda ngalinye liya khona",
+        "p3": "Tintfo letilondvolotiwe: layisha licembu lemigca loyisebentisa kanyenti",
+        "q1": "Kwehluke njani kunombolo ye-oda ku-invoyisi?",
+        "a1": "Inombolo ye-oda kukhotheshini noma ku-invoyisi yinombolo yelikhasimende lakho yaloko labakutsenga kuwe. I-oda lekutsenga lapha yiloko lokutfumela umhlinzeki wakho.",
+        "q2": "Ngingalishintja i-oda ngemuva kwekulitfumela?",
+        "a2": "Cha. Likhansele bese wenta lelisha, kute umhlinzeki wakho nemarekhodi akho ahlale ahambisana."
       }
     },
     "shortcuts": {
@@ -1024,7 +1071,9 @@
     "voidBody": "I-invoyisi lengasebenti ihlala kurekhodi kodvwa ayikhoni kukhokhwa nobe kuvulwa futsi. Umtsengi akatisiwa.",
     "voidInvoice": "Yenta i-invoyisi ingasebenti",
     "voidTitle": "Yenta i-{{number}} ingasebenti?",
-    "voided": "I-invoyisi yentiwe ayasebenti"
+    "voided": "I-invoyisi yentiwe ayasebenti",
+    "resend": "Tfumela i-invoyisi futsi",
+    "resent": "I-invoyisi itfunyelwe futsi"
   },
   "invoices": {
     "amountDue": "{{amount}} lokufanele ikhokhwe",
@@ -1282,7 +1331,8 @@
     "quotes": "Emakhotheshini",
     "search": "Sesha",
     "settings": "Kuhlela",
-    "support": "Kusekela"
+    "support": "Kusekela",
+    "purchaseOrders": "Ema-oda ekutsenga"
   },
   "palette": {
     "action": {
@@ -1391,7 +1441,9 @@
     },
     "send": "Tfumela ikhotheshini",
     "sendBody": "Ikhotheshini ayikhoni kuhlelwa nase itfunyelwe. Sigaba {{total}}.",
-    "sent": "Ikhotheshini itfunyelwe"
+    "sent": "Ikhotheshini itfunyelwe",
+    "resend": "Tfumela ikhotheshini futsi",
+    "resent": "Ikhotheshini itfunyelwe futsi"
   },
   "quoteWeek": {
     "footer": "Lesisha njalo ngeMsombuluko nga-9:00",
@@ -1427,7 +1479,11 @@
     "submitting": "Iyenta i-akhawunti…",
     "subtitle": "Yenta i-YGT yenkampani yakho ngemzuzu. Utawuba ngumphatsi futsi ungengeta licembu lakho ngemuva.",
     "title": "Setha libhizinisi lakho",
-    "trialNote": "Mahhala emalanga la-14, bese kuba {{price}}"
+    "trialNote": "Mahhala emalanga la-14, bese kuba {{price}}",
+    "step": "Sinyatselo {{n}} kuku-{{total}}",
+    "stepDetails": "Imininingwane yakho",
+    "continue": "Chubeka",
+    "back": "Emuva"
   },
   "role": {
     "admin": "Umphatsi",
@@ -1479,7 +1535,8 @@
       "quotePrefix": "Sicalo senombolo yekhotheshini",
       "terms": "Imibandzela yekukhokha (emalanga)",
       "termsHint": "Lilanga lekukhokha lelijwayelekile = lilanga lekukhishwa + lamalanga",
-      "title": "Emakhotheshini nema-invoyisi"
+      "title": "Emakhotheshini nema-invoyisi",
+      "poPrefix": "Sicalo senombolo ye-oda lekutsenga"
     },
     "email": {
       "host": "Umsingati we-SMTP",
@@ -1630,7 +1687,9 @@
     "sending": "Kuyatfunyelwa",
     "sent": "Kutfunyelwe",
     "void": "Akusebenti",
-    "won": "Kuphumelele"
+    "won": "Kuphumelele",
+    "received": "Kwemukelwe",
+    "cancelled": "Kukhanseliwe"
   },
   "support": {
     "categories": {
@@ -1748,6 +1807,71 @@
     "stepOf": "Sinyatselo {{step}} kuya ku-{{total}}",
     "welcomeBody": "Luvakashelo lwemzuzu munye lwekutsi yonkhe intfo ikuphi. Sebentisa tikhiya temicibisholo noma tinkinobho, futsi weyece nanoma nini. Ungaphindze ulubuke ku-Lusito.",
     "welcomeTitle": "Wemukelekile ku-{{app}}, {{name}}",
-    "whatsHere": "Lokukhona lapha"
+    "supportBody": "Faka lithikithi nawudzinga lusito, landzelela timphendvulo tetfu, noma ubhuke lucingo lwevidiyo neliqembu le-YGT.",
+    "whatsHere": "Lokukhona lapha",
+    "helpBody": "Ticondziso tesinyatselo ngesinyatselo tasosonkhe sikrini. Ungaphindza loluhambo kusukela lapho."
+  },
+  "verify": {
+    "bannerTitle": "Sicela ucinisekise likheli lakho le-imeyili",
+    "bannerBody": "Sitfumele sixhumanisi ku-{{email}}. Sicindzetele kute sikhone kuxhumana nawe mayelana ne-akhawunti yakho.",
+    "resend": "Tfumela sixhumanisi futsi",
+    "resent": "Sixhumanisi sekucinisekisa sitfunyelwe",
+    "checking": "Sicinisekisa i-imeyili yakho…",
+    "doneTitle": "I-imeyili yakho icinisekisiwe",
+    "doneBody": "Siyabonga. Usulungile.",
+    "failedTitle": "Asikhonanga kucinisekisa i-imeyili yakho",
+    "goToApp": "Hamba ku-YGT"
+  },
+  "purchases": {
+    "subtitle": "Oda kubahlinzeki bakho bese ulandzelela loku sekufikile.",
+    "tabs": {
+      "orders": "Ema-oda",
+      "suppliers": "Bahlinzeki"
+    },
+    "new": "I-oda lensha yekutsenga",
+    "allSuppliers": "Bonkhe bahlinzeki",
+    "none": "Awekho ema-oda ekutsenga okwanyalo",
+    "noneHint": "Oda sitoko noma tinsita kubahlinzeki bakho bese ulandzelela loku sekufikile.",
+    "noneHere": "Awekho ema-oda lahambisanako",
+    "col": {
+      "number": "Inombolo ye-oda"
+    },
+    "deliverBy": "Letsa ngelusuku",
+    "send": "Tfumela kumhlinzeki",
+    "sendBody": "Maka leli-oda njengalitfunyelwe kumhlinzeki. Konkhe: {{total}}.",
+    "emailToSupplier": "Litfumele nge-imeyili kumhlinzeki",
+    "noEmail": "Lomhlinzeki akanalo likheli le-imeyili. Lengete ngaphansi kwa-Bahlinzeki.",
+    "sentToast": "I-oda litfunyelwe",
+    "markReceived": "Maka kwemukelwe",
+    "receivedToast": "Kumakwe njengalokwemukelwe",
+    "cancel": "Khansela i-oda",
+    "cancelled": "I-oda likhanseliwe",
+    "resend": "Tfumela futsi",
+    "resent": "I-oda litfunyelwe futsi"
+  },
+  "suppliers": {
+    "add": "Engeta umhlinzeki",
+    "edit": "Hlela umhlinzeki",
+    "search": "Sesha bahlinzeki",
+    "showInactive": "Khombisa labangasebenti",
+    "none": "Abekho bahlinzeki okwanyalo",
+    "noneHint": "Engeta emabhizinisi lotsenga kuwo. I-imeyili yawo kulapho ema-oda akho aya khona.",
+    "noneFound": "Abekho bahlinzeki labahambisanako",
+    "noContact": "Ayikho imininingwane yekuchumana",
+    "fields": {
+      "name": "Libito lemhlinzeki",
+      "contact_name": "Umuntfu wekuchumana",
+      "email": "I-imeyili",
+      "phone": "Lucingo",
+      "tax_number": "Inombolo ye-VAT",
+      "address": "Likheli",
+      "notes": "Emanothi"
+    },
+    "emailHint": "Ema-oda atfunyelwa nge-imeyili kuleli kheli.",
+    "saved": "Umhlinzeki ulondvolotiwe",
+    "deactivate": "Yekisa",
+    "reactivate": "Buyisela",
+    "deactivated": "Umhlinzeki uyekisiwe",
+    "reactivated": "Umhlinzeki ubuyiselwe"
   }
 }

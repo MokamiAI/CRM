@@ -15,6 +15,7 @@ const SECTIONS = [
   { key: "deals", to: "/deals" },
   { key: "quotes", to: "/quotes" },
   { key: "invoices", to: "/invoices" },
+  { key: "purchaseOrders", to: "/purchase-orders" },
   { key: "marketing", to: "/marketing" },
   { key: "customers", to: "/customers" },
   { key: "products", to: "/products" },

@@ -8,6 +8,7 @@
   <tr><td>Number</td><td><strong>{{ doc.quote_number }}</strong></td></tr>
   <tr><td>Date</td><td>{{ doc.issue_date.strftime("%d %b %Y") }}</td></tr>
   {% if doc.po_number %}<tr><td>Order no.</td><td>{{ doc.po_number }}</td></tr>{% endif %}
+  {% if doc.reference %}<tr><td>Reference</td><td>{{ doc.reference }}</td></tr>{% endif %}
   {% if doc.expiry_date %}<tr><td>Valid until</td><td>{{ doc.expiry_date.strftime("%d %b %Y") }}</td></tr>{% endif %}
 </table>
 {% endblock %}
@@ -15,9 +16,9 @@
 {{ items_table(doc) }}
 <div class="totals">
   <table>
-    <tr><td class="muted">Subtotal</td><td class="num">{{ money(doc.subtotal) }}</td></tr>
+    <tr><td class="muted">Total excl. {{ tax_short }}</td><td class="num">{{ money(doc.subtotal) }}</td></tr>
     <tr><td class="muted">{{ tax_short }}</td><td class="num">{{ money(doc.tax_total) }}</td></tr>
-    <tr class="grand"><td>Total</td><td class="num">{{ money(doc.total) }}</td></tr>
+    <tr class="grand"><td>Total incl. {{ tax_short }}</td><td class="num">{{ money(doc.total) }}</td></tr>
   </table>
 </div>
 {% if doc.notes %}<div class="terms"><p class="label">Notes</p><p>{{ lines_of(doc.notes) }}</p></div>{% endif %}

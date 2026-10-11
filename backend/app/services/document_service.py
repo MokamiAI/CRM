@@ -16,6 +16,7 @@ from app.core.exceptions import NotFoundError
 from app.models.enums import InvoiceStatus, PaymentMethod
 from app.models.invoice import Invoice
 from app.models.payment import Payment
+from app.models.purchasing import Supplier
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.repositories.customer_repository import CustomerRepository
 from app.repositories.invoice_repository import InvoiceRepository
@@ -125,6 +126,11 @@ def build_statement(customer, invoices, payments, start: date, end: date, tz: st
     )
 
 
+def supplier_party(supplier):
+    """A supplier in the shape the documents' address block expects."""
+    return SimpleNamespace(name=supplier.name, billing_address=supplier.address, email=supplier.email, tax_number=supplier.tax_number)
+
+
 class DocumentService:
     def __init__(self, db: AsyncSession):
         self.db = db
@@ -149,6 +155,14 @@ class DocumentService:
         customer = await CustomerRepository(self.db).get_by_id(quote.customer_id)
         company, template = await self._company()
         return render("quote", company, template, doc=quote, customer=customer)
+
+    async def purchase_order_html(self, po_id: uuid.UUID) -> str:
+        from app.services.purchasing_service import PurchaseOrderService
+
+        po = await PurchaseOrderService(self.db).get(po_id)
+        supplier = await self.db.get(Supplier, po.supplier_id)
+        company, template = await self._company()
+        return render("purchase_order", company, template, doc=po, customer=supplier_party(supplier))
 
     async def statement(self, customer_id: uuid.UUID, start: date, end: date):
         customer = await CustomerRepository(self.db).get_by_id(customer_id)
@@ -193,7 +207,7 @@ def _sample(company):
     doc = SimpleNamespace(
         invoice_number=f"{company.invoice_prefix}0042", quote_number=f"{company.quote_prefix}0017",
         issue_date=today, due_date=today + timedelta(days=company.payment_terms_days or 30), expiry_date=today + timedelta(days=30),
-        subtotal=subtotal, tax_total=tax, total=subtotal + tax, amount_paid=Decimal("0"), notes="Thank you for your business.", items=items, po_number="PO-7781",
+        subtotal=subtotal, tax_total=tax, total=subtotal + tax, amount_paid=Decimal("0"), notes="Thank you for your business.", items=items, po_number="PO-7781", reference="Rosebank office fit-out",
     )
     inv = lambda n, d, total, due: SimpleNamespace(id=n, invoice_number=f"{company.invoice_prefix}00{n}", issue_date=today - timedelta(days=d), due_date=today - timedelta(days=d - 30), total=Decimal(total))  # noqa: E731
     invoices = [inv(38, 75, "8625.00", 0), inv(40, 40, "4312.50", 0), inv(42, 5, "23517.50", 0)]

@@ -641,8 +641,11 @@
     "subtotal": "Subtotaal",
     "summary": "Opsomming",
     "tax": "Belasting",
-    "taxRate": "{{rate}}% belasting",
-    "total": "Totaal"
+    "taxRate": "{{rate}}% BTW",
+    "total": "Totaal",
+    "totalExcl": "Totaal uitgesluit BTW",
+    "vat": "BTW",
+    "totalIncl": "Totaal ingesluit BTW"
   },
   "documents": {
     "accent": "Handelsmerkkleur",
@@ -720,8 +723,32 @@
     "product": "Produk",
     "qty": "Hoev.",
     "remove": "Verwyder",
-    "taxPercent": "Belasting %",
-    "unitPrice": "Eenheidsprys"
+    "taxPercent": "BTW %",
+    "unitPrice": "Eenheidsprys",
+    "supplier": "Verskaffer",
+    "chooseSupplier": "Kies 'n verskaffer",
+    "noSuppliers": "Jy het nog geen verskaffers bygevoeg nie.",
+    "addSupplier": "Voeg een by",
+    "reference": "Verwysing",
+    "referenceHint": "Jou eie verwysing, bv. 'n projek of terrein. Word op die dokument gewys.",
+    "referencePlaceholder": "bv. Rosebank-kantoor",
+    "itemColumn": "Item",
+    "itemPlaceholder": "Tik 'n item, of kies 'n produk",
+    "amount": "Bedrag",
+    "removeLine": "Verwyder reël {{n}}",
+    "loadSaved": "Laai gestoorde items",
+    "saveItems": "Stoor hierdie items",
+    "saveAsName": "Naam vir hierdie items",
+    "saveAsPlaceholder": "bv. Standaard kantoorinstallasie",
+    "saved": "“{{name}}” gestoor",
+    "savedShared": "Almal in jou maatskappy kan dit nou laai.",
+    "savedHint": "Gestoorde items word met almal in jou maatskappy gedeel. As jy onder 'n bestaande naam stoor, word dit vervang.",
+    "savedLoaded": "“{{name}}” gelaai",
+    "savedDeleted": "“{{name}}” geskrap",
+    "deleteSaved": "Skrap {{name}}",
+    "deliveryAddress": "Afleweringsadres",
+    "deliveryAddressHint": "Waar die verskaffer moet aflewer.",
+    "notesHintSupplier": "Word aan die verskaffer gewys op die bestelling en e-pos"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Hierdie rekening is opgeskort. Kontak asseblief YGT-ondersteuning.",
@@ -746,7 +773,16 @@
     "SLOT_TAKEN": "Daardie tyd is pas geneem. Kies asseblief 'n ander.",
     "STATEMENT_PERIOD_INVALID": "Die begindatum moet voor die einddatum wees.",
     "TICKET_CLOSED": "Hierdie kaartjie is gesluit. Maak 'n nuwe een oop as jy nog hulp nodig het.",
-    "generic": "Iets het skeefgeloop."
+    "generic": "Iets het skeefgeloop.",
+    "INVOICE_NOT_RESENDABLE": "Slegs 'n faktuur wat reeds gestuur is, kan weer gestuur word.",
+    "QUOTE_NOT_RESENDABLE": "Slegs 'n kwotasie wat reeds gestuur is, kan weer gestuur word.",
+    "VERIFY_LINK_INVALID": "Hierdie skakel is nie meer geldig nie. Meld aan en vra vir 'n nuwe een.",
+    "SUPPLIER_NOT_FOUND": "Daardie verskaffer is nie gevind nie, of is onaktief.",
+    "PURCHASE_ORDER_NOT_EDITABLE": "Slegs 'n konsepbestelling kan verander word.",
+    "PURCHASE_ORDER_INVALID_TRANSITION": "Dit kan nie met hierdie bestelling in sy huidige toestand gedoen word nie.",
+    "PURCHASE_ORDER_NOT_DELETABLE": "Slegs 'n konsepbestelling kan geskrap word.",
+    "PURCHASE_ORDER_NOT_RESENDABLE": "Slegs 'n bestelling wat reeds gestuur is, kan weer gestuur word.",
+    "LINE_TEMPLATE_EXISTS": "Gestoorde items met daardie naam bestaan reeds."
   },
   "feed": {
     "activityDone": "{{type}} voltooi",
@@ -944,6 +980,17 @@
         "q1": "Waar voeg ek my span by?",
         "summary": "Net vir administrateurs: hoe jou maatskappy opgestel is.",
         "title": "Instellings"
+      },
+      "purchaseOrders": {
+        "title": "Bestellings",
+        "summary": "Bestel voorraad en dienste by jou verskaffers, en hou by wat aangekom het.",
+        "p1": "Statusse: konsep, gestuur, ontvang en gekanselleer",
+        "p2": "'n Verskafferslys, met die e-pos waarheen elke bestelling gaan",
+        "p3": "Gestoorde items: laai 'n stel reëls wat jy gereeld gebruik",
+        "q1": "Hoe verskil dit van die bestelnommer op 'n faktuur?",
+        "a1": "Die bestelnommer op 'n kwotasie of faktuur is jou kliënt se nommer vir wat hulle by jou koop. 'n Bestelling hier is wat jy aan jou eie verskaffer stuur.",
+        "q2": "Kan ek 'n bestelling verander nadat dit gestuur is?",
+        "a2": "Nee. Kanselleer dit en skep 'n nuwe een, sodat jou verskaffer en jou rekords altyd ooreenstem."
       }
     },
     "shortcuts": {
@@ -1024,7 +1071,9 @@
     "voidBody": "'n Gekanselleerde faktuur bly op rekord, maar kan nie betaal of heropen word nie. Die kliënt word nie in kennis gestel nie.",
     "voidInvoice": "Kanselleer faktuur",
     "voidTitle": "Kanselleer {{number}}?",
-    "voided": "Faktuur gekanselleer"
+    "voided": "Faktuur gekanselleer",
+    "resend": "Stuur faktuur weer",
+    "resent": "Faktuur weer gestuur"
   },
   "invoices": {
     "amountDue": "{{amount}} verskuldig",
@@ -1282,7 +1331,8 @@
     "quotes": "Kwotasies",
     "search": "Soek",
     "settings": "Instellings",
-    "support": "Ondersteuning"
+    "support": "Ondersteuning",
+    "purchaseOrders": "Bestellings"
   },
   "palette": {
     "action": {
@@ -1391,7 +1441,9 @@
     },
     "send": "Stuur kwotasie",
     "sendBody": "Die kwotasie kan nie gewysig word sodra dit gestuur is nie. Totaal {{total}}.",
-    "sent": "Kwotasie gestuur"
+    "sent": "Kwotasie gestuur",
+    "resend": "Stuur kwotasie weer",
+    "resent": "Kwotasie weer gestuur"
   },
   "quoteWeek": {
     "footer": "Elke Maandag om 09:00 'n nuwe een",
@@ -1427,7 +1479,11 @@
     "submitting": "Skep tans rekening…",
     "subtitle": "Skep jou maatskappy se YGT in 'n minuut. Jy sal die administrateur wees en kan later jou span byvoeg.",
     "title": "Stel jou besigheid op",
-    "trialNote": "Gratis vir 14 dae, dan {{price}}"
+    "trialNote": "Gratis vir 14 dae, dan {{price}}",
+    "step": "Stap {{n}} van {{total}}",
+    "stepDetails": "Jou besonderhede",
+    "continue": "Gaan voort",
+    "back": "Terug"
   },
   "role": {
     "admin": "Administrateur",
@@ -1479,7 +1535,8 @@
       "quotePrefix": "Kwotasienommervoorvoegsel",
       "terms": "Betalingsterme (dae)",
       "termsHint": "Verstek-sperdatum = uitreikdatum + soveel dae",
-      "title": "Kwotasies en fakture"
+      "title": "Kwotasies en fakture",
+      "poPrefix": "Voorvoegsel vir bestelnommers"
     },
     "email": {
       "host": "SMTP-gasheer",
@@ -1630,7 +1687,9 @@
     "sending": "Word gestuur",
     "sent": "Gestuur",
     "void": "Gekanselleer",
-    "won": "Gewen"
+    "won": "Gewen",
+    "received": "Ontvang",
+    "cancelled": "Gekanselleer"
   },
   "support": {
     "categories": {
@@ -1748,6 +1807,71 @@
     "stepOf": "Stap {{step}} van {{total}}",
     "welcomeBody": "'n Toer van een minuut oor waar alles is. Gebruik die pyltjiesleutels of die knoppies, en slaan enige tyd oor. Jy kan dit weer vanuit Hulp speel.",
     "welcomeTitle": "Welkom by {{app}}, {{name}}",
-    "whatsHere": "Wat is hier"
+    "supportBody": "Teken 'n kaartjie aan wanneer jy hulp nodig het, volg ons antwoorde, of bespreek 'n video-oproep met die YGT-span.",
+    "whatsHere": "Wat is hier",
+    "helpBody": "Stap-vir-stap-gidse vir elke skerm. Jy kan hierdie toer van daar af weer speel."
+  },
+  "verify": {
+    "bannerTitle": "Bevestig asseblief jou e-posadres",
+    "bannerBody": "Ons het 'n skakel na {{email}} gestuur. Klik daarop sodat ons jou oor jou rekening kan kontak.",
+    "resend": "Stuur die skakel weer",
+    "resent": "Bevestigingskakel gestuur",
+    "checking": "Bevestig jou e-pos…",
+    "doneTitle": "Jou e-pos is bevestig",
+    "doneBody": "Dankie. Jy is gereed.",
+    "failedTitle": "Ons kon nie jou e-pos bevestig nie",
+    "goToApp": "Gaan na YGT"
+  },
+  "purchases": {
+    "subtitle": "Bestel by jou verskaffers en hou by wat aangekom het.",
+    "tabs": {
+      "orders": "Bestellings",
+      "suppliers": "Verskaffers"
+    },
+    "new": "Nuwe bestelling",
+    "allSuppliers": "Alle verskaffers",
+    "none": "Nog geen bestellings nie",
+    "noneHint": "Bestel voorraad of dienste by jou verskaffers en hou by wat aangekom het.",
+    "noneHere": "Geen bestellings pas nie",
+    "col": {
+      "number": "Bestelnommer"
+    },
+    "deliverBy": "Lewer teen",
+    "send": "Stuur na verskaffer",
+    "sendBody": "Merk hierdie bestelling as gestuur na die verskaffer. Totaal: {{total}}.",
+    "emailToSupplier": "E-pos dit aan die verskaffer",
+    "noEmail": "Hierdie verskaffer het geen e-posadres nie. Voeg een by onder Verskaffers.",
+    "sentToast": "Bestelling gestuur",
+    "markReceived": "Merk as ontvang",
+    "receivedToast": "As ontvang gemerk",
+    "cancel": "Kanselleer bestelling",
+    "cancelled": "Bestelling gekanselleer",
+    "resend": "Stuur weer",
+    "resent": "Bestelling weer gestuur"
+  },
+  "suppliers": {
+    "add": "Voeg verskaffer by",
+    "edit": "Wysig verskaffer",
+    "search": "Soek verskaffers",
+    "showInactive": "Wys onaktiewes",
+    "none": "Nog geen verskaffers nie",
+    "noneHint": "Voeg die besighede by waarby jy koop. Hul e-pos is waarheen jou bestellings gaan.",
+    "noneFound": "Geen verskaffers pas nie",
+    "noContact": "Geen kontakbesonderhede nie",
+    "fields": {
+      "name": "Verskaffer se naam",
+      "contact_name": "Kontakpersoon",
+      "email": "E-pos",
+      "phone": "Telefoon",
+      "tax_number": "BTW-nommer",
+      "address": "Adres",
+      "notes": "Notas"
+    },
+    "emailHint": "Bestellings word na hierdie adres ge-e-pos.",
+    "saved": "Verskaffer gestoor",
+    "deactivate": "Deaktiveer",
+    "reactivate": "Heraktiveer",
+    "deactivated": "Verskaffer gedeaktiveer",
+    "reactivated": "Verskaffer heraktiveer"
   }
 }

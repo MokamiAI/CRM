@@ -36,6 +36,8 @@ class Quote(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     # The client's purchase order (order) number, quoted back on the document.
     po_number: Mapped[str | None] = mapped_column(String(60), nullable=True, index=True)
+    # Your own reference for this document (project, job or site name).
+    reference: Mapped[str | None] = mapped_column(String(100), nullable=True)
     created_by: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )

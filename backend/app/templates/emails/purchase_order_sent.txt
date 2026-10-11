@@ -1,0 +1,26 @@
+{% from "_signature.txt" import sign_off with context %}
+{% from "_items.html" import text_line_items with context %}
+Hi {{ supplier.contact_name or supplier.name }},
+
+Please supply the items below for {{ company.company_name }}, on purchase order {{ po.po_number }}.
+
+Order no.:  {{ po.po_number }}
+{% if po.reference %}Reference:  {{ po.reference }}
+{% endif %}Date:       {{ po.issue_date.strftime("%d %b %Y") }}
+{% if po.delivery_date %}Deliver by: {{ po.delivery_date.strftime("%d %b %Y") }}
+{% endif %}Total:      {{ money(po.total) }}
+
+{{ text_line_items(po, money) }}
+{% if po.delivery_address %}
+
+Deliver to:
+{{ po.delivery_address }}
+{% endif %}
+{% if po.notes %}
+
+{{ po.notes }}
+{% endif %}
+
+Please quote order number {{ po.po_number }} on your delivery note and invoice, and reply to confirm the order.
+
+{{ sign_off("Kind regards") }}

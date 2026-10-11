@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getCustomerTerm } from "./i18n";
@@ -13,19 +13,41 @@ import DashboardPage from "./pages/DashboardPage";
 import InvoiceDetailPage from "./pages/InvoiceDetailPage";
 import { InvoicesPage, NewInvoicePage } from "./pages/InvoicesPage";
 import LoginPage, { RegisterPage } from "./pages/LoginPage";
-import AboutPage from "./pages/AboutPage";
-import MarketingPage from "./pages/MarketingPage";
-import MessagesPage from "./pages/MessagesPage";
-import HelpPage from "./pages/HelpPage";
-import CampaignPage from "./pages/CampaignPage";
 import ProductsPage from "./pages/ProductsPage";
 import { NewQuotePage, QuoteDetailPage, QuotesPage } from "./pages/QuotesPage";
-import SettingsPage from "./pages/SettingsPage";
-import StatementPage from "./pages/StatementPage";
-import SupportPage, { TicketPage } from "./pages/SupportPage";
-import { ContactPage, ForgotPasswordPage, LegalPage, ResetPasswordPage } from "./pages/PublicPages";
-import AdminLayout from "./layouts/AdminLayout";
-import { AdminActivity, AdminBookings, AdminContact, AdminErrors, AdminOverview, AdminTenant, AdminTenants, AdminTicket, AdminTickets } from "./pages/admin/AdminPages";
+
+// Pages people open less often load the first time they're visited, so the
+// everyday screens above reach a phone sooner.
+const named = (load, name) => lazy(() => load().then((module) => ({ default: module[name] })));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const MarketingPage = lazy(() => import("./pages/MarketingPage"));
+const MessagesPage = lazy(() => import("./pages/MessagesPage"));
+const HelpPage = lazy(() => import("./pages/HelpPage"));
+const CampaignPage = lazy(() => import("./pages/CampaignPage"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage"));
+const StatementPage = lazy(() => import("./pages/StatementPage"));
+const PurchaseOrdersPage = lazy(() => import("./pages/PurchaseOrdersPage"));
+const NewPurchaseOrderPage = named(() => import("./pages/PurchaseOrdersPage"), "NewPurchaseOrderPage");
+const PurchaseOrderDetailPage = named(() => import("./pages/PurchaseOrdersPage"), "PurchaseOrderDetailPage");
+const SupportPage = lazy(() => import("./pages/SupportPage"));
+const TicketPage = named(() => import("./pages/SupportPage"), "TicketPage");
+const publicPages = () => import("./pages/PublicPages");
+const ContactPage = named(publicPages, "ContactPage");
+const ForgotPasswordPage = named(publicPages, "ForgotPasswordPage");
+const LegalPage = named(publicPages, "LegalPage");
+const ResetPasswordPage = named(publicPages, "ResetPasswordPage");
+const VerifyEmailPage = named(publicPages, "VerifyEmailPage");
+const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
+const adminPages = () => import("./pages/admin/AdminPages");
+const AdminActivity = named(adminPages, "AdminActivity");
+const AdminBookings = named(adminPages, "AdminBookings");
+const AdminContact = named(adminPages, "AdminContact");
+const AdminErrors = named(adminPages, "AdminErrors");
+const AdminOverview = named(adminPages, "AdminOverview");
+const AdminTenant = named(adminPages, "AdminTenant");
+const AdminTenants = named(adminPages, "AdminTenants");
+const AdminTicket = named(adminPages, "AdminTicket");
+const AdminTickets = named(adminPages, "AdminTickets");
 
 const WRITERS = ["admin", "manager", "staff"];
 
@@ -40,6 +62,7 @@ export default function App() {
     return () => i18n.off("customerTermChanged", setTerm);
   }, [i18n]);
   return (
+    <Suspense fallback={null}>
     <Routes key={`${i18n.language}-${term}`}>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
@@ -47,6 +70,7 @@ export default function App() {
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
+      <Route path="/verify-email" element={<VerifyEmailPage />} />
       <Route path="/terms" element={<LegalPage kind="terms" />} />
       <Route path="/privacy" element={<LegalPage kind="privacy" />} />
       <Route path="/refunds" element={<LegalPage kind="refunds" />} />
@@ -97,6 +121,16 @@ export default function App() {
           }
         />
         <Route path="/quotes/:id" element={<QuoteDetailPage />} />
+        <Route path="/purchase-orders" element={<PurchaseOrdersPage />} />
+        <Route
+          path="/purchase-orders/new"
+          element={
+            <ProtectedRoute roles={WRITERS}>
+              <NewPurchaseOrderPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/purchase-orders/:id" element={<PurchaseOrderDetailPage />} />
         <Route path="/activities" element={<ActivitiesPage />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/help" element={<HelpPage />} />
@@ -121,5 +155,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
+    </Suspense>
   );
 }

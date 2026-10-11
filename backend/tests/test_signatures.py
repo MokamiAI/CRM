@@ -24,6 +24,7 @@ def _quote_email(company):
         total=Decimal("115.00"),
         notes=None,
         po_number=None,
+        reference=None,
         items=[],
     )
     return render_email(

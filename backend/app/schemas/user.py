@@ -31,6 +31,8 @@ class UserOut(BaseModel):
     language: str
     tour_completed_at: datetime | None = None
     email_signature: str | None = None
+    # Clicked the link we emailed; until then the app shows a reminder.
+    email_verified_at: datetime | None = None
     # YGT's own team: may open the admin site.
     is_platform_admin: bool = False
     created_at: datetime

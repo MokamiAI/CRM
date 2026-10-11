@@ -7,6 +7,7 @@
 <p>Thank you for your interest. Here is quote <strong>{{ quote.quote_number }}</strong> from {{ company.company_name }}.</p>
 <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:14px;">
   {% if quote.po_number %}<tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Your order no.</td><td>{{ quote.po_number }}</td></tr>{% endif %}
+  {% if quote.reference %}<tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Reference</td><td>{{ quote.reference }}</td></tr>{% endif %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Issue date</td><td>{{ quote.issue_date.strftime("%d %b %Y") }}</td></tr>
   {% if quote.expiry_date %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Valid until</td><td>{{ quote.expiry_date.strftime("%d %b %Y") }}</td></tr>
