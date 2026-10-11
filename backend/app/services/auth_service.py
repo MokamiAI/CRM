@@ -53,6 +53,8 @@ class AuthService:
             default_currency=settings.DEFAULT_CURRENCY,
             default_timezone=settings.DEFAULT_TIMEZONE,
             sender_name=data.company_name.strip(),
+            # Customer replies reach the founder until they set up email.
+            sender_email=data.email,
         )
         self.db.add(company)
         await self.db.flush()

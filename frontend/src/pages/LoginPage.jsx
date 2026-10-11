@@ -118,8 +118,8 @@ export default function LoginPage() {
     try {
       await login(email, password);
       navigate(location.state?.from ?? "/", { replace: true });
-    } catch {
-      setError(t("login.failed"));
+    } catch (err) {
+      setError(t(err?.response?.data?.error_code === "RATE_LIMITED" ? "errors.RATE_LIMITED" : "login.failed"));
     } finally {
       setIsSubmitting(false);
     }
@@ -202,7 +202,8 @@ export function RegisterPage() {
       await register({ ...form, plan });
       navigate("/", { replace: true });
     } catch (err) {
-      setError(t(err?.response?.data?.error_code === "USER_EMAIL_TAKEN" ? "register.emailTaken" : "register.failed"));
+      const code = err?.response?.data?.error_code;
+      setError(t(code === "USER_EMAIL_TAKEN" ? "register.emailTaken" : code === "RATE_LIMITED" ? "errors.RATE_LIMITED" : "register.failed"));
     } finally {
       setIsSubmitting(false);
     }

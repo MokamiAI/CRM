@@ -29,7 +29,7 @@
           <td style="padding:16px 32px;border-top:1px solid #e5e7eb;font-size:12px;line-height:1.5;color:#6b7280;">
             {{ company.company_name }}
             {% if company.address %}<div style="white-space:pre-line;">{{ company.address }}</div>{% endif %}
-            {% if company.tax_number %}<div>{{ t.tax_label if t else "VAT number" }}: {{ company.tax_number }}</div>{% endif %}
+            {% if company.tax_number %}<div>{{ t.tax_label if t is defined and t else "VAT number" }}: {{ company.tax_number }}</div>{% endif %}
             {% block footer_extra %}{% endblock %}
           </td>
         </tr>

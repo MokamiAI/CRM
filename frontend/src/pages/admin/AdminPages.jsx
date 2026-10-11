@@ -485,7 +485,7 @@ export function AdminTicket() {
   return (
     <Loading query={query}>
       {(t) => (
-        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_18rem]">
           <div className="min-w-0">
             <Link to="/admin/tickets" className="text-sm text-zinc-500 hover:text-zinc-900">
               ← Help desk
@@ -688,7 +688,7 @@ export function AdminBookings() {
   return (
     <>
       <Title sub="Sessions companies booked with you. Each booking sends a calendar invite to your calendar and theirs.">Sessions</Title>
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <Loading query={bookings}>
           {(rows) =>
             rows.length === 0 ? (

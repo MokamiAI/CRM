@@ -157,7 +157,7 @@ function CustomerInbox() {
   const select = (id) => setParams(id ? { c: id } : {});
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[22rem_minmax(0,1fr)]">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[22rem_minmax(0,1fr)]">
       <section className={`${PANE} ${selected ? "hidden lg:flex" : ""}`}>
         <div className="border-b border-zinc-100 px-3 pt-3">
           <FilterChips
@@ -573,7 +573,7 @@ function TeamChat() {
   if (isLoading) return <ListSkeleton rows={3} />;
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[14rem_minmax(0,1fr)]">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[14rem_minmax(0,1fr)]">
       <nav className="card h-fit p-2" aria-label={t("messages.channels")}>
         <p className="px-2 pb-1 pt-1 text-[11px] font-semibold uppercase tracking-wide text-zinc-400">{t("messages.channels")}</p>
         <ul className="flex gap-1 overflow-x-auto lg:flex-col">

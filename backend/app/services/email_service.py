@@ -8,6 +8,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 
 from app.core.exceptions import AppError
+from app.schemas.documents import resolve_template
 from app.services.email_settings import EffectiveEmailConfig
 
 _TEMPLATE_DIR = Path(__file__).resolve().parent.parent / "templates" / "emails"
@@ -57,6 +58,10 @@ def clean_signature(value: str | None) -> str | None:
 def render_email(template: str, to: str, subject: str, **context) -> OutgoingEmail:
     """Renders templates/emails/<template>.html and .txt into one message,
     so every email has both an HTML body and a plain-text fallback."""
+    # The shared footer labels the company's VAT number with its document
+    # settings, so every email from a company gets them, not just invoices.
+    if "t" not in context and context.get("company") is not None:
+        context["t"] = resolve_template(context["company"])
     return OutgoingEmail(
         to=to,
         subject=subject,
@@ -80,6 +85,8 @@ def send_email(config: EffectiveEmailConfig, email: OutgoingEmail) -> None:
     message["To"] = email.to
     for name, value in email.headers.items():
         message[name] = value
+    if config.reply_to and "Reply-To" not in email.headers:
+        message["Reply-To"] = config.reply_to
     message.set_content(email.text)
     message.add_alternative(email.html, subtype="html")
     if email.calendar:

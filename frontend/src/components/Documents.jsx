@@ -259,7 +259,7 @@ export function DocumentTemplateSettings() {
   );
 
   return (
-    <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+    <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
       <form
         className="space-y-5"
         onSubmit={(e) => {

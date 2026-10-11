@@ -136,6 +136,20 @@ class TestRendering:
         )
         assert "Acme Ltd" in email.html and "Acme Ltd" in email.text
 
+    def test_emails_without_document_settings_still_show_the_vat_number(self):
+        # Messages and campaign emails pass only the company; the shared
+        # footer used to crash on the VAT label for VAT-registered companies.
+        email = render_email(
+            "conversation_message",
+            to="x@customer.test",
+            subject="Your order",
+            paragraphs=[["Hello"]],
+            author_name="Thabo",
+            signature=None,
+            company=_company(document_template={"tax_label": "VAT reg. no."}),
+        )
+        assert "VAT reg. no.: 4123456789" in email.html
+
 
 class _FakeSMTP:
     instances: list["_FakeSMTP"] = []
@@ -272,3 +286,62 @@ class TestDispatch:
         log = []
         await commit_and_enqueue(_FakeDB(log), _FakeTask(log, fail=True), "abc")
         assert log == ["commit"]
+
+
+class TestSender:
+    """Who an email says it's from, and where replies go."""
+
+    @pytest.fixture(autouse=True)
+    def _platform(self, monkeypatch):
+        from app.services import email_settings
+
+        monkeypatch.setattr(email_settings.settings, "SMTP_HOST", "smtp.ygt.test")
+        monkeypatch.setattr(email_settings.settings, "SMTP_FROM_EMAIL", "billing@ygt.test")
+
+    def _company(self, **values):
+        base = dict(company_name="Acme Ltd", sender_name=None, sender_email="sales@acme.test", smtp_host=None,
+                    smtp_port=None, smtp_username=None, smtp_password=None, smtp_use_tls=None)
+        return SimpleNamespace(**(base | values))
+
+    def test_shared_server_sends_from_ygt_with_replies_to_the_company(self):
+        from app.services.email_settings import resolve_email_config
+
+        config = resolve_email_config(self._company())
+        assert (config.from_email, config.from_name, config.reply_to) == ("billing@ygt.test", "Acme Ltd", "sales@acme.test")
+
+    def test_own_server_sends_from_the_company(self):
+        from app.services.email_settings import resolve_email_config
+
+        config = resolve_email_config(self._company(smtp_host="mail.acme.test", sender_name="Acme Sales"))
+        assert (config.from_email, config.from_name, config.reply_to) == ("sales@acme.test", "Acme Sales", None)
+
+    def test_reply_to_header_is_added_unless_the_email_sets_its_own(self, monkeypatch):
+        from app.services.email_settings import resolve_email_config
+
+        sent = []
+        monkeypatch.setattr(email_service.smtplib, "SMTP", lambda *a, **k: _Capture(sent))
+        config = resolve_email_config(self._company())
+        send_email(config, OutgoingEmail(to="c@x.test", subject="s", html="<p>h</p>", text="h"))
+        send_email(config, OutgoingEmail(to="c@x.test", subject="s", html="<p>h</p>", text="h", headers={"Reply-To": "reply+t@in.test"}))
+        assert sent[0]["Reply-To"] == "sales@acme.test" and sent[0]["From"] == "Acme Ltd <billing@ygt.test>"
+        assert sent[1]["Reply-To"] == "reply+t@in.test"
+
+
+class _Capture:
+    def __init__(self, sent):
+        self.sent = sent
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+    def starttls(self, **kwargs):
+        pass
+
+    def login(self, *args):
+        pass
+
+    def send_message(self, message):
+        self.sent.append(message)

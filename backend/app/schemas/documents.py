@@ -39,7 +39,7 @@ class DocumentTemplate(BaseModel):
 
 def resolve_template(company) -> DocumentTemplate:
     """The company's saved choices over the defaults."""
-    return DocumentTemplate.model_validate(company.document_template or {})
+    return DocumentTemplate.model_validate(getattr(company, "document_template", None) or {})
 
 
 class PreviewRequest(BaseModel):

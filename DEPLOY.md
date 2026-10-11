@@ -28,8 +28,8 @@ ordering. Open ports 22, 80 and 443 in the instance's security group.
 
 ## Steps
 
-1. **Copy the code to the server**
-   `git clone https://github.com/MokamiAI/CRM.git && cd CRM`
+1. **Copy the code to the server** (the `main` branch: see Development and releases)
+   `git clone -b main https://github.com/MokamiAI/CRM.git && cd CRM`
 2. **Create `.env`** from `.env.example` and fill in every value. Production
    must-haves:
    - `DATABASE_URL`, `DATABASE_URL_MIGRATIONS` (Supabase, new password)
@@ -37,7 +37,11 @@ ordering. Open ports 22, 80 and 443 in the instance's security group.
    - `DOMAIN=app.ygt.co.za`, `FRONTEND_URL=https://app.ygt.co.za`,
      `PUBLIC_API_URL=https://app.ygt.co.za`, `CORS_ORIGINS=["https://app.ygt.co.za","capacitor://localhost","https://localhost"]`
    - `REDIS_URL=redis://redis:6379/0`, `RATE_LIMIT_STORAGE=redis`, `TRUST_PROXY_HEADERS=true`
-   - `SMTP_*`, `SUPPORT_EMAIL`, `BOOKING_CALENDAR_EMAIL`, `PLATFORM_ADMIN_EMAILS`
+   - `SMTP_*`, `SUPPORT_EMAIL`, `BOOKING_CALENDAR_EMAIL`, `PLATFORM_ADMIN_EMAILS`.
+     `SMTP_FROM_EMAIL` (e.g. `billing@ygt.co.za`) must be on a domain your
+     email service has verified: companies that haven't connected their own
+     mailbox send through it, showing their company name, with replies going
+     to the company.
    - `PAYSTACK_SECRET_KEY`
    - `ENVIRONMENT=production`, `DEBUG=false`
 3. **Start everything**
@@ -52,10 +56,29 @@ ordering. Open ports 22, 80 and 443 in the instance's security group.
 6. **Sign up** at `https://app.ygt.co.za/register` with the email in
    `PLATFORM_ADMIN_EMAILS`; "YGT admin" appears in your menu.
 
+## Development and releases
+
+Two long-lived branches on GitHub:
+
+| Branch | What it is | Who uses it |
+| --- | --- | --- |
+| `develop` | Day-to-day work. Every change lands here first. | You and anyone building YGT |
+| `main` | What's live. Only tested releases are merged in. | The production server |
+
+1. Work on `develop` (or a short branch off it, merged back with a pull request).
+   GitHub runs the tests and the web build on every push (`.github/workflows/ci.yml`).
+2. When a release is ready, run the testing guide against a test setup.
+3. Open a pull request from `develop` into `main`. Merge it only when the
+   checks are green and the testing guide passes.
+4. Deploy (below). The server only ever pulls `main`.
+
+An urgent fix for something live: branch off `main`, fix, merge into `main`,
+deploy, then merge `main` back into `develop`.
+
 ## Updating
 
 ```
-git pull
+git pull origin main
 docker compose -f docker-compose.prod.yml up -d --build
 ```
 
