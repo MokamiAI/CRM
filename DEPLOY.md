@@ -10,6 +10,7 @@ HTTPS certificates automatically). The database stays on Supabase.
 | --- | --- | --- |
 | **Xneelo Cloud** (2 vCPU, 4 GB, Johannesburg) | R198/month + about R1.80/GB disk (≈ R235 with 20 GB), VAT incl., billed hourly | Data in South Africa (simpler POPIA story), low latency, billed in rand. |
 | Hetzner Cloud CPX22 (2 vCPU, 4 GB) | about €20/month | Germany/Finland. The cheap CX23 (€6) is mostly out of stock since mid-2026. |
+| Oracle Cloud Always Free, Johannesburg | Free. Ampere A1 (up to 2 OCPU/12 GB) is often out of capacity; E2.1.Micro (1 GB) is always there | A1: like Xneelo. Micro: fine for a first few customers, see Small server. Upgrade the account to Pay As You Go (free resources stay free) so Oracle doesn't reclaim an idle server. |
 | Render / Railway | free tiers sleep or exclude workers; realistic setups $25–$40+/month | No server to manage, but the worker and Redis cost extra. |
 
 Recommendation: Xneelo Cloud, 2 vCPU / 4 GB with a 20 GB boot volume, with
@@ -57,6 +58,22 @@ ordering. Open ports 22, 80 and 443 in the instance's security group.
    `PLATFORM_ADMIN_EMAILS`, then click the link in the "Confirm your email"
    message. "YGT admin" appears in your menu only once that email is
    confirmed, so nobody else can claim it by signing up with it first.
+
+## Small server (1 GB of memory)
+
+On a 1 GB server (e.g. Oracle's free E2.1.Micro) add 2 GB of swap first, then
+start with the small-server settings on top of the normal file:
+
+```
+sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+docker compose -f docker-compose.prod.yml -f docker-compose.small.yml up -d --build
+```
+
+`docker-compose.small.yml` runs one API process, one background job at a
+time with the scheduler inside the worker, and caps Redis's memory. The first
+build takes 20–30 minutes on this size. Use the same two `-f` files for every
+later update. When you move to a bigger server, drop the second file.
 
 ## Development and releases
 

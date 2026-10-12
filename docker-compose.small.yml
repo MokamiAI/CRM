@@ -1,0 +1,29 @@
+# For a small server (1 GB of memory, e.g. Oracle's free VM.Standard.E2.1.Micro).
+# Use it on top of the normal file:
+#   docker compose -f docker-compose.prod.yml -f docker-compose.small.yml up -d --build
+# The server also needs swap space (see DEPLOY.md, Small server).
+services:
+  redis:
+    command: redis-server --appendonly yes --maxmemory 48mb --maxmemory-policy noeviction
+
+  backend:
+    # One API process instead of two.
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 1
+             --proxy-headers --forwarded-allow-ips='*'"
+
+  celery_worker:
+    # One job at a time, with the scheduler (beat) inside this worker, so
+    # there's one Python process for background work instead of two.
+    command: celery -A celery_app.celery_app worker -B --schedule /tmp/celerybeat-schedule --loglevel=info -Q default,emails,reports --concurrency=1 --max-tasks-per-child=200
+
+  celery_beat:
+    # Not started: the worker above runs the schedule.
+    profiles: ["separate-beat"]
+
+  web:
+    build:
+      args:
+        # Room for the web app build; the swap space makes up the difference.
+        NODE_OPTIONS: --max-old-space-size=1536

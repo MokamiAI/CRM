@@ -9,7 +9,9 @@ COPY frontend/ .
 ARG VITE_API_BASE_URL=/api/v1
 ARG VITE_SUPPORT_EMAIL=
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL VITE_SUPPORT_EMAIL=$VITE_SUPPORT_EMAIL
-RUN npm run build
+# Set by docker-compose.small.yml on a 1 GB server; empty otherwise.
+ARG NODE_OPTIONS=
+RUN NODE_OPTIONS="$NODE_OPTIONS" npm run build
 
 FROM caddy:2-alpine
 COPY deploy/Caddyfile /etc/caddy/Caddyfile
