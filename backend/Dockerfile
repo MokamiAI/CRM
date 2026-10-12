@@ -1,4 +1,6 @@
-FROM python:3.12-slim
+# Pinned to Debian 12 (bookworm): the library names below are bookworm's,
+# and the plain -slim tag moves to newer Debian releases without notice.
+FROM python:3.12-slim-bookworm
 
 WORKDIR /app
 
