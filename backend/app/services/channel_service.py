@@ -1,3 +1,7 @@
+# ChannelService defines a method named `list`; without this, Python 3.12
+# reads `list[...]` in later type hints as that method and fails at import.
+from __future__ import annotations
+
 import re
 import secrets as pysecrets
 from datetime import datetime, timezone
