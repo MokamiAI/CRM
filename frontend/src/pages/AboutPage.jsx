@@ -10,7 +10,7 @@ import { usePlans } from "../hooks/useApi";
 import { LANGUAGES } from "../i18n/languages";
 import pkg from "../../package.json";
 
-const FEATURES = ["sales", "billing", "messages", "marketing", "languages", "companies"];
+export const FEATURES = ["sales", "billing", "messages", "marketing", "languages", "companies"];
 const ICONS = {
   sales: "M3 4h5v16H3zM10 4h5v11h-5zM17 4h4v7h-4z",
   billing: "M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM14 3v5h5M9 13h6M9 17h4",
@@ -22,6 +22,16 @@ const ICONS = {
 // Optional, set per deployment (VITE_SUPPORT_EMAIL in frontend/.env).
 const SUPPORT_EMAIL = import.meta.env.VITE_SUPPORT_EMAIL;
 const FOUNDER = "Mokami Johannes";
+
+export function FeatureIcon({ name }) {
+  return (
+    <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+        <path d={ICONS[name]} />
+      </svg>
+    </span>
+  );
+}
 
 /** What YGT is: open to everyone, signed in or not. */
 export default function AboutPage() {
@@ -37,7 +47,7 @@ export default function AboutPage() {
       <div className="safe-top relative mx-auto max-w-4xl px-6">
         <header className="flex items-center gap-2.5 py-6">
           {/* Home for people signed in; the sign-in page for everyone else. */}
-          <Link to={user ? "/" : "/login"} className="flex items-center gap-2.5 rounded-lg">
+          <Link to="/" className="flex items-center gap-2.5 rounded-lg">
             <BrandMark size="sm" />
             <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
           </Link>
@@ -76,11 +86,7 @@ export default function AboutPage() {
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label={t("about.featuresTitle")}>
           {FEATURES.map((key, i) => (
             <div key={key} className="card stagger-rise p-5" style={{ "--i": i }}>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
-                  <path d={ICONS[key]} />
-                </svg>
-              </span>
+              <FeatureIcon name={key} />
               <h2 className="mt-3 font-semibold text-zinc-900">{t(`about.features.${key}.title`)}</h2>
               <p className="mt-1 text-sm leading-relaxed text-zinc-600">{t(`about.features.${key}.body`)}</p>
             </div>
@@ -150,7 +156,7 @@ export default function AboutPage() {
 }
 
 /** Plans and prices. Signed out: start a free trial. Admins: go to Billing. */
-function Pricing() {
+export function Pricing() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { data: plans } = usePlans();

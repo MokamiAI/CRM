@@ -25,7 +25,7 @@ export function AuthShell({ children }) {
         </div>
 
         <header className="relative flex items-center gap-2.5 py-6">
-          <Link to="/login" className="flex items-center gap-2.5 rounded-lg">
+          <Link to="/" className="flex items-center gap-2.5 rounded-lg">
             <BrandMark join />
             <span className="text-[15px] font-semibold tracking-tight text-zinc-900">
               {APP_NAME} <span className="font-normal text-zinc-400">· {APP_FULL_NAME}</span>

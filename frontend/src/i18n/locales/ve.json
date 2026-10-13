@@ -1873,5 +1873,94 @@
     "reactivate": "Vhuedzedzani",
     "deactivated": "Muṋetshedzi o imiswa",
     "reactivated": "Muṋetshedzi o vhuedzedzwa"
+  },
+  "home": {
+    "nav": {
+      "label": "Ndeme",
+      "features": "Zwiṱaluli",
+      "pricing": "Mitengo",
+      "faq": "Mbudziso",
+      "start": "Thomani u lingedza mahala"
+    },
+    "hero": {
+      "eyebrow": "U rengisa na dziinvoice kha mabindu maṱuku a Afrika Tshipembe",
+      "title": "Kundani dzitumelano nnzhi. Badelwani nga u ṱavhanya.",
+      "body": "{{name}} i vhulunga vharengi vhaṋu, dzitumelano, zwiṱangadzamitengo na dziinvoice fhethu huthihi, i rumela maṅwalo o lugelaho VAT nga u kwatisa luṱuku, nahone i tevhela tshelede ine na kolodwa yone, uri ni vhuyelele kha u rengisa.",
+      "cta": "Thomani u lingedza haṋu mahala",
+      "secondary": "Vhonani mitengo"
+    },
+    "points": {
+      "noCard": "A hu ṱoḓei garaṱa",
+      "trial": "Maḓuvha a 14 mahala",
+      "cancel": "Khantselani tshifhinga tshiṅwe na tshiṅwe",
+      "languages": "Nyambo dzoṱhe dza 11 dza tshiofisi"
+    },
+    "pain": {
+      "title": "Zwi pfala zwo ḓoweleaho?",
+      "scattered": {
+        "problem": "Zwiṱangadzamitengo kha Word, dziinvoice kha Excel, vharengi kha luṱingo lwaṋu.",
+        "fix": "Murengi muṅwe na muṅwe, tshiṱangadzamitengo, invoice na mbadelo fhethu huthihi."
+      },
+      "followUps": {
+        "problem": "U tevhela hu xelaho musi no farakanea.",
+        "fix": "Luṱingo na mishumo ya ṋamusi kha skirini nthihi, na khwiṱhi i tevhelaho ya tumelano iṅwe na iṅwe."
+      },
+      "chasing": {
+        "problem": "Madekwana a fhela ni tshi tevhela mbadelo dzo lenganaho.",
+        "fix": "{{name}} i ni rumela zwikhumbudzo zwa mbadelo, na zwitatamennde nga u kwatisa luthihi."
+      }
+    },
+    "how": {
+      "title": "Ni a thoma nga masiari mathihi",
+      "intro": "A hu na vhaeletshedzi nahone a hu na u dzudzanya hu lapfu. Arali ni tshi kona u shumisa WhatsApp, ni nga shumisa YGT.",
+      "setup": {
+        "title": "Dzudzanyani bindu ḽaṋu",
+        "body": "Engedzani logo yaṋu, nomboro ya VAT na zwidodombedzwa zwa banngi, ni ḓise vharengi vhaṋu u bva kha Excel."
+      },
+      "sell": {
+        "title": "Itani zwiṱangadzamitengo na dziinvoice",
+        "body": "Rumelani zwiṱangadzamitengo zwa maimo a nṱha, ni shandukise zwo ṱanganedzwaho zwi vhe dziinvoice dza muthelo, ni ṅwale mbadelo musi dzi tshi swika."
+      },
+      "grow": {
+        "title": "Tevhelani ni gole",
+        "body": "Tevhelani tumelano iṅwe na iṅwe, rumelani milaedza kha vharengi nga WhatsApp na imeiḽi, ni vhone zwine zwa khou shuma."
+      }
+    },
+    "features": {
+      "title": "Zwoṱhe zwine tshigwada tshaṋu tsha u rengisa tsha zwi ṱoḓa",
+      "intro": "Sisiṱeme nthihi nṱhani ha ṱhanu, yo itelwaho nḓila ine mabindu maṱuku a Afrika Tshipembe a rengisa ngayo."
+    },
+    "faq": {
+      "title": "Mbudziso dzine vhathu vha dzi vhudzisa",
+      "card": {
+        "q": "Ndi ṱoḓa garaṱa u i lingedza?",
+        "a": "Hai. Pulane iṅwe na iṅwe i thoma nga u lingedza mahala maḓuvha a 14. Ni engedza garaṱa fhedzi musi ni tshi nanga pulane."
+      },
+      "vat": {
+        "q": "Naa dziinvoice dzo lugela SARS?",
+        "a": "Ee. Nomboro yaṋu ya VAT na ya murengi waṋu dzi bvelela kha zwiṱangadzamitengo na dziinvoice dza muthelo, na tshoṱhe nga nnḓa ha VAT, VAT na tshoṱhe hu tshi katelwa VAT."
+      },
+      "import": {
+        "q": "Naa ndi nga ḓisa vharengi vhe nda vha na vho?",
+        "a": "Ee. Ḓisani vharengi, zwibveledzwa na dzitumelano u bva kha spreadsheet kana CRM iṅwe nga mimunithi i si gathi."
+      },
+      "phone": {
+        "q": "Naa i a shuma kha luṱingo lwanga?",
+        "a": "Ee. YGT i shuma kha buraweza ya luṱingo luṅwe na luṅwe, thebuleti kana khomphiyutha, uri ni kone u ita tshiṱangadzamitengo ni fhethu ha murengi."
+      },
+      "data": {
+        "q": "Naa data yanga yo tsireledzea?",
+        "a": "Data ya khamphani iṅwe na iṅwe i vhulungwa i tshiphiri nahone yo khethululwa na ya dziṅwe khamphani, u ya nga POPIA, nahone ni nga i bvisa tshifhinga tshiṅwe na tshiṅwe."
+      },
+      "help": {
+        "q": "Hu ḓo itea mini arali nda kundwa?",
+        "a": "Vulani thikhithi ya thikhedzo kha app, kana ni buke sesheni ya vidio ya mahala na tshigwada tshashu."
+      }
+    },
+    "final": {
+      "title": "Ni a kona. Riṋe ri ṱhogomela ndaulo.",
+      "body": "Thomani ṋamusi u lingedza haṋu mahala ha maḓuvha a 14. A hu ṱoḓei garaṱa.",
+      "talk": "Ambani na riṋe"
+    }
   }
 }

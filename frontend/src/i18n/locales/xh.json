@@ -1873,5 +1873,94 @@
     "reactivate": "Buyisela",
     "deactivated": "Umboneleli uyekisiwe",
     "reactivated": "Umboneleli ubuyiselwe"
+  },
+  "home": {
+    "nav": {
+      "label": "Okuphambili",
+      "features": "Iimpawu",
+      "pricing": "Amaxabiso",
+      "faq": "Imibuzo",
+      "start": "Qala ulingo lwasimahla"
+    },
+    "hero": {
+      "eyebrow": "Ukuthengisa nokukhupha ii-invoyisi kumashishini amancinci aseMzantsi Afrika",
+      "title": "Phumelela iidili ezininzi. Hlawulwa ngokukhawuleza.",
+      "body": "I-{{name}} igcina abathengi bakho, iidili, iikowuteshini nee-invoyisi kwindawo enye, ithumela amaxwebhu alungele i-VAT ngokucofa okumbalwa, kwaye ilandela imali obatyalwa yona, ukuze ubuyele ekuthengiseni.",
+      "cta": "Qala ulingo lwakho lwasimahla",
+      "secondary": "Bona amaxabiso"
+    },
+    "points": {
+      "noCard": "Akufuneki khadi",
+      "trial": "Iintsuku ezili-14 simahla",
+      "cancel": "Rhoxisa nanini na",
+      "languages": "Zonke iilwimi ezisemthethweni ezili-11"
+    },
+    "pain": {
+      "title": "Kuvakala kuqhelekile?",
+      "scattered": {
+        "problem": "Iikowuteshini kwi-Word, ii-invoyisi kwi-Excel, abathengi kwifowuni yakho.",
+        "fix": "Wonke umthengi, ikowuteshini, i-invoyisi kunye nentlawulo kwindawo enye."
+      },
+      "followUps": {
+        "problem": "Ukulandelela okulahlekayo xa uxakekile.",
+        "fix": "Iifowuni nemisebenzi yanamhlanje kwiskrini esinye, kunye nenyathelo elilandelayo ledili ngalinye."
+      },
+      "chasing": {
+        "problem": "Iingokuhlwa zichithwa ulandela iintlawulo ezilibeleyo.",
+        "fix": "I-{{name}} ikuthumelela izikhumbuzo zentlawulo, kunye neengxelo ngokucofa kanye."
+      }
+    },
+    "how": {
+      "title": "Uqalisa emva kwemini enye",
+      "intro": "Akukho baceba-bisi kwaye akukho kuseta okude. Ukuba uyakwazi ukusebenzisa i-WhatsApp, ungayisebenzisa i-YGT.",
+      "setup": {
+        "title": "Seta ishishini lakho",
+        "body": "Yongeza ilogo yakho, inombolo ye-VAT neenkcukacha zebhanki, uze ungenise abathengi bakho ukusuka kwi-Excel."
+      },
+      "sell": {
+        "title": "Yenza iikowuteshini nee-invoyisi",
+        "body": "Thumela iikowuteshini ezikumgangatho ophezulu, uguqule ezamkelweyo zibe zii-invoyisi zerhafu, uze urekhode iintlawulo njengoko zifika."
+      },
+      "grow": {
+        "title": "Landela kwaye ukhule",
+        "body": "Landela idili ngalinye, thumela imiyalezo kubathengi nge-WhatsApp ne-imeyile, uze ubone okusebenzayo."
+      }
+    },
+    "features": {
+      "title": "Yonke into efunwa liqela lakho lokuthengisa",
+      "intro": "Inkqubo enye endaweni yezintlanu, eyakhelwe indlela amashishini amancinci aseMzantsi Afrika athengisa ngayo."
+    },
+    "faq": {
+      "title": "Imibuzo ebuzwa ngabantu",
+      "card": {
+        "q": "Ndifuna ikhadi ukuze ndizame?",
+        "a": "Hayi. Isicwangciso ngasinye siqala ngolingo lwasimahla lweentsuku ezili-14. Wongeza ikhadi kuphela xa ukhetha isicwangciso."
+      },
+      "vat": {
+        "q": "Ingaba ii-invoyisi zilungele i-SARS?",
+        "a": "Ewe. Inombolo yakho ye-VAT neyomthengi wakho ziyavela kwiikowuteshini nakwii-invoyisi zerhafu, kunye neyonke ngaphandle kwe-VAT, i-VAT neyonke iquka i-VAT."
+      },
+      "import": {
+        "q": "Ndingabazisa abathengi endinabo?",
+        "a": "Ewe. Ngenisa abathengi, iimveliso needili ukusuka kwispredshiti okanye kwenye i-CRM ngemizuzu embalwa."
+      },
+      "phone": {
+        "q": "Iyasebenza kwifowuni yam?",
+        "a": "Ewe. I-YGT isebenza kwibhrawuza kuyo nayiphi na ifowuni, ithebhulethi okanye ikhompyutha, ukuze ukwazi ukwenza ikowuteshini usendaweni yomthengi."
+      },
+      "data": {
+        "q": "Ingaba idatha yam ikhuselekile?",
+        "a": "Idatha yenkampani nganye igcinwa iyimfihlo kwaye yahlukile kweyezinye iinkampani, ngokuhambelana ne-POPIA, kwaye ungayikhupha nanini na."
+      },
+      "help": {
+        "q": "Kuthekani ukuba ndibambekile?",
+        "a": "Faka itikiti lenkxaso kwi-app, okanye ubhukishe iseshoni yevidiyo yasimahla neqela lethu."
+      }
+    },
+    "final": {
+      "title": "Unako. Thina sijongana nolawulo.",
+      "body": "Qala namhlanje ulingo lwakho lwasimahla lweentsuku ezili-14. Akufuneki khadi.",
+      "talk": "Thetha nathi"
+    }
   }
 }

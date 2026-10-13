@@ -1873,5 +1873,94 @@
     "reactivate": "Buyisela",
     "deactivated": "Umhlinzeki uyekisiwe",
     "reactivated": "Umhlinzeki ubuyiselwe"
+  },
+  "home": {
+    "nav": {
+      "label": "Okuyinhloko",
+      "features": "Izici",
+      "pricing": "Amanani",
+      "faq": "Imibuzo",
+      "start": "Qala ukuzama mahhala"
+    },
+    "hero": {
+      "eyebrow": "Ukuthengisa nokukhipha ama-invoyisi kumabhizinisi amancane aseNingizimu Afrika",
+      "title": "Wina izivumelwano eziningi. Khokhelwa ngokushesha.",
+      "body": "I-{{name}} igcina amakhasimende akho, izivumelwano, izilinganiso nama-invoyisi endaweni eyodwa, ithumela amadokhumenti alungele i-VAT ngokuchofoza okumbalwa, futhi ilandelela imali okweletwa yona, ukuze ubuyele ekuthengiseni.",
+      "cta": "Qala ukuzama kwakho mahhala",
+      "secondary": "Bona amanani"
+    },
+    "points": {
+      "noCard": "Alidingeki ikhadi",
+      "trial": "Izinsuku ezingu-14 mahhala",
+      "cancel": "Khansela noma nini",
+      "languages": "Zonke izilimi ezisemthethweni eziyi-11"
+    },
+    "pain": {
+      "title": "Kuzwakala kujwayelekile?",
+      "scattered": {
+        "problem": "Izilinganiso ku-Word, ama-invoyisi ku-Excel, amakhasimende efonini yakho.",
+        "fix": "Wonke amakhasimende, izilinganiso, ama-invoyisi nezinkokhelo endaweni eyodwa."
+      },
+      "followUps": {
+        "problem": "Ukulandelela okulahleka uma umatasa.",
+        "fix": "Izingcingo nemisebenzi yanamuhla esikrinini esisodwa, kanye nesinyathelo esilandelayo sesivumelwano ngasinye."
+      },
+      "chasing": {
+        "problem": "Ubusuku obuchithwa ulandelela izinkokhelo ezephuzile.",
+        "fix": "I-{{name}} ikuthumelela izikhumbuzo zokukhokha, kanye nezitatimende ngokuchofoza kanye."
+      }
+    },
+    "how": {
+      "title": "Usebenza ntambama eyodwa",
+      "intro": "Abekho abeluleki futhi akukho ukusetha okude. Uma ukwazi ukusebenzisa i-WhatsApp, ungasebenzisa i-YGT.",
+      "setup": {
+        "title": "Setha ibhizinisi lakho",
+        "body": "Engeza ilogo yakho, inombolo ye-VAT nemininingwane yasebhange, bese ungenisa amakhasimende akho usuka ku-Excel."
+      },
+      "sell": {
+        "title": "Linganisa ukhiphe ama-invoyisi",
+        "body": "Thumela izilinganiso ezisezingeni eliphezulu, uguqule lezo ezamukelwe zibe ama-invoyisi entela, bese urekhoda izinkokhelo njengoba zifika."
+      },
+      "grow": {
+        "title": "Landelela ukhule",
+        "body": "Landelela sonke isivumelwano, thumela imiyalezo kumakhasimende nge-WhatsApp ne-imeyili, bese ubona okusebenzayo."
+      }
+    },
+    "features": {
+      "title": "Konke okudingwa ithimba lakho lokuthengisa",
+      "intro": "Uhlelo olulodwa esikhundleni sezinhlanu, olwakhelwe indlela amabhizinisi amancane aseNingizimu Afrika athengisa ngayo."
+    },
+    "faq": {
+      "title": "Imibuzo abantu abayibuzayo",
+      "card": {
+        "q": "Ngidinga ikhadi ukuze ngizame?",
+        "a": "Cha. Lonke uhlelo luqala ngokuzama mahhala izinsuku ezingu-14. Wengeza ikhadi kuphela uma ukhetha uhlelo."
+      },
+      "vat": {
+        "q": "Ingabe ama-invoyisi alungele i-SARS?",
+        "a": "Yebo. Inombolo yakho ye-VAT neyeklayenti lakho ziyavela ezilinganisweni nakuma-invoyisi entela, nesamba ngaphandle kwe-VAT, i-VAT nesamba esifaka i-VAT."
+      },
+      "import": {
+        "q": "Ngingawaletha amakhasimende engivele nginawo?",
+        "a": "Yebo. Ngenisa amakhasimende, imikhiqizo nezivumelwano usuka kuspredishithi noma kwenye i-CRM emizuzwini embalwa."
+      },
+      "phone": {
+        "q": "Iyasebenza efonini yami?",
+        "a": "Yebo. I-YGT isebenza kusiphequluli kunoma iyiphi ifoni, ithebhulethi noma ikhompyutha, ukuze ukwazi ukulinganisa usendaweni yeklayenti."
+      },
+      "data": {
+        "q": "Ingabe idatha yami iphephile?",
+        "a": "Idatha yenkampani ngayinye igcinwa iyimfihlo futhi ihlukile kweyezinye izinkampani, ngokuhambisana ne-POPIA, futhi ungayikhipha noma nini."
+      },
+      "help": {
+        "q": "Kuthiwani uma ngibambeka?",
+        "a": "Faka ithikithi lokwesekwa ku-app, noma ubhukhe iseshini yevidiyo yamahhala nethimba lethu."
+      }
+    },
+    "final": {
+      "title": "Uyakwazi. Thina sizophatha ukuphatha.",
+      "body": "Qala namuhla ukuzama kwakho mahhala kwezinsuku ezingu-14. Alidingeki ikhadi.",
+      "talk": "Khuluma nathi"
+    }
   }
 }

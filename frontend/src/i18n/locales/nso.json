@@ -1873,5 +1873,94 @@
     "reactivate": "Bušetša",
     "deactivated": "Mofepi o emišitšwe",
     "reactivated": "Mofepi o bušeditšwe"
+  },
+  "home": {
+    "nav": {
+      "label": "Ya mathomo",
+      "features": "Dikarolo",
+      "pricing": "Ditheko",
+      "faq": "Dipotšišo",
+      "start": "Thoma teko ya mahala"
+    },
+    "hero": {
+      "eyebrow": "Thekišo le diinvoice tša dikgwebo tše nnyane tša Afrika Borwa",
+      "title": "Thopa ditumelelano tše dintši. Lefelwa ka pela.",
+      "body": "{{name}} e boloka bareki ba gago, ditumelelano, ditekanyetšo le diinvoice lefelong le tee, e romela ditokumente tše di loketšego VAT ka go kgotla ga mmalwa, gomme e latela tšhelete yeo o kolotwago, gore o boele thekišong.",
+      "cta": "Thoma teko ya gago ya mahala",
+      "secondary": "Bona ditheko"
+    },
+    "points": {
+      "noCard": "Ga go hlokege karata",
+      "trial": "Matšatši a 14 mahala",
+      "cancel": "Khansela nako efe goba efe",
+      "languages": "Maleme ka moka a semmušo a 11"
+    },
+    "pain": {
+      "title": "Na se kwagala se tlwaelegile?",
+      "scattered": {
+        "problem": "Ditekanyetšo go Word, diinvoice go Excel, bareki mogaleng wa gago.",
+        "fix": "Moreki yo mongwe le yo mongwe, tekanyetšo, invoice le tefo lefelong le tee."
+      },
+      "followUps": {
+        "problem": "Go latela mo go lahlegago ge o swaregile.",
+        "fix": "Megala le mešomo ya lehono sekirining se tee, le kgato ye e latelago ya tumelelano ye nngwe le ye nngwe."
+      },
+      "chasing": {
+        "problem": "Mathapama a fetšwa o latela ditefo tše di diegilego.",
+        "fix": "{{name}} e go romelela dikgopotšo tša tefo, le dipego ka go kgotla gatee."
+      }
+    },
+    "how": {
+      "title": "O thoma mathapama a tee",
+      "intro": "Ga go na baeletši le go beakanya mo go telele. Ge o kgona go diriša WhatsApp, o ka diriša YGT.",
+      "setup": {
+        "title": "Beakanya kgwebo ya gago",
+        "body": "Oketša logo ya gago, nomoro ya VAT le dintlha tša panka, gomme o tliše bareki ba gago go tšwa go Excel."
+      },
+      "sell": {
+        "title": "Dira ditekanyetšo le diinvoice",
+        "body": "Romela ditekanyetšo tša maemo a godimo, fetoša tšeo di amogetšwego go ba diinvoice tša motšhelo, gomme o ngwale ditefo ge di fihla."
+      },
+      "grow": {
+        "title": "Latela o gole",
+        "body": "Latela tumelelano ye nngwe le ye nngwe, romela melaetša go bareki ka WhatsApp le imeile, gomme o bone seo se šomago."
+      }
+    },
+    "features": {
+      "title": "Sohle seo sehlopha sa gago sa thekišo se se hlokago",
+      "intro": "Tshepedišo e tee legatong la tše hlano, e agetšwe tsela yeo dikgwebo tše nnyane tša Afrika Borwa di rekišago ka yona."
+    },
+    "faq": {
+      "title": "Dipotšišo tšeo batho ba di botšišago",
+      "card": {
+        "q": "Na ke hloka karata go e leka?",
+        "a": "Aowa. Leano le lengwe le le lengwe le thoma ka teko ya mahala ya matšatši a 14. O oketša karata fela ge o kgetha leano."
+      },
+      "vat": {
+        "q": "Na diinvoice di loketše SARS?",
+        "a": "Ee. Nomoro ya gago ya VAT le ya moreki wa gago di tšwelela go ditekanyetšo le diinvoice tša motšhelo, le palomoka ntle le VAT, VAT le palomoka go akaretšwa VAT."
+      },
+      "import": {
+        "q": "Na nka tliša bareki bao ke šetšego ke na le bona?",
+        "a": "Ee. Tliša bareki, ditšweletšwa le ditumelelano go tšwa go spreadsheet goba CRM ye nngwe ka metsotso e se mekae."
+      },
+      "phone": {
+        "q": "Na e šoma mogaleng wa ka?",
+        "a": "Ee. YGT e šoma ka sephedi go mogala, thebolete goba khomphutha efe goba efe, gore o kgone go dira tekanyetšo o le lefelong la moreki."
+      },
+      "data": {
+        "q": "Na data ya ka e bolokegile?",
+        "a": "Data ya khamphani ye nngwe le ye nngwe e bolokwa e le sephiri e bile e arogane le ya dikhamphani tše dingwe, go ya ka POPIA, gomme o ka e ntšha nako efe goba efe."
+      },
+      "help": {
+        "q": "Go thwe'ng ge ke palelwa?",
+        "a": "Bula thekethe ya thekgo ka gare ga app, goba o beele sešene ya bidio ya mahala le sehlopha sa rena."
+      }
+    },
+    "final": {
+      "title": "O kgona. Rena re hlokomela tša taolo.",
+      "body": "Thoma lehono teko ya gago ya mahala ya matšatši a 14. Ga go hlokege karata.",
+      "talk": "Bolela le rena"
+    }
   }
 }

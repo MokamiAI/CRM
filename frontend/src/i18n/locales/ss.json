@@ -1873,5 +1873,94 @@
     "reactivate": "Buyisela",
     "deactivated": "Umhlinzeki uyekisiwe",
     "reactivated": "Umhlinzeki ubuyiselwe"
+  },
+  "home": {
+    "nav": {
+      "label": "Lokukhulu",
+      "features": "Timphawu",
+      "pricing": "Emanani",
+      "faq": "Imibuto",
+      "start": "Cala kuvivinya mahhala"
+    },
+    "hero": {
+      "eyebrow": "Kutsengisa nema-invoyisi emabhizinisi lamancane aseNingizimu Afrika",
+      "title": "Wina tivumelwano letinyenti. Bhadalwa ngekushesha.",
+      "body": "I-{{name}} igcina emakhasimende akho, tivumelwano, tikhotheshini nema-invoyisi endzaweni yinye, itfumela emadokhumenti lalungele i-VAT ngekuchafata lokumbalwa, futsi ilandzelela imali lokweletwa yona, kute ubuyele ekutsengiseni.",
+      "cta": "Cala kuvivinya kwakho mahhala",
+      "secondary": "Bona emanani"
+    },
+    "points": {
+      "noCard": "Alidzingeki likhadi",
+      "trial": "Emalanga langu-14 mahhala",
+      "cancel": "Khansela nanoma nini",
+      "languages": "Tonkhe tilimi letisemtsetfweni letili-11"
+    },
+    "pain": {
+      "title": "Kuvakala kujwayelekile?",
+      "scattered": {
+        "problem": "Tikhotheshini ku-Word, ema-invoyisi ku-Excel, emakhasimende ocingweni lwakho.",
+        "fix": "Onkhe emakhasimende, tikhotheshini, ema-invoyisi netinkhokhelo endzaweni yinye."
+      },
+      "followUps": {
+        "problem": "Kulandzelela lokulahleka nawumatasatasa.",
+        "fix": "Tincingo nemisebenti yalamuhla esikrinini sinye, kanye nesinyatselo lesilandzelako sesivumelwano ngasinye."
+      },
+      "chasing": {
+        "problem": "Kusihlwa kuchitfwa ulandzelela tinkhokhelo letephuzile.",
+        "fix": "I-{{name}} ikutfumelela tikhumbuto tekukhokha, kanye netitatimende ngekuchafata kanye."
+      }
+    },
+    "how": {
+      "title": "Usebenta ngelilanga linye",
+      "intro": "Abekho beluleki futsi akukho kuhlela lokudze. Nangabe ukhona kusebentisa i-WhatsApp, ungasebentisa i-YGT.",
+      "setup": {
+        "title": "Hlela libhizinisi lakho",
+        "body": "Engeta ilogo yakho, inombolo ye-VAT nemininingwane yelibhange, bese ungenisa emakhasimende akho usuka ku-Excel."
+      },
+      "sell": {
+        "title": "Yenta tikhotheshini nema-invoyisi",
+        "body": "Tfumela tikhotheshini letisezingeni lelisetulu, uguchule leto letemukelwe tibe ema-invoyisi entsela, bese ubhala tinkhokhelo njengobe tifika."
+      },
+      "grow": {
+        "title": "Landzelela ukhule",
+        "body": "Landzelela sivumelwano ngasinye, tfumela imilayeto kumakhasimende nge-WhatsApp ne-imeyili, bese ubona lokusebentako."
+      }
+    },
+    "features": {
+      "title": "Konkhe lokudzingwa licembu lakho lekutsengisa",
+      "intro": "Luhlelo lolulodvwa esikhundleni setinhlanu, lolwakhelwe indlela emabhizinisi lamancane aseNingizimu Afrika latsengisa ngayo."
+    },
+    "faq": {
+      "title": "Imibuto bantfu labayibutako",
+      "card": {
+        "q": "Ngidzinga likhadi kute ngivivinye?",
+        "a": "Cha. Lonkhe luhlelo lucala ngekuvivinya mahhala kwemalanga langu-14. Wengeta likhadi kuphela nawukhetsa luhlelo."
+      },
+      "vat": {
+        "q": "Ema-invoyisi alungele i-SARS yini?",
+        "a": "Yebo. Inombolo yakho ye-VAT neyelikhasimende lakho ivela etikhotheshinini nakuma-invoyisi entsela, nakonkhe ngaphandle kwe-VAT, i-VAT nakonkhe kufaka i-VAT."
+      },
+      "import": {
+        "q": "Ngingaletsa emakhasimende lengivele nginawo?",
+        "a": "Yebo. Ngenisa emakhasimende, imikhicito netivumelwano usuka ku-spreadsheet noma kulenye i-CRM emaminitsini lambalwa."
+      },
+      "phone": {
+        "q": "Iyasebenta ocingweni lwami?",
+        "a": "Yebo. I-YGT isebenta kusiphequluli kunanoma ngumuphi lucingo, ithebhulethi noma ikhompyutha, kute ukhone kwenta ikhotheshini usendzaweni yelikhasimende."
+      },
+      "data": {
+        "q": "Idatha yami iphephile yini?",
+        "a": "Idatha yenkampani ngayinye igcinwa iyimfihlo futsi ihlukene neyetinye tinkampani, ngekuvumelana ne-POPIA, futsi ungayikhipha nanoma nini."
+      },
+      "help": {
+        "q": "Kutsiwani nangibambeka?",
+        "a": "Faka lithikithi lekusekela ku-app, noma ubhuke liseshini levidiyo lamahhala neliqembu letfu."
+      }
+    },
+    "final": {
+      "title": "Uyakhona. Tsine sinakekela kuphatsa.",
+      "body": "Cala lamuhla kuvivinya kwakho mahhala kwemalanga langu-14. Alidzingeki likhadi.",
+      "talk": "Khuluma natsi"
+    }
   }
 }

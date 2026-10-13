@@ -1873,5 +1873,94 @@
     "reactivate": "Kgutlisa",
     "deactivated": "Mofani o emisitswe",
     "reactivated": "Mofani o kgutlisitswe"
+  },
+  "home": {
+    "nav": {
+      "label": "Sehlooho",
+      "features": "Dikarolo",
+      "pricing": "Ditheko",
+      "faq": "Dipotso",
+      "start": "Qala teko ya mahala"
+    },
+    "hero": {
+      "eyebrow": "Thekiso le diinvoice bakeng sa dikgwebo tse nyane tsa Afrika Borwa",
+      "title": "Hapa ditumellano tse ngata. Lefuwa kapele.",
+      "body": "{{name}} e boloka bareki ba hao, ditumellano, dikotatsheno le diinvoice sebakeng se le seng, e romela ditokomane tse loketseng VAT ka ho tobetsa ho seng hokae, mme e latela tjhelete eo o e kolotwang, hore o kgutlele thekisong.",
+      "cta": "Qala teko ya hao ya mahala",
+      "secondary": "Bona ditheko"
+    },
+    "points": {
+      "noCard": "Ha ho hlokehe karete",
+      "trial": "Matsatsi a 14 mahala",
+      "cancel": "Hlakola nako efe kapa efe",
+      "languages": "Dipuo tsohle tse 11 tsa semmuso"
+    },
+    "pain": {
+      "title": "Na ho utlwahala ho tlwaelehile?",
+      "scattered": {
+        "problem": "Dikotatsheno ho Word, diinvoice ho Excel, bareki mohaleng wa hao.",
+        "fix": "Moreki e mong le e mong, kotatsheno, invoice le tefo sebakeng se le seng."
+      },
+      "followUps": {
+        "problem": "Ho latela ho lahlehang ha o phathahane.",
+        "fix": "Mehala le mesebetsi ya kajeno skrineng se le seng, le mohato o latelang wa tumellano ka nngwe."
+      },
+      "chasing": {
+        "problem": "Mantsiboya a fela o latela ditefo tse diehileng.",
+        "fix": "{{name}} e o romella dikgopotso tsa tefo, le ditatemente ka ho tobetsa hang."
+      }
+    },
+    "how": {
+      "title": "O qala ka thapama e le nngwe",
+      "intro": "Ha ho baeletsi mme ha ho ho hlophisa ho hoholo. Haeba o kgona ho sebedisa WhatsApp, o ka sebedisa YGT.",
+      "setup": {
+        "title": "Hlophisa kgwebo ya hao",
+        "body": "Kenya logo ya hao, nomoro ya VAT le dintlha tsa banka, mme o tlise bareki ba hao ho tswa ho Excel."
+      },
+      "sell": {
+        "title": "Etsa dikotatsheno le diinvoice",
+        "body": "Romela dikotatsheno tsa boemo bo hodimo, fetola tse amohetsweng hore e be diinvoice tsa lekgetho, mme o ngole ditefo ha di fihla."
+      },
+      "grow": {
+        "title": "Latela o hole",
+        "body": "Latela tumellano ka nngwe, romela melaetsa ho bareki ka WhatsApp le imeile, mme o bone se sebetsang."
+      }
+    },
+    "features": {
+      "title": "Tsohle tseo sehlopha sa hao sa thekiso se di hlokang",
+      "intro": "Tsamaiso e le nngwe sebakeng sa tse hlano, e etseditsweng tsela eo dikgwebo tse nyane tsa Afrika Borwa di rekisang ka yona."
+    },
+    "faq": {
+      "title": "Dipotso tseo batho ba di botsang",
+      "card": {
+        "q": "Na ke hloka karete ho e leka?",
+        "a": "Tjhe. Morero ka mong o qala ka teko ya mahala ya matsatsi a 14. O kenya karete feela ha o kgetha morero."
+      },
+      "vat": {
+        "q": "Na diinvoice di loketse SARS?",
+        "a": "E. Nomoro ya hao ya VAT le ya moreki wa hao di hlaha ho dikotatsheno le diinvoice tsa lekgetho, le kakaretso ntle le VAT, VAT le kakaretso ho kenyeleditswe VAT."
+      },
+      "import": {
+        "q": "Na nka tlisa bareki bao ke seng ke na le bona?",
+        "a": "E. Tlisa bareki, dihlahiswa le ditumellano ho tswa ho spreadsheet kapa CRM e nngwe ka metsotso e seng mekae."
+      },
+      "phone": {
+        "q": "Na e sebetsa mohaleng wa ka?",
+        "a": "E. YGT e sebetsa ho sebadi mohaleng ofe kapa ofe, thebolete kapa khomputa, hore o kgone ho etsa kotatsheno o le sebakeng sa moreki."
+      },
+      "data": {
+        "q": "Na data ya ka e sireletsehile?",
+        "a": "Data ya khampani ka nngwe e bolokwa e le lekunutu mme e arohane le ya dikhampani tse ding, ho ya ka POPIA, mme o ka e ntsha nako efe kapa efe."
+      },
+      "help": {
+        "q": "Ho thweng ha nka thatafallwa?",
+        "a": "Bula tekete ya tshehetso ka hara app, kapa o behe seshene ya video ya mahala le sehlopha sa rona."
+      }
+    },
+    "final": {
+      "title": "O kgona. Rona re hlokomela tsamaiso.",
+      "body": "Qala kajeno teko ya hao ya mahala ya matsatsi a 14. Ha ho hlokehe karete.",
+      "talk": "Bua le rona"
+    }
   }
 }

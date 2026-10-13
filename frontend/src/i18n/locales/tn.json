@@ -1873,5 +1873,94 @@
     "reactivate": "Busetsa",
     "deactivated": "Motlamedi o emisitswe",
     "reactivated": "Motlamedi o buseditswe"
+  },
+  "home": {
+    "nav": {
+      "label": "Ya ntlha",
+      "features": "Dikarolo",
+      "pricing": "Ditlhwatlhwa",
+      "faq": "Dipotso",
+      "start": "Simolola teko ya mahala"
+    },
+    "hero": {
+      "eyebrow": "Thekiso le diinvoice tsa dikgwebo tse dinnye tsa Aforika Borwa",
+      "title": "Fenya ditumalano tse dintsi. Duelwa ka bonako.",
+      "body": "{{name}} e boloka badirisi ba gago, ditumalano, ditekanyetso le diinvoice mo lefelong le le lengwe, e romela dikwalo tse di siametseng VAT ka go tobetsa ga mmalwa, mme e latela madi a o a kolotwang, gore o boele kwa thekisong.",
+      "cta": "Simolola teko ya gago ya mahala",
+      "secondary": "Bona ditlhwatlhwa"
+    },
+    "points": {
+      "noCard": "Ga go tlhokege karata",
+      "trial": "Malatsi a le 14 mahala",
+      "cancel": "Phimola nako nngwe le nngwe",
+      "languages": "Dipuo tsotlhe tse 11 tsa semmuso"
+    },
+    "pain": {
+      "title": "A go utlwala go tlwaelegile?",
+      "scattered": {
+        "problem": "Ditekanyetso mo Word, diinvoice mo Excel, badirisi mo mogaleng wa gago.",
+        "fix": "Mmereki mongwe le mongwe, tekanyetso, invoice le tuelo mo lefelong le le lengwe."
+      },
+      "followUps": {
+        "problem": "Go latela mo go latlhegang fa o tshwaregile.",
+        "fix": "Megala le ditiro tsa gompieno mo sekirining se le sengwe, le kgato e e latelang ya tumalano nngwe le nngwe."
+      },
+      "chasing": {
+        "problem": "Maitseboa a fela o latela ditefo tse di diegileng.",
+        "fix": "{{name}} e go romelela dikgakololo tsa tuelo, le dipego ka go tobetsa gangwe."
+      }
+    },
+    "how": {
+      "title": "O simolola ka motshegare o le mongwe",
+      "intro": "Ga go na bagakolodi e bile ga go na go baakanya mo go telele. Fa o kgona go dirisa WhatsApp, o ka dirisa YGT.",
+      "setup": {
+        "title": "Baakanya kgwebo ya gago",
+        "body": "Tsenya logo ya gago, nomoro ya VAT le dintlha tsa banka, mme o tlise badirisi ba gago go tswa mo Excel."
+      },
+      "sell": {
+        "title": "Dira ditekanyetso le diinvoice",
+        "body": "Romela ditekanyetso tsa maemo a a kwa godimo, fetola tse di amogetsweng go nna diinvoice tsa lekgetho, mme o kwale ditefo fa di fitlha."
+      },
+      "grow": {
+        "title": "Latela o gole",
+        "body": "Latela tumalano nngwe le nngwe, romela melaetsa go badirisi ka WhatsApp le imeile, mme o bone se se dirang."
+      }
+    },
+    "features": {
+      "title": "Sengwe le sengwe se setlhopha sa gago sa thekiso se se tlhokang",
+      "intro": "Thulaganyo e le nngwe go na le tse tlhano, e e diretsweng tsela e dikgwebo tse dinnye tsa Aforika Borwa di rekisang ka yone."
+    },
+    "faq": {
+      "title": "Dipotso tse batho ba di botsang",
+      "card": {
+        "q": "A ke tlhoka karata go e leka?",
+        "a": "Nnyaa. Leano lengwe le lengwe le simolola ka teko ya mahala ya malatsi a le 14. O tsenya karata fela fa o tlhopha leano."
+      },
+      "vat": {
+        "q": "A diinvoice di siametse SARS?",
+        "a": "Ee. Nomoro ya gago ya VAT le ya mmereki wa gago di tlhaga mo ditekanyetsong le mo diinvoice tsa lekgetho, le palogotlhe kwa ntle ga VAT, VAT le palogotlhe go akaretsa VAT."
+      },
+      "import": {
+        "q": "A nka tlisa badirisi ba ke setseng ke na le bone?",
+        "a": "Ee. Tlisa badirisi, ditlhagiswa le ditumalano go tswa mo spreadsheet kgotsa CRM e nngwe mo metsotsong e le mmalwa."
+      },
+      "phone": {
+        "q": "A e dira mo mogaleng wa me?",
+        "a": "Ee. YGT e dira mo sebatling sa mogala ofe kgotsa ofe, thebolete kgotsa khomphiutara, gore o kgone go dira tekanyetso o le kwa lefelong la mmereki."
+      },
+      "data": {
+        "q": "A data ya me e babalesegile?",
+        "a": "Data ya khampani nngwe le nngwe e bolokwa e le sephiri e bile e kgaogantswe le ya dikhampani tse dingwe, go ya ka POPIA, mme o ka e ntsha nako nngwe le nngwe."
+      },
+      "help": {
+        "q": "Go tweng fa ke palelwa?",
+        "a": "Bula tekete ya tshegetso mo app, kgotsa o beele seshene ya bidio ya mahala le setlhopha sa rona."
+      }
+    },
+    "final": {
+      "title": "O a kgona. Rona re tlhokomela tsamaiso.",
+      "body": "Simolola gompieno teko ya gago ya mahala ya malatsi a le 14. Ga go tlhokege karata.",
+      "talk": "Bua le rona"
+    }
   }
 }

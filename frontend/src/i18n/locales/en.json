@@ -1873,5 +1873,94 @@
     "reactivate": "Reactivate",
     "deactivated": "Supplier deactivated",
     "reactivated": "Supplier reactivated"
+  },
+  "home": {
+    "nav": {
+      "label": "Main",
+      "features": "Features",
+      "pricing": "Pricing",
+      "faq": "Questions",
+      "start": "Start free trial"
+    },
+    "hero": {
+      "eyebrow": "Sales and invoicing for South African small businesses",
+      "title": "Win more deals. Get paid faster.",
+      "body": "{{name}} keeps your customers, deals, quotes and invoices in one place, sends VAT-ready documents in a few clicks, and chases what you're owed, so you can get back to selling.",
+      "cta": "Start your free trial",
+      "secondary": "See pricing"
+    },
+    "points": {
+      "noCard": "No card needed",
+      "trial": "14 days free",
+      "cancel": "Cancel any time",
+      "languages": "All 11 official languages"
+    },
+    "pain": {
+      "title": "Sound familiar?",
+      "scattered": {
+        "problem": "Quotes in Word, invoices in Excel, customers in your phone.",
+        "fix": "Every customer, quote, invoice and payment in one place."
+      },
+      "followUps": {
+        "problem": "Follow-ups that slip through the cracks when you're busy.",
+        "fix": "Today's calls and tasks on one screen, and every deal's next step."
+      },
+      "chasing": {
+        "problem": "Evenings spent chasing late payments.",
+        "fix": "{{name}} sends payment reminders for you, and statements in one click."
+      }
+    },
+    "how": {
+      "title": "Up and running in an afternoon",
+      "intro": "No consultants and no long setup. If you can use WhatsApp, you can use YGT.",
+      "setup": {
+        "title": "Set up your business",
+        "body": "Add your logo, VAT number and banking details, and bring in your customers from Excel."
+      },
+      "sell": {
+        "title": "Quote and invoice",
+        "body": "Send professional quotes, turn the accepted ones into tax invoices, and record payments as they arrive."
+      },
+      "grow": {
+        "title": "Follow up and grow",
+        "body": "Track every deal, message customers on WhatsApp and email, and see what's working."
+      }
+    },
+    "features": {
+      "title": "Everything your sales team needs",
+      "intro": "One system instead of five, built for the way South African small businesses sell."
+    },
+    "faq": {
+      "title": "Questions people ask",
+      "card": {
+        "q": "Do I need a card to try it?",
+        "a": "No. Every plan starts with a 14-day free trial. You only add a card when you choose a plan."
+      },
+      "vat": {
+        "q": "Are the invoices ready for SARS?",
+        "a": "Yes. Your VAT number and your client's appear on quotes and tax invoices, with the total excl. VAT, the VAT and the total incl. VAT."
+      },
+      "import": {
+        "q": "Can I bring my existing customers?",
+        "a": "Yes. Import customers, products and deals from a spreadsheet or another CRM in a few minutes."
+      },
+      "phone": {
+        "q": "Does it work on my phone?",
+        "a": "Yes. YGT works in the browser on any phone, tablet or computer, so you can quote from a client's site."
+      },
+      "data": {
+        "q": "Is my data safe?",
+        "a": "Each company's data is kept private and separate from every other company's, in line with POPIA, and you can export it any time."
+      },
+      "help": {
+        "q": "What if I get stuck?",
+        "a": "Log a support ticket in the app, or book a free video session with our team."
+      }
+    },
+    "final": {
+      "title": "You've got this. We've got the admin.",
+      "body": "Start your 14-day free trial today. No card needed.",
+      "talk": "Talk to us"
+    }
   }
 }

@@ -1,6 +1,10 @@
+import { lazy, Suspense } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
+
+// The public home page: what YGT is, for visitors who aren't signed in.
+const HomePage = lazy(() => import("../pages/HomePage"));
 
 export default function ProtectedRoute({ children, roles }) {
   const { user, isLoading, logout } = useAuth();
@@ -16,6 +20,14 @@ export default function ProtectedRoute({ children, roles }) {
   }
 
   if (!user) {
+    // yougt.co.za itself shows the home page; any other app page asks to sign in.
+    if (location.pathname === "/") {
+      return (
+        <Suspense fallback={null}>
+          <HomePage />
+        </Suspense>
+      );
+    }
     return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 

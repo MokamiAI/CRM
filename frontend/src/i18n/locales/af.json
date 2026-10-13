@@ -1873,5 +1873,94 @@
     "reactivate": "Heraktiveer",
     "deactivated": "Verskaffer gedeaktiveer",
     "reactivated": "Verskaffer heraktiveer"
+  },
+  "home": {
+    "nav": {
+      "label": "Hoof",
+      "features": "Kenmerke",
+      "pricing": "Pryse",
+      "faq": "Vrae",
+      "start": "Begin gratis proeftydperk"
+    },
+    "hero": {
+      "eyebrow": "Verkope en fakturering vir Suid-Afrikaanse kleinsakeondernemings",
+      "title": "Wen meer transaksies. Kry vinniger betaal.",
+      "body": "{{name}} hou jou kliënte, transaksies, kwotasies en fakture op een plek, stuur BTW-gereed dokumente met 'n paar klieke, en jaag agter wat jy geskuld word, sodat jy kan teruggaan na verkoop.",
+      "cta": "Begin jou gratis proeftydperk",
+      "secondary": "Sien pryse"
+    },
+    "points": {
+      "noCard": "Geen kaart nodig nie",
+      "trial": "14 dae gratis",
+      "cancel": "Kanselleer enige tyd",
+      "languages": "Al 11 amptelike tale"
+    },
+    "pain": {
+      "title": "Klink dit bekend?",
+      "scattered": {
+        "problem": "Kwotasies in Word, fakture in Excel, kliënte in jou foon.",
+        "fix": "Elke kliënt, kwotasie, faktuur en betaling op een plek."
+      },
+      "followUps": {
+        "problem": "Opvolgwerk wat deur die mat val as jy besig is.",
+        "fix": "Vandag se oproepe en take op een skerm, en elke transaksie se volgende stap."
+      },
+      "chasing": {
+        "problem": "Aande spandeer om laat betalings te jaag.",
+        "fix": "{{name}} stuur betalingsherinnerings vir jou, en state met een klik."
+      }
+    },
+    "how": {
+      "title": "Aan die gang in 'n middag",
+      "intro": "Geen konsultante en geen lang opstelling nie. As jy WhatsApp kan gebruik, kan jy YGT gebruik.",
+      "setup": {
+        "title": "Stel jou besigheid op",
+        "body": "Voeg jou logo, BTW-nommer en bankbesonderhede by, en bring jou kliënte in vanaf Excel."
+      },
+      "sell": {
+        "title": "Kwoteer en faktureer",
+        "body": "Stuur professionele kwotasies, verander die aanvaarde een in belastingfakture, en teken betalings aan soos hulle inkom."
+      },
+      "grow": {
+        "title": "Volg op en groei",
+        "body": "Volg elke transaksie, stuur boodskappe aan kliënte op WhatsApp en e-pos, en sien wat werk."
+      }
+    },
+    "features": {
+      "title": "Alles wat jou verkoopspan nodig het",
+      "intro": "Een stelsel in plaas van vyf, gebou vir die manier waarop Suid-Afrikaanse kleinsakeondernemings verkoop."
+    },
+    "faq": {
+      "title": "Vrae wat mense vra",
+      "card": {
+        "q": "Het ek 'n kaart nodig om dit te probeer?",
+        "a": "Nee. Elke plan begin met 'n gratis proeftydperk van 14 dae. Jy voeg eers 'n kaart by wanneer jy 'n plan kies."
+      },
+      "vat": {
+        "q": "Is die fakture gereed vir SAID?",
+        "a": "Ja. Jou BTW-nommer en jou kliënt s'n verskyn op kwotasies en belastingfakture, met die totaal uitgesluit BTW, die BTW en die totaal ingesluit BTW."
+      },
+      "import": {
+        "q": "Kan ek my bestaande kliënte saambring?",
+        "a": "Ja. Voer kliënte, produkte en transaksies binne 'n paar minute in vanaf 'n sigblad of 'n ander CRM."
+      },
+      "phone": {
+        "q": "Werk dit op my foon?",
+        "a": "Ja. YGT werk in die blaaier op enige foon, tablet of rekenaar, sodat jy op 'n kliënt se perseel kan kwoteer."
+      },
+      "data": {
+        "q": "Is my data veilig?",
+        "a": "Elke maatskappy se data word privaat en apart van elke ander maatskappy s'n gehou, in lyn met POPIA, en jy kan dit enige tyd uitvoer."
+      },
+      "help": {
+        "q": "Wat as ek vashaak?",
+        "a": "Teken 'n ondersteuningskaartjie in die toep aan, of bespreek 'n gratis videosessie met ons span."
+      }
+    },
+    "final": {
+      "title": "Jy kan dit doen. Ons doen die admin.",
+      "body": "Begin vandag jou gratis proeftydperk van 14 dae. Geen kaart nodig nie.",
+      "talk": "Praat met ons"
+    }
   }
 }

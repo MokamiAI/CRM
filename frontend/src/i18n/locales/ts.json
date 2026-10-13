@@ -1873,5 +1873,94 @@
     "reactivate": "Vuyisa",
     "deactivated": "Muphakeri u yimisiwile",
     "reactivated": "Muphakeri u vuyisiwile"
+  },
+  "home": {
+    "nav": {
+      "label": "Nkulu",
+      "features": "Swihlawulekisi",
+      "pricing": "Mintsengo",
+      "faq": "Swivutiso",
+      "start": "Sungula ndzingeto wa mahala"
+    },
+    "hero": {
+      "eyebrow": "Ku xavisa ni tinhlayo-xikoloto eka mabindzu lamatsongo ya Afrika Dzonga",
+      "title": "Hlula switshembiso swo tala. Hakeriwa hi ku hatlisa.",
+      "body": "{{name}} yi hlayisa makhasimende ya wena, switshembiso, swiringanyeto ni tinhlayo-xikoloto endhawini yin'we, yi rhumela tidokumente leti lunghekeleke VAT hi ku tsindzirha kutsongo, naswona yi landzelela mali leyi u kolotiwaka yona, leswaku u vuyela eku xaviseni.",
+      "cta": "Sungula ndzingeto wa wena wa mahala",
+      "secondary": "Vona mintsengo"
+    },
+    "points": {
+      "noCard": "A ku laveki khadi",
+      "trial": "Masiku ya 14 mahala",
+      "cancel": "Khansela nkarhi wun'wana ni wun'wana",
+      "languages": "Tindzimi hinkwato ta 11 ta ximfumo"
+    },
+    "pain": {
+      "title": "Swi twala swi tolovelekile?",
+      "scattered": {
+        "problem": "Swiringanyeto eka Word, tinhlayo-xikoloto eka Excel, makhasimende eka riqingho ra wena.",
+        "fix": "Khasimende yin'wana ni yin'wana, xiringanyeto, nhlayo-xikoloto ni hakelo endhawini yin'we."
+      },
+      "followUps": {
+        "problem": "Ku landzelela loku lahlekaka loko u khomekile.",
+        "fix": "Swiqingho ni mintirho ya namuntlha eka xikirini xin'we, ni goza leri landzelaka ra xitshembiso xin'wana ni xin'wana."
+      },
+      "chasing": {
+        "problem": "Madyambu ya hela u landzelela tihakelo leti hlwelaka.",
+        "fix": "{{name}} yi ku rhumela switsundzuxo swa hakelo, ni swiviko hi ku tsindzirha kan'we."
+      }
+    },
+    "how": {
+      "title": "U sungula hi nhlikanhi wun'we",
+      "intro": "A ku na vatsundzuxi naswona a ku na ku lulamisa ko leha. Loko u kota ku tirhisa WhatsApp, u nga tirhisa YGT.",
+      "setup": {
+        "title": "Lulamisa bindzu ra wena",
+        "body": "Engetela logo ya wena, nomboro ya VAT ni vuxokoxoko bya bangi, kutani u tisa makhasimende ya wena ku suka eka Excel."
+      },
+      "sell": {
+        "title": "Endla swiringanyeto ni tinhlayo-xikoloto",
+        "body": "Rhumela swiringanyeto swa xiyimo xa le henhla, u hundzula leswi amukeriweke swi va tinhlayo-xikoloto ta xibalo, kutani u tsala tihakelo loko ti fika."
+      },
+      "grow": {
+        "title": "Landzelela u kula",
+        "body": "Landzelela xitshembiso xin'wana ni xin'wana, rhumela marungula eka makhasimende hi WhatsApp ni imeyili, kutani u vona leswi tirhaka."
+      }
+    },
+    "features": {
+      "title": "Hinkwaswo leswi ntlawa wa wena wa ku xavisa wu swi lavaka",
+      "intro": "Sisiteme yin'we ematshan'wini ya ntlhanu, leyi akiweke hi ndlela leyi mabindzu lamatsongo ya Afrika Dzonga ma xavisaka ha yona."
+    },
+    "faq": {
+      "title": "Swivutiso leswi vanhu va swi vutisaka",
+      "card": {
+        "q": "Xana ndzi lava khadi ku yi ringeta?",
+        "a": "E-e. Kungu rin'wana ni rin'wana ri sungula hi ndzingeto wa mahala wa masiku ya 14. U engetela khadi ntsena loko u hlawula kungu."
+      },
+      "vat": {
+        "q": "Xana tinhlayo-xikoloto ti lunghekele SARS?",
+        "a": "Ina. Nomboro ya wena ya VAT ni ya khasimende ra wena ti humelela eka swiringanyeto ni tinhlayo-xikoloto ta xibalo, ni hinkwaswo handle ka VAT, VAT ni hinkwaswo ku katsa VAT."
+      },
+      "import": {
+        "q": "Xana ndzi nga tisa makhasimende lawa se ndzi nga na wona?",
+        "a": "Ina. Tisa makhasimende, swiendliwa ni switshembiso ku suka eka spreadsheet kumbe CRM yin'wana hi timinete ti nga ri tingani."
+      },
+      "phone": {
+        "q": "Xana yi tirha eka riqingho ra mina?",
+        "a": "Ina. YGT yi tirha eka burawuza ya riqingho rin'wana ni rin'wana, thebulete kumbe khompyuta, leswaku u kota ku endla xiringanyeto u ri endhawini ya khasimende."
+      },
+      "data": {
+        "q": "Xana data ya mina yi hlayisekile?",
+        "a": "Data ya khamphani yin'wana ni yin'wana yi hlayisiwa yi ri xihundla naswona yi hambanisiwile ni ya tikhamphani tin'wana, hi ku landza POPIA, naswona u nga yi humesa nkarhi wun'wana ni wun'wana."
+      },
+      "help": {
+        "q": "Ku vuriwa yini loko ndzi tsandzeka?",
+        "a": "Pfula thikithi ra mpfuno eka app, kumbe u buka nkarhi wa vhidiyo wa mahala na ntlawa wa hina."
+      }
+    },
+    "final": {
+      "title": "Wa swi kota. Hina hi langutela vulawuri.",
+      "body": "Sungula namuntlha ndzingeto wa wena wa mahala wa masiku ya 14. A ku laveki khadi.",
+      "talk": "Vulavula na hina"
+    }
   }
 }

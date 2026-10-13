@@ -30,7 +30,7 @@ export function PublicShell({ children, narrow = false }) {
     <div className="min-h-[100dvh] bg-white">
       <div className={`safe-top mx-auto px-6 ${narrow ? "max-w-3xl" : "max-w-4xl"}`}>
         <header className="flex items-center gap-2.5 py-6">
-          <Link to={user ? "/" : "/login"} className="flex items-center gap-2.5 rounded-lg">
+          <Link to="/" className="flex items-center gap-2.5 rounded-lg">
             <BrandMark size="sm" />
             <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
           </Link>
