@@ -1,10 +1,15 @@
+import os
 from functools import lru_cache
+from urllib.parse import urlsplit
+
 from pydantic import AnyUrl, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    # YGT_ENV_FILE picks another settings file, e.g. .env.local for work on
+    # a PC against a local database; the default is .env.
+    model_config = SettingsConfigDict(env_file=os.environ.get("YGT_ENV_FILE", ".env"), extra="ignore")
 
     # App
     APP_NAME: str = "YGT"
@@ -92,6 +97,23 @@ class Settings(BaseSettings):
     # Behind a proxy (Caddy, Nginx, a platform's load balancer) the client's
     # address is in X-Forwarded-For; only trust it when that's true.
     TRUST_PROXY_HEADERS: bool = False
+
+    # Outside production the database must be on this machine, so testing
+    # on a PC can never write to live data. Set true only on purpose.
+    ALLOW_REMOTE_DATABASE: bool = False
+
+    @model_validator(mode="after")
+    def _local_database_outside_production(self):
+        if self.ENVIRONMENT == "production" or self.ALLOW_REMOTE_DATABASE:
+            return self
+        for name in ("DATABASE_URL", "DATABASE_URL_MIGRATIONS"):
+            host = urlsplit(getattr(self, name)).hostname or ""
+            if host not in ("localhost", "127.0.0.1", "::1", "db", "postgres"):
+                raise ValueError(
+                    f"{name} points at {host}, but ENVIRONMENT is {self.ENVIRONMENT!r}: development must use a "
+                    "local database. Use .env.local (YGT_ENV_FILE=.env.local), or set ALLOW_REMOTE_DATABASE=true on purpose."
+                )
+        return self
 
     @model_validator(mode="after")
     def _safe_in_production(self):

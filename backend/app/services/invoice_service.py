@@ -72,7 +72,7 @@ class InvoiceService:
     async def create_from_quote(
         self, quote_id: uuid.UUID, data: InvoiceFromQuote, created_by_id: uuid.UUID
     ) -> Invoice:
-        quote = await self.quotes.get_by_id(quote_id)
+        quote = await self.quotes.get_for_update(quote_id)
         if quote is None:
             raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
         if quote.status != QuoteStatus.ACCEPTED:

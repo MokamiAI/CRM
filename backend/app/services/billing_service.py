@@ -5,6 +5,7 @@ What a company can use right now is worked out on read (effective()), so
 an ended trial or a lapsed payment needs no scheduled job: from that
 moment the company is read-only (LOCKED), and keeps all its data."""
 import hashlib
+import logging
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -22,6 +23,8 @@ from app.models.customer import Customer
 from app.models.invoice import Invoice
 from app.models.user import User
 from app.services import paystack
+
+logger = logging.getLogger(__name__)
 
 
 class PlanLimitError(AppError):
@@ -223,6 +226,15 @@ class BillingService:
         await self._apply_charge(await self.subscription(), data)
         return True
 
+    async def _charge_matches_plan(self, data: dict, plan_code: str | None) -> bool:
+        """The charge is in rand, for a plan YGT created, and for at least that
+        plan's amount. Checked against the amount the plan was created with,
+        so renewals at an older price still go through after a price change."""
+        if (data.get("currency") or "").upper() != "ZAR" or not plan_code:
+            return False
+        expected = await self.db.scalar(select(PaystackPlan.amount_cents).where(PaystackPlan.plan_code == plan_code))
+        return expected is not None and int(data.get("amount") or 0) >= expected
+
     async def _apply_charge(self, sub: Subscription, data: dict) -> None:
         reference = data.get("reference")
         # The redirect back and the webhook can arrive together: take turns.
@@ -231,6 +243,11 @@ class BillingService:
             return  # already recorded (confirm and webhook both arrive)
         meta = data.get("metadata") or {}
         plan_code = data.get("plan") if isinstance(data.get("plan"), str) else (data.get("plan") or {}).get("plan_code")
+        if not await self._charge_matches_plan(data, plan_code):
+            # Signed by Paystack, but not a full rand payment for one of our
+            # own plans: record nothing and leave the plan as it is.
+            logger.warning("Paystack charge %s not applied: amount, currency or plan does not match", reference)
+            return
         if meta.get("plan") in PLANS:
             # A new checkout: take the plan chosen there.
             sub.plan, sub.interval, sub.seats = meta["plan"], meta.get("interval", "monthly"), int(meta.get("seats") or 1)

@@ -71,3 +71,11 @@ class QuoteOut(BaseModel):
     items: list[QuoteItemOut]
     created_at: datetime
     updated_at: datetime
+
+
+class QuoteAcceptOut(QuoteOut):
+    """An accepted quote, with the draft invoice made from it (none when the
+    plan had no room for another invoice this month)."""
+
+    invoice_id: uuid.UUID | None = None
+    invoice_number: str | None = None

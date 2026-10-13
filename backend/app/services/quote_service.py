@@ -2,13 +2,17 @@ import uuid
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from sqlalchemy import select
+
 from app.core.exceptions import ConflictError, NotFoundError
 from app.models.enums import QuoteStatus
 from app.models.crm import Deal
+from app.models.invoice import Invoice
 from app.models.quote import Quote, QuoteItem
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.repositories.customer_repository import CustomerRepository
 from app.repositories.quote_repository import QuoteRepository
+from app.schemas.invoice import InvoiceFromQuote
 from app.schemas.quote import QuoteCreate, QuoteUpdate
 from app.services.pricing import build_line_items
 
@@ -103,6 +107,39 @@ class QuoteService:
             )
         quote.status = new_status
         return await self.quotes.save(quote)
+
+    async def accept(self, quote_id: uuid.UUID, accepted_by: uuid.UUID) -> tuple[Quote, Invoice | None]:
+        """Marks a sent quote accepted and, in the same transaction, turns it
+        into a draft invoice for review: same customer, lines, VAT, totals and
+        references. Nothing is emailed; the draft waits for a person to send.
+
+        Safe to repeat: the quote is locked while this runs, so a double
+        click or two people at once get the one draft back. If the plan has
+        no room for another invoice this month, the quote is still accepted
+        and can be converted by hand later."""
+        # Imported here: the billing and invoice services import quote code.
+        from app.services.billing_service import BillingService, PlanLimitError
+        from app.services.invoice_service import InvoiceService
+
+        quote = await self.quotes.get_for_update(quote_id)
+        if quote is None:
+            raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
+        if quote.status == QuoteStatus.CONVERTED:
+            existing = await self.db.scalar(select(Invoice).where(Invoice.quote_id == quote.id))
+            return quote, existing
+        if quote.status != QuoteStatus.ACCEPTED:
+            if QuoteStatus.ACCEPTED not in _ALLOWED_TRANSITIONS.get(quote.status, set()):
+                raise ConflictError(
+                    f"Cannot move quote from {quote.status.value} to accepted", "QUOTE_INVALID_TRANSITION"
+                )
+            quote.status = QuoteStatus.ACCEPTED
+            await self.quotes.save(quote)
+        try:
+            await BillingService(self.db).check_room("invoices_this_month")
+        except PlanLimitError:
+            return quote, None
+        invoice = await InvoiceService(self.db).create_from_quote(quote.id, InvoiceFromQuote(), created_by_id=accepted_by)
+        return quote, invoice
 
     async def delete_quote(self, quote_id: uuid.UUID) -> None:
         quote = await self.get_quote(quote_id)

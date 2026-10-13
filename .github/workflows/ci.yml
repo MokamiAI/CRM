@@ -15,6 +15,24 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    # A throwaway PostgreSQL for the integration tests (tests/integration):
+    # the real API against a real, migrated database.
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql+asyncpg://test:test@localhost:5432/test
+      DATABASE_URL_MIGRATIONS: postgresql+asyncpg://test:test@localhost:5432/test
+      JWT_SECRET: ci-test-secret
+      # Fail, don't skip, if the database isn't there.
+      REQUIRE_TEST_DATABASE: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,6 +43,7 @@ jobs:
       # The same libraries the Docker image installs for PDF rendering.
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libpango-1.0-0 libpangocairo-1.0-0 libcairo2
       - run: pip install -r requirements.txt
+      - run: alembic upgrade head
       - run: pytest -q
 
   frontend:

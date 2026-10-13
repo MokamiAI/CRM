@@ -6,7 +6,9 @@ from app.core.config import settings
 celery_app = Celery(
     "crm",
     broker=settings.REDIS_URL,
-    backend=settings.REDIS_URL,
+    # Results are never read back; stored only on a real Redis. Local work
+    # without Redis uses REDIS_URL=memory:// (jobs accepted, not delivered).
+    backend=settings.REDIS_URL if settings.REDIS_URL.startswith("redis") else None,
     include=[
         "app.tasks.email_tasks",
         "app.tasks.invoice_tasks",

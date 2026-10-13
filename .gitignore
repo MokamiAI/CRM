@@ -32,3 +32,16 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Private keys and local tooling: never commit
+documents
+documents.pub
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+backend/.venv312/
+
+# Browser test output and packages
+e2e/node_modules/
+e2e/out/

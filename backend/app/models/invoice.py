@@ -1,7 +1,7 @@
 import uuid
 from datetime import date
 
-from sqlalchemy import Date, Enum, ForeignKey, Integer, Numeric, String, Text, UniqueConstraint
+from sqlalchemy import Date, Enum, ForeignKey, Index, Integer, Numeric, String, Text, UniqueConstraint, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -13,7 +13,11 @@ from app.models.enums import InvoiceStatus
 
 class Invoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     __tablename__ = "invoices"
-    __table_args__ = (UniqueConstraint("company_id", "invoice_number", name="uq_invoices_company_number"),)
+    __table_args__ = (
+        UniqueConstraint("company_id", "invoice_number", name="uq_invoices_company_number"),
+        # One invoice per quote, however many times it is accepted or converted.
+        Index("uq_invoices_quote_id", "quote_id", unique=True, postgresql_where=text("quote_id IS NOT NULL")),
+    )
 
     invoice_number: Mapped[str] = mapped_column(String(50), index=True, nullable=False)
     customer_id: Mapped[uuid.UUID] = mapped_column(

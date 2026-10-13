@@ -1,0 +1,13 @@
+{
+  "name": "ygt-e2e",
+  "private": true,
+  "type": "module",
+  "description": "Browser regression tests for a LOCAL YGT (see README.md)",
+  "scripts": {
+    "app": "node app.mjs",
+    "public": "node public.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "25.13.0"
+  }
+}

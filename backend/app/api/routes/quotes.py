@@ -10,7 +10,7 @@ from app.core.database import CommitBeforeResponseRoute
 from app.core.exceptions import ConflictError
 from app.models.enums import QuoteStatus, UserRole
 from app.models.user import User
-from app.schemas.quote import QuoteCreate, QuoteOut, QuoteUpdate
+from app.schemas.quote import QuoteAcceptOut, QuoteCreate, QuoteOut, QuoteUpdate
 from app.services.document_service import DocumentService
 from app.services.quote_service import QuoteService
 from app.tasks.email_tasks import send_quote_email_task
@@ -98,13 +98,19 @@ async def resend_quote(
     return quote
 
 
-@router.post("/{quote_id}/accept", response_model=QuoteOut)
+@router.post("/{quote_id}/accept", response_model=QuoteAcceptOut)
 async def accept_quote(
     quote_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
-    _: User = Depends(_can_write),
+    current_user: User = Depends(_can_write),
 ):
-    return await QuoteService(db).transition_status(quote_id, QuoteStatus.ACCEPTED)
+    """Accepts the quote and makes a draft invoice from it, ready to review.
+    Nothing is sent to the customer."""
+    quote, invoice = await QuoteService(db).accept(quote_id, accepted_by=current_user.id)
+    out = QuoteAcceptOut.model_validate(quote)
+    if invoice is not None:
+        out.invoice_id, out.invoice_number = invoice.id, invoice.invoice_number
+    return out
 
 
 @router.post("/{quote_id}/reject", response_model=QuoteOut)
