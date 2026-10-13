@@ -1,8 +1,10 @@
 from collections.abc import AsyncGenerator
+from uuid import uuid4
 
 from fastapi import Request
 from fastapi.routing import APIRoute
 
+from sqlalchemy.engine import make_url
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
@@ -14,12 +16,17 @@ class Base(DeclarativeBase):
 
 
 engine = create_async_engine(
-    settings.DATABASE_URL,
+    # Supabase's transaction pooler can hand a server connection to another
+    # client between transactions, so prepared statements are never cached
+    # (SQLAlchemy's cache here, asyncpg's below) and each gets a unique name,
+    # or two clients collide with DuplicatePreparedStatementError.
+    make_url(settings.DATABASE_URL).update_query_dict({"prepared_statement_cache_size": "0"}),
     echo=settings.DEBUG,
     pool_pre_ping=True,
-    # Supabase's transaction-mode pooler does not support server-side
-    # prepared statement caching across connections.
-    connect_args={"statement_cache_size": 0},
+    connect_args={
+        "statement_cache_size": 0,
+        "prepared_statement_name_func": lambda: f"__asyncpg_{uuid4().hex}__",
+    },
 )
 
 AsyncSessionLocal = async_sessionmaker(
