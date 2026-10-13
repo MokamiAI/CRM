@@ -2016,7 +2016,9 @@
         "a": "Theko e amogetšwe: kgabišo ya molete wa mafelelo a ngwaga, R 27 000",
         "b": "Depositi e amogetšwe: R 13 500",
         "c": "Odara e romeletšwe morekiši wa matšoba: PO-0044"
-      }
+      },
+      "pause": "Emiša",
+      "play": "Bapala"
     },
     "savings": {
       "title": "Nako e a boa. Tšhelete e a boa.",

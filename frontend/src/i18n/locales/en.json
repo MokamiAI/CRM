@@ -2016,7 +2016,9 @@
         "a": "Quote accepted: year-end function décor, R 27 000",
         "b": "Deposit received: R 13 500",
         "c": "Order sent to the florist: PO-0044"
-      }
+      },
+      "pause": "Pause",
+      "play": "Play"
     },
     "savings": {
       "title": "Time back. Money back.",

@@ -2016,7 +2016,9 @@
         "a": "Intengo yamukelwe: ukuhlobisa umgidi wokuphela komnyaka, R 27 000",
         "b": "Idiphozithi ifunyenwe: R 13 500",
         "c": "I-oda ithunyelwe kumthengisi wamaluba: PO-0044"
-      }
+      },
+      "pause": "Jamisa",
+      "play": "Dlala"
     },
     "savings": {
       "title": "Isikhathi siyabuya. Imali iyabuya.",

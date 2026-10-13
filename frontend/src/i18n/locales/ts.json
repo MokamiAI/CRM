@@ -2016,7 +2016,9 @@
         "a": "Xikoweto xi amukeriwile: ku khavisa nkhuvo wa makumu ya lembe, R 27 000",
         "b": "Diphozithi yi amukeriwile: R 13 500",
         "c": "Oda yi rhumeriwile eka muxavisi wa swiluva: PO-0044"
-      }
+      },
+      "pause": "Yimisa",
+      "play": "Tlanga"
     },
     "savings": {
       "title": "Nkarhi wa vuya. Mali ya vuya.",

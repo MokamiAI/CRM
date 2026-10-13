@@ -2016,7 +2016,9 @@
         "a": "Ikowuti yamkelwe: ukuhombisa umsitho wokuphela konyaka, R 27 000",
         "b": "Idiphozithi ifunyenwe: R 13 500",
         "c": "I-odolo ithunyelwe kumthengisi weentyatyambo: PO-0044"
-      }
+      },
+      "pause": "Nqumamisa",
+      "play": "Dlala"
     },
     "savings": {
       "title": "Ixesha liyabuya. Imali iyabuya.",

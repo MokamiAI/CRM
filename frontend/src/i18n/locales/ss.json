@@ -2016,7 +2016,9 @@
         "a": "Intsengo yemukelwe: kuhlobisa umcimbi wekuphela kwemnyaka, R 27 000",
         "b": "Idiphozithi itfoliwe: R 13 500",
         "c": "I-oda litfunyelwe kumtsengisi wetimbali: PO-0044"
-      }
+      },
+      "pause": "Misa kwesikhashana",
+      "play": "Dlala"
     },
     "savings": {
       "title": "Sikhatsi siyabuya. Imali iyabuya.",

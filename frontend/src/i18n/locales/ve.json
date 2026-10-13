@@ -2016,7 +2016,9 @@
         "a": "Mutengo wo ṱanganedzwa: u khavhisa mutambo wa magumo a ṅwaha, R 27 000",
         "b": "Diphosithi yo ṱanganedzwa: R 13 500",
         "c": "Oda yo rumelwa kha murengisi wa maluvha: PO-0044"
-      }
+      },
+      "pause": "Imisa",
+      "play": "Tamba"
     },
     "savings": {
       "title": "Tshifhinga tshi a vhuya. Tshelede i a vhuya.",

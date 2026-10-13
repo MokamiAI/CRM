@@ -2016,7 +2016,9 @@
         "a": "Isingcaphuno samukelwe: ukuhlobisa umcimbi wokuphela konyaka, R 27 000",
         "b": "Idiphozithi itholakele: R 13 500",
         "c": "I-oda lithunyelwe kumthengisi wezimbali: PO-0044"
-      }
+      },
+      "pause": "Misa okwesikhashana",
+      "play": "Dlala"
     },
     "savings": {
       "title": "Isikhathi siyabuya. Imali iyabuya.",

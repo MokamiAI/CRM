@@ -2016,7 +2016,9 @@
         "a": "Kwotasie aanvaar: jaareindfunksie-dekor, R 27 000",
         "b": "Deposito ontvang: R 13 500",
         "c": "Bestelling aan die bloemis gestuur: PO-0044"
-      }
+      },
+      "pause": "Pouseer",
+      "play": "Speel"
     },
     "savings": {
       "title": "Tyd terug. Geld terug.",

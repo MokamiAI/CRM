@@ -6,8 +6,10 @@ import { prefersReducedMotion } from "../../utils/motion";
 /*
  * "See yourself in it": six kinds of SMME that quote for a service or a
  * product, each a photo with what YGT did for them today, arriving as
- * notifications. It advances on its own while on screen (paused on hover or focus, and
- * never under reduced motion), and any one can be picked.
+ * notifications. It moves to the next business on its own every few seconds
+ * while on screen; picking one jumps there and carries on from it. The
+ * pause button stops it (auto-moving content must be pausable). Under
+ * reduced motion it still moves, as a plain fade with no zoom.
  *
  * Photos: Unsplash licence (free for commercial use), see public/home/CREDITS.md.
  * The people pictured are not customers and are given no names or quotes.
@@ -33,12 +35,12 @@ export default function HomePeople() {
   const [paused, setPaused] = useState(false);
   const [onScreen, setOnScreen] = useState(false);
   const [reduce] = useState(prefersReducedMotion);
-  const running = !reduce && !paused && onScreen;
+  const running = !paused && onScreen;
 
   useEffect(() => {
     const el = rootRef.current;
     if (!el || !("IntersectionObserver" in window)) return undefined;
-    const io = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting), { threshold: 0.35 });
+    const io = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting), { threshold: 0.2 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -67,13 +69,7 @@ export default function HomePeople() {
         <p className="mt-2 text-zinc-600">{t("home.people.intro", { name: APP_NAME })}</p>
       </div>
 
-      <div
-        className="reveal mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center"
-        onPointerEnter={() => setPaused(true)}
-        onPointerLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-      >
+      <div className="reveal mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center">
         {/* Photo, with their day arriving as notifications. */}
         <div className="relative aspect-[4/5] max-h-[34rem] w-full overflow-hidden rounded-3xl bg-zinc-200 sm:aspect-[5/4] lg:aspect-[4/5]">
           {PEOPLE.map((p, i) => (
@@ -88,6 +84,18 @@ export default function HomePeople() {
             />
           ))}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <button
+            type="button"
+            onClick={() => setPaused((v) => !v)}
+            aria-pressed={paused}
+            aria-label={t(paused ? "home.people.play" : "home.people.pause")}
+            title={t(paused ? "home.people.play" : "home.people.pause")}
+            className="pressable absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white ring-1 ring-inset ring-white/25 backdrop-blur hover:bg-black/50"
+          >
+            <svg viewBox="0 0 16 16" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
+              {paused ? <path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5Z" /> : <path d="M4.5 3h2.2v10H4.5zM9.3 3h2.2v10H9.3z" />}
+            </svg>
+          </button>
           <div key={person.key} className="absolute inset-x-3 bottom-3 space-y-2 sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[19rem]">
             <p className="people-label inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/25 backdrop-blur">
               {t(`home.people.${person.key}.label`)}

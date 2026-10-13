@@ -2016,7 +2016,9 @@
         "a": "Tlhwatlhwa e amogetswe: dikgabisa tsa moletlo wa bofelo jwa ngwaga, R 27 000",
         "b": "Depositi e amogetswe: R 13 500",
         "c": "Taelo e rometswe kwa morekisi wa malomo: PO-0044"
-      }
+      },
+      "pause": "Emisa",
+      "play": "Tshameka"
     },
     "savings": {
       "title": "Nako e a boa. Madi a a boa.",

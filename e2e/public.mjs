@@ -90,17 +90,17 @@ await anchorTest("Hero: See pricing", "section a", "See pricing", "#pricing", "#
 // People picker
 {
   const p = await fresh();
-  const labels = await p.evaluate(() => [...document.querySelectorAll("button[aria-pressed]")].map((x) => x.textContent.trim()));
+  const labels = await p.evaluate(() => [...document.querySelectorAll("li > button[aria-pressed]")].map((x) => x.textContent.trim()));
   const seen = [];
   for (let i = labels.length - 1; i >= 0; i--) {
     await p.evaluate((i) => {
-      const x = document.querySelectorAll("button[aria-pressed]")[i];
+      const x = document.querySelectorAll("li > button[aria-pressed]")[i];
       x.scrollIntoView({ block: "center", behavior: "instant" });
       x.click();
     }, i);
     await wait(600);
     const st = await p.evaluate((i) => {
-      const btn = document.querySelectorAll("button[aria-pressed]")[i];
+      const btn = document.querySelectorAll("li > button[aria-pressed]")[i];
       const active = document.querySelector(".people-photo[data-active=true]");
       return { pressed: btn.getAttribute("aria-pressed"), label: document.querySelector(".people-label").textContent, loaded: active.complete && active.naturalWidth > 0 };
     }, i);
