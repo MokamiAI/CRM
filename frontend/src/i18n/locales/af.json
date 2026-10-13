@@ -1374,7 +1374,9 @@
     "resetTitle": "Kies 'n nuwe wagwoord",
     "save": "Stoor wagwoord",
     "sendLink": "Stuur terugstelskakel",
-    "sent": "As {{email}} 'n YGT-rekening het, is 'n terugstelskakel op pad. Kyk in jou inkassie (en gemorspos)."
+    "sent": "As {{email}} 'n YGT-rekening het, is 'n terugstelskakel op pad. Kyk in jou inkassie (en gemorspos).",
+    "show": "Wys wagwoord",
+    "hide": "Versteek wagwoord"
   },
   "paymentMethod": {
     "bank_transfer": "Bankoorplasing",
@@ -1443,7 +1445,9 @@
     "sendBody": "Die kwotasie kan nie gewysig word sodra dit gestuur is nie. Totaal {{total}}.",
     "sent": "Kwotasie gestuur",
     "resend": "Stuur kwotasie weer",
-    "resent": "Kwotasie weer gestuur"
+    "resent": "Kwotasie weer gestuur",
+    "acceptedDraft": "Kwotasie aanvaar. Konsepfaktuur {{number}} is gereed om na te gaan.",
+    "reviewDraft": "Gaan konsep na"
   },
   "quoteWeek": {
     "footer": "Elke Maandag om 09:00 'n nuwe een",
@@ -1883,9 +1887,9 @@
       "start": "Begin gratis proeftydperk"
     },
     "hero": {
-      "eyebrow": "Verkope en fakturering vir Suid-Afrikaanse kleinsakeondernemings",
-      "title": "Wen meer transaksies. Kry vinniger betaal.",
-      "body": "{{name}} hou jou kliënte, transaksies, kwotasies en fakture op een plek, stuur BTW-gereed dokumente met 'n paar klieke, en jaag agter wat jy geskuld word, sodat jy kan teruggaan na verkoop.",
+      "eyebrow": "Kwotasies, fakture en kliënte vir KMMOs en professionele dienste",
+      "title": "Minder admin. Meer besigheid.",
+      "body": "{{name}} is die een plek waar jou kliënte, transaksies, kwotasies, fakture en betalings woon, sodat almal met dieselfde bygewerkte syfers werk. Dit volg op en jaag betalings vir jou agterna, en spaar elke week ure en geld wat jy andersins sou verloor, sodat jy op jou besigheid kan fokus.",
       "cta": "Begin jou gratis proeftydperk",
       "secondary": "Sien pryse"
     },
@@ -1894,21 +1898,6 @@
       "trial": "14 dae gratis",
       "cancel": "Kanselleer enige tyd",
       "languages": "Al 11 amptelike tale"
-    },
-    "pain": {
-      "title": "Klink dit bekend?",
-      "scattered": {
-        "problem": "Kwotasies in Word, fakture in Excel, kliënte in jou foon.",
-        "fix": "Elke kliënt, kwotasie, faktuur en betaling op een plek."
-      },
-      "followUps": {
-        "problem": "Opvolgwerk wat deur die mat val as jy besig is.",
-        "fix": "Vandag se oproepe en take op een skerm, en elke transaksie se volgende stap."
-      },
-      "chasing": {
-        "problem": "Aande spandeer om laat betalings te jaag.",
-        "fix": "{{name}} stuur betalingsherinnerings vir jou, en state met een klik."
-      }
     },
     "how": {
       "title": "Aan die gang in 'n middag",
@@ -1928,7 +1917,7 @@
     },
     "features": {
       "title": "Alles wat jou verkoopspan nodig het",
-      "intro": "Een stelsel in plaas van vyf, gebou vir die manier waarop Suid-Afrikaanse kleinsakeondernemings verkoop."
+      "intro": "Een stelsel in plaas van vyf, gebou vir KMMOs, professionele dienste en organisasies."
     },
     "faq": {
       "title": "Vrae wat mense vra",
@@ -1961,6 +1950,83 @@
       "title": "Jy kan dit doen. Ons doen die admin.",
       "body": "Begin vandag jou gratis proeftydperk van 14 dae. Geen kaart nodig nie.",
       "talk": "Praat met ons"
+    },
+    "scene": {
+      "whatsapp": "Hallo! Kan ek 'n kwotasie kry vir 40 kolwyntjies vir Saterdag?",
+      "note": "Bel Thabo terug!!",
+      "sheetMeta": "Deur 3 mense gewysig",
+      "emailFrom": "Rekeninge",
+      "email": "Re: Re: Fwd: Is dit al betaal?",
+      "receipt": "Kasstrokie",
+      "receiptNote": "Betaal?? Kyk by die bank",
+      "today": "Vandag",
+      "allSet": "Alles op datum",
+      "quote": "Kwotasie aan Naledi gestuur",
+      "followUp": "Bel Thabo terug",
+      "followUpWhen": "Môre 09:00",
+      "paid": "INV-0042 betaal",
+      "reminders": "2 betalingsherinnerings gestuur",
+      "auto": "Outomaties",
+      "saved": "Tyd bespaar hierdie week",
+      "whatsappFrom": "Naledi",
+      "sheet": "invoices_FINAL_v3.xlsx",
+      "savedValue": "{{hours}} h {{minutes}} min"
+    },
+    "people": {
+      "title": "Gebou vir KMMOs wat kwoteer, faktureer en groei",
+      "intro": "Of jy 'n diens of 'n produk verkoop, as jy kwotasies en fakture stuur, bestuur {{name}} jou agterkantoor van dag een af, sodat jy gevestig lyk selfs terwyl jy nog begin.",
+      "catering": {
+        "label": "Spyseniering",
+        "alt": "'n Spysenier wat kos vir 'n bestelling braai",
+        "a": "Kwotasie aanvaar: troue vir 120 gaste, R 38 400",
+        "b": "50% deposito ontvang: R 19 200",
+        "c": "Bestelling aan verskaffer gestuur: PO-0031"
+      },
+      "construction": {
+        "label": "Konstruksie en bou",
+        "alt": "'n Kontrakteur op 'n bouterrein",
+        "a": "Kwotasie gestuur: badkameropknapping, R 46 500",
+        "b": "Vorderingsfaktuur betaal: R 15 000",
+        "c": "Terreinbesoek Donderdag 07:30"
+      },
+      "cleaning": {
+        "label": "Skoonmaakdienste",
+        "alt": "'n Skoonmaker wat 'n helder kamer mop",
+        "a": "Maandelikse skoonmaakkontrak aanvaar: R 6 800",
+        "b": "Fakture aan 9 kliënte gestuur",
+        "c": "Herinnering gestuur: 1 faktuur agterstallig"
+      },
+      "it": {
+        "label": "IT en webontwikkeling",
+        "alt": "'n Jong ontwikkelaar met sy skootrekenaar",
+        "a": "Kwotasie gestuur: nuwe webwerf, R 22 000",
+        "b": "Maandelikse hostingfakture gestuur",
+        "c": "Transaksie gewen: besprekingstoep vir 'n kliënt"
+      },
+      "accounting": {
+        "label": "Rekeningkunde en boekhouding",
+        "alt": "'n Boekhouer wat by haar skootrekenaar glimlag",
+        "a": "Maandelikse fooie aan 14 kliënte gefaktureer",
+        "b": "State met een klik gestuur",
+        "c": "Opvolg: BTW-opgawe Vrydag verskuldig"
+      },
+      "events": {
+        "label": "Geleenthede en dekor",
+        "alt": "'n Tafel met blomme vir 'n geleentheid gedek",
+        "a": "Kwotasie aanvaar: jaareindfunksie-dekor, R 27 000",
+        "b": "Deposito ontvang: R 13 500",
+        "c": "Bestelling aan die bloemis gestuur: PO-0044"
+      }
+    },
+    "savings": {
+      "title": "Tyd terug. Geld terug.",
+      "intro": "Skuif die skuifbalke om by jou besigheid te pas.",
+      "docs": "Kwotasies en fakture per maand",
+      "rate": "Wat 'n uur van jou tyd werd is",
+      "hours": "Ure terug elke maand",
+      "money": "Werd elke maand",
+      "year": "Dis omtrent {{days}} werksdae terug elke jaar.",
+      "note": "'n Skatting, nie 'n belofte nie. Dit neem aan dat jy omtrent {{minutes}} minute spaar op elke kwotasie of faktuur wat jy nie meer self hoef uit te tik, te stuur en agterna te jaag nie."
     }
   }
 }

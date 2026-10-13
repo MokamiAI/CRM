@@ -1374,7 +1374,9 @@
     "resetTitle": "Tlhopha lefoko-sephiri le lešwa",
     "save": "Boloka lefoko-sephiri",
     "sendLink": "Romela kgolagano",
-    "sent": "Fa {{email}} e na le akhaonto ya YGT, kgolagano e mo tseleng. Leba mo lebokoseng la gago (le la spam)."
+    "sent": "Fa {{email}} e na le akhaonto ya YGT, kgolagano e mo tseleng. Leba mo lebokoseng la gago (le la spam).",
+    "show": "Bontsha lefoko la sephiri",
+    "hide": "Fitlha lefoko la sephiri"
   },
   "paymentMethod": {
     "bank_transfer": "Phetisetso ya banka",
@@ -1443,7 +1445,9 @@
     "sendBody": "Tekanyetso e ka se fetolwe fa e sena go romelwa. Palogotlhe {{total}}.",
     "sent": "Tekanyetso e rometswe",
     "resend": "Romela tekanyetso gape",
-    "resent": "Tekanyetso e rometswe gape"
+    "resent": "Tekanyetso e rometswe gape",
+    "acceptedDraft": "Tlhwatlhwa e amogetswe. Invoice ya draft {{number}} e siametse go sekasekwa.",
+    "reviewDraft": "Sekaseka draft"
   },
   "quoteWeek": {
     "footer": "Le lešwa Mosupologo mongwe le mongwe ka 9:00",
@@ -1883,9 +1887,9 @@
       "start": "Simolola teko ya mahala"
     },
     "hero": {
-      "eyebrow": "Thekiso le diinvoice tsa dikgwebo tse dinnye tsa Aforika Borwa",
-      "title": "Fenya ditumalano tse dintsi. Duelwa ka bonako.",
-      "body": "{{name}} e boloka badirisi ba gago, ditumalano, ditekanyetso le diinvoice mo lefelong le le lengwe, e romela dikwalo tse di siametseng VAT ka go tobetsa ga mmalwa, mme e latela madi a o a kolotwang, gore o boele kwa thekisong.",
+      "eyebrow": "Ditlhwatlhwa, diinvoice le bareki ba di-SMME le ditirelo tsa seporofešenale",
+      "title": "Dipampiri tse di mmalwa. Nako e ntsi ya kgwebo ya gago.",
+      "body": "{{name}} ke lefelo le le lengwe fa bareki ba gago, ditumalano, ditlhwatlhwa, diinvoice le dituelo di nnang teng, gore botlhe ba dire ka dipalo tse di tshwanang tse di ntšhafaditsweng. E a latedisa e bile e go gopotsa ka dituelo, e go bolokela diura beke le beke le madi a o neng o tla a latlhegelwa, gore o tsepamise mogopolo mo go tsamaiseng kgwebo ya gago.",
       "cta": "Simolola teko ya gago ya mahala",
       "secondary": "Bona ditlhwatlhwa"
     },
@@ -1894,21 +1898,6 @@
       "trial": "Malatsi a le 14 mahala",
       "cancel": "Phimola nako nngwe le nngwe",
       "languages": "Dipuo tsotlhe tse 11 tsa semmuso"
-    },
-    "pain": {
-      "title": "A go utlwala go tlwaelegile?",
-      "scattered": {
-        "problem": "Ditekanyetso mo Word, diinvoice mo Excel, badirisi mo mogaleng wa gago.",
-        "fix": "Mmereki mongwe le mongwe, tekanyetso, invoice le tuelo mo lefelong le le lengwe."
-      },
-      "followUps": {
-        "problem": "Go latela mo go latlhegang fa o tshwaregile.",
-        "fix": "Megala le ditiro tsa gompieno mo sekirining se le sengwe, le kgato e e latelang ya tumalano nngwe le nngwe."
-      },
-      "chasing": {
-        "problem": "Maitseboa a fela o latela ditefo tse di diegileng.",
-        "fix": "{{name}} e go romelela dikgakololo tsa tuelo, le dipego ka go tobetsa gangwe."
-      }
     },
     "how": {
       "title": "O simolola ka motshegare o le mongwe",
@@ -1928,7 +1917,7 @@
     },
     "features": {
       "title": "Sengwe le sengwe se setlhopha sa gago sa thekiso se se tlhokang",
-      "intro": "Thulaganyo e le nngwe go na le tse tlhano, e e diretsweng tsela e dikgwebo tse dinnye tsa Aforika Borwa di rekisang ka yone."
+      "intro": "Thulaganyo e le nngwe go na le tse tlhano, e diretswe di-SMME, ditirelo tsa seporofešenale le mekgatlho."
     },
     "faq": {
       "title": "Dipotso tse batho ba di botsang",
@@ -1961,6 +1950,83 @@
       "title": "O a kgona. Rona re tlhokomela tsamaiso.",
       "body": "Simolola gompieno teko ya gago ya mahala ya malatsi a le 14. Ga go tlhokege karata.",
       "talk": "Bua le rona"
+    },
+    "scene": {
+      "whatsapp": "Dumela! A nka bona tlhwatlhwa ya dikuku tse dinnye di le 40 tsa Matlhatso?",
+      "note": "Leletsa Thabo gape!!",
+      "sheetMeta": "E fetotswe ke batho ba 3",
+      "emailFrom": "Diakhaonto",
+      "email": "Re: Re: Fwd: A e setse e duetswe?",
+      "receipt": "Rasiti",
+      "receiptNote": "E duetswe?? Leba kwa bankeng",
+      "today": "Gompieno",
+      "allSet": "Tsotlhe di ntšhafaditswe",
+      "quote": "Tlhwatlhwa e rometswe kwa go Naledi",
+      "followUp": "Leletsa Thabo",
+      "followUpWhen": "Ka moso 09:00",
+      "paid": "INV-0042 e duetswe",
+      "reminders": "Dikgakololo tsa tuelo di le 2 di rometswe",
+      "auto": "Ka boyona",
+      "saved": "Nako e e bolokilweng beke eno",
+      "whatsappFrom": "Naledi",
+      "sheet": "invoices_FINAL_v3.xlsx",
+      "savedValue": "{{hours}} h {{minutes}} min"
+    },
+    "people": {
+      "title": "E diretswe di-SMME tse di dirang ditlhwatlhwa, diinvoice le go gola",
+      "intro": "Le fa o rekisa tirelo kgotsa setlhagiswa, fa o romela ditlhwatlhwa le diinvoice, {{name}} e tsamaisa ofisi ya gago ya kwa morago go simolola ka letsatsi la ntlha, gore o bonale o tlhomame le fa o sa ntse o simolola.",
+      "catering": {
+        "label": "Dijo tsa meletlo",
+        "alt": "Mophei wa meletlo a besa dijo tsa taelo",
+        "a": "Tlhwatlhwa e amogetswe: lenyalo la baeng ba le 120, R 38 400",
+        "b": "Depositi ya 50% e amogetswe: R 19 200",
+        "c": "Taelo e rometswe kwa mofeding: PO-0031"
+      },
+      "construction": {
+        "label": "Kago",
+        "alt": "Rakonteraka mo lefelong la kago",
+        "a": "Tlhwatlhwa e rometswe: ntšhafatso ya phaposi ya go tlhapela, R 46 500",
+        "b": "Invoice ya kgatelopele e duetswe: R 15 000",
+        "c": "Go etela lefelo Labone 07:30"
+      },
+      "cleaning": {
+        "label": "Ditirelo tsa go phepafatsa",
+        "alt": "Mophepafatsi a phimola bodilo mo phaposing e e phatsimang",
+        "a": "Konteraka ya kgwedi ya go phepafatsa e amogetswe: R 6 800",
+        "b": "Diinvoice di rometswe kwa bareking ba le 9",
+        "c": "Kgakololo e rometswe: invoice e le 1 e fetile nako"
+      },
+      "it": {
+        "label": "IT le tlhabololo ya diwebosaete",
+        "alt": "Motlhami yo mošwa a tshwere laptop ya gagwe",
+        "a": "Tlhwatlhwa e rometswe: webosaete e ntšha, R 22 000",
+        "b": "Diinvoice tsa kgwedi tsa go tshola webosaete di rometswe",
+        "c": "Tumalano e fentswe: app ya go buka ya moreki"
+      },
+      "accounting": {
+        "label": "Akhaonteng le go boloka dibuka",
+        "alt": "Mmolokadibuka a nyenya fa a dira ka laptop ya gagwe",
+        "a": "Dituelo tsa kgwedi di kwaletswe bareki ba le 14",
+        "b": "Dipolelo di rometswe ka go tobetsa gangwe",
+        "c": "Go latedisa: pego ya VAT e tshwanetse ka Labotlhano"
+      },
+      "events": {
+        "label": "Meletlo le dikgabisa",
+        "alt": "Tafole e e kgabisitsweng ka malomo a moletlo",
+        "a": "Tlhwatlhwa e amogetswe: dikgabisa tsa moletlo wa bofelo jwa ngwaga, R 27 000",
+        "b": "Depositi e amogetswe: R 13 500",
+        "c": "Taelo e rometswe kwa morekisi wa malomo: PO-0044"
+      }
+    },
+    "savings": {
+      "title": "Nako e a boa. Madi a a boa.",
+      "intro": "Sutisa di-slider gore di tshwane le kgwebo ya gago.",
+      "docs": "Ditlhwatlhwa le diinvoice ka kgwedi",
+      "rate": "Ura ya nako ya gago e botlhokwa go le kana kang",
+      "hours": "Diura tse di boang kgwedi le kgwedi",
+      "money": "Boleng kgwedi le kgwedi",
+      "year": "Seo ke malatsi a tiro a ka nnang {{days}} a a boang ngwaga le ngwaga.",
+      "note": "Se ke kakanyo, ga se tsholofetso. Se tsaya gore o boloka metsotso e ka nnang {{minutes}} mo tlhwatlhweng kgotsa invoice nngwe le nngwe e o sa tlhokeng go e tlanya, go e romela le go e latedisa ka bowena."
     }
   }
 }

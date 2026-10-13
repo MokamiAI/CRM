@@ -8,7 +8,6 @@ import LoginShowcase from "../components/LoginShowcase";
 import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
 import { usePlans } from "../hooks/useApi";
 import { formatMoneyWhole } from "../utils/format";
-import QuoteOfTheWeek from "../components/QuoteOfTheWeek";
 
 /** The sign-in screens' frame: brand, language, ambient colour and the
  *  product showcase; each screen supplies its own card contents. */
@@ -42,9 +41,6 @@ export function AuthShell({ children }) {
             {children}
           </div>
         </div>
-        {/* Desktop: kept within this (left) half, clear of the showcase. */}
-        <QuoteOfTheWeek className="bottom-[max(env(safe-area-inset-bottom,0px),1rem)] md:bottom-6 md:right-auto md:mx-0 md:left-6 md:w-[min(28rem,calc(46.5vw-3rem))]" />
-
         <footer className="relative flex items-center justify-between py-6 text-xs text-zinc-400">
           <span>
             © {new Date().getFullYear()} {APP_NAME} ·{" "}
@@ -276,8 +272,28 @@ export function RegisterPage() {
 /** Sign-up: which plan to try. Every plan starts with the same free trial. */
 function PlanPicker({ value, onChange }) {
   const { t } = useTranslation();
-  const { data: plans } = usePlans();
-  if (!plans) return null;
+  const { data: plans, isError, refetch, isFetching } = usePlans();
+  // Never an empty step: placeholders while the plans load, and a way to
+  // try again if they can't.
+  if (!plans && isError && !isFetching) {
+    return (
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-zinc-50 px-3 py-3 ring-1 ring-inset ring-zinc-200">
+        <p className="text-sm text-zinc-600">{t("common.loadError")}</p>
+        <button type="button" onClick={() => refetch()} className="btn btn-secondary !h-9 !text-sm">
+          {t("common.tryAgain")}
+        </button>
+      </div>
+    );
+  }
+  if (!plans) {
+    return (
+      <div className="space-y-2" aria-busy="true">
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="h-16 animate-pulse rounded-xl bg-zinc-100 motion-reduce:animate-none" />
+        ))}
+      </div>
+    );
+  }
   return (
     <fieldset>
       <legend className="sr-only">{t("register.planTitle")}</legend>

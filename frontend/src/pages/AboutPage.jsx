@@ -159,9 +159,8 @@ export default function AboutPage() {
 export function Pricing() {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { data: plans } = usePlans();
+  const { data: plans, isError, refetch, isFetching } = usePlans();
   const [interval, setInterval] = useState("monthly");
-  if (!plans) return null;
   const cta = (plan) => {
     if (!user) {
       return (
@@ -188,21 +187,38 @@ export function Pricing() {
           </h2>
           <p className="mt-1 max-w-xl text-sm text-zinc-600">{t("about.pricing.intro", { days: 14 })}</p>
         </div>
-        <IntervalToggle value={interval} onChange={setInterval} />
+        {plans && <IntervalToggle value={interval} onChange={setInterval} />}
       </div>
-      <div className="mt-6 grid gap-4 md:grid-cols-3">
-        {plans.map((plan) => (
-          <PlanCard
-            key={plan.key}
-            plan={plan}
-            interval={interval}
-            users={plan.min_users}
-            highlight={plan.key === "grow"}
-            badge={plan.key === "grow" ? t("billing.popular") : undefined}
-            action={cta(plan)}
-          />
-        ))}
-      </div>
+      {/* The section never vanishes: placeholders while the prices load,
+          and a way to try again if they can't. */}
+      {!plans && isError && !isFetching ? (
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-zinc-50 px-5 py-4 ring-1 ring-inset ring-zinc-200/70">
+          <p className="text-sm text-zinc-600">{t("common.loadError")}</p>
+          <button type="button" onClick={() => refetch()} className="btn btn-secondary !h-9 !text-sm">
+            {t("common.tryAgain")}
+          </button>
+        </div>
+      ) : !plans ? (
+        <div className="mt-6 grid gap-4 md:grid-cols-3" aria-busy="true">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="h-72 animate-pulse rounded-2xl bg-zinc-100 motion-reduce:animate-none" />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {plans.map((plan) => (
+            <PlanCard
+              key={plan.key}
+              plan={plan}
+              interval={interval}
+              users={plan.min_users}
+              highlight={plan.key === "grow"}
+              badge={plan.key === "grow" ? t("billing.popular") : undefined}
+              action={cta(plan)}
+            />
+          ))}
+        </div>
+      )}
       <p className="mt-3 text-xs text-zinc-500">{t("about.pricing.footnote")}</p>
     </section>
   );

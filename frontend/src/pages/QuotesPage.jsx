@@ -233,9 +233,17 @@ export function QuoteDetailPage() {
   });
 
   const transition = useMutation({
-    mutationFn: (outcome) => apiClient.post(`/quotes/${id}/${outcome.action}`).then(() => outcome),
-    onSuccess: (outcome) => {
+    mutationFn: (outcome) => apiClient.post(`/quotes/${id}/${outcome.action}`).then((res) => ({ outcome, quote: res.data })),
+    onSuccess: ({ outcome, quote: updated }) => {
       refresh();
+      // Accepting makes a draft invoice straight away (never sent by itself).
+      if (updated?.invoice_id) {
+        queryClient.invalidateQueries({ queryKey: ["invoices"] });
+        toast.success(t("quote.acceptedDraft", { number: updated.invoice_number }), {
+          action: { label: t("quote.reviewDraft"), onClick: () => navigate(`/invoices/${updated.invoice_id}`) },
+        });
+        return;
+      }
       toast.success(i18n.t(`quote.done.${outcome.action}`));
     },
     onError,

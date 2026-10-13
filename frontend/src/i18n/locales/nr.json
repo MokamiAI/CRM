@@ -1374,7 +1374,9 @@
     "resetTitle": "Khetha iphasiwedi etjha",
     "save": "Gcina iphasiwedi",
     "sendLink": "Thumela ilinki",
-    "sent": "Nange {{email}} ine-akhawunti ye-YGT, ilinki iyeza. Hlola ibhokisi lakho (nelegaxekileko)."
+    "sent": "Nange {{email}} ine-akhawunti ye-YGT, ilinki iyeza. Hlola ibhokisi lakho (nelegaxekileko).",
+    "show": "Tjengisa iphasiwedi",
+    "hide": "Fihla iphasiwedi"
   },
   "paymentMethod": {
     "bank_transfer": "Ukudlulisa ngebhanka",
@@ -1443,7 +1445,9 @@
     "sendBody": "Isilinganiso asikghoni ukuhlelwa nasesithunyelwe. Isamba {{total}}.",
     "sent": "Isilinganiso sithunyelwe",
     "resend": "Thumela isilinganiso godu",
-    "resent": "Isilinganiso sithunyelwe godu"
+    "resent": "Isilinganiso sithunyelwe godu",
+    "acceptedDraft": "Intengo yamukelwe. I-invoyisi esalungiswa {{number}} isilungele ukuqalwa.",
+    "reviewDraft": "Qala esalungiswa"
   },
   "quoteWeek": {
     "footer": "Esitjha qobe ngoMvulo ngo-9:00",
@@ -1883,9 +1887,9 @@
       "start": "Thoma ukulinga simahla"
     },
     "hero": {
-      "eyebrow": "Ukuthengisa nama-invoyisi wamabhizinisi amancani weSewula Afrika",
-      "title": "Zuza iinvumelwano ezinengi. Bhadelwa msinyana.",
-      "body": "I-{{name}} igcina amakhasimende wakho, iinvumelwano, iinlinganiso nama-invoyisi endaweni yinye, ithumela amadokhumenti alungele i-VAT ngokuqhwarha okumbalwa, begodu ilandelela imali okweletwa yona, bona ubuyele ekuthengiseni.",
+      "eyebrow": "Iintengo, ama-invoyisi namakhasimende wama-SMME neenkonzo zobungcweti",
+      "title": "Amaphepha amancani. Isikhathi esinengi sebhizinisi lakho.",
+      "body": "I-{{name}} yindawo yinye lapho amakhasimende wakho, iimvumelwano, iintengo, ama-invoyisi neenkhokhelo zihlala khona, bona woke umuntu asebenze ngeenomboro ezifanako ezisesikhathini. Iyalandelela begodu ikukhumbuzele ngeenkhokhelo, ikongela amahora qobe veke nemali obewuzoyilahlekelwa, bona ugxile ekuqhubeni ibhizinisi lakho.",
       "cta": "Thoma ukulinga kwakho simahla",
       "secondary": "Bona amanani"
     },
@@ -1894,21 +1898,6 @@
       "trial": "Amalanga ali-14 simahla",
       "cancel": "Khansela nanini",
       "languages": "Woke amalimi asemthethweni ali-11"
-    },
-    "pain": {
-      "title": "Kuzwakala kujwayelekile?",
-      "scattered": {
-        "problem": "Iinlinganiso ku-Word, ama-invoyisi ku-Excel, amakhasimende efonini yakho.",
-        "fix": "Woke amakhasimende, iinlinganiso, ama-invoyisi neenbhadelo endaweni yinye."
-      },
-      "followUps": {
-        "problem": "Ukulandelela okulahlekako nawutjhaphakeleko.",
-        "fix": "Iinrhalo nemisebenzi yanamhlanjesi esikrinini sinye, kunye negadango elilandelako lesivumelwano ngasinye."
-      },
-      "chasing": {
-        "problem": "Ukuhlwa kuphela ulandelela iinbhadelo eziphuzileko.",
-        "fix": "I-{{name}} ikuthumelela iinkhumbuzo zokubhadela, kunye neentatimende ngokuqhwarha kanye."
-      }
     },
     "how": {
       "title": "Usebenza ngemva kwesikhathi esifitjhani",
@@ -1928,7 +1917,7 @@
     },
     "features": {
       "title": "Koke okutlhogwa sisiqhema sakho sokuthengisa",
-      "intro": "Ihlelo elilodwa esikhundleni sezihlanu, elakhelwe indlela amabhizinisi amancani weSewula Afrika athengisa ngayo."
+      "intro": "Ihlelo linye esikhundleni sahlanu, elakhelwe ama-SMME, iinkonzo zobungcweti neenhlangano."
     },
     "faq": {
       "title": "Imibuzo abantu abayibuzako",
@@ -1961,6 +1950,83 @@
       "title": "Uyakghona. Thina sitlhogomela ukuphatha.",
       "body": "Thoma namhlanje ukulinga kwakho simahla kwamalanga ali-14. Alitlhogeki ikarada.",
       "talk": "Khuluma nathi"
+    },
+    "scene": {
+      "whatsapp": "Lotjhani! Ngingafumana intengo yamakhekhe amancani ama-40 ngoMgqibelo?",
+      "note": "Ringela uThabo godu!!",
+      "sheetMeta": "Kuhlelwe babantu abathathu",
+      "emailFrom": "Ama-akhawunti",
+      "email": "Re: Re: Fwd: Sekubhadelwe na?",
+      "receipt": "Irisidi",
+      "receiptNote": "Kubhadelwe?? Qala ebhanga",
+      "today": "Namhlanje",
+      "allSet": "Koke kusesikhathini",
+      "quote": "Intengo ithunyelwe kuNaledi",
+      "followUp": "Ringela uThabo",
+      "followUpWhen": "Ngomso 09:00",
+      "paid": "I-INV-0042 ibhadelwe",
+      "reminders": "Iinkhumbuzo zokubhadela ezi-2 zithunyelwe",
+      "auto": "Ngokuzenzakalela",
+      "saved": "Isikhathi esongiweko kuleveke",
+      "whatsappFrom": "Naledi",
+      "sheet": "invoices_FINAL_v3.xlsx",
+      "savedValue": "{{hours}} h {{minutes}} min"
+    },
+    "people": {
+      "title": "Lakhelwe ama-SMME akhupha iintengo, ama-invoyisi begodu akhula",
+      "intro": "Nanyana uthengisa ikonzo namkha umkhiqizo, nawuthumela iintengo nama-invoyisi, i-{{name}} iphatha ihhovisi lakho langemva kusukela ngelanga lokuthoma, bona ubonakale usuzinzile nanyana usathoma.",
+      "catering": {
+        "label": "Ukudla kwemigidi",
+        "alt": "Umpheki wemigidi owosa ukudla kwe-oda",
+        "a": "Intengo yamukelwe: umtjhado weemvakatjhi ezili-120, R 38 400",
+        "b": "Idiphozithi ye-50% ifunyenwe: R 19 200",
+        "c": "I-oda ithunyelwe kumthengisi: PO-0031"
+      },
+      "construction": {
+        "label": "Ukwakha",
+        "alt": "Usonkontraka endaweni yokwakha",
+        "a": "Intengo ithunyelwe: ukulungiswa kwekamera yokugezela, R 46 500",
+        "b": "I-invoyisi yokuragela phambili ibhadelwe: R 15 000",
+        "c": "Ukuvakatjhela isiza ngoLesine 07:30"
+      },
+      "cleaning": {
+        "label": "Iinkonzo zokuhlwengisa",
+        "alt": "Umhlwengisi ohlwengisa phasi ekamereni elikhanyako",
+        "a": "Ikontraka yokuhlwengisa yenyanga yamukelwe: R 6 800",
+        "b": "Ama-invoyisi athunyelwe kumakhasimende ali-9",
+        "c": "Ikhumbuzo ithunyelwe: i-invoyisi yinye isemva"
+      },
+      "it": {
+        "label": "I-IT nokwakhiwa kwamawebhusayidi",
+        "alt": "Unjiniyela omutjha obambe ilaptop yakhe",
+        "a": "Intengo ithunyelwe: iwebhusayidi etjha, R 22 000",
+        "b": "Ama-invoyisi wenyanga wokusingatha athunyelwe",
+        "c": "Isivumelwano siwiniwe: i-app yokubhuka yekhasimende"
+      },
+      "accounting": {
+        "label": "Ukubalwa kwemali nokugcinwa kweencwadi",
+        "alt": "Umgcini-ncwadi omomothekako ngelaptop yakhe",
+        "a": "Iimbadelo zenyanga zifakwe ku-invoyisi zamakhasimende ali-14",
+        "b": "Iintatimende zithunyelwe ngokuqhwarhaza kanye",
+        "c": "Ukulandelela: ibuyiselo ye-VAT ingoLesihlanu"
+      },
+      "events": {
+        "label": "Imigidi nokuhlobisa",
+        "alt": "Itafula elihlotjiswe ngamaluba womgidi",
+        "a": "Intengo yamukelwe: ukuhlobisa umgidi wokuphela komnyaka, R 27 000",
+        "b": "Idiphozithi ifunyenwe: R 13 500",
+        "c": "I-oda ithunyelwe kumthengisi wamaluba: PO-0044"
+      }
+    },
+    "savings": {
+      "title": "Isikhathi siyabuya. Imali iyabuya.",
+      "intro": "Hambisa ama-slider afane nebhizinisi lakho.",
+      "docs": "Iintengo nama-invoyisi ngenyanga",
+      "rate": "Ihora lesikhathi sakho lilingana namalini",
+      "hours": "Amahora abuyako qobe nyanga",
+      "money": "Ubunengi qobe nyanga",
+      "year": "Lokho kuziinsuku zokusebenza ezipheze zibe {{days}} ezibuyako qobe mnyaka.",
+      "note": "Lokhu kulinganisela, akusiso isithembiso. Kucabanga bona wonga imizuzu epheze ibe {{minutes}} entengweni ngayinye namkha ku-invoyisi ongasatlhogi ukuyitlolela, ukuyithumela nokuyilandelela wena."
     }
   }
 }

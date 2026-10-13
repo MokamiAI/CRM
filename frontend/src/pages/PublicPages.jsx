@@ -58,12 +58,12 @@ export function PublicFooter() {
     ["/refunds", t("legal.refunds")],
   ];
   return (
-    <footer className="safe-bottom mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-zinc-100 py-8 text-xs text-zinc-500">
+    <footer className="safe-bottom mt-12 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-zinc-100 py-6 text-xs text-zinc-500">
       <span>
         © {new Date().getFullYear()} {APP_NAME}
       </span>
       {links.map(([to, label]) => (
-        <Link key={to} to={to} className="hover:text-zinc-800">
+        <Link key={to} to={to} className="inline-flex min-h-9 items-center hover:text-zinc-800">
           {label}
         </Link>
       ))}

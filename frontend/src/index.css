@@ -731,3 +731,314 @@ textarea.input:focus {
     animation-name: quote-week-fade;
   }
 }
+
+/* ---- Public home page (yougt.co.za) ----
+   A marketing page, seen once or twice per visitor: the one place the
+   delight budget is spent. Everything is transform/opacity (plus a colour
+   on the struck-through problems), and content is only hidden once JS has
+   armed the reveals (.reveal-armed), so nothing goes missing without it. */
+.hero-rise {
+  animation: hero-rise 640ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+.hero-stage {
+  animation: hero-stage 800ms var(--ease-out) 240ms both;
+}
+@keyframes hero-stage {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+}
+
+/* Scroll reveals: fire once, as a section comes into view. */
+.reveal-armed .reveal,
+.reveal-armed .reveal [data-stagger] {
+  transition:
+    opacity 560ms var(--ease-out),
+    transform 560ms var(--ease-out);
+}
+.reveal-armed .reveal:not([data-visible]) {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.reveal-armed .reveal [data-stagger] {
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.reveal-armed .reveal:not([data-visible]) [data-stagger] {
+  opacity: 0;
+  transform: translateY(16px);
+}
+/* Groups reveal only their children; the wrapper itself stays put. */
+.reveal-armed .reveal[data-group]:not([data-visible]) {
+  opacity: 1;
+  transform: none;
+}
+
+/* Problem → fix: the old way is crossed out, then the fix slides in. */
+.reveal-armed .pain-problem {
+  transition:
+    color 400ms ease,
+    text-decoration-color 400ms ease;
+  transition-delay: calc(300ms + var(--i, 0) * 70ms);
+}
+.reveal-armed .reveal:not([data-visible]) .pain-problem {
+  color: rgb(63 63 70);
+  text-decoration-color: transparent;
+}
+.reveal-armed .pain-fix {
+  transition:
+    opacity 480ms var(--ease-out),
+    transform 480ms var(--ease-out);
+  transition-delay: calc(650ms + var(--i, 0) * 70ms);
+}
+.reveal-armed .reveal:not([data-visible]) .pain-fix {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+/* How it works: the line draws from step 1 to step 3 while the steps land. */
+.how-line {
+  transform-origin: left;
+}
+.reveal-armed .how-line {
+  transition: transform 1100ms var(--ease-in-out) 150ms;
+}
+.reveal-armed .reveal:not([data-visible]) .how-line {
+  transform: scaleX(0);
+}
+.reveal-armed .reveal .how-step {
+  transition-delay: calc(var(--i, 0) * 260ms + 150ms);
+}
+.reveal-armed .how-num {
+  transition:
+    opacity 420ms var(--ease-out),
+    transform 420ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 260ms + 250ms);
+}
+.reveal-armed .reveal:not([data-visible]) .how-num {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* Closing band: settles in, with the brand glow slowly turning behind it. */
+.reveal-armed .cta-band.reveal:not([data-visible]) {
+  transform: translateY(20px) scale(0.98);
+}
+.cta-glow {
+  animation: glow-spin 18s linear infinite;
+}
+
+/* FAQ: the answer opens to its own height; the one place height animates. */
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 220ms var(--ease-out),
+    opacity 180ms var(--ease-out);
+}
+.faq-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.faq-chevron {
+  transition: transform 220ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-stage {
+    animation-name: fade-in;
+    animation-duration: 300ms;
+  }
+  .reveal-armed .reveal:not([data-visible]),
+  .reveal-armed .reveal:not([data-visible]) [data-stagger],
+  .reveal-armed .cta-band.reveal:not([data-visible]),
+  .reveal-armed .reveal:not([data-visible]) .pain-fix,
+  .reveal-armed .reveal:not([data-visible]) .how-num {
+    transform: none;
+  }
+  .reveal-armed .reveal:not([data-visible]) .how-line {
+    transform: none;
+    opacity: 0;
+  }
+  .reveal-armed .how-line {
+    transition: opacity 400ms ease;
+  }
+  .cta-glow {
+    animation: none;
+  }
+}
+
+/* ---- Home hero scene: the scattered desk tidied into one screen ----
+   The clutter flies via WAAPI (HomeScene.jsx); the window and its rows
+   follow data-phase with transitions, so a loop restart retargets
+   instead of jumping. */
+.scene-bob {
+  animation: scene-bob 6s var(--ease-in-out) infinite alternate;
+}
+.scene-bob--late {
+  animation-delay: -2.2s;
+}
+@keyframes scene-bob {
+  to {
+    transform: translateY(-5px);
+  }
+}
+.scene-receipt {
+  /* A torn, zig-zag bottom edge. */
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 10px 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 10px 100%;
+}
+.scene-window {
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  transition:
+    opacity 450ms var(--ease-out),
+    transform 450ms var(--ease-out);
+}
+.scene[data-phase="sorted"] .scene-window {
+  opacity: 1;
+  transform: none;
+  transition-duration: 800ms;
+  transition-delay: 900ms;
+}
+.scene-row {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+.scene[data-phase="sorted"] .scene-row {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 650ms var(--ease-out),
+    transform 650ms var(--ease-out);
+  transition-delay: calc(1700ms + var(--i, 0) * 300ms);
+}
+.scene-tick {
+  transform: scale(0.6);
+  transition: transform 200ms ease;
+}
+.scene[data-phase="sorted"] .scene-tick {
+  transform: none;
+  transition: transform 600ms var(--ease-out);
+  transition-delay: calc(1800ms + var(--i, 0) * 300ms);
+}
+
+/* ---- Home: "see yourself in it" ---- */
+.people-photo {
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 700ms ease,
+    transform 6s linear;
+}
+.people-photo[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+}
+.people-label {
+  animation: rise-in 360ms var(--ease-out) both;
+}
+.people-note {
+  animation: people-note 460ms var(--ease-out) both;
+  animation-delay: calc(350ms + var(--i, 0) * 420ms);
+}
+@keyframes people-note {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+}
+.people-progress {
+  transform-origin: left;
+  animation: people-progress linear both;
+}
+@keyframes people-progress {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* ---- Home: savings sliders ----
+   The input is a 32px touch target; the visible track is 6px inside it. */
+.savings-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 32px;
+  background: transparent;
+  cursor: pointer;
+}
+.savings-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, rgb(79 70 229) var(--fill), rgb(228 228 231) var(--fill));
+}
+.savings-range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, rgb(79 70 229) var(--fill), rgb(228 228 231) var(--fill));
+}
+.savings-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: -8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08), 0 2px 6px rgb(0 0 0 / 0.2);
+  transition: transform 160ms var(--ease-out);
+}
+.savings-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08), 0 2px 6px rgb(0 0 0 / 0.2);
+  transition: transform 160ms var(--ease-out);
+}
+.savings-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+.savings-range:active::-moz-range-thumb {
+  transform: scale(1.12);
+}
+.savings-range:focus-visible {
+  outline: 2px solid rgb(99 102 241);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.savings-money {
+  background: linear-gradient(90deg, #a5b4fc, #c4b5fd, #7dd3fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-bob {
+    animation: none;
+  }
+  .scene-clutter {
+    display: none;
+  }
+  .people-photo {
+    transform: none;
+    transition: opacity 300ms ease;
+  }
+  .people-note,
+  .people-label {
+    animation-name: fade-in;
+  }
+}

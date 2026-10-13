@@ -67,10 +67,10 @@ function markSeen(who, key) {
 }
 
 /** The sales quote of the week: a card pinned to the bottom of the screen,
- *  shown once per person per week from Monday 09:00. `who` is the user's id,
- *  or "guest" on the sign-in and sign-up screens. `hold` delays it (e.g. while
- *  the welcome tour is running). */
-export default function QuoteOfTheWeek({ who = "guest", hold = false, className = "" }) {
+ *  shown once per person per week from Monday 09:00, inside the app only
+ *  (never on sign-in or sign-up). `who` is the user's id. `hold` delays it
+ *  (e.g. while the welcome tour is running). */
+export default function QuoteOfTheWeek({ who, hold = false, className = "" }) {
   const { t } = useTranslation();
   const [week, setWeek] = useState(() => quoteWeek());
   const [state, setState] = useState("hidden"); // hidden | open | closing
@@ -83,8 +83,6 @@ export default function QuoteOfTheWeek({ who = "guest", hold = false, className 
 
   useEffect(() => {
     if (hold || state !== "hidden") return undefined;
-    // Seen on this device before signing in counts for the person too.
-    if (who !== "guest" && seen("guest") === week.key) markSeen(who, week.key);
     if (seen(who) === week.key) return undefined;
     const timer = setTimeout(() => setState("open"), 900);
     return () => clearTimeout(timer);

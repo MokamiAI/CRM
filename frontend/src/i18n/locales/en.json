@@ -1374,7 +1374,9 @@
     "resetTitle": "Choose a new password",
     "save": "Save password",
     "sendLink": "Send reset link",
-    "sent": "If {{email}} has a YGT account, a reset link is on its way. Check your inbox (and spam folder)."
+    "sent": "If {{email}} has a YGT account, a reset link is on its way. Check your inbox (and spam folder).",
+    "show": "Show password",
+    "hide": "Hide password"
   },
   "paymentMethod": {
     "bank_transfer": "Bank transfer",
@@ -1443,7 +1445,9 @@
     "sendBody": "The quote can't be edited once it's sent. Total {{total}}.",
     "sent": "Quote sent",
     "resend": "Resend quote",
-    "resent": "Quote sent again"
+    "resent": "Quote sent again",
+    "acceptedDraft": "Quote accepted. Draft invoice {{number}} is ready to review.",
+    "reviewDraft": "Review draft"
   },
   "quoteWeek": {
     "footer": "A new one every Monday at 9:00",
@@ -1883,9 +1887,9 @@
       "start": "Start free trial"
     },
     "hero": {
-      "eyebrow": "Sales and invoicing for South African small businesses",
-      "title": "Win more deals. Get paid faster.",
-      "body": "{{name}} keeps your customers, deals, quotes and invoices in one place, sends VAT-ready documents in a few clicks, and chases what you're owed, so you can get back to selling.",
+      "eyebrow": "Quotes, invoices and customers for SMMEs and professional services",
+      "title": "Less admin. More business.",
+      "body": "{{name}} is the one place your customers, deals, quotes, invoices and payments live, so everyone works from the same up-to-date numbers. It follows up and chases payments for you, saving hours every week and money you'd otherwise lose, so you can focus on running your business.",
       "cta": "Start your free trial",
       "secondary": "See pricing"
     },
@@ -1894,21 +1898,6 @@
       "trial": "14 days free",
       "cancel": "Cancel any time",
       "languages": "All 11 official languages"
-    },
-    "pain": {
-      "title": "Sound familiar?",
-      "scattered": {
-        "problem": "Quotes in Word, invoices in Excel, customers in your phone.",
-        "fix": "Every customer, quote, invoice and payment in one place."
-      },
-      "followUps": {
-        "problem": "Follow-ups that slip through the cracks when you're busy.",
-        "fix": "Today's calls and tasks on one screen, and every deal's next step."
-      },
-      "chasing": {
-        "problem": "Evenings spent chasing late payments.",
-        "fix": "{{name}} sends payment reminders for you, and statements in one click."
-      }
     },
     "how": {
       "title": "Up and running in an afternoon",
@@ -1928,7 +1917,7 @@
     },
     "features": {
       "title": "Everything your sales team needs",
-      "intro": "One system instead of five, built for the way South African small businesses sell."
+      "intro": "One system instead of five, built for SMMEs, professional services and organisations."
     },
     "faq": {
       "title": "Questions people ask",
@@ -1961,6 +1950,83 @@
       "title": "You've got this. We've got the admin.",
       "body": "Start your 14-day free trial today. No card needed.",
       "talk": "Talk to us"
+    },
+    "scene": {
+      "whatsapp": "Hi! Can I get a quote for 40 cupcakes for Saturday?",
+      "note": "Call Thabo back!!",
+      "sheetMeta": "Edited by 3 people",
+      "emailFrom": "Accounts",
+      "email": "Re: Re: Fwd: Has this been paid?",
+      "receipt": "Till slip",
+      "receiptNote": "Paid?? Check the bank",
+      "today": "Today",
+      "allSet": "All up to date",
+      "quote": "Quote sent to Naledi",
+      "followUp": "Call Thabo back",
+      "followUpWhen": "Tomorrow 09:00",
+      "paid": "INV-0042 paid",
+      "reminders": "2 payment reminders sent",
+      "auto": "Automatic",
+      "saved": "Time saved this week",
+      "whatsappFrom": "Naledi",
+      "sheet": "invoices_FINAL_v3.xlsx",
+      "savedValue": "{{hours}} h {{minutes}} min"
+    },
+    "people": {
+      "title": "Built for SMMEs that quote, invoice and grow",
+      "intro": "Whether you sell a service or a product, if you send quotes and invoices, {{name}} runs your back office from day one, so you look established even while you're starting out.",
+      "catering": {
+        "label": "Catering",
+        "alt": "A caterer grilling food for an order",
+        "a": "Quote accepted: wedding for 120 guests, R 38 400",
+        "b": "50% deposit received: R 19 200",
+        "c": "Order sent to supplier: PO-0031"
+      },
+      "construction": {
+        "label": "Construction and building",
+        "alt": "A contractor on a building site",
+        "a": "Quote sent: bathroom renovation, R 46 500",
+        "b": "Progress invoice paid: R 15 000",
+        "c": "Site visit Thursday 07:30"
+      },
+      "cleaning": {
+        "label": "Cleaning services",
+        "alt": "A cleaner mopping a bright room",
+        "a": "Monthly cleaning contract accepted: R 6 800",
+        "b": "Invoices sent to 9 clients",
+        "c": "Reminder sent: 1 invoice overdue"
+      },
+      "it": {
+        "label": "IT and web development",
+        "alt": "A young developer holding his laptop",
+        "a": "Quote sent: new website, R 22 000",
+        "b": "Monthly hosting invoices sent",
+        "c": "Deal won: booking app for a client"
+      },
+      "accounting": {
+        "label": "Accounting and bookkeeping",
+        "alt": "A bookkeeper smiling at her laptop",
+        "a": "Monthly fees invoiced to 14 clients",
+        "b": "Statements sent in one click",
+        "c": "Follow-up: VAT return due Friday"
+      },
+      "events": {
+        "label": "Events and décor",
+        "alt": "A table dressed with flowers for an event",
+        "a": "Quote accepted: year-end function décor, R 27 000",
+        "b": "Deposit received: R 13 500",
+        "c": "Order sent to the florist: PO-0044"
+      }
+    },
+    "savings": {
+      "title": "Time back. Money back.",
+      "intro": "Move the sliders to match your business.",
+      "docs": "Quotes and invoices a month",
+      "rate": "What an hour of your time is worth",
+      "hours": "Hours back every month",
+      "money": "Worth every month",
+      "year": "That's about {{days}} working days back every year.",
+      "note": "An estimate, not a promise. It assumes about {{minutes}} minutes saved on each quote or invoice you no longer type up, send and chase yourself."
     }
   }
 }
