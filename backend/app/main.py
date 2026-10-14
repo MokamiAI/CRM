@@ -11,6 +11,7 @@ from app.api.routes import (
     custom_fields,
     customers,
     data,
+    discovery,
     invoices,
     marketing,
     messaging,
@@ -60,6 +61,7 @@ app.include_router(quotes.router, prefix=settings.API_V1_PREFIX)
 app.include_router(purchasing.router, prefix=settings.API_V1_PREFIX)
 app.include_router(invoices.router, prefix=settings.API_V1_PREFIX)
 app.include_router(recurring.router, prefix=settings.API_V1_PREFIX)
+app.include_router(discovery.router, prefix=settings.API_V1_PREFIX)
 app.include_router(payments.router, prefix=settings.API_V1_PREFIX)
 app.include_router(company_settings.router, prefix=settings.API_V1_PREFIX)
 app.include_router(company_settings.profile_router, prefix=settings.API_V1_PREFIX)

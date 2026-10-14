@@ -1,110 +1,118 @@
-import { Link } from "react-router-dom";
-import { useActivities, useCustomerMap, useInvoices, useQuotes, useReportSummary, useTeamMap } from "../hooks/useApi";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useActivities, useCustomerMap, useCustomerOverview, useDeals, useInvoices, useQuotes, useReportSummary, useTeamMap } from "../hooks/useApi";
 import GetStarted from "../components/GetStarted";
 import { useAuth } from "../context/AuthContext";
 import i18n from "../i18n";
-import { BarList, ColumnChart } from "../components/charts";
-import { ActivityIcon, ActivityRow, STAGE_LABELS, useToggleActivity } from "../components/crm";
+import { useToggleActivity } from "../components/crm";
 import { PlanBanner } from "../components/Billing";
-import { Avatar, ButtonLink, ErrorState, ListSkeleton, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
-import { formatMoney, formatShortDate } from "../utils/format";
+import { ButtonLink, ErrorState, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
+import { Link } from "react-router-dom";
+import {
+  KpiCard,
+  OwedList,
+  Panel,
+  PipelineBoard,
+  QuickActions,
+  RecentCustomers,
+  RevenueChart,
+  UpcomingList,
+  ViewAll,
+} from "../components/dashboard";
+import { formatMoney, formatMoneyWhole, formatShortDate, todayISO } from "../utils/format";
 
 function greeting() {
   const hour = new Date().getHours();
   return i18n.t(hour < 12 ? "dashboard.morning" : hour < 18 ? "dashboard.afternoon" : "dashboard.evening");
 }
 
-function Panel({ title, action, children, className = "", tour }) {
+const RANGES = [3, 6, 12];
+const OPEN_STAGES = ["lead", "qualified", "proposal", "negotiation"];
+
+/** Skeleton in the dashboard's own shape, so nothing jumps when it loads. */
+function DashboardSkeleton() {
+  const block = "animate-pulse rounded-2xl bg-slate-200/60 motion-reduce:animate-none";
   return (
-    <section className={`card flex min-w-0 flex-col ${className}`} data-tour={tour}>
-      <div className="flex items-center justify-between gap-2 border-b border-zinc-100 px-5 py-3.5">
-        <h2 className="text-sm font-semibold text-zinc-900">{title}</h2>
-        {action}
+    <div className="space-y-5" aria-busy="true">
+      <div className={`${block} h-24`} />
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className={`${block} h-24`} />
+        ))}
       </div>
-      <div className="flex-1">{children}</div>
-    </section>
+      <div className="grid gap-5 xl:grid-cols-3">
+        <div className={`${block} h-80 xl:col-span-2`} />
+        <div className={`${block} h-80`} />
+      </div>
+    </div>
   );
 }
 
-// Feed entries are phrased in the user's language from kind + params.
-function feedTitle(item) {
-  const t = i18n.t.bind(i18n);
-  if (item.kind === "activity") return t("feed.activityDone", { type: t(`activityType.${item.params?.type ?? "task"}`) });
-  if (item.kind === "payment") return t("feed.payment");
-  if (item.kind === "note") return t("feed.note");
-  if (item.kind === "deal_won") return t("feed.dealWon");
-  if (item.kind === "deal_lost") return t("feed.dealLost");
-  return item.title;
-}
-
-function feedDetail(item) {
-  if (item.kind === "payment" && item.params?.amount) return `${item.params.number} · ${formatMoney(item.params.amount)}`;
-  return item.detail;
-}
-
-const PanelLink = ({ to, children }) => (
-  <Link to={to} className="text-xs font-medium text-zinc-500 hover:text-zinc-900">
-    {children} →
-  </Link>
-);
-
-// Stat tile: label, value (proportional figures at display size), detail.
-function Kpi({ label, value, detail, to }) {
-  return (
-    <Link to={to} className="card block px-5 py-4 transition-shadow duration-150 hover:shadow-pop">
-      <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</p>
-      <p className="mt-1.5 text-xl font-semibold tracking-tight text-zinc-900 sm:text-2xl">{value}</p>
-      <p className="mt-0.5 text-xs text-zinc-500">{detail}</p>
-    </Link>
-  );
-}
-
-const FEED_ICON = { note: "note", activity: "task", payment: "task", deal_won: "deadline", deal_lost: "deadline" };
-const FEED_TINT = {
-  note: "bg-amber-50 text-amber-700",
-  activity: "bg-sky-50 text-sky-700",
-  payment: "bg-emerald-50 text-emerald-700",
-  deal_won: "bg-violet-50 text-violet-700",
-  deal_lost: "bg-zinc-100 text-zinc-500",
-};
-
-function feedLink(item) {
-  if (item.invoice_id) return `/invoices/${item.invoice_id}`;
-  if (item.deal_id) return `/deals/${item.deal_id}`;
-  if (item.customer_id) return `/customers/${item.customer_id}`;
-  return null;
-}
-
-function ago(iso) {
-  const minutes = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
-  if (minutes < 60) return `${Math.max(minutes, 1)}m`;
-  if (minutes < 60 * 24) return `${Math.round(minutes / 60)}h`;
-  return `${Math.round(minutes / (60 * 24))}d`;
+/** Month-on-month change, only when last month had something to compare. */
+function change(series) {
+  const now = Number(series.at(-1)?.total ?? 0);
+  const before = Number(series.at(-2)?.total ?? 0);
+  return before > 0 ? (now - before) / before : null;
 }
 
 export default function DashboardPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { data: s, isLoading, isError, refetch } = useReportSummary();
-  const { data: overdue = [] } = useInvoices({ status: "overdue" });
-  const { data: sentQuotes = [] } = useQuotes({ status: "sent" });
+  const { data: openDeals = [] } = useDeals({ status: "open" });
+  const { data: wonDeals = [] } = useDeals({ status: "won" });
   const { data: overdueActs = [] } = useActivities({ scope: "overdue", mine: true });
   const { data: todayActs = [] } = useActivities({ scope: "today", mine: true });
+  const { data: nextActs = [] } = useActivities({ scope: "upcoming", mine: true });
+  const { data: overdueInv = [] } = useInvoices({ status: "overdue" });
+  const { data: sentInv = [] } = useInvoices({ status: "sent" });
+  const { data: partInv = [] } = useInvoices({ status: "partially_paid" });
+  const { data: overview = [] } = useCustomerOverview();
+  const { data: sentQuotes = [] } = useQuotes({ status: "sent" });
   const customers = useCustomerMap();
   const team = useTeamMap();
   const toggle = useToggleActivity();
+  const [range, setRange] = useState(6);
+  const today = todayISO();
+  const canWrite = user?.role !== "viewer";
 
-  if (isLoading) return <ListSkeleton rows={5} />;
+  const monthStart = today.slice(0, 8) + "01";
+  const wonThisMonth = useMemo(() => wonDeals.filter((d) => d.closed_at && d.closed_at.slice(0, 10) >= monthStart), [wonDeals, monthStart]);
+  const owed = useMemo(
+    () => [...overdueInv, ...partInv, ...sentInv].sort((a, b) => (a.due_date ?? "9999").localeCompare(b.due_date ?? "9999")).slice(0, 5),
+    [overdueInv, partInv, sentInv]
+  );
+  const recent = useMemo(
+    () => overview.filter((c) => c.is_active).sort((a, b) => (b.last_activity_at ?? "").localeCompare(a.last_activity_at ?? "")).slice(0, 5),
+    [overview]
+  );
+
+  if (isLoading) return <DashboardSkeleton />;
   if (isError) return <ErrorState onRetry={refetch} />;
 
   const firstName = user?.full_name?.split(" ")[0];
-  const share = Number(s.outstanding) > 0 ? Number(s.overdue) / Number(s.outstanding) : 0;
-  const thisMonth = s.collected_by_month.at(-1);
-  const myDay = [...overdueActs, ...todayActs];
+  const upcoming = [...overdueActs, ...todayActs, ...nextActs].slice(0, 5);
+  const months = s.invoiced_by_month.slice(-range).map((m, i, list) => ({
+    month: m.month,
+    invoiced: Number(m.total),
+    collected: Number(s.collected_by_month.slice(-range)[i]?.total ?? 0),
+    last: i === list.length - 1,
+  }));
+  const hasMoney = months.some((m) => m.invoiced > 0 || m.collected > 0);
+  const stages = [
+    ...s.pipeline.filter((p) => OPEN_STAGES.includes(p.stage)),
+    { stage: "won", count: s.won_this_month.count, value: s.won_this_month.value },
+  ];
+  const quick = [
+    { to: "/customers?new=1", icon: "plusUser", label: t("dashboard.quick.customer") },
+    { to: "/deals?new=1", icon: "deals", label: t("dashboard.quick.deal") },
+    { to: "/quotes/new", icon: "quote", label: t("dashboard.quick.quote") },
+    { to: "/invoices/new", icon: "invoice", label: t("dashboard.quick.invoice") },
+    { to: "/activities?new=1", icon: "activity", label: t("dashboard.quick.activity") },
+  ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <PageHeader
         title={
           firstName ? (
@@ -117,7 +125,7 @@ export default function DashboardPage() {
         }
         subtitle={t("dashboard.subtitle")}
         actions={
-          user?.role !== "viewer" && (
+          canWrite && (
             <>
               <ButtonLink variant="secondary" to="/deals?new=1" className="hidden sm:inline-flex">
                 {t("dashboard.newDeal")}
@@ -133,206 +141,140 @@ export default function DashboardPage() {
       <PlanBanner />
       <GetStarted />
 
-      {/* KPI strip: the four numbers a sales lead checks first. */}
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4" data-tour="dash-kpis">
-        <Kpi label={t("dashboard.kpi.pipeline")} value={formatMoney(s.open_pipeline_value)} detail={t("dashboard.openDeals", { count: s.open_deal_count })} to="/deals" />
-        <Kpi label={t("dashboard.kpi.won")} value={formatMoney(s.won_this_month.value)} detail={t("dashboard.deals", { count: s.won_this_month.count })} to="/deals" />
-        <Kpi label={t("dashboard.kpi.winRate")} value={s.win_rate == null ? "—" : `${Math.round(s.win_rate * 100)}%`} detail={t("dashboard.kpi.winRateDetail")} to="/deals" />
-        <Kpi label={t("dashboard.kpi.avgDeal")} value={s.avg_won_deal == null ? "—" : formatMoney(s.avg_won_deal)} detail={t("dashboard.kpi.avgDealDetail")} to="/deals" />
+      {/* The four numbers to check first, each a door to its page. */}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4" data-tour="dash-kpis">
+        <KpiCard
+          to="/invoices"
+          icon="cash"
+          tone="emerald"
+          label={t("dashboard.kpi.collected")}
+          value={formatMoneyWhole(s.collected_by_month.at(-1).total)}
+          change={change(s.collected_by_month)}
+          detail={t("dashboard.kpi.thisMonth")}
+          spark={s.collected_by_month.slice(-6).map((m) => Number(m.total))}
+          sparkColor="#059669"
+        />
+        <KpiCard
+          to="/invoices/aging"
+          icon="invoice"
+          tone="amber"
+          label={t("dashboard.kpi.outstanding")}
+          value={formatMoneyWhole(s.outstanding)}
+          detail={Number(s.overdue) > 0 ? t("dashboard.overdueAmount", { amount: formatMoneyWhole(s.overdue) }) : t("dashboard.acrossInvoices", { count: s.open_invoice_count })}
+        />
+        <KpiCard
+          to="/deals"
+          icon="deals"
+          tone="blue"
+          label={t("dashboard.kpi.openDeals")}
+          value={formatMoneyWhole(s.open_pipeline_value)}
+          detail={t("dashboard.openDeals", { count: s.open_deal_count })}
+        />
+        <KpiCard
+          to="/customers"
+          icon="customers"
+          tone="violet"
+          label={t("dashboard.kpi.customers")}
+          value={s.active_customers.toLocaleString(i18n.language)}
+          detail={t("dashboard.kpi.newThisMonth", { count: s.new_customers_this_month })}
+        />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3" data-tour="dash-charts">
-        <Panel title={t("dashboard.pipelineByStage")} action={<PanelLink to="/deals">{t("dashboard.board")}</PanelLink>}>
-          <div className="px-5 py-5">
-            <BarList
-              ariaLabel={t("dashboard.pipelineByStageAria")}
-              rows={s.pipeline.map((p) => ({ label: STAGE_LABELS[p.stage], value: p.value, detail: t("dashboard.deals", { count: p.count }) }))}
-            />
-          </div>
-        </Panel>
-
-        <Panel title={t("dashboard.cashCollected")} action={<span className="text-xs text-zinc-500">{t("dashboard.last6Months")}</span>}>
-          <div className="px-5 pb-4 pt-6">
-            <ColumnChart ariaLabel={t("dashboard.cashCollectedAria")} data={s.collected_by_month} />
-            <p className="mt-3 text-xs text-zinc-500">{t("dashboard.collectedThisMonth", { amount: formatMoney(thisMonth.total) })}</p>
-          </div>
-        </Panel>
-
-        <Panel title={t("dashboard.receivables")} action={<PanelLink to="/invoices/aging">{t("aging.link")}</PanelLink>}>
-          <div className="relative overflow-hidden px-5 pt-5">
-            <span className="pointer-events-none absolute -right-16 -top-20 h-48 w-64 rounded-full bg-violet-400/15 blur-3xl" aria-hidden="true" />
-            <p className="relative text-xs font-medium uppercase tracking-wide text-zinc-500">{t("dashboard.outstanding")}</p>
-            <p className="relative mt-1 text-4xl font-semibold tracking-tight text-zinc-900">{formatMoney(s.outstanding)}</p>
-            <p className="relative mt-0.5 text-xs text-zinc-500">{t("dashboard.acrossInvoices", { count: s.open_invoice_count })}</p>
-            {/* Meter: severity fill on a lighter step of the same ramp, with words. */}
-            <div
-              className="mt-4 flex h-2 overflow-hidden rounded-full bg-red-100"
-              role="meter"
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={Math.round(share * 100)}
-              aria-label={t("dashboard.overdueShare")}
-            >
-              <div className="rounded-full bg-red-500" style={{ width: `${Math.max(share * 100, share > 0 ? 2 : 0)}%` }} />
-            </div>
-            <p className="mt-2 flex items-center justify-between text-xs">
-              <span className="inline-flex items-center gap-1.5 text-zinc-700">
-                <span className="h-2 w-2 rounded-full bg-red-500" aria-hidden="true" />
-                {t("dashboard.overdueAmount", { amount: formatMoney(s.overdue) })}
-              </span>
-              <span className="text-zinc-500">{Math.round(share * 100)}%</span>
-            </p>
-          </div>
-          <ul className="mt-4 divide-y divide-zinc-100 border-t border-zinc-100">
-            {overdue.slice(0, 3).map((inv) => (
-              <li key={inv.id}>
-                <Link to={`/invoices/${inv.id}`} className="flex items-center justify-between gap-3 px-5 py-2.5 text-sm hover:bg-zinc-50">
-                  <span className="min-w-0">
-                    <span className="block truncate font-medium text-zinc-900">{customers.get(inv.customer_id)?.name ?? "…"}</span>
-                    <span className="text-xs text-zinc-500">
-                      {inv.invoice_number} · {t("dashboard.dueOn", { date: formatShortDate(inv.due_date) })}
-                    </span>
-                  </span>
-                  <span className="shrink-0 tabular-nums text-zinc-900">{formatMoney(Number(inv.total) - Number(inv.amount_paid))}</span>
-                </Link>
-              </li>
-            ))}
-            {!overdue.length && <li className="px-5 py-3 text-sm text-zinc-500">{t("dashboard.nothingOverdue")}</li>}
-          </ul>
-        </Panel>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-3">
-        <Panel title={t("dashboard.topDeals")} action={<PanelLink to="/deals">{t("dashboard.allDeals")}</PanelLink>} className="lg:col-span-2">
-          <table className="w-full">
-            <thead className="table-head">
-              <tr>
-                <th>{t("deals.col.deal")}</th>
-                <th className="hidden sm:table-cell">{t("deals.col.stage")}</th>
-                <th className="hidden md:table-cell">{t("deals.col.owner")}</th>
-                <th className="text-right">{t("deals.col.value")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {s.top_deals.map((d) => {
-                const owner = team.get(d.owner_id);
-                return (
-                  <tr key={d.id} className="table-row">
-                    <td>
-                      <Link to={`/deals/${d.id}`} className="font-medium text-zinc-900 hover:underline">
-                        {d.title}
-                      </Link>
-                      <p className="text-xs text-zinc-500">{d.customer_name}</p>
-                    </td>
-                    <td className="hidden text-zinc-600 sm:table-cell">{STAGE_LABELS[d.stage]}</td>
-                    <td className="hidden md:table-cell">
-                      {owner && (
-                        <span className="inline-flex items-center gap-2 text-zinc-600">
-                          <Avatar name={owner.full_name} size="sm" />
-                          {owner.full_name.split(" ")[0]}
+      <div className="grid gap-5 xl:grid-cols-3">
+        {/* Left: the pipeline, then money over time. Right: what to do next. */}
+        <div className="grid min-w-0 content-start gap-5 xl:col-span-2">
+          <Panel
+            title={t("dashboard.pipeline.title")}
+            subtitle={t("dashboard.pipeline.subtitle")}
+            action={<ViewAll to="/deals">{t("dashboard.viewAll")}</ViewAll>}
+            bodyClass="px-4 pb-4"
+            tour="dash-charts"
+          >
+            <PipelineBoard stages={stages} deals={[...openDeals, ...wonThisMonth]} customers={customers} team={team} />
+            {/* The sales numbers from the first dashboard, kept compact. */}
+            <dl className="mt-4 grid grid-cols-3 divide-x divide-slate-100 rounded-xl border border-slate-200/80 text-center">
+              {[
+                [t("dashboard.kpi.won"), formatMoneyWhole(s.won_this_month.value), t("dashboard.deals", { count: s.won_this_month.count })],
+                [t("dashboard.kpi.winRate"), s.win_rate == null ? "—" : `${Math.round(s.win_rate * 100)}%`, t("dashboard.kpi.winRateDetail")],
+                [t("dashboard.kpi.avgDeal"), s.avg_won_deal == null ? "—" : formatMoneyWhole(s.avg_won_deal), t("dashboard.kpi.avgDealDetail")],
+              ].map(([label, value, hint]) => (
+                <div key={label} className="min-w-0 px-2 py-3">
+                  <dt className="truncate text-xs font-medium text-slate-500">{label}</dt>
+                  <dd className="mt-0.5 truncate text-base font-bold tabular-nums text-midnight sm:text-lg">{value}</dd>
+                  <dd className="hidden truncate text-[11px] text-slate-400 sm:block">{hint}</dd>
+                </div>
+              ))}
+            </dl>
+          </Panel>
+          <Panel
+            title={t("dashboard.revenue.title")}
+            subtitle={t("dashboard.revenue.subtitle")}
+            action={
+              <select
+                className="input !h-8 !w-auto !py-0 !pl-2.5 !pr-8 !text-xs"
+                value={range}
+                onChange={(e) => setRange(Number(e.target.value))}
+                aria-label={t("dashboard.revenue.range")}
+              >
+                {RANGES.map((n) => (
+                  <option key={n} value={n}>
+                    {t("dashboard.revenue.lastMonths", { count: n })}
+                  </option>
+                ))}
+              </select>
+            }
+            bodyClass="px-5 pb-5"
+          >
+            {hasMoney ? <RevenueChart months={months} /> : <p className="py-10 text-center text-sm text-slate-500">{t("dashboard.revenue.empty")}</p>}
+          </Panel>
+        </div>
+        <div className="grid min-w-0 content-start gap-5">
+          {canWrite && (
+            <Panel title={t("dashboard.quick.title")}>
+              <QuickActions actions={quick} />
+            </Panel>
+          )}
+          <Panel tour="dash-day" title={t("dashboard.upcoming.title")} action={<ViewAll to="/activities">{t("dashboard.viewAll")}</ViewAll>}>
+            {upcoming.length ? (
+              <UpcomingList items={upcoming} customers={customers} today={today} onToggle={(a) => toggle.mutate(a)} />
+            ) : (
+              <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.upcoming.empty")}</p>
+            )}
+          </Panel>
+          <Panel title={t("dashboard.awaitingReply")} action={<ViewAll to="/quotes">{t("dashboard.viewAll")}</ViewAll>}>
+            {sentQuotes.length ? (
+              <ul className="divide-y divide-slate-100">
+                {sentQuotes.slice(0, 4).map((q) => (
+                  <li key={q.id}>
+                    <Link to={`/quotes/${q.id}`} className="flex items-center justify-between gap-3 px-5 py-3 text-sm hover:bg-slate-50">
+                      <span className="min-w-0">
+                        <span className="block truncate font-medium text-midnight">{customers.get(q.customer_id)?.name ?? "…"}</span>
+                        <span className="text-xs text-slate-500">
+                          {q.quote_number}
+                          {q.expiry_date && ` · ${t("dashboard.validUntil", { date: formatShortDate(q.expiry_date) })}`}
                         </span>
-                      )}
-                    </td>
-                    <td className="whitespace-nowrap text-right font-medium tabular-nums text-zinc-900">{formatMoney(d.value)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Panel>
-
-        <Panel tour="dash-day" title={t("dashboard.yourDay")} action={<PanelLink to="/activities">{t("nav.activities")}</PanelLink>}>
-          {myDay.length ? (
-            <ul className="divide-y divide-zinc-100">
-              {myDay.slice(0, 5).map((a) => (
-                <ActivityRow
-                  key={a.id}
-                  activity={a}
-                  onToggle={toggle.mutate}
-                  context={
-                    a.customer_id && (
-                      <Link to={a.deal_id ? `/deals/${a.deal_id}` : `/customers/${a.customer_id}`} className="hover:underline">
-                        {customers.get(a.customer_id)?.name}
-                      </Link>
-                    )
-                  }
-                />
-              ))}
-            </ul>
-          ) : (
-            <p className="px-5 py-4 text-sm text-zinc-500">{t("dashboard.nothingToday")}</p>
-          )}
-        </Panel>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-3">
-        <Panel title={t("dashboard.recentActivity")} className="lg:col-span-2">
-          <ul className="divide-y divide-zinc-100">
-            {s.recent_activity.map((item, i) => {
-              const href = feedLink(item);
-              const actor = team.get(item.actor_id)?.full_name;
-              return (
-                <li key={`${item.kind}-${i}`} className="flex items-start gap-3 px-5 py-3">
-                  <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${FEED_TINT[item.kind] ?? FEED_TINT.activity}`}>
-                    <ActivityIcon type={FEED_ICON[item.kind] ?? "task"} className="h-3.5 w-3.5" />
-                  </span>
-                  <div className="min-w-0 flex-1 text-sm">
-                    <p className="text-zinc-900">
-                      <span className="font-medium">{feedTitle(item)}</span>
-                      {item.customer_name && (
-                        <>
-                          {" · "}
-                          <Link to={`/customers/${item.customer_id}`} className="text-zinc-600 hover:underline">
-                            {item.customer_name}
-                          </Link>
-                        </>
-                      )}
-                    </p>
-                    {feedDetail(item) &&
-                      (href ? (
-                        <Link to={href} className="block truncate text-zinc-500 hover:text-zinc-800">
-                          {feedDetail(item)}
-                        </Link>
-                      ) : (
-                        <p className="truncate text-zinc-500">{feedDetail(item)}</p>
-                      ))}
-                  </div>
-                  <span className="shrink-0 text-right text-xs text-zinc-400">
-                    {ago(item.at)}
-                    {actor && <span className="block">{actor.split(" ")[0]}</span>}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </Panel>
-
-        <Panel title={t("dashboard.awaitingReply")} action={<PanelLink to="/quotes">{t("nav.quotes")}</PanelLink>}>
-          {sentQuotes.length ? (
-            <ul className="divide-y divide-zinc-100">
-              {sentQuotes.slice(0, 5).map((q) => (
-                <li key={q.id}>
-                  <Link to={`/quotes/${q.id}`} className="flex items-center justify-between gap-3 px-5 py-3 text-sm hover:bg-zinc-50">
-                    <span className="min-w-0">
-                      <span className="block truncate font-medium text-zinc-900">{customers.get(q.customer_id)?.name ?? "…"}</span>
-                      <span className="text-xs text-zinc-500">
-                        {q.quote_number}
-                        {q.expiry_date && ` · ${t("dashboard.validUntil", { date: formatShortDate(q.expiry_date) })}`}
                       </span>
-                    </span>
-                    <span className="flex shrink-0 flex-col items-end gap-1">
-                      <span className="tabular-nums text-zinc-900">{formatMoney(q.total)}</span>
-                      <StatusBadge status={q.status} />
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="px-5 py-4 text-sm text-zinc-500">{t("dashboard.noQuotesWaiting")}</p>
-          )}
-        </Panel>
+                      <span className="flex shrink-0 flex-col items-end gap-1">
+                        <span className="font-semibold tabular-nums text-midnight">{formatMoney(q.total)}</span>
+                        <StatusBadge status={q.status} />
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.noQuotesWaiting")}</p>
+            )}
+          </Panel>
+          <Panel title={t("dashboard.owes.title")} subtitle={Number(s.outstanding) > 0 ? t("dashboard.owes.total", { amount: formatMoney(s.outstanding) }) : undefined} action={<ViewAll to="/invoices/aging">{t("dashboard.viewAll")}</ViewAll>}>
+            {owed.length ? <OwedList invoices={owed} customers={customers} today={today} /> : <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.owes.empty")}</p>}
+          </Panel>
+        </div>
       </div>
+
+      <Panel title={t("dashboard.recent.title")} action={<ViewAll to="/customers">{t("dashboard.viewAll")}</ViewAll>}>
+        {recent.length ? <RecentCustomers rows={recent} /> : <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.recent.empty")}</p>}
+      </Panel>
     </div>
   );
 }

@@ -4,7 +4,7 @@ list cap the client-side dashboard used to compute from."""
 from datetime import date, datetime, time, timedelta, timezone
 from decimal import Decimal
 
-from sqlalchemy import case, func, literal, or_, select
+from sqlalchemy import Date, case, cast, func, literal, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.crm import Activity, Contact, Deal, Note
@@ -16,6 +16,7 @@ from app.repositories.company_settings_repository import CompanySettingsReposito
 from app.services.reminder_service import company_today
 
 OPEN_INVOICE = (InvoiceStatus.SENT, InvoiceStatus.PARTIALLY_PAID, InvoiceStatus.OVERDUE)
+MONTHS = 12  # history on the dashboard's money charts
 ZERO = Decimal("0")
 # Aged receivables: days past the due date, oldest last.
 AGE_BUCKETS = ("current", "days_1_30", "days_31_60", "days_61_90", "days_90_plus")
@@ -87,9 +88,9 @@ class ReportService:
             )
         ).one()
 
-        # Cash collected per month, last 6 months, oldest first; empty
-        # months included so the chart's x-axis is continuous.
-        first = _month_start(today, 5)
+        # Cash collected and invoiced per month, last 12 months, oldest
+        # first; empty months included so a chart's x-axis is continuous.
+        first = _month_start(today, MONTHS - 1)
         # Bucket by the company's calendar month. date_trunc on a timestamptz
         # works in the DB session's timezone and hands back an instant, so a
         # payment on 2 Oct could land in "September" once read back as UTC.
@@ -102,8 +103,29 @@ class ReportService:
         collected_map = {m.date(): total for m, total in rows.all()}
         collected = [
             {"month": _month_start(today, back).isoformat(), "total": collected_map.get(_month_start(today, back), ZERO)}
-            for back in range(5, -1, -1)
+            for back in range(MONTHS - 1, -1, -1)
         ]
+        # Invoiced: what was billed (sent or later, not drafts or voided),
+        # by the invoice's own date.
+        # A plain date: date_trunc on a date returns a timestamptz, which
+        # read back in UTC can fall on the last day of the month before.
+        issued_month = cast(func.date_trunc("month", Invoice.issue_date), Date)
+        rows = await self.db.execute(
+            select(issued_month, func.sum(Invoice.total))
+            .where(Invoice.issue_date >= first, Invoice.status.not_in((InvoiceStatus.DRAFT, InvoiceStatus.VOID)))
+            .group_by(issued_month)
+        )
+        invoiced_map = dict(rows.all())
+        invoiced = [
+            {"month": _month_start(today, back).isoformat(), "total": invoiced_map.get(_month_start(today, back), ZERO)}
+            for back in range(MONTHS - 1, -1, -1)
+        ]
+
+        customers = (
+            await self.db.execute(
+                select(func.count(), func.count().filter(Customer.created_at >= _utc(month_start))).where(Customer.is_active.is_(True))
+            )
+        ).one()
 
         top = (
             await self.db.execute(
@@ -126,6 +148,9 @@ class ReportService:
             "overdue": receivables[1],
             "open_invoice_count": receivables[2],
             "collected_by_month": collected,
+            "invoiced_by_month": invoiced,
+            "active_customers": customers[0],
+            "new_customers_this_month": customers[1],
             "top_deals": [
                 {"id": d.id, "title": d.title, "customer_id": d.customer_id, "customer_name": name, "stage": d.stage.value, "value": d.value, "owner_id": d.owner_id}
                 for d, name in top

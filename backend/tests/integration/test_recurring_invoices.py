@@ -144,3 +144,28 @@ async def test_recurring_needs_scale(api):
     assert (await api.post(f"/recurring-invoices/{sid}/pause", headers=h)).status_code == 200
     assert (await api.post(f"/recurring-invoices/{sid}/resume", headers=h)).status_code == 402
     assert (await api.delete(f"/recurring-invoices/{sid}", headers=h)).status_code == 204
+
+
+@pytest.mark.asyncio
+async def test_edit_lines_and_move_the_next_date(api):
+    owner = await new_company(api, "Delta Two", plan="scale")
+    h = owner["headers"]
+    schedule = await _schedule(api, owner, add_months(date.today(), 1))
+    moved = date.fromisoformat(schedule["next_run_date"]) + timedelta(days=5)
+    res = await api.patch(
+        f"/recurring-invoices/{schedule['id']}",
+        json={"next_run_date": moved.isoformat(), "reference": "Retainer 2027", "items": ITEMS[:1], "frequency": "monthly"},
+        headers=h,
+    )
+    assert res.status_code == 200, res.text
+    edited = res.json()
+    assert edited["next_run_date"] == moved.isoformat() and edited["reference"] == "Retainer 2027"
+    assert Decimal(edited["total"]) == Decimal("5175.00")  # 4500 + 15%
+    async with AsyncSessionLocal() as db:
+        set_tenant(db, owner["company_id"])
+        service = RecurringInvoiceService(db)
+        made = await service.make_due(await service.get(uuid.UUID(schedule["id"])), moved)
+        await db.commit()
+    assert [m.issue_date for m in made] == [moved]
+    after = (await api.get(f"/recurring-invoices/{schedule['id']}", headers=h)).json()
+    assert after["next_run_date"] == add_months(moved, 1).isoformat()  # counts from the new date

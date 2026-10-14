@@ -118,7 +118,8 @@
       "team_chat": "Team chat",
       "whatsapp_sms": "WhatsApp and SMS",
       "reports": "\"Who owes you\" report",
-      "recurring_invoices": "Recurring invoices"
+      "recurring_invoices": "Recurring invoices",
+      "discovery": "Discovery: new leads every week"
     },
     "fewer": "Fewer people",
     "fixPayment": "Update card",
@@ -153,7 +154,8 @@
       "title": "Part of the {{plan}} plan",
       "whatsapp_sms": "Connect WhatsApp and SMS to message customers where they already are.",
       "reports": "See who owes you money and how late each payment is.",
-      "recurring_invoices": "Bill retainers and monthly contracts with a draft invoice each cycle."
+      "recurring_invoices": "Bill retainers and monthly contracts with a draft invoice each cycle.",
+      "discovery": "Every week YGT finds potential customers near you and in your own records."
     },
     "paid": "Payment received. You're on {{plan}} now.",
     "payments": "Payments",
@@ -487,7 +489,17 @@
       "pipeline": "Open pipeline",
       "winRate": "Win rate",
       "winRateDetail": "Closed deals, last 90 days",
-      "won": "Won this month"
+      "won": "Won this month",
+      "collected": "Cash collected",
+      "thisMonth": "this month",
+      "outstanding": "Outstanding invoices",
+      "openDeals": "Open deals",
+      "customers": "Active customers",
+      "newThisMonth_one": "{{count}} new this month",
+      "newThisMonth_other": "{{count}} new this month",
+      "change": "{{pct}}%",
+      "up": "up on last month",
+      "down": "down on last month"
     },
     "last6Months": "Last 6 months",
     "morning": "Good morning",
@@ -508,7 +520,62 @@
     "subtitle": "Your pipeline, your day and what you're owed.",
     "topDeals": "Top open deals",
     "validUntil": "valid until {{date}}",
-    "yourDay": "Your day"
+    "yourDay": "Your day",
+    "banner": "Here's what's happening with your business today.",
+    "viewAll": "View all",
+    "pipeline": {
+      "title": "Sales pipeline",
+      "subtitle": "Your open deals across every stage",
+      "wonThisMonth": "Won this month",
+      "empty": "No deals here",
+      "more_one": "+{{count}} more",
+      "more_other": "+{{count}} more",
+      "wonOn": "Won {{date}}",
+      "closes": "Closes {{date}}"
+    },
+    "quick": {
+      "title": "Quick actions",
+      "customer": "Add customer",
+      "deal": "Create deal",
+      "quote": "Create quote",
+      "invoice": "Create invoice",
+      "activity": "Log activity"
+    },
+    "upcoming": {
+      "title": "Upcoming activities",
+      "empty": "Nothing scheduled. Plan your next call or meeting.",
+      "markDone": "Mark \"{{subject}}\" done"
+    },
+    "revenue": {
+      "title": "Revenue overview",
+      "subtitle": "Invoiced and cash collected, per month",
+      "invoiced": "Invoiced",
+      "collected": "Collected",
+      "month": "Month",
+      "range": "Period",
+      "lastMonths_one": "Last {{count}} month",
+      "lastMonths_other": "Last {{count}} months",
+      "empty": "No invoices or payments in this period yet.",
+      "summary_one": "Over the last {{count}} month: invoiced {{invoiced}}, collected {{collected}}.",
+      "summary_other": "Over the last {{count}} months: invoiced {{invoiced}}, collected {{collected}}."
+    },
+    "owes": {
+      "title": "Who owes you?",
+      "total": "{{amount}} outstanding",
+      "due": "due {{date}}",
+      "overdue": "Overdue",
+      "soon": "Due soon",
+      "pending": "Pending",
+      "empty": "Nobody owes you money right now."
+    },
+    "recent": {
+      "title": "Recent customers",
+      "lastActive": "Last activity {{date}}",
+      "noActivity": "No activity yet",
+      "owes": "Owes {{amount}}",
+      "settled": "Paid up",
+      "empty": "Your customers will appear here."
+    }
   },
   "data": {
     "chooseFile": "Choose CSV file",
@@ -1332,7 +1399,7 @@
     "dashboard": "Dashboard",
     "deals": "Deals",
     "group": {
-      "records": "Records",
+      "records": "Grow",
       "sales": "Sales"
     },
     "help": "Help",
@@ -1348,7 +1415,27 @@
     "search": "Search",
     "settings": "Settings",
     "support": "Support",
-    "purchaseOrders": "Purchase orders"
+    "purchaseOrders": "Purchase orders",
+    "discovery": "Discovery",
+    "reports": "Reports",
+    "tagline": "Grow · Manage · Succeed",
+    "main": "Main",
+    "searchWide": "Search customers, deals, quotes, invoices…",
+    "notifications": "Notifications",
+    "allCaughtUp": "You're all caught up.",
+    "account": "Your account",
+    "collapse": "Collapse menu",
+    "expand": "Expand menu",
+    "notificationsCount_one": "{{count}} notification",
+    "notificationsCount_other": "{{count}} notifications",
+    "notify": {
+      "activities_one": "{{count}} thing to do today",
+      "activities_other": "{{count}} things to do today",
+      "messages_one": "{{count}} unread message",
+      "messages_other": "{{count}} unread messages",
+      "discovery_one": "{{count}} new lead in Discovery",
+      "discovery_other": "{{count}} new leads in Discovery"
+    }
   },
   "palette": {
     "action": {
@@ -2099,6 +2186,97 @@
       "monthly": "Every month",
       "quarterly": "Every 3 months",
       "yearly": "Every year"
+    },
+    "edit": "Edit recurring invoice",
+    "editHint": "Changes apply to the invoices still to come. Invoices already made stay as they are.",
+    "updated": "Recurring invoice saved",
+    "nextOnLabel": "Next invoice on"
+  },
+  "discovery": {
+    "title": "Discovery",
+    "subtitle": "Potential customers found for you each week. Nothing goes on your pipeline until you add it.",
+    "lookNow": "Look now",
+    "looking": "Looking…",
+    "found_zero": "No new leads this time",
+    "found_one": "Found {{count}} new lead",
+    "found_other": "Found {{count}} new leads",
+    "added": "{{name}} is on your pipeline",
+    "add": "Add to pipeline",
+    "dismiss": "Dismiss",
+    "openDeal": "Open deal",
+    "source": {
+      "osm": "Nearby business",
+      "quiet_customer": "Gone quiet",
+      "lost_deal": "Lost deal",
+      "stale_quote": "Quote not answered"
+    },
+    "why": {
+      "stale_quote": "Quote {{number}} for {{amount}} sent {{date}}, no answer yet.",
+      "lost_deal": "Lost {{date}}: {{title}} ({{amount}}). Worth another try?",
+      "quiet_customer": "Last business on {{date}}. Usually {{amount}} an invoice."
+    },
+    "dealTitle": {
+      "stale_quote": "Follow up {{number}} – {{name}}",
+      "lost_deal": "Revisit: {{title}}",
+      "quiet_customer": "Win back {{name}}"
+    },
+    "tab": {
+      "new": "New",
+      "added": "Added",
+      "dismissed": "Dismissed"
+    },
+    "empty": "No new leads right now",
+    "emptyHint": "Discovery looks every Monday morning and emails your admins when it finds someone.",
+    "emptySetup": "Set your area and the kinds of customers you want, so Discovery finds businesses near you too.",
+    "emptyTab": {
+      "added": "Nothing added yet",
+      "dismissed": "Nothing dismissed"
+    },
+    "privacy": "Leads are suggestions only: YGT never contacts them. Nearby businesses come from public map data,",
+    "settings": {
+      "button": "Where to look",
+      "title": "Where to look",
+      "hint": "Discovery looks for these kinds of business near you, and for customers in your own records worth a call.",
+      "area": "Your area",
+      "areaHint": "A suburb and town works best.",
+      "areaPlaceholder": "e.g. Soweto, Johannesburg",
+      "notFound": "We couldn't find this place on the map.",
+      "radius": "Distance",
+      "km_one": "Within {{count}} km",
+      "km_other": "Within {{count}} km",
+      "industries": "Kinds of customers",
+      "industriesHint_one": "Pick up to {{count}}.",
+      "industriesHint_other": "Pick up to {{count}}.",
+      "weekly": "Look every week and email admins",
+      "saved": "Saved",
+      "summary": "Looking within {{km}} km of {{area}}.",
+      "noArea": "No area set yet: only your own records are checked."
+    },
+    "nearby": {
+      "looking": "Looking for businesses near {{area}}… This can take a minute or two; they'll appear here.",
+      "failed": "The map service was busy, so nearby businesses weren't checked. Discovery tries again on Monday.",
+      "retry": "Try again"
     }
+  },
+  "edit": {
+    "saved": "{{number}} saved",
+    "title": "Edit {{number}}",
+    "subtitle": "Change the lines, dates and notes. The customer stays the same.",
+    "notDraft": "Only drafts can be changed here. Open the document to see your options.",
+    "back": "Back to the document",
+    "save": "Save changes",
+    "reviseTitle": "Edit {{number}}?",
+    "reviseBody": "This quote has been sent. Editing turns it back into a draft: make your changes, then send it again so the customer gets the new version.",
+    "reviseConfirm": "Make it a draft and edit",
+    "correctTitle": "Correct {{number}}?",
+    "correctBody": "A sent invoice can't be changed: your customer already has it. {{number}} will be voided and a draft copy with the same lines opened for you to fix and send.",
+    "correctConfirm": "Void and make a corrected copy",
+    "corrected": "{{old}} voided. Fix {{number}}, then send it.",
+    "activity": "Edit \"{{subject}}\"",
+    "activityTitle": "Edit activity",
+    "activitySaved": "Activity saved",
+    "details": "Details",
+    "deal": "Edit \"{{title}}\"",
+    "customer": "Edit {{name}}"
   }
 }

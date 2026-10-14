@@ -27,6 +27,9 @@ const CampaignPage = lazy(() => import("./pages/CampaignPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const StatementPage = lazy(() => import("./pages/StatementPage"));
 const ReceivablesPage = lazy(() => import("./pages/ReceivablesPage"));
+const DiscoveryPage = lazy(() => import("./pages/DiscoveryPage"));
+const EditDocumentPage = lazy(() => import("./pages/EditDocumentPage"));
+const EditRecurringInvoicePage = named(() => import("./pages/RecurringInvoicesPage"), "EditRecurringInvoicePage");
 const RecurringInvoicesPage = named(() => import("./pages/RecurringInvoicesPage"), "RecurringInvoicesPage");
 const NewRecurringInvoicePage = named(() => import("./pages/RecurringInvoicesPage"), "NewRecurringInvoicePage");
 const RecurringInvoiceDetailPage = named(() => import("./pages/RecurringInvoicesPage"), "RecurringInvoiceDetailPage");
@@ -115,9 +118,12 @@ export default function App() {
           }
         />
         <Route path="/invoices/aging" element={<ReceivablesPage />} />
+        <Route path="/discovery" element={<DiscoveryPage />} />
         <Route path="/invoices/recurring" element={<RecurringInvoicesPage />} />
         <Route path="/invoices/recurring/new" element={<NewRecurringInvoicePage />} />
         <Route path="/invoices/recurring/:id" element={<RecurringInvoiceDetailPage />} />
+        <Route path="/invoices/recurring/:id/edit" element={<EditRecurringInvoicePage />} />
+        <Route path="/invoices/:id/edit" element={<EditDocumentPage kind="invoice" />} />
         <Route path="/invoices/:id" element={<InvoiceDetailPage />} />
         <Route path="/quotes" element={<QuotesPage />} />
         <Route
@@ -129,6 +135,7 @@ export default function App() {
           }
         />
         <Route path="/quotes/:id" element={<QuoteDetailPage />} />
+        <Route path="/quotes/:id/edit" element={<EditDocumentPage kind="quote" />} />
         <Route path="/purchase-orders" element={<PurchaseOrdersPage />} />
         <Route
           path="/purchase-orders/new"
@@ -139,6 +146,7 @@ export default function App() {
           }
         />
         <Route path="/purchase-orders/:id" element={<PurchaseOrderDetailPage />} />
+        <Route path="/purchase-orders/:id/edit" element={<EditDocumentPage kind="purchaseOrder" />} />
         <Route path="/activities" element={<ActivitiesPage />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/help" element={<HelpPage />} />

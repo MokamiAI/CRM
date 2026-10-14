@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,7 @@ import { useAuth } from "../context/AuthContext";
 import Sheet from "../components/Sheet";
 import { DocumentViewer } from "../components/Documents";
 import { BackLink, LineItems, SummaryCard } from "../components/DocumentView";
-import { Button, ErrorState, Field, ListSkeleton, PageHeader, StatusBadge } from "../components/ui";
+import { Button, ButtonLink, ErrorState, Field, ListSkeleton, PageHeader, StatusBadge } from "../components/ui";
 import { errorMessage, formatDate, formatMoney, todayISO } from "../utils/format";
 
 const PAYMENT_METHODS = ["eft", "bank_transfer", "card", "cash", "other"];
@@ -43,7 +43,13 @@ export default function InvoiceDetailPage() {
   const { data: reminders = [] } = useReminders(id);
   const customer = useCustomerMap().get(invoice?.customer_id);
 
-  const [sheet, setSheet] = useState(null); // "send" | "pay" | "void" | "delete" | null
+  const [sheet, setSheet] = useState(null); // "send" | "pay" | "void" | "delete" | "correct" | null
+  // A row's pencil on a sent invoice arrives as ?edit=1: ask once.
+  const [searchParams, setSearchParams] = useSearchParams();
+  if (invoice && searchParams.get("edit") && !sheet) {
+    setSearchParams({}, { replace: true });
+    if (canVoid && ["sent", "overdue"].includes(invoice.status) && Number(invoice.amount_paid) === 0) setSheet("correct");
+  }
   const close = () => setSheet(null);
 
   const queryClient = useQueryClient();
@@ -94,6 +100,18 @@ export default function InvoiceDetailPage() {
     onError,
   });
 
+  // Edit on a sent, unpaid invoice: void it and open a draft copy to fix.
+  const correct = useMutation({
+    mutationFn: () => apiClient.post(`/invoices/${id}/correct`).then((r) => r.data),
+    onSuccess: (copy) => {
+      refresh();
+      close();
+      toast.success(t("edit.corrected", { old: invoice.invoice_number, number: copy.invoice_number }));
+      navigate(`/invoices/${copy.id}/edit`);
+    },
+    onError,
+  });
+
   const remove = useMutation({
     mutationFn: () => apiClient.delete(`/invoices/${id}`),
     onSuccess: () => {
@@ -137,8 +155,18 @@ export default function InvoiceDetailPage() {
             {canWrite && (
             <>
               {invoice.status === "draft" && (
-                <Button variant="danger" onClick={() => setSheet("delete")}>
-                  {t("invoice.deleteDraft")}
+                <>
+                  <Button variant="danger" onClick={() => setSheet("delete")}>
+                    {t("invoice.deleteDraft")}
+                  </Button>
+                  <ButtonLink variant="secondary" to={`/invoices/${id}/edit`}>
+                    {t("common.edit")}
+                  </ButtonLink>
+                </>
+              )}
+              {canVoid && ["sent", "overdue"].includes(invoice.status) && Number(invoice.amount_paid) === 0 && (
+                <Button variant="secondary" onClick={() => setSheet("correct")}>
+                  {t("common.edit")}
                 </Button>
               )}
               {canVoid && VOIDABLE.includes(invoice.status) && (
@@ -304,6 +332,24 @@ export default function InvoiceDetailPage() {
         customerEmail={customer?.email}
         onRecorded={refresh}
       />
+
+      <Sheet
+        open={sheet === "correct"}
+        onClose={close}
+        title={t("edit.correctTitle", { number: invoice.invoice_number })}
+        footer={
+          <>
+            <Button variant="secondary" onClick={close}>
+              {t("common.cancel")}
+            </Button>
+            <Button disabled={correct.isPending} onClick={() => correct.mutate()}>
+              {t("edit.correctConfirm")}
+            </Button>
+          </>
+        }
+      >
+        <p className="text-sm text-slate-600">{t("edit.correctBody", { number: invoice.invoice_number })}</p>
+      </Sheet>
 
       <Sheet
         open={sheet === "void"}

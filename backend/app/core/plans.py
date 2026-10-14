@@ -18,6 +18,7 @@ TEAM_CHAT = "team_chat"
 PRIORITY_SUPPORT = "priority_support"
 REPORTS = "reports"  # "Who owes you" (aged receivables)
 RECURRING = "recurring_invoices"
+DISCOVERY = "discovery"  # potential leads, found weekly
 
 INTERVALS = ("monthly", "annually")
 
@@ -47,7 +48,7 @@ class Plan:
 
 
 GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, CUSTOM_FIELDS, TEAM_CHAT, REPORTS})
-SCALE_FEATURES = GROW_FEATURES | {RECURRING, PRIORITY_SUPPORT}
+SCALE_FEATURES = GROW_FEATURES | {RECURRING, DISCOVERY, PRIORITY_SUPPORT}
 
 PLANS: dict[str, Plan] = {
     "hustle": Plan("hustle", "Hustle", 19_900, max_users=3),

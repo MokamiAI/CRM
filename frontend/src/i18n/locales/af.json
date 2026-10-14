@@ -118,7 +118,8 @@
       "team_chat": "Spanklets",
       "whatsapp_sms": "WhatsApp en SMS",
       "reports": "\"Wie skuld jou\"-verslag",
-      "recurring_invoices": "Herhalende fakture"
+      "recurring_invoices": "Herhalende fakture",
+      "discovery": "Ontdekking: nuwe leidrade elke week"
     },
     "fewer": "Minder mense",
     "fixPayment": "Werk kaart by",
@@ -153,7 +154,8 @@
       "title": "Deel van die {{plan}}-plan",
       "whatsapp_sms": "Koppel WhatsApp en SMS om kliënte te bereik waar hulle reeds is.",
       "reports": "Sien wie jou geld skuld en hoe laat elke betaling is.",
-      "recurring_invoices": "Faktureer vooruitbetalings en maandelikse kontrakte met 'n konsepfaktuur elke siklus."
+      "recurring_invoices": "Faktureer vooruitbetalings en maandelikse kontrakte met 'n konsepfaktuur elke siklus.",
+      "discovery": "Elke week vind YGT moontlike kliënte naby jou en in jou eie rekords."
     },
     "paid": "Betaling ontvang. Jy is nou op {{plan}}.",
     "payments": "Betalings",
@@ -487,7 +489,17 @@
       "pipeline": "Oop pyplyn",
       "winRate": "Wenkoers",
       "winRateDetail": "Geslote transaksies, laaste 90 dae",
-      "won": "Hierdie maand gewen"
+      "won": "Hierdie maand gewen",
+      "collected": "Kontant ontvang",
+      "thisMonth": "hierdie maand",
+      "outstanding": "Uitstaande fakture",
+      "openDeals": "Oop transaksies",
+      "customers": "Aktiewe kliënte",
+      "newThisMonth_one": "{{count}} nuut hierdie maand",
+      "newThisMonth_other": "{{count}} nuut hierdie maand",
+      "change": "{{pct}}%",
+      "up": "hoër as verlede maand",
+      "down": "laer as verlede maand"
     },
     "last6Months": "Laaste 6 maande",
     "morning": "Goeiemôre",
@@ -508,7 +520,62 @@
     "subtitle": "Jou pyplyn, jou dag en wat jy geskuld word.",
     "topDeals": "Grootste oop transaksies",
     "validUntil": "geldig tot {{date}}",
-    "yourDay": "Jou dag"
+    "yourDay": "Jou dag",
+    "banner": "Hier is wat vandag in jou besigheid gebeur.",
+    "viewAll": "Sien alles",
+    "pipeline": {
+      "title": "Verkoopspyplyn",
+      "subtitle": "Jou oop transaksies oor elke fase",
+      "wonThisMonth": "Gewen hierdie maand",
+      "empty": "Geen transaksies hier nie",
+      "more_one": "+{{count}} meer",
+      "more_other": "+{{count}} meer",
+      "wonOn": "Gewen {{date}}",
+      "closes": "Sluit {{date}}"
+    },
+    "quick": {
+      "title": "Vinnige aksies",
+      "customer": "Voeg kliënt by",
+      "deal": "Skep transaksie",
+      "quote": "Skep kwotasie",
+      "invoice": "Skep faktuur",
+      "activity": "Teken aktiwiteit aan"
+    },
+    "upcoming": {
+      "title": "Komende aktiwiteite",
+      "empty": "Niks geskeduleer nie. Beplan jou volgende oproep of vergadering.",
+      "markDone": "Merk \"{{subject}}\" as klaar"
+    },
+    "revenue": {
+      "title": "Inkomste-oorsig",
+      "subtitle": "Gefaktureer en kontant ontvang, per maand",
+      "invoiced": "Gefaktureer",
+      "collected": "Ontvang",
+      "month": "Maand",
+      "range": "Tydperk",
+      "lastMonths_one": "Laaste {{count}} maand",
+      "lastMonths_other": "Laaste {{count}} maande",
+      "empty": "Nog geen fakture of betalings in hierdie tydperk nie.",
+      "summary_one": "Oor die laaste {{count}} maand: gefaktureer {{invoiced}}, ontvang {{collected}}.",
+      "summary_other": "Oor die laaste {{count}} maande: gefaktureer {{invoiced}}, ontvang {{collected}}."
+    },
+    "owes": {
+      "title": "Wie skuld jou?",
+      "total": "{{amount}} uitstaande",
+      "due": "betaalbaar {{date}}",
+      "overdue": "Agterstallig",
+      "soon": "Binnekort betaalbaar",
+      "pending": "Hangend",
+      "empty": "Niemand skuld jou nou geld nie."
+    },
+    "recent": {
+      "title": "Onlangse kliënte",
+      "lastActive": "Laaste aktiwiteit {{date}}",
+      "noActivity": "Nog geen aktiwiteit nie",
+      "owes": "Skuld {{amount}}",
+      "settled": "Opbetaal",
+      "empty": "Jou kliënte sal hier verskyn."
+    }
   },
   "data": {
     "chooseFile": "Kies CSV-lêer",
@@ -1332,7 +1399,7 @@
     "dashboard": "Paneelbord",
     "deals": "Transaksies",
     "group": {
-      "records": "Rekords",
+      "records": "Groei",
       "sales": "Verkope"
     },
     "help": "Hulp",
@@ -1348,7 +1415,27 @@
     "search": "Soek",
     "settings": "Instellings",
     "support": "Ondersteuning",
-    "purchaseOrders": "Bestellings"
+    "purchaseOrders": "Bestellings",
+    "discovery": "Ontdekking",
+    "reports": "Verslae",
+    "tagline": "Groei · Bestuur · Slaag",
+    "main": "Hoof",
+    "searchWide": "Soek kliënte, transaksies, kwotasies, fakture…",
+    "notifications": "Kennisgewings",
+    "allCaughtUp": "Jy is op hoogte.",
+    "account": "Jou rekening",
+    "collapse": "Vou kieslys in",
+    "expand": "Vou kieslys uit",
+    "notificationsCount_one": "{{count}} kennisgewing",
+    "notificationsCount_other": "{{count}} kennisgewings",
+    "notify": {
+      "activities_one": "{{count}} ding om vandag te doen",
+      "activities_other": "{{count}} dinge om vandag te doen",
+      "messages_one": "{{count}} ongeleesde boodskap",
+      "messages_other": "{{count}} ongeleesde boodskappe",
+      "discovery_one": "{{count}} nuwe leidraad in Ontdekking",
+      "discovery_other": "{{count}} nuwe leidrade in Ontdekking"
+    }
   },
   "palette": {
     "action": {
@@ -2099,6 +2186,97 @@
       "monthly": "Elke maand",
       "quarterly": "Elke 3 maande",
       "yearly": "Elke jaar"
+    },
+    "edit": "Wysig herhalende faktuur",
+    "editHint": "Veranderinge geld vir die fakture wat nog kom. Fakture wat reeds gemaak is, bly soos hulle is.",
+    "updated": "Herhalende faktuur gestoor",
+    "nextOnLabel": "Volgende faktuur op"
+  },
+  "discovery": {
+    "title": "Ontdekking",
+    "subtitle": "Moontlike kliënte wat elke week vir jou gevind word. Niks kom op jou pyplyn voordat jy dit byvoeg nie.",
+    "lookNow": "Soek nou",
+    "looking": "Soek…",
+    "found_zero": "Geen nuwe leidrade hierdie keer nie",
+    "found_one": "{{count}} nuwe leidraad gevind",
+    "found_other": "{{count}} nuwe leidrade gevind",
+    "added": "{{name}} is op jou pyplyn",
+    "add": "Voeg by pyplyn",
+    "dismiss": "Verwerp",
+    "openDeal": "Maak transaksie oop",
+    "source": {
+      "osm": "Besigheid naby",
+      "quiet_customer": "Stil geraak",
+      "lost_deal": "Verlore transaksie",
+      "stale_quote": "Kwotasie onbeantwoord"
+    },
+    "why": {
+      "stale_quote": "Kwotasie {{number}} vir {{amount}} gestuur op {{date}}, nog geen antwoord nie.",
+      "lost_deal": "Verloor op {{date}}: {{title}} ({{amount}}). Die moeite werd om weer te probeer?",
+      "quiet_customer": "Laaste besigheid op {{date}}. Gewoonlik {{amount}} per faktuur."
+    },
+    "dealTitle": {
+      "stale_quote": "Volg op {{number}} – {{name}}",
+      "lost_deal": "Probeer weer: {{title}}",
+      "quiet_customer": "Wen {{name}} terug"
+    },
+    "tab": {
+      "new": "Nuut",
+      "added": "Bygevoeg",
+      "dismissed": "Verwerp"
+    },
+    "empty": "Geen nuwe leidrade nou nie",
+    "emptyHint": "Ontdekking soek elke Maandagoggend en e-pos jou administrateurs wanneer dit iemand vind.",
+    "emptySetup": "Stel jou area en die soort kliënte wat jy wil hê, sodat Ontdekking ook besighede naby jou vind.",
+    "emptyTab": {
+      "added": "Nog niks bygevoeg nie",
+      "dismissed": "Niks verwerp nie"
+    },
+    "privacy": "Leidrade is net voorstelle: YGT kontak hulle nooit nie. Besighede naby kom uit openbare kaartdata,",
+    "settings": {
+      "button": "Waar om te soek",
+      "title": "Waar om te soek",
+      "hint": "Ontdekking soek hierdie soort besighede naby jou, en kliënte in jou eie rekords wat 'n oproep werd is.",
+      "area": "Jou area",
+      "areaHint": "'n Voorstad en dorp werk die beste.",
+      "areaPlaceholder": "bv. Soweto, Johannesburg",
+      "notFound": "Ons kon nie hierdie plek op die kaart vind nie.",
+      "radius": "Afstand",
+      "km_one": "Binne {{count}} km",
+      "km_other": "Binne {{count}} km",
+      "industries": "Soort kliënte",
+      "industriesHint_one": "Kies tot {{count}}.",
+      "industriesHint_other": "Kies tot {{count}}.",
+      "weekly": "Soek elke week en e-pos administrateurs",
+      "saved": "Gestoor",
+      "summary": "Soek binne {{km}} km van {{area}}.",
+      "noArea": "Nog geen area nie: net jou eie rekords word nagegaan."
+    },
+    "nearby": {
+      "looking": "Soek besighede naby {{area}}… Dit kan 'n minuut of twee neem; hulle sal hier verskyn.",
+      "failed": "Die kaartdiens was besig, so besighede naby is nie nagegaan nie. Ontdekking probeer Maandag weer.",
+      "retry": "Probeer weer"
     }
+  },
+  "edit": {
+    "saved": "{{number}} gestoor",
+    "title": "Wysig {{number}}",
+    "subtitle": "Verander die lyne, datums en notas. Die kliënt bly dieselfde.",
+    "notDraft": "Net konsepte kan hier verander word. Maak die dokument oop om jou opsies te sien.",
+    "back": "Terug na die dokument",
+    "save": "Stoor veranderinge",
+    "reviseTitle": "Wysig {{number}}?",
+    "reviseBody": "Hierdie kwotasie is gestuur. Wysiging maak dit weer 'n konsep: maak jou veranderinge en stuur dit dan weer sodat die kliënt die nuwe weergawe kry.",
+    "reviseConfirm": "Maak dit 'n konsep en wysig",
+    "correctTitle": "Korrigeer {{number}}?",
+    "correctBody": "'n Gestuurde faktuur kan nie verander word nie: jou kliënt het dit reeds. {{number}} sal gekanselleer word en 'n konsepkopie met dieselfde lyne oopgemaak word om reg te stel en te stuur.",
+    "correctConfirm": "Kanselleer en maak 'n gekorrigeerde kopie",
+    "corrected": "{{old}} gekanselleer. Stel {{number}} reg en stuur dit dan.",
+    "activity": "Wysig \"{{subject}}\"",
+    "activityTitle": "Wysig aktiwiteit",
+    "activitySaved": "Aktiwiteit gestoor",
+    "details": "Besonderhede",
+    "deal": "Wysig \"{{title}}\"",
+    "customer": "Wysig {{name}}"
   }
 }

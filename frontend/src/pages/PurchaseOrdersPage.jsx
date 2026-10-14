@@ -378,6 +378,9 @@ export function PurchaseOrderDetailPage() {
             </Button>
             {canWrite && po.status === "draft" && (
               <>
+                <ButtonLink variant="secondary" to={`/purchase-orders/${id}/edit`}>
+                  {t("common.edit")}
+                </ButtonLink>
                 <Button variant="danger" disabled={remove.isPending} onClick={() => remove.mutate()}>
                   {t("invoice.deleteDraft")}
                 </Button>

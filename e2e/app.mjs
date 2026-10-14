@@ -106,6 +106,7 @@ const pages = [
   ["@/customers", new RegExp(`^/customers/${ID}$`), "Customer detail"],
   ["@/customers", new RegExp(`^/customers/${ID}$`), "Customer statement", "/statement"],
   ["/deals", "Deals"],
+  ["/discovery", "Discovery"],
   ["@/deals", new RegExp(`^/deals/${ID}$`), "Deal detail"],
   ["/quotes", "Quotes"],
   ["/quotes/new", "New quote"],
@@ -205,6 +206,90 @@ try {
   recurring.issues.push(e.message.split("\n")[0]);
 }
 results.push(recurring);
+
+// Edit everywhere: a draft invoice in the editor, a sent invoice corrected
+// (voided + draft copy), a sent quote back to draft, an activity's pencil,
+// and the pencils on the dashboard.
+async function step(name, route, fn) {
+  const r = { name, route, issues: [] };
+  try {
+    await page.setViewport({ width: 1440, height: 900 });
+    await fn(r);
+  } catch (e) {
+    r.issues.push(e.message.split("\n")[0]);
+  }
+  results.push(r);
+}
+const clickText = (text) =>
+  page.evaluate((txt) => {
+    const b = [...document.querySelectorAll("button, a")].find((x) => x.textContent.trim() === txt && x.offsetParent);
+    b?.click();
+    return Boolean(b);
+  }, text);
+const onPath = (re) => page.waitForFunction((src) => new RegExp(src).test(location.pathname), { timeout: 15000 }, re.source);
+
+await step("Edit a draft invoice", "/invoices/:id/edit", async (r) => {
+  const id = await apiFirst("/invoices?status=draft");
+  if (!id) return r.issues.push("no draft invoice");
+  await page.goto(`${BASE}/invoices/${id}`, { waitUntil: "domcontentloaded" });
+  await settle();
+  if (!(await clickText("Edit"))) return r.issues.push("no Edit button on a draft");
+  await onPath(/^\/invoices\/[0-9a-f-]{36}\/edit$/);
+  await settle();
+  const ref = "Edited by e2e";
+  await page.click("input[maxlength='100']", { clickCount: 3 });
+  await page.type("input[maxlength='100']", ref);
+  await page.click("form button[type=submit]");
+  await onPath(/^\/invoices\/[0-9a-f-]{36}$/);
+  await settle();
+  if (!(await page.evaluate((x) => document.body.innerText.includes(x), ref))) r.issues.push("new reference not shown after saving");
+  await page.screenshot({ path: path.join(OUT, "laptop", "flow 4 edited draft invoice.png") });
+});
+
+await step("Correct a sent invoice", "/invoices/:id?edit=1", async (r) => {
+  const id = await apiFirst("/invoices?status=overdue");
+  if (!id) return r.issues.push("no overdue unpaid invoice");
+  await page.goto(`${BASE}/invoices/${id}?edit=1`, { waitUntil: "domcontentloaded" });
+  await settle();
+  await page.screenshot({ path: path.join(OUT, "laptop", "flow 5 correct invoice.png") });
+  if (!(await clickText("Void and make a corrected copy"))) return r.issues.push("no correct confirmation");
+  await page.waitForFunction((old) => /^\/invoices\/[0-9a-f-]{36}\/edit$/.test(location.pathname) && !location.pathname.includes(old), { timeout: 15000 }, id);
+  await settle();
+  const status = await page.evaluate(async (url) => {
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` } });
+    return (await res.json()).status;
+  }, `${API}/invoices/${id}`);
+  if (status !== "void") r.issues.push(`old invoice is ${status}, not void`);
+});
+
+await step("Revise a sent quote", "/quotes/:id?edit=1", async (r) => {
+  const id = await apiFirst("/quotes?status=sent");
+  if (!id) return r.issues.push("no sent quote");
+  await page.goto(`${BASE}/quotes/${id}?edit=1`, { waitUntil: "domcontentloaded" });
+  await settle();
+  if (!(await clickText("Make it a draft and edit"))) return r.issues.push("no revise confirmation");
+  await onPath(/^\/quotes\/[0-9a-f-]{36}\/edit$/);
+  await settle();
+  if (!(await page.$("form input[aria-label='Description']"))) r.issues.push("editor did not open with lines");
+});
+
+await step("Edit an activity from its pencil", "/activities", async (r) => {
+  await page.goto(`${BASE}/activities`, { waitUntil: "domcontentloaded" });
+  await settle();
+  const pencil = await page.$("button[aria-label^='Edit \"']");
+  if (!pencil) return r.issues.push("no pencil on activities");
+  await pencil.click();
+  await page.waitForFunction(() => document.body.innerText.includes("Edit activity"), { timeout: 5000 });
+  await page.screenshot({ path: path.join(OUT, "laptop", "flow 6 edit activity.png") });
+  await page.keyboard.press("Escape");
+});
+
+await step("Dashboard has edit pencils", "/", async (r) => {
+  await page.goto(`${BASE}/`, { waitUntil: "domcontentloaded" });
+  await settle();
+  const n = await page.evaluate(() => document.querySelectorAll("main button[aria-label^='Edit']").length);
+  if (n < 3) r.issues.push(`only ${n} edit buttons on the dashboard`);
+});
 
 await browser.close();
 const failed = results.filter((r) => r.issues.length);

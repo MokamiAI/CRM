@@ -1,5 +1,6 @@
 import uuid
 from datetime import date, timedelta
+from decimal import Decimal
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,7 +12,7 @@ from app.repositories.company_settings_repository import CompanySettingsReposito
 from app.repositories.customer_repository import CustomerRepository
 from app.repositories.invoice_repository import InvoiceRepository
 from app.repositories.quote_repository import QuoteRepository
-from app.schemas.invoice import InvoiceCreate, InvoiceFromQuote, InvoiceUpdate
+from app.schemas.invoice import InvoiceCreate, InvoiceFromQuote, InvoiceItemCreate, InvoiceUpdate
 from app.services.pricing import build_line_items
 
 _ALLOWED_TRANSITIONS: dict[InvoiceStatus, set[InvoiceStatus]] = {
@@ -150,6 +151,34 @@ class InvoiceService:
             )
         invoice.status = new_status
         return await self.invoices.save(invoice)
+
+    async def correct(self, invoice_id: uuid.UUID, created_by_id: uuid.UUID) -> Invoice:
+        """Edit for an invoice that has gone out: a tax invoice the customer
+        holds is never changed in place. It is voided and a draft copy (same
+        customer, lines, notes and references, a new number) is returned to
+        fix and send. Only before any payment: money received stays tied to
+        the invoice it paid. The lock makes a double click one copy."""
+        await self.invoices.get_for_update(invoice_id)
+        invoice = await self.get_invoice(invoice_id)
+        if invoice.status not in (InvoiceStatus.SENT, InvoiceStatus.OVERDUE) or Decimal(invoice.amount_paid or 0) > 0:
+            raise ConflictError("Only a sent invoice with no payments can be corrected", "INVOICE_NOT_CORRECTABLE")
+        invoice.status = InvoiceStatus.VOID
+        await self.invoices.save(invoice)
+        items = sorted(invoice.items, key=lambda i: i.sort_order)
+        return await self.create_invoice(
+            InvoiceCreate(
+                customer_id=invoice.customer_id,
+                issue_date=date.today(),
+                notes=invoice.notes,
+                po_number=invoice.po_number,
+                reference=invoice.reference,
+                items=[
+                    InvoiceItemCreate(product_id=i.product_id, description=i.description, quantity=i.quantity, unit_price=i.unit_price, tax_rate=i.tax_rate)
+                    for i in items
+                ],
+            ),
+            created_by_id=created_by_id,
+        )
 
     async def delete_invoice(self, invoice_id: uuid.UUID) -> None:
         invoice = await self.get_invoice(invoice_id)

@@ -57,7 +57,10 @@ const NUMBER = { inputMode: "decimal", pattern: "\\d+(\\.\\d{1,2})?" };
  */
 // `children` adds fields to the first card (e.g. a recurring schedule's);
 // `issueLabel` renames the issue date; without `dateField` the second date is left out.
-export default function DocumentEditor({ kind = "invoice", dateField, dateLabel, dateHint, issueLabel, submitLabel, isSubmitting, onSubmit, initialCustomerId, children }) {
+/** `initial`: a saved quote, invoice, purchase order or schedule to edit
+ *  (its party, dates, notes, reference and lines). `lockParty`: the customer
+ *  can't change on an existing document. */
+export default function DocumentEditor({ kind = "invoice", dateField, dateLabel, dateHint, issueLabel, submitLabel, isSubmitting, onSubmit, initialCustomerId, initial, lockParty = false, children }) {
   const { t } = useTranslation();
   const purchase = kind === "purchaseOrder";
   const { data: customers = [] } = useCustomers({ is_active: true });
@@ -66,13 +69,24 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   const { data: products = [] } = useProducts({ is_active: true });
   const wide = useWide();
 
-  const [partyId, setPartyId] = useState(initialCustomerId ?? "");
-  const [issueDate, setIssueDate] = useState(todayISO());
-  const [secondDate, setSecondDate] = useState("");
-  const [notes, setNotes] = useState("");
-  const [reference, setReference] = useState("");
-  const [deliveryAddress, setDeliveryAddress] = useState("");
-  const [items, setItems] = useState(() => [blankItem()]);
+  const [partyId, setPartyId] = useState(initial?.[purchase ? "supplier_id" : "customer_id"] ?? initialCustomerId ?? "");
+  const [issueDate, setIssueDate] = useState(initial?.issue_date ?? initial?.start_date ?? todayISO());
+  const [secondDate, setSecondDate] = useState((dateField && initial?.[dateField]) || "");
+  const [notes, setNotes] = useState(initial?.notes ?? "");
+  const [reference, setReference] = useState(initial?.reference ?? "");
+  const [deliveryAddress, setDeliveryAddress] = useState(initial?.delivery_address ?? "");
+  const [items, setItems] = useState(() =>
+    initial?.items?.length
+      ? initial.items.map((item) => ({
+          key: nextKey++,
+          product_id: item.product_id ?? null,
+          description: item.description,
+          quantity: String(Number(item.quantity)),
+          unit_price: String(Number(item.unit_price)),
+          tax_rate: String(Number(item.tax_rate)),
+        }))
+      : [blankItem()]
+  );
 
   const totals = computeTotals(items);
 
@@ -132,7 +146,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
     <form onSubmit={handleSubmit} className="space-y-5 pb-24 md:pb-0">
       <section className="card space-y-4 p-4 sm:p-5">
         <Field label={t(purchase ? "editor.supplier" : "editor.customer")}>
-          <select className="input" required value={partyId} onChange={(e) => setPartyId(e.target.value)}>
+          <select className="input disabled:bg-slate-50 disabled:text-slate-600" required disabled={lockParty} value={partyId} onChange={(e) => setPartyId(e.target.value)}>
             <option value="" disabled>
               {t(purchase ? "editor.chooseSupplier" : "dealForm.chooseCustomer")}
             </option>

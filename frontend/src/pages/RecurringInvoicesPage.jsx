@@ -153,6 +153,71 @@ export function NewRecurringInvoicePage() {
   );
 }
 
+/** Change a schedule's lines, dates, frequency and terms. Invoices it
+ *  already made don't change; the next ones follow the new details. */
+export function EditRecurringInvoicePage() {
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { data: s, isLoading, isError, refetch } = useQuery({ queryKey: ["recurring", id], queryFn: () => get(`/recurring-invoices/${id}`) });
+  const [form, setForm] = useState(null);
+  if (s && !form) setForm({ frequency: s.frequency, endDate: s.end_date ?? "", dueDays: s.due_days ?? "" });
+
+  const save = useMutation({
+    mutationFn: (payload) => apiClient.patch(`/recurring-invoices/${id}`, payload).then((r) => r.data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["recurring"] });
+      toast.success(t("recurring.updated"));
+      navigate(`/invoices/recurring/${id}`, { replace: true });
+    },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+
+  if (isLoading || !form) return isError ? <ErrorState onRetry={refetch} /> : <ListSkeleton />;
+  return (
+    <div>
+      <PageHeader eyebrow={<BackLink to={`/invoices/recurring/${id}`}>{t("recurring.title")}</BackLink>} title={t("recurring.edit")} subtitle={t("recurring.editHint")} />
+      <DocumentEditor
+        initial={{ ...s, issue_date: s.next_run_date }}
+        lockParty
+        issueLabel={t("recurring.nextOnLabel")}
+        submitLabel={t("edit.save")}
+        isSubmitting={save.isPending}
+        onSubmit={({ issue_date, reference, notes, items }) =>
+          save.mutate({
+            frequency: form.frequency,
+            next_run_date: issue_date,
+            end_date: form.endDate || null,
+            due_days: form.dueDays === "" ? null : Number(form.dueDays),
+            reference,
+            notes,
+            items,
+          })
+        }
+      >
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Field label={t("recurring.frequency")}>
+            <select className="input" value={form.frequency} onChange={(e) => setForm({ ...form, frequency: e.target.value })}>
+              {FREQUENCIES.map((f) => (
+                <option key={f} value={f}>
+                  {t(`recurring.every.${f}`)}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field label={t("recurring.endsOn")} hint={t("recurring.endsHint")}>
+            <input className="input" type="date" value={form.endDate} onChange={(e) => setForm({ ...form, endDate: e.target.value })} />
+          </Field>
+          <Field label={t("recurring.dueDays")} hint={t("recurring.dueDaysHint")}>
+            <input className="input" type="number" min="0" max="365" inputMode="numeric" value={form.dueDays} onChange={(e) => setForm({ ...form, dueDays: e.target.value })} />
+          </Field>
+        </div>
+      </DocumentEditor>
+    </div>
+  );
+}
+
 export function RecurringInvoiceDetailPage() {
   const { t } = useTranslation();
   const { id } = useParams();
@@ -212,6 +277,11 @@ export function RecurringInvoiceDetailPage() {
                 <Button variant="danger" onClick={() => setConfirming(true)}>
                   {t("recurring.delete")}
                 </Button>
+              )}
+              {included !== false && (
+                <ButtonLink variant="secondary" to={`/invoices/recurring/${id}/edit`}>
+                  {t("common.edit")}
+                </ButtonLink>
               )}
               {(s.active || included !== false) && (
                 <Button variant={s.active ? "secondary" : "primary"} disabled={toggle.isPending} onClick={() => toggle.mutate()}>

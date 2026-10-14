@@ -13,22 +13,13 @@ import { APP_NAME, BrandMark } from "./Brand";
  * element isn't on screen (e.g. the sidebar on a phone) still shows, as a
  * centered box, so the tour reads the same everywhere.
  */
+// Six steps, the places used every day; everything else is in Help.
 const STEPS = [
   { key: "welcome" },
-  { key: "dashboard", target: "dashboard" },
-  { key: "activities", target: "activities" },
-  { key: "messages", target: "messages" },
+  { key: "customers", target: "customers" },
   { key: "deals", target: "deals" },
   { key: "quotes", target: "quotes" },
   { key: "invoices", target: "invoices" },
-  { key: "purchaseOrders", target: "purchaseOrders" },
-  { key: "marketing", target: "marketing" },
-  { key: "customers", target: "customers" },
-  { key: "products", target: "products" },
-  { key: "support", target: "support" },
-  { key: "help", target: "help" },
-  { key: "search", target: "search" },
-  { key: "settings", target: "settings", admin: true },
   { key: "done" },
 ];
 const PAD = 6;

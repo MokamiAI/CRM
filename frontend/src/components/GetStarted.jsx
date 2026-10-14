@@ -10,11 +10,9 @@ const LINKS = {
   company: "/settings",
   email: "/settings?tab=email",
   customer: "/customers",
-  product: "/products",
   deal: "/deals?new=1",
   send: "/quotes/new",
   team: "/settings?tab=team",
-  channels: "/settings?tab=whatsapp",
 };
 
 export function useChecklist() {

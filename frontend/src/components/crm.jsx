@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import apiClient from "../services/apiClient";
 import { useTeam, useTeamMap } from "../hooks/useApi";
+import { useAuth } from "../context/AuthContext";
 import Sheet from "./Sheet";
 import { Button, Field } from "./ui";
 import i18n from "../i18n";
@@ -128,6 +129,61 @@ export function NextActivityBadge({ activity }) {
 const CHECK_BEAT_MS = 320;
 const COLLAPSE_MS = 220;
 
+/** Pencil button that opens the activity in the composer to edit it. */
+export function EditActivityButton({ activity, className = "" }) {
+  const { t } = useTranslation();
+  const { user } = useAuth();
+  const [open, setOpen] = useState(false);
+  if (user?.role === "viewer") return null;
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={t("edit.activity", { subject: activity.subject })}
+        className={`pressable flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700 ${className}`}
+      >
+        <PencilIcon className="h-4 w-4" />
+      </button>
+      <ComposerSheet open={open} onClose={() => setOpen(false)} mode="activity" activity={activity} />
+    </>
+  );
+}
+
+/** The pencil at the end of a table row: opens the edit (a link or a
+ *  sheet) without also opening the row. */
+export function RowEditButton({ label, to, onClick }) {
+  const cls = "pressable inline-flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 hover:bg-blue-50 hover:text-blue-700";
+  const stop = (e) => e.stopPropagation();
+  return to ? (
+    <Link to={to} onClick={stop} aria-label={label} title={label} className={cls}>
+      <PencilIcon className="h-4 w-4" />
+    </Link>
+  ) : (
+    <button
+      type="button"
+      onClick={(e) => {
+        stop(e);
+        onClick();
+      }}
+      aria-label={label}
+      title={label}
+      className={cls}
+    >
+      <PencilIcon className="h-4 w-4" />
+    </button>
+  );
+}
+
+export function PencilIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <path d="M4 20h4L18.5 9.5a2.1 2.1 0 0 0-3-3L5 17v3Z" />
+      <path d="m14 8 3 3" />
+    </svg>
+  );
+}
+
 export function ActivityRow({ activity, context, onToggle }) {
   const { t } = useTranslation();
   const [optimisticDone, setOptimisticDone] = useState(null);
@@ -176,6 +232,7 @@ export function ActivityRow({ activity, context, onToggle }) {
             </p>
             {activity.note && <p className="mt-1 whitespace-pre-line text-sm text-zinc-600">{activity.note}</p>}
           </div>
+          {!done && <EditActivityButton activity={activity} className="-mr-1 -mt-1" />}
         </div>
       </div>
     </li>
@@ -214,7 +271,7 @@ export function useToggleActivity() {
  * One sheet for both kinds of record-level input, like the composer at
  * the top of a HubSpot/Pipedrive record: a scheduled activity, or a note.
  */
-export function ComposerSheet({ open, onClose, mode, customerId, dealId, initialType = "call" }) {
+export function ComposerSheet({ open, onClose, mode, customerId, dealId, initialType = "call", activity }) {
   const { t } = useTranslation();
   const { data: team = [] } = useTeam();
   const queryClient = useQueryClient();
@@ -224,16 +281,20 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
   const [dueTime, setDueTime] = useState("");
   const [ownerId, setOwnerId] = useState("");
   const [body, setBody] = useState("");
+  const [note, setNote] = useState("");
+  const editing = Boolean(activity);
 
   const [lastOpen, setLastOpen] = useState(false);
   if (open !== lastOpen) {
     setLastOpen(open);
     if (open) {
-      setType(initialType);
-      setSubject("");
+      setType(activity?.type ?? initialType);
+      setSubject(activity?.subject ?? "");
       setBody("");
-      setDueDate(todayISO());
-      setDueTime("");
+      setNote(activity?.note ?? "");
+      setDueDate(activity?.due_date ?? todayISO());
+      setDueTime(activity?.due_time?.slice(0, 5) ?? "");
+      setOwnerId(activity?.owner_id ?? "");
     }
   }
 
@@ -241,18 +302,21 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
     mutationFn: () =>
       mode === "note"
         ? apiClient.post("/notes", { body, customer_id: dealId ? null : customerId, deal_id: dealId ?? null })
-        : apiClient.post("/activities", {
-            type,
-            subject,
-            due_date: dueDate,
-            due_time: dueTime || null,
-            customer_id: dealId ? null : customerId,
-            deal_id: dealId ?? null,
-            owner_id: ownerId || null,
-          }),
+        : editing
+          ? apiClient.patch(`/activities/${activity.id}`, { type, subject, note: note || null, due_date: dueDate, due_time: dueTime || null, ...(ownerId && { owner_id: ownerId }) })
+          : apiClient.post("/activities", {
+              type,
+              subject,
+              note: note || null,
+              due_date: dueDate,
+              due_time: dueTime || null,
+              customer_id: dealId ? null : customerId,
+              deal_id: dealId ?? null,
+              owner_id: ownerId || null,
+            }),
     onSuccess: () => {
       for (const key of ["activities", "timeline", "deals", "deal"]) queryClient.invalidateQueries({ queryKey: [key] });
-      toast.success(t(mode === "note" ? "composer.noteAdded" : "composer.scheduled"));
+      toast.success(t(mode === "note" ? "composer.noteAdded" : editing ? "edit.activitySaved" : "composer.scheduled"));
       onClose();
     },
     onError: (error) => toast.error(errorMessage(error)),
@@ -267,14 +331,14 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
     <Sheet
       open={open}
       onClose={onClose}
-      title={t(mode === "note" ? "composer.noteTitle" : "composer.activityTitle")}
+      title={t(mode === "note" ? "composer.noteTitle" : editing ? "edit.activityTitle" : "composer.activityTitle")}
       footer={
         <>
           <Button variant="secondary" onClick={onClose}>
             {t("common.cancel")}
           </Button>
           <button type="submit" form="composer-form" className="btn btn-primary" disabled={save.isPending}>
-            {save.isPending ? t("common.saving") : t(mode === "note" ? "composer.addNote" : "composer.schedule")}
+            {save.isPending ? t("common.saving") : t(mode === "note" ? "composer.addNote" : editing ? "edit.save" : "composer.schedule")}
           </button>
         </>
       }
@@ -314,6 +378,9 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
                 <input className="input" type="time" value={dueTime} onChange={(e) => setDueTime(e.target.value)} />
               </Field>
             </div>
+            <Field label={t("edit.details")}>
+              <textarea className="input" rows={2} value={note} onChange={(e) => setNote(e.target.value)} />
+            </Field>
             {team.length > 1 && (
               <Field label={t("composer.assignedTo")}>
                 <select className="input" value={ownerId} onChange={(e) => setOwnerId(e.target.value)}>

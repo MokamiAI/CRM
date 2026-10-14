@@ -8,6 +8,7 @@ import apiClient from "../services/apiClient";
 import { useCustomerMap, useQuote, useQuotes } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import DocumentEditor from "../components/DocumentEditor";
+import { RowEditButton } from "../components/crm";
 import { BackLink, LineItems, SummaryCard } from "../components/DocumentView";
 import Sheet from "../components/Sheet";
 import { ClientFilter, DocumentViewer } from "../components/Documents";
@@ -86,9 +87,19 @@ export function QuotesPage() {
   );
 }
 
+// Where a row's pencil goes: a draft opens the editor; a sent quote opens
+// its page, which asks before turning it back into a draft.
+const EDITABLE_QUOTE = {
+  draft: (id) => `/quotes/${id}/edit`,
+  sent: (id) => `/quotes/${id}?edit=1`,
+  expired: (id) => `/quotes/${id}?edit=1`,
+};
+
 function QuoteList({ quotes, customers }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const canWrite = user?.role !== "viewer";
   const nameOf = (quote) => customers.get(quote.customer_id)?.name ?? "…";
   return (
     <div className="card overflow-hidden">
@@ -101,6 +112,7 @@ function QuoteList({ quotes, customers }) {
             <th>{t("quotes.validUntil")}</th>
             <th>{t("invoices.col.status")}</th>
             <th className="text-right">{t("invoices.col.amount")}</th>
+            <th className="w-12"><span className="sr-only">{t("common.edit")}</span></th>
           </tr>
         </thead>
         <tbody>
@@ -123,6 +135,9 @@ function QuoteList({ quotes, customers }) {
                 <StatusBadge status={quote.status} />
               </td>
               <td className="whitespace-nowrap text-right font-medium tabular-nums text-zinc-900">{formatMoney(quote.total)}</td>
+              <td className="text-right">
+                {canWrite && EDITABLE_QUOTE[quote.status] && <RowEditButton label={t("edit.title", { number: quote.quote_number })} to={EDITABLE_QUOTE[quote.status](quote.id)} />}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -204,6 +219,12 @@ export function QuoteDetailPage() {
   const { data: quote, isLoading, isError, refetch } = useQuote(id);
   const customer = useCustomerMap().get(quote?.customer_id);
   const [sheet, setSheet] = useState(null);
+  // A row's pencil on a sent quote arrives as ?edit=1: ask once.
+  const [searchParams, setSearchParams] = useSearchParams();
+  if (quote && searchParams.get("edit") && !sheet) {
+    setSearchParams({}, { replace: true });
+    if (canWrite && ["sent", "expired"].includes(quote.status)) setSheet("revise");
+  }
   const [notify, setNotify] = useState(true);
   const close = () => setSheet(null);
 
@@ -260,6 +281,17 @@ export function QuoteDetailPage() {
     onError,
   });
 
+  // Edit on a sent quote: back to draft first, then the editor.
+  const revise = useMutation({
+    mutationFn: () => apiClient.post(`/quotes/${id}/revise`),
+    onSuccess: () => {
+      refresh();
+      close();
+      navigate(`/quotes/${id}/edit`);
+    },
+    onError,
+  });
+
   const remove = useMutation({
     mutationFn: () => apiClient.delete(`/quotes/${id}`),
     onSuccess: () => {
@@ -297,8 +329,16 @@ export function QuoteDetailPage() {
                   <Button variant="danger" disabled={remove.isPending} onClick={() => remove.mutate()}>
                     {t("invoice.deleteDraft")}
                   </Button>
+                  <ButtonLink variant="secondary" to={`/quotes/${id}/edit`}>
+                    {t("common.edit")}
+                  </ButtonLink>
                   <Button onClick={() => setSheet("send")}>{t("quote.send")}</Button>
                 </>
+              )}
+              {["sent", "expired"].includes(quote.status) && (
+                <Button variant="secondary" onClick={() => setSheet("revise")}>
+                  {t("common.edit")}
+                </Button>
               )}
               {["sent", "accepted"].includes(quote.status) && hasEmail && (
                 <Button variant="secondary" disabled={resend.isPending} onClick={() => resend.mutate()}>
@@ -357,6 +397,24 @@ export function QuoteDetailPage() {
           />
         </aside>
       </div>
+
+      <Sheet
+        open={sheet === "revise"}
+        onClose={close}
+        title={t("edit.reviseTitle", { number: quote.quote_number })}
+        footer={
+          <>
+            <Button variant="secondary" onClick={close}>
+              {t("common.cancel")}
+            </Button>
+            <Button disabled={revise.isPending} onClick={() => revise.mutate()}>
+              {t("edit.reviseConfirm")}
+            </Button>
+          </>
+        }
+      >
+        <p className="text-sm text-slate-600">{t("edit.reviseBody")}</p>
+      </Sheet>
 
       <Sheet
         open={sheet === "send"}

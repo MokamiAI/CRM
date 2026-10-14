@@ -34,6 +34,11 @@ class InvoiceRepository:
         result = await self.db.execute(stmt)
         return list(result.scalars().unique().all())
 
+    async def get_for_update(self, invoice_id: uuid.UUID) -> Invoice | None:
+        """The invoice, row-locked until the transaction ends."""
+        result = await self.db.execute(select(Invoice).where(Invoice.id == invoice_id).with_for_update())
+        return result.scalars().first()
+
     async def create(self, invoice: Invoice) -> Invoice:
         self.db.add(invoice)
         await self.db.flush()

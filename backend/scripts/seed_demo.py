@@ -13,7 +13,8 @@ Refuses to run unless both the API and the database are on this machine.
 import asyncio
 import os
 import sys
-from datetime import date, timedelta
+import uuid
+from datetime import date, datetime, timedelta, timezone
 from urllib.parse import urlsplit
 
 import httpx
@@ -25,6 +26,7 @@ from sqlalchemy import update  # noqa: E402
 from app.core.config import settings  # noqa: E402
 from app.core.database import AsyncSessionLocal, engine  # noqa: E402
 from app.core.tenancy import set_system  # noqa: E402
+from app.models.crm import Deal  # noqa: E402
 from app.models.user import User  # noqa: E402
 
 API = os.environ.get("YGT_API", "http://127.0.0.1:8000/api/v1")
@@ -125,6 +127,16 @@ def main() -> None:
     first = (today.replace(day=1) - timedelta(days=40)).replace(day=min(today.day, 28))
     check(c.post("/recurring-invoices", json={"customer_id": customers["Bright Minds Academy"]["id"], "frequency": "monthly", "start_date": first.isoformat(), "due_days": 14, "reference": "Staff-room catering contract", "items": [{"description": "Staff-room catering (monthly)", "quantity": "1", "unit_price": "5200", "tax_rate": "15"}]}))
 
+    # For Discovery: a regular who has gone quiet, a quote nobody answered,
+    # and (below, by date) a deal lost long enough ago to try again.
+    quiet = check(c.post("/customers", json={"name": "Mzansi Motors", "email": "fleet@mzansimotors.example.com", "phone": "021 555 0107"}))
+    old = check(c.post("/invoices", json={"customer_id": quiet["id"], "issue_date": d(-160), "due_date": d(-130), "reference": "Staff braai", "items": [{"description": "Catering per guest", "quantity": "45", "unit_price": "280", "tax_rate": "15"}]}))
+    check(c.post(f"/invoices/{old['id']}/send", params={"notify": "false"}))
+    check(c.post(f"/invoices/{old['id']}/payments", json={"amount": old["total"], "method": "eft", "reference": "MZANSI-BRAAI"}))
+    hall = check(c.post("/customers", json={"name": "Ubuntu Community Hall", "email": "bookings@ubuntuhall.example.com"}))
+    unanswered = check(c.post("/quotes", json={"customer_id": hall["id"], "issue_date": d(-20), "expiry_date": d(10), "reference": "Heritage Day lunch", "items": [{"description": "Catering per guest", "quantity": "150", "unit_price": "240", "tax_rate": "15"}]}))
+    check(c.post(f"/quotes/{unanswered['id']}/send", params={"notify": "false"}))
+
     check(c.post("/support/tickets", json={"subject": "How do I add my banking details?", "category": "question", "body": "Where do I put our bank account so it shows on invoices?"}))
 
     # Confirm the demo admin's email, so the YGT admin pages work locally too
@@ -133,10 +145,19 @@ def main() -> None:
         async with AsyncSessionLocal() as db:
             set_system(db)
             await db.execute(update(User).where(User.email == EMAIL).values(email_verified_at=date.today()))
+            lost_on = datetime.now(timezone.utc) - timedelta(days=80)
+            await db.execute(update(Deal).where(Deal.id == uuid.UUID(deal_ids["Office year-end"])).values(closed_at=lost_on))
             await db.commit()
         await engine.dispose()
 
     asyncio.run(verify())
+
+    # Discovery: look near the demo's Cape Town address for schools,
+    # non-profits, offices and venues (real OpenStreetMap data), then run.
+    res = c.put("/discovery/settings", json={"area": "Cape Town City Centre", "radius_km": 5, "industries": ["education", "legal", "non_profit", "hospitality"]})
+    print("Discovery area:", "found" if res.status_code == 200 else f"not set ({res.status_code}); own records only")
+    run = c.post("/discovery/run")
+    print("Discovery leads:", run.json().get("found") if run.status_code == 200 else f"run failed ({run.status_code})")
     print(f"Seeded Demo Catering Co. Sign in at http://localhost:4173/login as {EMAIL} / {PASSWORD}")
 
 

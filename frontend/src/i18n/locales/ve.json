@@ -118,7 +118,8 @@
       "team_chat": "Nyambedzano ya tshigwada",
       "whatsapp_sms": "WhatsApp na SMS",
       "reports": "Muvhigo wa \"Ndi nnyi ane a ni kolodela\"",
-      "recurring_invoices": "Dziinvoisi dzi dzhenaho hafhu"
+      "recurring_invoices": "Dziinvoisi dzi dzhenaho hafhu",
+      "discovery": "U wana: vharengi vhaswa vhege iṅwe na iṅwe"
     },
     "fewer": "Vhathu vha si gathi",
     "fixPayment": "Vusuludzani garaṱa",
@@ -153,7 +154,8 @@
       "title": "Ndi tshipiḓa tsha pulane ya {{plan}}",
       "whatsapp_sms": "Ṱumanyani WhatsApp na SMS u rumela vharengi milaedza hune vha vha hone.",
       "reports": "Vhonani uri ndi nnyi ane a ni kolodela na uri mbadelo iṅwe na iṅwe yo lenga lini.",
-      "recurring_invoices": "Badelisani dzikonṱiraka dza ṅwedzi nga ṅwedzi nga mbudziso ya invoisi tshifhinga tshiṅwe na tshiṅwe."
+      "recurring_invoices": "Badelisani dzikonṱiraka dza ṅwedzi nga ṅwedzi nga mbudziso ya invoisi tshifhinga tshiṅwe na tshiṅwe.",
+      "discovery": "Vhege iṅwe na iṅwe YGT i wana vharengi vha re na tshikhala tsini naṋu na kha rekhodo dzaṋu."
     },
     "paid": "Mbadelo yo ṱanganedzwa. Zwino ni kha {{plan}}.",
     "payments": "Mbadelo",
@@ -487,7 +489,17 @@
       "pipeline": "Phaiphi yo vuleaho",
       "winRate": "Tshikalo tsha u kunda",
       "winRateDetail": "Thendelano dzo valwaho, maḓuvha a 90 o fhiraho",
-      "won": "Dzo kundwaho ṅwedzi uno"
+      "won": "Dzo kundwaho ṅwedzi uno",
+      "collected": "Tshelede yo kuvhanganywaho",
+      "thisMonth": "ṅwedzi uyu",
+      "outstanding": "Dziinvoisi dzi songo badelwaho",
+      "openDeals": "Thendelano dzo vulea",
+      "customers": "Vharengi vha shumaho",
+      "newThisMonth_one": "Vhaswa vha {{count}} ṅwedzi uyu",
+      "newThisMonth_other": "Vhaswa vha {{count}} ṅwedzi uyu",
+      "change": "{{pct}}%",
+      "up": "zwo gonya u fhira ṅwedzi wo fhiraho",
+      "down": "zwo tsa u fhira ṅwedzi wo fhiraho"
     },
     "last6Months": "Miṅwedzi ya 6 yo fhiraho",
     "morning": "Ndi matsheloni",
@@ -508,7 +520,62 @@
     "subtitle": "Phaiphi yaṋu, ḓuvha ḽaṋu, na zwine na kolotiwa.",
     "topDeals": "Thendelano khulwane dzo vuleaho",
     "validUntil": "i shuma u swika {{date}}",
-    "yourDay": "Ḓuvha ḽaṋu"
+    "yourDay": "Ḓuvha ḽaṋu",
+    "banner": "Hezwi ndi zwine zwa khou itea kha bindu ḽaṋu ṋamusi.",
+    "viewAll": "Vhonani zwoṱhe",
+    "pipeline": {
+      "title": "Mutevhe wa u rengisa",
+      "subtitle": "Thendelano dzaṋu dzo vulea kha zwiteṅwa zwoṱhe",
+      "wonThisMonth": "Zwo kundwaho ṅwedzi uyu",
+      "empty": "A hu na thendelano fhano",
+      "more_one": "+{{count}} dziṅwe",
+      "more_other": "+{{count}} dziṅwe",
+      "wonOn": "Yo kundwa nga {{date}}",
+      "closes": "I valwa nga {{date}}"
+    },
+    "quick": {
+      "title": "Zwiito zwa u ṱavhanya",
+      "customer": "Engedzani murengi",
+      "deal": "Itani thendelano",
+      "quote": "Itani khotheshini",
+      "invoice": "Itani invoisi",
+      "activity": "Ṅwalani mushumo"
+    },
+    "upcoming": {
+      "title": "Mishumo i ḓaho",
+      "empty": "A hu na zwo dzudzanywaho. Dzudzanyani luṱingo kana muṱangano waṋu u tevhelaho.",
+      "markDone": "Swayani \"{{subject}}\" sa zwo itwaho"
+    },
+    "revenue": {
+      "title": "Mbonalo ya mbuelo",
+      "subtitle": "Zwo ṅwalelwaho invoisi na tshelede yo kuvhanganywaho, nga ṅwedzi",
+      "invoiced": "Zwo ṅwalelwa invoisi",
+      "collected": "Zwo kuvhanganywa",
+      "month": "Ṅwedzi",
+      "range": "Tshifhinga",
+      "lastMonths_one": "Ṅwedzi wa {{count}} wo fhiraho",
+      "lastMonths_other": "Miṅwedzi ya {{count}} yo fhiraho",
+      "empty": "A hu na dziinvoisi kana mbadelo kha tshifhinga itshi.",
+      "summary_one": "Kha ṅwedzi wa {{count}} wo fhiraho: zwo ṅwalelwa invoisi {{invoiced}}, zwo kuvhanganywa {{collected}}.",
+      "summary_other": "Kha miṅwedzi ya {{count}} yo fhiraho: zwo ṅwalelwa invoisi {{invoiced}}, zwo kuvhanganywa {{collected}}."
+    },
+    "owes": {
+      "title": "Ndi nnyi ane a ni kolodela?",
+      "total": "{{amount}} i songo badelwaho",
+      "due": "i badelwa nga {{date}}",
+      "overdue": "Tshifhinga tsho fhira",
+      "soon": "I ḓo badelwa nga u ṱavhanya",
+      "pending": "I khou lindela",
+      "empty": "A hu na ane a ni kolodela tshelede zwino."
+    },
+    "recent": {
+      "title": "Vharengi vha zwino",
+      "lastActive": "Mushumo wa u fhedza {{date}}",
+      "noActivity": "A hu athu vha na mushumo",
+      "owes": "U kolota {{amount}}",
+      "settled": "O badela",
+      "empty": "Vharengi vhaṋu vha ḓo bvelela fhano."
+    }
   },
   "data": {
     "chooseFile": "Nangani faela ya CSV",
@@ -1332,7 +1399,7 @@
     "dashboard": "Ḓeshibodo",
     "deals": "Thendelano",
     "group": {
-      "records": "Rekhodo",
+      "records": "Golani",
       "sales": "Thengiso"
     },
     "help": "Thuso",
@@ -1348,7 +1415,27 @@
     "search": "Ṱoḓa",
     "settings": "Nzudzanyo",
     "support": "Thikhedzo",
-    "purchaseOrders": "Dzioda dza u renga"
+    "purchaseOrders": "Dzioda dza u renga",
+    "discovery": "U wana",
+    "reports": "Mivhigo",
+    "tagline": "Golani · Langani · Bvelelani",
+    "main": "Zwihulwane",
+    "searchWide": "Ṱoḓani vharengi, thendelano, khotheshini, dziinvoisi…",
+    "notifications": "Nyivhadzo",
+    "allCaughtUp": "A hu na zwi lindelaho.",
+    "account": "Akhauntu yaṋu",
+    "collapse": "Pfumbani menyu",
+    "expand": "Vulani menyu",
+    "notificationsCount_one": "Nyivhadzo ya {{count}}",
+    "notificationsCount_other": "Nyivhadzo dza {{count}}",
+    "notify": {
+      "activities_one": "Tshithu tsha {{count}} tsha u ita ṋamusi",
+      "activities_other": "Zwithu zwa {{count}} zwa u ita ṋamusi",
+      "messages_one": "Mulaedza wa {{count}} u songo vhalwaho",
+      "messages_other": "Milaedza ya {{count}} i songo vhalwaho",
+      "discovery_one": "Murengi muswa wa {{count}} kha U wana",
+      "discovery_other": "Vharengi vhaswa vha {{count}} kha U wana"
+    }
   },
   "palette": {
     "action": {
@@ -2099,6 +2186,97 @@
       "monthly": "Ṅwedzi muṅwe na muṅwe",
       "quarterly": "Ṅwedzi dza 3 dziṅwe na dziṅwe",
       "yearly": "Ṅwaha muṅwe na muṅwe"
+    },
+    "edit": "Shandukisani invoisi i dzhenaho hafhu",
+    "editHint": "Tshanduko dzi shuma kha dziinvoisi dzi kha ḓi ḓa. Dziinvoisi dzo no itwaho dzi dzula dzo ralo.",
+    "updated": "Invoisi i dzhenaho hafhu yo vhulungwa",
+    "nextOnLabel": "Invoisi i tevhelaho nga"
+  },
+  "discovery": {
+    "title": "U wana",
+    "subtitle": "Vharengi vha re na tshikhala vho wanalaho vhege iṅwe na iṅwe. A hu na tshithu tshi dzhenaho kha mutevhe waṋu u swika ni tshi engedza.",
+    "lookNow": "Ṱoḓani zwino",
+    "looking": "I khou ṱoḓa…",
+    "found_zero": "A hu na vharengi vhaswa zwino",
+    "found_one": "Ho wanala murengi muswa a {{count}}",
+    "found_other": "Ho wanala vharengi vhaswa vha {{count}}",
+    "added": "{{name}} o no vha kha mutevhe waṋu",
+    "add": "Engedzani kha mutevhe",
+    "dismiss": "Laṱani",
+    "openDeal": "Vulani thendelano",
+    "source": {
+      "osm": "Bindu ḽi re tsini",
+      "quiet_customer": "O dzika",
+      "lost_deal": "Thendelano yo xelaho",
+      "stale_quote": "Khotheshini i songo fhindulwaho"
+    },
+    "why": {
+      "stale_quote": "Khotheshini {{number}} ya {{amount}} yo rumelwa nga {{date}}, a i athu fhindulwa.",
+      "lost_deal": "Yo xela nga {{date}}: {{title}} ({{amount}}). Hu fanela u lingwa hafhu?",
+      "quiet_customer": "Bindu ḽa u fhedza nga {{date}}. Kanzhi {{amount}} nga invoisi."
+    },
+    "dealTitle": {
+      "stale_quote": "Tevhelani {{number}} – {{name}}",
+      "lost_deal": "Vhuyelelani kha: {{title}}",
+      "quiet_customer": "Vhuisani {{name}}"
+    },
+    "tab": {
+      "new": "Zwiswa",
+      "added": "Zwo engedzwaho",
+      "dismissed": "Zwo laṱwaho"
+    },
+    "empty": "A hu na vharengi vhaswa zwino",
+    "emptyHint": "U wana hu ṱoḓa Musumbuluwo muṅwe na muṅwe nga matsheloni nahone hu rumela imeiḽi kha vhalanguli vhaṋu musi ho wana muthu.",
+    "emptySetup": "Vhetshani fhethu haṋu na tshaka dza vharengi dzine na dzi ṱoḓa, uri U wana hu wane na mabindu a re tsini naṋu.",
+    "emptyTab": {
+      "added": "A hu na zwo engedzwaho",
+      "dismissed": "A hu na zwo laṱwaho"
+    },
+    "privacy": "Hezwi ndi themendelo fhedzi: YGT a i vha kwami. Mabindu a re tsini a bva kha data ya mmapa ya tshitshavha,",
+    "settings": {
+      "button": "Hune ha ṱoḓwa hone",
+      "title": "Hune ha ṱoḓwa hone",
+      "hint": "U wana hu ṱoḓa tshaka idzi dza mabindu tsini naṋu, na vharengi kha rekhodo dzaṋu vhane vha fanela u founelwa.",
+      "area": "Fhethu haṋu",
+      "areaHint": "Tshiṱiriki na ḓorobo zwi shuma zwavhuḓi.",
+      "areaPlaceholder": "tsumbo, Soweto, Johannesburg",
+      "notFound": "A ro ngo kona u wana fhethu ha kha mmapa.",
+      "radius": "Vhulapfu",
+      "km_one": "Ngomu ha {{count}} km",
+      "km_other": "Ngomu ha {{count}} km",
+      "industries": "Tshaka dza vharengi",
+      "industriesHint_one": "Nangani u swika kha {{count}}.",
+      "industriesHint_other": "Nangani u swika kha {{count}}.",
+      "weekly": "Ṱoḓani vhege iṅwe na iṅwe ni rumele vhalanguli imeiḽi",
+      "saved": "Zwo vhulungwa",
+      "summary": "Hu khou ṱoḓwa ngomu ha {{km}} km u bva {{area}}.",
+      "noArea": "A hu athu vhewa fhethu: hu ṱoḓisiswa rekhodo dzaṋu fhedzi."
+    },
+    "nearby": {
+      "looking": "Hu khou ṱoḓwa mabindu a re tsini na {{area}}… Izwi zwi nga dzhia minithi nthihi kana mbili; a ḓo bvelela fhano.",
+      "failed": "Tshumelo ya mmapa yo vha i tshi khou bisea, ngauralo mabindu a re tsini a songo ṱoḓisiswa. U wana hu ḓo lingedza hafhu nga Musumbuluwo.",
+      "retry": "Lingedzani hafhu"
     }
+  },
+  "edit": {
+    "saved": "{{number}} yo vhulungwa",
+    "title": "Shandukisani {{number}}",
+    "subtitle": "Shandukisani mitevhe, ḓuvha na zwiṅwalwa. Murengi u dzula e uyo.",
+    "notDraft": "Ndi mbudziso fhedzi dzine dza nga shandukiswa fhano. Vulani ḽiṅwalwa u vhona zwine na nga zwi ita.",
+    "back": "Vhuyelelani kha ḽiṅwalwa",
+    "save": "Vhulungani tshanduko",
+    "reviseTitle": "Shandukisani {{number}}?",
+    "reviseBody": "Khotheshini iyi yo rumelwa. U i shandukisa zwi i vhuisa kha mbudziso: itani tshanduko, ni kone u i rumela hafhu uri murengi a wane yo vusuludzwaho.",
+    "reviseConfirm": "I iteni mbudziso ni shandukise",
+    "correctTitle": "Lulamisani {{number}}?",
+    "correctBody": "Invoisi yo rumelwaho a i nga shandukiswi: murengi waṋu o no vha nayo. {{number}} i ḓo fhumudzwa nahone ha vulwa khophi ya mbudziso i re na mitevhe i fanaho uri ni i lulamise ni i rumele.",
+    "correctConfirm": "Fhumudzani ni ite khophi yo lulamiswaho",
+    "corrected": "{{old}} yo fhumudzwa. Lulamisani {{number}}, ni kone u i rumela.",
+    "activity": "Shandukisani \"{{subject}}\"",
+    "activityTitle": "Shandukisani mushumo",
+    "activitySaved": "Mushumo wo vhulungwa",
+    "details": "Zwidodombedzwa",
+    "deal": "Shandukisani \"{{title}}\"",
+    "customer": "Shandukisani {{name}}"
   }
 }

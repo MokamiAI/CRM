@@ -9,7 +9,7 @@ import { useCustomerMap, useDeals, useTeamMap } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import DealFormSheet from "../components/DealFormSheet";
 import Sheet from "../components/Sheet";
-import { NextActivityBadge, STAGES, dueState, industryLabel } from "../components/crm";
+import { NextActivityBadge, RowEditButton, STAGES, dueState, industryLabel } from "../components/crm";
 import { Avatar, Button, ErrorState, Field, FilterChips, PageHeader, PlusIcon, Tooltip } from "../components/ui";
 import { errorMessage, formatMoney, formatShortDate } from "../utils/format";
 import { celebrate } from "../utils/motion";
@@ -342,9 +342,12 @@ function DealCard({ deal, customer, owner, dragging, landed, draggable, onDragSt
 function DealTable({ deals, customers, team, loading }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [editing, setEditing] = useState(null);
   if (loading) return <div className="card h-48 animate-pulse" />;
   return (
     <div className="card overflow-hidden">
+      <DealFormSheet open={Boolean(editing)} onClose={() => setEditing(null)} deal={editing} />
       <table className="hidden w-full md:table">
         <thead className="table-head">
           <tr>
@@ -355,6 +358,7 @@ function DealTable({ deals, customers, team, loading }) {
             <th>{t("deals.col.owner")}</th>
             <th>{t("deals.col.expectedClose")}</th>
             <th>{t("deals.col.nextStep")}</th>
+            <th className="w-12"><span className="sr-only">{t("common.edit")}</span></th>
           </tr>
         </thead>
         <tbody>
@@ -394,6 +398,7 @@ function DealTable({ deals, customers, team, loading }) {
                 <td>
                   <NextActivityBadge activity={deal.next_activity} />
                 </td>
+                <td className="text-right">{user?.role !== "viewer" && <RowEditButton label={t("edit.deal", { title: deal.title })} onClick={() => setEditing(deal)} />}</td>
               </tr>
             );
           })}

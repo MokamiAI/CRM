@@ -118,7 +118,8 @@
       "team_chat": "Ukukhulumisana kwesiqhema",
       "whatsapp_sms": "WhatsApp ne-SMS",
       "reports": "Umbiko othi \"Ngubani okukweletako\"",
-      "recurring_invoices": "Ama-invoyisi aphindaphindako"
+      "recurring_invoices": "Ama-invoyisi aphindaphindako",
+      "discovery": "Ukufumana: amakhasimende amatjha iveke ngeveke"
     },
     "fewer": "Abantu abambalwa",
     "fixPayment": "Buyekeza ikarada",
@@ -153,7 +154,8 @@
       "title": "Kuyingcenye yehlelo le-{{plan}}",
       "whatsapp_sms": "Hlanganisa i-WhatsApp ne-SMS bona uthumele amakhasimende imilayezo lapho asele akhona.",
       "reports": "Bona ngubani okukweletako nokuthi ibhadelo ngalinye seliphuze kangangani.",
-      "recurring_invoices": "Thumela ama-invoyisi weenkontraga zenyanga ngenyanga ngedrafti ye-invoyisi isikhathi ngasinye."
+      "recurring_invoices": "Thumela ama-invoyisi weenkontraga zenyanga ngenyanga ngedrafti ye-invoyisi isikhathi ngasinye.",
+      "discovery": "Iveke ngeveke i-YGT ifumana amakhasimende angaba khona eduze kwakho nemarekhodini wakho."
     },
     "paid": "Imbhadelo yamukelwe. Nje use ku-{{plan}}.",
     "payments": "Iimbhadelo",
@@ -487,7 +489,17 @@
       "pipeline": "Iphayiphi evulekileko",
       "winRate": "Izinga lokuphumelela",
       "winRateDetail": "Iinvumelwano ezivaliweko, amalanga ama-90 adlulileko",
-      "won": "Eziphumelele kwenyanga le"
+      "won": "Eziphumelele kwenyanga le",
+      "collected": "Imali ebuthelelweko",
+      "thisMonth": "kuleli nyanga",
+      "outstanding": "Ama-invoyisi angakabhadelwa",
+      "openDeals": "Iimvumelwano ezivulekileko",
+      "customers": "Amakhasimende asebenzako",
+      "newThisMonth_one": "Amatjha ali-{{count}} kuleli nyanga",
+      "newThisMonth_other": "Amatjha ali-{{count}} kuleli nyanga",
+      "change": "{{pct}}%",
+      "up": "kukhuphukile kunenyanga edlulileko",
+      "down": "kwehlile kunenyanga edlulileko"
     },
     "last6Months": "Iinyanga ezi-6 ezidlulileko",
     "morning": "Lotjhani ekuseni",
@@ -508,7 +520,62 @@
     "subtitle": "Iphayiphi yakho, ilanga lakho, nokuthi ukweletwa malini.",
     "topDeals": "Iinvumelwano ezikulu ezivulekileko",
     "validUntil": "isebenza bekube ngu-{{date}}",
-    "yourDay": "Ilanga lakho"
+    "yourDay": "Ilanga lakho",
+    "banner": "Nakhu okwenzekako ebhizinisini lakho namhlanje.",
+    "viewAll": "Qala koke",
+    "pipeline": {
+      "title": "Umgqa wokuthengisa",
+      "subtitle": "Iimvumelwano zakho ezivulekileko kizo zoke iingaba",
+      "wonThisMonth": "Okuthunjiweko kuleli nyanga",
+      "empty": "Azikho iimvumelwano lapha",
+      "more_one": "+{{count}} okhunye",
+      "more_other": "+{{count}} okhunye",
+      "wonOn": "Kuthunjwe ngo-{{date}}",
+      "closes": "Kuvalwa ngo-{{date}}"
+    },
+    "quick": {
+      "title": "Izenzo ezirhabako",
+      "customer": "Engeza ikhasimende",
+      "deal": "Enza isivumelwano",
+      "quote": "Enza isilinganiso",
+      "invoice": "Enza i-invoyisi",
+      "activity": "Tlola umsebenzi"
+    },
+    "upcoming": {
+      "title": "Imisebenzi ezako",
+      "empty": "Akukho okuhleliweko. Hlela ifoni namkha umhlangano wakho olandelako.",
+      "markDone": "Tshwaya \"{{subject}}\" njengokwenziweko"
+    },
+    "revenue": {
+      "title": "Ukuqala imali engenako",
+      "subtitle": "Okufakwe ku-invoyisi nemali ebuthelelweko, ngenyanga",
+      "invoiced": "Kufakwe ku-invoyisi",
+      "collected": "Kubuthelelwe",
+      "month": "Inyanga",
+      "range": "Isikhathi",
+      "lastMonths_one": "Inyanga e-{{count}} edlulileko",
+      "lastMonths_other": "Iinyanga ezi-{{count}} ezidlulileko",
+      "empty": "Akukho ama-invoyisi namkha amabhadelo kileso sikhathi.",
+      "summary_one": "Enyangeni e-{{count}} edlulileko: kufakwe ku-invoyisi {{invoiced}}, kubuthelelwe {{collected}}.",
+      "summary_other": "Eenyangeni ezi-{{count}} ezidlulileko: kufakwe ku-invoyisi {{invoiced}}, kubuthelelwe {{collected}}."
+    },
+    "owes": {
+      "title": "Ngubani okukweletako?",
+      "total": "{{amount}} esalindileko",
+      "due": "kubhadelwa ngo-{{date}}",
+      "overdue": "Isikhathi sidlulile",
+      "soon": "Kuzokubhadelwa msinyana",
+      "pending": "Kusalindile",
+      "empty": "Akekho okukweletako imali nje."
+    },
+    "recent": {
+      "title": "Amakhasimende wamva",
+      "lastActive": "Umsebenzi wokugcina {{date}}",
+      "noActivity": "Akukabi khona umsebenzi",
+      "owes": "Ukweleta {{amount}}",
+      "settled": "Ubhadele",
+      "empty": "Amakhasimende wakho azokuvela lapha."
+    }
   },
   "data": {
     "chooseFile": "Khetha ifayela le-CSV",
@@ -1332,7 +1399,7 @@
     "dashboard": "Idetjhibhodi",
     "deals": "Iinvumelwano",
     "group": {
-      "records": "Amarekhodi",
+      "records": "Khula",
       "sales": "Ukuthengisa"
     },
     "help": "Isizo",
@@ -1348,7 +1415,27 @@
     "search": "Funa",
     "settings": "Iinlungiselelo",
     "support": "Isekelo",
-    "purchaseOrders": "Ama-oda wokuthenga"
+    "purchaseOrders": "Ama-oda wokuthenga",
+    "discovery": "Ukufumana",
+    "reports": "Imibiko",
+    "tagline": "Khula · Phatha · Phumelela",
+    "main": "Okukhulu",
+    "searchWide": "Funa amakhasimende, iimvumelwano, iinlinganiso, ama-invoyisi…",
+    "notifications": "Iimbikiso",
+    "allCaughtUp": "Akukho okusalindileko.",
+    "account": "I-akhawunti yakho",
+    "collapse": "Goqa imenyu",
+    "expand": "Vula imenyu",
+    "notificationsCount_one": "Isibikiso esi-{{count}}",
+    "notificationsCount_other": "Iimbikiso ezi-{{count}}",
+    "notify": {
+      "activities_one": "Into e-{{count}} okufanele uyenze namhlanje",
+      "activities_other": "Izinto ezi-{{count}} okufanele uzenze namhlanje",
+      "messages_one": "Umlayezo o-{{count}} ongakafundwa",
+      "messages_other": "Imilayezo e-{{count}} engakafundwa",
+      "discovery_one": "Ikhasimende elitjha eli-{{count}} ku-Ukufumana",
+      "discovery_other": "Amakhasimende amatjha ali-{{count}} ku-Ukufumana"
+    }
   },
   "palette": {
     "action": {
@@ -2099,6 +2186,97 @@
       "monthly": "Qobe nyanga",
       "quarterly": "Qobe zinyanga ezi-3",
       "yearly": "Qobe mnyaka"
+    },
+    "edit": "Hlela i-invoyisi ephindaphindako",
+    "editHint": "Amatjhugululo asebenza kuma-invoyisi asazako. Ama-invoyisi asele enziwe ahlala anjalo.",
+    "updated": "I-invoyisi ephindaphindako igciniwe",
+    "nextOnLabel": "I-invoyisi elandelako ngo-"
+  },
+  "discovery": {
+    "title": "Ukufumana",
+    "subtitle": "Amakhasimende angaba khona afunyenwe iveke ngeveke. Akukho okungena emgqeni wakho bekube ukwengeze.",
+    "lookNow": "Qala nje",
+    "looking": "Iyaqala…",
+    "found_zero": "Akukho makhasimende amatjha kwanje",
+    "found_one": "Kufunyenwe ikhasimende elitjha eli-{{count}}",
+    "found_other": "Kufunyenwe amakhasimende amatjha ali-{{count}}",
+    "added": "U-{{name}} usemgqeni wakho",
+    "add": "Engeza emgqeni",
+    "dismiss": "Susa",
+    "openDeal": "Vula isivumelwano",
+    "source": {
+      "osm": "Ibhizinisi eliseduze",
+      "quiet_customer": "Uthule",
+      "lost_deal": "Isivumelwano esilahlekileko",
+      "stale_quote": "Isilinganiso esingaphendulwako"
+    },
+    "why": {
+      "stale_quote": "Isilinganiso {{number}} se-{{amount}} sithunyelwe ngo-{{date}}, asikaphendulwa.",
+      "lost_deal": "Kulahlekile ngo-{{date}}: {{title}} ({{amount}}). Kufanele kulingwe godu?",
+      "quiet_customer": "Ibhizinisi lokugcina ngo-{{date}}. Kanengi {{amount}} nge-invoyisi."
+    },
+    "dealTitle": {
+      "stale_quote": "Landela {{number}} – {{name}}",
+      "lost_deal": "Buyela ku: {{title}}",
+      "quiet_customer": "Buyisa u-{{name}}"
+    },
+    "tab": {
+      "new": "Okutjha",
+      "added": "Okungeziweko",
+      "dismissed": "Okususiweko"
+    },
+    "empty": "Akukho makhasimende amatjha nje",
+    "emptyHint": "Ukufumana kuqala qobe Mvulo ekuseni bese kuthumela i-imeyili kubaphathi bakho nakufumene othileko.",
+    "emptySetup": "Setha indawo yakho neenhlobo zamakhasimende ozifunako, bona Ukufumana kufumane namabhizinisi aseduze kwakho.",
+    "emptyTab": {
+      "added": "Akukho okungeziweko",
+      "dismissed": "Akukho okususiweko"
+    },
+    "privacy": "Lezi ziphakamiso kwaphela: i-YGT ayithintani nabo. Amabhizinisi aseduze avela edatheni yemephu yomphakathi,",
+    "settings": {
+      "button": "Lapho kufuneka kuqalwe khona",
+      "title": "Lapho kufuneka kuqalwe khona",
+      "hint": "Ukufumana kuqala iinhlobo zamabhizinisi eduze kwakho, namakhasimende emarekhodini wakho okufanele afonelwe.",
+      "area": "Indawo yakho",
+      "areaHint": "Ilokitjhi nedorobho kusebenza kuhle.",
+      "areaPlaceholder": "isib. Soweto, Johannesburg",
+      "notFound": "Asikghonanga ukufumana indawo le emephini.",
+      "radius": "Ibanga",
+      "km_one": "Ngaphakathi kwe-{{count}} km",
+      "km_other": "Ngaphakathi kwe-{{count}} km",
+      "industries": "Iinhlobo zamakhasimende",
+      "industriesHint_one": "Khetha bekube ngu-{{count}}.",
+      "industriesHint_other": "Khetha bekube ngu-{{count}}.",
+      "weekly": "Qala iveke ngeveke bese uthumela abaphathi i-imeyili",
+      "saved": "Kugciniwe",
+      "summary": "Kuqalwa ngaphakathi kwe-{{km}} km ukusuka e-{{area}}.",
+      "noArea": "Akukasetjhwa indawo: kuhlolwa amarekhodi wakho kwaphela."
+    },
+    "nearby": {
+      "looking": "Kufunwa amabhizinisi aseduze ne-{{area}}… Lokhu kungathatha umzuzu namkha emibili; azokuvela lapha.",
+      "failed": "Isizo lemephu belimatasa, ngalokho amabhizinisi aseduze akhenge ahlolwe. Ukufumana kuzokulinga godu ngoMvulo.",
+      "retry": "Linga godu"
     }
+  },
+  "edit": {
+    "saved": "U-{{number}} ugciniwe",
+    "title": "Hlela u-{{number}}",
+    "subtitle": "Tjhentjha imigqa, amalanga namanothi. Ikhasimende lihlala linye.",
+    "notDraft": "Kungatjhentjhwa kwaphela amadrafti lapha. Vula idokhumende ukuze ubone amakghetho wakho.",
+    "back": "Buyela edokhumendeni",
+    "save": "Gcina amatjhugululo",
+    "reviseTitle": "Hlela u-{{number}}?",
+    "reviseBody": "Isilinganiso lesi sesithunyelwe. Ukusihlela kusibuyisela edrafthini: enza amatjhugululo, bese usithumela godu ukuze ikhasimende lifumane ihlobo elitjha.",
+    "reviseConfirm": "Kwenze idrafti bese uhlela",
+    "correctTitle": "Lungisa u-{{number}}?",
+    "correctBody": "I-invoyisi ethunyelweko ingeze yatjhentjhwa: ikhasimende lakho seliyinayo. U-{{number}} uzokukhanselwa bese kuvulwa ikopi yedrafti enemigqa efanako bona uyilungise uyithumele.",
+    "correctConfirm": "Khansela wenze ikopi elungisiweko",
+    "corrected": "U-{{old}} ukhanseliwe. Lungisa u-{{number}}, bese umthumela.",
+    "activity": "Hlela \"{{subject}}\"",
+    "activityTitle": "Hlela umsebenzi",
+    "activitySaved": "Umsebenzi ugciniwe",
+    "details": "Imininingwana",
+    "deal": "Hlela \"{{title}}\"",
+    "customer": "Hlela u-{{name}}"
   }
 }

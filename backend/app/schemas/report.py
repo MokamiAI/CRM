@@ -54,7 +54,10 @@ class ReportSummary(BaseModel):
     outstanding: Decimal
     overdue: Decimal
     open_invoice_count: int
-    collected_by_month: list[MonthTotal]
+    collected_by_month: list[MonthTotal]  # last 12 months, oldest first
+    invoiced_by_month: list[MonthTotal]
+    active_customers: int
+    new_customers_this_month: int
     top_deals: list[TopDeal]
     recent_activity: list[FeedItem]
 

@@ -118,7 +118,8 @@
       "team_chat": "Inkhulumo yelithimba",
       "whatsapp_sms": "WhatsApp ne-SMS",
       "reports": "Umbiko wekutsi \"Ngubani lokweletako\"",
-      "recurring_invoices": "Ema-invoyisi laphindzaphindzako"
+      "recurring_invoices": "Ema-invoyisi laphindzaphindzako",
+      "discovery": "Kutfola: emakhasimende lamasha liviki ngalinye"
     },
     "fewer": "Bantfu labambalwa",
     "fixPayment": "Buyeketa likhadi",
@@ -153,7 +154,8 @@
       "title": "Kuyincenye yeluhlelo lwe-{{plan}}",
       "whatsapp_sms": "Xhumanisa WhatsApp ne-SMS kute utfumele batsengi imilayeto lapho sebavele bakhona.",
       "reports": "Bona kutsi ngubani lokweletako nekutsi inkhokhelo ngayinye seyephuze kangakanani.",
-      "recurring_invoices": "Tfumela ema-invoyisi etivumelwano tanyanga tonkhe ngelidrafti le-invoyisi sikhatsi ngasinye."
+      "recurring_invoices": "Tfumela ema-invoyisi etivumelwano tanyanga tonkhe ngelidrafti le-invoyisi sikhatsi ngasinye.",
+      "discovery": "Liviki ngalinye i-YGT itfola emakhasimende langaba khona eduze kwakho nasemarekhodini akho."
     },
     "paid": "Inkhokhelo itfoliwe. Nyalo use ku-{{plan}}.",
     "payments": "Tinkhokhelo",
@@ -487,7 +489,17 @@
       "pipeline": "Liphayiphi lelivulekile",
       "winRate": "Lizinga lekuphumelela",
       "winRateDetail": "Tivumelwano letivaliwe, emalangeni langu-90 lendlulile",
-      "won": "Letiphumelele kulenyanga"
+      "won": "Letiphumelele kulenyanga",
+      "collected": "Imali lecongelelwe",
+      "thisMonth": "kulenyanga",
+      "outstanding": "Ema-invoyisi langakakhokhelwa",
+      "openDeals": "Tivumelwano letivulekile",
+      "customers": "Emakhasimende lasebentako",
+      "newThisMonth_one": "Lamasha langu-{{count}} kulenyanga",
+      "newThisMonth_other": "Lamasha langu-{{count}} kulenyanga",
+      "change": "{{pct}}%",
+      "up": "kukhuphukile kunenyanga leyendlulile",
+      "down": "kwehlile kunenyanga leyendlulile"
     },
     "last6Months": "Tinyanga leti-6 letendlulile",
     "morning": "Sawubona ekuseni",
@@ -508,7 +520,62 @@
     "subtitle": "Liphayiphi lakho, lilanga lakho, nekutsi ukweletwa malini.",
     "topDeals": "Tivumelwano letinkhulu letivulekile",
     "validUntil": "isebenta kuze kube nga-{{date}}",
-    "yourDay": "Lilanga lakho"
+    "yourDay": "Lilanga lakho",
+    "banner": "Naku lokwentekako ebhizinisini lakho lamuhla.",
+    "viewAll": "Buka konkhe",
+    "pipeline": {
+      "title": "Umgca wekutsengisa",
+      "subtitle": "Tivumelwano takho letivulekile kuto tonkhe tigaba",
+      "wonThisMonth": "Lokuwinwe kulenyanga",
+      "empty": "Kute tivumelwano lapha",
+      "more_one": "+{{count}} lokunye",
+      "more_other": "+{{count}} lokunye",
+      "wonOn": "Kuwinwe nga-{{date}}",
+      "closes": "Kuvalwa nga-{{date}}"
+    },
+    "quick": {
+      "title": "Tento letisheshako",
+      "customer": "Engeta likhasimende",
+      "deal": "Yakha sivumelwano",
+      "quote": "Yakha sicalo",
+      "invoice": "Yakha i-invoyisi",
+      "activity": "Bhala umsebenti"
+    },
+    "upcoming": {
+      "title": "Imisebenti letako",
+      "empty": "Kute lokuhleliwe. Hlela lucingo noma umhlangano wakho lolandzelako.",
+      "markDone": "Maka \"{{subject}}\" njengalokwentiwe"
+    },
+    "revenue": {
+      "title": "Kubuka imali lengenako",
+      "subtitle": "Lokufakwe ku-invoyisi nemali lecongelelwe, ngenyanga",
+      "invoiced": "Kufakwe ku-invoyisi",
+      "collected": "Kucongelelwe",
+      "month": "Inyanga",
+      "range": "Sikhatsi",
+      "lastMonths_one": "Inyanga lengu-{{count}} leyendlulile",
+      "lastMonths_other": "Tinyanga letingu-{{count}} letendlulile",
+      "empty": "Kute ema-invoyisi noma tinkhokhelo kulesikhatsi.",
+      "summary_one": "Enyangeni lengu-{{count}} leyendlulile: kufakwe ku-invoyisi {{invoiced}}, kucongelelwe {{collected}}.",
+      "summary_other": "Etinyangeni letingu-{{count}} letendlulile: kufakwe ku-invoyisi {{invoiced}}, kucongelelwe {{collected}}."
+    },
+    "owes": {
+      "title": "Ngubani lokweletako?",
+      "total": "{{amount}} lesalindzile",
+      "due": "kukhokhwa nga-{{date}}",
+      "overdue": "Sikhatsi sendlulile",
+      "soon": "Kutawukhokhwa masinyane",
+      "pending": "Kusalindzile",
+      "empty": "Kute lokweletako imali nyalo."
+    },
+    "recent": {
+      "title": "Emakhasimende akamuva",
+      "lastActive": "Umsebenti wekugcina {{date}}",
+      "noActivity": "Kute umsebenti okwanyalo",
+      "owes": "Ukweleta {{amount}}",
+      "settled": "Ukhokhile",
+      "empty": "Emakhasimende akho atawuvela lapha."
+    }
   },
   "data": {
     "chooseFile": "Khetsa ifayela le-CSV",
@@ -1332,7 +1399,7 @@
     "dashboard": "Lideshibhodi",
     "deals": "Tivumelwano",
     "group": {
-      "records": "Emarekhodi",
+      "records": "Khula",
       "sales": "Kutsengisa"
     },
     "help": "Lusito",
@@ -1348,7 +1415,27 @@
     "search": "Sesha",
     "settings": "Kuhlela",
     "support": "Kusekela",
-    "purchaseOrders": "Ema-oda ekutsenga"
+    "purchaseOrders": "Ema-oda ekutsenga",
+    "discovery": "Kutfola",
+    "reports": "Imibiko",
+    "tagline": "Khula · Phatsa · Phumelela",
+    "main": "Lokukhulu",
+    "searchWide": "Sesha emakhasimende, tivumelwano, ticalo, ema-invoyisi…",
+    "notifications": "Tatiso",
+    "allCaughtUp": "Kute lokusalindzile.",
+    "account": "I-akhawunti yakho",
+    "collapse": "Goca imenyu",
+    "expand": "Vula imenyu",
+    "notificationsCount_one": "Satiso lesingu-{{count}}",
+    "notificationsCount_other": "Tatiso letingu-{{count}}",
+    "notify": {
+      "activities_one": "Intfo lengu-{{count}} lokufanele uyente lamuhla",
+      "activities_other": "Tintfo letingu-{{count}} lokufanele utente lamuhla",
+      "messages_one": "Umlayeto longu-{{count}} longakafundvwa",
+      "messages_other": "Imilayeto lengu-{{count}} lengakafundvwa",
+      "discovery_one": "Likhasimende lelisha lelingu-{{count}} ku-Kutfola",
+      "discovery_other": "Emakhasimende lamasha langu-{{count}} ku-Kutfola"
+    }
   },
   "palette": {
     "action": {
@@ -2099,6 +2186,97 @@
       "monthly": "Onkhe tinyanga",
       "quarterly": "Onkhe tinyanga leti-3",
       "yearly": "Onkhe iminyaka"
+    },
+    "edit": "Hlela i-invoyisi lephindzaphindzako",
+    "editHint": "Tinguco tisebenta kuma-invoyisi lasatako. Ema-invoyisi lasentiwe ahlala anjalo.",
+    "updated": "I-invoyisi lephindzaphindzako igcinwe",
+    "nextOnLabel": "I-invoyisi lelandzelako nga"
+  },
+  "discovery": {
+    "title": "Kutfola",
+    "subtitle": "Emakhasimende langaba khona latfolakala liviki ngalinye. Kute lokungena emugceni wakho uze ukwengete.",
+    "lookNow": "Bheka nyalo",
+    "looking": "Iyabheka…",
+    "found_zero": "Kute emakhasimende lamasha kulesikhatsi",
+    "found_one": "Kutfolwe likhasimende lelisha lelingu-{{count}}",
+    "found_other": "Kutfolwe emakhasimende lamasha langu-{{count}}",
+    "added": "{{name}} usemugceni wakho",
+    "add": "Engeta emugceni",
+    "dismiss": "Susa",
+    "openDeal": "Vula sivumelwano",
+    "source": {
+      "osm": "Libhizinisi leliseduze",
+      "quiet_customer": "Kutsule",
+      "lost_deal": "Sivumelwano lesilahlekile",
+      "stale_quote": "Sicalo lesingakaphendvulwa"
+    },
+    "why": {
+      "stale_quote": "Sicalo {{number}} sa-{{amount}} sitfunyelwe nga-{{date}}, asikaphendvulwa.",
+      "lost_deal": "Kulahlekile nga-{{date}}: {{title}} ({{amount}}). Kufanele kuzanywe futsi?",
+      "quiet_customer": "Libhizinisi lekugcina nga-{{date}}. Ngalokuvamile {{amount}} nge-invoyisi."
+    },
+    "dealTitle": {
+      "stale_quote": "Landzelela {{number}} – {{name}}",
+      "lost_deal": "Buyela ku: {{title}}",
+      "quiet_customer": "Buyisa {{name}}"
+    },
+    "tab": {
+      "new": "Lokusha",
+      "added": "Lokwengetiwe",
+      "dismissed": "Lokususiwe"
+    },
+    "empty": "Kute emakhasimende lamasha nyalo",
+    "emptyHint": "Kutfola kubheka njalo ngeMsombuluko ekuseni bese kutfumela i-imeyili kubaphatsi bakho nakutfola lotsite.",
+    "emptySetup": "Setha indzawo yakho netinhlobo temakhasimende lotifunako, kute Kutfola kutfole nemabhizinisi laseduze nawe.",
+    "emptyTab": {
+      "added": "Kute lokwengetiwe",
+      "dismissed": "Kute lokususiwe"
+    },
+    "privacy": "Leti tiphakamiso kuphela: i-YGT ayibatsintsi. Emabhizinisi laseduze avela kudatha yemephu yemphakatsi,",
+    "settings": {
+      "button": "Lapho kubhekwa khona",
+      "title": "Lapho kubhekwa khona",
+      "hint": "Kutfola kubheka letinhlobo temabhizinisi eduze kwakho, nemakhasimende emarekhodini akho lokufanele ashayelwe.",
+      "area": "Indzawo yakho",
+      "areaHint": "Lilokishi nelidolobha kusebenta kahle.",
+      "areaPlaceholder": "sib. Soweto, Johannesburg",
+      "notFound": "Asikhonanga kutfola lendzawo emephini.",
+      "radius": "Libanga",
+      "km_one": "Ngekhatsi kwa-{{count}} km",
+      "km_other": "Ngekhatsi kwa-{{count}} km",
+      "industries": "Tinhlobo temakhasimende",
+      "industriesHint_one": "Khetsa kuze kufike ku-{{count}}.",
+      "industriesHint_other": "Khetsa kuze kufike ku-{{count}}.",
+      "weekly": "Bheka liviki ngalinye bese utfumela baphatsi i-imeyili",
+      "saved": "Kugcinwe",
+      "summary": "Kubhekwa ngekhatsi kwa-{{km}} km kusuka e-{{area}}.",
+      "noArea": "Kute indzawo lesetiwe: kuhlolwa emarekhodi akho kuphela."
+    },
+    "nearby": {
+      "looking": "Kufunwa emabhizinisi laseduze ne-{{area}}… Loku kungatsatsa umzuzu noma emibili; atawuvela lapha.",
+      "failed": "Lusito lwemephu belumatasa, ngako emabhizinisi laseduze akahlolwanga. Kutfola kutawuzama futsi ngeMsombuluko.",
+      "retry": "Zama futsi"
     }
+  },
+  "edit": {
+    "saved": "{{number}} kugcinwe",
+    "title": "Hlela {{number}}",
+    "subtitle": "Shintja imigca, emalanga netinotsi. Likhasimende lihlala linye.",
+    "notDraft": "Kungashintjwa kuphela emadrafti lapha. Vula lidokhumenti kute ubone tinketfo takho.",
+    "back": "Buyela kulidokhumenti",
+    "save": "Gcina tinguco",
+    "reviseTitle": "Hlela {{number}}?",
+    "reviseBody": "Lesicalo sesitfunyelwe. Kusihlela kusibuyisela kudrafti: yenta tinguco, bese usitfumela futsi kute likhasimende litfole inguco lensha.",
+    "reviseConfirm": "Kwente kube yidrafti bese uyahlela",
+    "correctTitle": "Lungisa {{number}}?",
+    "correctBody": "I-invoyisi letfunyelwe ayikhoni kushintjwa: likhasimende lakho seliyinayo. {{number}} itawukhanselwa bese kuvulwa ikhophi yedrafti lenemigca lefanako kute uyilungise uyitfumele.",
+    "correctConfirm": "Khansela wente ikhophi lelungisiwe",
+    "corrected": "{{old}} ikhanseliwe. Lungisa {{number}}, bese uyitfumela.",
+    "activity": "Hlela \"{{subject}}\"",
+    "activityTitle": "Hlela umsebenti",
+    "activitySaved": "Umsebenti ugcinwe",
+    "details": "Imininingwane",
+    "deal": "Hlela \"{{title}}\"",
+    "customer": "Hlela {{name}}"
   }
 }

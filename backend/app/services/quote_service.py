@@ -108,6 +108,18 @@ class QuoteService:
         quote.status = new_status
         return await self.quotes.save(quote)
 
+    async def revise(self, quote_id: uuid.UUID) -> Quote:
+        """Edit for a quote that went out but has no answer yet: it goes
+        back to draft, to change and send again. A customer's answer
+        (accepted, rejected, converted) is never undone this way."""
+        quote = await self.quotes.get_for_update(quote_id)
+        if quote is None:
+            raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
+        if quote.status not in (QuoteStatus.SENT, QuoteStatus.EXPIRED):
+            raise ConflictError("Only a sent quote with no answer yet can be revised", "QUOTE_NOT_REVISABLE")
+        quote.status = QuoteStatus.DRAFT
+        return await self.quotes.save(quote)
+
     async def accept(self, quote_id: uuid.UUID, accepted_by: uuid.UUID) -> tuple[Quote, Invoice | None]:
         """Marks a sent quote accepted and, in the same transaction, turns it
         into a draft invoice for review: same customer, lines, VAT, totals and

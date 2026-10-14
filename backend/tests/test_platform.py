@@ -7,7 +7,7 @@ from decimal import Decimal
 import pytest
 
 from app.core.middleware import _MemoryCounter
-from app.core.plans import CUSTOM_FIELDS, LOCKED, MARKETING, PLANS, PRIORITY_SUPPORT, RECURRING, REPORTS, TEAM_CHAT, TRIAL_PLAN, WHATSAPP_SMS
+from app.core.plans import CUSTOM_FIELDS, DISCOVERY, LOCKED, MARKETING, PLANS, PRIORITY_SUPPORT, RECURRING, REPORTS, TEAM_CHAT, TRIAL_PLAN, WHATSAPP_SMS
 from app.schemas.platform import Availability
 from app.services.booking_service import free_slots
 from app.services.data_service import RowError, _date, _money, _stage
@@ -106,7 +106,7 @@ def test_each_plan_gets_what_it_pays_for():
     assert PLANS["hustle"].features == frozenset()
     grow = {WHATSAPP_SMS, MARKETING, CUSTOM_FIELDS, TEAM_CHAT, REPORTS}
     assert PLANS["grow"].features == grow
-    assert PLANS["scale"].features == grow | {RECURRING, PRIORITY_SUPPORT}
+    assert PLANS["scale"].features == grow | {RECURRING, DISCOVERY, PRIORITY_SUPPORT}
     assert PLANS[TRIAL_PLAN] is PLANS["grow"]  # the trial is Grow
     assert LOCKED.features == frozenset()
     assert PLANS["hustle"].user_limit(1) == 3 and PLANS["grow"].user_limit(7) == 7

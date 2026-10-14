@@ -238,6 +238,11 @@ export function useCustomerOverview(params = {}) {
 }
 
 // The company's plan, what it includes and how much of it is used.
+// New Discovery leads (Scale only: pass whether the plan includes it).
+export function useDiscoveryCounts(enabled) {
+  return useQuery({ queryKey: ["discovery", "counts"], queryFn: () => get("/discovery/counts"), enabled: Boolean(enabled), staleTime: 60_000 });
+}
+
 export function useBilling() {
   return useQuery({ queryKey: ["billing"], queryFn: () => get("/billing"), staleTime: 60_000 });
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useActivities, useActivityCounts, useCustomerMap, useDeals } from "../hooks/useApi";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
@@ -38,7 +38,13 @@ export default function ActivitiesPage() {
   const { data: deals = [] } = useDeals({ status: "all" });
   const dealTitles = new Map(deals.map((d) => [d.id, d.title]));
   const toggle = useToggleActivity();
-  const [creating, setCreating] = useState(false);
+  // "Log activity" from the dashboard arrives as ?new=1: open the composer once.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [creating, setCreating] = useState(() => canWrite && searchParams.get("new") === "1");
+  const closeComposer = () => {
+    setCreating(false);
+    if (searchParams.get("new")) setSearchParams({}, { replace: true });
+  };
 
   const options = SCOPES.map((s) => ({
     ...s,
@@ -107,7 +113,7 @@ export default function ActivitiesPage() {
         </ul>
       )}
 
-      <ComposerSheet open={creating} onClose={() => setCreating(false)} mode="activity" />
+      <ComposerSheet open={creating} onClose={closeComposer} mode="activity" />
     </>
   );
 }

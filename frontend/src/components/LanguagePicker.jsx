@@ -44,7 +44,8 @@ export default function LanguagePicker({ variant = "button", onPicked }) {
         className="pressable inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-[13px] font-medium text-zinc-600 hover:bg-zinc-200/50 hover:text-zinc-900"
       >
         <GlobeIcon className="h-4 w-4" />
-        {current.name}
+        {/* compact: the top bar shows just the globe below laptop width. */}
+        <span className={variant === "compact" ? "hidden lg:inline" : undefined}>{current.name}</span>
       </button>
     );
 

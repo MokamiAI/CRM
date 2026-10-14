@@ -10,6 +10,7 @@ celery_app = Celery(
     # without Redis uses REDIS_URL=memory:// (jobs accepted, not delivered).
     backend=settings.REDIS_URL if settings.REDIS_URL.startswith("redis") else None,
     include=[
+        "app.tasks.discovery_tasks",
         "app.tasks.email_tasks",
         "app.tasks.invoice_tasks",
         "app.tasks.marketing_tasks",
@@ -34,6 +35,11 @@ celery_app.conf.update(
 )
 
 celery_app.conf.beat_schedule = {
+    # Monday morning: new potential leads, and one email per admin about them.
+    "weekly-discovery": {
+        "task": "app.tasks.discovery_tasks.weekly_discovery_task",
+        "schedule": crontab(hour=7, minute=30, day_of_week=1),
+    },
     # Before the reminders: today's recurring drafts are ready first.
     "daily-recurring-invoices": {
         "task": "app.tasks.recurring_tasks.make_recurring_invoices_task",

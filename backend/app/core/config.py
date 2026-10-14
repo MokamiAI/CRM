@@ -85,6 +85,12 @@ class Settings(BaseSettings):
     # the sender of YGT's own emails (password resets, ticket replies,
     # booking invites). Sent with the SMTP_* settings above.
     SUPPORT_EMAIL: str | None = None
+    # Discovery (Scale): free OpenStreetMap services. Both ask for a
+    # descriptive User-Agent and light use; swap for a self-hosted mirror
+    # if YGT grows.
+    # Comma-separated: tried in order, the next one when a server is busy.
+    OVERPASS_URL: str = "https://overpass-api.de/api/interpreter,https://overpass.private.coffee/api/interpreter,https://maps.mail.ru/osm/tools/overpass/api/interpreter"
+    NOMINATIM_URL: str = "https://nominatim.openstreetmap.org/search"
     # The calendar address that session bookings are sent to as invites
     # (e.g. your Google Calendar Gmail address). Defaults to SUPPORT_EMAIL.
     BOOKING_CALENDAR_EMAIL: str | None = None

@@ -155,6 +155,17 @@ async def void_invoice(
     return await InvoiceService(db).transition_status(invoice_id, InvoiceStatus.VOID)
 
 
+@router.post("/{invoice_id}/correct", response_model=InvoiceOut, status_code=201, dependencies=[_invoice_room])
+async def correct_invoice(
+    invoice_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(require_role(UserRole.ADMIN, UserRole.MANAGER)),
+):
+    """Edit for a sent, unpaid invoice: voids it and returns a draft copy
+    to fix and send. Managers and admins, like voiding."""
+    return await InvoiceService(db).correct(invoice_id, created_by_id=user.id)
+
+
 @router.post("/{invoice_id}/remind", response_model=ReminderOut, status_code=202)
 async def send_reminder_now(
     invoice_id: uuid.UUID,

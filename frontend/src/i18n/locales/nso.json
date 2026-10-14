@@ -118,7 +118,8 @@
       "team_chat": "Poledišano ya sehlopha",
       "whatsapp_sms": "WhatsApp le SMS",
       "reports": "Pego ya \"Ke mang yo a go kolotago\"",
-      "recurring_invoices": "Di-invoice tše di boelelwago"
+      "recurring_invoices": "Di-invoice tše di boelelwago",
+      "discovery": "Utollo: bareki ba bafsa beke le beke"
     },
     "fewer": "Batho ba ba nyenyane",
     "fixPayment": "Mpshafatša karata",
@@ -153,7 +154,8 @@
       "title": "Ke karolo ya leano la {{plan}}",
       "whatsapp_sms": "Kopanya WhatsApp le SMS go romela bareki melaetša moo ba šetšego ba le gona.",
       "reports": "Bona gore ke mang yo a go kolotago le gore tefelo ye nngwe le ye nngwe e diegile gakaakang.",
-      "recurring_invoices": "Lefiša dikonteraka tša kgwedi le kgwedi ka tlhamo ya invoice sekgobo se sengwe le se sengwe."
+      "recurring_invoices": "Lefiša dikonteraka tša kgwedi le kgwedi ka tlhamo ya invoice sekgobo se sengwe le se sengwe.",
+      "discovery": "Beke le beke YGT e hwetša bareki bao ba ka bago gona kgauswi le wena le direkhoteng tša gago."
     },
     "paid": "Tefelo e amogetšwe. Bjale o go {{plan}}.",
     "payments": "Ditefelo",
@@ -487,7 +489,17 @@
       "pipeline": "Phaephe ye e bulegilego",
       "winRate": "Kelo ya phenyo",
       "winRateDetail": "Dikwano tše di tswaletšwego, matšatši a 90 a go feta",
-      "won": "Tše di fentšwego kgweding ye"
+      "won": "Tše di fentšwego kgweding ye",
+      "collected": "Tšhelete ye e kgobokeditšwego",
+      "thisMonth": "kgwedi ye",
+      "outstanding": "Di-invoice tše di sa lefelwago",
+      "openDeals": "Dikwano tše di bulegilego",
+      "customers": "Bareki ba ba šomago",
+      "newThisMonth_one": "Ba bafsa ba {{count}} kgwedi ye",
+      "newThisMonth_other": "Ba bafsa ba {{count}} kgwedi ye",
+      "change": "{{pct}}%",
+      "up": "e godile go feta kgwedi ye e fetilego",
+      "down": "e theogile go feta kgwedi ye e fetilego"
     },
     "last6Months": "Dikgwedi tše 6 tša go feta",
     "morning": "Thobela mesong",
@@ -508,7 +520,62 @@
     "subtitle": "Phaephe ya gago, letšatši la gago, le seo o se kolotwago.",
     "topDeals": "Dikwano tše dikgolo tše di bulegilego",
     "validUntil": "e šoma go fihla {{date}}",
-    "yourDay": "Letšatši la gago"
+    "yourDay": "Letšatši la gago",
+    "banner": "Se ke seo se diragalago kgwebong ya gago lehono.",
+    "viewAll": "Bona tšohle",
+    "pipeline": {
+      "title": "Mothalo wa thekišo",
+      "subtitle": "Dikwano tša gago tše di bulegilego go magato ka moka",
+      "wonThisMonth": "Tše di thopilwego kgwedi ye",
+      "empty": "Ga go dikwano mo",
+      "more_one": "+{{count}} tše dingwe",
+      "more_other": "+{{count}} tše dingwe",
+      "wonOn": "E thopilwe ka {{date}}",
+      "closes": "E tswalelwa ka {{date}}"
+    },
+    "quick": {
+      "title": "Ditiro tša ka pela",
+      "customer": "Oketša moreki",
+      "deal": "Hlama kwano",
+      "quote": "Hlama kotheišene",
+      "invoice": "Hlama invoice",
+      "activity": "Ngwala modiro"
+    },
+    "upcoming": {
+      "title": "Mediro ye e tlago",
+      "empty": "Ga go selo seo se beakantšwego. Beakanya mogala goba kopano ya gago ye e latelago.",
+      "markDone": "Swaya \"{{subject}}\" bjalo ka ye e dirilwego"
+    },
+    "revenue": {
+      "title": "Kakaretšo ya letseno",
+      "subtitle": "Tšeo di ngwaletšwego invoice le tšhelete ye e kgobokeditšwego, ka kgwedi",
+      "invoiced": "Di ngwaletšwe invoice",
+      "collected": "E kgobokeditšwe",
+      "month": "Kgwedi",
+      "range": "Nako",
+      "lastMonths_one": "Kgwedi ye {{count}} ye e fetilego",
+      "lastMonths_other": "Dikgwedi tše {{count}} tše di fetilego",
+      "empty": "Ga go di-invoice goba ditefelo nakong ye.",
+      "summary_one": "Kgweding ye {{count}} ye e fetilego: di ngwaletšwe invoice {{invoiced}}, e kgobokeditšwe {{collected}}.",
+      "summary_other": "Dikgweding tše {{count}} tše di fetilego: di ngwaletšwe invoice {{invoiced}}, e kgobokeditšwe {{collected}}."
+    },
+    "owes": {
+      "title": "Ke mang yo a go kolotago?",
+      "total": "{{amount}} e sa lefelwago",
+      "due": "e lefelwa ka {{date}}",
+      "overdue": "E fetilwe ke nako",
+      "soon": "E tla lefelwa kgauswi",
+      "pending": "E emetše",
+      "empty": "Ga go yo a go kolotago tšhelete bjale."
+    },
+    "recent": {
+      "title": "Bareki ba moragorago",
+      "lastActive": "Modiro wa mafelelo {{date}}",
+      "noActivity": "Ga go modiro go fihla bjale",
+      "owes": "O kolota {{amount}}",
+      "settled": "O lefile",
+      "empty": "Bareki ba gago ba tla tšwelela mo."
+    }
   },
   "data": {
     "chooseFile": "Kgetha faele ya CSV",
@@ -1332,7 +1399,7 @@
     "dashboard": "Tešeboto",
     "deals": "Dikwano",
     "group": {
-      "records": "Direkhoto",
+      "records": "Gola",
       "sales": "Thekišo"
     },
     "help": "Thušo",
@@ -1348,7 +1415,27 @@
     "search": "Nyaka",
     "settings": "Dipeakanyo",
     "support": "Thekgo",
-    "purchaseOrders": "Ditaelo tša theko"
+    "purchaseOrders": "Ditaelo tša theko",
+    "discovery": "Utollo",
+    "reports": "Dipego",
+    "tagline": "Gola · Laola · Atlega",
+    "main": "Tše kgolo",
+    "searchWide": "Nyaka bareki, dikwano, dikotheišene, di-invoice…",
+    "notifications": "Ditsebišo",
+    "allCaughtUp": "Ga go se se letetšego.",
+    "account": "Akhaonte ya gago",
+    "collapse": "Phutha menyu",
+    "expand": "Bula menyu",
+    "notificationsCount_one": "Tsebišo e {{count}}",
+    "notificationsCount_other": "Ditsebišo tše {{count}}",
+    "notify": {
+      "activities_one": "Selo se {{count}} sa go dirwa lehono",
+      "activities_other": "Dilo tše {{count}} tša go dirwa lehono",
+      "messages_one": "Molaetša o {{count}} o sa balwago",
+      "messages_other": "Melaetša ye {{count}} ye e sa balwago",
+      "discovery_one": "Moreki o mofsa o {{count}} go Utollo",
+      "discovery_other": "Bareki ba bafsa ba {{count}} go Utollo"
+    }
   },
   "palette": {
     "action": {
@@ -2099,6 +2186,97 @@
       "monthly": "Kgwedi le kgwedi",
       "quarterly": "Dikgwedi tše 3 ka moka",
       "yearly": "Ngwaga le ngwaga"
+    },
+    "edit": "Fetola invoice ye e boelelwago",
+    "editHint": "Diphetogo di šoma go di-invoice tše di sa tlago. Di-invoice tše di šetšego di dirilwe di dula di le bjalo.",
+    "updated": "Invoice ye e boelelwago e bolokilwe",
+    "nextOnLabel": "Invoice ye e latelago ka"
+  },
+  "discovery": {
+    "title": "Utollo",
+    "subtitle": "Bareki bao ba ka bago gona ba hweditšwego beke le beke. Ga go selo seo se tsenago mothalong wa gago go fihlela o se oketša.",
+    "lookNow": "Nyaka bjale",
+    "looking": "E a nyaka…",
+    "found_zero": "Ga go bareki ba bafsa lekga le",
+    "found_one": "Go hweditšwe moreki o mofsa o {{count}}",
+    "found_other": "Go hweditšwe bareki ba bafsa ba {{count}}",
+    "added": "{{name}} o mothalong wa gago",
+    "add": "Oketša mothalong",
+    "dismiss": "Lahla",
+    "openDeal": "Bula kwano",
+    "source": {
+      "osm": "Kgwebo ya kgauswi",
+      "quiet_customer": "O homotše",
+      "lost_deal": "Kwano ye e lahlegilego",
+      "stale_quote": "Kotheišene ye e sa arabjago"
+    },
+    "why": {
+      "stale_quote": "Kotheišene {{number}} ya {{amount}} e rometšwe ka {{date}}, ga e eso arabjwe.",
+      "lost_deal": "E lahlegile ka {{date}}: {{title}} ({{amount}}). Na go swanetše go lekwa gape?",
+      "quiet_customer": "Kgwebo ya mafelelo ka {{date}}. Gantši {{amount}} ka invoice."
+    },
+    "dealTitle": {
+      "stale_quote": "Latelela {{number}} – {{name}}",
+      "lost_deal": "Boela go: {{title}}",
+      "quiet_customer": "Bušetša {{name}}"
+    },
+    "tab": {
+      "new": "Tše mpsha",
+      "added": "Tše di okeditšwego",
+      "dismissed": "Tše di lahlilwego"
+    },
+    "empty": "Ga go bareki ba bafsa bjale",
+    "emptyHint": "Utollo e nyaka Mošupologo o mongwe le o mongwe mesong gomme e romela imeile go balaodi ba gago ge e hweditše motho.",
+    "emptySetup": "Bea lefelo la gago le mehuta ya bareki yeo o e nyakago, gore Utollo e hwetše le dikgwebo tša kgauswi le wena.",
+    "emptyTab": {
+      "added": "Ga go selo seo se okeditšwego",
+      "dismissed": "Ga go selo seo se lahlilwego"
+    },
+    "privacy": "Ke ditšhišinyo fela: YGT ga e ba ikgokaganye le bona. Dikgwebo tša kgauswi di tšwa go tshedimošo ya mmapa ya setšhaba,",
+    "settings": {
+      "button": "Moo go nyakwago",
+      "title": "Moo go nyakwago",
+      "hint": "Utollo e nyaka mehuta ye ya dikgwebo kgauswi le wena, le bareki direkhoteng tša gago bao ba swanetšego go leletšwa.",
+      "area": "Lefelo la gago",
+      "areaHint": "Motsesetoropo le toropo di šoma gabotse.",
+      "areaPlaceholder": "mohl. Soweto, Johannesburg",
+      "notFound": "Ga re a kgona go hwetša lefelo le mmapeng.",
+      "radius": "Bokgole",
+      "km_one": "Ka gare ga {{count}} km",
+      "km_other": "Ka gare ga {{count}} km",
+      "industries": "Mehuta ya bareki",
+      "industriesHint_one": "Kgetha go fihla go {{count}}.",
+      "industriesHint_other": "Kgetha go fihla go {{count}}.",
+      "weekly": "Nyaka beke le beke gomme o romele balaodi imeile",
+      "saved": "E bolokilwe",
+      "summary": "E nyaka ka gare ga {{km}} km go tloga {{area}}.",
+      "noArea": "Ga go lefelo leo le beilwego: go hlahlobja direkhoto tša gago fela."
+    },
+    "nearby": {
+      "looking": "Go nyakwa dikgwebo tša kgauswi le {{area}}… Se se ka tšea motsotso goba e mebedi; di tla tšwelela mo.",
+      "failed": "Tirelo ya mmapa e be e swaregile, ka fao dikgwebo tša kgauswi ga se tša hlahlobja. Utollo e tla leka gape ka Mošupologo.",
+      "retry": "Leka gape"
     }
+  },
+  "edit": {
+    "saved": "{{number}} e bolokilwe",
+    "title": "Fetola {{number}}",
+    "subtitle": "Fetola methalo, matšatši le dintlha. Moreki o dula a swana.",
+    "notDraft": "Ke ditlhamo fela tše di ka fetolwago mo. Bula tokumente go bona dikgetho tša gago.",
+    "back": "Boela tokumenteng",
+    "save": "Boloka diphetogo",
+    "reviseTitle": "Fetola {{number}}?",
+    "reviseBody": "Kotheišene ye e rometšwe. Go e fetola go e bušetša tlhamong: dira diphetogo, ke moka o e romele gape gore moreki a hwetše kgatišo ye mpsha.",
+    "reviseConfirm": "E dire tlhamo o fetole",
+    "correctTitle": "Lokiša {{number}}?",
+    "correctBody": "Invoice ye e rometšwego e ka se fetolwe: moreki wa gago o šetše a na le yona. {{number}} e tla khansela gomme go bulwe kopi ya tlhamo ya methalo ye e swanago gore o e lokiše o be o e romele.",
+    "correctConfirm": "Khansela o dire kopi ye e lokišitšwego",
+    "corrected": "{{old}} e khanseditšwe. Lokiša {{number}}, ke moka o e romele.",
+    "activity": "Fetola \"{{subject}}\"",
+    "activityTitle": "Fetola modiro",
+    "activitySaved": "Modiro o bolokilwe",
+    "details": "Dintlha",
+    "deal": "Fetola \"{{title}}\"",
+    "customer": "Fetola {{name}}"
   }
 }

@@ -118,7 +118,8 @@
       "team_chat": "Mbulavurisano wa ntlawa",
       "whatsapp_sms": "WhatsApp ni SMS",
       "reports": "Xiviko xa \"I mani loyi a ku kolotaka\"",
-      "recurring_invoices": "Tiinvhoyisi leti phindhaphindhaka"
+      "recurring_invoices": "Tiinvhoyisi leti phindhaphindhaka",
+      "discovery": "Ku kuma: vaxavi lavantshwa vhiki na vhiki"
     },
     "fewer": "Vanhu vatsongo",
     "fixPayment": "Pfuxeta karata",
@@ -153,7 +154,8 @@
       "title": "I xiphemu xa pulani ya {{plan}}",
       "whatsapp_sms": "Hlanganisa WhatsApp ni SMS ku rhumela vaxavi marungula laha va se va nga kona.",
       "reports": "Vona leswaku i mani loyi a ku kolotaka ni leswaku hakelo yin'wana na yin'wana yi hlwele ku fikela kwihi.",
-      "recurring_invoices": "Hakerisa tikontiraka ta n'hweti na n'hweti hi xikunguhatwa xa invhoyisi nkarhi wun'wana na wun'wana."
+      "recurring_invoices": "Hakerisa tikontiraka ta n'hweti na n'hweti hi xikunguhatwa xa invhoyisi nkarhi wun'wana na wun'wana.",
+      "discovery": "Vhiki na vhiki YGT yi kuma vaxavi lava nga vaka kona ekusuhi na wena ni le ka swirhekhodo swa wena."
     },
     "paid": "Hakelo yi amukeriwile. Sweswi u le ka {{plan}}.",
     "payments": "Tihakelo",
@@ -487,7 +489,17 @@
       "pipeline": "Phayiphi leyi pfulekeke",
       "winRate": "Mpimo wa ku hlula",
       "winRateDetail": "Mintwanano leyi pfariweke, masiku ya 90 lama hundzeke",
-      "won": "Leswi hluriweke n'hweti leyi"
+      "won": "Leswi hluriweke n'hweti leyi",
+      "collected": "Mali leyi hlengeletiweke",
+      "thisMonth": "n'hweti leyi",
+      "outstanding": "Tiinvhoyisi leti nga si hakeriwaka",
+      "openDeals": "Tintwanano leti pfulekeke",
+      "customers": "Vaxavi lava tirhaka",
+      "newThisMonth_one": "Lavantshwa va {{count}} n'hweti leyi",
+      "newThisMonth_other": "Lavantshwa va {{count}} n'hweti leyi",
+      "change": "{{pct}}%",
+      "up": "swi tlakukile ku tlula n'hweti leyi hundzeke",
+      "down": "swi hunguteke ku tlula n'hweti leyi hundzeke"
     },
     "last6Months": "Tin'hweti ta 6 leti hundzeke",
     "morning": "Avuxeni",
@@ -508,7 +520,62 @@
     "subtitle": "Phayiphi ya wena, siku ra wena, ni leswi u kolotiwaka swona.",
     "topDeals": "Mintwanano leyikulu leyi pfulekeke",
     "validUntil": "yi tirha ku fikela {{date}}",
-    "yourDay": "Siku ra wena"
+    "yourDay": "Siku ra wena",
+    "banner": "Hi leswi swi humelelaka ebindzwini ra wena namuntlha.",
+    "viewAll": "Vona hinkwaswo",
+    "pipeline": {
+      "title": "Layini ya vuxavisi",
+      "subtitle": "Tintwanano ta wena leti pfulekeke eka swiyimo hinkwaswo",
+      "wonThisMonth": "Leswi hluriweke n'hweti leyi",
+      "empty": "A ku na tintwanano laha",
+      "more_one": "+{{count}} tin'wana",
+      "more_other": "+{{count}} tin'wana",
+      "wonOn": "Swi hluriwile hi {{date}}",
+      "closes": "Swi pfaliwa hi {{date}}"
+    },
+    "quick": {
+      "title": "Swiendlo swa xihatla",
+      "customer": "Engetela muxavi",
+      "deal": "Endla ntwanano",
+      "quote": "Endla khotexini",
+      "invoice": "Endla invhoyisi",
+      "activity": "Tsala ntirho"
+    },
+    "upcoming": {
+      "title": "Mintirho leyi taka",
+      "empty": "A ku na nchumu lowu kunguhateriweke. Kunguhata riqingho kumbe nhlengeletano ya wena leyi landzelaka.",
+      "markDone": "Funga \"{{subject}}\" tanihi leswi endliweke"
+    },
+    "revenue": {
+      "title": "Nkatsakanyo wa mali leyi nghenaka",
+      "subtitle": "Leswi tsaleriweke invhoyisi ni mali leyi hlengeletiweke, hi n'hweti",
+      "invoiced": "Swi tsaleriwe invhoyisi",
+      "collected": "Swi hlengeletiwile",
+      "month": "N'hweti",
+      "range": "Nkarhi",
+      "lastMonths_one": "N'hweti ya {{count}} leyi hundzeke",
+      "lastMonths_other": "Tin'hweti ta {{count}} leti hundzeke",
+      "empty": "A ku na tiinvhoyisi kumbe swihakelo eka nkarhi lowu.",
+      "summary_one": "Eka n'hweti ya {{count}} leyi hundzeke: swi tsaleriwe invhoyisi {{invoiced}}, swi hlengeletiwile {{collected}}.",
+      "summary_other": "Eka tin'hweti ta {{count}} leti hundzeke: swi tsaleriwe invhoyisi {{invoiced}}, swi hlengeletiwile {{collected}}."
+    },
+    "owes": {
+      "title": "I mani loyi a ku kolotaka?",
+      "total": "{{amount}} leyi nga si hakeriwaka",
+      "due": "yi hakeriwa hi {{date}}",
+      "overdue": "Nkarhi wu hundzile",
+      "soon": "Yi ta hakeriwa ku nga ri khale",
+      "pending": "Yi rindzile",
+      "empty": "A ku na loyi a ku kolotaka mali sweswi."
+    },
+    "recent": {
+      "title": "Vaxavi va sweswinyana",
+      "lastActive": "Ntirho wo hetelela {{date}}",
+      "noActivity": "A ku si va na ntirho",
+      "owes": "U kolota {{amount}}",
+      "settled": "U hakerile",
+      "empty": "Vaxavi va wena va ta humelela laha."
+    }
   },
   "data": {
     "chooseFile": "Hlawula fayili ya CSV",
@@ -1332,7 +1399,7 @@
     "dashboard": "Dexibodo",
     "deals": "Mintwanano",
     "group": {
-      "records": "Tirhekhodo",
+      "records": "Kula",
       "sales": "Vuxavisi"
     },
     "help": "Mpfuno",
@@ -1348,7 +1415,27 @@
     "search": "Lavisisa",
     "settings": "Mavekelo",
     "support": "Nseketelo",
-    "purchaseOrders": "Tioda to xava"
+    "purchaseOrders": "Tioda to xava",
+    "discovery": "Ku kuma",
+    "reports": "Swiviko",
+    "tagline": "Kula · Lawula · Humelela",
+    "main": "Leswikulu",
+    "searchWide": "Lavisisa vaxavi, tintwanano, tikhotexini, tiinvhoyisi…",
+    "notifications": "Switiviso",
+    "allCaughtUp": "A ku na lexi rindzeleke.",
+    "account": "Akhawunti ya wena",
+    "collapse": "Peta menyu",
+    "expand": "Pfula menyu",
+    "notificationsCount_one": "Xitiviso xa {{count}}",
+    "notificationsCount_other": "Switiviso swa {{count}}",
+    "notify": {
+      "activities_one": "Nchumu wa {{count}} wo endla namuntlha",
+      "activities_other": "Swilo swa {{count}} swo endla namuntlha",
+      "messages_one": "Rungula ra {{count}} leri nga hlayiwangiki",
+      "messages_other": "Marungula ya {{count}} lama nga hlayiwangiki",
+      "discovery_one": "Muxavi lontshwa wa {{count}} eka Ku kuma",
+      "discovery_other": "Vaxavi lavantshwa va {{count}} eka Ku kuma"
+    }
   },
   "palette": {
     "action": {
@@ -2099,6 +2186,97 @@
       "monthly": "N'hweti na n'hweti",
       "quarterly": "Tin'hweti ta 3 na ta 3",
       "yearly": "Lembe na lembe"
+    },
+    "edit": "Lulamisa invhoyisi leyi phindhaphindhaka",
+    "editHint": "Swicinco swi tirha eka tiinvhoyisi leti ha taka. Tiinvhoyisi leti se ti endliweke ti tshama tani hi leswi ti nga xiswona.",
+    "updated": "Invhoyisi leyi phindhaphindhaka yi hlayisiwile",
+    "nextOnLabel": "Invhoyisi leyi landzelaka hi"
+  },
+  "discovery": {
+    "title": "Ku kuma",
+    "subtitle": "Vaxavi lava nga vaka kona lava kumiweke vhiki na vhiki. A ku na nchumu lowu nghenaka eka layini ya wena kufikela u wu engetela.",
+    "lookNow": "Lavisisa sweswi",
+    "looking": "Ya lavisisa…",
+    "found_zero": "A ku na vaxavi lavantshwa sweswi",
+    "found_one": "Ku kumiwe muxavi lontshwa wa {{count}}",
+    "found_other": "Ku kumiwe vaxavi lavantshwa va {{count}}",
+    "added": "{{name}} u le eka layini ya wena",
+    "add": "Engetela eka layini",
+    "dismiss": "Lahla",
+    "openDeal": "Pfula ntwanano",
+    "source": {
+      "osm": "Bindzu ra le kusuhi",
+      "quiet_customer": "U miyerile",
+      "lost_deal": "Ntwanano lowu lahlekeke",
+      "stale_quote": "Khotexini leyi nga hlamuriwangiki"
+    },
+    "why": {
+      "stale_quote": "Khotexini {{number}} ya {{amount}} yi rhumeriwile hi {{date}}, a yi si hlamuriwa.",
+      "lost_deal": "Yi lahlekile hi {{date}}: {{title}} ({{amount}}). Xana swi fanele ku ringetiwa nakambe?",
+      "quiet_customer": "Bindzu ro hetelela hi {{date}}. Hakanyingi {{amount}} hi invhoyisi."
+    },
+    "dealTitle": {
+      "stale_quote": "Landzelerisa {{number}} – {{name}}",
+      "lost_deal": "Tlhelela eka: {{title}}",
+      "quiet_customer": "Vuyisa {{name}}"
+    },
+    "tab": {
+      "new": "Leswintshwa",
+      "added": "Leswi engeteriweke",
+      "dismissed": "Leswi lahliweke"
+    },
+    "empty": "A ku na vaxavi lavantshwa sweswi",
+    "emptyHint": "Ku kuma ku lavisisa Musumbhunuku wun'wana ni wun'wana nimixo kutani ku rhumela imeyili eka vafambisi va wena loko ku kume munhu.",
+    "emptySetup": "Veka ndhawu ya wena ni tinxaka ta vaxavi leti u ti lavaka, leswaku Ku kuma ku kuma ni mabindzu ya le kusuhi na wena.",
+    "emptyTab": {
+      "added": "A ku na nchumu lowu engeteriweke",
+      "dismissed": "A ku na nchumu lowu lahliweke"
+    },
+    "privacy": "Leswi i swiringanyeto ntsena: YGT a yi va tihlanganisi na vona. Mabindzu ya le kusuhi ma huma eka data ya mepe ya mani na mani,",
+    "settings": {
+      "button": "Laha ku lavisisiwaka kona",
+      "title": "Laha ku lavisisiwaka kona",
+      "hint": "Ku kuma ku lavisisa tinxaka leti ta mabindzu ekusuhi na wena, ni vaxavi eka swirhekhodo swa wena lava faneleke ku ringeriwa riqingho.",
+      "area": "Ndhawu ya wena",
+      "areaHint": "Xifundzhana ni doroba swi tirha kahle.",
+      "areaPlaceholder": "xik. Soweto, Johannesburg",
+      "notFound": "A hi swi kotanga ku kuma ndhawu leyi eka mepe.",
+      "radius": "Mpfhuka",
+      "km_one": "Endzeni ka {{count}} km",
+      "km_other": "Endzeni ka {{count}} km",
+      "industries": "Tinxaka ta vaxavi",
+      "industriesHint_one": "Hlawula ku fika eka {{count}}.",
+      "industriesHint_other": "Hlawula ku fika eka {{count}}.",
+      "weekly": "Lavisisa vhiki na vhiki kutani u rhumela vafambisi imeyili",
+      "saved": "Swi hlayisiwile",
+      "summary": "Ku lavisisiwa endzeni ka {{km}} km ku suka eka {{area}}.",
+      "noArea": "A ku si vekiwa ndhawu: ku kamberiwa swirhekhodo swa wena ntsena."
+    },
+    "nearby": {
+      "looking": "Ku lavisisiwa mabindzu ya le kusuhi na {{area}}… Leswi swi nga teka minete yin'we kumbe timbirhi; ma ta humelela laha.",
+      "failed": "Vukorhokeri bya mepe a byi khomekile, hikwalaho mabindzu ya le kusuhi a ma kamberiwanga. Ku kuma ku ta ringeta nakambe hi Musumbhunuku.",
+      "retry": "Ringeta nakambe"
     }
+  },
+  "edit": {
+    "saved": "{{number}} yi hlayisiwile",
+    "title": "Lulamisa {{number}}",
+    "subtitle": "Cinca tilayini, masiku ni tinotsi. Muxavi u tshama a ri yena.",
+    "notDraft": "Swikunguhatwa ntsena swi nga cinciwa laha. Pfula dokumente ku vona leswi u nga swi endlaka.",
+    "back": "Tlhelela eka dokumente",
+    "save": "Hlayisa swicinco",
+    "reviseTitle": "Lulamisa {{number}}?",
+    "reviseBody": "Khotexini leyi yi rhumeriwile. Ku yi lulamisa swi yi tlherisela eka xikunguhatwa: endla swicinco, kutani u yi rhumela nakambe leswaku muxavi a kuma vuxaka lebyintshwa.",
+    "reviseConfirm": "Yi endle xikunguhatwa kutani u lulamisa",
+    "correctTitle": "Lulamisa {{number}}?",
+    "correctBody": "Invhoyisi leyi rhumeriweke a yi nge cinciwi: muxavi wa wena se u na yona. {{number}} yi ta khansela kutani ku pfuriwa khopi ya xikunguhatwa leyi nga ni tilayini leti fanaka leswaku u yi lulamisa u yi rhumela.",
+    "correctConfirm": "Khansela u endla khopi leyi lulamisiweke",
+    "corrected": "{{old}} yi khanseriwile. Lulamisa {{number}}, kutani u yi rhumela.",
+    "activity": "Lulamisa \"{{subject}}\"",
+    "activityTitle": "Lulamisa ntirho",
+    "activitySaved": "Ntirho wu hlayisiwile",
+    "details": "Vuxokoxoko",
+    "deal": "Lulamisa \"{{title}}\"",
+    "customer": "Lulamisa {{name}}"
   }
 }

@@ -118,7 +118,8 @@
       "team_chat": "Puisano ya setlhopha",
       "whatsapp_sms": "WhatsApp le SMS",
       "reports": "Pego ya \"Ke mang yo o go kolotang\"",
-      "recurring_invoices": "Di-invoice tse di boelelwang"
+      "recurring_invoices": "Di-invoice tse di boelelwang",
+      "discovery": "Tshenolo: badirisi ba bašwa beke le beke"
     },
     "fewer": "Batho ba le mmalwa",
     "fixPayment": "Ntšhafatsa karata",
@@ -153,7 +154,8 @@
       "title": "Ke karolo ya leano la {{plan}}",
       "whatsapp_sms": "Golaganya WhatsApp le SMS go romela bareki melaetsa kwa ba setseng ba le teng.",
       "reports": "Bona gore ke mang yo o go kolotang le gore tuelo nngwe le nngwe e diegile go le kana kang.",
-      "recurring_invoices": "Lefisa dikonteraka tsa kgwedi le kgwedi ka thulaganyo ya invoice potologo nngwe le nngwe."
+      "recurring_invoices": "Lefisa dikonteraka tsa kgwedi le kgwedi ka thulaganyo ya invoice potologo nngwe le nngwe.",
+      "discovery": "Beke le beke YGT e bona badirisi ba ba ka nnang teng gaufi le wena le mo direkotong tsa gago."
     },
     "paid": "Tuelo e amogetswe. Jaanong o mo {{plan}}.",
     "payments": "Dituelo",
@@ -487,7 +489,17 @@
       "pipeline": "Phaephe e e buletsweng",
       "winRate": "Seelo sa phenyo",
       "winRateDetail": "Ditumalano tse di tswetsweng, malatsi a le 90 a a fetileng",
-      "won": "Tse di fentsweng kgwedi eno"
+      "won": "Tse di fentsweng kgwedi eno",
+      "collected": "Madi a a kokoantsweng",
+      "thisMonth": "kgwedi eno",
+      "outstanding": "Di-invoice tse di sa duelwang",
+      "openDeals": "Ditumalano tse di bulegileng",
+      "customers": "Badirisi ba ba dirang",
+      "newThisMonth_one": "Ba bašwa ba {{count}} kgwedi eno",
+      "newThisMonth_other": "Ba bašwa ba {{count}} kgwedi eno",
+      "change": "{{pct}}%",
+      "up": "e oketsegile go feta kgwedi e e fetileng",
+      "down": "e fokotsegile go feta kgwedi e e fetileng"
     },
     "last6Months": "Dikgwedi di le 6 tse di fetileng",
     "morning": "Dumela mo mosong",
@@ -508,7 +520,62 @@
     "subtitle": "Phaephe ya gago, letsatsi la gago, le se o se kolotwang.",
     "topDeals": "Ditumalano tse dikgolo tse di buletsweng",
     "validUntil": "e dira go fitlha {{date}}",
-    "yourDay": "Letsatsi la gago"
+    "yourDay": "Letsatsi la gago",
+    "banner": "Se ke se se diragalang mo kgwebong ya gago gompieno.",
+    "viewAll": "Bona tsotlhe",
+    "pipeline": {
+      "title": "Mola wa thekiso",
+      "subtitle": "Ditumalano tsa gago tse di bulegileng mo magatong otlhe",
+      "wonThisMonth": "Tse di gapilweng kgwedi eno",
+      "empty": "Ga go ditumalano fano",
+      "more_one": "+{{count}} tse dingwe",
+      "more_other": "+{{count}} tse dingwe",
+      "wonOn": "E gapilwe ka {{date}}",
+      "closes": "E tswalwa ka {{date}}"
+    },
+    "quick": {
+      "title": "Ditiro tse di bonako",
+      "customer": "Oketsa modirisi",
+      "deal": "Dira tumalano",
+      "quote": "Dira kotheišene",
+      "invoice": "Dira invoice",
+      "activity": "Kwala tiro"
+    },
+    "upcoming": {
+      "title": "Ditiro tse di tlang",
+      "empty": "Ga go sepe se se rulaganyeditsweng. Rulaganya mogala kgotsa kopano ya gago e e latelang.",
+      "markDone": "Tshwaya \"{{subject}}\" jaaka e dirilwe"
+    },
+    "revenue": {
+      "title": "Kakaretso ya lotseno",
+      "subtitle": "Tse di kwaletsweng invoice le madi a a kokoantsweng, ka kgwedi",
+      "invoiced": "Go kwaletswe invoice",
+      "collected": "A kokoantswe",
+      "month": "Kgwedi",
+      "range": "Nako",
+      "lastMonths_one": "Kgwedi e {{count}} e e fetileng",
+      "lastMonths_other": "Dikgwedi di le {{count}} tse di fetileng",
+      "empty": "Ga go di-invoice kgotsa dituelo mo nakong eno.",
+      "summary_one": "Mo kgweding e {{count}} e e fetileng: go kwaletswe invoice {{invoiced}}, a kokoantswe {{collected}}.",
+      "summary_other": "Mo dikgweding di le {{count}} tse di fetileng: go kwaletswe invoice {{invoiced}}, a kokoantswe {{collected}}."
+    },
+    "owes": {
+      "title": "Ke mang yo o go kolotang?",
+      "total": "{{amount}} e e sa duelwang",
+      "due": "e duelwa ka {{date}}",
+      "overdue": "E fetilwe ke nako",
+      "soon": "E tla duelwa ka bonako",
+      "pending": "E emetse",
+      "empty": "Ga go ope yo o go kolotang madi jaanong."
+    },
+    "recent": {
+      "title": "Badirisi ba bosheng",
+      "lastActive": "Tiro ya bofelo {{date}}",
+      "noActivity": "Ga go ise go nne le tiro",
+      "owes": "O kolota {{amount}}",
+      "settled": "O duetse",
+      "empty": "Badirisi ba gago ba tla bonala fano."
+    }
   },
   "data": {
     "chooseFile": "Tlhopha faele ya CSV",
@@ -1332,7 +1399,7 @@
     "dashboard": "Tešeboto",
     "deals": "Ditumalano",
     "group": {
-      "records": "Direkoto",
+      "records": "Gola",
       "sales": "Thekiso"
     },
     "help": "Thuso",
@@ -1348,7 +1415,27 @@
     "search": "Batla",
     "settings": "Dithulaganyo",
     "support": "Tshegetso",
-    "purchaseOrders": "Ditaelo tsa theko"
+    "purchaseOrders": "Ditaelo tsa theko",
+    "discovery": "Tshenolo",
+    "reports": "Dipego",
+    "tagline": "Gola · Laola · Atlega",
+    "main": "Tse dikgolo",
+    "searchWide": "Batla badirisi, ditumalano, dikotheišene, di-invoice…",
+    "notifications": "Dikitsiso",
+    "allCaughtUp": "Ga go sepe se se emetseng.",
+    "account": "Akhaonto ya gago",
+    "collapse": "Phutha menu",
+    "expand": "Bula menu",
+    "notificationsCount_one": "Kitsiso e {{count}}",
+    "notificationsCount_other": "Dikitsiso di le {{count}}",
+    "notify": {
+      "activities_one": "Selo se {{count}} se o tshwanetseng go se dira gompieno",
+      "activities_other": "Dilo di le {{count}} tse o tshwanetseng go di dira gompieno",
+      "messages_one": "Molaetsa o {{count}} o o sa balwang",
+      "messages_other": "Melaetsa e {{count}} e e sa balwang",
+      "discovery_one": "Modirisi yo mošwa a le {{count}} mo Tshenolong",
+      "discovery_other": "Badirisi ba bašwa ba {{count}} mo Tshenolong"
+    }
   },
   "palette": {
     "action": {
@@ -2099,6 +2186,97 @@
       "monthly": "Kgwedi le kgwedi",
       "quarterly": "Dikgwedi tse 3 le tse 3",
       "yearly": "Ngwaga le ngwaga"
+    },
+    "edit": "Fetola invoice e e boelelwang",
+    "editHint": "Diphetogo di dira mo di-invoice tse di santseng di tla. Di-invoice tse di setseng di dirilwe di nna jalo.",
+    "updated": "Invoice e e boelelwang e bolokilwe",
+    "nextOnLabel": "Invoice e e latelang ka"
+  },
+  "discovery": {
+    "title": "Tshenolo",
+    "subtitle": "Badirisi ba ba ka nnang teng ba ba bonweng beke le beke. Ga go sepe se se tsenang mo moleng wa gago go fitlha o se oketsa.",
+    "lookNow": "Batla jaanong",
+    "looking": "E a batla…",
+    "found_zero": "Ga go badirisi ba bašwa lekgetlo leno",
+    "found_one": "Go bonwe modirisi yo mošwa a le {{count}}",
+    "found_other": "Go bonwe badirisi ba bašwa ba {{count}}",
+    "added": "{{name}} o mo moleng wa gago",
+    "add": "Oketsa mo moleng",
+    "dismiss": "Latlha",
+    "openDeal": "Bula tumalano",
+    "source": {
+      "osm": "Kgwebo e e gaufi",
+      "quiet_customer": "O didimetse",
+      "lost_deal": "Tumalano e e latlhegileng",
+      "stale_quote": "Kotheišene e e sa arabiwang"
+    },
+    "why": {
+      "stale_quote": "Kotheišene {{number}} ya {{amount}} e romeletswe ka {{date}}, ga e ise e arabiwe.",
+      "lost_deal": "E latlhegile ka {{date}}: {{title}} ({{amount}}). A go tshwanetse go lekwa gape?",
+      "quiet_customer": "Kgwebo ya bofelo ka {{date}}. Gantsi {{amount}} ka invoice."
+    },
+    "dealTitle": {
+      "stale_quote": "Latela {{number}} – {{name}}",
+      "lost_deal": "Boela go: {{title}}",
+      "quiet_customer": "Busetsa {{name}}"
+    },
+    "tab": {
+      "new": "Tse dišwa",
+      "added": "Tse di okeditsweng",
+      "dismissed": "Tse di latlhilweng"
+    },
+    "empty": "Ga go badirisi ba bašwa jaanong",
+    "emptyHint": "Tshenolo e batla Mosupologo mongwe le mongwe mo mosong e bo e romela imeile go batsamaisi ba gago fa e bone mongwe.",
+    "emptySetup": "Baya kgaolo ya gago le mefuta ya badirisi e o e batlang, gore Tshenolo e bone le dikgwebo tse di gaufi le wena.",
+    "emptyTab": {
+      "added": "Ga go sepe se se okeditsweng",
+      "dismissed": "Ga go sepe se se latlhilweng"
+    },
+    "privacy": "Ke ditshitshinyo fela: YGT ga e ke e ba ikgolaganye le bone. Dikgwebo tse di gaufi di tswa mo data ya mmapa ya setšhaba,",
+    "settings": {
+      "button": "Kwa go batlwang teng",
+      "title": "Kwa go batlwang teng",
+      "hint": "Tshenolo e batla mefuta e ya dikgwebo gaufi le wena, le badirisi mo direkotong tsa gago ba ba tshwanetseng go leletswa.",
+      "area": "Kgaolo ya gago",
+      "areaHint": "Motse le toropo di dira sentle.",
+      "areaPlaceholder": "sk. Soweto, Johannesburg",
+      "notFound": "Ga re a kgona go bona lefelo leno mo mmapeng.",
+      "radius": "Bokgakala",
+      "km_one": "Mo teng ga {{count}} km",
+      "km_other": "Mo teng ga {{count}} km",
+      "industries": "Mefuta ya badirisi",
+      "industriesHint_one": "Tlhopha go fitlha go {{count}}.",
+      "industriesHint_other": "Tlhopha go fitlha go {{count}}.",
+      "weekly": "Batla beke le beke o bo o romela batsamaisi imeile",
+      "saved": "E bolokilwe",
+      "summary": "E batla mo teng ga {{km}} km go tswa {{area}}.",
+      "noArea": "Ga go kgaolo e e beilweng: go tlhatlhobiwa direkoto tsa gago fela."
+    },
+    "nearby": {
+      "looking": "Go batlwa dikgwebo tse di gaufi le {{area}}… Seno se ka tsaya motsotso kgotsa e mebedi; di tla bonala fano.",
+      "failed": "Tirelo ya mmapa e ne e tshwaregile, ka jalo dikgwebo tse di gaufi ga di a tlhatlhobiwa. Tshenolo e tla leka gape ka Mosupologo.",
+      "retry": "Leka gape"
     }
+  },
+  "edit": {
+    "saved": "{{number}} e bolokilwe",
+    "title": "Fetola {{number}}",
+    "subtitle": "Fetola mela, malatsi le dintlha. Modirisi o nna a tshwana.",
+    "notDraft": "Ke ditlhagiso fela tse di ka fetolwang fano. Bula tokomane go bona dikgetho tsa gago.",
+    "back": "Boela kwa tokomaneng",
+    "save": "Boloka diphetogo",
+    "reviseTitle": "Fetola {{number}}?",
+    "reviseBody": "Kotheišene eno e romeletswe. Go e fetola go e busetsa mo thulaganyong: dira diphetogo, o bo o e romela gape gore modirisi a bone kgatiso e ntšwa.",
+    "reviseConfirm": "E dire thulaganyo o fetole",
+    "correctTitle": "Baakanya {{number}}?",
+    "correctBody": "Invoice e e romeletsweng ga e kake ya fetolwa: modirisi wa gago o setse a na le yone. {{number}} e tla phimolwa mme go bulwe khopi ya thulaganyo e e nang le mela e e tshwanang gore o e baakanye o e romele.",
+    "correctConfirm": "Phimola o dire khopi e e baakantsweng",
+    "corrected": "{{old}} e phimotswe. Baakanya {{number}}, o bo o e romela.",
+    "activity": "Fetola \"{{subject}}\"",
+    "activityTitle": "Fetola tiro",
+    "activitySaved": "Tiro e bolokilwe",
+    "details": "Dintlha",
+    "deal": "Fetola \"{{title}}\"",
+    "customer": "Fetola {{name}}"
   }
 }

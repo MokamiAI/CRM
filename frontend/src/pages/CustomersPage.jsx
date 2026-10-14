@@ -1,10 +1,11 @@
 import { useDeferredValue, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCustomerOverview } from "../hooks/useApi";
 import i18n from "../i18n";
 import { useAuth } from "../context/AuthContext";
-import CustomerFormSheet from "../components/CustomerFormSheet";
+import CustomerFormSheet, { EditCustomerSheet } from "../components/CustomerFormSheet";
+import { RowEditButton } from "../components/crm";
 import {
   Avatar,
   Button,
@@ -48,7 +49,14 @@ export default function CustomersPage() {
     ...(deferredSearch && { search: deferredSearch }),
     ...(activeFilter !== "all" && { is_active: activeFilter }),
   });
-  const [creating, setCreating] = useState(false);
+  // "Add customer" from the dashboard arrives as ?new=1: open the form once.
+  const [editingId, setEditingId] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [creating, setCreating] = useState(() => canWrite && searchParams.get("new") === "1");
+  const closeForm = () => {
+    setCreating(false);
+    if (searchParams.get("new")) setSearchParams({}, { replace: true });
+  };
 
   return (
     <>
@@ -90,6 +98,7 @@ export default function CustomersPage() {
                 <th className="text-right">{t("customers.col.balance")}</th>
                 <th>{t("customers.col.lastActivity")}</th>
                 <th className="text-right">{t("invoices.col.status")}</th>
+                <th className="w-12"><span className="sr-only">{t("common.edit")}</span></th>
               </tr>
             </thead>
             <tbody>
@@ -136,6 +145,7 @@ export default function CustomersPage() {
                   <td className="text-right">
                     <StatusBadge status={c.is_active ? "active" : "inactive"} />
                   </td>
+                  <td className="text-right">{canWrite && <RowEditButton label={t("edit.customer", { name: c.name })} onClick={() => setEditingId(c.id)} />}</td>
                 </tr>
               ))}
             </tbody>
@@ -170,9 +180,10 @@ export default function CustomersPage() {
         </div>
       )}
 
+      {editingId && <EditCustomerSheet id={editingId} onClose={() => setEditingId(null)} />}
       <CustomerFormSheet
         open={creating}
-        onClose={() => setCreating(false)}
+        onClose={closeForm}
         customer={null}
         onSaved={(customer) => navigate(`/customers/${customer.id}`)}
       />

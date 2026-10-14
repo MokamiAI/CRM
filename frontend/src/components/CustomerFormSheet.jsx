@@ -1,3 +1,4 @@
+import { useCustomer } from "../hooks/useApi";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -22,6 +23,12 @@ function emptyToNull(obj) {
 }
 
 /** Create (customer = null) or edit a customer. */
+/** Edit a customer by id: loads the whole record first, so no field is lost. */
+export function EditCustomerSheet({ id, onClose }) {
+  const { data: customer } = useCustomer(id);
+  return <CustomerFormSheet open={Boolean(customer)} onClose={onClose} customer={customer ?? null} />;
+}
+
 export default function CustomerFormSheet({ open, onClose, customer, onSaved }) {
   const { t } = useTranslation();
   const { user } = useAuth();

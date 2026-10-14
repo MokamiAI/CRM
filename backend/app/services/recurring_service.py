@@ -131,6 +131,10 @@ class RecurringInvoiceService:
         for field in ("reference", "po_number"):
             if field in changes:
                 changes[field] = (changes[field] or "").strip() or None
+        if changes.get("next_run_date") and changes["next_run_date"] != schedule.next_run_date:
+            # A new next date re-anchors the schedule: later cycles count
+            # from it (the 20th stays the 20th), not from the old start.
+            schedule.start_date = changes["next_run_date"]
         for field, value in changes.items():
             setattr(schedule, field, value)
         await self.db.flush()

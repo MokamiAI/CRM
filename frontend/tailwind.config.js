@@ -11,6 +11,14 @@ export default {
   },
   theme: {
     extend: {
+      // YGT 1.2 palette. Blue is the action colour (buttons, links, the
+      // current page); violet is the second brand accent; midnight is the
+      // sidebar and headings; canvas is the page behind the cards.
+      colors: {
+        midnight: { DEFAULT: "#10213B", 900: "#0B172B", 800: "#152A4A", 700: "#1E3A5F", 600: "#2B4A75" },
+        brand: { blue: "#2563EB", violet: "#7255D7" },
+        canvas: "#F6F8FC",
+      },
       fontFamily: {
         // Bundled via @fontsource-variable/inter (main.jsx), so it also
         // works offline inside the Capacitor app.

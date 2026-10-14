@@ -24,6 +24,7 @@ from app.models.platform import (
 from app.models.product import Product
 from app.models.purchasing import LineTemplate, PurchaseOrder, PurchaseOrderItem, Supplier
 from app.models.quote import Quote, QuoteItem
+from app.models.discovery import DiscoveredLead, DiscoverySettings
 from app.models.recurring import RecurringInvoice
 from app.models.reminder import ReminderLog
 from app.models.user import RefreshToken, User
@@ -63,6 +64,8 @@ __all__ = [
     "Supplier",
     "Quote",
     "RecurringInvoice",
+    "DiscoveredLead",
+    "DiscoverySettings",
     "QuoteItem",
     "ReminderLog",
     "Segment",

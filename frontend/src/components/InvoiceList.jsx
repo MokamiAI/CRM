@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Avatar, StatusBadge } from "./ui";
+import { RowEditButton } from "./crm";
+import { useAuth } from "../context/AuthContext";
 import { formatMoney, formatShortDate } from "../utils/format";
 
 function balanceOf(invoice) {
@@ -17,6 +19,16 @@ function PartPaid({ invoice }) {
 
 /** Invoices as a table from md up, stacked rows on phones. */
 export default function InvoiceList({ invoices, customers }) {
+  const { user } = useAuth();
+  // A draft opens the editor; a sent, unpaid invoice opens its page, which
+  // offers to correct it (managers and admins). Paid ones aren't edited.
+  const editLink = (invoice) => {
+    if (user?.role === "viewer") return null;
+    if (invoice.status === "draft") return `/invoices/${invoice.id}/edit`;
+    const manager = ["admin", "manager"].includes(user?.role);
+    if (manager && ["sent", "overdue"].includes(invoice.status) && Number(invoice.amount_paid) === 0) return `/invoices/${invoice.id}?edit=1`;
+    return null;
+  };
   const { t } = useTranslation();
   const navigate = useNavigate();
   const nameOf = (invoice) => customers.get(invoice.customer_id)?.name ?? "…";
@@ -32,6 +44,7 @@ export default function InvoiceList({ invoices, customers }) {
             <th>{t("invoices.col.due")}</th>
             <th>{t("invoices.col.status")}</th>
             <th className="text-right">{t("invoices.col.amount")}</th>
+            <th className="w-12"><span className="sr-only">{t("common.edit")}</span></th>
           </tr>
         </thead>
         <tbody>
@@ -59,6 +72,9 @@ export default function InvoiceList({ invoices, customers }) {
               <td className="whitespace-nowrap text-right tabular-nums">
                 <p className="font-medium text-zinc-900">{formatMoney(invoice.total)}</p>
                 <PartPaid invoice={invoice} />
+              </td>
+              <td className="text-right">
+                {editLink(invoice) && <RowEditButton label={t("edit.title", { number: invoice.invoice_number })} to={editLink(invoice)} />}
               </td>
             </tr>
           ))}

@@ -98,6 +98,13 @@ async def resend_quote(
     return quote
 
 
+@router.post("/{quote_id}/revise", response_model=QuoteOut)
+async def revise_quote(quote_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)):
+    """Edit for a sent quote with no answer yet: back to draft, to change
+    and send again."""
+    return await QuoteService(db).revise(quote_id)
+
+
 @router.post("/{quote_id}/accept", response_model=QuoteAcceptOut)
 async def accept_quote(
     quote_id: uuid.UUID,
