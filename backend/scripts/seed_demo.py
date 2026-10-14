@@ -2,7 +2,7 @@
 
     YGT_ENV_FILE=../.env.local python scripts/seed_demo.py    (from backend/, API running)
 
-Creates "Demo Catering Co" (sign in: demo.admin@example.com / DemoPass-2026) with
+Creates "Demo Catering Co" on a Scale trial (sign in: demo.admin@example.com / DemoPass-2026) with
 customers, contacts, products, deals at every stage, quotes (draft, sent,
 accepted into a draft invoice, rejected), invoices (draft, sent, part-paid,
 paid, overdue), activities, a supplier and purchase order, and a support
@@ -49,7 +49,7 @@ def main() -> None:
             sys.exit(f"Refusing: {name} is not on this machine ({urlsplit(url).hostname}). This script is for local testing only.")
 
     c = httpx.Client(base_url=API, timeout=60)
-    res = c.post("/auth/register", json={"company_name": "Demo Catering Co", "full_name": "Thandi Mokoena", "email": EMAIL, "password": PASSWORD, "plan": "grow"})
+    res = c.post("/auth/register", json={"company_name": "Demo Catering Co", "full_name": "Thandi Mokoena", "email": EMAIL, "password": PASSWORD, "plan": "scale"})
     if res.status_code == 409:
         sys.exit(f"{EMAIL} already exists: the demo company is already seeded. Drop and recreate ygt_dev to start over.")
     c.headers["Authorization"] = f"Bearer {check(res)['access_token']}"

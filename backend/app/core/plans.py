@@ -16,6 +16,8 @@ MARKETING = "marketing"
 CUSTOM_FIELDS = "custom_fields"
 TEAM_CHAT = "team_chat"
 PRIORITY_SUPPORT = "priority_support"
+REPORTS = "reports"  # "Who owes you" (aged receivables)
+RECURRING = "recurring_invoices"
 
 INTERVALS = ("monthly", "annually")
 
@@ -44,12 +46,13 @@ class Plan:
         return seats if self.per_user else self.max_users
 
 
-GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, CUSTOM_FIELDS, TEAM_CHAT})
+GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, CUSTOM_FIELDS, TEAM_CHAT, REPORTS})
+SCALE_FEATURES = GROW_FEATURES | {RECURRING, PRIORITY_SUPPORT}
 
 PLANS: dict[str, Plan] = {
     "hustle": Plan("hustle", "Hustle", 19_900, max_users=3),
     "grow": Plan("grow", "Grow", 14_900, per_user=True, min_users=3, features=GROW_FEATURES),
-    "scale": Plan("scale", "Scale", 24_900, per_user=True, min_users=3, features=GROW_FEATURES | {PRIORITY_SUPPORT}),
+    "scale": Plan("scale", "Scale", 24_900, per_user=True, min_users=3, features=SCALE_FEATURES),
 }
 PAID_PLANS = list(PLANS.values())
 

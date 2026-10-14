@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_user, get_db
+from app.api.deps import get_current_user, get_db, plan_feature
 from app.core.database import CommitBeforeResponseRoute
+from app.core.plans import REPORTS
 from app.models.user import User
 from app.schemas.report import AgedReceivables, CustomerOverview, ReportSummary
 from app.services.report_service import ReportService
@@ -17,7 +18,7 @@ async def summary(db: AsyncSession = Depends(get_db), _: User = Depends(get_curr
     return await ReportService(db).summary()
 
 
-@router.get("/aged-receivables", response_model=AgedReceivables)
+@router.get("/aged-receivables", response_model=AgedReceivables, dependencies=[Depends(plan_feature(REPORTS))])
 async def aged_receivables(db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
     """What each customer owes on sent invoices, by days past due:
     not yet due, 1-30, 31-60, 61-90 and over 90 days."""

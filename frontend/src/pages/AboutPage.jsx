@@ -155,6 +155,32 @@ export default function AboutPage() {
   );
 }
 
+/** Larger organisations: the same YGT, priced per quote, with help to set up. */
+function EnterpriseCard() {
+  const { t } = useTranslation();
+  return (
+    <div className="flex flex-col rounded-2xl bg-zinc-50 p-5 ring-1 ring-inset ring-zinc-200">
+      <h3 className="font-semibold text-zinc-900">{t("billing.planName.enterprise")}</h3>
+      <p className="mt-0.5 text-sm text-zinc-500">{t("billing.tagline.enterprise")}</p>
+      <p className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900">{t("billing.enterprise.price")}</p>
+      <p className="mt-0.5 text-sm text-zinc-500">{t("billing.enterprise.priceHint")}</p>
+      <ul className="mt-4 flex-1 space-y-1.5 text-sm text-zinc-600">
+        {["scale", "setup", "support"].map((key) => (
+          <li key={key} className="flex gap-2">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={2} className="mt-0.5 h-4 w-4 shrink-0 text-indigo-500" aria-hidden="true">
+              <path d="m3.5 8.5 3 3 6-7" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {t(`billing.enterprise.lines.${key}`)}
+          </li>
+        ))}
+      </ul>
+      <Link to="/contact" className="btn btn-secondary mt-5 w-full">
+        {t("billing.enterprise.cta")}
+      </Link>
+    </div>
+  );
+}
+
 /** Plans and prices. Signed out: start a free trial. Admins: go to Billing. */
 export function Pricing() {
   const { t } = useTranslation();
@@ -199,13 +225,13 @@ export function Pricing() {
           </button>
         </div>
       ) : !plans ? (
-        <div className="mt-6 grid gap-4 md:grid-cols-3" aria-busy="true">
-          {[0, 1, 2].map((i) => (
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4" aria-busy="true">
+          {[0, 1, 2, 3].map((i) => (
             <div key={i} className="h-72 animate-pulse rounded-2xl bg-zinc-100 motion-reduce:animate-none" />
           ))}
         </div>
       ) : (
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {plans.map((plan) => (
             <PlanCard
               key={plan.key}
@@ -217,6 +243,7 @@ export function Pricing() {
               action={cta(plan)}
             />
           ))}
+          <EnterpriseCard />
         </div>
       )}
       <p className="mt-3 text-xs text-zinc-500">{t("about.pricing.footnote")}</p>

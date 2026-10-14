@@ -116,7 +116,9 @@
       "marketing": "E-posbemarkingsveldtogte",
       "priority_support": "Voorkeurondersteuning",
       "team_chat": "Spanklets",
-      "whatsapp_sms": "WhatsApp en SMS"
+      "whatsapp_sms": "WhatsApp en SMS",
+      "reports": "\"Wie skuld jou\"-verslag",
+      "recurring_invoices": "Herhalende fakture"
     },
     "fewer": "Minder mense",
     "fixPayment": "Werk kaart by",
@@ -149,7 +151,9 @@
       "marketing": "Stuur e-posveldtogte aan jou kliënte. Vorige veldtogte bly hier om te sien.",
       "team_chat": "Klets met jou span in kanale. Vorige boodskappe bly hier om te lees.",
       "title": "Deel van die {{plan}}-plan",
-      "whatsapp_sms": "Koppel WhatsApp en SMS om kliënte te bereik waar hulle reeds is."
+      "whatsapp_sms": "Koppel WhatsApp en SMS om kliënte te bereik waar hulle reeds is.",
+      "reports": "Sien wie jou geld skuld en hoe laat elke betaling is.",
+      "recurring_invoices": "Faktureer vooruitbetalings en maandelikse kontrakte met 'n konsepfaktuur elke siklus."
     },
     "paid": "Betaling ontvang. Jy is nou op {{plan}}.",
     "payments": "Betalings",
@@ -164,7 +168,8 @@
       "grow": "Grow",
       "hustle": "Hustle",
       "none": "Geen plan nie",
-      "scale": "Scale"
+      "scale": "Scale",
+      "enterprise": "Onderneming"
     },
     "popular": "Gewildste",
     "seatsFull": "Jou plan is vol.",
@@ -193,7 +198,8 @@
       "free": "Om YGT self te probeer",
       "grow": "Vir klein verkoopspanne",
       "hustle": "Vir eenpersoon-besighede",
-      "scale": "Vir groeiende besighede"
+      "scale": "Vir groeiende besighede",
+      "enterprise": "Vir groter organisasies"
     },
     "toPaystack": "Maak Paystack oop…",
     "total_one": "{{amount}} vir {{count}} persoon",
@@ -207,7 +213,17 @@
     },
     "usedOf": "{{used}} van {{limit}}",
     "usedUnlimited": "{{used}} · onbeperk",
-    "yourPlan": "Jou plan"
+    "yourPlan": "Jou plan",
+    "enterprise": {
+      "price": "Kom ons gesels",
+      "priceHint": "Geprys vir jou organisasie",
+      "lines": {
+        "scale": "Alles in Scale",
+        "setup": "Hulp om jou data oor te skuif en op te stel",
+        "support": "Ondersteuning soos met jou span ooreengekom"
+      },
+      "cta": "Kontak ons"
+    }
   },
   "channels": {
     "appPassword": {

@@ -50,12 +50,12 @@ async def api(monkeypatch):
     await engine.dispose()
 
 
-async def new_company(api: AsyncClient, name: str) -> dict:
-    """Signs a new company up; returns its auth headers, email and id."""
+async def new_company(api: AsyncClient, name: str, plan: str = "grow") -> dict:
+    """Signs a new company up on a trial of `plan`; returns its auth headers, email and id."""
     email = f"{uuid.uuid4().hex[:12]}@example.com"
     res = await api.post(
         "/auth/register",
-        json={"company_name": name, "full_name": "Test Owner", "email": email, "password": "Correct-Horse-9", "plan": "grow"},
+        json={"company_name": name, "full_name": "Test Owner", "email": email, "password": "Correct-Horse-9", "plan": plan},
     )
     assert res.status_code == 201, res.text
     async with AsyncSessionLocal() as db:

@@ -8,7 +8,10 @@ from decimal import Decimal
 import pytest
 
 from app.core.database import AsyncSessionLocal
-from app.core.tenancy import set_tenant
+from sqlalchemy import update
+
+from app.core.tenancy import set_system, set_tenant
+from app.models.billing import Subscription
 from app.services.recurring_service import RecurringInvoiceService, add_months
 from app.tasks.recurring_tasks import _make_due_drafts
 
@@ -33,7 +36,7 @@ async def _schedule(api, owner, start: date, **extra) -> dict:
 
 @pytest.mark.asyncio
 async def test_catches_up_once_per_cycle_as_drafts(api):
-    owner = await new_company(api, "Mu Managed IT")
+    owner = await new_company(api, "Mu Managed IT", plan="scale")
     start = add_months(date.today(), -2)
     queued_before = len(api.queued)
     schedule = await _schedule(api, owner, start)
@@ -61,7 +64,7 @@ async def test_catches_up_once_per_cycle_as_drafts(api):
 
 @pytest.mark.asyncio
 async def test_two_runs_at_once_make_one_draft(api):
-    owner = await new_company(api, "Nu Cleaning")
+    owner = await new_company(api, "Nu Cleaning", plan="scale")
     schedule = await _schedule(api, owner, add_months(date.today(), 1))  # nothing due yet
     schedule_id = uuid.UUID(schedule["id"])
     cycle_day = date.fromisoformat(schedule["next_run_date"])
@@ -83,7 +86,7 @@ async def test_two_runs_at_once_make_one_draft(api):
 
 @pytest.mark.asyncio
 async def test_pause_resume_end_and_other_companies(api):
-    owner = await new_company(api, "Xi Accounting")
+    owner = await new_company(api, "Xi Accounting", plan="scale")
     h = owner["headers"]
     schedule = await _schedule(api, owner, date.today(), end_date=add_months(date.today(), 1).isoformat())
     sid = schedule["id"]
@@ -103,7 +106,7 @@ async def test_pause_resume_end_and_other_companies(api):
     ended = (await api.get(f"/recurring-invoices/{sid}", headers=h)).json()
     assert len(ended["invoices"]) == 2 and ended["active"] is False
 
-    other = await new_company(api, "Omicron Events")
+    other = await new_company(api, "Omicron Events", plan="scale")
     assert (await api.get(f"/recurring-invoices/{sid}", headers=other["headers"])).status_code == 404
     assert (await api.get("/recurring-invoices", headers=other["headers"])).json() == []
     assert (await api.delete(f"/recurring-invoices/{sid}", headers=other["headers"])).status_code == 404
@@ -112,3 +115,32 @@ async def test_pause_resume_end_and_other_companies(api):
     assert (await api.delete(f"/recurring-invoices/{sid}", headers=h)).status_code == 204
     invoices = (await api.get("/invoices", headers=h)).json()
     assert len(invoices) == 2 and all(i["recurring_invoice_id"] is None for i in invoices)
+
+
+@pytest.mark.asyncio
+async def test_recurring_needs_scale(api):
+    """Grow can't start or restart a schedule, and the daily run leaves a
+    downgraded company's schedules waiting; it can still see and stop them."""
+    grow = await new_company(api, "Pi Plumbing")
+    customer = (await api.post("/customers", json={"name": "Client"}, headers=grow["headers"])).json()
+    res = await api.post(
+        "/recurring-invoices",
+        json={"customer_id": customer["id"], "frequency": "monthly", "start_date": date.today().isoformat(), "items": ITEMS},
+        headers=grow["headers"],
+    )
+    assert res.status_code == 402 and res.json()["error_code"] == "PLAN_FEATURE_RECURRING_INVOICES"
+
+    owner = await new_company(api, "Rho Bookkeeping", plan="scale")
+    schedule = await _schedule(api, owner, add_months(date.today(), 1))  # first cycle next month
+    async with AsyncSessionLocal() as db:
+        set_system(db)
+        await db.execute(update(Subscription).where(Subscription.company_id == owner["company_id"]).values(plan="grow"))
+        await db.commit()
+    async with AsyncSessionLocal() as db:
+        set_tenant(db, owner["company_id"])
+        assert await RecurringInvoiceService(db).make_all_due(add_months(date.today(), 2)) == 0
+    h, sid = owner["headers"], schedule["id"]
+    assert (await api.get(f"/recurring-invoices/{sid}", headers=h)).json()["invoices"] == []
+    assert (await api.post(f"/recurring-invoices/{sid}/pause", headers=h)).status_code == 200
+    assert (await api.post(f"/recurring-invoices/{sid}/resume", headers=h)).status_code == 402
+    assert (await api.delete(f"/recurring-invoices/{sid}", headers=h)).status_code == 204

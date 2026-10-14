@@ -116,7 +116,9 @@
       "marketing": "Imikhankaso yokumaketha nge-imeyili",
       "priority_support": "Usizo olusheshayo",
       "team_chat": "Ingxoxo yethimba",
-      "whatsapp_sms": "WhatsApp ne-SMS"
+      "whatsapp_sms": "WhatsApp ne-SMS",
+      "reports": "Umbiko othi \"Ubani okukweletayo\"",
+      "recurring_invoices": "Ama-invoyisi aphindaphindayo"
     },
     "fewer": "Abantu abambalwa",
     "fixPayment": "Buyekeza ikhadi",
@@ -149,7 +151,9 @@
       "marketing": "Thumela imikhankaso ye-imeyili kumakhasimende akho. Imikhankaso yangaphambili isala lapha ukuze uyibuke.",
       "team_chat": "Xoxa nethimba lakho eziteshini. Imilayezo yangaphambili isala lapha ukuze uyifunde.",
       "title": "Kuyingxenye yohlelo lwe-{{plan}}",
-      "whatsapp_sms": "Xhuma i-WhatsApp ne-SMS ukuze uthumele amakhasimende imilayezo lapho asevele ekhona."
+      "whatsapp_sms": "Xhuma i-WhatsApp ne-SMS ukuze uthumele amakhasimende imilayezo lapho asevele ekhona.",
+      "reports": "Bona ukuthi ubani okukweletayo nokuthi inkokhelo ngayinye isephuze kangakanani.",
+      "recurring_invoices": "Thumela ama-invoyisi ezinkontileka zanyanga zonke ngomdwebo we-invoyisi umjikelezo ngamunye."
     },
     "paid": "Inkokhelo itholakele. Manje usu-{{plan}}.",
     "payments": "Izinkokhelo",
@@ -164,7 +168,8 @@
       "grow": "Grow",
       "hustle": "Hustle",
       "none": "Alukho uhlelo",
-      "scale": "Scale"
+      "scale": "Scale",
+      "enterprise": "Ibhizinisi elikhulu"
     },
     "popular": "Oludume kakhulu",
     "seatsFull": "Uhlelo lwakho lugcwele.",
@@ -193,7 +198,8 @@
       "free": "Ukuzama i-YGT uwedwa",
       "grow": "Amathimba amancane okuthengisa",
       "hustle": "Amabhizinisi omuntu oyedwa",
-      "scale": "Amabhizinisi akhulayo"
+      "scale": "Amabhizinisi akhulayo",
+      "enterprise": "Ezinhlanganweni ezinkulu"
     },
     "toPaystack": "Kuvulwa i-Paystack…",
     "total_one": "{{amount}} yomuntu o-{{count}}",
@@ -207,7 +213,17 @@
     },
     "usedOf": "{{used}} kwangu-{{limit}}",
     "usedUnlimited": "{{used}} · akunamkhawulo",
-    "yourPlan": "Uhlelo lwakho"
+    "yourPlan": "Uhlelo lwakho",
+    "enterprise": {
+      "price": "Ake sikhulume",
+      "priceHint": "Inani elenzelwe inhlangano yakho",
+      "lines": {
+        "scale": "Konke okuku-Scale",
+        "setup": "Usizo lokuhambisa idatha yakho nokusetha",
+        "support": "Ukwesekwa okuvunyelwene nethimba lakho"
+      },
+      "cta": "Xhumana nathi"
+    }
   },
   "channels": {
     "appPassword": {

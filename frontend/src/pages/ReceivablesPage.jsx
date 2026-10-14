@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAgedReceivables } from "../hooks/useApi";
+import { PlanNotice, useHasFeature } from "../components/Billing";
 import { BackLink } from "../components/DocumentView";
 import { EmptyState, ErrorState, ListSkeleton, PageHeader } from "../components/ui";
 import { formatDate, formatMoney } from "../utils/format";
@@ -37,7 +38,8 @@ function downloadCsv(report, t) {
  *  how many days late it is. The customers to call first come first. */
 export default function ReceivablesPage() {
   const { t } = useTranslation();
-  const { data, isLoading, isError, refetch } = useAgedReceivables();
+  const included = useHasFeature("reports");
+  const { data, isLoading, isError, refetch } = useAgedReceivables({ enabled: included === true });
 
   return (
     <>
@@ -54,7 +56,9 @@ export default function ReceivablesPage() {
         }
       />
 
-      {isLoading ? (
+      {included === false ? (
+        <PlanNotice feature="reports" />
+      ) : included === undefined || isLoading ? (
         <ListSkeleton />
       ) : isError ? (
         <ErrorState onRetry={refetch} />

@@ -116,7 +116,9 @@
       "marketing": "Matšolo a papatšo ka imeile",
       "priority_support": "Thekgo ya pele",
       "team_chat": "Poledišano ya sehlopha",
-      "whatsapp_sms": "WhatsApp le SMS"
+      "whatsapp_sms": "WhatsApp le SMS",
+      "reports": "Pego ya \"Ke mang yo a go kolotago\"",
+      "recurring_invoices": "Di-invoice tše di boelelwago"
     },
     "fewer": "Batho ba ba nyenyane",
     "fixPayment": "Mpshafatša karata",
@@ -149,7 +151,9 @@
       "marketing": "Romela matšolo a imeile go bareki ba gago. Matšolo a pele a dula mo gore o a bone.",
       "team_chat": "Boledišana le sehlopha sa gago dikanaleng. Melaetša ya pele e dula mo gore o e bale.",
       "title": "Ke karolo ya leano la {{plan}}",
-      "whatsapp_sms": "Kopanya WhatsApp le SMS go romela bareki melaetša moo ba šetšego ba le gona."
+      "whatsapp_sms": "Kopanya WhatsApp le SMS go romela bareki melaetša moo ba šetšego ba le gona.",
+      "reports": "Bona gore ke mang yo a go kolotago le gore tefelo ye nngwe le ye nngwe e diegile gakaakang.",
+      "recurring_invoices": "Lefiša dikonteraka tša kgwedi le kgwedi ka tlhamo ya invoice sekgobo se sengwe le se sengwe."
     },
     "paid": "Tefelo e amogetšwe. Bjale o go {{plan}}.",
     "payments": "Ditefelo",
@@ -164,7 +168,8 @@
       "grow": "Grow",
       "hustle": "Hustle",
       "none": "Ga go leano",
-      "scale": "Scale"
+      "scale": "Scale",
+      "enterprise": "Kgwebo ye kgolo"
     },
     "popular": "Le le ratwago kudu",
     "seatsFull": "Leano la gago le tletše.",
@@ -193,7 +198,8 @@
       "free": "Go leka YGT o le noši",
       "grow": "Dihlopha tše nnyane tša thekišo",
       "hustle": "Dikgwebo tša motho o tee",
-      "scale": "Dikgwebo tše di golago"
+      "scale": "Dikgwebo tše di golago",
+      "enterprise": "Bakeng sa mekgatlo ye megolo"
     },
     "toPaystack": "Go bulwa Paystack…",
     "total_one": "{{amount}} ya motho o {{count}}",
@@ -207,7 +213,17 @@
     },
     "usedOf": "{{used}} go {{limit}}",
     "usedUnlimited": "{{used}} · ga go na moedi",
-    "yourPlan": "Leano la gago"
+    "yourPlan": "Leano la gago",
+    "enterprise": {
+      "price": "A re boledišaneng",
+      "priceHint": "Theko ye e dirilwego mokgatlo wa gago",
+      "lines": {
+        "scale": "Tšohle tše di lego go Scale",
+        "setup": "Thušo ya go fetiša tshedimošo ya gago le go beakanya",
+        "support": "Thekgo ye e dumelelanwego le sehlopha sa gago"
+      },
+      "cta": "Ikgokaganye le rena"
+    }
   },
   "channels": {
     "appPassword": {

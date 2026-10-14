@@ -72,3 +72,10 @@ async def test_owed_money_is_bucketed_by_days_late(api):
     good = report["customers"][1]
     assert money(good)["total"] == Decimal("1000") and money(good)["current"] == Decimal("1000")
     assert "Elsewhere" not in names
+
+
+@pytest.mark.asyncio
+async def test_hustle_does_not_include_the_report(api):
+    owner = await new_company(api, "Sigma Signs", plan="hustle")
+    res = await api.get("/reports/aged-receivables", headers=owner["headers"])
+    assert res.status_code == 402 and res.json()["error_code"] == "PLAN_FEATURE_REPORTS"

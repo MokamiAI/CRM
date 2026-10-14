@@ -362,8 +362,18 @@ export default function BillingSettings() {
   );
 }
 
+// The smallest plan with each feature; anything not listed starts at Grow.
+const FEATURE_PLAN = { recurring_invoices: "scale" };
+
+/** Does the company's plan include this feature? undefined while loading. */
+export function useHasFeature(feature) {
+  const { data: billing } = useBilling();
+  return billing ? billing.features.includes(feature) : undefined;
+}
+
 /** Shown where a feature isn't in the company's plan (WhatsApp/SMS,
- *  marketing, custom fields, team chat): says which plan has it. */
+ *  marketing, custom fields, team chat, reports, recurring invoices):
+ *  says which plan has it. */
 export function PlanNotice({ feature }) {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -372,7 +382,7 @@ export function PlanNotice({ feature }) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-indigo-50 p-4 ring-1 ring-inset ring-indigo-200/70">
       <div>
-        <p className="text-sm font-semibold text-indigo-950">{t("billing.notice.title", { plan: t("billing.planName.grow") })}</p>
+        <p className="text-sm font-semibold text-indigo-950">{t("billing.notice.title", { plan: t(`billing.planName.${FEATURE_PLAN[feature] ?? "grow"}`) })}</p>
         <p className="text-sm text-indigo-900/80">{t(`billing.notice.${feature}`)}</p>
       </div>
       {user?.role === "admin" ? (

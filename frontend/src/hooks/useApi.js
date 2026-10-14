@@ -229,8 +229,8 @@ export function useReportSummary() {
   return useQuery({ queryKey: ["reports", "summary"], queryFn: () => get("/reports/summary") });
 }
 
-export function useAgedReceivables() {
-  return useQuery({ queryKey: ["reports", "aged-receivables"], queryFn: () => get("/reports/aged-receivables") });
+export function useAgedReceivables({ enabled = true } = {}) {
+  return useQuery({ queryKey: ["reports", "aged-receivables"], queryFn: () => get("/reports/aged-receivables"), enabled });
 }
 
 export function useCustomerOverview(params = {}) {

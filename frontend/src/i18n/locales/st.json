@@ -116,7 +116,9 @@
       "marketing": "Matsholo a papatso ka imeile",
       "priority_support": "Tshehetso ya pele",
       "team_chat": "Puisano ya sehlopha",
-      "whatsapp_sms": "WhatsApp le SMS"
+      "whatsapp_sms": "WhatsApp le SMS",
+      "reports": "Tlaleho ya \"Ke mang ya o kolotang\"",
+      "recurring_invoices": "Di-invoice tse iphetang"
     },
     "fewer": "Batho ba fokolang",
     "fixPayment": "Ntjhafatsa karete",
@@ -149,7 +151,9 @@
       "marketing": "Romella matsholo a imeile ho bareki ba hao. Matsholo a fetileng a dula mona hore o a bone.",
       "team_chat": "Buisana le sehlopha sa hao dikanaleng. Melaetsa e fetileng e dula mona hore o e bale.",
       "title": "Ke karolo ya moralo wa {{plan}}",
-      "whatsapp_sms": "Hokela WhatsApp le SMS ho romella bareki melaetsa moo ba seng ba le teng."
+      "whatsapp_sms": "Hokela WhatsApp le SMS ho romella bareki melaetsa moo ba seng ba le teng.",
+      "reports": "Bona hore na ke mang ya o kolotang le hore tefo ka nngwe e diehile hakae.",
+      "recurring_invoices": "Lefisa dikonteraka tsa kgwedi le kgwedi ka moralo wa invoice potoloho ka nngwe."
     },
     "paid": "Tefo e amohetswe. Jwale o ho {{plan}}.",
     "payments": "Ditefo",
@@ -164,7 +168,8 @@
       "grow": "Grow",
       "hustle": "Hustle",
       "none": "Ha ho moralo",
-      "scale": "Scale"
+      "scale": "Scale",
+      "enterprise": "Kgwebo e kgolo"
     },
     "popular": "O ratwang haholo",
     "seatsFull": "Moralo wa hao o tletse.",
@@ -193,7 +198,8 @@
       "free": "Ho leka YGT o le mong",
       "grow": "Dihlopha tse nyane tsa thekiso",
       "hustle": "Dikgwebo tsa motho a le mong",
-      "scale": "Dikgwebo tse holang"
+      "scale": "Dikgwebo tse holang",
+      "enterprise": "Bakeng sa mekgatlo e meholo"
     },
     "toPaystack": "Ho bulwa Paystack…",
     "total_one": "{{amount}} bakeng sa motho a {{count}}",
@@ -207,7 +213,17 @@
     },
     "usedOf": "{{used}} ho {{limit}}",
     "usedUnlimited": "{{used}} · ha ho moedi",
-    "yourPlan": "Moralo wa hao"
+    "yourPlan": "Moralo wa hao",
+    "enterprise": {
+      "price": "Ha re buisaneng",
+      "priceHint": "Theko e etseditsweng mokgatlo wa hao",
+      "lines": {
+        "scale": "Tsohle tse ho Scale",
+        "setup": "Thuso ya ho fetisetsa data ya hao le ho e hlophisa",
+        "support": "Tshehetso e dumellanweng le sehlopha sa hao"
+      },
+      "cta": "Ikopanye le rona"
+    }
   },
   "channels": {
     "appPassword": {

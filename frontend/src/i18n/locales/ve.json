@@ -116,7 +116,9 @@
       "marketing": "Mafulo a ndivhadzo nga imeiḽi",
       "priority_support": "Thikhedzo ya u thoma",
       "team_chat": "Nyambedzano ya tshigwada",
-      "whatsapp_sms": "WhatsApp na SMS"
+      "whatsapp_sms": "WhatsApp na SMS",
+      "reports": "Muvhigo wa \"Ndi nnyi ane a ni kolodela\"",
+      "recurring_invoices": "Dziinvoisi dzi dzhenaho hafhu"
     },
     "fewer": "Vhathu vha si gathi",
     "fixPayment": "Vusuludzani garaṱa",
@@ -149,7 +151,9 @@
       "marketing": "Rumelani mafulo a imeiḽi kha vharengi vhaṋu. Mafulo a kale a dzula fhano uri ni a vhone.",
       "team_chat": "Ambani na tshigwada tshaṋu kha tshanele. Milaedza ya kale i dzula fhano uri ni i vhale.",
       "title": "Ndi tshipiḓa tsha pulane ya {{plan}}",
-      "whatsapp_sms": "Ṱumanyani WhatsApp na SMS u rumela vharengi milaedza hune vha vha hone."
+      "whatsapp_sms": "Ṱumanyani WhatsApp na SMS u rumela vharengi milaedza hune vha vha hone.",
+      "reports": "Vhonani uri ndi nnyi ane a ni kolodela na uri mbadelo iṅwe na iṅwe yo lenga lini.",
+      "recurring_invoices": "Badelisani dzikonṱiraka dza ṅwedzi nga ṅwedzi nga mbudziso ya invoisi tshifhinga tshiṅwe na tshiṅwe."
     },
     "paid": "Mbadelo yo ṱanganedzwa. Zwino ni kha {{plan}}.",
     "payments": "Mbadelo",
@@ -164,7 +168,8 @@
       "grow": "Grow",
       "hustle": "Hustle",
       "none": "A hu na pulane",
-      "scale": "Scale"
+      "scale": "Scale",
+      "enterprise": "Bindu ḽihulwane"
     },
     "popular": "I funwaho nga maanḓa",
     "seatsFull": "Pulane yaṋu yo ḓala.",
@@ -193,7 +198,8 @@
       "free": "U lingedza YGT ni noṱhe",
       "grow": "Zwigwada zwiṱuku zwa thengiso",
       "hustle": "Mabindu a muthu muthihi",
-      "scale": "Mabindu a aluwaho"
+      "scale": "Mabindu a aluwaho",
+      "enterprise": "Kha madzangano mahulwane"
     },
     "toPaystack": "Hu khou vulwa Paystack…",
     "total_one": "{{amount}} ya muthu a {{count}}",
@@ -207,7 +213,17 @@
     },
     "usedOf": "{{used}} kha {{limit}}",
     "usedUnlimited": "{{used}} · a hu na mukano",
-    "yourPlan": "Pulane yaṋu"
+    "yourPlan": "Pulane yaṋu",
+    "enterprise": {
+      "price": "Kha ri ambe",
+      "priceHint": "Mutengo wo itelwaho dzangano ḽaṋu",
+      "lines": {
+        "scale": "Zwoṱhe zwi re kha Scale",
+        "setup": "Thuso ya u pfulutshela data yaṋu na u dzudzanya",
+        "support": "Thikhedzo yo tendelanwaho na tshigwada tshaṋu"
+      },
+      "cta": "Ri kwameni"
+    }
   },
   "channels": {
     "appPassword": {

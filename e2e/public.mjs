@@ -144,7 +144,8 @@ await anchorTest("Hero: See pricing", "section a", "See pricing", "#pricing", "#
   const annual = await p.evaluate(() => document.getElementById("pricing").innerText);
   ok("Pricing: monthly / yearly toggle changes prices", toggles.length === 2 && monthly !== annual, toggles.join(" / "));
   await p.close();
-  ok("Pricing: plan cards loaded", cards.length === 3, cards.join(", "));
+  ok("Pricing: three plans and Enterprise", cards.length === 4 && cards[3] === "/contact", cards.join(", "));
+  ok("Pricing: recurring invoices shown on Scale only", (monthly.match(/Recurring invoices/g) || []).length === 1, "");
   for (const href of cards) {
     const q = await fresh();
     await q.evaluate((h) => {

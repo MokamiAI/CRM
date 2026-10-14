@@ -3,8 +3,9 @@ import uuid
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_user, get_db, require_role
+from app.api.deps import get_current_user, get_db, plan_feature, require_role
 from app.core.database import CommitBeforeResponseRoute
+from app.core.plans import RECURRING
 from app.models.enums import UserRole
 from app.models.recurring import RecurringInvoice
 from app.models.user import User
@@ -23,6 +24,9 @@ router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/recurring-inv
 
 _can_write = require_role(UserRole.ADMIN, UserRole.MANAGER, UserRole.STAFF)
 _can_manage = require_role(UserRole.ADMIN, UserRole.MANAGER)
+# Making or restarting a schedule needs Scale. Viewing, pausing and deleting
+# stay open, so a company that moves to a smaller plan can still stop them.
+_scale = [Depends(plan_feature(RECURRING))]
 
 
 async def _today(db: AsyncSession):
@@ -50,7 +54,7 @@ async def get_recurring(schedule_id: uuid.UUID, db: AsyncSession = Depends(get_d
     return _out(schedule, RecurringInvoiceDetail, invoices=made)
 
 
-@router.post("", response_model=RecurringInvoiceOut, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=RecurringInvoiceOut, status_code=status.HTTP_201_CREATED, dependencies=_scale)
 async def create_recurring(
     data: RecurringInvoiceCreate, db: AsyncSession = Depends(get_db), user: User = Depends(_can_write)
 ):
@@ -60,7 +64,7 @@ async def create_recurring(
     return _out(await RecurringInvoiceService(db).create(data, created_by=user.id, today=await _today(db)))
 
 
-@router.patch("/{schedule_id}", response_model=RecurringInvoiceOut)
+@router.patch("/{schedule_id}", response_model=RecurringInvoiceOut, dependencies=_scale)
 async def update_recurring(
     schedule_id: uuid.UUID, data: RecurringInvoiceUpdate, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)
 ):
@@ -72,7 +76,7 @@ async def pause_recurring(schedule_id: uuid.UUID, db: AsyncSession = Depends(get
     return _out(await RecurringInvoiceService(db).set_active(schedule_id, False, await _today(db)))
 
 
-@router.post("/{schedule_id}/resume", response_model=RecurringInvoiceOut)
+@router.post("/{schedule_id}/resume", response_model=RecurringInvoiceOut, dependencies=_scale)
 async def resume_recurring(schedule_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)):
     """Switches it back on from the next cycle; cycles missed while paused are skipped."""
     return _out(await RecurringInvoiceService(db).set_active(schedule_id, True, await _today(db)))

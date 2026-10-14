@@ -116,7 +116,9 @@
       "marketing": "Matsima ya vuxavisi hi imeyili",
       "priority_support": "Nseketelo wo rhanga",
       "team_chat": "Mbulavurisano wa ntlawa",
-      "whatsapp_sms": "WhatsApp ni SMS"
+      "whatsapp_sms": "WhatsApp ni SMS",
+      "reports": "Xiviko xa \"I mani loyi a ku kolotaka\"",
+      "recurring_invoices": "Tiinvhoyisi leti phindhaphindhaka"
     },
     "fewer": "Vanhu vatsongo",
     "fixPayment": "Pfuxeta karata",
@@ -149,7 +151,9 @@
       "marketing": "Rhumela matsima ya imeyili eka vaxavi va wena. Matsima ya khale ma tshama laha leswaku u ma vona.",
       "team_chat": "Burisana ni ntlawa wa wena eka tichanele. Marungula ya khale ma tshama laha leswaku u ma hlaya.",
       "title": "I xiphemu xa pulani ya {{plan}}",
-      "whatsapp_sms": "Hlanganisa WhatsApp ni SMS ku rhumela vaxavi marungula laha va se va nga kona."
+      "whatsapp_sms": "Hlanganisa WhatsApp ni SMS ku rhumela vaxavi marungula laha va se va nga kona.",
+      "reports": "Vona leswaku i mani loyi a ku kolotaka ni leswaku hakelo yin'wana na yin'wana yi hlwele ku fikela kwihi.",
+      "recurring_invoices": "Hakerisa tikontiraka ta n'hweti na n'hweti hi xikunguhatwa xa invhoyisi nkarhi wun'wana na wun'wana."
     },
     "paid": "Hakelo yi amukeriwile. Sweswi u le ka {{plan}}.",
     "payments": "Tihakelo",
@@ -164,7 +168,8 @@
       "grow": "Grow",
       "hustle": "Hustle",
       "none": "A ku na pulani",
-      "scale": "Scale"
+      "scale": "Scale",
+      "enterprise": "Bindzu lerikulu"
     },
     "popular": "Leyi rhandziwaka ngopfu",
     "seatsFull": "Pulani ya wena yi tele.",
@@ -193,7 +198,8 @@
       "free": "Ku ringeta YGT u ri wexe",
       "grow": "Mintlawa leyitsongo ya vuxavisi",
       "hustle": "Mabindzu ya munhu un'we",
-      "scale": "Mabindzu lama kulaka"
+      "scale": "Mabindzu lama kulaka",
+      "enterprise": "Eka minhlangano leyikulu"
     },
     "toPaystack": "Ku pfuriwa Paystack…",
     "total_one": "{{amount}} ya munhu wa {{count}}",
@@ -207,7 +213,17 @@
     },
     "usedOf": "{{used}} ka {{limit}}",
     "usedUnlimited": "{{used}} · a ku na ndzilakano",
-    "yourPlan": "Pulani ya wena"
+    "yourPlan": "Pulani ya wena",
+    "enterprise": {
+      "price": "A hi vulavuleni",
+      "priceHint": "Nxavo lowu endleriweke nhlangano wa wena",
+      "lines": {
+        "scale": "Hinkwaswo leswi nga eka Scale",
+        "setup": "Mpfuno wa ku rhurhisa data ya wena ni ku lulamisa",
+        "support": "Nseketelo lowu pfumelelaniweke ni ntlawa wa wena"
+      },
+      "cta": "Hlanganani na hina"
+    }
   },
   "channels": {
     "appPassword": {

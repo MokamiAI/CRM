@@ -20,6 +20,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import NotFoundError
+from app.core.plans import RECURRING
 from app.models.customer import Customer
 from app.models.invoice import Invoice, InvoiceItem
 from app.models.recurring import RecurringInvoice
@@ -193,6 +194,12 @@ class RecurringInvoiceService:
         return made
 
     async def make_all_due(self, today: date) -> int:
+        """The daily run. On a plan without recurring invoices the schedules
+        wait; after an upgrade the missed cycles are made as drafts."""
+        from app.services.billing_service import BillingService
+
+        if RECURRING not in (await BillingService(self.db).current()).plan.features:
+            return 0
         ids = await self.db.scalars(
             select(RecurringInvoice.id).where(RecurringInvoice.active.is_(True), RecurringInvoice.next_run_date <= today)
         )

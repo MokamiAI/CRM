@@ -9,6 +9,7 @@ import { useAuth } from "../context/AuthContext";
 import DocumentEditor from "../components/DocumentEditor";
 import { BackLink } from "../components/DocumentView";
 import Sheet from "../components/Sheet";
+import { PlanNotice, useHasFeature } from "../components/Billing";
 import { Button, ButtonLink, EmptyState, ErrorState, Field, ListSkeleton, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
 import { errorMessage, formatDate, formatMoney } from "../utils/format";
 
@@ -35,7 +36,8 @@ export function RecurringInvoicesPage() {
   const { user } = useAuth();
   const { data, isLoading, isError, refetch } = useRecurringList();
   const customers = useCustomerMap();
-  const canWrite = user?.role !== "viewer";
+  const included = useHasFeature("recurring_invoices");
+  const canWrite = user?.role !== "viewer" && included !== false;
   const newButton = canWrite && (
     <ButtonLink to="/invoices/recurring/new">
       <PlusIcon className="h-4 w-4" /> {t("recurring.new")}
@@ -45,12 +47,17 @@ export function RecurringInvoicesPage() {
   return (
     <>
       <PageHeader eyebrow={<BackLink to="/invoices">{t("nav.invoices")}</BackLink>} title={t("recurring.title")} subtitle={t("recurring.subtitle")} actions={newButton} />
+      {included === false && (
+        <div className="mb-5">
+          <PlanNotice feature="recurring_invoices" />
+        </div>
+      )}
       {isLoading ? (
         <ListSkeleton />
       ) : isError ? (
         <ErrorState onRetry={refetch} />
       ) : data.length === 0 ? (
-        <EmptyState title={t("recurring.empty")} description={t("recurring.emptyHint")} action={newButton} />
+        included !== false && <EmptyState title={t("recurring.empty")} description={t("recurring.emptyHint")} action={newButton} />
       ) : (
         <ul className="card divide-y divide-zinc-100">
           {data.map((s) => (
@@ -87,6 +94,7 @@ export function NewRecurringInvoicePage() {
   const [frequency, setFrequency] = useState("monthly");
   const [endDate, setEndDate] = useState("");
   const [dueDays, setDueDays] = useState("");
+  const included = useHasFeature("recurring_invoices");
 
   const create = useMutation({
     mutationFn: (payload) => apiClient.post("/recurring-invoices", payload).then((r) => r.data),
@@ -102,7 +110,10 @@ export function NewRecurringInvoicePage() {
   return (
     <div>
       <PageHeader eyebrow={<BackLink to="/invoices/recurring">{t("recurring.title")}</BackLink>} title={t("recurring.new")} subtitle={t("recurring.newHint")} />
-      <DocumentEditor
+      {included === false ? (
+        <PlanNotice feature="recurring_invoices" />
+      ) : (
+        <DocumentEditor
         issueLabel={t("recurring.firstOn")}
         submitLabel={t("recurring.save")}
         isSubmitting={create.isPending}
@@ -136,7 +147,8 @@ export function NewRecurringInvoicePage() {
             <input className="input" type="number" min="0" max="365" inputMode="numeric" value={dueDays} onChange={(e) => setDueDays(e.target.value)} />
           </Field>
         </div>
-      </DocumentEditor>
+        </DocumentEditor>
+      )}
     </div>
   );
 }
@@ -152,6 +164,7 @@ export function RecurringInvoiceDetailPage() {
   const { data: s, isLoading, isError, refetch } = useQuery({ queryKey: ["recurring", id], queryFn: () => get(`/recurring-invoices/${id}`) });
   const canWrite = user?.role !== "viewer";
   const canManage = ["admin", "manager"].includes(user?.role);
+  const included = useHasFeature("recurring_invoices");
   const onError = (error) => toast.error(errorMessage(error));
   const refresh = () => queryClient.invalidateQueries({ queryKey: ["recurring"] });
 
@@ -200,13 +213,20 @@ export function RecurringInvoiceDetailPage() {
                   {t("recurring.delete")}
                 </Button>
               )}
-              <Button variant={s.active ? "secondary" : "primary"} disabled={toggle.isPending} onClick={() => toggle.mutate()}>
-                {t(s.active ? "recurring.pause" : "recurring.resume")}
-              </Button>
+              {(s.active || included !== false) && (
+                <Button variant={s.active ? "secondary" : "primary"} disabled={toggle.isPending} onClick={() => toggle.mutate()}>
+                  {t(s.active ? "recurring.pause" : "recurring.resume")}
+                </Button>
+              )}
             </>
           )
         }
       />
+      {included === false && (
+        <div className="mb-5">
+          <PlanNotice feature="recurring_invoices" />
+        </div>
+      )}
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
         <section className="card p-5">
           <dl className="space-y-3 text-sm">

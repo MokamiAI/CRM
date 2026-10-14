@@ -116,7 +116,9 @@
       "marketing": "Email marketing campaigns",
       "priority_support": "Priority support",
       "team_chat": "Team chat",
-      "whatsapp_sms": "WhatsApp and SMS"
+      "whatsapp_sms": "WhatsApp and SMS",
+      "reports": "\"Who owes you\" report",
+      "recurring_invoices": "Recurring invoices"
     },
     "fewer": "Fewer people",
     "fixPayment": "Update card",
@@ -149,7 +151,9 @@
       "marketing": "Send email campaigns to your customers. Past campaigns stay here to view.",
       "team_chat": "Chat with your team in channels. Past messages stay here to read.",
       "title": "Part of the {{plan}} plan",
-      "whatsapp_sms": "Connect WhatsApp and SMS to message customers where they already are."
+      "whatsapp_sms": "Connect WhatsApp and SMS to message customers where they already are.",
+      "reports": "See who owes you money and how late each payment is.",
+      "recurring_invoices": "Bill retainers and monthly contracts with a draft invoice each cycle."
     },
     "paid": "Payment received. You're on {{plan}} now.",
     "payments": "Payments",
@@ -164,7 +168,8 @@
       "grow": "Grow",
       "hustle": "Hustle",
       "none": "No plan",
-      "scale": "Scale"
+      "scale": "Scale",
+      "enterprise": "Enterprise"
     },
     "popular": "Most popular",
     "seatsFull": "Your plan is full.",
@@ -193,7 +198,8 @@
       "free": "To try YGT on your own",
       "grow": "For small sales teams",
       "hustle": "For one-person businesses",
-      "scale": "For growing businesses"
+      "scale": "For growing businesses",
+      "enterprise": "For larger organisations"
     },
     "toPaystack": "Opening Paystack…",
     "total_one": "{{amount}} for {{count}} person",
@@ -207,7 +213,17 @@
     },
     "usedOf": "{{used}} of {{limit}}",
     "usedUnlimited": "{{used}} · unlimited",
-    "yourPlan": "Your plan"
+    "yourPlan": "Your plan",
+    "enterprise": {
+      "price": "Let's talk",
+      "priceHint": "Priced for your organisation",
+      "lines": {
+        "scale": "Everything in Scale",
+        "setup": "Help moving your data and setting up",
+        "support": "Support agreed with your team"
+      },
+      "cta": "Contact us"
+    }
   },
   "channels": {
     "appPassword": {
