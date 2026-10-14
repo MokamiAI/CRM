@@ -31,6 +31,7 @@ jobs:
       DATABASE_URL: postgresql+asyncpg://test:test@localhost:5432/test
       DATABASE_URL_MIGRATIONS: postgresql+asyncpg://test:test@localhost:5432/test
       JWT_SECRET: ci-test-secret
+      DEBUG: "false"
       # Fail, don't skip, if the database isn't there.
       REQUIRE_TEST_DATABASE: "1"
     steps:

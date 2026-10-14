@@ -158,7 +158,7 @@ export default function DashboardPage() {
           </div>
         </Panel>
 
-        <Panel title={t("dashboard.receivables")} action={<PanelLink to="/invoices">{t("nav.invoices")}</PanelLink>}>
+        <Panel title={t("dashboard.receivables")} action={<PanelLink to="/invoices/aging">{t("aging.link")}</PanelLink>}>
           <div className="relative overflow-hidden px-5 pt-5">
             <span className="pointer-events-none absolute -right-16 -top-20 h-48 w-64 rounded-full bg-violet-400/15 blur-3xl" aria-hidden="true" />
             <p className="relative text-xs font-medium uppercase tracking-wide text-zinc-500">{t("dashboard.outstanding")}</p>

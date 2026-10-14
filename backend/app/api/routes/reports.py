@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user, get_db
 from app.core.database import CommitBeforeResponseRoute
 from app.models.user import User
-from app.schemas.report import CustomerOverview, ReportSummary
+from app.schemas.report import AgedReceivables, CustomerOverview, ReportSummary
 from app.services.report_service import ReportService
 
 router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/reports", tags=["reports"])
@@ -15,6 +15,13 @@ async def summary(db: AsyncSession = Depends(get_db), _: User = Depends(get_curr
     """Sales dashboard numbers: pipeline by stage, won this month, win
     rate, receivables, cash collected per month, top deals, recent feed."""
     return await ReportService(db).summary()
+
+
+@router.get("/aged-receivables", response_model=AgedReceivables)
+async def aged_receivables(db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    """What each customer owes on sent invoices, by days past due:
+    not yet due, 1-30, 31-60, 61-90 and over 90 days."""
+    return await ReportService(db).aged_receivables()
 
 
 @router.get("/customers", response_model=list[CustomerOverview])

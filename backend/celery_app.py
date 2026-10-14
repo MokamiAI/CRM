@@ -15,6 +15,7 @@ celery_app = Celery(
         "app.tasks.marketing_tasks",
         "app.tasks.messaging_tasks",
         "app.tasks.platform_tasks",
+        "app.tasks.recurring_tasks",
         "app.tasks.reminder_tasks",
     ],
 )
@@ -33,6 +34,11 @@ celery_app.conf.update(
 )
 
 celery_app.conf.beat_schedule = {
+    # Before the reminders: today's recurring drafts are ready first.
+    "daily-recurring-invoices": {
+        "task": "app.tasks.recurring_tasks.make_recurring_invoices_task",
+        "schedule": crontab(hour=6, minute=0),
+    },
     "daily-invoice-reminder": {
         "task": "app.tasks.reminder_tasks.daily_invoice_reminder_task",
         "schedule": crontab(hour=7, minute=0),

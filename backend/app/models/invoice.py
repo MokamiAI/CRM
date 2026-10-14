@@ -17,6 +17,14 @@ class Invoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
         UniqueConstraint("company_id", "invoice_number", name="uq_invoices_company_number"),
         # One invoice per quote, however many times it is accepted or converted.
         Index("uq_invoices_quote_id", "quote_id", unique=True, postgresql_where=text("quote_id IS NOT NULL")),
+        # One invoice per recurring schedule per cycle.
+        Index(
+            "uq_invoices_recurring_cycle",
+            "recurring_invoice_id",
+            "recurrence_date",
+            unique=True,
+            postgresql_where=text("recurring_invoice_id IS NOT NULL"),
+        ),
     )
 
     invoice_number: Mapped[str] = mapped_column(String(50), index=True, nullable=False)
@@ -46,6 +54,11 @@ class Invoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     created_by: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )
+    # Made by a recurring schedule, for the cycle starting recurrence_date.
+    recurring_invoice_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("recurring_invoices.id", ondelete="SET NULL"), nullable=True, index=True
+    )
+    recurrence_date: Mapped[date | None] = mapped_column(Date, nullable=True)
 
     customer: Mapped["Customer"] = relationship(back_populates="invoices")
     quote: Mapped["Quote | None"] = relationship(back_populates="invoices")

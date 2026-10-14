@@ -112,6 +112,10 @@ const pages = [
   ["@/quotes", new RegExp(`^/quotes/${ID}$`), "Quote detail"],
   ["/invoices", "Invoices"],
   ["/invoices/new", "New invoice"],
+  ["/invoices/aging", "Who owes you"],
+  ["/invoices/recurring", "Recurring invoices"],
+  ["api:/recurring-invoices", "/invoices/recurring/", "Recurring invoice detail"],
+  ["/invoices/recurring/new", "New recurring invoice"],
   ["@/invoices", new RegExp(`^/invoices/${ID}$`), "Invoice detail"],
   ["/purchase-orders", "Purchase orders"],
   ["@/purchase-orders", new RegExp(`^/purchase-orders/${ID}$`), "Purchase order detail"],
@@ -177,6 +181,30 @@ else {
   }
 }
 results.push(flow);
+
+// Recurring: fill the form on screen, save, and find the first draft made.
+const recurring = { name: "New recurring invoice → first draft", route: "/invoices/recurring/new", issues: [] };
+try {
+  await page.setViewport({ width: 1440, height: 900 });
+  await page.goto(BASE + "/invoices/recurring/new", { waitUntil: "domcontentloaded" });
+  await settle();
+  await page.select("form select.input", await page.evaluate(() => document.querySelector("form select.input option:not([disabled])").value));
+  await page.type("input[aria-label='Description']", "Monthly bookkeeping");
+  await page.click("input[aria-label='Unit price']");
+  await page.type("input[aria-label='Unit price']", "3500");
+  await Promise.all([
+    page.waitForFunction(() => /^\/invoices\/recurring\/[0-9a-f-]{36}$/.test(location.pathname), { timeout: 15000 }),
+    page.click("form button[type=submit]"),
+  ]);
+  await settle();
+  const text = await page.evaluate(() => document.body.innerText);
+  if (!/INV-\d+/.test(text)) recurring.issues.push("no draft invoice listed after saving");
+  if (!/Draft/.test(text)) recurring.issues.push("first invoice is not a draft");
+  await page.screenshot({ path: path.join(OUT, "laptop", "flow 3 recurring saved.png") });
+} catch (e) {
+  recurring.issues.push(e.message.split("\n")[0]);
+}
+results.push(recurring);
 
 await browser.close();
 const failed = results.filter((r) => r.issues.length);

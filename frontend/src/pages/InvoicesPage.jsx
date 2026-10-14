@@ -47,11 +47,19 @@ export function InvoicesPage() {
         title={t("nav.invoices")}
         subtitle={data ? t(status ? "invoices.count" : "invoices.countTotal", { count: data.length }) : undefined}
         actions={
-          user?.role !== "viewer" && (
-            <ButtonLink to="/invoices/new">
-              <PlusIcon className="h-4 w-4" /> {t("dashboard.newInvoice")}
+          <>
+            <ButtonLink variant="secondary" to="/invoices/aging">
+              {t("aging.link")}
             </ButtonLink>
-          )
+            <ButtonLink variant="secondary" to="/invoices/recurring">
+              {t("recurring.link")}
+            </ButtonLink>
+            {user?.role !== "viewer" && (
+              <ButtonLink to="/invoices/new">
+                <PlusIcon className="h-4 w-4" /> {t("dashboard.newInvoice")}
+              </ButtonLink>
+            )}
+          </>
         }
       />
       <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">

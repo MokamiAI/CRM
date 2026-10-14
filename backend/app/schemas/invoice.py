@@ -81,6 +81,8 @@ class InvoiceOut(BaseModel):
     notes: str | None
     po_number: str | None = None
     reference: str | None = None
+    # Set when a recurring schedule made it.
+    recurring_invoice_id: uuid.UUID | None = None
     items: list[InvoiceItemOut]
     created_at: datetime
     updated_at: datetime

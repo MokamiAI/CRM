@@ -26,6 +26,10 @@ const HelpPage = lazy(() => import("./pages/HelpPage"));
 const CampaignPage = lazy(() => import("./pages/CampaignPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const StatementPage = lazy(() => import("./pages/StatementPage"));
+const ReceivablesPage = lazy(() => import("./pages/ReceivablesPage"));
+const RecurringInvoicesPage = named(() => import("./pages/RecurringInvoicesPage"), "RecurringInvoicesPage");
+const NewRecurringInvoicePage = named(() => import("./pages/RecurringInvoicesPage"), "NewRecurringInvoicePage");
+const RecurringInvoiceDetailPage = named(() => import("./pages/RecurringInvoicesPage"), "RecurringInvoiceDetailPage");
 const PurchaseOrdersPage = lazy(() => import("./pages/PurchaseOrdersPage"));
 const NewPurchaseOrderPage = named(() => import("./pages/PurchaseOrdersPage"), "NewPurchaseOrderPage");
 const PurchaseOrderDetailPage = named(() => import("./pages/PurchaseOrdersPage"), "PurchaseOrderDetailPage");
@@ -110,6 +114,10 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/invoices/aging" element={<ReceivablesPage />} />
+        <Route path="/invoices/recurring" element={<RecurringInvoicesPage />} />
+        <Route path="/invoices/recurring/new" element={<NewRecurringInvoicePage />} />
+        <Route path="/invoices/recurring/:id" element={<RecurringInvoiceDetailPage />} />
         <Route path="/invoices/:id" element={<InvoiceDetailPage />} />
         <Route path="/quotes" element={<QuotesPage />} />
         <Route

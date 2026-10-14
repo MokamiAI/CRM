@@ -4,7 +4,7 @@ list cap the client-side dashboard used to compute from."""
 from datetime import date, datetime, time, timedelta, timezone
 from decimal import Decimal
 
-from sqlalchemy import func, or_, select
+from sqlalchemy import case, func, literal, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.crm import Activity, Contact, Deal, Note
@@ -17,6 +17,8 @@ from app.services.reminder_service import company_today
 
 OPEN_INVOICE = (InvoiceStatus.SENT, InvoiceStatus.PARTIALLY_PAID, InvoiceStatus.OVERDUE)
 ZERO = Decimal("0")
+# Aged receivables: days past the due date, oldest last.
+AGE_BUCKETS = ("current", "days_1_30", "days_31_60", "days_61_90", "days_90_plus")
 
 
 def _month_start(d: date, back: int = 0) -> date:
@@ -160,6 +162,44 @@ class ReportService:
         for item in items:
             item["customer_name"] = names.get(item["customer_id"])
         return items[:limit]
+
+    async def aged_receivables(self) -> dict:
+        """Everything still owed on sent invoices, per customer, by how many
+        days past due it is on the company's own calendar: not yet due,
+        1-30, 31-60, 61-90 and over 90 days."""
+        settings_row = await CompanySettingsRepository(self.db).get_current()
+        today = company_today(settings_row.default_timezone)
+        balance = Invoice.total - Invoice.amount_paid
+        late = literal(today) - Invoice.due_date  # whole days in PostgreSQL
+        bucket = case(
+            (late <= 0, "current"),
+            (late <= 30, "days_1_30"),
+            (late <= 60, "days_31_60"),
+            (late <= 90, "days_61_90"),
+            else_="days_90_plus",
+        )
+        rows = await self.db.execute(
+            select(Customer.id, Customer.name, bucket, func.sum(balance), func.count(), func.max(late))
+            .join(Customer, Customer.id == Invoice.customer_id)
+            .where(Invoice.status.in_(OPEN_INVOICE), balance > 0)
+            .group_by(Customer.id, Customer.name, bucket)
+        )
+        customers: dict = {}
+        totals = {b: ZERO for b in AGE_BUCKETS}
+        for customer_id, name, age, amount, count, most_late in rows.all():
+            row = customers.setdefault(
+                customer_id,
+                {"customer_id": customer_id, "customer_name": name, "invoices": 0, "oldest_days_late": 0, **{b: ZERO for b in AGE_BUCKETS}},
+            )
+            row[age] += amount
+            row["invoices"] += count
+            row["oldest_days_late"] = max(row["oldest_days_late"], int(most_late))
+            totals[age] += amount
+        for row in customers.values():
+            row["total"] = sum((row[b] for b in AGE_BUCKETS), ZERO)
+        # Who to call first: the most money furthest overdue.
+        ordered = sorted(customers.values(), key=lambda r: (-(r["total"] - r["current"]), -r["total"]))
+        return {"as_of": today, "totals": {**totals, "total": sum(totals.values(), ZERO)}, "customers": ordered}
 
     async def customer_overview(self, search: str | None = None, is_active: bool | None = None) -> list[dict]:
         """Customers with the columns a CRM list shows: primary contact,

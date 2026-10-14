@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 from decimal import Decimal
 
 from pydantic import BaseModel
@@ -71,3 +71,27 @@ class CustomerOverview(BaseModel):
     balance: Decimal
     overdue_invoices: int
     last_activity_at: datetime | None
+
+
+class AgeBuckets(BaseModel):
+    """Money owed by days past the due date."""
+
+    current: Decimal  # not yet due
+    days_1_30: Decimal
+    days_31_60: Decimal
+    days_61_90: Decimal
+    days_90_plus: Decimal
+    total: Decimal
+
+
+class CustomerAging(AgeBuckets):
+    customer_id: uuid.UUID
+    customer_name: str
+    invoices: int
+    oldest_days_late: int  # 0 or less when nothing is overdue
+
+
+class AgedReceivables(BaseModel):
+    as_of: date
+    totals: AgeBuckets
+    customers: list[CustomerAging]

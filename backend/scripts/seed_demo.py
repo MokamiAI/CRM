@@ -121,6 +121,10 @@ def main() -> None:
     supplier = check(c.post("/suppliers", json={"name": "Fresh Farms Wholesale", "contact_name": "Pieter van Wyk", "email": "orders@freshfarms.example.com", "phone": "021 555 0199"}))
     check(c.post("/purchase-orders", json={"supplier_id": supplier["id"], "issue_date": d(0), "delivery_date": d(5), "reference": "Wedding, 120 guests", "items": [{"description": "Chicken portions (kg)", "quantity": "40", "unit_price": "89", "tax_rate": "15"}, {"description": "Fresh vegetables (box)", "quantity": "12", "unit_price": "210", "tax_rate": "15"}]}))
 
+    # A monthly contract that started two months ago: three drafts so far.
+    first = (today.replace(day=1) - timedelta(days=40)).replace(day=min(today.day, 28))
+    check(c.post("/recurring-invoices", json={"customer_id": customers["Bright Minds Academy"]["id"], "frequency": "monthly", "start_date": first.isoformat(), "due_days": 14, "reference": "Staff-room catering contract", "items": [{"description": "Staff-room catering (monthly)", "quantity": "1", "unit_price": "5200", "tax_rate": "15"}]}))
+
     check(c.post("/support/tickets", json={"subject": "How do I add my banking details?", "category": "question", "body": "Where do I put our bank account so it shows on invoices?"}))
 
     # Confirm the demo admin's email, so the YGT admin pages work locally too

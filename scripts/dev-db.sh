@@ -9,7 +9,8 @@ home="${YGT_PG_HOME:-$HOME/ygt-local}"
 pg="$home/pgsql/bin"
 case "${1:-status}" in
   start)
-    "$pg/pg_ctl" -D "$home/data" -l "$home/server.log" -w start
+    # Detached from this terminal, or the server holds its output open.
+    "$pg/pg_ctl" -D "$home/data" -l "$home/server.log" -w start > /dev/null 2>&1 < /dev/null
     for db in ygt_dev ygt_test; do
       "$pg/psql" -h localhost -p 5433 -U postgres -tAc "SELECT 1 FROM pg_database WHERE datname='$db'" | grep -q 1 \
         || "$pg/psql" -h localhost -p 5433 -U postgres -qc "CREATE DATABASE $db"

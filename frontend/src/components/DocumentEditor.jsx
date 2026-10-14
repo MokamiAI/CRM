@@ -55,7 +55,9 @@ const NUMBER = { inputMode: "decimal", pattern: "\\d+(\\.\\d{1,2})?" };
  * items as a table (cards on phones) with product suggestions and saved
  * sets, and a live total.
  */
-export default function DocumentEditor({ kind = "invoice", dateField, dateLabel, dateHint, submitLabel, isSubmitting, onSubmit, initialCustomerId }) {
+// `children` adds fields to the first card (e.g. a recurring schedule's);
+// `issueLabel` renames the issue date; without `dateField` the second date is left out.
+export default function DocumentEditor({ kind = "invoice", dateField, dateLabel, dateHint, issueLabel, submitLabel, isSubmitting, onSubmit, initialCustomerId, children }) {
   const { t } = useTranslation();
   const purchase = kind === "purchaseOrder";
   const { data: customers = [] } = useCustomers({ is_active: true });
@@ -150,13 +152,16 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
           )}
         </Field>
         <div className="grid grid-cols-2 gap-4">
-          <Field label={t("editor.issueDate")}>
+          <Field label={issueLabel ?? t("editor.issueDate")}>
             <input className="input" type="date" required value={issueDate} onChange={(e) => setIssueDate(e.target.value)} />
           </Field>
-          <Field label={dateLabel} hint={dateHint}>
-            <input className="input" type="date" min={issueDate} value={secondDate} onChange={(e) => setSecondDate(e.target.value)} />
-          </Field>
+          {dateField && (
+            <Field label={dateLabel} hint={dateHint}>
+              <input className="input" type="date" min={issueDate} value={secondDate} onChange={(e) => setSecondDate(e.target.value)} />
+            </Field>
+          )}
         </div>
+        {children}
         <div>
           <Field label={t("editor.reference")} hint={t("editor.referenceHint")}>
             <input className="input" maxLength={100} value={reference} onChange={(e) => setReference(e.target.value)} placeholder={t("editor.referencePlaceholder")} />
