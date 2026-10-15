@@ -787,7 +787,16 @@
     "terms": "Imigomo nezansi",
     "titles": "Izihloko ne-VAT",
     "unsaved": "Izinguquko ezingalondoloziwe",
-    "view": "Buka futhi uphrinte"
+    "view": "Buka futhi uphrinte",
+    "logoUploaded": "I-logo ilondoloziwe. Manje iphrintwa kumadokhumenti nakuma-imeyili akho.",
+    "logoRemoved": "I-logo isusiwe",
+    "logoAlt": "I-logo yakho",
+    "noLogo": "Ayikabikho i-logo",
+    "logoTooBig": "Leso sithombe sikhulu kune-500 KB.",
+    "replaceLogo": "Shintsha i-logo",
+    "uploadLogo": "Layisha i-logo",
+    "removeLogo": "Susa",
+    "logoRules": "I-PNG, JPG noma i-WebP, kuze kufike ku-500 KB. I-logo ebanzi engemuva elimhlophe noma elingenalutho isebenza kangcono."
   },
   "due": {
     "noNextStep": "Asikho isinyathelo esilandelayo",

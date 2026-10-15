@@ -787,7 +787,16 @@
     "terms": "Imigomo nangaphasi",
     "titles": "Iinhloko ne-VAT",
     "unsaved": "Amatjhuguluko angakagcinwa",
-    "view": "Buka bese uyaphrinta"
+    "view": "Buka bese uyaphrinta",
+    "logoUploaded": "I-logo igciniwe. Nje iyagadangiswa emadokhumendeni nakuma-imeyili wakho.",
+    "logoRemoved": "I-logo isusiwe",
+    "logoAlt": "I-logo yakho",
+    "noLogo": "Ayikabi khona i-logo",
+    "logoTooBig": "Isithombe leso sikhulu ukudlula i-500 KB.",
+    "replaceLogo": "Tjhentjha i-logo",
+    "uploadLogo": "Layisha i-logo",
+    "removeLogo": "Susa",
+    "logoRules": "I-PNG, JPG namkha i-WebP, bekube ku-500 KB. I-logo ebanzi enesizinda esimhlophe namkha esingenalutho isebenza kuhle."
   },
   "due": {
     "noNextStep": "Alikho igadango elilandelako",

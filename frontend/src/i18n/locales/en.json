@@ -787,7 +787,16 @@
     "terms": "Terms and footer",
     "titles": "Titles and VAT",
     "unsaved": "Unsaved changes",
-    "view": "View & print"
+    "view": "View & print",
+    "logoUploaded": "Logo saved. It now prints on your documents and emails.",
+    "logoRemoved": "Logo removed",
+    "logoAlt": "Your logo",
+    "noLogo": "No logo yet",
+    "logoTooBig": "That image is larger than 500 KB.",
+    "replaceLogo": "Replace logo",
+    "uploadLogo": "Upload logo",
+    "removeLogo": "Remove",
+    "logoRules": "PNG, JPG or WebP, up to 500 KB. A wide logo on a white or clear background works best."
   },
   "due": {
     "noNextStep": "No next step",

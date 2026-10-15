@@ -787,7 +787,16 @@
     "terms": "Terme en voetskrif",
     "titles": "Titels en BTW",
     "unsaved": "Ongestoorde veranderinge",
-    "view": "Bekyk en druk"
+    "view": "Bekyk en druk",
+    "logoUploaded": "Logo gestoor. Dit verskyn nou op jou dokumente en e-posse.",
+    "logoRemoved": "Logo verwyder",
+    "logoAlt": "Jou logo",
+    "noLogo": "Nog geen logo nie",
+    "logoTooBig": "Daardie prent is groter as 500 KB.",
+    "replaceLogo": "Vervang logo",
+    "uploadLogo": "Laai logo op",
+    "removeLogo": "Verwyder",
+    "logoRules": "PNG, JPG of WebP, tot 500 KB. 'n Breë logo op 'n wit of deursigtige agtergrond werk die beste."
   },
   "due": {
     "noNextStep": "Geen volgende stap nie",

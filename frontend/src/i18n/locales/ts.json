@@ -787,7 +787,16 @@
     "terms": "Swipimelo ni le hansi",
     "titles": "Tinhlokomhaka ni VAT",
     "unsaved": "Ku cinca loku nga hlayisiwangiki",
-    "view": "Languta u kandziyisa"
+    "view": "Languta u kandziyisa",
+    "logoUploaded": "Logo yi hlayisiwile. Sweswi yi kandziyisiwa eka tidokumente ni ti-imeyili ta wena.",
+    "logoRemoved": "Logo yi susiwile",
+    "logoAlt": "Logo ya wena",
+    "noLogo": "A ku si va na logo",
+    "logoTooBig": "Xifaniso xexo xi tlula 500 KB.",
+    "replaceLogo": "Siva logo",
+    "uploadLogo": "Layicha logo",
+    "removeLogo": "Susa",
+    "logoRules": "PNG, JPG kumbe WebP, ku fikela eka 500 KB. Logo leyi anameke leyi nga ni xiyimo xo basa kumbe lexi vonakaka yi tirha kahle."
   },
   "due": {
     "noNextStep": "A ku na goza leri landzelaka",

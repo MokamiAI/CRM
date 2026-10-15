@@ -1,6 +1,6 @@
 import smtplib
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, File, UploadFile
 from fastapi.responses import HTMLResponse
 from fastapi.concurrency import run_in_threadpool
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,7 +18,7 @@ from app.schemas.company_settings import (
     TestEmailResult,
 )
 from app.schemas.documents import DocumentTemplate, PreviewRequest, resolve_template
-from app.services.company_settings_service import CompanySettingsService
+from app.services.company_settings_service import MAX_LOGO_BYTES, CompanySettingsService
 from app.services.document_service import DocumentService
 from app.services.email_service import send_email
 from app.services.notification_service import NotificationService
@@ -34,6 +34,18 @@ profile_router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/compa
 @profile_router.get("", response_model=CompanyProfileOut)
 async def get_company_profile(db: AsyncSession = Depends(get_db)):
     return await CompanySettingsService(db).get_settings()
+
+
+@router.post("/logo", response_model=CompanySettingsOut)
+async def upload_logo(file: UploadFile = File(...), db: AsyncSession = Depends(get_db)):
+    """Your logo for quotes, invoices, statements and emails (500 KB max)."""
+    content = await file.read(MAX_LOGO_BYTES + 1)
+    return CompanySettingsOut.from_model(await CompanySettingsService(db).save_logo(content))
+
+
+@router.delete("/logo", response_model=CompanySettingsOut)
+async def remove_logo(db: AsyncSession = Depends(get_db)):
+    return CompanySettingsOut.from_model(await CompanySettingsService(db).remove_logo())
 
 
 @router.get("", response_model=CompanySettingsOut)

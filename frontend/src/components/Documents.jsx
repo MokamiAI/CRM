@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import apiClient from "../services/apiClient";
-import { useCustomers } from "../hooks/useApi";
+import { useCompany, useCustomers } from "../hooks/useApi";
 import { errorMessage } from "../utils/format";
 import { Avatar, Button, Field } from "./ui";
 
@@ -174,6 +174,70 @@ const TEXT_FIELDS = {
   bank: ["bank_name", "account_holder", "account_number", "account_type", "branch_name", "branch_code", "swift_code"],
 };
 
+/** Upload or remove the logo printed on documents and emails. */
+function LogoUpload({ onChanged }) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const { data: company } = useCompany();
+  const input = useRef(null);
+  const done = (message) => () => {
+    queryClient.invalidateQueries({ queryKey: ["company"] });
+    queryClient.invalidateQueries({ queryKey: ["settings"] });
+    queryClient.removeQueries({ queryKey: ["document"] });
+    onChanged();
+    toast.success(message);
+  };
+  const upload = useMutation({
+    mutationFn: (file) => {
+      const body = new FormData();
+      body.append("file", file);
+      return apiClient.post("/settings/logo", body).then((r) => r.data);
+    },
+    onSuccess: done(t("documents.logoUploaded")),
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  const remove = useMutation({
+    mutationFn: () => apiClient.delete("/settings/logo").then((r) => r.data),
+    onSuccess: done(t("documents.logoRemoved")),
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  const logo = company?.logo_url;
+  return (
+    <div className="flex flex-wrap items-center gap-4">
+      <div className="flex h-16 w-40 items-center justify-center overflow-hidden rounded-xl border border-dashed border-slate-300 bg-slate-50">
+        {logo ? <img src={logo} alt={t("documents.logoAlt")} className="max-h-14 max-w-[9rem] object-contain" /> : <span className="text-xs text-slate-400">{t("documents.noLogo")}</span>}
+      </div>
+      <div className="space-y-1.5">
+        <div className="flex flex-wrap gap-2">
+          <input
+            ref={input}
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            className="sr-only"
+            tabIndex={-1}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              e.target.value = "";
+              if (!file) return;
+              if (file.size > 500 * 1024) return toast.error(t("documents.logoTooBig"));
+              upload.mutate(file);
+            }}
+          />
+          <Button variant="secondary" disabled={upload.isPending} onClick={() => input.current?.click()}>
+            {upload.isPending ? t("common.saving") : logo ? t("documents.replaceLogo") : t("documents.uploadLogo")}
+          </Button>
+          {logo && (
+            <Button variant="ghost" disabled={remove.isPending} onClick={() => remove.mutate()}>
+              {t("documents.removeLogo")}
+            </Button>
+          )}
+        </div>
+        <p className="text-xs text-slate-500">{t("documents.logoRules")}</p>
+      </div>
+    </div>
+  );
+}
+
 /** Little drawing of each layout for the picker. */
 function LayoutArt({ layout, accent }) {
   return (
@@ -204,6 +268,7 @@ function LayoutArt({ layout, accent }) {
 export function DocumentTemplateSettings() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const [logoVersion, setLogoVersion] = useState(0);
   const { data: saved } = useQuery({ queryKey: ["document-template"], queryFn: () => apiClient.get("/settings/documents").then((r) => r.data) });
   const [form, setForm] = useState(null);
   const [kind, setKind] = useState("invoice");
@@ -227,7 +292,7 @@ export function DocumentTemplateSettings() {
         .catch(() => {});
     }, 300);
     return () => clearTimeout(timer);
-  }, [form, kind, valid]);
+  }, [form, kind, valid, logoVersion]);
 
   const save = useMutation({
     mutationFn: (body) => apiClient.put("/settings/documents", body).then((r) => r.data),
@@ -309,8 +374,8 @@ export function DocumentTemplateSettings() {
               </label>
             </div>
           </div>
+          <LogoUpload onChanged={() => setLogoVersion((v) => v + 1)} />
           {toggle("show_logo")}
-          <p className="-mt-2 pl-7 text-xs text-zinc-500">{t("documents.logoHint")}</p>
         </section>
 
         <section className="card space-y-4 p-4 sm:p-6">

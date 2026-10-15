@@ -1,10 +1,27 @@
+import hashlib
+
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import settings
 from app.core.crypto import encrypt
+from app.core.exceptions import AppError
 from app.models.company_settings import CompanySettings
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.schemas.company_settings import CompanySettingsUpdate
 from app.services.email_service import clean_signature
+
+
+MAX_LOGO_BYTES = 500 * 1024
+
+
+def _image_type(content: bytes) -> str | None:
+    if content.startswith(b"\x89PNG\r\n\x1a\n"):
+        return "image/png"
+    if content.startswith(b"\xff\xd8\xff"):
+        return "image/jpeg"
+    if content[:4] == b"RIFF" and content[8:12] == b"WEBP":
+        return "image/webp"
+    return None
 
 
 class CompanySettingsService:
@@ -14,6 +31,26 @@ class CompanySettingsService:
 
     async def get_settings(self) -> CompanySettings:
         return await self.company_settings.get_current()
+
+    async def save_logo(self, content: bytes) -> CompanySettings:
+        """Keeps an uploaded logo and points logo_url at it. PNG, JPEG or
+        WebP only, told apart by their first bytes (never trusting the
+        file name); SVG is refused, as it can carry scripts."""
+        kind = _image_type(content)
+        if kind is None:
+            raise AppError("Use a PNG, JPG or WebP image", "LOGO_BAD_TYPE", 422)
+        if len(content) > MAX_LOGO_BYTES:
+            raise AppError("The logo must be 500 KB or smaller", "LOGO_TOO_LARGE", 413)
+        row = await self.company_settings.get_current()
+        row.logo_image, row.logo_content_type = content, kind
+        version = hashlib.sha256(content).hexdigest()[:10]
+        row.logo_url = f"{settings.PUBLIC_API_URL.rstrip('/')}{settings.API_V1_PREFIX}/public/logo/{row.id}?v={version}"
+        return await self.company_settings.save(row)
+
+    async def remove_logo(self) -> CompanySettings:
+        row = await self.company_settings.get_current()
+        row.logo_image = row.logo_content_type = row.logo_url = None
+        return await self.company_settings.save(row)
 
     async def update_settings(self, data: CompanySettingsUpdate) -> CompanySettings:
         row = await self.company_settings.get_current()

@@ -787,7 +787,16 @@
     "terms": "Milayo na fhasi",
     "titles": "Ṱhoho na VAT",
     "unsaved": "Tshanduko dzi songo vhulungwaho",
-    "view": "Sedzani ni gandise"
+    "view": "Sedzani ni gandise",
+    "logoUploaded": "Logo yo vhulungwa. Zwino i gandiswa kha maṅwalwa na imeiḽi dzaṋu.",
+    "logoRemoved": "Logo yo bviswa",
+    "logoAlt": "Logo yaṋu",
+    "noLogo": "A hu athu vha na logo",
+    "logoTooBig": "Tshifanyiso itsho tshi fhira 500 KB.",
+    "replaceLogo": "Shandukisani logo",
+    "uploadLogo": "Dzhenisani logo",
+    "removeLogo": "Bvisani",
+    "logoRules": "PNG, JPG kana WebP, u swika kha 500 KB. Logo yo phaphamaho i re na murahu mutshena kana u vhonalaho i shuma zwavhuḓi."
   },
   "due": {
     "noNextStep": "A hu na tshikalo tshi tevhelaho",

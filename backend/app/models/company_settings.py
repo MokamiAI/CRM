@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Integer, Numeric, String, Text
+from sqlalchemy import Boolean, DateTime, Integer, LargeBinary, Numeric, String, Text
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, deferred, mapped_column
 
 from app.core.database import Base
 from app.models.base import TimestampMixin, UUIDPKMixin
@@ -21,6 +21,10 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
         String(50), nullable=False, default="Africa/Johannesburg"
     )
     logo_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    # An uploaded logo (Settings > Documents), served at /public/logo/<id>
+    # and linked through logo_url. Deferred: never loaded unless asked for.
+    logo_image: Mapped[bytes | None] = deferred(mapped_column(LargeBinary, nullable=True))
+    logo_content_type: Mapped[str | None] = mapped_column(String(30), nullable=True)
     invoice_prefix: Mapped[str] = mapped_column(String(20), nullable=False, default="INV-")
     quote_prefix: Mapped[str] = mapped_column(String(20), nullable=False, default="QUO-")
     next_invoice_number: Mapped[int] = mapped_column(Integer, nullable=False, default=1)

@@ -5,6 +5,7 @@ import base64
 from html import escape
 
 import hmac
+import uuid
 
 from fastapi import APIRouter, Depends, Header, Request
 from fastapi.responses import HTMLResponse, PlainTextResponse, Response
@@ -156,6 +157,24 @@ async def sms_inbound(token: str, request: Request, db: AsyncSession = Depends(g
 
 
 # ---------- Subscriptions (YGT's own Paystack account) ----------
+
+
+@router.get("/logo/{company_id}", include_in_schema=False)
+async def company_logo(company_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
+    """A company's uploaded logo, as printed on its documents and emails.
+    Public by nature: it appears on everything the company sends."""
+    from sqlalchemy import select
+
+    from app.core.exceptions import NotFoundError
+    from app.models.company_settings import CompanySettings
+
+    set_system(db)
+    row = (
+        await db.execute(select(CompanySettings.logo_image, CompanySettings.logo_content_type).where(CompanySettings.id == company_id))
+    ).first()
+    if row is None or row[0] is None:
+        raise NotFoundError("No logo", "LOGO_NOT_FOUND")
+    return Response(row[0], media_type=row[1], headers={"Cache-Control": "public, max-age=86400", "X-Content-Type-Options": "nosniff"})
 
 
 @router.get("/plans", response_model=list[PlanOut])

@@ -787,7 +787,16 @@
     "terms": "Mabaka le bofelo",
     "titles": "Ditlhogo le VAT",
     "unsaved": "Diphetogo tse di sa bolokwang",
-    "view": "Bona o bo o gatise"
+    "view": "Bona o bo o gatise",
+    "logoUploaded": "Logo e bolokilwe. Jaanong e gatisiwa mo ditokomaneng le diimeileng tsa gago.",
+    "logoRemoved": "Logo e tlositswe",
+    "logoAlt": "Logo ya gago",
+    "noLogo": "Ga go ise go nne le logo",
+    "logoTooBig": "Setshwantsho seo se feta 500 KB.",
+    "replaceLogo": "Emisetsa logo",
+    "uploadLogo": "Tsenya logo",
+    "removeLogo": "Tlosa",
+    "logoRules": "PNG, JPG kgotsa WebP, go fitlha go 500 KB. Logo e e phatlhalletseng e e nang le bokamorago jo bosweu kgotsa jo bo bonalang e dira sentle."
   },
   "due": {
     "noNextStep": "Ga go kgato e e latelang",

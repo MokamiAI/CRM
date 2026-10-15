@@ -85,7 +85,8 @@ class CompanySettingsOut(BaseModel):
     def from_model(cls, row) -> "CompanySettingsOut":
         return cls.model_validate(
             {
-                **{c.name: getattr(row, c.name) for c in row.__table__.columns},
+                # Every column but the logo's bytes (deferred; served on their own).
+                **{c.name: getattr(row, c.name) for c in row.__table__.columns if c.name != "logo_image"},
                 "smtp_password_set": bool(row.smtp_password),
             }
         )

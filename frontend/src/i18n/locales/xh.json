@@ -787,7 +787,16 @@
     "terms": "Imiqathango nomzantsi",
     "titles": "Izihloko ne-VAT",
     "unsaved": "Iinguqu ezingagcinwanga",
-    "view": "Jonga uze uprinte"
+    "view": "Jonga uze uprinte",
+    "logoUploaded": "I-logo igciniwe. Ngoku iyaprintwa kumaxwebhu nakwii-imeyile zakho.",
+    "logoRemoved": "I-logo isusiwe",
+    "logoAlt": "I-logo yakho",
+    "noLogo": "Akukabikho logo",
+    "logoTooBig": "Lo mfanekiso mkhulu kune-500 KB.",
+    "replaceLogo": "Tshintsha i-logo",
+    "uploadLogo": "Layisha i-logo",
+    "removeLogo": "Susa",
+    "logoRules": "I-PNG, JPG okanye i-WebP, ukuya kuthi ga kwi-500 KB. I-logo ebanzi enomva omhlophe okanye ocacileyo isebenza kakuhle."
   },
   "due": {
     "noNextStep": "Akukho nyathelo lilandelayo",

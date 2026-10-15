@@ -787,7 +787,16 @@
     "terms": "Dipehelo le botlaase",
     "titles": "Dihlooho le VAT",
     "unsaved": "Diphetoho tse sa bolokwang",
-    "view": "Sheba o be o hatise"
+    "view": "Sheba o be o hatise",
+    "logoUploaded": "Logo e bolokilwe. Jwale e hatiswa ditokomaneng le diimeileng tsa hao.",
+    "logoRemoved": "Logo e tlositswe",
+    "logoAlt": "Logo ya hao",
+    "noLogo": "Ha ho logo ho fihlela jwale",
+    "logoTooBig": "Setshwantsho seo se feta 500 KB.",
+    "replaceLogo": "Nkela logo sebaka",
+    "uploadLogo": "Kenya logo",
+    "removeLogo": "Tlosa",
+    "logoRules": "PNG, JPG kapa WebP, ho fihla ho 500 KB. Logo e pharaletseng e nang le bokamorao bo bosweu kapa bo hlakileng e sebetsa hantle."
   },
   "due": {
     "noNextStep": "Ha ho mohato o latelang",

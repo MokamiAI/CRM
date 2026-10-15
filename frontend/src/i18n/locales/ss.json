@@ -787,7 +787,16 @@
     "terms": "Imibandzela nangaphansi",
     "titles": "Tihloko ne-VAT",
     "unsaved": "Tingucuko letingakalondvolotwa",
-    "view": "Buka bese uyaphrinta"
+    "view": "Buka bese uyaphrinta",
+    "logoUploaded": "I-logo igciniwe. Nyalo iyaphrintwa kumadokhumenti nakuma-imeyili akho.",
+    "logoRemoved": "I-logo isusiwe",
+    "logoAlt": "I-logo yakho",
+    "noLogo": "Kute i-logo okwanyalo",
+    "logoTooBig": "Leso sitfombe sikhulu kune-500 KB.",
+    "replaceLogo": "Shintja i-logo",
+    "uploadLogo": "Layisha i-logo",
+    "removeLogo": "Susa",
+    "logoRules": "I-PNG, JPG noma i-WebP, kuze kufike ku-500 KB. I-logo lebanti lenesizinda lesimhlophe noma lesingenalutfo isebenta kahle."
   },
   "due": {
     "noNextStep": "Kute sinyatselo lesilandzelako",
