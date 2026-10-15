@@ -2388,5 +2388,13 @@
       "customer": "{{name}} by jou kliënte gevoeg",
       "supplier": "{{name}} by jou verskaffers gevoeg"
     }
+  },
+  "startup": {
+    "skip": "Slaan oor",
+    "welcome": "Welkom by YGT",
+    "welcomeName": "Welkom by YGT, {{name}}",
+    "fromTeam": "Van almal by YGT wil ons hê jy moet weet:",
+    "capable": "Jy is in staat om jou besigheidsdoelwitte te bereik.",
+    "go": "Kom ons begin"
   }
 }

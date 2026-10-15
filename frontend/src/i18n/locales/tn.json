@@ -2388,5 +2388,13 @@
       "customer": "{{name}} o okeleditswe mo bareking ba gago",
       "supplier": "{{name}} o okeleditswe mo batlamedi ba gago"
     }
+  },
+  "startup": {
+    "skip": "Tlola",
+    "welcome": "O amogelesegile mo YGT",
+    "welcomeName": "O amogelesegile mo YGT, {{name}}",
+    "fromTeam": "Go tswa go rona rotlhe kwa YGT, re batla o itse gore:",
+    "capable": "O kgona go fitlhelela maikaelelo a kgwebo ya gago.",
+    "go": "A re simololeng"
   }
 }

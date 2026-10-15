@@ -2388,5 +2388,13 @@
       "customer": "{{name}} ungetiwe emakhasimendeni akho",
       "supplier": "{{name}} ungetiwe kubaphakeli bakho"
     }
+  },
+  "startup": {
+    "skip": "Yeca",
+    "welcome": "Wemukelekile ku-YGT",
+    "welcomeName": "Wemukelekile ku-YGT, {{name}}",
+    "fromTeam": "Kusuka kitsi sonkhe ku-YGT, sifuna wati kutsi:",
+    "capable": "Uyakhona kufinyelela tinjongo tebhizinisi lakho.",
+    "go": "Asihambe"
   }
 }

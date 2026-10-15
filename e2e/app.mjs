@@ -49,6 +49,12 @@ await page.reload({ waitUntil: "networkidle2" });
 await page.type("#email", EMAIL);
 await page.type("#password", PASSWORD);
 await Promise.all([page.waitForFunction(() => location.pathname === "/", { timeout: 20000 }), page.click("form button[type=submit]")]);
+// Signing in shows the team's welcome (YGT becomes You Got This); a key
+// press dismisses it, as a person would.
+const welcomeShown = await page.waitForSelector("[aria-labelledby=welcome-title]", { timeout: 5000 }).then(() => true, () => false);
+await wait(400);
+await page.keyboard.press("Enter");
+await page.waitForFunction(() => !document.querySelector("[aria-labelledby=welcome-title]"), { timeout: 5000 }).catch(() => {});
 // The first sign-in shows the tour; close it (Escape) so pages are visible.
 await wait(1500);
 for (let i = 0; i < 12 && (await page.$("[aria-labelledby=tour-title]")); i++) {
@@ -57,6 +63,7 @@ for (let i = 0; i < 12 && (await page.$("[aria-labelledby=tour-title]")); i++) {
 }
 
 const results = [];
+results.push({ name: "Welcome after sign-in", route: "/", issues: welcomeShown ? [] : ["no welcome after signing in"] });
 let n = 0;
 async function visit(route, name) {
   n += 1;

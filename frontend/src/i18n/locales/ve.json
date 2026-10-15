@@ -2388,5 +2388,13 @@
       "customer": "{{name}} o engedzwa kha vharengi vhaṋu",
       "supplier": "{{name}} o engedzwa kha vhaṋetshedzi vhaṋu"
     }
+  },
+  "startup": {
+    "skip": "Pfukani",
+    "welcome": "Ni a ṱanganedzwa kha YGT",
+    "welcomeName": "Ni a ṱanganedzwa kha YGT, {{name}}",
+    "fromTeam": "U bva kha riṋe roṱhe kha YGT, ri ṱoḓa ni tshi ḓivha uri:",
+    "capable": "Ni a kona u swikelela zwipikwa zwa bindu ḽaṋu.",
+    "go": "Kha ri thome"
   }
 }

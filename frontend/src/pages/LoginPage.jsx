@@ -7,6 +7,7 @@ import GlowField from "../components/GlowField";
 import LoginShowcase from "../components/LoginShowcase";
 import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
 import { usePlans } from "../hooks/useApi";
+import { queueWelcome } from "../components/Startup";
 import { formatMoneyWhole } from "../utils/format";
 
 /** The sign-in screens' frame: brand, language, ambient colour and the
@@ -113,6 +114,7 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       await login(email, password);
+      queueWelcome(); // the app greets them once, from the team
       navigate(location.state?.from ?? "/", { replace: true });
     } catch (err) {
       setError(t(err?.response?.data?.error_code === "RATE_LIMITED" ? "errors.RATE_LIMITED" : "login.failed"));

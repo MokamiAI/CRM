@@ -1097,3 +1097,26 @@ textarea.input:focus {
     animation: none;
   }
 }
+
+/* ---- Arrival moments (components/Startup.jsx): rare, so a little ceremony ---- */
+.intro-tagline {
+  animation: rise-in 500ms var(--ease-out) 1900ms both;
+}
+.welcome-in {
+  animation: rise-in 420ms var(--ease-out) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-tagline,
+  .welcome-in {
+    animation: fade-in 200ms ease both;
+  }
+}
+/* "You Got This": one gradient across the phrase; YouGotThis.jsx gives each
+   piece its slice (background-size/position), so the colour runs on. */
+.yg-piece {
+  background-image: linear-gradient(90deg, #7255d7, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.04em; /* room for the overhang of the last glyph */
+}

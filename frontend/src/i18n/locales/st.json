@@ -2388,5 +2388,13 @@
       "customer": "{{name}} o ekeleditswe ho bareki ba hao",
       "supplier": "{{name}} o ekeleditswe ho bafani ba hao"
     }
+  },
+  "startup": {
+    "skip": "Tlola",
+    "welcome": "O amohelehile ho YGT",
+    "welcomeName": "O amohelehile ho YGT, {{name}}",
+    "fromTeam": "Ho tswa ho rona bohle ho YGT, re batla o tsebe hore:",
+    "capable": "O na le bokgoni ba ho fihlella dipheo tsa kgwebo ya hao.",
+    "go": "Ha re qaleng"
   }
 }

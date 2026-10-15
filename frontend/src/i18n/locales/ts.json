@@ -2388,5 +2388,13 @@
       "customer": "{{name}} u engeteriwile eka vaxavi va wena",
       "supplier": "{{name}} u engeteriwile eka vaphakeri va wena"
     }
+  },
+  "startup": {
+    "skip": "Tlula",
+    "welcome": "U amukeriwile eka YGT",
+    "welcomeName": "U amukeriwile eka YGT, {{name}}",
+    "fromTeam": "Ku suka eka hina hinkwerhu eka YGT, hi lava u tiva leswaku:",
+    "capable": "U swi kota ku fikelela swikongomelo swa bindzu ra wena.",
+    "go": "A hi sunguleni"
   }
 }

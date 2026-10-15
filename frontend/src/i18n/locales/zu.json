@@ -2388,5 +2388,13 @@
       "customer": "{{name}} wengezwe kumakhasimende akho",
       "supplier": "{{name}} wengezwe kubaphakeli bakho"
     }
+  },
+  "startup": {
+    "skip": "Yeqa",
+    "welcome": "Siyakwamukela ku-YGT",
+    "welcomeName": "Siyakwamukela ku-YGT, {{name}}",
+    "fromTeam": "Sonke e-YGT sifuna wazi ukuthi:",
+    "capable": "Uyakwazi ukufinyelela imigomo yebhizinisi lakho.",
+    "go": "Asihambe"
   }
 }

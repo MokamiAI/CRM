@@ -8,6 +8,7 @@ import HomePeople from "../components/home/HomePeople";
 import HomeSavings from "../components/home/HomeSavings";
 import { FEATURES, FeatureIcon, Pricing } from "./AboutPage";
 import { PublicFooter } from "./PublicPages";
+import { StartupIntro } from "../components/Startup";
 
 const STEPS = ["setup", "sell", "grow"];
 const POINTS = ["noCard", "trial", "cancel", "languages"];
@@ -49,6 +50,7 @@ export default function HomePage() {
 
   return (
     <div ref={page} className="min-h-[100dvh] overflow-x-clip bg-white">
+      <StartupIntro />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[36rem] overflow-hidden" aria-hidden="true">
         <span className="aurora-blob -left-24 top-[-4rem] h-96 w-96 bg-violet-300" />
         <span className="aurora-blob right-[-6rem] top-[4rem] h-96 w-96 bg-sky-300" />

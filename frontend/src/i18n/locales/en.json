@@ -2388,5 +2388,13 @@
       "customer": "{{name}} added to your customers",
       "supplier": "{{name}} added to your suppliers"
     }
+  },
+  "startup": {
+    "skip": "Skip",
+    "welcome": "Welcome to YGT",
+    "welcomeName": "Welcome to YGT, {{name}}",
+    "fromTeam": "From all of us at YGT, we'd like you to know:",
+    "capable": "You are capable of reaching your business goals.",
+    "go": "Let's go"
   }
 }

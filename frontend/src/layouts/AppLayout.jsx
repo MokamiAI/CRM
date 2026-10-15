@@ -13,6 +13,7 @@ import { TourProvider, useTour } from "../components/Tour";
 import { ProfileSheet } from "../components/Signature";
 import { LockedBanner, useHasFeature } from "../components/Billing";
 import QuoteOfTheWeek from "../components/QuoteOfTheWeek";
+import { WelcomeSplash, welcomeQueued } from "../components/Startup";
 import { useActivityCounts, useCompany, useDiscoveryCounts, useInboxCounts } from "../hooks/useApi";
 
 const Icon = ({ d, ...props }) => (
@@ -323,8 +324,15 @@ function ProfileMenu({ onProfile }) {
 function TeamQuote() {
   const { user } = useAuth();
   const { busy } = useTour();
+  // Just signed in: the team's welcome first, the weekly quote after it.
+  const [welcome, setWelcome] = useState(welcomeQueued);
   if (!user) return null;
-  return <QuoteOfTheWeek who={user.id} hold={busy} className="bottom-[calc(var(--tabbar-height)+0.75rem)] md:bottom-6 md:left-[calc(var(--sidebar-w)+1rem)]" />;
+  return (
+    <>
+      {welcome && <WelcomeSplash name={user.full_name?.split(" ")[0]} onClosed={() => setWelcome(false)} />}
+      <QuoteOfTheWeek who={user.id} hold={busy || welcome} className="bottom-[calc(var(--tabbar-height)+0.75rem)] md:bottom-6 md:left-[calc(var(--sidebar-w)+1rem)]" />
+    </>
+  );
 }
 
 const SIDEBAR_KEY = "ygt.sidebar.collapsed";
