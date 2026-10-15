@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} yo vuleaho · {{amount}} kha phaiphi",
     "subtitle_other": "{{count}} dzo vuleaho · {{amount}} kha phaiphi",
     "wonToast": "Thendelano yo kundwa",
-    "wonToastDetail": "Mushumo wavhuḓi. Yo bviswa kha phaiphi."
+    "wonToastDetail": "Mushumo wavhuḓi. Yo bviswa kha phaiphi.",
+    "lastDays_one": "ḓuvha ḽa {{count}} ḽo fhiraho",
+    "lastDays_other": "maḓuvha a {{count}} o fhiraho",
+    "none": {
+      "won": "A hu athu vha na thendelano dzo kundwaho",
+      "lost": "A hu na thendelano dzo xelaho. Zwi khou naka."
+    }
   },
   "document": {
     "lineItems": "Zwithu",
@@ -1006,7 +1012,7 @@
         "q1": "Ndi swaya hani thendelano sa yo kundwaho kana yo xelaho?",
         "q2": "Ndi i sika hani?",
         "summary": "Phaiphi yaṋu ya thengiso: tshibuli tshiṅwe na tshiṅwe na tshiimo tshine tsha vha khatsho.",
-        "title": "Thendelano"
+        "title": "Mutevhe wa u rengisa"
       },
       "getStarted": {
         "a1": "Zwidodombedzwa zwa khamphani, imeiḽi, tshigwada na WhatsApp/SMS zwi dzudzanywa nga mulanguli kha Nzudzanyo.",
@@ -1420,7 +1426,7 @@
     "admin": "Mulanguli wa YGT",
     "customers": "Vharengi",
     "dashboard": "Ḓeshibodo",
-    "deals": "Thendelano",
+    "deals": "Mutevhe wa u rengisa",
     "group": {
       "records": "Golani",
       "sales": "Thengiso"
@@ -1468,7 +1474,7 @@
       "newDeal": "Thendelano ntswa",
       "newInvoice": "Invoice ntswa",
       "newQuote": "Tshiṱangadzamitengo tshiswa",
-      "pipeline": "Phaiphi ya thendelano"
+      "pipeline": "Mutevhe wa u rengisa"
     },
     "goTo": "Iyani kha",
     "hintMove": "↑↓ u tshimbila",
@@ -2013,7 +2019,7 @@
       "start": "Thomani u lingedza mahala"
     },
     "hero": {
-      "eyebrow": "Mitengo, dziinvoisi na vharengi vha dzi-SMME na tshumelo dza phurofeshinala",
+      "eyebrow": "Thandululo nthihi ya bindu ya vharengi vhaṋu, u rengisa, khotheshini, dziinvoisi na mbadelo",
       "title": "Maṅwalo maṱuku. Tshifhinga tshinzhi tsha bindu ḽaṋu.",
       "body": "{{name}} ndi fhethu huthihi hune vharengi vhaṋu, zwitenwa, mitengo, dziinvoisi na mbadelo zwa dzula hone, uri muṅwe na muṅwe a shume nga zwivhalo zwi fanaho zwo khwiniswaho. I a tevhela nahone i ni humbudza nga ha mbadelo, i ni vhulungela awara vhege iṅwe na iṅwe na tshelede ye na vha ni tshi ḓo i xelelwa, uri ni kone u sedza kha u tshimbidza bindu ḽaṋu.",
       "cta": "Thomani u lingedza haṋu mahala",

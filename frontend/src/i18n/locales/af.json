@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} oop · {{amount}} in die pyplyn",
     "subtitle_other": "{{count}} oop · {{amount}} in die pyplyn",
     "wonToast": "Transaksie gewen",
-    "wonToastDetail": "Mooi werk. Dit is uit die pyplyn geskuif."
+    "wonToastDetail": "Mooi werk. Dit is uit die pyplyn geskuif.",
+    "lastDays_one": "laaste {{count}} dag",
+    "lastDays_other": "laaste {{count}} dae",
+    "none": {
+      "won": "Nog geen transaksies gewen nie",
+      "lost": "Geen transaksies verloor nie. Mooi so."
+    }
   },
   "document": {
     "lineItems": "Lynitems",
@@ -1006,7 +1012,7 @@
         "q1": "Hoe merk ek 'n transaksie as gewen of verloor?",
         "q2": "Hoe skep ek een?",
         "summary": "Jou verkoopspyplyn: elke geleentheid en die fase waarin dit is.",
-        "title": "Transaksies"
+        "title": "Pyplyn"
       },
       "getStarted": {
         "a1": "Maatskappybesonderhede, e-pos, span en WhatsApp/SMS word deur 'n administrateur in Instellings opgestel.",
@@ -1420,7 +1426,7 @@
     "admin": "YGT-admin",
     "customers": "Kliënte",
     "dashboard": "Paneelbord",
-    "deals": "Transaksies",
+    "deals": "Pyplyn",
     "group": {
       "records": "Groei",
       "sales": "Verkope"
@@ -1468,7 +1474,7 @@
       "newDeal": "Nuwe transaksie",
       "newInvoice": "Nuwe faktuur",
       "newQuote": "Nuwe kwotasie",
-      "pipeline": "Transaksiepyplyn"
+      "pipeline": "Pyplyn"
     },
     "goTo": "Gaan na",
     "hintMove": "↑↓ om te beweeg",
@@ -2013,7 +2019,7 @@
       "start": "Begin gratis proeftydperk"
     },
     "hero": {
-      "eyebrow": "Kwotasies, fakture en kliënte vir KMMOs en professionele dienste",
+      "eyebrow": "Een besigheidsoplossing vir jou kliënte, verkope, kwotasies, fakture en betalings",
       "title": "Minder admin. Meer besigheid.",
       "body": "{{name}} is die een plek waar jou kliënte, transaksies, kwotasies, fakture en betalings woon, sodat almal met dieselfde bygewerkte syfers werk. Dit volg op en jaag betalings vir jou agterna, en spaar elke week ure en geld wat jy andersins sou verloor, sodat jy op jou besigheid kan fokus.",
       "cta": "Begin jou gratis proeftydperk",

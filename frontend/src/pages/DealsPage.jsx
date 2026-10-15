@@ -32,6 +32,13 @@ function byUrgency(a, b) {
 
 const sum = (deals) => deals.reduce((total, d) => total + Number(d.value), 0);
 
+// Won and Lost sit after the open stages, holding deals closed in the last
+// 90 days (older ones are in the list view and on each customer).
+const CLOSED_DAYS = 90;
+const isOpen = (deal) => deal.stage !== "won" && deal.stage !== "lost";
+const recentlyClosed = (deal) => Boolean(deal.closed_at) && Date.now() - new Date(deal.closed_at).getTime() <= CLOSED_DAYS * 86400000;
+const byClosed = (a, b) => (b.closed_at ?? "").localeCompare(a.closed_at ?? "");
+
 export default function DealsPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -54,8 +61,10 @@ export default function DealsPage() {
       /* ignore */
     }
   };
-  const params = { status: "open", ...(scope === "mine" && { mine: true }) };
-  const { data: deals = [], isLoading, isError, refetch } = useDeals(params);
+  const params = { status: "all", ...(scope === "mine" && { mine: true }) };
+  const { data: allDeals = [], isLoading, isError, refetch } = useDeals(params);
+  const deals = allDeals.filter((d) => isOpen(d) || recentlyClosed(d));
+  const openDeals = deals.filter(isOpen);
   const customers = useCustomerMap();
   const team = useTeamMap();
   const queryClient = useQueryClient();
@@ -85,9 +94,8 @@ export default function DealsPage() {
     onMutate: async ({ id, stage }) => {
       await queryClient.cancelQueries({ queryKey: ["deals", params] });
       const previous = queryClient.getQueryData(["deals", params]);
-      queryClient.setQueryData(["deals", params], (old = []) =>
-        stage === "won" || stage === "lost" ? old.filter((d) => d.id !== id) : old.map((d) => (d.id === id ? { ...d, stage } : d))
-      );
+      const closedAt = stage === "won" || stage === "lost" ? new Date().toISOString() : null;
+      queryClient.setQueryData(["deals", params], (old = []) => old.map((d) => (d.id === id ? { ...d, stage, closed_at: closedAt } : d)));
       return { previous };
     },
     onError: (error, _vars, context) => {
@@ -135,13 +143,18 @@ export default function DealsPage() {
     },
   });
 
-  const openTotal = sum(deals);
+  const openTotal = sum(openDeals);
+  const columns = [
+    ...STAGES.map((stage, index) => ({ ...stage, index })),
+    { value: "won", label: t("stage.won"), closed: true },
+    { value: "lost", label: t("stage.lost"), closed: true },
+  ];
 
   return (
     <>
       <PageHeader
         title={t("nav.deals")}
-        subtitle={isLoading ? undefined : t("deals.subtitle", { count: deals.length, amount: formatMoney(openTotal) })}
+        subtitle={isLoading ? undefined : t("deals.subtitle", { count: openDeals.length, amount: formatMoney(openTotal) })}
         actions={
           canWrite && (
             <Button onClick={() => setCreating("lead")}>
@@ -172,37 +185,43 @@ export default function DealsPage() {
       {isError ? (
         <ErrorState onRetry={refetch} />
       ) : view === "list" ? (
-        <DealTable deals={[...deals].sort(byUrgency)} customers={customers} team={team} loading={isLoading} />
+        <DealTable deals={[...openDeals.sort(byUrgency), ...deals.filter((d) => !isOpen(d)).sort(byClosed)]} customers={customers} team={team} loading={isLoading} />
       ) : (
-        // Phones: one column per screen, swiped with native scroll snap.
-        // md+: all four stages side by side.
-        <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0">
-          {STAGES.map((stage, stageIndex) => {
-            const column = deals.filter((d) => d.stage === stage.value).sort(byUrgency);
+        // Six columns: the four open stages, then Won and Lost. Phones swipe
+        // one column at a time; wider screens scroll sideways if they must.
+        <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-4 [scrollbar-width:thin] md:mx-0 md:px-0">
+          {columns.map((stage) => {
+            const column = deals.filter((d) => d.stage === stage.value).sort(stage.closed ? byClosed : byUrgency);
             const isOver = overStage === stage.value;
+            const tint = stage.value === "won" ? "bg-emerald-50" : stage.value === "lost" ? "bg-red-50/60" : "bg-zinc-100/70";
             return (
               <section
                 key={stage.value}
                 {...dropProps(stage.value)}
-                className={`flex w-[85%] shrink-0 snap-start flex-col rounded-xl p-2 transition-colors duration-150 md:w-auto ${
-                  isOver ? "bg-zinc-200/70" : "bg-zinc-100/70"
-                }`}
+                className={`flex w-[85%] shrink-0 snap-start flex-col rounded-xl p-2 transition-colors duration-150 md:w-auto md:min-w-[10.5rem] md:flex-1 ${isOver ? "bg-zinc-200/70" : tint}`}
               >
-                {/* This stage's slice of one continuous spectrum: across the
-                    four columns it reads as progress, violet through to rose. */}
-                <span
-                  className="spectrum-slice mx-2 mt-1 block h-[3px] rounded-full"
-                  style={{ "--slices": STAGES.length, "--slice": stageIndex }}
-                  aria-hidden="true"
-                />
+                {/* Open stages: slices of one spectrum, read as progress.
+                    Won is green and Lost red, so outcomes read at a glance. */}
+                {stage.closed ? (
+                  <span className={`mx-2 mt-1 block h-[3px] rounded-full ${stage.value === "won" ? "bg-emerald-500" : "bg-red-400"}`} aria-hidden="true" />
+                ) : (
+                  <span
+                    className="spectrum-slice mx-2 mt-1 block h-[3px] rounded-full"
+                    style={{ "--slices": STAGES.length, "--slice": stage.index }}
+                    aria-hidden="true"
+                  />
+                )}
                 <header className="flex items-start justify-between gap-2 px-2 pb-2.5 pt-2">
                   <div className="min-w-0">
                     <h2 className="text-sm font-semibold text-zinc-900">
                       {stage.label} <span className="font-normal text-zinc-400">{column.length}</span>
                     </h2>
-                    <p className="text-xs text-zinc-500">{formatMoney(sum(column))}</p>
+                    <p className="text-xs text-zinc-500">
+                      {formatMoney(sum(column))}
+                      {stage.closed && ` · ${t("deals.lastDays", { count: CLOSED_DAYS })}`}
+                    </p>
                   </div>
-                  {canWrite && (
+                  {canWrite && !stage.closed && (
                     <Tooltip label={`New deal in ${stage.label}`} side="top-end">
                       <button
                         type="button"
@@ -240,7 +259,7 @@ export default function DealsPage() {
                       ))}
                   {!isLoading && column.length === 0 && (
                     <p className="rounded-lg border border-dashed border-zinc-300 px-3 py-6 text-center text-xs text-zinc-400">
-                      {dragId ? t("deals.dropHere") : t("deals.noDeals")}
+                      {dragId ? t("deals.dropHere") : stage.closed ? t(`deals.none.${stage.value}`) : t("deals.noDeals")}
                     </p>
                   )}
                 </div>
@@ -310,6 +329,23 @@ export default function DealsPage() {
   );
 }
 
+// Won: the whole card green. Lost: muted, with a red edge. Both unmistakable.
+const OUTCOME_CARD = {
+  won: "border-2 border-emerald-500 bg-emerald-50 ring-1 ring-inset ring-emerald-200",
+  lost: "border border-red-200 border-l-4 border-l-red-400 bg-zinc-50",
+};
+
+function OutcomeBadge({ deal }) {
+  const { t } = useTranslation();
+  const won = deal.stage === "won";
+  return (
+    <span className={`mb-1.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold ${won ? "bg-emerald-600 text-white" : "bg-red-100 text-red-700"}`}>
+      {won ? "✓" : "✕"} {t(`stage.${deal.stage}`)}
+      {deal.closed_at && <span className="font-normal opacity-80">· {formatShortDate(deal.closed_at.slice(0, 10))}</span>}
+    </span>
+  );
+}
+
 function DealCard({ deal, customer, owner, dragging, landed, draggable, onDragStart, onDragEnd }) {
   return (
     <Link
@@ -320,20 +356,26 @@ function DealCard({ deal, customer, owner, dragging, landed, draggable, onDragSt
         onDragStart();
       }}
       onDragEnd={onDragEnd}
-      className={`block rounded-lg border border-zinc-200/80 bg-white p-3 shadow-xs transition-[box-shadow,opacity] duration-150 hover:shadow-card ${
+      className={`block rounded-lg p-3 shadow-xs transition-[box-shadow,opacity] duration-150 hover:shadow-card ${OUTCOME_CARD[deal.stage] ?? "border border-zinc-200/80 bg-white"} ${
         dragging ? "opacity-40" : ""
       } ${landed ? "card-land" : ""}`}
     >
-      <p className="text-sm font-medium leading-snug text-zinc-900">{deal.title}</p>
+      {deal.stage === "won" || deal.stage === "lost" ? <OutcomeBadge deal={deal} /> : null}
+      <p className={`text-sm font-medium leading-snug ${deal.stage === "won" ? "text-emerald-950" : deal.stage === "lost" ? "text-zinc-600" : "text-zinc-900"}`}>{deal.title}</p>
       <p className="mt-0.5 truncate text-xs text-zinc-500">{customer?.name ?? "…"}</p>
-      <JourneyBar milestones={deal.milestones} className="mt-2.5" />
+      {deal.stage !== "lost" && <JourneyBar milestones={deal.milestones} className="mt-2.5" />}
       <div className="mt-2.5 flex items-center justify-between gap-2">
-        <span className="text-sm font-semibold text-zinc-900">{formatMoney(deal.value)}</span>
+        <span className={`text-sm font-semibold ${deal.stage === "won" ? "text-emerald-800" : deal.stage === "lost" ? "text-zinc-500 line-through decoration-red-300" : "text-zinc-900"}`}>
+          {formatMoney(deal.value)}
+        </span>
         {owner && <Avatar name={owner.full_name} size="sm" />}
       </div>
-      <div className="mt-2 border-t border-zinc-100 pt-2">
-        <NextActivityBadge activity={deal.next_activity} />
-      </div>
+      {deal.stage === "lost" && deal.lost_reason && <p className="mt-2 border-t border-red-100 pt-2 text-xs text-red-800">{deal.lost_reason}</p>}
+      {deal.stage !== "won" && deal.stage !== "lost" && (
+        <div className="mt-2 border-t border-zinc-100 pt-2">
+          <NextActivityBadge activity={deal.next_activity} />
+        </div>
+      )}
     </Link>
   );
 }
@@ -368,7 +410,11 @@ function DealTable({ deals, customers, team, loading }) {
             const stageIndex = STAGES.findIndex((s) => s.value === deal.stage);
             const owner = team.get(deal.owner_id);
             return (
-              <tr key={deal.id} className="table-row" onClick={() => navigate(`/deals/${deal.id}`)}>
+              <tr
+                key={deal.id}
+                className={`table-row ${deal.stage === "won" ? "!bg-emerald-50 hover:!bg-emerald-100/70" : deal.stage === "lost" ? "!bg-zinc-50 text-zinc-500" : ""}`}
+                onClick={() => navigate(`/deals/${deal.id}`)}
+              >
                 <td>
                   <Link to={`/deals/${deal.id}`} onClick={(e) => e.stopPropagation()} className="font-medium text-zinc-900 hover:underline">
                     {deal.title}
@@ -376,15 +422,22 @@ function DealTable({ deals, customers, team, loading }) {
                   <p className="text-xs text-zinc-500">{customers.get(deal.customer_id)?.name ?? "…"}</p>
                 </td>
                 <td>
-                  <span className="inline-flex items-center gap-2 text-zinc-700">
-                    {/* The stage's spectrum slice, as on the board's column bar. */}
-                    <span
-                      className="spectrum-slice h-2 w-2 rounded-full"
-                      style={{ "--slices": STAGES.length, "--slice": stageIndex }}
-                      aria-hidden="true"
-                    />
-                    {STAGES[stageIndex]?.label}
-                  </span>
+                  {deal.stage === "won" || deal.stage === "lost" ? (
+                    <span className={`inline-flex items-center gap-1.5 font-medium ${deal.stage === "won" ? "text-emerald-700" : "text-red-700"}`}>
+                      <span className={`h-2 w-2 rounded-full ${deal.stage === "won" ? "bg-emerald-500" : "bg-red-400"}`} aria-hidden="true" />
+                      {t(`stage.${deal.stage}`)}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-2 text-zinc-700">
+                      {/* The stage's spectrum slice, as on the board's column bar. */}
+                      <span
+                        className="spectrum-slice h-2 w-2 rounded-full"
+                        style={{ "--slices": STAGES.length, "--slice": stageIndex }}
+                        aria-hidden="true"
+                      />
+                      {STAGES[stageIndex]?.label}
+                    </span>
+                  )}
                 </td>
                 <td>
                   <span className="flex items-center gap-2">

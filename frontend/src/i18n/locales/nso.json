@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} ye e bulegilego · {{amount}} phaepheng",
     "subtitle_other": "{{count}} tše di bulegilego · {{amount}} phaepheng",
     "wonToast": "Kwano e fentšwe",
-    "wonToastDetail": "Mošomo o mobotse. E tlošitšwe phaepheng."
+    "wonToastDetail": "Mošomo o mobotse. E tlošitšwe phaepheng.",
+    "lastDays_one": "letšatši le {{count}} le le fetilego",
+    "lastDays_other": "matšatši a {{count}} a a fetilego",
+    "none": {
+      "won": "Ga go dikwano tše di thopilwego go fihla bjale",
+      "lost": "Ga go dikwano tše di lahlegilego. Go botse."
+    }
   },
   "document": {
     "lineItems": "Dilo",
@@ -1006,7 +1012,7 @@
         "q1": "Ke swaya bjang kwano bjalo ka ye e thopilwego goba ye e lahlegilego?",
         "q2": "Ke e hlama bjang?",
         "summary": "Phaephe ya gago ya thekišo: sebaka se sengwe le se sengwe le legato leo se lego go lona.",
-        "title": "Dikwano"
+        "title": "Mothalo wa thekišo"
       },
       "getStarted": {
         "a1": "Dintlha tša khamphani, imeile, sehlopha le WhatsApp/SMS di beakanywa ke molaodi go Dipeakanyo.",
@@ -1420,7 +1426,7 @@
     "admin": "Molaodi wa YGT",
     "customers": "Bareki",
     "dashboard": "Tešeboto",
-    "deals": "Dikwano",
+    "deals": "Mothalo wa thekišo",
     "group": {
       "records": "Gola",
       "sales": "Thekišo"
@@ -1468,7 +1474,7 @@
       "newDeal": "Kwano ye mpsha",
       "newInvoice": "Invoice ye mpsha",
       "newQuote": "Tekanyetšo ye mpsha",
-      "pipeline": "Phaephe ya dikwano"
+      "pipeline": "Mothalo wa thekišo"
     },
     "goTo": "Eya go",
     "hintMove": "↑↓ go sepela",
@@ -2013,7 +2019,7 @@
       "start": "Thoma teko ya mahala"
     },
     "hero": {
-      "eyebrow": "Ditheko, diinfoisi le bareki ba di-SMME le ditirelo tša seprofešenale",
+      "eyebrow": "Tharollo e tee ya kgwebo ya bareki ba gago, thekišo, dikotheišene, di-invoice le ditefelo",
       "title": "Dipampiri tše nnyane. Nako e ntši ya kgwebo ya gago.",
       "body": "{{name}} ke lefelo le tee moo bareki ba gago, ditumelelano, ditheko, diinfoisi le ditefelo di dulago gona, gore bohle ba šome ka dinomoro tše di swanago tše di mpshafaditšwego. E a latelela le go go gopotša ka ditefelo legatong la gago, e go bolokela diiri beke le beke le tšhelete yeo o bego o tla e lahlegelwa, gore o tsepelele go sepediša kgwebo ya gago.",
       "cta": "Thoma teko ya gago ya mahala",

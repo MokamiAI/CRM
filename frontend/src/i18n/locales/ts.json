@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} lowu pfulekeke · {{amount}} eka phayiphi",
     "subtitle_other": "{{count}} leyi pfulekeke · {{amount}} eka phayiphi",
     "wonToast": "Ntwanano wu hluriwile",
-    "wonToastDetail": "Ntirho lowunene. Wu susiwile eka phayiphi."
+    "wonToastDetail": "Ntirho lowunene. Wu susiwile eka phayiphi.",
+    "lastDays_one": "siku ra {{count}} leri hundzeke",
+    "lastDays_other": "masiku ya {{count}} lama hundzeke",
+    "none": {
+      "won": "A ku si va na tintwanano leti hluriweke",
+      "lost": "A ku na tintwanano leti lahlekeke. Swi kahle."
+    }
   },
   "document": {
     "lineItems": "Swilo",
@@ -1006,7 +1012,7 @@
         "q1": "Ndzi funghi njhani ntwanano tanihi lowu hluleriweke kumbe lowu lahlekeke?",
         "q2": "Ndzi wu endla njhani?",
         "summary": "Phayiphi ya wena ya vuxavisi: nkarhi wun'wana ni wun'wana ni xiyimo lexi wu nga eka xona.",
-        "title": "Mintwanano"
+        "title": "Layini ya vuxavisi"
       },
       "getStarted": {
         "a1": "Vuxokoxoko bya khampani, imeyili, ntlawa ni WhatsApp/SMS swi lulamisiwa hi mulawuri eka Mavekelo.",
@@ -1420,7 +1426,7 @@
     "admin": "Mulawuri wa YGT",
     "customers": "Vaxavi",
     "dashboard": "Dexibodo",
-    "deals": "Mintwanano",
+    "deals": "Layini ya vuxavisi",
     "group": {
       "records": "Kula",
       "sales": "Vuxavisi"
@@ -1468,7 +1474,7 @@
       "newDeal": "Ntwanano lowuntshwa",
       "newInvoice": "Nhlayo-xikoloto leyintshwa",
       "newQuote": "Xiringanyeto lexintshwa",
-      "pipeline": "Phayiphi ya mintwanano"
+      "pipeline": "Layini ya vuxavisi"
     },
     "goTo": "Ya eka",
     "hintMove": "↑↓ ku famba",
@@ -2013,7 +2019,7 @@
       "start": "Sungula ndzingeto wa mahala"
     },
     "hero": {
-      "eyebrow": "Swikoweto, tiinvoyisi na vaxavi va ti-SMME na vukorhokeri bya xiphurofexinali",
+      "eyebrow": "Ntlhantlho wun'we wa bindzu wa vaxavi va wena, vuxavisi, tikhotexini, tiinvhoyisi ni swihakelo",
       "title": "Maphepha ma nga ri mangani. Nkarhi wo tala wa bindzu ra wena.",
       "body": "{{name}} i ndhawu yin'we laha vaxavi va wena, swivumelwano, swikoweto, tiinvoyisi na swihakelo swi tshamaka kona, leswaku un'wana na un'wana a tirha hi tinomboro leti fanaka leti pfuxetiweke. Yi landzelela naswona yi ku tsundzuxela hi swihakelo, yi ku hlayisela tiawara vhiki na vhiki na mali leyi a wu ta yi lahlekeriwa, leswaku u kota ku languta ku fambisa bindzu ra wena.",
       "cta": "Sungula ndzingeto wa wena wa mahala",

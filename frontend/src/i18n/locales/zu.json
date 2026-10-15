@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} elivulekile · {{amount}} epayipini",
     "subtitle_other": "{{count}} avulekile · {{amount}} epayipini",
     "wonToast": "Idili liphumelele",
-    "wonToastDetail": "Umsebenzi omuhle. Lisusiwe epayipini."
+    "wonToastDetail": "Umsebenzi omuhle. Lisusiwe epayipini.",
+    "lastDays_one": "usuku olu-{{count}} oludlule",
+    "lastDays_other": "izinsuku ezingu-{{count}} ezedlule",
+    "none": {
+      "won": "Azikabi khona izivumelwano eziwinwe",
+      "lost": "Azikho izivumelwano ezilahlekile. Kuhle."
+    }
   },
   "document": {
     "lineItems": "Izinto",
@@ -1006,7 +1012,7 @@
         "q1": "Ngiliphawula kanjani idili njengeliphumelele noma elilahlekile?",
         "q2": "Ngilidala kanjani?",
         "summary": "Ipayipi lakho lokuthengisa: wonke amathuba nesigaba akuso.",
-        "title": "Amadili"
+        "title": "Uhlelo lokuthengisa"
       },
       "getStarted": {
         "a1": "Imininingwane yenkampani, i-imeyili, ithimba ne-WhatsApp/SMS kusethwa ngumphathi ku-Izilungiselelo.",
@@ -1420,7 +1426,7 @@
     "admin": "Umphathi we-YGT",
     "customers": "Amakhasimende",
     "dashboard": "Ideshibhodi",
-    "deals": "Amadili",
+    "deals": "Uhlelo lokuthengisa",
     "group": {
       "records": "Khula",
       "sales": "Ukuthengisa"
@@ -1468,7 +1474,7 @@
       "newDeal": "Idili elisha",
       "newInvoice": "I-invoyisi entsha",
       "newQuote": "Isilinganiso esisha",
-      "pipeline": "Ipayipi lamadili"
+      "pipeline": "Uhlelo lokuthengisa"
     },
     "goTo": "Iya ku",
     "hintMove": "↑↓ ukuhamba",
@@ -2013,7 +2019,7 @@
       "start": "Qala ukuzama mahhala"
     },
     "hero": {
-      "eyebrow": "Izingcaphuno, ama-invoyisi namakhasimende ama-SMME nezinsizakalo zobungcweti",
+      "eyebrow": "Isixazululo esisodwa sebhizinisi samakhasimende akho, ukuthengisa, izilinganiso, ama-invoyisi nezinkokhelo",
       "title": "Amaphepha amancane. Isikhathi esiningi sebhizinisi lakho.",
       "body": "I-{{name}} iyindawo eyodwa lapho amakhasimende akho, izivumelwano, izingcaphuno, ama-invoyisi nezinkokhelo kuhlala khona, ukuze wonke umuntu asebenze ngezinombolo ezifanayo ezisesikhathini. Iyalandelela futhi ikukhumbuzele ngezinkokhelo, ikongela amahora njalo ngesonto nemali obungayilahlekelwa, ukuze ugxile ekuqhubeni ibhizinisi lakho.",
       "cta": "Qala ukuzama kwakho mahhala",

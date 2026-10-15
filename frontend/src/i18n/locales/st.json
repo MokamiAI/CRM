@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} e bulehileng · {{amount}} phaepheng",
     "subtitle_other": "{{count}} tse bulehileng · {{amount}} phaepheng",
     "wonToast": "Tumellano e hlotswe",
-    "wonToastDetail": "Mosebetsi o motle. E tlositswe phaepheng."
+    "wonToastDetail": "Mosebetsi o motle. E tlositswe phaepheng.",
+    "lastDays_one": "letsatsi le {{count}} le fetileng",
+    "lastDays_other": "matsatsi a {{count}} a fetileng",
+    "none": {
+      "won": "Ha ho ditumellano tse hapilweng ho fihlela jwale",
+      "lost": "Ha ho ditumellano tse lahlehileng. Ho hotle."
+    }
   },
   "document": {
     "lineItems": "Dintho",
@@ -1006,7 +1012,7 @@
         "q1": "Ke tshwaya jwang tumellano e le e hapilweng kapa e lahlehileng?",
         "q2": "Ke e etsa jwang?",
         "summary": "Phaephe ya hao ya thekiso: monyetla o mong le o mong le mokgahlelo oo o leng ho ona.",
-        "title": "Ditumellano"
+        "title": "Mola wa thekiso"
       },
       "getStarted": {
         "a1": "Dintlha tsa khampani, imeile, sehlopha le WhatsApp/SMS di hlophiswa ke motsamaisi ho Ditlhophiso.",
@@ -1420,7 +1426,7 @@
     "admin": "Motsamaisi wa YGT",
     "customers": "Bareki",
     "dashboard": "Deshebote",
-    "deals": "Ditumellano",
+    "deals": "Mola wa thekiso",
     "group": {
       "records": "Hola",
       "sales": "Thekiso"
@@ -1468,7 +1474,7 @@
       "newDeal": "Tumellano e ntjha",
       "newInvoice": "Invoice e ntjha",
       "newQuote": "Kotatsheno e ntjha",
-      "pipeline": "Phaephe ya ditumellano"
+      "pipeline": "Mola wa thekiso"
     },
     "goTo": "Eya ho",
     "hintMove": "↑↓ ho tsamaya",
@@ -2013,7 +2019,7 @@
       "start": "Qala teko ya mahala"
     },
     "hero": {
-      "eyebrow": "Ditheko, diinvoice le bareki ba di-SMME le ditshebeletso tsa porofeshenale",
+      "eyebrow": "Tharollo e le nngwe ya kgwebo bakeng sa bareki ba hao, thekiso, dikotheishene, di-invoice le ditefo",
       "title": "Dipampiri tse fokolang. Nako e ngata bakeng sa kgwebo ya hao.",
       "body": "{{name}} ke sebaka se le seng moo bareki ba hao, ditumellano, ditheko, diinvoice le ditefo di dulang teng, e le hore bohle ba sebetse ka dipalo tse tshwanang tse ntjhafaditsweng. E a latedisa mme e o hopotsa ka ditefo, e o bolokela dihora beke le beke le tjhelete eo o neng o tla e lahlehelwa, e le hore o tsepamise maikutlo ho tsamaiseng kgwebo ya hao.",
       "cta": "Qala teko ya hao ya mahala",

@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} e e buletsweng · {{amount}} mo phaepheng",
     "subtitle_other": "{{count}} tse di buletsweng · {{amount}} mo phaepheng",
     "wonToast": "Tumalano e fentswe",
-    "wonToastDetail": "Tiro e ntle. E tlositswe mo phaepheng."
+    "wonToastDetail": "Tiro e ntle. E tlositswe mo phaepheng.",
+    "lastDays_one": "letsatsi le {{count}} le le fetileng",
+    "lastDays_other": "malatsi a {{count}} a a fetileng",
+    "none": {
+      "won": "Ga go ise go nne le ditumalano tse di gapilweng",
+      "lost": "Ga go ditumalano tse di latlhegileng. Go siame."
+    }
   },
   "document": {
     "lineItems": "Dilo",
@@ -1006,7 +1012,7 @@
         "q1": "Ke tshwaya jang tumalano jaaka e e fentsweng kgotsa e e latlhegileng?",
         "q2": "Ke e dira jang?",
         "summary": "Phaephe ya gago ya thekiso: tšhono nngwe le nngwe le legato le e leng mo go lone.",
-        "title": "Ditumalano"
+        "title": "Mola wa thekiso"
       },
       "getStarted": {
         "a1": "Dintlha tsa khampani, imeile, setlhopha le WhatsApp/SMS di baakanngwa ke motsamaisi mo Dithulaganyong.",
@@ -1420,7 +1426,7 @@
     "admin": "Motsamaisi wa YGT",
     "customers": "Bareki",
     "dashboard": "Tešeboto",
-    "deals": "Ditumalano",
+    "deals": "Mola wa thekiso",
     "group": {
       "records": "Gola",
       "sales": "Thekiso"
@@ -1468,7 +1474,7 @@
       "newDeal": "Tumalano e ntšha",
       "newInvoice": "Invoice e ntšha",
       "newQuote": "Tekanyetso e ntšha",
-      "pipeline": "Phaephe ya ditumalano"
+      "pipeline": "Mola wa thekiso"
     },
     "goTo": "Ya kwa",
     "hintMove": "↑↓ go tsamaya",
@@ -2013,7 +2019,7 @@
       "start": "Simolola teko ya mahala"
     },
     "hero": {
-      "eyebrow": "Ditlhwatlhwa, diinvoice le bareki ba di-SMME le ditirelo tsa seporofešenale",
+      "eyebrow": "Tharabololo e le nngwe ya kgwebo ya badirisi ba gago, thekiso, dikotheišene, di-invoice le dituelo",
       "title": "Dipampiri tse di mmalwa. Nako e ntsi ya kgwebo ya gago.",
       "body": "{{name}} ke lefelo le le lengwe fa bareki ba gago, ditumalano, ditlhwatlhwa, diinvoice le dituelo di nnang teng, gore botlhe ba dire ka dipalo tse di tshwanang tse di ntšhafaditsweng. E a latedisa e bile e go gopotsa ka dituelo, e go bolokela diura beke le beke le madi a o neng o tla a latlhegelwa, gore o tsepamise mogopolo mo go tsamaiseng kgwebo ya gago.",
       "cta": "Simolola teko ya gago ya mahala",

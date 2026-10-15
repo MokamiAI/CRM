@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} esivulekileko · {{amount}} ephayiphini",
     "subtitle_other": "{{count}} ezivulekileko · {{amount}} ephayiphini",
     "wonToast": "Isivumelwano siphumelele",
-    "wonToastDetail": "Umsebenzi omuhle. Sisusiwe ephayiphini."
+    "wonToastDetail": "Umsebenzi omuhle. Sisusiwe ephayiphini.",
+    "lastDays_one": "ilanga eli-{{count}} elidlulileko",
+    "lastDays_other": "amalanga ali-{{count}} adlulileko",
+    "none": {
+      "won": "Azikabi khona iimvumelwano ezithunjiweko",
+      "lost": "Azikho iimvumelwano ezilahlekileko. Kuhle."
+    }
   },
   "document": {
     "lineItems": "Izinto",
@@ -1006,7 +1012,7 @@
         "q1": "Ngisitshwaya njani isivumelwano njengesiphumeleleko namkha esilahlekileko?",
         "q2": "Ngisenza njani?",
         "summary": "Iphayiphi yakho yokuthengisa: woke amathuba nesigaba akiso.",
-        "title": "Iinvumelwano"
+        "title": "Umgqa wokuthengisa"
       },
       "getStarted": {
         "a1": "Imininingwana yekampani, i-imeyili, isiqhema ne-WhatsApp/SMS kuhlelwa mphathi ku-Iinlungiselelo.",
@@ -1420,7 +1426,7 @@
     "admin": "Umphathi we-YGT",
     "customers": "Amakhasimende",
     "dashboard": "Idetjhibhodi",
-    "deals": "Iinvumelwano",
+    "deals": "Umgqa wokuthengisa",
     "group": {
       "records": "Khula",
       "sales": "Ukuthengisa"
@@ -1468,7 +1474,7 @@
       "newDeal": "Isivumelwano esitjha",
       "newInvoice": "I-invoyisi etjha",
       "newQuote": "Isilinganiso esitjha",
-      "pipeline": "Iphayiphi yeenvumelwano"
+      "pipeline": "Umgqa wokuthengisa"
     },
     "goTo": "Iya ku",
     "hintMove": "↑↓ ukukhamba",
@@ -2013,7 +2019,7 @@
       "start": "Thoma ukulinga simahla"
     },
     "hero": {
-      "eyebrow": "Iintengo, ama-invoyisi namakhasimende wama-SMME neenkonzo zobungcweti",
+      "eyebrow": "Isirarululo sinye sebhizinisi samakhasimende wakho, ukuthengisa, iinlinganiso, ama-invoyisi namabhadelo",
       "title": "Amaphepha amancani. Isikhathi esinengi sebhizinisi lakho.",
       "body": "I-{{name}} yindawo yinye lapho amakhasimende wakho, iimvumelwano, iintengo, ama-invoyisi neenkhokhelo zihlala khona, bona woke umuntu asebenze ngeenomboro ezifanako ezisesikhathini. Iyalandelela begodu ikukhumbuzele ngeenkhokhelo, ikongela amahora qobe veke nemali obewuzoyilahlekelwa, bona ugxile ekuqhubeni ibhizinisi lakho.",
       "cta": "Thoma ukulinga kwakho simahla",

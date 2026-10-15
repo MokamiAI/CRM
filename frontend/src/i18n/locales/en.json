@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} open · {{amount}} in the pipeline",
     "subtitle_other": "{{count}} open · {{amount}} in the pipeline",
     "wonToast": "Deal won",
-    "wonToastDetail": "Nice work. It's moved out of the pipeline."
+    "wonToastDetail": "Nice work. It's moved out of the pipeline.",
+    "lastDays_one": "last {{count}} day",
+    "lastDays_other": "last {{count}} days",
+    "none": {
+      "won": "No deals won yet",
+      "lost": "No deals lost. Good going."
+    }
   },
   "document": {
     "lineItems": "Line items",
@@ -1006,7 +1012,7 @@
         "q1": "How do I mark a deal won or lost?",
         "q2": "How do I create one?",
         "summary": "Your sales pipeline: every opportunity and the stage it's at.",
-        "title": "Deals"
+        "title": "Pipeline"
       },
       "getStarted": {
         "a1": "Company details, email, team and WhatsApp/SMS are set up by an admin in Settings.",
@@ -1420,7 +1426,7 @@
     "admin": "YGT admin",
     "customers": "Customers",
     "dashboard": "Dashboard",
-    "deals": "Deals",
+    "deals": "Pipeline",
     "group": {
       "records": "Grow",
       "sales": "Sales"
@@ -1468,7 +1474,7 @@
       "newDeal": "New deal",
       "newInvoice": "New invoice",
       "newQuote": "New quote",
-      "pipeline": "Deals pipeline"
+      "pipeline": "Pipeline"
     },
     "goTo": "Go to",
     "hintMove": "↑↓ to move",
@@ -2013,7 +2019,7 @@
       "start": "Start free trial"
     },
     "hero": {
-      "eyebrow": "Quotes, invoices and customers for SMMEs and professional services",
+      "eyebrow": "One business solution for your customers, sales, quotes, invoices and payments",
       "title": "Less admin. More business.",
       "body": "{{name}} is the one place your customers, deals, quotes, invoices and payments live, so everyone works from the same up-to-date numbers. It follows up and chases payments for you, saving hours every week and money you'd otherwise lose, so you can focus on running your business.",
       "cta": "Start your free trial",

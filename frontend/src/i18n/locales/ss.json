@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} lesivulekile · {{amount}} eliphayiphini",
     "subtitle_other": "{{count}} letivulekile · {{amount}} eliphayiphini",
     "wonToast": "Sivumelwano siphumelele",
-    "wonToastDetail": "Umsebenti lomuhle. Sisusiwe eliphayiphini."
+    "wonToastDetail": "Umsebenti lomuhle. Sisusiwe eliphayiphini.",
+    "lastDays_one": "lilanga lelingu-{{count}} leledlule",
+    "lastDays_other": "emalanga langu-{{count}} letendlulile",
+    "none": {
+      "won": "Kute tivumelwano letiwiniwe okwanyalo",
+      "lost": "Kute tivumelwano letilahlekile. Kuhle."
+    }
   },
   "document": {
     "lineItems": "Tintfo",
@@ -1006,7 +1012,7 @@
         "q1": "Ngisiphawula njani sivumelwano njengalesiphumelele noma lesilahlekile?",
         "q2": "Ngisenta njani?",
         "summary": "Liphayiphi lakho lekutsengisa: lonkhe litfuba nesigaba lelikuso.",
-        "title": "Tivumelwano"
+        "title": "Umgca wekutsengisa"
       },
       "getStarted": {
         "a1": "Imininingwane yenkampani, i-imeyili, lithimba ne-WhatsApp/SMS kuhlelwa ngumphatsi ku-Kuhlela.",
@@ -1420,7 +1426,7 @@
     "admin": "Umphatsi we-YGT",
     "customers": "Batsengi",
     "dashboard": "Lideshibhodi",
-    "deals": "Tivumelwano",
+    "deals": "Umgca wekutsengisa",
     "group": {
       "records": "Khula",
       "sales": "Kutsengisa"
@@ -1468,7 +1474,7 @@
       "newDeal": "Sivumelwano lesisha",
       "newInvoice": "I-invoyisi lensha",
       "newQuote": "Ikhotheshini lensha",
-      "pipeline": "Liphayiphi letivumelwano"
+      "pipeline": "Umgca wekutsengisa"
     },
     "goTo": "Ya ku",
     "hintMove": "↑↓ kuhamba",
@@ -2013,7 +2019,7 @@
       "start": "Cala kuvivinya mahhala"
     },
     "hero": {
-      "eyebrow": "Tintsengo, ema-invoyisi nemakhasimende ema-SMME netinsita tebungcweti",
+      "eyebrow": "Sixazululo sinye sebhizinisi semakhasimende akho, kutsengisa, ticalo, ema-invoyisi netinkhokhelo",
       "title": "Emaphepha lambalwa. Sikhatsi lesinyenti sebhizinisi lakho.",
       "body": "I-{{name}} yindzawo yinye lapho emakhasimende akho, tivumelwano, tintsengo, ema-invoyisi nekukhokhwa kuhlala khona, kuze wonkhe umuntfu asebente ngetinombolo letifanako letisesikhatsini. Iyalandzelela futsi ikukhumbutele ngekukhokhwa, ikongela emahora onkhe emaviki nemali bewungayilahlekelwa, kuze ugcile ekuchubeni ibhizinisi lakho.",
       "cta": "Cala kuvivinya kwakho mahhala",

@@ -273,7 +273,13 @@ function DealCard({ deal, customer, owner }) {
       />
     )}
     <DealFormSheet open={editing} onClose={() => setEditing(false)} deal={deal} />
-    <Link to={`/deals/${deal.id}`} className="block rounded-xl border border-white bg-white p-3 shadow-card [@media(hover:none)]:pr-10 transition-shadow duration-150 hover:shadow-pop">
+    <Link
+      to={`/deals/${deal.id}`}
+      className={`block rounded-xl p-3 shadow-card transition-shadow duration-150 hover:shadow-pop [@media(hover:none)]:pr-10 ${
+        // Won: the whole card green, as on the Pipeline page.
+        deal.stage === "won" ? "border-2 border-emerald-500 bg-emerald-50 ring-1 ring-inset ring-emerald-200" : "border border-white bg-white"
+      }`}
+    >
       <span className="line-clamp-2 text-[13px] font-semibold leading-snug text-midnight">{deal.title}</span>
       <JourneyBar milestones={deal.milestones} className="my-1.5" />
       <span className="mt-0.5 block truncate text-xs text-slate-500">{customer?.name ?? "…"}</span>

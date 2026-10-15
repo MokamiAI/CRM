@@ -722,7 +722,13 @@
     "subtitle_one": "{{count}} esivulekileyo · {{amount}} kumbhobho",
     "subtitle_other": "{{count}} ezivulekileyo · {{amount}} kumbhobho",
     "wonToast": "Isivumelwano siphumelele",
-    "wonToastDetail": "Umsebenzi omhle. Sisusiwe kumbhobho."
+    "wonToastDetail": "Umsebenzi omhle. Sisusiwe kumbhobho.",
+    "lastDays_one": "usuku olu-{{count}} oludlulileyo",
+    "lastDays_other": "iintsuku ezi-{{count}} ezidlulileyo",
+    "none": {
+      "won": "Akukabikho zivumelwano ziphumeleleyo",
+      "lost": "Akukho zivumelwano zilahlekileyo. Kuhle."
+    }
   },
   "document": {
     "lineItems": "Izinto",
@@ -1006,7 +1012,7 @@
         "q1": "Ndisiphawula njani isivumelwano njengesiphumeleleyo okanye esilahlekileyo?",
         "q2": "Ndisenza njani?",
         "summary": "Umbhobho wakho wentengiso: onke amathuba nenqanaba akulo.",
-        "title": "Izivumelwano"
+        "title": "Umbhobho wentengiso"
       },
       "getStarted": {
         "a1": "Iinkcukacha zenkampani, i-imeyile, iqela ne-WhatsApp/SMS zisekwa ngumlawuli kwiiSetingi.",
@@ -1420,7 +1426,7 @@
     "admin": "Umlawuli we-YGT",
     "customers": "Abathengi",
     "dashboard": "Ideshibhodi",
-    "deals": "Izivumelwano",
+    "deals": "Umbhobho wentengiso",
     "group": {
       "records": "Khula",
       "sales": "Intengiso"
@@ -1468,7 +1474,7 @@
       "newDeal": "Isivumelwano esitsha",
       "newInvoice": "I-invoyisi entsha",
       "newQuote": "Ikowuteshini entsha",
-      "pipeline": "Umbhobho wezivumelwano"
+      "pipeline": "Umbhobho wentengiso"
     },
     "goTo": "Yiya ku",
     "hintMove": "↑↓ ukuhamba",
@@ -2013,7 +2019,7 @@
       "start": "Qala ulingo lwasimahla"
     },
     "hero": {
-      "eyebrow": "Iikowuti, ii-invoyisi nabathengi bee-SMME neenkonzo zobuchwephesha",
+      "eyebrow": "Isisombululo esinye seshishini sabathengi bakho, intengiso, iikowuti, ii-invoyisi neentlawulo",
       "title": "Amaphepha ambalwa. Ixesha elingakumbi leshishini lakho.",
       "body": "I-{{name}} yindawo enye apho abathengi bakho, izivumelwano, iikowuti, ii-invoyisi neentlawulo zihlala khona, ukuze wonke umntu asebenze ngamanani afanayo ahlaziyiweyo. Iyalandelela kwaye ikhumbuze ngeentlawulo endaweni yakho, ikugcinela iiyure qho ngeveki nemali ongayilahlekelwa, ukuze ugxile ekuqhubeni ishishini lakho.",
       "cta": "Qala ulingo lwakho lwasimahla",
