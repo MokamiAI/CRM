@@ -189,7 +189,10 @@ try {
   await page.setViewport({ width: 1440, height: 900 });
   await page.goto(BASE + "/invoices/recurring/new", { waitUntil: "domcontentloaded" });
   await settle();
-  await page.select("form select.input", await page.evaluate(() => document.querySelector("form select.input option:not([disabled])").value));
+  // The customer field is a type-ahead: open it and take the first suggestion.
+  await page.click("form input[role=combobox]");
+  await page.waitForSelector("[role=listbox] [role=option]");
+  await page.keyboard.press("Enter");
   await page.type("input[aria-label='Description']", "Monthly bookkeeping");
   await page.click("input[aria-label='Unit price']");
   await page.type("input[aria-label='Unit price']", "3500");

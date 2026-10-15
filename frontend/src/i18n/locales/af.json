@@ -2372,5 +2372,21 @@
     "registered": "Geregistreer vir BTW",
     "notRegisteredHint": "Merk dit sodra jy geregistreer is. Tot dan sê jou dokumente \"Faktuur\" en wys geen BTW-nommer nie.",
     "chargingWarning": "Jy is nie vir BTW geregistreer nie, so jy moet dit nie hef nie. Stel BTW op 0%, of merk \"Geregistreer vir BTW\" in Instellings sodra jy is."
+  },
+  "party": {
+    "typeCustomer": "Tik 'n naam, of kies 'n kliënt",
+    "typeSupplier": "Tik 'n naam, of kies 'n verskaffer",
+    "addNew": {
+      "customer": "Voeg “{{name}}” by as 'n nuwe kliënt",
+      "supplier": "Voeg “{{name}}” by as 'n nuwe verskaffer"
+    },
+    "willAdd": {
+      "customer": "Nuwe kliënt: “{{name}}” word by jou kliënte gevoeg wanneer jy stoor.",
+      "supplier": "Nuwe verskaffer: “{{name}}” word by jou verskaffers gevoeg wanneer jy stoor."
+    },
+    "added": {
+      "customer": "{{name}} by jou kliënte gevoeg",
+      "supplier": "{{name}} by jou verskaffers gevoeg"
+    }
   }
 }

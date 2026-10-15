@@ -2372,5 +2372,21 @@
     "registered": "Ubhalisele i-VAT",
     "notRegisteredHint": "Tshwaya lokhu nawusubhalisile. Bekube kusesikhathi leso amadokhumende wakho athi \"I-invoyisi\" begodu akatjengisi inomboro ye-VAT.",
     "chargingWarning": "Awukabhaliseli i-VAT, ngalokho akukafaneli uyibhadelise. Setha i-VAT ibe ngu-0%, namkha utshwaye \"Ubhalisele i-VAT\" kuZilungiselelo nawusubhalisile."
+  },
+  "party": {
+    "typeCustomer": "Tlola ibizo, namkha ukhethe ikhasimende",
+    "typeSupplier": "Tlola ibizo, namkha ukhethe umphakeli",
+    "addNew": {
+      "customer": "Ngezelela “{{name}}” njengekhasimende elitjha",
+      "supplier": "Ngezelela “{{name}}” njengomphakeli omutjha"
+    },
+    "willAdd": {
+      "customer": "Ikhasimende elitjha: “{{name}}” lizokungezelelwa emakhasimendeni wakho nawubulungako.",
+      "supplier": "Umphakeli omutjha: “{{name}}” uzokungezelelwa kubaphakeli bakho nawubulungako."
+    },
+    "added": {
+      "customer": "{{name}} ungezelelwe emakhasimendeni wakho",
+      "supplier": "{{name}} ungezelelwe kubaphakeli bakho"
+    }
   }
 }

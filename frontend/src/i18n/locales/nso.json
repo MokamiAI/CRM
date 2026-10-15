@@ -2372,5 +2372,21 @@
     "registered": "O ngwadišeditšwe VAT",
     "notRegisteredHint": "Swaya se ge o šetše o ngwadišitšwe. Go fihla ka nako yeo ditokumente tša gago di re \"Invoice\" gomme ga di bontšhe nomoro ya VAT.",
     "chargingWarning": "Ga o a ngwadišetšwa VAT, ka fao ga wa swanela go e lefiša. Bea VAT go 0%, goba o swaye \"O ngwadišeditšwe VAT\" go Dipeakanyo ge o šetše o ngwadišitšwe."
+  },
+  "party": {
+    "typeCustomer": "Ngwala leina, goba o kgethe moreki",
+    "typeSupplier": "Ngwala leina, goba o kgethe mofepedi",
+    "addNew": {
+      "customer": "Oketša “{{name}}” bjalo ka moreki yo mofsa",
+      "supplier": "Oketša “{{name}}” bjalo ka mofepedi yo mofsa"
+    },
+    "willAdd": {
+      "customer": "Moreki yo mofsa: “{{name}}” o tla okeletšwa go bareki ba gago ge o boloka.",
+      "supplier": "Mofepedi yo mofsa: “{{name}}” o tla okeletšwa go bafepedi ba gago ge o boloka."
+    },
+    "added": {
+      "customer": "{{name}} o okeleditšwe go bareki ba gago",
+      "supplier": "{{name}} o okeleditšwe go bafepedi ba gago"
+    }
   }
 }

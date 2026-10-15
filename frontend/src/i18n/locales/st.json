@@ -2372,5 +2372,21 @@
     "registered": "O ngodiseditswe VAT",
     "notRegisteredHint": "Tshwaya sena ha o se o ngodisitswe. Ho fihlela ka nako eo ditokomane tsa hao di re \"Invoice\" mme ha di bontshe nomoro ya VAT.",
     "chargingWarning": "Ha o a ngodisetswa VAT, ka hona ha o a lokela ho e lefisa. Beha VAT ho 0%, kapa o tshwaye \"O ngodiseditswe VAT\" ho Disetting ha o se o ngodisitswe."
+  },
+  "party": {
+    "typeCustomer": "Ngola lebitso, kapa o kgethe moreki",
+    "typeSupplier": "Ngola lebitso, kapa o kgethe mofani",
+    "addNew": {
+      "customer": "Eketsa “{{name}}” jwalo ka moreki e motjha",
+      "supplier": "Eketsa “{{name}}” jwalo ka mofani e motjha"
+    },
+    "willAdd": {
+      "customer": "Moreki e motjha: “{{name}}” o tla ekeletswa ho bareki ba hao ha o boloka.",
+      "supplier": "Mofani e motjha: “{{name}}” o tla ekeletswa ho bafani ba hao ha o boloka."
+    },
+    "added": {
+      "customer": "{{name}} o ekeleditswe ho bareki ba hao",
+      "supplier": "{{name}} o ekeleditswe ho bafani ba hao"
+    }
   }
 }

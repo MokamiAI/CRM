@@ -2372,5 +2372,21 @@
     "registered": "Ubhalisele i-VAT",
     "notRegisteredHint": "Maka lokhu uma usubhalisile. Kuze kube yileso sikhathi amadokhumenti akho athi \"I-invoyisi\" futhi akakhombisi inombolo ye-VAT.",
     "chargingWarning": "Awubhalisele i-VAT, ngakho akufanele uyikhokhise. Setha i-VAT ibe ngu-0%, noma umake \"Ubhalisele i-VAT\" kuZilungiselelo uma usubhalisile."
+  },
+  "party": {
+    "typeCustomer": "Thayipha igama, noma ukhethe ikhasimende",
+    "typeSupplier": "Thayipha igama, noma ukhethe umphakeli",
+    "addNew": {
+      "customer": "Engeza “{{name}}” njengekhasimende elisha",
+      "supplier": "Engeza “{{name}}” njengomphakeli omusha"
+    },
+    "willAdd": {
+      "customer": "Ikhasimende elisha: “{{name}}” lizongezwa kumakhasimende akho uma ulondoloza.",
+      "supplier": "Umphakeli omusha: “{{name}}” uzongezwa kubaphakeli bakho uma ulondoloza."
+    },
+    "added": {
+      "customer": "{{name}} wengezwe kumakhasimende akho",
+      "supplier": "{{name}} wengezwe kubaphakeli bakho"
+    }
   }
 }

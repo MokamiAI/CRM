@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import apiClient from "../services/apiClient";
 import { useCompany, useCustomers, useLineTemplates, useProducts, useSuppliers } from "../hooks/useApi";
 import { Button, Field } from "./ui";
+import PartyCombobox from "./PartyCombobox";
 import { errorMessage, formatMoney, todayISO } from "../utils/format";
 
 // Mirrors backend/app/services/pricing.py: tax per line, each step rounded
@@ -75,7 +76,16 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   const { data: products = [] } = useProducts({ is_active: true });
   const wide = useWide();
 
-  const [partyId, setPartyId] = useState(initial?.[purchase ? "supplier_id" : "customer_id"] ?? initialCustomerId ?? "");
+  // The customer (or supplier): chosen from the list, or a new name typed
+  // in, which is added when the document is saved.
+  const [party, setParty] = useState({ id: initial?.[purchase ? "supplier_id" : "customer_id"] ?? initialCustomerId ?? null, name: "" });
+  const [addingParty, setAddingParty] = useState(false);
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    if (!party.id || party.name) return;
+    const known = parties.find((p) => p.id === party.id);
+    if (known) setParty({ id: known.id, name: known.name });
+  }, [parties, party.id, party.name]);
   const [issueDate, setIssueDate] = useState(initial?.issue_date ?? initial?.start_date ?? todayISO());
   const [secondDate, setSecondDate] = useState((dateField && initial?.[dateField]) || "");
   const [notes, setNotes] = useState(initial?.notes ?? "");
@@ -136,8 +146,26 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    let partyId = party.id;
+    if (!partyId) {
+      const name = party.name.trim();
+      if (!name) return;
+      setAddingParty(true);
+      try {
+        const { data } = await apiClient.post(purchase ? "/suppliers" : "/customers", { name });
+        partyId = data.id;
+        setParty({ id: data.id, name: data.name });
+        queryClient.invalidateQueries({ queryKey: [purchase ? "suppliers" : "customers"] });
+        toast.success(t(`party.added.${purchase ? "supplier" : "customer"}`, { name: data.name }));
+      } catch (error) {
+        toast.error(errorMessage(error));
+        return;
+      } finally {
+        setAddingParty(false);
+      }
+    }
     onSubmit({
       [purchase ? "supplier_id" : "customer_id"]: partyId,
       issue_date: issueDate,
@@ -156,17 +184,16 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
     <form onSubmit={handleSubmit} className="space-y-5 pb-24 md:pb-0">
       <section className="card space-y-4 p-4 sm:p-5">
         <Field label={t(purchase ? "editor.supplier" : "editor.customer")}>
-          <select className="input disabled:bg-slate-50 disabled:text-slate-600" required disabled={lockParty} value={partyId} onChange={(e) => setPartyId(e.target.value)}>
-            <option value="" disabled>
-              {t(purchase ? "editor.chooseSupplier" : "dealForm.chooseCustomer")}
-            </option>
-            {parties.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name}
-              </option>
-            ))}
-          </select>
-          {purchase && suppliers.length === 0 && (
+          <PartyCombobox
+            parties={parties}
+            value={party}
+            onChange={setParty}
+            kind={purchase ? "supplier" : "customer"}
+            required
+            disabled={lockParty}
+            placeholder={t(purchase ? "party.typeSupplier" : "party.typeCustomer")}
+          />
+          {purchase && suppliers.length === 0 && !party.name && (
             <p className="mt-1.5 text-xs text-zinc-500">
               {t("editor.noSuppliers")}{" "}
               <Link to="/purchase-orders?tab=suppliers" className="font-medium text-indigo-600 hover:text-indigo-700">
@@ -352,8 +379,8 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
               {formatMoney(totals.total)}
             </p>
           </div>
-          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-            {isSubmitting ? t("common.saving") : submitLabel}
+          <button type="submit" className="btn btn-primary" disabled={isSubmitting || addingParty}>
+            {isSubmitting || addingParty ? t("common.saving") : submitLabel}
           </button>
         </div>
       </div>

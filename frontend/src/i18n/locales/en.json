@@ -2372,5 +2372,21 @@
     "registered": "Registered for VAT",
     "notRegisteredHint": "Tick this once you're registered. Until then your documents say \"Invoice\" and show no VAT number.",
     "chargingWarning": "You're not registered for VAT, so you shouldn't charge it. Set VAT to 0%, or tick \"Registered for VAT\" in Settings once you are."
+  },
+  "party": {
+    "typeCustomer": "Type a name, or choose a customer",
+    "typeSupplier": "Type a name, or choose a supplier",
+    "addNew": {
+      "customer": "Add “{{name}}” as a new customer",
+      "supplier": "Add “{{name}}” as a new supplier"
+    },
+    "willAdd": {
+      "customer": "New customer: “{{name}}” is added to your customers when you save.",
+      "supplier": "New supplier: “{{name}}” is added to your suppliers when you save."
+    },
+    "added": {
+      "customer": "{{name}} added to your customers",
+      "supplier": "{{name}} added to your suppliers"
+    }
   }
 }

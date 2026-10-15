@@ -2372,5 +2372,21 @@
     "registered": "No ṅwalisela VAT",
     "notRegisteredHint": "Swayani izwi musi no no ṅwaliswa. U swika tshifhingani itsho maṅwalwa aṋu a ri \"Invoisi\" nahone a sumbedzi nomboro ya VAT.",
     "chargingWarning": "A no ngo ṅwalisela VAT, ngauralo a ni fanelwi u i badelisa. Vhetshani VAT kha 0%, kana ni swaye \"No ṅwalisela VAT\" kha Zwivhewa musi no no ṅwaliswa."
+  },
+  "party": {
+    "typeCustomer": "Thaiphani dzina, kana ni nange murengi",
+    "typeSupplier": "Thaiphani dzina, kana ni nange muṋetshedzi",
+    "addNew": {
+      "customer": "Engedzani “{{name}}” sa murengi muswa",
+      "supplier": "Engedzani “{{name}}” sa muṋetshedzi muswa"
+    },
+    "willAdd": {
+      "customer": "Murengi muswa: “{{name}}” u ḓo engedzwa kha vharengi vhaṋu musi ni tshi vhulunga.",
+      "supplier": "Muṋetshedzi muswa: “{{name}}” u ḓo engedzwa kha vhaṋetshedzi vhaṋu musi ni tshi vhulunga."
+    },
+    "added": {
+      "customer": "{{name}} o engedzwa kha vharengi vhaṋu",
+      "supplier": "{{name}} o engedzwa kha vhaṋetshedzi vhaṋu"
+    }
   }
 }

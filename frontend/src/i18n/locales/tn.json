@@ -2372,5 +2372,21 @@
     "registered": "O kwadiseditswe VAT",
     "notRegisteredHint": "Tshwaya seno fa o setse o kwadisitswe. Go fitlha ka nako eo ditokomane tsa gago di re \"Invoice\" e bile ga di bontshe nomore ya VAT.",
     "chargingWarning": "Ga o a kwadisediwa VAT, ka jalo ga o a tshwanela go e duedisa. Baya VAT go 0%, kgotsa o tshwaye \"O kwadiseditswe VAT\" mo Dithulaganyong fa o setse o kwadisitswe."
+  },
+  "party": {
+    "typeCustomer": "Kwala leina, kgotsa o tlhophe moreki",
+    "typeSupplier": "Kwala leina, kgotsa o tlhophe motlamedi",
+    "addNew": {
+      "customer": "Oketsa “{{name}}” jaaka moreki yo mosha",
+      "supplier": "Oketsa “{{name}}” jaaka motlamedi yo mosha"
+    },
+    "willAdd": {
+      "customer": "Moreki yo mosha: “{{name}}” o tla okelediwa mo bareking ba gago fa o boloka.",
+      "supplier": "Motlamedi yo mosha: “{{name}}” o tla okelediwa mo batlamedi ba gago fa o boloka."
+    },
+    "added": {
+      "customer": "{{name}} o okeleditswe mo bareking ba gago",
+      "supplier": "{{name}} o okeleditswe mo batlamedi ba gago"
+    }
   }
 }

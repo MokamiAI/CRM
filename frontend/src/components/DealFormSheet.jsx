@@ -164,15 +164,24 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
           </select>
         </Field>
         {!deal && (
-          <Field label={t("dealForm.stage")}>
-            <select className="input" value={form.stage} onChange={set("stage")}>
+          // Four stages as buttons, not a dropdown: always all visible (a
+          // native list near the bottom of the sheet opened off-screen).
+          <fieldset>
+            <legend className="mb-1.5 block text-sm font-medium text-zinc-700">{t("dealForm.stage")}</legend>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               {STAGES.map((s) => (
-                <option key={s.value} value={s.value}>
+                <label
+                  key={s.value}
+                  className={`flex min-h-11 cursor-pointer items-center justify-center rounded-lg px-2 text-center text-sm font-medium ring-1 ring-inset transition-colors duration-150 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-500 ${
+                    form.stage === s.value ? "bg-indigo-50 text-indigo-800 ring-indigo-500" : "bg-white text-zinc-700 ring-zinc-200 hover:bg-zinc-50"
+                  }`}
+                >
+                  <input type="radio" name="deal-stage" value={s.value} checked={form.stage === s.value} onChange={set("stage")} className="sr-only" />
                   {s.label}
-                </option>
+                </label>
               ))}
-            </select>
-          </Field>
+            </div>
+          </fieldset>
         )}
         {team.length > 1 && (
           <Field label={t("dealForm.owner")}>

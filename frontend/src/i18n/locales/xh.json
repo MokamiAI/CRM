@@ -2372,5 +2372,21 @@
     "registered": "Ubhalisele i-VAT",
     "notRegisteredHint": "Phawula oku xa sele ubhalisile. Kude kube lelo xesha amaxwebhu akho athi \"I-invoyisi\" kwaye akabonisi nombolo ye-VAT.",
     "chargingWarning": "Awubhaliselanga i-VAT, ngoko akufanelanga uyibize. Seta i-VAT ibe yi-0%, okanye uphawule \"Ubhalisele i-VAT\" kwiiSetingi xa sele ubhalisile."
+  },
+  "party": {
+    "typeCustomer": "Chwetheza igama, okanye ukhethe umthengi",
+    "typeSupplier": "Chwetheza igama, okanye ukhethe umboneleli",
+    "addNew": {
+      "customer": "Yongeza “{{name}}” njengomthengi omtsha",
+      "supplier": "Yongeza “{{name}}” njengomboneleli omtsha"
+    },
+    "willAdd": {
+      "customer": "Umthengi omtsha: “{{name}}” uya kongezwa kubathengi bakho xa ugcina.",
+      "supplier": "Umboneleli omtsha: “{{name}}” uya kongezwa kubaboneleli bakho xa ugcina."
+    },
+    "added": {
+      "customer": "{{name}} wongezwe kubathengi bakho",
+      "supplier": "{{name}} wongezwe kubaboneleli bakho"
+    }
   }
 }

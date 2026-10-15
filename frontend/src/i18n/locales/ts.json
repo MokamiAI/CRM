@@ -2372,5 +2372,21 @@
     "registered": "U tsarisiwile eka VAT",
     "notRegisteredHint": "Funga leswi loko se u tsarisiwile. Ku fikela hi nkarhi wolowo tidokumente ta wena ti ri \"Invhoyisi\" naswona a ti kombisi nomboro ya VAT.",
     "chargingWarning": "A wu tsarisiwanga eka VAT, hikwalaho a wu fanelanga ku yi hakerisa. Veka VAT eka 0%, kumbe u funga \"U tsarisiwile eka VAT\" eka Swiveko loko se u tsarisiwile."
+  },
+  "party": {
+    "typeCustomer": "Thayipa vito, kumbe u hlawula muxavi",
+    "typeSupplier": "Thayipa vito, kumbe u hlawula muphakeri",
+    "addNew": {
+      "customer": "Engetela “{{name}}” tanihi muxavi lontshwa",
+      "supplier": "Engetela “{{name}}” tanihi muphakeri lontshwa"
+    },
+    "willAdd": {
+      "customer": "Muxavi lontshwa: “{{name}}” u ta engeteriwa eka vaxavi va wena loko u hlayisa.",
+      "supplier": "Muphakeri lontshwa: “{{name}}” u ta engeteriwa eka vaphakeri va wena loko u hlayisa."
+    },
+    "added": {
+      "customer": "{{name}} u engeteriwile eka vaxavi va wena",
+      "supplier": "{{name}} u engeteriwile eka vaphakeri va wena"
+    }
   }
 }
