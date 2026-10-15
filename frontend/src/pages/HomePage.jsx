@@ -8,7 +8,7 @@ import HomePeople from "../components/home/HomePeople";
 import HomeSavings from "../components/home/HomeSavings";
 import { FEATURES, FeatureIcon, Pricing } from "./AboutPage";
 import { PublicFooter } from "./PublicPages";
-import { StartupIntro } from "../components/Startup";
+import { INTRO_CLASS, INTRO_DONE, StartupIntro } from "../components/Startup";
 
 const STEPS = ["setup", "sell", "grow"];
 const POINTS = ["noCard", "trial", "cancel", "languages"];
@@ -21,19 +21,29 @@ function useReveal(root) {
   useLayoutEffect(() => {
     const el = root.current;
     if (!el || !("IntersectionObserver" in window)) return undefined;
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.setAttribute("data-visible", "");
-          io.unobserve(entry.target);
-        }
-      },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
-    );
-    el.querySelectorAll(".reveal").forEach((node) => io.observe(node));
+    let io;
+    const watch = () => {
+      io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.setAttribute("data-visible", "");
+            io.unobserve(entry.target);
+          }
+        },
+        { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+      );
+      el.querySelectorAll(".reveal").forEach((node) => io.observe(node));
+    };
     el.classList.add("reveal-armed");
-    return () => io.disconnect();
+    // Behind the opening intro, sections wait to reveal until it lifts.
+    const waiting = document.documentElement.classList.contains(INTRO_CLASS);
+    if (waiting) window.addEventListener(INTRO_DONE, watch, { once: true });
+    else watch();
+    return () => {
+      window.removeEventListener(INTRO_DONE, watch);
+      io?.disconnect();
+    };
   }, [root]);
 }
 
@@ -57,7 +67,7 @@ export default function HomePage() {
       </div>
 
       <div className="safe-top relative mx-auto max-w-6xl px-5 sm:px-6">
-        <header className="flex items-center gap-3 py-5">
+        <header className="hero-rise flex items-center gap-3 py-5">
           <Link to="/" className="flex min-h-10 items-center gap-2.5 rounded-lg">
             <BrandMark size="sm" />
             <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>

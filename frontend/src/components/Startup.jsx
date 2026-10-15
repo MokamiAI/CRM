@@ -8,6 +8,16 @@ import YouGotThis from "./YouGotThis";
 import { EASE_OUT, prefersReducedMotion } from "../utils/motion";
 
 const INTRO_KEY = "ygt.intro.seen";
+// On <html> while the intro shows: the home page holds its entrance.
+export const INTRO_CLASS = "ygt-intro";
+export const INTRO_DONE = "ygt:intro-done";
+
+/** The intro is leaving: let the home page make its entrance. */
+function releasePage() {
+  if (!document.documentElement.classList.contains(INTRO_CLASS)) return;
+  document.documentElement.classList.remove(INTRO_CLASS);
+  window.dispatchEvent(new Event(INTRO_DONE));
+}
 const WELCOME_KEY = "ygt.welcome";
 
 function readSession(key) {
@@ -39,13 +49,14 @@ export function welcomeQueued() {
 /** A full-screen layer. It can close gracefully (the words play backwards,
  *  then the layer fades and lifts) or at once; a second request while the
  *  graceful close is playing skips the rest of it. */
-function useOverlay(onClosed, outro, { keysGraceful = false } = {}) {
+function useOverlay(onClosed, outro, { keysGraceful = false, onLeaving } = {}) {
   const layer = useRef(null);
   const phase = useRef("open"); // open | outro | leaving
   const [closing, setClosing] = useState(false);
   const leave = useCallback(() => {
     if (phase.current === "leaving") return;
     phase.current = "leaving";
+    onLeaving?.();
     const el = layer.current;
     if (!el || prefersReducedMotion()) return onClosed();
     el.animate(
@@ -55,7 +66,7 @@ function useOverlay(onClosed, outro, { keysGraceful = false } = {}) {
       ],
       { duration: 420, easing: EASE_OUT, fill: "forwards" }
     ).finished.then(onClosed, onClosed);
-  }, [onClosed]);
+  }, [onClosed, onLeaving]);
   const close = useCallback(
     (graceful = false) => {
       if (phase.current === "open" && graceful && outro) {
@@ -91,7 +102,11 @@ function useOverlay(onClosed, outro, { keysGraceful = false } = {}) {
 export function StartupIntro() {
   const { t } = useTranslation();
   // Not with reduced motion: the point of it is the movement.
-  const [show, setShow] = useState(() => !readSession(INTRO_KEY) && !prefersReducedMotion());
+  const [show, setShow] = useState(() => {
+    const first = !readSession(INTRO_KEY) && !prefersReducedMotion();
+    if (first) document.documentElement.classList.add(INTRO_CLASS); // before the page paints
+    return first;
+  });
   const done = useCallback(() => setShow(false), []);
   useEffect(() => {
     if (show) writeSession(INTRO_KEY, "1");
@@ -100,12 +115,13 @@ export function StartupIntro() {
   return <IntroLayer t={t} onClosed={done} />;
 }
 
-const INTRO_HOLD = 1900; // ms "You Got This" stays before folding back
+const INTRO_HOLD = 2900; // ms "You Got This" stays before folding back
 
 function IntroLayer({ t, onClosed }) {
   const words = useRef(null);
   const outro = useCallback(() => words.current?.outro() ?? Promise.resolve(), []);
-  const { layer, close, closing } = useOverlay(onClosed, outro);
+  const { layer, close, closing } = useOverlay(onClosed, outro, { onLeaving: releasePage });
+  useEffect(() => releasePage, []); // also if it goes away some other way
   const timer = useRef(null);
   useEffect(() => () => clearTimeout(timer.current), []);
   const finished = useCallback(() => {

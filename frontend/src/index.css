@@ -750,6 +750,12 @@ textarea.input:focus {
 .hero-stage {
   animation: hero-stage 800ms var(--ease-out) 240ms both;
 }
+/* While the opening intro shows (components/Startup.jsx), the hero waits
+   at its first frame; it rises in as the intro lifts away. */
+.ygt-intro .hero-rise,
+.ygt-intro .hero-stage {
+  animation-play-state: paused;
+}
 @keyframes hero-stage {
   from {
     opacity: 0;
