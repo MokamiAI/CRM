@@ -44,3 +44,21 @@ async def test_documents_show_company_customer_and_contact_details(api):
     assert "Freshdesk renewal 2027" in qhtml and "with the bot builder included." in qhtml and "Sipho Nkosi" in qhtml
     edited = (await api.patch(f"/quotes/{quote['id']}", json={"title": "Freshdesk renewal 2027 (revised)", "description": ""}, headers=h)).json()
     assert edited["title"] == "Freshdesk renewal 2027 (revised)" and edited["description"] is None
+
+
+@pytest.mark.asyncio
+async def test_purchase_order_shows_where_to_deliver_and_who_ordered(api):
+    owner = await new_company(api, "Order Co")
+    h = owner["headers"]
+    await api.patch("/settings", json={"address": "7 Main Road\nMidrand\n1685"}, headers=h)
+    assert (await api.get("/company", headers=h)).json()["address"].startswith("7 Main Road")
+    supplier = (await api.post("/suppliers", json={"name": "Fresh Farms", "contact_name": "Pieter van Wyk", "phone": "021 555 0199"}, headers=h)).json()
+    po = (await api.post("/purchase-orders", json={"supplier_id": supplier["id"], "issue_date": TODAY, "items": ITEM}, headers=h)).json()
+    html = (await api.get(f"/purchase-orders/{po['id']}/document", headers=h)).text
+    assert "Deliver to" in html and "7 Main Road" in html  # no address given: the company's own
+    assert "Prepared by" in html and "Test Owner" in html
+    assert "Attention:" in html and "Pieter van Wyk" in html and "021 555 0199" in html
+
+    site = (await api.post("/purchase-orders", json={"supplier_id": supplier["id"], "issue_date": TODAY, "delivery_address": "Gate 2, Kyalami Estate", "items": ITEM}, headers=h)).json()
+    html = (await api.get(f"/purchase-orders/{site['id']}/document", headers=h)).text
+    assert "Gate 2, Kyalami Estate" in html

@@ -108,6 +108,8 @@ class CompanyProfileOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     company_name: str
+    # Printed on every document anyway; a new purchase order delivers here.
+    address: str | None = None
     default_currency: str
     logo_url: str | None
     customer_term: str

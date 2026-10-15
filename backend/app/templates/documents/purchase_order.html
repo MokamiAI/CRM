@@ -3,6 +3,13 @@
 {% block title %}Purchase order {{ doc.po_number }}{% endblock %}
 {% block doc_title %}Purchase order{% endblock %}
 {% block to_label %}Supplier{% endblock %}
+{# Where to deliver sits beside the supplier, where they look first. #}
+{% block party_extra %}
+<div>
+  <p class="label">Deliver to</p>
+  <p class="muted">{{ lines_of(doc.delivery_address or company.address or company.company_name) }}</p>
+</div>
+{% endblock %}
 {% block meta %}
 <table>
   <tr><td>Number</td><td><strong>{{ doc.po_number }}</strong></td></tr>
@@ -20,14 +27,6 @@
     <tr class="grand"><td>Total incl. {{ tax_short }}</td><td class="num">{{ money(doc.total) }}</td></tr>
   </table>
 </div>
-{% if doc.delivery_address %}
-<div class="boxes">
-  <div class="box">
-    <p class="label">Deliver to</p>
-    <p>{{ lines_of(doc.delivery_address) }}</p>
-  </div>
-</div>
-{% endif %}
 <div class="terms"><p class="muted">Please quote our order number <strong>{{ doc.po_number }}</strong> on your delivery note and invoice.</p></div>
 {% if doc.notes %}<div class="terms"><p class="label">Notes</p><p>{{ lines_of(doc.notes) }}</p></div>{% endif %}
 {% endblock %}

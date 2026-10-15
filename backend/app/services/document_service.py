@@ -128,7 +128,7 @@ def build_statement(customer, invoices, payments, start: date, end: date, tz: st
 
 def supplier_party(supplier):
     """A supplier in the shape the documents' address block expects."""
-    return SimpleNamespace(name=supplier.name, billing_address=supplier.address, email=supplier.email, tax_number=supplier.tax_number)
+    return SimpleNamespace(name=supplier.name, billing_address=supplier.address, email=supplier.email, phone=supplier.phone, tax_number=supplier.tax_number)
 
 
 class DocumentService:
@@ -176,7 +176,10 @@ class DocumentService:
         po = await PurchaseOrderService(self.db).get(po_id)
         supplier = await self.db.get(Supplier, po.supplier_id)
         company, template = await self._company()
-        return render("purchase_order", company, template, doc=po, customer=supplier_party(supplier))
+        people = await self._people(None, po.created_by)
+        # The supplier's contact person prints as "Attention", like a customer's.
+        contact = SimpleNamespace(first_name=supplier.contact_name, last_name=None, job_title=None, email=None, phone=None) if supplier.contact_name else None
+        return render("purchase_order", company, template, doc=po, customer=supplier_party(supplier), author=people["author"], contact=contact)
 
     async def statement(self, customer_id: uuid.UUID, start: date, end: date):
         customer = await CustomerRepository(self.db).get_by_id(customer_id)

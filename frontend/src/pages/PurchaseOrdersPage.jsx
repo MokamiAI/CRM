@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
-import { usePurchaseOrder, usePurchaseOrders, useSupplierMap, useSuppliers } from "../hooks/useApi";
+import { useCompany, usePurchaseOrder, usePurchaseOrders, useSupplierMap, useSuppliers } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import DocumentEditor from "../components/DocumentEditor";
 import { BackLink, LineItems, SummaryCard } from "../components/DocumentView";
@@ -296,6 +296,7 @@ export function NewPurchaseOrderPage() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const queryClient = useQueryClient();
+  const { data: company } = useCompany();
   const create = useMutation({
     mutationFn: (payload) => apiClient.post("/purchase-orders", payload).then((res) => res.data),
     onSuccess: (po) => {
@@ -308,16 +309,22 @@ export function NewPurchaseOrderPage() {
   return (
     <div className="max-w-4xl">
       <PageHeader eyebrow={<BackLink to="/purchase-orders">{t("nav.purchaseOrders")}</BackLink>} title={t("purchases.new")} subtitle={t("invoices.draftNote")} />
-      <DocumentEditor
-        kind="purchaseOrder"
-        dateField="delivery_date"
-        dateLabel={t("purchases.deliverBy")}
-        dateHint={t("quotes.optional")}
-        submitLabel={t("invoices.saveDraft")}
-        isSubmitting={create.isPending}
-        initialCustomerId={params.get("supplier") ?? undefined}
-        onSubmit={(payload) => create.mutate(payload)}
-      />
+      {/* Delivers to your own address unless changed (e.g. a site or venue). */}
+      {company ? (
+        <DocumentEditor
+          kind="purchaseOrder"
+          dateField="delivery_date"
+          dateLabel={t("purchases.deliverBy")}
+          dateHint={t("quotes.optional")}
+          submitLabel={t("invoices.saveDraft")}
+          isSubmitting={create.isPending}
+          initialCustomerId={params.get("supplier") ?? undefined}
+          initial={{ delivery_address: company.address ?? "" }}
+          onSubmit={(payload) => create.mutate(payload)}
+        />
+      ) : (
+        <ListSkeleton rows={4} />
+      )}
     </div>
   );
 }
