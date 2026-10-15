@@ -20,6 +20,7 @@ import {
   ViewAll,
 } from "../components/dashboard";
 import { formatMoney, formatMoneyWhole, formatShortDate, todayISO } from "../utils/format";
+import { useFirstToday } from "../utils/motion";
 
 function greeting() {
   const hour = new Date().getHours();
@@ -70,6 +71,7 @@ export default function DashboardPage() {
   const customers = useCustomerMap();
   const toggle = useToggleActivity();
   const [range, setRange] = useState(6);
+  const intro = useFirstToday("dashboard");
   const today = todayISO();
   const canWrite = user?.role !== "viewer";
 
@@ -103,7 +105,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5" data-intro={intro || undefined}>
       <PageHeader
         title={
           firstName ? (
@@ -133,7 +135,7 @@ export default function DashboardPage() {
       <GetStarted />
 
       {/* The four numbers to check first, each a door to its page. */}
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4" data-tour="dash-kpis">
+      <div className="intro-stagger grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4" data-tour="dash-kpis">
         <KpiCard
           to="/invoices"
           icon="cash"

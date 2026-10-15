@@ -1042,3 +1042,58 @@ textarea.input:focus {
     animation-name: fade-in;
   }
 }
+
+/* ---- Dashboard entrance: the day's first visit only (useFirstToday) ----
+   Opened many times a day, so it plays once each morning and the page is
+   simply there after that. Transform, opacity and clip-path only. */
+[data-intro] .intro-stagger > * {
+  animation: rise-in 320ms var(--ease-out) both;
+}
+[data-intro] .intro-stagger > :nth-child(2) {
+  animation-delay: 50ms;
+}
+[data-intro] .intro-stagger > :nth-child(3) {
+  animation-delay: 100ms;
+}
+[data-intro] .intro-stagger > :nth-child(4) {
+  animation-delay: 150ms;
+}
+/* Progress bars sweep in from the left to their value. */
+[data-intro] .intro-fill {
+  animation: intro-fill 700ms var(--ease-out) 200ms both;
+}
+@keyframes intro-fill {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+/* Chart lines draw left to right (pathLength="1"); the shading follows. */
+[data-intro] .intro-draw {
+  stroke-dasharray: 1;
+  animation: intro-draw 800ms var(--ease-out) 250ms both;
+}
+@keyframes intro-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+[data-intro] .intro-area {
+  animation: fade-in 400ms var(--ease-out) 650ms both;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Nothing moves: the cards fade, everything else is just there. */
+  [data-intro] .intro-stagger > * {
+    animation: fade-in 200ms ease both;
+  }
+  [data-intro] .intro-fill,
+  [data-intro] .intro-draw,
+  [data-intro] .intro-area {
+    animation: none;
+  }
+}

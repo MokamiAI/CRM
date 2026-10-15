@@ -1,7 +1,44 @@
+import { useEffect, useState } from "react";
+
 export const EASE_OUT = "cubic-bezier(0.23, 1, 0.32, 1)"; // same as --ease-out
 
 export function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/**
+ * True the first time `key` is shown today, in this browser; false after
+ * that (and when storage is unavailable). The dashboard is opened many
+ * times a day, so its entrance plays once each morning and never again
+ * that day: the rest of the time it is simply there.
+ */
+export function useFirstToday(key) {
+  const [first] = useState(() => {
+    try {
+      return localStorage.getItem(`ygt.motion.${key}`) !== new Date().toDateString();
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(`ygt.motion.${key}`, new Date().toDateString());
+    } catch {
+      /* private mode: no entrance, which is fine */
+    }
+  }, [key]);
+  return first;
+}
+
+/** True once per `key`, ever (e.g. a goal reached in a given year). */
+export function firstTime(key) {
+  try {
+    if (localStorage.getItem(`ygt.once.${key}`)) return false;
+    localStorage.setItem(`ygt.once.${key}`, "1");
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 const COLORS = ["#10b981", "#f59e0b", "#0ea5e9", "#8b5cf6", "#f43f5e", "#18181b"];

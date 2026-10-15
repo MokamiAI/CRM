@@ -8,6 +8,7 @@ import { ActivityIcon, EditActivityButton, PencilIcon, STAGE_LABELS } from "./cr
 import { EditCustomerSheet } from "./CustomerFormSheet";
 import { useAuth } from "../context/AuthContext";
 import { formatMoney, formatMoneyWhole, formatShortDate } from "../utils/format";
+import { celebrate, firstTime } from "../utils/motion";
 
 const Svg = ({ d, className = "h-5 w-5", ...props }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={className} {...props}>
@@ -122,8 +123,19 @@ const DAY_MS = 86400000;
 
 /** The year's revenue goal: deals won so far, against where you'd be if
  *  wins came evenly through the year, and what each month left needs. */
+/** Confetti from the target, the first time the year's goal is reached. */
+function GoalCelebration({ target, year }) {
+  useEffect(() => {
+    if (!firstTime(`goal-${year}`)) return undefined;
+    const timer = setTimeout(() => celebrate(target.current, { count: 22 }), 600);
+    return () => clearTimeout(timer);
+  }, [target, year]);
+  return null;
+}
+
 export function GoalCard({ goal, today, canEdit }) {
   const { t, i18n } = useTranslation();
+  const targetIcon = useRef(null);
   const month = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString(i18n.language, { month: "short", year: "numeric" });
   const range = `${month(goal.year_start)} – ${month(goal.year_end)}`;
   if (!goal.target || Number(goal.target) <= 0) {
@@ -162,7 +174,7 @@ export function GoalCard({ goal, today, canEdit }) {
     <section className="card p-5" aria-label={t("goal.title")}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ring-4 ${TONES[reached ? "emerald" : "blue"]}`}>
+          <span ref={targetIcon} className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ring-4 ${TONES[reached ? "emerald" : "blue"]}`}>
             <Svg d={Icons.target} className="h-5 w-5" />
           </span>
           <div>
@@ -178,6 +190,7 @@ export function GoalCard({ goal, today, canEdit }) {
           {reached ? t("goal.reached") : onPace ? t("goal.onPace") : t("goal.behind", { amount: formatMoneyWhole(expected - won) })}
         </span>
       </div>
+      {reached && <GoalCelebration target={targetIcon} year={goal.year_start} />}
       <p className="mt-3 text-sm text-slate-600">
         <span className="text-2xl font-bold tabular-nums text-midnight">{formatMoneyWhole(won)}</span> {t("goal.of", { target: formatMoneyWhole(target) })}
       </p>
@@ -191,7 +204,7 @@ export function GoalCard({ goal, today, canEdit }) {
           aria-valuenow={Math.round(pct)}
           aria-label={t("goal.aria", { pct: Math.round(pct) })}
         >
-          <div className={`h-full rounded-full ${reached ? "bg-emerald-500" : "bg-gradient-to-r from-blue-600 to-violet-500"}`} style={{ width: `${Math.max(pct, won > 0 ? 1.5 : 0)}%` }} />
+          <div className={`intro-fill h-full rounded-full ${reached ? "bg-emerald-500" : "bg-gradient-to-r from-blue-600 to-violet-500"}`} style={{ width: `${Math.max(pct, won > 0 ? 1.5 : 0)}%` }} />
         </div>
         {!reached && (
           <span className="absolute -top-1 h-5 w-0.5 rounded-full bg-midnight/60" style={{ left: `${elapsed * 100}%` }} title={t("goal.paceMarker")} aria-hidden="true" />
@@ -261,7 +274,7 @@ export function PipelineSummary({ stages }) {
   const total = open.reduce((sum, s) => sum + Number(s.value), 0);
   return (
     <div>
-      <div className="flex h-2.5 overflow-hidden rounded-full bg-slate-100" aria-hidden="true">
+      <div className="intro-fill flex h-2.5 overflow-hidden rounded-full bg-slate-100" aria-hidden="true">
         {total > 0 &&
           open.map((s) => (
             <span key={s.stage} className={STAGE_TONE[s.stage].dot} style={{ width: `${(Number(s.value) / total) * 100}%` }} />
@@ -450,9 +463,9 @@ export function RevenueChart({ months }) {
             <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
           </linearGradient>
         </defs>
-        <path d={area} fill={`url(#${id}-fill)`} />
+        <path className="intro-area" d={area} fill={`url(#${id}-fill)`} />
         {SERIES.map((s) => (
-          <path key={s.key} d={path(s.key)} fill="none" stroke={s.color} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+          <path key={s.key} className="intro-draw" pathLength="1" d={path(s.key)} fill="none" stroke={s.color} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
         ))}
         {/* Direct labels at the line ends: identity never by colour alone. */}
         {SERIES.map((s) => {
