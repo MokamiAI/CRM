@@ -2278,5 +2278,14 @@
     "details": "Imininingwana",
     "deal": "Hlela \"{{title}}\"",
     "customer": "Hlela u-{{name}}"
+  },
+  "lists": {
+    "chase": "Landela lokhu kokuthoma",
+    "drafts": "Amadrafti",
+    "notSent_one": "Ali-{{count}} angakathunyelwa",
+    "notSent_other": "Ali-{{count}} angakathunyelwa",
+    "expiring": "Kuphelelwa sikhathi kileveke",
+    "quotes_one": "Isilinganiso esi-{{count}}",
+    "quotes_other": "Iinlinganiso ezi-{{count}}"
   }
 }

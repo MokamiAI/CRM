@@ -2278,5 +2278,14 @@
     "details": "Zwidodombedzwa",
     "deal": "Shandukisani \"{{title}}\"",
     "customer": "Shandukisani {{name}}"
+  },
+  "lists": {
+    "chase": "Tevhelani hezwi u thoma",
+    "drafts": "Mbudziso",
+    "notSent_one": "Dza {{count}} dzi sa athu rumelwa",
+    "notSent_other": "Dza {{count}} dzi sa athu rumelwa",
+    "expiring": "Dzi a fhela vhegeni iyi",
+    "quotes_one": "Khotheshini ya {{count}}",
+    "quotes_other": "Khotheshini dza {{count}}"
   }
 }

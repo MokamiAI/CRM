@@ -1,10 +1,11 @@
+import { KpiCard, StatStrip } from "../components/dashboard";
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
-import { useCustomerMap, useInvoices } from "../hooks/useApi";
+import { useCustomerMap, useInvoices, useReportSummary } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import DocumentEditor from "../components/DocumentEditor";
 import { BackLink } from "../components/DocumentView";
@@ -19,7 +20,7 @@ import {
   PageHeader,
   PlusIcon,
 } from "../components/ui";
-import { errorMessage } from "../utils/format";
+import { errorMessage, formatMoneyWhole } from "../utils/format";
 
 const STATUS_FILTERS = [
   { value: "", key: "common.all" },
@@ -40,6 +41,8 @@ export function InvoicesPage() {
   const setClient = (id) => setParams(id ? { client: id } : {}, { replace: true });
   const { data, isLoading, isError, refetch } = useInvoices({ ...(status ? { status } : {}), ...(client ? { customer_id: client } : {}) });
   const customers = useCustomerMap();
+  const { data: summary } = useReportSummary();
+  const { data: drafts = [] } = useInvoices({ status: "draft" });
 
   return (
     <>
@@ -62,6 +65,14 @@ export function InvoicesPage() {
           </>
         }
       />
+      {summary && (
+        <StatStrip>
+          <KpiCard compact to="/invoices/aging" icon="invoice" tone="amber" label={t("dashboard.kpi.outstanding")} value={formatMoneyWhole(summary.outstanding)} detail={t("dashboard.acrossInvoices", { count: summary.open_invoice_count })} />
+          <KpiCard compact icon="invoice" tone="rose" label={t("status.overdue")} value={formatMoneyWhole(summary.overdue)} detail={t("lists.chase")} />
+          <KpiCard compact icon="cash" tone="emerald" label={t("dashboard.kpi.collected")} value={formatMoneyWhole(summary.collected_by_month.at(-1).total)} detail={t("dashboard.kpi.thisMonth")} />
+          <KpiCard compact icon="invoice" tone="blue" label={t("lists.drafts")} value={drafts.length} detail={t("lists.notSent", { count: drafts.length })} />
+        </StatStrip>
+      )}
       <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">
         <div className="min-w-0 flex-1 sm:max-w-sm">
           <ClientFilter value={client} onChange={setClient} />

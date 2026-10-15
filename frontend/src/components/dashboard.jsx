@@ -60,6 +60,7 @@ const TONES = {
   emerald: "bg-emerald-50 text-emerald-600 ring-emerald-100",
   violet: "bg-violet-50 text-violet-600 ring-violet-100",
   amber: "bg-amber-50 text-amber-600 ring-amber-100",
+  rose: "bg-rose-50 text-rose-600 ring-rose-100",
 };
 
 /** Small trend line for a KPI: only drawn from real history. */
@@ -77,18 +78,23 @@ function Sparkline({ values, color }) {
   );
 }
 
-/** One headline number. `change` is a real month-on-month comparison or null. */
-export function KpiCard({ to, icon, tone, label, value, detail, change, spark, sparkColor }) {
+/** One headline number. `change` is a real month-on-month comparison or
+ *  null. With `to` the card is a link; without, a plain figure. */
+export function KpiCard({ to, icon, tone, label, value, detail, change, spark, sparkColor, compact = false }) {
   const { t } = useTranslation();
+  const Shell = to ? Link : "div";
   return (
-    <Link to={to} className="card group flex min-w-0 flex-col p-3.5 transition-shadow duration-150 hover:shadow-pop sm:p-5">
+    <Shell
+      {...(to && { to })}
+      className={`card group flex min-w-0 flex-col p-3.5 ${compact ? "sm:p-4" : "sm:p-5"} ${to ? "transition-shadow duration-150 hover:shadow-pop" : ""}`}
+    >
       <span className="flex items-center gap-2.5 sm:gap-3">
         <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ring-4 sm:h-10 sm:w-10 ${TONES[tone]}`}>
           <Svg d={Icons[icon]} className="h-[18px] w-[18px]" />
         </span>
         <span className="line-clamp-2 text-[13px] font-medium leading-tight text-slate-500">{label}</span>
       </span>
-      <span className="mt-3 block truncate text-lg font-bold tracking-tight tabular-nums text-midnight sm:text-2xl">{value}</span>
+      <span className={`block truncate text-lg font-bold tracking-tight tabular-nums text-midnight ${compact ? "mt-2 sm:text-xl" : "mt-3 sm:text-2xl"}`}>{value}</span>
       <span className="mt-1 flex items-end justify-between gap-2">
         <span className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-slate-500">
           {change != null && (
@@ -106,8 +112,13 @@ export function KpiCard({ to, icon, tone, label, value, detail, change, spark, s
           </span>
         )}
       </span>
-    </Link>
+    </Shell>
   );
+}
+
+/** A row of headline figures above a list. */
+export function StatStrip({ children }) {
+  return <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">{children}</div>;
 }
 
 /* ------------------------------------------------------------ pipeline */

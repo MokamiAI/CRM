@@ -2278,5 +2278,14 @@
     "details": "Dintlha",
     "deal": "Fetola \"{{title}}\"",
     "customer": "Fetola {{name}}"
+  },
+  "lists": {
+    "chase": "Latela tse pele",
+    "drafts": "Dithulaganyo",
+    "notSent_one": "Tse {{count}} tse di iseng di romelwe",
+    "notSent_other": "Tse {{count}} tse di iseng di romelwe",
+    "expiring": "Di fela beke eno",
+    "quotes_one": "Kotheišene e {{count}}",
+    "quotes_other": "Dikotheišene di le {{count}}"
   }
 }

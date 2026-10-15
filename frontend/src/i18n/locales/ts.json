@@ -2278,5 +2278,14 @@
     "details": "Vuxokoxoko",
     "deal": "Lulamisa \"{{title}}\"",
     "customer": "Lulamisa {{name}}"
+  },
+  "lists": {
+    "chase": "Landzelerisa leswi ku sungula",
+    "drafts": "Swikunguhatwa",
+    "notSent_one": "Swa {{count}} leswi nga si rhumeriwaka",
+    "notSent_other": "Swa {{count}} leswi nga si rhumeriwaka",
+    "expiring": "Swi hela vhiki leri",
+    "quotes_one": "Khotexini ya {{count}}",
+    "quotes_other": "Tikhotexini ta {{count}}"
   }
 }

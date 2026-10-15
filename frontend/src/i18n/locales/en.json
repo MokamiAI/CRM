@@ -2278,5 +2278,14 @@
     "details": "Details",
     "deal": "Edit \"{{title}}\"",
     "customer": "Edit {{name}}"
+  },
+  "lists": {
+    "chase": "Chase these first",
+    "drafts": "Drafts",
+    "notSent_one": "{{count}} not sent yet",
+    "notSent_other": "{{count}} not sent yet",
+    "expiring": "Expiring this week",
+    "quotes_one": "{{count}} quote",
+    "quotes_other": "{{count}} quotes"
   }
 }

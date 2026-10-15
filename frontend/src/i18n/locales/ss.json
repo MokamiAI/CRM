@@ -2278,5 +2278,14 @@
     "details": "Imininingwane",
     "deal": "Hlela \"{{title}}\"",
     "customer": "Hlela {{name}}"
+  },
+  "lists": {
+    "chase": "Landzelela loku kucala",
+    "drafts": "Emadrafti",
+    "notSent_one": "Langu-{{count}} langakatfunyelwa",
+    "notSent_other": "Langu-{{count}} langakatfunyelwa",
+    "expiring": "Kuphela kulelivikini",
+    "quotes_one": "Sicalo lesingu-{{count}}",
+    "quotes_other": "Ticalo letingu-{{count}}"
   }
 }

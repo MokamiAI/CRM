@@ -2278,5 +2278,14 @@
     "details": "Besonderhede",
     "deal": "Wysig \"{{title}}\"",
     "customer": "Wysig {{name}}"
+  },
+  "lists": {
+    "chase": "Volg hierdie eerste op",
+    "drafts": "Konsepte",
+    "notSent_one": "{{count}} nog nie gestuur nie",
+    "notSent_other": "{{count}} nog nie gestuur nie",
+    "expiring": "Verval hierdie week",
+    "quotes_one": "{{count}} kwotasie",
+    "quotes_other": "{{count}} kwotasies"
   }
 }

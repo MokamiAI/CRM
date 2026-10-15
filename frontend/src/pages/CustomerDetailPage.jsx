@@ -1,3 +1,4 @@
+import { KpiCard } from "../components/dashboard";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -127,19 +128,12 @@ export default function CustomerDetailPage() {
         </div>
 
         {/* Key numbers at a glance. */}
-        <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {[
-            [t("customer.owesYou"), formatMoney(owed)],
-            [t("customer.paidToDate"), formatMoney(lifetime)],
-            [t("customers.col.openDeals"), openDeals.length],
-            [t("customer.pipeline"), formatMoney(openDeals.reduce((sum, d) => sum + Number(d.value), 0))],
-          ].map(([label, value]) => (
-            <div key={label} className="card px-4 py-3">
-              <dt className="text-xs font-medium text-zinc-500">{label}</dt>
-              <dd className="mt-1 text-lg font-semibold tracking-tight text-zinc-900">{value}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <KpiCard compact icon="invoice" tone="amber" label={t("customer.owesYou")} value={formatMoney(owed)} />
+          <KpiCard compact icon="cash" tone="emerald" label={t("customer.paidToDate")} value={formatMoney(lifetime)} />
+          <KpiCard compact icon="deals" tone="blue" label={t("customers.col.openDeals")} value={openDeals.length} />
+          <KpiCard compact icon="customers" tone="violet" label={t("customer.pipeline")} value={formatMoney(openDeals.reduce((sum, d) => sum + Number(d.value), 0))} />
+        </div>
       </div>
 
       <div className="grid items-start gap-6 lg:grid-cols-12">

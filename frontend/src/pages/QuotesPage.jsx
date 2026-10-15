@@ -1,3 +1,4 @@
+import { KpiCard, StatStrip } from "../components/dashboard";
 import { useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -24,7 +25,7 @@ import {
   PlusIcon,
   StatusBadge,
 } from "../components/ui";
-import { errorMessage, formatDate, formatMoney, formatShortDate } from "../utils/format";
+import { errorMessage, formatDate, formatMoney, formatMoneyWhole, formatShortDate, todayISO } from "../utils/format";
 
 const STATUS_FILTERS = [
   { value: "", key: "common.all" },
@@ -45,6 +46,16 @@ export function QuotesPage() {
   const setClient = (id) => setParams(id ? { client: id } : {}, { replace: true });
   const { data, isLoading, isError, refetch } = useQuotes({ ...(status ? { status } : {}), ...(client ? { customer_id: client } : {}) });
   const customers = useCustomerMap();
+  const { data: sent = [] } = useQuotes({ status: "sent" });
+  const { data: drafts = [] } = useQuotes({ status: "draft" });
+  // Won: accepted, or already turned into an invoice (accepting does that).
+  const { data: acceptedOnly = [] } = useQuotes({ status: "accepted" });
+  const { data: converted = [] } = useQuotes({ status: "converted" });
+  const accepted = [...acceptedOnly, ...converted];
+  const weekAhead = new Date(`${todayISO()}T00:00:00`);
+  weekAhead.setDate(weekAhead.getDate() + 7);
+  const expiring = sent.filter((q) => q.expiry_date && q.expiry_date <= weekAhead.toISOString().slice(0, 10));
+  const worth = (list) => list.reduce((n, q) => n + Number(q.total), 0);
 
   return (
     <>
@@ -59,6 +70,12 @@ export function QuotesPage() {
           )
         }
       />
+      <StatStrip>
+        <KpiCard compact icon="quote" tone="blue" label={t("dashboard.awaitingReply")} value={formatMoneyWhole(worth(sent))} detail={t("lists.quotes", { count: sent.length })} />
+        <KpiCard compact icon="activity" tone="amber" label={t("lists.expiring")} value={expiring.length} detail={formatMoneyWhole(worth(expiring))} />
+        <KpiCard compact icon="quote" tone="violet" label={t("lists.drafts")} value={drafts.length} detail={t("lists.notSent", { count: drafts.length })} />
+        <KpiCard compact icon="cash" tone="emerald" label={t("status.accepted")} value={formatMoneyWhole(worth(accepted))} detail={t("lists.quotes", { count: accepted.length })} />
+      </StatStrip>
       <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">
         <div className="min-w-0 flex-1 sm:max-w-sm">
           <ClientFilter value={client} onChange={setClient} />

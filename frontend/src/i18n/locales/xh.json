@@ -2278,5 +2278,14 @@
     "details": "Iinkcukacha",
     "deal": "Hlela \"{{title}}\"",
     "customer": "Hlela u-{{name}}"
+  },
+  "lists": {
+    "chase": "Landela ezi kuqala",
+    "drafts": "Iidrafti",
+    "notSent_one": "Ezi-{{count}} ezingekathunyelwa",
+    "notSent_other": "Ezi-{{count}} ezingekathunyelwa",
+    "expiring": "Ziphelelwa lixesha kule veki",
+    "quotes_one": "Ikowuti e-{{count}}",
+    "quotes_other": "Iikowuti ezi-{{count}}"
   }
 }

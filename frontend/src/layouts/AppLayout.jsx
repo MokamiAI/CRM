@@ -151,7 +151,7 @@ function SidebarLink({ to, navKey, icon: ItemIcon, end, badge, collapsed }) {
       data-tour={navKey}
       aria-label={collapsed ? label : undefined}
       className={({ isActive }) =>
-        `group relative flex items-center gap-3 rounded-xl text-sm font-medium transition-colors duration-150 ${collapsed ? "h-10 w-10 justify-center" : "px-3 py-2"} ${
+        `group relative flex items-center gap-3 rounded-xl text-sm font-medium transition-colors duration-150 ${collapsed ? "h-10 w-10 justify-center" : "px-3 py-[7px]"} ${
           isActive ? "bg-blue-600 text-white shadow-[0_8px_20px_-8px_rgb(37_99_235/0.7)]" : "text-slate-300 hover:bg-white/[0.07] hover:text-white"
         }`
       }
@@ -390,7 +390,7 @@ export default function AppLayout() {
               </span>
             )}
           </Link>
-          <nav className={`flex-1 space-y-5 overflow-y-auto pb-4 pt-2 [scrollbar-width:thin] ${railCls}`} aria-label={t("nav.main")}>
+          <nav className={`flex-1 space-y-4 overflow-y-auto pb-3 pt-1 [scrollbar-width:thin] ${railCls}`} aria-label={t("nav.main")}>
             {NAV_GROUPS.map((group, i) => (
               <div key={i} className={collapsed ? "flex flex-col items-center" : ""}>
                 {group.title &&
@@ -407,26 +407,12 @@ export default function AppLayout() {
               </div>
             ))}
           </nav>
-          <div className={`space-y-1 border-t border-white/10 py-3 ${railCls}`}>
+          <div className={`space-y-0.5 border-t border-white/10 py-2.5 ${railCls}`}>
             {user?.is_platform_admin && <SidebarLink {...NAV.admin} collapsed={collapsed} />}
             <SidebarLink {...NAV.support} collapsed={collapsed} />
             {isAdmin && <SidebarLink {...NAV.settings} collapsed={collapsed} />}
             <SidebarLink {...NAV.help} collapsed={collapsed} />
             <SidebarLink {...NAV.about} collapsed={collapsed} />
-            {!collapsed && (
-              <button
-                type="button"
-                onClick={() => setProfileOpen(true)}
-                className="mt-2 flex w-full items-center gap-3 rounded-xl bg-white/[0.05] px-3 py-2.5 text-left transition-colors duration-150 hover:bg-white/10"
-                aria-label={t("nav.profile")}
-              >
-                <Avatar name={displayName} size="sm" />
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[13px] font-medium">{displayName}</span>
-                  <span className="block truncate text-xs text-slate-400">{user && t(`role.${user.role}`)}</span>
-                </span>
-              </button>
-            )}
           </div>
         </aside>
 

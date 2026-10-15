@@ -1,7 +1,8 @@
 import { useDeferredValue, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useCustomerOverview } from "../hooks/useApi";
+import { useCustomerOverview, useReportSummary } from "../hooks/useApi";
+import { KpiCard, StatStrip } from "../components/dashboard";
 import i18n from "../i18n";
 import { useAuth } from "../context/AuthContext";
 import CustomerFormSheet, { EditCustomerSheet } from "../components/CustomerFormSheet";
@@ -18,7 +19,7 @@ import {
   SearchInput,
   StatusBadge,
 } from "../components/ui";
-import { formatDate, formatMoney, formatMoneyCompact } from "../utils/format";
+import { formatDate, formatMoney, formatMoneyCompact, formatMoneyWhole } from "../utils/format";
 
 const ACTIVE_FILTERS = [
   { value: "true", key: "status.active" },
@@ -53,6 +54,7 @@ export default function CustomersPage() {
   const [editingId, setEditingId] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [creating, setCreating] = useState(() => canWrite && searchParams.get("new") === "1");
+  const { data: summary } = useReportSummary();
   const closeForm = () => {
     setCreating(false);
     if (searchParams.get("new")) setSearchParams({}, { replace: true });
@@ -71,6 +73,14 @@ export default function CustomersPage() {
           )
         }
       />
+      {summary && (
+        <StatStrip>
+          <KpiCard compact icon="customers" tone="violet" label={t("dashboard.kpi.customers")} value={summary.active_customers} detail={t("dashboard.kpi.newThisMonth", { count: summary.new_customers_this_month })} />
+          <KpiCard compact to="/invoices/aging" icon="invoice" tone="amber" label={t("customer.owesYou")} value={formatMoneyWhole(summary.outstanding)} detail={Number(summary.overdue) > 0 ? t("dashboard.overdueAmount", { amount: formatMoneyWhole(summary.overdue) }) : t("dashboard.acrossInvoices", { count: summary.open_invoice_count })} />
+          <KpiCard compact to="/deals" icon="deals" tone="blue" label={t("dashboard.kpi.openDeals")} value={formatMoneyWhole(summary.open_pipeline_value)} detail={t("dashboard.openDeals", { count: summary.open_deal_count })} />
+          <KpiCard compact icon="cash" tone="emerald" label={t("dashboard.kpi.collected")} value={formatMoneyWhole(summary.collected_by_month.at(-1).total)} detail={t("dashboard.kpi.thisMonth")} />
+        </StatStrip>
+      )}
       <div className="md:flex md:items-start md:gap-3">
         <div className="md:flex-1">
           <SearchInput value={search} onChange={setSearch} placeholder={t("customers.search")} />

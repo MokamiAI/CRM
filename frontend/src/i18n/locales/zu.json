@@ -2278,5 +2278,14 @@
     "details": "Imininingwane",
     "deal": "Hlela u-\"{{title}}\"",
     "customer": "Hlela u-{{name}}"
+  },
+  "lists": {
+    "chase": "Landelela lokhu kuqala",
+    "drafts": "Okusalungiswa",
+    "notSent_one": "Okungu-{{count}} okungakathunyelwa",
+    "notSent_other": "Okungu-{{count}} okungakathunyelwa",
+    "expiring": "Kuphelelwa yisikhathi kuleli sonto",
+    "quotes_one": "Isilinganiso esingu-{{count}}",
+    "quotes_other": "Izilinganiso ezingu-{{count}}"
   }
 }
