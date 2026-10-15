@@ -121,7 +121,7 @@
       "recurring_invoices": "Ema-invoyisi laphindzaphindzako",
       "discovery": "Kutfola: emakhasimende lamasha liviki ngalinye"
     },
-    "fewer": "Bantfu labambalwa",
+    "fewer": "Tihlalo letimbalwa",
     "fixPayment": "Buyeketa likhadi",
     "interval": "Sikhatsi sekukhokha",
     "keep": "Gcina luhlelo lwami",
@@ -131,11 +131,10 @@
       "customers_other": "Kuze kube batsengi labangu-{{count}}",
       "invoices_one": "I-invoyisi le-{{count}} ngenyanga",
       "invoices_other": "Ema-invoyisi langu-{{count}} ngenyanga",
-      "perUser_one": "Inani ngemuntfu ngamunye, kusukela ku-{{count}}",
-      "perUser_other": "Inani ngemuntfu ngamunye, kusukela ku-{{count}}",
       "unlimited": "Batsengi nema-invoyisi langenamkhawulo",
       "users_one": "Umuntfu lo-{{count}}",
-      "users_other": "Kuze kube bantfu labangu-{{count}}"
+      "users_other": "Kuze kube bantfu labangu-{{count}}",
+      "seats": "Sihlalo sinye ngemuntu; engeta nobe ususe tihlalo nobe nini"
     },
     "locked": {
       "askAdmin": "Cela umphatsi wakho akhetse luhlelo.",
@@ -144,7 +143,7 @@
       "titleLapsed": "Luhlelo lwakho luphelile"
     },
     "monthly": "Njalo ngenyanga",
-    "more": "Bantfu labanyenti",
+    "more": "Tihlalo letinyenti",
     "notConfigured": "Tinkhokhelo te-inthanethi atikavulwa. Sicela uphindze ulinge ngemuva.",
     "notPaid": "Inkhokhelo ayicedvwanga, ngako-ke kute lokushintjile.",
     "notice": {
@@ -159,11 +158,11 @@
     },
     "paid": "Inkhokhelo itfoliwe. Nyalo use ku-{{plan}}.",
     "payments": "Tinkhokhelo",
-    "people": "Bantfu",
-    "peopleCount_one": "Umuntfu lo-{{count}}",
-    "peopleCount_other": "Bantfu labangu-{{count}}",
+    "people": "Tihlalo",
+    "peopleCount_one": "sihlalo lesingu-{{count}}",
+    "peopleCount_other": "tihlalo letingu-{{count}}",
     "perMonth": "inyanga",
-    "perPerson": "ngamunye",
+    "perPerson": "ngesihlalo",
     "perYear": "umnyaka",
     "planName": {
       "free": "Free",
@@ -175,7 +174,7 @@
     },
     "popular": "Lolutsandvwa kakhulu",
     "seatsFull": "Luhlelo lwakho lugcwele.",
-    "seatsUsed": "{{used}} kubantfu labangu-{{limit}} ehlelweni lwakho",
+    "seatsUsed": "{{used}} kuletingu-{{limit}} tihlalo letisetjentiswako",
     "securedBy": "Tinkhokhelo tiphatfwa yi-Paystack. I-YGT ayiyiboni inombolo yelikhadi lakho.",
     "seePlans": "Buka tinhlelo",
     "state": {
@@ -199,13 +198,13 @@
     "tagline": {
       "free": "Kuzama i-YGT wedvwa",
       "grow": "Emathimba lamancane ekutsengisa",
-      "hustle": "Emabhizinisi emuntfu munye",
+      "hustle": "Emabhizinisi lamancane laculako",
       "scale": "Emabhizinisi lakhulako",
       "enterprise": "Etinhlanganweni letinkhulu"
     },
     "toPaystack": "Kuvulwa i-Paystack…",
-    "total_one": "{{amount}} yemuntfu lo-{{count}}",
-    "total_other": "{{amount}} yebantfu labangu-{{count}}",
+    "total_one": "{{amount}} yesihlalo lesingu-{{count}}",
+    "total_other": "{{amount}} yetihlalo letingu-{{count}}",
     "twoFree": "Tinyanga leti-2 mahhala",
     "updateCard": "Buyeketa likhadi",
     "usage": {
@@ -228,7 +227,9 @@
     },
     "invoices": "Ema-invoyisi",
     "invoicesHint": "Linye lelivela ku-YGT ngenkhokhelo ngayinye, litfunyelwa kuwe nge-imeyili nawukhokha.",
-    "paystackRef": "Inkhomba ye-Paystack {{ref}}"
+    "paystackRef": "Inkhomba ye-Paystack {{ref}}",
+    "teamFrom": "{{price}} ngesihlalo kusukela etihlalweni letingu-{{count}}",
+    "teamPrice": "Intsengo yelicembu: tihlalo letingu-{{count}}+"
   },
   "channels": {
     "appPassword": {
@@ -867,7 +868,7 @@
     "BILLING_NOTHING_TO_CANCEL": "Kute luhlelo lolukhokhelwako lekulukhansela.",
     "BILLING_NOT_CONFIGURED": "Tinkhokhelo te-inthanethi atikavulwa.",
     "BILLING_NO_SUBSCRIPTION": "Kute likhadi lelilondvoloziwe nyalo.",
-    "BILLING_TOO_FEW_USERS": "Khetsa lokungenani bantfu labanyenti njengalabasebentako elithimbeni lakho nyalo.",
+    "BILLING_TOO_FEW_USERS": "Khetsa tihlalo lokungenani letilingana nebantfu labasebentako elicenjini lakho nyalo.",
     "CHANNEL_NOT_SET": "Lesitesheni asikasetjwa. Umphatsi angasixhumanisa ku-Kuhlela.",
     "CUSTOMER_NO_EMAIL": "Lomtsengi akanalo likheli le-imeyili.",
     "CUSTOMER_NO_PHONE": "Lomtsengi akanayo inombolo yelucingo lesebentako.",
@@ -879,7 +880,7 @@
     "PLAN_FEATURE_WHATSAPP_SMS": "WhatsApp ne-SMS kuyincenye yeluhlelo lwe-Grow.",
     "PLAN_LIMIT_CUSTOMERS": "Ufike emkhawulweni webatsengi weluhlelo lwakho. Khetsa luhlelo ku-Kuhlela > Inkhokhelo kute utfole batsengi labangenamkhawulo.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "Usebentisile ema-invoyisi alenyanga ehlelweni le-Free. Khetsa luhlelo ku-Kuhlela > Inkhokhelo kute utfole ema-invoyisi langenamkhawulo.",
-    "PLAN_LIMIT_USERS": "Luhlelo lwakho alunandzawo yalomunye umuntfu. Umphatsi angengeta bantfu ku-Kuhlela > Inkhokhelo.",
+    "PLAN_LIMIT_USERS": "Luhlelo lwakho alunaso sihlalo lesikhululekile semuntu lomunye. Umphatsi angengeta tihlalo kuTilungiselelo > Inkhokhelo.",
     "RATE_LIMITED": "Imizamo leminyenti kakhulu. Sicela ulindze kancane bese uphindza ulinga.",
     "RESET_LINK_INVALID": "Lelinki seliphelelwe sikhatsi noma selisetjentisiwe. Cela lelinye.",
     "SLOT_TAKEN": "Lesikhatsi sisandza kutsatfwa. Sicela ukhetse lesinye.",

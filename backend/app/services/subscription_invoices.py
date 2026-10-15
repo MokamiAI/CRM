@@ -122,8 +122,8 @@ def plan_label(invoice: SubscriptionInvoice) -> str:
     plan = PLANS.get(invoice.plan)
     name = plan.name if plan else invoice.plan.title()
     per = "year" if invoice.interval == "annually" else "month"
-    people = f", {invoice.seats} people" if plan and plan.per_user else ""
-    return f"YGT {name} plan, 1 {per}{people}"
+    seats = f", {invoice.seats} seat{'s' if invoice.seats != 1 else ''}" if plan and plan.per_user else ""
+    return f"YGT {name} plan, 1 {per}{seats}"
 
 
 def render_html(invoice: SubscriptionInvoice) -> str:

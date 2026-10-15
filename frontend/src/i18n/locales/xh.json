@@ -121,7 +121,7 @@
       "recurring_invoices": "Ii-invoyisi eziphindaphindayo",
       "discovery": "Ukufumanisa: abathengi abatsha veki nganye"
     },
-    "fewer": "Abantu abambalwa",
+    "fewer": "Izitulo ezimbalwa",
     "fixPayment": "Hlaziya ikhadi",
     "interval": "Ixesha lokuhlawula",
     "keep": "Gcina isicwangciso sam",
@@ -131,11 +131,10 @@
       "customers_other": "Ukuya kuthi ga kubathengi abali-{{count}}",
       "invoices_one": "I-invoyisi e-{{count}} ngenyanga",
       "invoices_other": "Ii-invoyisi ezi-{{count}} ngenyanga",
-      "perUser_one": "Ixabiso ngomntu ngamnye, ukusuka ku-{{count}}",
-      "perUser_other": "Ixabiso ngomntu ngamnye, ukusuka ku-{{count}}",
       "unlimited": "Abathengi nee-invoyisi ezingenamda",
       "users_one": "Umntu o-{{count}}",
-      "users_other": "Ukuya kuthi ga kubantu abali-{{count}}"
+      "users_other": "Ukuya kuthi ga kubantu abali-{{count}}",
+      "seats": "Isitulo esinye ngomntu ngamnye; yongeza okanye ususe izitulo nanini na"
     },
     "locked": {
       "askAdmin": "Cela umlawuli wakho akhethe isicwangciso.",
@@ -144,7 +143,7 @@
       "titleLapsed": "Isicwangciso sakho siphelile"
     },
     "monthly": "Ngenyanga",
-    "more": "Abantu abaninzi",
+    "more": "Izitulo ezingakumbi",
     "notConfigured": "Iintlawulo ze-intanethi azikavulwa. Nceda uzame kwakhona kamva.",
     "notPaid": "Intlawulo ayigqitywanga, ngoko akukho nto itshintshileyo.",
     "notice": {
@@ -159,11 +158,11 @@
     },
     "paid": "Intlawulo ifunyenwe. Ngoku ukwi-{{plan}}.",
     "payments": "Iintlawulo",
-    "people": "Abantu",
-    "peopleCount_one": "Umntu o-{{count}}",
-    "peopleCount_other": "Abantu abali-{{count}}",
+    "people": "Izitulo",
+    "peopleCount_one": "isitulo esi-{{count}}",
+    "peopleCount_other": "izitulo ezi-{{count}}",
     "perMonth": "inyanga",
-    "perPerson": "ngomntu ngamnye",
+    "perPerson": "kwisitulo ngasinye",
     "perYear": "unyaka",
     "planName": {
       "free": "Free",
@@ -175,7 +174,7 @@
     },
     "popular": "Esona sithandwayo",
     "seatsFull": "Isicwangciso sakho sigcwele.",
-    "seatsUsed": "{{used}} kwabali-{{limit}} kwisicwangciso sakho",
+    "seatsUsed": "{{used}} kwezi-{{limit}} izitulo ezisetyenziswayo",
     "securedBy": "Iintlawulo ziphathwa yi-Paystack. I-YGT ayiyiboni inombolo yekhadi lakho.",
     "seePlans": "Jonga izicwangciso",
     "state": {
@@ -199,13 +198,13 @@
     "tagline": {
       "free": "Ukuzama i-YGT wedwa",
       "grow": "Amaqela amancinci entengiso",
-      "hustle": "Amashishini omntu omnye",
+      "hustle": "Kumashishini amancinci aqalayo",
       "scale": "Amashishini akhulayo",
       "enterprise": "Kwimibutho emikhulu"
     },
     "toPaystack": "Kuvulwa i-Paystack…",
-    "total_one": "{{amount}} yomntu o-{{count}}",
-    "total_other": "{{amount}} yabantu abali-{{count}}",
+    "total_one": "{{amount}} kwisitulo esi-{{count}}",
+    "total_other": "{{amount}} kwizitulo ezi-{{count}}",
     "twoFree": "Iinyanga ezi-2 simahla",
     "updateCard": "Hlaziya ikhadi",
     "usage": {
@@ -228,7 +227,9 @@
     },
     "invoices": "Ii-invoyisi",
     "invoicesHint": "Enye evela ku-YGT kwintlawulo nganye, ithunyelwa kuwe nge-imeyile xa uhlawula.",
-    "paystackRef": "Isalathiso se-Paystack {{ref}}"
+    "paystackRef": "Isalathiso se-Paystack {{ref}}",
+    "teamFrom": "{{price}} ngesitulo ukusuka kwizitulo ezi-{{count}}",
+    "teamPrice": "Ixabiso leqela: izitulo ezi-{{count}}+"
   },
   "channels": {
     "appPassword": {
@@ -867,7 +868,7 @@
     "BILLING_NOTHING_TO_CANCEL": "Akukho sicwangciso sihlawulelwayo sokurhoxisa.",
     "BILLING_NOT_CONFIGURED": "Iintlawulo ze-intanethi azikavulwa.",
     "BILLING_NO_SUBSCRIPTION": "Akukho khadi ligciniweyo okwangoku.",
-    "BILLING_TOO_FEW_USERS": "Khetha ubuncinci abantu abaninzi njengabo basebenzayo kwiqela lakho ngoku.",
+    "BILLING_TOO_FEW_USERS": "Khetha izitulo ubuncinane ezilingana nabantu abasebenzayo eqeleni lakho ngoku.",
     "CHANNEL_NOT_SET": "Elo jelo alikasetwa. Umlawuli unokulidibanisa kwiiSetingi.",
     "CUSTOMER_NO_EMAIL": "Lo mthengi akanayo idilesi ye-imeyile.",
     "CUSTOMER_NO_PHONE": "Lo mthengi akanayo inombolo yefowuni esebenzayo.",
@@ -879,7 +880,7 @@
     "PLAN_FEATURE_WHATSAPP_SMS": "I-WhatsApp ne-SMS ziyinxalenye yesicwangciso se-Grow.",
     "PLAN_LIMIT_CUSTOMERS": "Ufikelele kumda wabathengi wesicwangciso sakho. Khetha isicwangciso kwiiSetingi > Intlawulo ukuze ufumane abathengi abangenamda.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "Uzisebenzisile ii-invoyisi zale nyanga kwisicwangciso se-Free. Khetha isicwangciso kwiiSetingi > Intlawulo ukuze ufumane ii-invoyisi ezingenamda.",
-    "PLAN_LIMIT_USERS": "Isicwangciso sakho asinandawo yomnye umntu. Umlawuli unokongeza abantu kwiiSetingi > Intlawulo.",
+    "PLAN_LIMIT_USERS": "Isicwangciso sakho asinasitulo sikhululekileyo somnye umntu. Umlawuli unokongeza izitulo kwiiSetingi > Ukuhlawula.",
     "RATE_LIMITED": "Iinzame ezininzi kakhulu. Nceda ulinde kancinci uze uzame kwakhona.",
     "RESET_LINK_INVALID": "Olu nxibelelwano luphelelwe lixesha okanye sele lusetyenzisiwe. Cela olutsha.",
     "SLOT_TAKEN": "Elo xesha lisandula ukuthathwa. Nceda ukhethe elinye.",

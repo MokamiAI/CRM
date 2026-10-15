@@ -333,6 +333,11 @@ function PlanPicker({ value, onChange }) {
                   <span className="text-xs tabular-nums text-zinc-500">{price.replace(/\s+/g, " ")}</span>
                 </span>
                 <span className="block text-xs text-zinc-500">{t(`billing.tagline.${plan.key}`)}</span>
+                {plan.team_monthly_cents != null && (
+                  <span className="block text-xs font-medium text-emerald-700">
+                    {t("billing.teamFrom", { price: formatMoneyWhole(plan.team_monthly_cents / 100), count: plan.team_seats })}
+                  </span>
+                )}
               </span>
             </button>
           );

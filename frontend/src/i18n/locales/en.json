@@ -121,7 +121,7 @@
       "recurring_invoices": "Recurring invoices",
       "discovery": "Discovery: new leads every week"
     },
-    "fewer": "Fewer people",
+    "fewer": "Fewer seats",
     "fixPayment": "Update card",
     "interval": "Billing period",
     "keep": "Keep my plan",
@@ -131,11 +131,10 @@
       "customers_other": "Up to {{count}} customers",
       "invoices_one": "{{count}} invoice a month",
       "invoices_other": "{{count}} invoices a month",
-      "perUser_one": "Priced per person, from {{count}}",
-      "perUser_other": "Priced per person, from {{count}}",
       "unlimited": "Unlimited customers and invoices",
       "users_one": "{{count}} person",
-      "users_other": "Up to {{count}} people"
+      "users_other": "Up to {{count}} people",
+      "seats": "One seat per person; add or remove seats any time"
     },
     "locked": {
       "askAdmin": "Ask your admin to choose a plan.",
@@ -144,7 +143,7 @@
       "titleLapsed": "Your plan has ended"
     },
     "monthly": "Monthly",
-    "more": "More people",
+    "more": "More seats",
     "notConfigured": "Online payments aren't switched on yet. Please try again later.",
     "notPaid": "The payment wasn't completed, so nothing has changed.",
     "notice": {
@@ -159,11 +158,11 @@
     },
     "paid": "Payment received. You're on {{plan}} now.",
     "payments": "Payments",
-    "people": "People",
-    "peopleCount_one": "{{count}} person",
-    "peopleCount_other": "{{count}} people",
+    "people": "Seats",
+    "peopleCount_one": "{{count}} seat",
+    "peopleCount_other": "{{count}} seats",
     "perMonth": "month",
-    "perPerson": "per person",
+    "perPerson": "per seat",
     "perYear": "year",
     "planName": {
       "free": "Free",
@@ -175,7 +174,7 @@
     },
     "popular": "Most popular",
     "seatsFull": "Your plan is full.",
-    "seatsUsed": "{{used}} of {{limit}} people on your plan",
+    "seatsUsed": "{{used}} of {{limit}} seats in use",
     "securedBy": "Payments are handled by Paystack. YGT never sees your card number.",
     "seePlans": "See plans",
     "state": {
@@ -199,13 +198,13 @@
     "tagline": {
       "free": "To try YGT on your own",
       "grow": "For small sales teams",
-      "hustle": "For one-person businesses",
+      "hustle": "For small businesses getting started",
       "scale": "For growing businesses",
       "enterprise": "For larger organisations"
     },
     "toPaystack": "Opening Paystack…",
-    "total_one": "{{amount}} for {{count}} person",
-    "total_other": "{{amount}} for {{count}} people",
+    "total_one": "{{amount}} for {{count}} seat",
+    "total_other": "{{amount}} for {{count}} seats",
     "twoFree": "2 months free",
     "updateCard": "Update card",
     "usage": {
@@ -228,7 +227,9 @@
     },
     "invoices": "Invoices",
     "invoicesHint": "One from YGT for every payment, emailed to you when you pay.",
-    "paystackRef": "Paystack reference {{ref}}"
+    "paystackRef": "Paystack reference {{ref}}",
+    "teamFrom": "{{price}} per seat from {{count}} seats",
+    "teamPrice": "Team price: {{count}}+ seats"
   },
   "channels": {
     "appPassword": {
@@ -867,7 +868,7 @@
     "BILLING_NOTHING_TO_CANCEL": "There's no paid plan to cancel.",
     "BILLING_NOT_CONFIGURED": "Online payments aren't switched on yet.",
     "BILLING_NO_SUBSCRIPTION": "There's no card on file yet.",
-    "BILLING_TOO_FEW_USERS": "Choose at least as many people as are active on your team now.",
+    "BILLING_TOO_FEW_USERS": "Choose at least as many seats as there are active people on your team now.",
     "CHANNEL_NOT_SET": "That channel isn't set up yet. An admin can connect it in Settings.",
     "CUSTOMER_NO_EMAIL": "This customer has no email address.",
     "CUSTOMER_NO_PHONE": "This customer has no valid phone number.",
@@ -879,7 +880,7 @@
     "PLAN_FEATURE_WHATSAPP_SMS": "WhatsApp and SMS are part of the Grow plan.",
     "PLAN_LIMIT_CUSTOMERS": "You've reached your plan's customer limit. Choose a plan in Settings > Billing for unlimited customers.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "You've used this month's invoices on the Free plan. Choose a plan in Settings > Billing for unlimited invoices.",
-    "PLAN_LIMIT_USERS": "Your plan has no room for another person. An admin can add people in Settings > Billing.",
+    "PLAN_LIMIT_USERS": "Your plan has no free seat for another person. An admin can add seats in Settings > Billing.",
     "RATE_LIMITED": "Too many attempts. Please wait a moment and try again.",
     "RESET_LINK_INVALID": "This reset link has expired or was already used. Ask for a new one.",
     "SLOT_TAKEN": "That time was just taken. Please choose another.",

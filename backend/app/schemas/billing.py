@@ -9,7 +9,10 @@ class PlanOut(BaseModel):
     key: str
     name: str
     monthly_cents: int
-    annual_cents: int  # per company, or per user when per_user
+    annual_cents: int  # per seat, for 1–2 seats
+    team_monthly_cents: int | None  # per seat from team_seats seats
+    team_annual_cents: int | None
+    team_seats: int
     per_user: bool
     min_users: int
     max_users: int | None

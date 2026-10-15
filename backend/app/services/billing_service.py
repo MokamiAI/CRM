@@ -177,7 +177,7 @@ class BillingService:
         saved = await self.db.scalar(select(PaystackPlan).where(PaystackPlan.key == key))
         if saved and saved.amount_cents == amount and not fresh:
             return saved.plan_code, amount
-        label = f"YGT {plan.name} ({interval}" + (f", {users} users)" if plan.per_user else ")")
+        label = f"YGT {plan.name} ({interval}" + (f", {users} seats)" if plan.per_user else ")")
         code = await paystack.create_plan(label, amount, interval)
         if saved:
             saved.plan_code, saved.amount_cents = code, amount

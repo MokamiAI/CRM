@@ -121,7 +121,7 @@
       "recurring_invoices": "Tiinvhoyisi leti phindhaphindhaka",
       "discovery": "Ku kuma: vaxavi lavantshwa vhiki na vhiki"
     },
-    "fewer": "Vanhu vatsongo",
+    "fewer": "Switulu swi nga ri swingani",
     "fixPayment": "Pfuxeta karata",
     "interval": "Nkarhi wo hakela",
     "keep": "Hlayisa pulani ya mina",
@@ -131,11 +131,10 @@
       "customers_other": "Ku fikela eka vaxavi va {{count}}",
       "invoices_one": "Nhlayo-xikoloto ya {{count}} hi n'hweti",
       "invoices_other": "Tinhlayo-xikoloto ta {{count}} hi n'hweti",
-      "perUser_one": "Ntsengo hi munhu, ku sukela eka {{count}}",
-      "perUser_other": "Ntsengo hi munhu, ku sukela eka {{count}}",
       "unlimited": "Vaxavi ni tinhlayo-xikoloto leti nga riki na ndzilakano",
       "users_one": "Munhu wa {{count}}",
-      "users_other": "Ku fikela eka vanhu va {{count}}"
+      "users_other": "Ku fikela eka vanhu va {{count}}",
+      "seats": "Xitulu xin'we hi munhu; engetela kumbe u susa switulu nkarhi wihi na wihi"
     },
     "locked": {
       "askAdmin": "Kombela mulawuri wa wena ku hlawula pulani.",
@@ -144,7 +143,7 @@
       "titleLapsed": "Pulani ya wena yi herile"
     },
     "monthly": "N'hweti yin'wana ni yin'wana",
-    "more": "Vanhu vo tala",
+    "more": "Switulu swin'wana",
     "notConfigured": "Tihakelo ta inthanete a ti si pfuriwa. Hi kombela u ringeta nakambe endzhaku.",
     "notPaid": "Hakelo a yi hetisiwanga, kutani a ku na lexi cinciweke.",
     "notice": {
@@ -159,11 +158,11 @@
     },
     "paid": "Hakelo yi amukeriwile. Sweswi u le ka {{plan}}.",
     "payments": "Tihakelo",
-    "people": "Vanhu",
-    "peopleCount_one": "Munhu wa {{count}}",
-    "peopleCount_other": "Vanhu va {{count}}",
+    "people": "Switulu",
+    "peopleCount_one": "xitulu xa {{count}}",
+    "peopleCount_other": "switulu swa {{count}}",
     "perMonth": "n'hweti",
-    "perPerson": "hi munhu",
+    "perPerson": "hi xitulu",
     "perYear": "lembe",
     "planName": {
       "free": "Free",
@@ -175,7 +174,7 @@
     },
     "popular": "Leyi rhandziwaka ngopfu",
     "seatsFull": "Pulani ya wena yi tele.",
-    "seatsUsed": "{{used}} ka vanhu va {{limit}} eka pulani ya wena",
+    "seatsUsed": "{{used}} eka {{limit}} switulu leswi tirhisiwaka",
     "securedBy": "Tihakelo ti khomiwa hi Paystack. YGT a yi voni nomboro ya karata ya wena.",
     "seePlans": "Vona tipulani",
     "state": {
@@ -199,13 +198,13 @@
     "tagline": {
       "free": "Ku ringeta YGT u ri wexe",
       "grow": "Mintlawa leyitsongo ya vuxavisi",
-      "hustle": "Mabindzu ya munhu un'we",
+      "hustle": "Ya mabindzu matsongo lama sungulaka",
       "scale": "Mabindzu lama kulaka",
       "enterprise": "Eka minhlangano leyikulu"
     },
     "toPaystack": "Ku pfuriwa Paystack…",
-    "total_one": "{{amount}} ya munhu wa {{count}}",
-    "total_other": "{{amount}} ya vanhu va {{count}}",
+    "total_one": "{{amount}} ya xitulu xa {{count}}",
+    "total_other": "{{amount}} ya switulu swa {{count}}",
     "twoFree": "Tin'hweti ta 2 mahala",
     "updateCard": "Pfuxeta karata",
     "usage": {
@@ -228,7 +227,9 @@
     },
     "invoices": "Tiinvhoyisi",
     "invoicesHint": "Yin'we ku suka eka YGT eka hakelo yin'wana ni yin'wana, yi rhumeriwa eka wena hi imeyili loko u hakela.",
-    "paystackRef": "Xikombo xa Paystack {{ref}}"
+    "paystackRef": "Xikombo xa Paystack {{ref}}",
+    "teamFrom": "{{price}} hi xitulu ku sukela eka switulu swa {{count}}",
+    "teamPrice": "Nxavo wa ntlawa: switulu swa {{count}}+"
   },
   "channels": {
     "appPassword": {
@@ -867,7 +868,7 @@
     "BILLING_NOTHING_TO_CANCEL": "A ku na pulani leyi hakeriwaka yo khansela.",
     "BILLING_NOT_CONFIGURED": "Tihakelo ta inthanete a ti si pfuriwa.",
     "BILLING_NO_SUBSCRIPTION": "A ku na karata leyi hlayisiweke sweswi.",
-    "BILLING_TOO_FEW_USERS": "Hlawula kwalomu ka vanhu vo tala ku fana na lava tirhaka eka ntlawa wa wena sweswi.",
+    "BILLING_TOO_FEW_USERS": "Hlawula switulu kwalomu ka leswi ringanaka ni vanhu lava tirhaka entlawini wa wena sweswi.",
     "CHANNEL_NOT_SET": "Chanele yoleyo a yi si hleriwa. Mulawuri a nga yi hlanganisa eka Mavekelo.",
     "CUSTOMER_NO_EMAIL": "Muxavi loyi a nga na adirese ya imeyili.",
     "CUSTOMER_NO_PHONE": "Muxavi loyi a nga na nomboro ya riqingho leyi tirhaka.",
@@ -879,7 +880,7 @@
     "PLAN_FEATURE_WHATSAPP_SMS": "WhatsApp ni SMS i xiphemu xa pulani ya Grow.",
     "PLAN_LIMIT_CUSTOMERS": "U fikile eka ndzilakano wa vaxavi wa pulani ya wena. Hlawula pulani eka Mavekelo > Hakelo ku kuma vaxavi lava nga riki na ndzilakano.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "U tirhisile tinhlayo-xikoloto ta n'hweti leyi eka pulani ya Free. Hlawula pulani eka Mavekelo > Hakelo ku kuma tinhlayo-xikoloto leti nga riki na ndzilakano.",
-    "PLAN_LIMIT_USERS": "Pulani ya wena a yi na ndhawu ya munhu un'wana. Mulawuri a nga engetela vanhu eka Mavekelo > Hakelo.",
+    "PLAN_LIMIT_USERS": "Kungu ra wena a ri na xitulu xo ntshunxeka xa munhu un'wana. Mulawuri a nga engetela switulu eka Swiveko > Hakelo.",
     "RATE_LIMITED": "Matshalatshala yo tala ngopfu. Hi kombela u rindza nkarhinyana u ringeta nakambe.",
     "RESET_LINK_INVALID": "Xihlanganisi lexi xi hundzeriwile hi nkarhi kumbe xi tirhisiwile. Kombela lexintshwa.",
     "SLOT_TAKEN": "Nkarhi wolowo wa ha ku tekiwa. Hi kombela u hlawula wun'wana.",

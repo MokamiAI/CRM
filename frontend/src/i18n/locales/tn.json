@@ -121,7 +121,7 @@
       "recurring_invoices": "Di-invoice tse di boelelwang",
       "discovery": "Tshenolo: badirisi ba bašwa beke le beke"
     },
-    "fewer": "Batho ba le mmalwa",
+    "fewer": "Ditulo di le mmalwa",
     "fixPayment": "Ntšhafatsa karata",
     "interval": "Nako ya tuelo",
     "keep": "Boloka leano la me",
@@ -131,11 +131,10 @@
       "customers_other": "Go fitlha go bareki ba le {{count}}",
       "invoices_one": "Invoice e le {{count}} ka kgwedi",
       "invoices_other": "Di-invoice di le {{count}} ka kgwedi",
-      "perUser_one": "Tlhwatlhwa ka motho, go simolola ka {{count}}",
-      "perUser_other": "Tlhwatlhwa ka motho, go simolola ka {{count}}",
       "unlimited": "Bareki le di-invoice tse di senang selekanyo",
       "users_one": "Motho a le {{count}}",
-      "users_other": "Go fitlha go batho ba le {{count}}"
+      "users_other": "Go fitlha go batho ba le {{count}}",
+      "seats": "Setulo se le sengwe ka motho; oketsa kgotsa o ntshe ditulo nako nngwe le nngwe"
     },
     "locked": {
       "askAdmin": "Kopa motsamaisi wa gago go tlhopha leano.",
@@ -144,7 +143,7 @@
       "titleLapsed": "Leano la gago le fedile"
     },
     "monthly": "Kgwedi le kgwedi",
-    "more": "Batho ba bantsi",
+    "more": "Ditulo tse dingwe",
     "notConfigured": "Dituelo tsa inthanete ga di ise di bulwe. Tswee-tswee leka gape moragonyana.",
     "notPaid": "Tuelo ga e a wediwa, ka jalo ga go sepe se se fetogileng.",
     "notice": {
@@ -159,11 +158,11 @@
     },
     "paid": "Tuelo e amogetswe. Jaanong o mo {{plan}}.",
     "payments": "Dituelo",
-    "people": "Batho",
-    "peopleCount_one": "Motho a le {{count}}",
-    "peopleCount_other": "Batho ba le {{count}}",
+    "people": "Ditulo",
+    "peopleCount_one": "setulo se {{count}}",
+    "peopleCount_other": "ditulo di le {{count}}",
     "perMonth": "kgwedi",
-    "perPerson": "ka motho",
+    "perPerson": "ka setulo",
     "perYear": "ngwaga",
     "planName": {
       "free": "Free",
@@ -175,7 +174,7 @@
     },
     "popular": "Le le ratwang thata",
     "seatsFull": "Leano la gago le tletse.",
-    "seatsUsed": "{{used}} mo go batho ba le {{limit}} mo leanong la gago",
+    "seatsUsed": "{{used}} mo go {{limit}} ditulo tse di dirisiwang",
     "securedBy": "Dituelo di tshwarwa ke Paystack. YGT ga e bone nomoro ya karata ya gago.",
     "seePlans": "Bona maano",
     "state": {
@@ -199,13 +198,13 @@
     "tagline": {
       "free": "Go leka YGT o le esi",
       "grow": "Ditlhopha tse dinnye tsa thekiso",
-      "hustle": "Dikgwebo tsa motho a le mongwe",
+      "hustle": "Ya dikgwebo tse dinnye tse di simololang",
       "scale": "Dikgwebo tse di golang",
       "enterprise": "Mo mekgatlhong e megolo"
     },
     "toPaystack": "Go bulwa Paystack…",
-    "total_one": "{{amount}} ya motho a le {{count}}",
-    "total_other": "{{amount}} ya batho ba le {{count}}",
+    "total_one": "{{amount}} ya setulo se {{count}}",
+    "total_other": "{{amount}} ya ditulo di le {{count}}",
     "twoFree": "Dikgwedi di le 2 mahala",
     "updateCard": "Ntšhafatsa karata",
     "usage": {
@@ -228,7 +227,9 @@
     },
     "invoices": "Di-invoice",
     "invoicesHint": "Nngwe go tswa kwa YGT ya tuelo nngwe le nngwe, e romelwa go wena ka imeile fa o duela.",
-    "paystackRef": "Kaelo ya Paystack {{ref}}"
+    "paystackRef": "Kaelo ya Paystack {{ref}}",
+    "teamFrom": "{{price}} ka setulo go simolola ka ditulo di le {{count}}",
+    "teamPrice": "Tlhwatlhwa ya setlhopha: ditulo di le {{count}}+"
   },
   "channels": {
     "appPassword": {
@@ -867,7 +868,7 @@
     "BILLING_NOTHING_TO_CANCEL": "Ga go na leano le le duelelwang go le khansela.",
     "BILLING_NOT_CONFIGURED": "Dituelo tsa inthanete ga di ise di bulwe.",
     "BILLING_NO_SUBSCRIPTION": "Ga go na karata e e bolokilweng ga jaana.",
-    "BILLING_TOO_FEW_USERS": "Tlhopha bonnye batho ba bantsi jaaka ba ba dirang mo setlhopheng sa gago jaanong.",
+    "BILLING_TOO_FEW_USERS": "Tlhopha ditulo bonnye tse di lekanang le batho ba ba dirang mo setlhopheng sa gago jaanong.",
     "CHANNEL_NOT_SET": "Kanale eo ga e ise e rulaganngwe. Motsamaisi a ka e golaganya mo Dithulaganyong.",
     "CUSTOMER_NO_EMAIL": "Moreki yo ga a na aterese ya imeile.",
     "CUSTOMER_NO_PHONE": "Moreki yo ga a na nomoro ya mogala e e dirang.",
@@ -879,7 +880,7 @@
     "PLAN_FEATURE_WHATSAPP_SMS": "WhatsApp le SMS ke karolo ya leano la Grow.",
     "PLAN_LIMIT_CUSTOMERS": "O fitlhile selekanyo sa bareki sa leano la gago. Tlhopha leano mo Dithulaganyo > Tuelo go bona bareki ba ba senang selekanyo.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "O dirisitse di-invoice tsa kgwedi eno mo leanong la Free. Tlhopha leano mo Dithulaganyo > Tuelo go bona di-invoice tse di senang selekanyo.",
-    "PLAN_LIMIT_USERS": "Leano la gago ga le na sebaka sa motho yo mongwe. Motsamaisi a ka oketsa batho mo Dithulaganyo > Tuelo.",
+    "PLAN_LIMIT_USERS": "Leano la gago ga le na setulo se se gololesegileng sa motho yo mongwe. Motsamaisi a ka oketsa ditulo mo Dithulaganyong > Tuelo.",
     "RATE_LIMITED": "Maiteko a le mantsi thata. Tswee-tswee ema sebakanyana o leke gape.",
     "RESET_LINK_INVALID": "Kgolagano eno e fetilwe ke nako kgotsa e setse e dirisitswe. Kopa e ntšha.",
     "SLOT_TAKEN": "Nako eo e sa tswa go tsewa. Tswee-tswee tlhopha e nngwe.",

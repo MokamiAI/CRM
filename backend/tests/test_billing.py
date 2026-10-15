@@ -41,15 +41,27 @@ def test_cancelled_keeps_the_plan_to_the_end_of_the_period_only():
     assert effective(cancelled, NOW + timedelta(hours=1)).locked
 
 
-def test_hustle_is_per_company_with_three_people():
-    hustle = sub(plan="hustle", status="active", seats=1, current_period_end=NOW + timedelta(days=5))
-    assert effective(hustle, NOW).users == 3
+def test_hustle_is_per_seat():
+    hustle = sub(plan="hustle", status="active", seats=2, current_period_end=NOW + timedelta(days=5))
+    assert effective(hustle, NOW).users == 2
 
 
-def test_prices():
-    assert PLANS["hustle"].price_cents("monthly", 7) == 19_900  # not per user
+def test_prices_per_seat_cheaper_from_three():
+    # One or two seats: the full price per seat.
+    assert PLANS["hustle"].price_cents("monthly", 1) == 14_900
+    assert PLANS["grow"].price_cents("monthly", 1) == 18_900
+    assert PLANS["grow"].price_cents("monthly", 2) == 37_800
+    assert PLANS["scale"].price_cents("monthly", 2) == 59_800
+    # From three seats every seat is at the team price.
+    assert PLANS["hustle"].price_cents("monthly", 3) == 35_700
     assert PLANS["grow"].price_cents("monthly", 3) == 44_700
-    assert PLANS["scale"].price_cents("annually", 5) == 1_245_000  # ten months for twelve
+    assert PLANS["scale"].price_cents("monthly", 7) == 174_300
+    # Annual: ten months for twelve, at the same seat price.
+    assert PLANS["grow"].price_cents("annually", 1) == 189_000
+    assert PLANS["scale"].price_cents("annually", 5) == 1_245_000
+    # Hustle stays the cheapest and Scale the dearest, at every size.
+    for n in range(1, 12):
+        assert PLANS["hustle"].price_cents("monthly", n) < PLANS["grow"].price_cents("monthly", n) < PLANS["scale"].price_cents("monthly", n)
 
 
 def test_billing_periods():
@@ -60,7 +72,7 @@ def test_billing_periods():
 
 def test_trial_is_the_plan_chosen_at_sign_up():
     hustle = effective(new_trial(uuid.uuid4(), "hustle"))
-    assert (hustle.plan.key, hustle.users, hustle.state) == ("hustle", 3, "trialing")
+    assert (hustle.plan.key, hustle.users, hustle.state) == ("hustle", TRIAL_USERS, "trialing")
     assert hustle.plan.features == frozenset()  # what Hustle pays for, nothing more
     scale = effective(new_trial(uuid.uuid4(), "scale"))
     assert scale.plan.key == "scale" and "priority_support" in scale.plan.features and scale.users == TRIAL_USERS

@@ -109,7 +109,7 @@ def test_each_plan_gets_what_it_pays_for():
     assert PLANS["scale"].features == grow | {RECURRING, DISCOVERY, PRIORITY_SUPPORT}
     assert PLANS[TRIAL_PLAN] is PLANS["grow"]  # the trial is Grow
     assert LOCKED.features == frozenset()
-    assert PLANS["hustle"].user_limit(1) == 3 and PLANS["grow"].user_limit(7) == 7
+    assert PLANS["hustle"].user_limit(2) == 2 and PLANS["grow"].user_limit(7) == 7  # one seat per person
 
 
 def test_production_refuses_example_secrets():

@@ -121,7 +121,7 @@
       "recurring_invoices": "Herhalende fakture",
       "discovery": "Ontdekking: nuwe leidrade elke week"
     },
-    "fewer": "Minder mense",
+    "fewer": "Minder sitplekke",
     "fixPayment": "Werk kaart by",
     "interval": "Betalingstydperk",
     "keep": "Hou my plan",
@@ -131,11 +131,10 @@
       "customers_other": "Tot {{count}} kliënte",
       "invoices_one": "{{count}} faktuur per maand",
       "invoices_other": "{{count}} fakture per maand",
-      "perUser_one": "Prys per persoon, vanaf {{count}}",
-      "perUser_other": "Prys per persoon, vanaf {{count}}",
       "unlimited": "Onbeperkte kliënte en fakture",
       "users_one": "{{count}} persoon",
-      "users_other": "Tot {{count}} mense"
+      "users_other": "Tot {{count}} mense",
+      "seats": "Een sitplek per persoon; voeg enige tyd sitplekke by of haal dit weg"
     },
     "locked": {
       "askAdmin": "Vra jou administrateur om 'n plan te kies.",
@@ -144,7 +143,7 @@
       "titleLapsed": "Jou plan is verby"
     },
     "monthly": "Maandeliks",
-    "more": "Meer mense",
+    "more": "Meer sitplekke",
     "notConfigured": "Aanlynbetalings is nog nie aangeskakel nie. Probeer asseblief later weer.",
     "notPaid": "Die betaling is nie voltooi nie, so niks het verander nie.",
     "notice": {
@@ -159,11 +158,11 @@
     },
     "paid": "Betaling ontvang. Jy is nou op {{plan}}.",
     "payments": "Betalings",
-    "people": "Mense",
-    "peopleCount_one": "{{count}} persoon",
-    "peopleCount_other": "{{count}} mense",
+    "people": "Sitplekke",
+    "peopleCount_one": "{{count}} sitplek",
+    "peopleCount_other": "{{count}} sitplekke",
     "perMonth": "maand",
-    "perPerson": "per persoon",
+    "perPerson": "per sitplek",
     "perYear": "jaar",
     "planName": {
       "free": "Free",
@@ -175,7 +174,7 @@
     },
     "popular": "Gewildste",
     "seatsFull": "Jou plan is vol.",
-    "seatsUsed": "{{used}} van {{limit}} mense op jou plan",
+    "seatsUsed": "{{used}} van {{limit}} sitplekke in gebruik",
     "securedBy": "Betalings word deur Paystack hanteer. YGT sien nooit jou kaartnommer nie.",
     "seePlans": "Sien planne",
     "state": {
@@ -199,13 +198,13 @@
     "tagline": {
       "free": "Om YGT self te probeer",
       "grow": "Vir klein verkoopspanne",
-      "hustle": "Vir eenpersoon-besighede",
+      "hustle": "Vir klein besighede wat begin",
       "scale": "Vir groeiende besighede",
       "enterprise": "Vir groter organisasies"
     },
     "toPaystack": "Maak Paystack oop…",
-    "total_one": "{{amount}} vir {{count}} persoon",
-    "total_other": "{{amount}} vir {{count}} mense",
+    "total_one": "{{amount}} vir {{count}} sitplek",
+    "total_other": "{{amount}} vir {{count}} sitplekke",
     "twoFree": "2 maande gratis",
     "updateCard": "Werk kaart by",
     "usage": {
@@ -228,7 +227,9 @@
     },
     "invoices": "Fakture",
     "invoicesHint": "Een van YGT vir elke betaling, aan jou ge-e-pos wanneer jy betaal.",
-    "paystackRef": "Paystack-verwysing {{ref}}"
+    "paystackRef": "Paystack-verwysing {{ref}}",
+    "teamFrom": "{{price}} per sitplek vanaf {{count}} sitplekke",
+    "teamPrice": "Spanprys: {{count}}+ sitplekke"
   },
   "channels": {
     "appPassword": {
@@ -867,7 +868,7 @@
     "BILLING_NOTHING_TO_CANCEL": "Daar is geen betaalde plan om te kanselleer nie.",
     "BILLING_NOT_CONFIGURED": "Aanlynbetalings is nog nie aangeskakel nie.",
     "BILLING_NO_SUBSCRIPTION": "Daar is nog geen kaart op lêer nie.",
-    "BILLING_TOO_FEW_USERS": "Kies minstens soveel mense as wat nou aktief in jou span is.",
+    "BILLING_TOO_FEW_USERS": "Kies ten minste soveel sitplekke as wat daar nou aktiewe mense in jou span is.",
     "CHANNEL_NOT_SET": "Daardie kanaal is nog nie opgestel nie. 'n Administrateur kan dit in Instellings koppel.",
     "CUSTOMER_NO_EMAIL": "Hierdie kliënt het geen e-posadres nie.",
     "CUSTOMER_NO_PHONE": "Hierdie kliënt het geen geldige telefoonnommer nie.",
@@ -879,7 +880,7 @@
     "PLAN_FEATURE_WHATSAPP_SMS": "WhatsApp en SMS is deel van die Grow-plan.",
     "PLAN_LIMIT_CUSTOMERS": "Jy het jou plan se kliëntelimiet bereik. Kies 'n plan in Instellings > Intekening vir onbeperkte kliënte.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "Jy het hierdie maand se fakture op die Free-plan gebruik. Kies 'n plan in Instellings > Intekening vir onbeperkte fakture.",
-    "PLAN_LIMIT_USERS": "Jou plan het nie plek vir nog 'n persoon nie. 'n Administrateur kan mense byvoeg in Instellings > Intekening.",
+    "PLAN_LIMIT_USERS": "Jou plan het geen vrye sitplek vir nog 'n persoon nie. 'n Admin kan sitplekke byvoeg in Instellings > Fakturering.",
     "RATE_LIMITED": "Te veel pogings. Wag asseblief 'n oomblik en probeer weer.",
     "RESET_LINK_INVALID": "Hierdie terugstelskakel het verval of is reeds gebruik. Vra vir 'n nuwe een.",
     "SLOT_TAKEN": "Daardie tyd is pas geneem. Kies asseblief 'n ander.",

@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, require_role
 from app.core.database import CommitBeforeResponseRoute
-from app.core.plans import PLANS, Plan
+from app.core.plans import PLANS, TEAM_SEATS, Plan
 from app.models.enums import UserRole
 from app.models.user import User
 from app.schemas.billing import (
@@ -39,6 +39,9 @@ def plan_out(plan: Plan) -> PlanOut:
         name=plan.name,
         monthly_cents=plan.monthly_cents,
         annual_cents=plan.price_cents("annually"),
+        team_monthly_cents=plan.team_cents,
+        team_annual_cents=plan.team_cents * 10 if plan.team_cents else None,
+        team_seats=TEAM_SEATS,
         per_user=plan.per_user,
         min_users=plan.min_users,
         max_users=plan.max_users,

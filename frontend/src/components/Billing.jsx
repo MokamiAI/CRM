@@ -20,7 +20,7 @@ function daysLeft(iso) {
 /** What a plan includes, as short lines for its card. */
 function planLines(plan, t) {
   const lines = [];
-  if (plan.per_user) lines.push(t("billing.lines.perUser", { count: plan.min_users }));
+  if (plan.per_user) lines.push(t("billing.lines.seats"));
   else lines.push(t("billing.lines.users", { count: plan.max_users }));
   if (plan.max_customers) lines.push(t("billing.lines.customers", { count: plan.max_customers }));
   if (plan.invoices_per_month) lines.push(t("billing.lines.invoices", { count: plan.invoices_per_month }));
@@ -30,20 +30,46 @@ function planLines(plan, t) {
   return lines;
 }
 
-/** Price line for a plan: "R149 per person / month", "R1 990 / year". */
+/** The price of one seat: the full price for 1–2 seats, the team price
+ *  once a company takes `team_seats` or more. */
+export function seatCents(plan, interval, users = 1) {
+  const annual = interval === "annually";
+  const team = plan.team_monthly_cents != null && users >= plan.team_seats;
+  if (team) return annual ? plan.team_annual_cents : plan.team_monthly_cents;
+  return annual ? plan.annual_cents : plan.monthly_cents;
+}
+
+/** Price per seat for the seats chosen ("R149 per seat / month"), the full
+ *  price struck through once the team price applies, and the total. */
 export function PlanPrice({ plan, interval, users = 1 }) {
   const { t } = useTranslation();
-  const cents = interval === "annually" ? plan.annual_cents : plan.monthly_cents;
-  const unit = t(interval === "annually" ? "billing.perYear" : "billing.perMonth");
+  const annual = interval === "annually";
+  const cents = seatCents(plan, interval, users);
+  const full = annual ? plan.annual_cents : plan.monthly_cents;
+  const teamCents = annual ? plan.team_annual_cents : plan.team_monthly_cents;
+  const unit = t(annual ? "billing.perYear" : "billing.perMonth");
   return (
     <div>
-      <p className="text-3xl font-semibold tracking-tight text-zinc-900 tabular-nums">{formatMoneyWhole(cents / 100)}</p>
+      <p className="flex items-baseline gap-2">
+        <span className="text-3xl font-semibold tracking-tight text-zinc-900 tabular-nums">{formatMoneyWhole(cents / 100)}</span>
+        {cents < full && <s className="text-base text-zinc-500 tabular-nums">{formatMoneyWhole(full / 100)}</s>}
+      </p>
       <p className="mt-0.5 text-sm text-zinc-500">
         {plan.per_user ? `${t("billing.perPerson")} / ` : "/ "}
         {unit}
       </p>
+      {teamCents != null &&
+        (cents < full ? (
+          <p className="mt-2 inline-flex rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-200/70">
+            {t("billing.teamPrice", { count: plan.team_seats })}
+          </p>
+        ) : (
+          <p className="mt-2 text-xs font-medium text-emerald-700 tabular-nums">
+            {t("billing.teamFrom", { price: formatMoneyWhole(teamCents / 100), count: plan.team_seats })}
+          </p>
+        ))}
       {plan.per_user && cents > 0 && users > 1 && (
-        <p className="mt-0.5 text-xs text-zinc-500 tabular-nums">{t("billing.total", { amount: formatMoneyWhole((cents * users) / 100), count: users })}</p>
+        <p className="mt-1 text-xs text-zinc-500 tabular-nums">{t("billing.total", { amount: formatMoneyWhole((cents * users) / 100), count: users })}</p>
       )}
     </div>
   );

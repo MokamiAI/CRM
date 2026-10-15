@@ -121,7 +121,7 @@
       "recurring_invoices": "Di-invoice tse iphetang",
       "discovery": "Tshibollo: bareki ba batjha beke le beke"
     },
-    "fewer": "Batho ba fokolang",
+    "fewer": "Ditulo tse fokolang",
     "fixPayment": "Ntjhafatsa karete",
     "interval": "Nako ya tefo",
     "keep": "Boloka moralo wa ka",
@@ -131,11 +131,10 @@
       "customers_other": "Ho fihlela bareki ba {{count}}",
       "invoices_one": "Invoice e {{count}} ka kgwedi",
       "invoices_other": "Di-invoice tse {{count}} ka kgwedi",
-      "perUser_one": "Theko ka motho, ho qala ka {{count}}",
-      "perUser_other": "Theko ka motho, ho qala ka {{count}}",
       "unlimited": "Bareki le di-invoice tse se nang moedi",
       "users_one": "Motho a {{count}}",
-      "users_other": "Ho fihlela batho ba {{count}}"
+      "users_other": "Ho fihlela batho ba {{count}}",
+      "seats": "Setulo se le seng ka motho; eketsa kapa o tlose ditulo neng kapa neng"
     },
     "locked": {
       "askAdmin": "Kopa motsamaisi wa hao ho kgetha moralo.",
@@ -144,7 +143,7 @@
       "titleLapsed": "Moralo wa hao o fedile"
     },
     "monthly": "Kgwedi le kgwedi",
-    "more": "Batho ba bangata",
+    "more": "Ditulo tse ding",
     "notConfigured": "Ditefo tsa inthanete ha di eso bulwe. Ka kopo leka hape hamorao.",
     "notPaid": "Tefo ha e a phethwa, kahoo ha ho letho le fetohileng.",
     "notice": {
@@ -159,11 +158,11 @@
     },
     "paid": "Tefo e amohetswe. Jwale o ho {{plan}}.",
     "payments": "Ditefo",
-    "people": "Batho",
-    "peopleCount_one": "Motho a {{count}}",
-    "peopleCount_other": "Batho ba {{count}}",
+    "people": "Ditulo",
+    "peopleCount_one": "setulo se {{count}}",
+    "peopleCount_other": "ditulo tse {{count}}",
     "perMonth": "kgwedi",
-    "perPerson": "ka motho",
+    "perPerson": "ka setulo",
     "perYear": "selemo",
     "planName": {
       "free": "Free",
@@ -175,7 +174,7 @@
     },
     "popular": "O ratwang haholo",
     "seatsFull": "Moralo wa hao o tletse.",
-    "seatsUsed": "{{used}} ho batho ba {{limit}} moralong wa hao",
+    "seatsUsed": "{{used}} ho {{limit}} ditulo tse sebediswang",
     "securedBy": "Ditefo di tshwarwa ke Paystack. YGT ha e bone nomoro ya karete ya hao.",
     "seePlans": "Bona meralo",
     "state": {
@@ -199,13 +198,13 @@
     "tagline": {
       "free": "Ho leka YGT o le mong",
       "grow": "Dihlopha tse nyane tsa thekiso",
-      "hustle": "Dikgwebo tsa motho a le mong",
+      "hustle": "Bakeng sa dikgwebo tse nyane tse qalang",
       "scale": "Dikgwebo tse holang",
       "enterprise": "Bakeng sa mekgatlo e meholo"
     },
     "toPaystack": "Ho bulwa Paystack…",
-    "total_one": "{{amount}} bakeng sa motho a {{count}}",
-    "total_other": "{{amount}} bakeng sa batho ba {{count}}",
+    "total_one": "{{amount}} bakeng sa setulo se {{count}}",
+    "total_other": "{{amount}} bakeng sa ditulo tse {{count}}",
     "twoFree": "Dikgwedi tse 2 mahala",
     "updateCard": "Ntjhafatsa karete",
     "usage": {
@@ -228,7 +227,9 @@
     },
     "invoices": "Di-invoice",
     "invoicesHint": "E le nngwe e tswang ho YGT bakeng sa tefo ka nngwe, e romelwa ho wena ka imeile ha o lefa.",
-    "paystackRef": "Tshupiso ya Paystack {{ref}}"
+    "paystackRef": "Tshupiso ya Paystack {{ref}}",
+    "teamFrom": "{{price}} ka setulo ho qala ka ditulo tse {{count}}",
+    "teamPrice": "Theko ya sehlopha: ditulo tse {{count}}+"
   },
   "channels": {
     "appPassword": {
@@ -867,7 +868,7 @@
     "BILLING_NOTHING_TO_CANCEL": "Ha ho moralo o lefuwang oo o ka o hlakolang.",
     "BILLING_NOT_CONFIGURED": "Ditefo tsa inthanete ha di eso bulwe.",
     "BILLING_NO_SUBSCRIPTION": "Ha ho karete e bolokilweng hajwale.",
-    "BILLING_TOO_FEW_USERS": "Kgetha bonyane batho ba bangata jwalo ka ba sebetsang sehlopheng sa hao jwale.",
+    "BILLING_TOO_FEW_USERS": "Kgetha ditulo bonyane tse lekanang le batho ba sebetsang sehlopheng sa hao hona jwale.",
     "CHANNEL_NOT_SET": "Kanale eo ha e so hlophiswe. Motsamaisi a ka e hokahanya ho Ditlhophiso.",
     "CUSTOMER_NO_EMAIL": "Moreki enwa ha a na aterese ya imeile.",
     "CUSTOMER_NO_PHONE": "Moreki enwa ha a na nomoro ya mohala e sebetsang.",
@@ -879,7 +880,7 @@
     "PLAN_FEATURE_WHATSAPP_SMS": "WhatsApp le SMS ke karolo ya moralo wa Grow.",
     "PLAN_LIMIT_CUSTOMERS": "O fihlile moeding wa bareki wa moralo wa hao. Kgetha moralo ho Ditlhophiso > Tefo bakeng sa bareki ba se nang moedi.",
     "PLAN_LIMIT_INVOICES_THIS_MONTH": "O sebedisitse di-invoice tsa kgwedi ena moralong wa Free. Kgetha moralo ho Ditlhophiso > Tefo bakeng sa di-invoice tse se nang moedi.",
-    "PLAN_LIMIT_USERS": "Moralo wa hao ha o na sebaka sa motho e mong. Motsamaisi a ka eketsa batho ho Ditlhophiso > Tefo.",
+    "PLAN_LIMIT_USERS": "Morero wa hao ha o na setulo se lokolohileng sa motho e mong. Motsamaisi a ka eketsa ditulo ho Disetting > Tefo.",
     "RATE_LIMITED": "Diteko di ngata haholo. Ka kopo ema hanyane o leke hape.",
     "RESET_LINK_INVALID": "Sehokelo sena se fetilwe ke nako kapa se se se sebedisitswe. Kopa se setjha.",
     "SLOT_TAKEN": "Nako eo e sa tswa nkuwa. Ka kopo kgetha e nngwe.",

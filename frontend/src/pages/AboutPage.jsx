@@ -187,6 +187,7 @@ export function Pricing() {
   const { user } = useAuth();
   const { data: plans, isError, refetch, isFetching } = usePlans();
   const [interval, setInterval] = useState("monthly");
+  const [seats, setSeats] = useState({});
   const cta = (plan) => {
     if (!user) {
       return (
@@ -237,7 +238,8 @@ export function Pricing() {
               key={plan.key}
               plan={plan}
               interval={interval}
-              users={plan.min_users}
+              users={seats[plan.key] ?? plan.min_users}
+              onUsers={(n) => setSeats((s) => ({ ...s, [plan.key]: n }))}
               highlight={plan.key === "grow"}
               badge={plan.key === "grow" ? t("billing.popular") : undefined}
               action={cta(plan)}
