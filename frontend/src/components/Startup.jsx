@@ -100,7 +100,7 @@ export function StartupIntro() {
   return <IntroLayer t={t} onClosed={done} />;
 }
 
-const INTRO_HOLD = 2000; // ms "You Got This" stays before folding back
+const INTRO_HOLD = 900; // ms "You Got This" stays before folding back
 
 function IntroLayer({ t, onClosed }) {
   const words = useRef(null);
@@ -140,7 +140,7 @@ function IntroLayer({ t, onClosed }) {
   );
 }
 
-const WELCOME_HOLD = 8000; // ms after the words land before it closes itself
+const WELCOME_HOLD = 3500; // ms after the words land before it closes itself
 
 /** After signing in: a welcome from the team, once per sign-in. Closing
  *  (button, key, click or on its own) folds the words back into YGT. */

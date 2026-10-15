@@ -71,7 +71,7 @@ const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, o
               { transform: `translate(${dx}px, 0)`, opacity: 1 },
               { transform: `translate(${dx}px, -40%)`, opacity: 0 },
             ],
-            { duration: 450, delay: 1700 + i * 70, easing: EASE_OUT, fill: "forwards" }
+            { duration: 450, delay: 1450 + i * 70, easing: EASE_OUT, fill: "forwards" }
           )
         );
       });

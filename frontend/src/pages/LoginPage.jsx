@@ -143,6 +143,7 @@ export default function LoginPage() {
             type="email"
             inputMode="email"
             autoComplete="username"
+            autoFocus
             autoCapitalize="none"
             autoCorrect="off"
             required
