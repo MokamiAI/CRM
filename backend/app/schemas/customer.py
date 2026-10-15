@@ -10,6 +10,7 @@ class CustomerCreate(BaseModel):
     email: EmailStr | None = None
     phone: str | None = Field(default=None, max_length=50)
     billing_address: str | None = None
+    delivery_address: str | None = None
     tax_number: str | None = Field(default=None, max_length=100)
     notes: str | None = None
     custom_fields: dict[str, Any] = Field(default_factory=dict)
@@ -20,6 +21,7 @@ class CustomerUpdate(BaseModel):
     email: EmailStr | None = None
     phone: str | None = Field(default=None, max_length=50)
     billing_address: str | None = None
+    delivery_address: str | None = None
     tax_number: str | None = Field(default=None, max_length=100)
     notes: str | None = None
     is_active: bool | None = None
@@ -35,6 +37,7 @@ class CustomerOut(BaseModel):
     email: str | None
     phone: str | None
     billing_address: str | None
+    delivery_address: str | None = None
     tax_number: str | None
     notes: str | None
     is_active: bool

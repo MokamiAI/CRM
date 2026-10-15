@@ -452,7 +452,9 @@
     "phone": "Ifowuni",
     "saveFailed": "Asikwazanga ukugcina umthengi.",
     "taxNumber": "Inombolo ye-VAT",
-    "updated": "Umthengi uhlaziyiwe"
+    "updated": "Umthengi uhlaziyiwe",
+    "deliveryAddress": "Idilesi yokuhambisa",
+    "deliveryHint": "Kuphela ukuba yahlukile kwidilesi yokuhlawula. Iboniswa kwiikowuti nakwii-invoyisi."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Bonisa ilogo yam",
       "statement_title": "Isihloko sengxelo",
       "swift_code": "Ikhowudi ye-SWIFT",
-      "tax_label": "Ilebheli yenombolo ye-VAT"
+      "tax_label": "Ilebheli yenombolo ye-VAT",
+      "phone": "Ifowuni",
+      "website": "Iwebhusayithi",
+      "branch_name": "Igama lesebe"
     },
     "intro": "Khetha indlela ii-invoyisi, iikowuteshini neengxelo zakho ezibonakala ngayo. Ukujonga kuqala kuyahlaziywa ngoko nangoko; gcina ukuze uqalise ukuyisebenzisa.",
     "invoiceTermsPlaceholder": "umz. Intlawulo ifanele kwiintsuku ezingama-30. Inzala inokuhlawuliswa kwii-akhawunti ezisemva.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Cima {{name}}",
     "deliveryAddress": "Idilesi yokuhanjiswa",
     "deliveryAddressHint": "Apho umboneleli kufuneka ahambise khona.",
-    "notesHintSupplier": "Kuboniswa kumboneleli kwi-odolo nakwi-imeyile"
+    "notesHintSupplier": "Kuboniswa kumboneleli kwi-odolo nakwi-imeyile",
+    "title": "Isihloko",
+    "titleHint": "Ukuba le kowuti yenzelwe ntoni, iboniswa phezulu.",
+    "titlePlaceholder": "umz. Ukuhlaziywa kwenkxaso yonyaka",
+    "descriptionLabel": "Inkcazo",
+    "descriptionHint": "Isishwankathelo esifutshane somthengi wakho, ngaphezu kwemigca."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Le akhawunti inqunyanyisiwe. Nceda uqhagamshelane nenkxaso ye-YGT.",

@@ -143,7 +143,10 @@ function QuoteList({ quotes, customers }) {
               <td>
                 <div className="flex items-center gap-2.5">
                   <Avatar name={nameOf(quote)} size="sm" />
-                  <span className="truncate text-zinc-700">{nameOf(quote)}</span>
+                  <span className="min-w-0">
+                    <span className="block truncate text-zinc-700">{nameOf(quote)}</span>
+                    {quote.title && <span className="block truncate text-xs text-zinc-500">{quote.title}</span>}
+                  </span>
                 </div>
               </td>
               <td className="whitespace-nowrap text-zinc-500">{formatShortDate(quote.issue_date)}</td>
@@ -333,7 +336,7 @@ export function QuoteDetailPage() {
             {quote.quote_number} <StatusBadge status={quote.status} />
           </span>
         }
-        subtitle={customer?.name}
+        subtitle={quote.title ? `${quote.title} · ${customer?.name ?? ""}` : customer?.name}
         actions={
           <>
             <Button variant="secondary" onClick={() => setSheet("view")}>
@@ -392,6 +395,12 @@ export function QuoteDetailPage() {
 
       <div className="grid items-start gap-6 lg:grid-cols-3">
         <div className="min-w-0 space-y-6 lg:col-span-2">
+          {(quote.title || quote.description) && (
+            <section className="card p-5">
+              {quote.title && <h2 className="text-base font-semibold text-midnight">{quote.title}</h2>}
+              {quote.description && <p className="mt-1 whitespace-pre-line text-sm text-slate-600">{quote.description}</p>}
+            </section>
+          )}
           <LineItems document={quote} />
           {quote.notes && (
             <section className="card p-5">

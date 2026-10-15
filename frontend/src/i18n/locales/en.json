@@ -452,7 +452,9 @@
     "phone": "Phone",
     "saveFailed": "Couldn't save the customer.",
     "taxNumber": "VAT number",
-    "updated": "Customer updated"
+    "updated": "Customer updated",
+    "deliveryAddress": "Delivery address",
+    "deliveryHint": "Only if it's different from the billing address. Shown on quotes and invoices."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Show my logo",
       "statement_title": "Statement title",
       "swift_code": "SWIFT code",
-      "tax_label": "VAT number label"
+      "tax_label": "VAT number label",
+      "phone": "Phone",
+      "website": "Website",
+      "branch_name": "Branch name"
     },
     "intro": "Choose how your invoices, quotes and statements look. The preview updates as you go; save to start using it.",
     "invoiceTermsPlaceholder": "e.g. Payment is due within 30 days. Interest may be charged on overdue accounts.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Delete {{name}}",
     "deliveryAddress": "Delivery address",
     "deliveryAddressHint": "Where the supplier should deliver.",
-    "notesHintSupplier": "Shown to the supplier on the purchase order and email"
+    "notesHintSupplier": "Shown to the supplier on the purchase order and email",
+    "title": "Title",
+    "titleHint": "What this quote is for, shown at the top.",
+    "titlePlaceholder": "e.g. Annual support renewal",
+    "descriptionLabel": "Description",
+    "descriptionHint": "A short summary for your customer, above the line items."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "This account is suspended. Please contact YGT support.",

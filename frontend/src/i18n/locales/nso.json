@@ -452,7 +452,9 @@
     "phone": "Mogala",
     "saveFailed": "Re paletšwe ke go boloka moreki.",
     "taxNumber": "Nomoro ya VAT",
-    "updated": "Moreki o mpshafaditšwe"
+    "updated": "Moreki o mpshafaditšwe",
+    "deliveryAddress": "Aterese ya go romela",
+    "deliveryHint": "Fela ge e fapana le aterese ya tefelo. E bontšhwa go dikotheišene le di-invoice."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Bontšha logo ya ka",
       "statement_title": "Hlogo ya setatemente",
       "swift_code": "Khoutu ya SWIFT",
-      "tax_label": "Leswao la nomoro ya VAT"
+      "tax_label": "Leswao la nomoro ya VAT",
+      "phone": "Mogala",
+      "website": "Weposaete",
+      "branch_name": "Leina la lekala"
     },
     "intro": "Kgetha ka moo di-invoice, ditekanyetšo le disetatemente tša gago di bonagalago ka gona. Ponelopele e mpshafala gona bjale; boloka go thoma go e šomiša.",
     "invoiceTermsPlaceholder": "mohl. Tefelo e swanetše ka matšatši a 30. Tswala e ka lefišwa go diakhaonte tše di fetilwego ke nako.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Phumola {{name}}",
     "deliveryAddress": "Aterese ya go iša",
     "deliveryAddressHint": "Moo mofepi a swanetšego go iša gona.",
-    "notesHintSupplier": "E bontšhwa go mofepi tabeng ya taelo le imeileng"
+    "notesHintSupplier": "E bontšhwa go mofepi tabeng ya taelo le imeileng",
+    "title": "Thaetlele",
+    "titleHint": "Seo kotheišene ye e lego sa sona, se bontšhwa godimo.",
+    "titlePlaceholder": "mohl. Mpshafatšo ya thekgo ya ngwaga",
+    "descriptionLabel": "Tlhalošo",
+    "descriptionHint": "Kakaretšo ye kopana ya moreki wa gago, godimo ga methalo."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhaonte ye e emišitšwe. Hle ikgokaganye le thekgo ya YGT.",

@@ -38,10 +38,14 @@ class QuoteCreate(BaseModel):
     po_number: str | None = Field(default=None, max_length=60)
     # Your own reference: a project, job or site name.
     reference: str | None = Field(default=None, max_length=100)
+    title: str | None = Field(default=None, max_length=200)
+    description: str | None = Field(default=None, max_length=5000)
     items: list[QuoteItemCreate] = Field(min_length=1)
 
 
 class QuoteUpdate(BaseModel):
+    title: str | None = Field(default=None, max_length=200)
+    description: str | None = Field(default=None, max_length=5000)
     issue_date: date | None = None
     expiry_date: date | None = None
     notes: str | None = None
@@ -68,6 +72,8 @@ class QuoteOut(BaseModel):
     notes: str | None
     po_number: str | None = None
     reference: str | None = None
+    title: str | None = None
+    description: str | None = None
     items: list[QuoteItemOut]
     created_at: datetime
     updated_at: datetime

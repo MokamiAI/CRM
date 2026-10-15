@@ -56,6 +56,15 @@ def main() -> None:
         sys.exit(f"{EMAIL} already exists: the demo company is already seeded. Drop and recreate ygt_dev to start over.")
     c.headers["Authorization"] = f"Bearer {check(res)['access_token']}"
 
+    # The company's own details, as they print on quotes and invoices.
+    check(c.patch("/settings", json={"address": "18 Bree Street\nCape Town City Centre\n8001", "tax_number": "4870123456"}))
+    check(c.put("/settings/documents", json={
+        "registration_number": "2021/456789/07", "phone": "021 555 0100", "website": "www.democatering.example.com",
+        "bank_name": "Standard Bank", "account_holder": "Demo Catering Co", "account_number": "071234567", "account_type": "Business Current Account",
+        "branch_name": "Cape Town City", "branch_code": "051001", "swift_code": "SBZAZAJJ",
+        "payment_reference": "Please use the invoice number as your payment reference.",
+    }))
+
     customers = {}
     for name, email, phone, vat in [
         ("Naledi Events", "bookings@naledievents.example.com", "082 555 0101", "4123456789"),
@@ -65,7 +74,8 @@ def main() -> None:
         ("Kopano Community Trust", "admin@kopanotrust.example.com", "012 555 0105", None),
         ("Lerato Legal Services", "office@leratolegal.example.com", "021 555 0106", "4555666777"),
     ]:
-        customers[name] = check(c.post("/customers", json={"name": name, "email": email, "phone": phone, "tax_number": vat, "billing_address": "12 Loop Street\nCape Town\n8001"}))
+        delivery = "Vergenoegd Estate\nBaden Powell Drive\nStellenbosch" if name == "Naledi Events" else None
+        customers[name] = check(c.post("/customers", json={"name": name, "email": email, "phone": phone, "tax_number": vat, "billing_address": "12 Loop Street\nCape Town\n8001", "delivery_address": delivery}))
     for cust, first, last, title in [("Naledi Events", "Naledi", "Khumalo", "Owner"), ("Sizwe Construction", "Sizwe", "Ndlovu", "Site manager"), ("Bright Minds Academy", "Grace", "Mahlangu", "Bursar")]:
         check(c.post(f"/customers/{customers[cust]['id']}/contacts", json={"first_name": first, "last_name": last, "title": None, "job_title": title, "is_primary": True}))
 
@@ -93,10 +103,11 @@ def main() -> None:
     ]:
         check(c.post("/activities", json={"type": kind, "subject": subject, "due_date": d(due), "customer_id": customers[cust]["id"]}))
 
-    def quote(cust: str, items: list, ref: str, deal: str | None = None) -> dict:
-        return check(c.post("/quotes", json={"customer_id": customers[cust]["id"], "deal_id": deal_ids.get(deal), "issue_date": d(-3), "expiry_date": d(27), "reference": ref, "items": items, "notes": "Prices include delivery within 30 km."}))
+    def quote(cust: str, items: list, ref: str, deal: str | None = None, title: str | None = None, description: str | None = None) -> dict:
+        return check(c.post("/quotes", json={"customer_id": customers[cust]["id"], "deal_id": deal_ids.get(deal), "issue_date": d(-3), "expiry_date": d(27), "reference": ref, "title": title, "description": description, "items": items, "notes": "Prices include delivery within 30 km."}))
 
-    wedding = quote("Naledi Events", [{"description": "Catering per guest", "quantity": "120", "unit_price": "280", "tax_rate": "15"}, {"description": "Cake (tiered)", "quantity": "1", "unit_price": "1800", "tax_rate": "15"}], "Wedding, 120 guests", "Wedding, 120 guests")
+    wedding = quote("Naledi Events", [{"description": "Catering per guest", "quantity": "120", "unit_price": "280", "tax_rate": "15"}, {"description": "Cake (tiered)", "quantity": "1", "unit_price": "1800", "tax_rate": "15"}], "Wedding, 120 guests", "Wedding, 120 guests",
+                    title="Wedding catering for 120 guests", description="Three-course plated dinner with a tiered cake, served at Vergenoegd Estate.")
     check(c.post(f"/quotes/{wedding['id']}/send", params={"notify": "false"}))
     lunches = quote("Sizwe Construction", [{"description": "Site lunch per worker", "quantity": "200", "unit_price": "120", "tax_rate": "15"}], "October site lunches", "Site lunches, October")
     check(c.post(f"/quotes/{lunches['id']}/send", params={"notify": "false"}))

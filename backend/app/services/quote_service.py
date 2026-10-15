@@ -54,6 +54,8 @@ class QuoteService:
             notes=data.notes,
             po_number=(data.po_number or "").strip() or None,
             reference=(data.reference or "").strip() or None,
+            title=(data.title or "").strip() or None,
+            description=(data.description or "").strip() or None,
             subtotal=subtotal,
             tax_total=tax_total,
             total=total,
@@ -88,6 +90,10 @@ class QuoteService:
             quote.po_number = data.po_number.strip() or None
         if data.reference is not None:
             quote.reference = data.reference.strip() or None
+        if data.title is not None:
+            quote.title = data.title.strip() or None
+        if data.description is not None:
+            quote.description = data.description.strip() or None
         if data.items is not None:
             items, subtotal, tax_total, total = build_line_items(QuoteItem, data.items)
             quote.items.clear()

@@ -452,7 +452,9 @@
     "phone": "Telefoon",
     "saveFailed": "Kon nie die kliënt stoor nie.",
     "taxNumber": "BTW-nommer",
-    "updated": "Kliënt bygewerk"
+    "updated": "Kliënt bygewerk",
+    "deliveryAddress": "Afleweringsadres",
+    "deliveryHint": "Net as dit van die faktuuradres verskil. Verskyn op kwotasies en fakture."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Wys my logo",
       "statement_title": "Staattitel",
       "swift_code": "SWIFT-kode",
-      "tax_label": "Etiket vir BTW-nommer"
+      "tax_label": "Etiket vir BTW-nommer",
+      "phone": "Telefoon",
+      "website": "Webwerf",
+      "branch_name": "Takname"
     },
     "intro": "Kies hoe jou fakture, kwotasies en state lyk. Die voorskou word dadelik bygewerk; stoor om dit te begin gebruik.",
     "invoiceTermsPlaceholder": "bv. Betaling is binne 30 dae verskuldig. Rente kan op agterstallige rekeninge gehef word.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Skrap {{name}}",
     "deliveryAddress": "Afleweringsadres",
     "deliveryAddressHint": "Waar die verskaffer moet aflewer.",
-    "notesHintSupplier": "Word aan die verskaffer gewys op die bestelling en e-pos"
+    "notesHintSupplier": "Word aan die verskaffer gewys op die bestelling en e-pos",
+    "title": "Titel",
+    "titleHint": "Waarvoor hierdie kwotasie is, bo-aan gewys.",
+    "titlePlaceholder": "bv. Jaarlikse ondersteuning hernuwing",
+    "descriptionLabel": "Beskrywing",
+    "descriptionHint": "'n Kort opsomming vir jou kliënt, bo die lyne."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Hierdie rekening is opgeskort. Kontak asseblief YGT-ondersteuning.",

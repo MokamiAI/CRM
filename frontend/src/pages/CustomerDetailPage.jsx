@@ -190,6 +190,7 @@ export default function CustomerDetailPage() {
             <dl className="space-y-3 p-5 text-sm">
               {[
                 [t("customerForm.address"), customer.billing_address],
+                ...(customer.delivery_address ? [[t("customerForm.deliveryAddress"), customer.delivery_address]] : []),
                 [t("customerForm.taxNumber"), customer.tax_number],
                 [t("customerForm.background"), customer.notes],
                 ...customRows,

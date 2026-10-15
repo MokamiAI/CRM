@@ -452,7 +452,9 @@
     "phone": "Riqingho",
     "saveFailed": "A hi swi kotanga ku hlayisa muxavi.",
     "taxNumber": "Nomboro ya VAT",
-    "updated": "Muxavi u pfuxetiwile"
+    "updated": "Muxavi u pfuxetiwile",
+    "deliveryAddress": "Adirese yo yisa",
+    "deliveryHint": "Ntsena loko yi hambanile ni adirese yo hakela. Yi kombisiwa eka tikhotexini ni tiinvhoyisi."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Kombisa logo ya mina",
       "statement_title": "Nhlokomhaka ya xiteyitimente",
       "swift_code": "Khodi ya SWIFT",
-      "tax_label": "Leyibulu ya nomboro ya VAT"
+      "tax_label": "Leyibulu ya nomboro ya VAT",
+      "phone": "Riqingho",
+      "website": "Websayiti",
+      "branch_name": "Vito ra rhavi"
     },
     "intro": "Hlawula ndlela leyi tinhlayo-xikoloto, swiringanyeto ni switeyitimente swa wena swi langutekaka ha yona. Xivono xi pfuxeta hi ku hatlisa; hlayisa ku sungula ku xi tirhisa.",
     "invoiceTermsPlaceholder": "xik. Hakelo yi faneriwa hi masiku ya 30. Ntswalo wu nga hakerisiwa eka tiakhawunti leti hundzeriweke hi nkarhi.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Susa {{name}}",
     "deliveryAddress": "Adirese yo yisa",
     "deliveryAddressHint": "Laha muphakeri a faneleke ku yisa kona.",
-    "notesHintSupplier": "Swi kombisiwa muphakeri eka oda ni le ka imeyili"
+    "notesHintSupplier": "Swi kombisiwa muphakeri eka oda ni le ka imeyili",
+    "title": "Nhlokomhaka",
+    "titleHint": "Leswi khotexini leyi yi nga swa swona, swi kombisiwa ehenhla.",
+    "titlePlaceholder": "xik. Ku pfuxetiwa ka nseketelo wa lembe",
+    "descriptionLabel": "Nhlamuselo",
+    "descriptionHint": "Nkatsakanyo wo koma wa muxavi wa wena, ehenhla ka tilayini."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhawunti leyi yi yimisiwile. Hi kombela u tihlanganisa na nseketelo wa YGT.",

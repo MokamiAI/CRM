@@ -34,6 +34,9 @@ class Quote(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     tax_total: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     total: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # What the quote is for, shown at the top of the document.
+    title: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
     # The client's purchase order (order) number, quoted back on the document.
     po_number: Mapped[str | None] = mapped_column(String(60), nullable=True, index=True)
     # Your own reference for this document (project, job or site name).

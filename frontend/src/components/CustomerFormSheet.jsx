@@ -10,7 +10,7 @@ import { Button, Field } from "./ui";
 import { CustomFieldInputs, toFormValues } from "./CustomFields";
 import { errorMessage } from "../utils/format";
 
-const EMPTY = { name: "", email: "", phone: "", billing_address: "", tax_number: "", notes: "" };
+const EMPTY = { name: "", email: "", phone: "", billing_address: "", delivery_address: "", tax_number: "", notes: "" };
 
 function nullsToEmpty(obj) {
   return Object.fromEntries(Object.keys(EMPTY).map((k) => [k, obj[k] ?? ""]));
@@ -22,13 +22,13 @@ function emptyToNull(obj) {
   return Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, v === "" ? null : v]));
 }
 
-/** Create (customer = null) or edit a customer. */
 /** Edit a customer by id: loads the whole record first, so no field is lost. */
 export function EditCustomerSheet({ id, onClose }) {
   const { data: customer } = useCustomer(id);
   return <CustomerFormSheet open={Boolean(customer)} onClose={onClose} customer={customer ?? null} />;
 }
 
+/** Create (customer = null) or edit a customer. */
 export default function CustomerFormSheet({ open, onClose, customer, onSaved }) {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -119,6 +119,9 @@ export default function CustomerFormSheet({ open, onClose, customer, onSaved }) 
         </div>
         <Field label={t("customerForm.address")}>
           <textarea className="input" rows={3} value={form.billing_address} onChange={update("billing_address")} />
+        </Field>
+        <Field label={t("customerForm.deliveryAddress")} hint={t("customerForm.deliveryHint")}>
+          <textarea className="input" rows={2} value={form.delivery_address} onChange={update("delivery_address")} />
         </Field>
         <Field label={t("customerForm.taxNumber")}>
           <input className="input" value={form.tax_number} onChange={update("tax_number")} />

@@ -22,6 +22,7 @@ class CustomerService:
             email=data.email,
             phone=data.phone,
             billing_address=data.billing_address,
+            delivery_address=data.delivery_address,
             tax_number=data.tax_number,
             notes=data.notes,
             custom_fields=await CustomFieldService(self.db).clean_values("customer", data.custom_fields),

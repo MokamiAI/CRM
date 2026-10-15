@@ -79,7 +79,9 @@
       {% if company.address %}<p class="muted">{{ lines_of(company.address) }}</p>{% endif %}
       {% if company.tax_number %}<p><span class="muted">{{ t.tax_label }}:</span> {{ company.tax_number }}</p>{% endif %}
       {% if t.registration_number %}<p><span class="muted">Reg. no.:</span> {{ t.registration_number }}</p>{% endif %}
+      {% if t.phone %}<p class="muted">{{ t.phone }}</p>{% endif %}
       {% if company.sender_email %}<p class="muted">{{ company.sender_email }}</p>{% endif %}
+      {% if t.website %}<p class="muted">{{ t.website }}</p>{% endif %}
     </div>
     <div class="meta">
       <h1 class="doc-title">{% block doc_title %}{% endblock %}</h1>
@@ -93,9 +95,28 @@
       <p><strong>{{ customer.name }}</strong></p>
       {% if customer.billing_address %}<p class="muted">{{ lines_of(customer.billing_address) }}</p>{% endif %}
       {% if customer.email %}<p class="muted">{{ customer.email }}</p>{% endif %}
+      {% if customer.phone %}<p class="muted">{{ customer.phone }}</p>{% endif %}
       {% if t.show_customer_tax_number and customer.tax_number %}<p><span class="muted">{{ t.tax_label }}:</span> {{ customer.tax_number }}</p>{% endif %}
+      {% if contact %}
+      <p style="margin-top:6px;"><span class="muted">Attention:</span> {{ contact.first_name }}{% if contact.last_name %} {{ contact.last_name }}{% endif %}{% if contact.job_title %}, {{ contact.job_title }}{% endif %}</p>
+      {% if contact.email and contact.email != customer.email %}<p class="muted">{{ contact.email }}</p>{% endif %}
+      {% if contact.phone and contact.phone != customer.phone %}<p class="muted">{{ contact.phone }}</p>{% endif %}
+      {% endif %}
     </div>
+    {% if customer.delivery_address %}
+    <div>
+      <p class="label">Delivery address</p>
+      <p class="muted">{{ lines_of(customer.delivery_address) }}</p>
+    </div>
+    {% endif %}
     {% block party_extra %}{% endblock %}
+    {% if author %}
+    <div>
+      <p class="label">Prepared by</p>
+      <p>{{ author.full_name }}</p>
+      {% if author.email %}<p class="muted">{{ author.email }}</p>{% endif %}
+    </div>
+    {% endif %}
   </section>
 
   {% block body %}{% endblock %}

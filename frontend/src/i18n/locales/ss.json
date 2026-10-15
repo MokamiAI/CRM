@@ -452,7 +452,9 @@
     "phone": "Lucingo",
     "saveFailed": "Asikhonanga kugcina umtsengi.",
     "taxNumber": "Inombolo ye-VAT",
-    "updated": "Umtsengi uvuseletiwe"
+    "updated": "Umtsengi uvuseletiwe",
+    "deliveryAddress": "Likheli lekulethwa",
+    "deliveryHint": "Kuphela nangabe lehlukile ekhelini lekukhokha. Liboniswa eticalweni nakuma-invoyisi."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Khombisa ilogo yami",
       "statement_title": "Sihloko sesitatimende",
       "swift_code": "Ikhodi ye-SWIFT",
-      "tax_label": "Lilebula lenombolo ye-VAT"
+      "tax_label": "Lilebula lenombolo ye-VAT",
+      "phone": "Lucingo",
+      "website": "Iwebhusayithi",
+      "branch_name": "Libito leligatja"
     },
     "intro": "Khetsa kutsi ema-invoyisi akho, emakhotheshini netitatimende kubukeka njani. Kubuka kucala kuyavuseleleka ngekushesha; londvolota kute ucale kukusebentisa.",
     "invoiceTermsPlaceholder": "sib. Inkhokhelo ifanele kungakendluli emalanga la-30. Inzalo ingakhokhiswa kuma-akhawunti lasele.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Susa {{name}}",
     "deliveryAddress": "Likheli lekuletsa",
     "deliveryAddressHint": "Lapho umhlinzeki kufanele aletse khona.",
-    "notesHintSupplier": "Kukhonjiswa umhlinzeki ku-oda nakwi-imeyili"
+    "notesHintSupplier": "Kukhonjiswa umhlinzeki ku-oda nakwi-imeyili",
+    "title": "Sihloko",
+    "titleHint": "Kutsi lesicalo sentelwe ini, kuboniswa etulu.",
+    "titlePlaceholder": "sib. Kuvuselelwa kwelusito lwemnyaka",
+    "descriptionLabel": "Inchazelo",
+    "descriptionHint": "Sifinyeto lesifisha selikhasimende lakho, ngetulu kwemigca."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Le-akhawunti imisiwe. Sicela utsintse kusekela kwe-YGT.",

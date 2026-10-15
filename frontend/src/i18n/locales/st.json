@@ -452,7 +452,9 @@
     "phone": "Mohala",
     "saveFailed": "Re hlolehile ho boloka moreki.",
     "taxNumber": "Nomoro ya VAT",
-    "updated": "Moreki o ntjhafaditswe"
+    "updated": "Moreki o ntjhafaditswe",
+    "deliveryAddress": "Aterese ya ho romela",
+    "deliveryHint": "Feela ha e fapane le aterese ya tefo. E bontshwa ho dikotheishene le di-invoice."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Bontsha logo ya ka",
       "statement_title": "Sehlooho sa statemente",
       "swift_code": "Khoutu ya SWIFT",
-      "tax_label": "Letshwao la nomoro ya VAT"
+      "tax_label": "Letshwao la nomoro ya VAT",
+      "phone": "Mohala",
+      "website": "Websaete",
+      "branch_name": "Lebitso la lekala"
     },
     "intro": "Kgetha kamoo di-invoice, dikotatsheno le distatemente tsa hao di shebahalang kateng. Ponelopele e ntjhafala hang hang; boloka ho qala ho e sebedisa.",
     "invoiceTermsPlaceholder": "mohl. Tefo e lokela ho etswa nakong ya matsatsi a 30. Tswala e ka lefiswa diakhaontong tse fetilweng ke nako.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Hlakola {{name}}",
     "deliveryAddress": "Aterese ya ho isa",
     "deliveryAddressHint": "Moo mofani a lokelang ho isa teng.",
-    "notesHintSupplier": "E bontshwa ho mofani taelong le imeileng"
+    "notesHintSupplier": "E bontshwa ho mofani taelong le imeileng",
+    "title": "Sehlooho",
+    "titleHint": "Seo kotheishene ena e leng sa sona, se bontshwa hodimo.",
+    "titlePlaceholder": "mohl. Ntjhafatso ya tshehetso ya selemo",
+    "descriptionLabel": "Tlhaloso",
+    "descriptionHint": "Kakaretso e kgutshwane bakeng sa moreki wa hao, ka hodima mela."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhaonto ena e emisitswe. Ka kopo ikopanye le tshehetso ya YGT.",

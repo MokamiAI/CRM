@@ -171,7 +171,7 @@ const ACCENTS = ["#4f46e5", "#7c3aed", "#0f766e", "#0369a1", "#15803d", "#b45309
 const LAYOUTS = ["modern", "classic", "minimal"];
 const TEXT_FIELDS = {
   titles: ["invoice_title", "quote_title", "statement_title", "tax_label"],
-  bank: ["bank_name", "account_holder", "account_number", "account_type", "branch_code", "swift_code"],
+  bank: ["bank_name", "account_holder", "account_number", "account_type", "branch_name", "branch_code", "swift_code"],
 };
 
 /** Little drawing of each layout for the picker. */
@@ -318,6 +318,10 @@ export function DocumentTemplateSettings() {
           <div className="grid gap-4 sm:grid-cols-2">{TEXT_FIELDS.titles.map((f) => text(f))}</div>
           <p className="text-xs text-zinc-500">{t("documents.taxLabelHint", { label: form.tax_label })}</p>
           {text("registration_number", { placeholder: "2019/123456/07" })}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {text("phone", { placeholder: "011 555 0100" })}
+            {text("website", { placeholder: "www.yourcompany.co.za" })}
+          </div>
           {toggle("show_customer_tax_number")}
         </section>
 

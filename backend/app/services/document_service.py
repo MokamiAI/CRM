@@ -140,13 +140,26 @@ class DocumentService:
         company = await self.companies.get_current()
         return company, resolve_template(company)
 
+    async def _people(self, customer_id, created_by):
+        """The customer's main contact (for "Attention") and whoever
+        prepared the document, by name and email."""
+        from app.models.crm import Contact
+        from app.models.user import User
+
+        contact = await self.db.scalar(
+            select(Contact).where(Contact.customer_id == customer_id).order_by(Contact.is_primary.desc(), Contact.created_at).limit(1)
+        )
+        author = await self.db.get(User, created_by) if created_by else None
+        return {"contact": contact, "author": author}
+
     async def invoice_html(self, invoice_id: uuid.UUID) -> str:
         invoice = await InvoiceRepository(self.db).get_by_id(invoice_id)
         if invoice is None:
             raise NotFoundError("Invoice not found", "INVOICE_NOT_FOUND")
         customer = await CustomerRepository(self.db).get_by_id(invoice.customer_id)
         company, template = await self._company()
-        return render("invoice", company, template, doc=invoice, customer=customer, amount_due=invoice.total - invoice.amount_paid)
+        people = await self._people(invoice.customer_id, invoice.created_by)
+        return render("invoice", company, template, doc=invoice, customer=customer, amount_due=invoice.total - invoice.amount_paid, **people)
 
     async def quote_html(self, quote_id: uuid.UUID) -> str:
         quote = await QuoteRepository(self.db).get_by_id(quote_id)
@@ -154,7 +167,8 @@ class DocumentService:
             raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
         customer = await CustomerRepository(self.db).get_by_id(quote.customer_id)
         company, template = await self._company()
-        return render("quote", company, template, doc=quote, customer=customer)
+        people = await self._people(quote.customer_id, quote.created_by)
+        return render("quote", company, template, doc=quote, customer=customer, **people)
 
     async def purchase_order_html(self, po_id: uuid.UUID) -> str:
         from app.services.purchasing_service import PurchaseOrderService
@@ -189,7 +203,11 @@ class DocumentService:
         customer, doc, statement = _sample(company)
         if kind == "statement":
             return render("statement", company, template, customer=customer, statement=statement)
-        return render(kind, company, template, doc=doc, customer=customer, amount_due=doc.total)
+        sample_people = {
+            "contact": SimpleNamespace(first_name="Lindiwe", last_name="Khoza", email="lindiwe@thandeka.example.com", phone="011 555 0142", job_title="Finance manager"),
+            "author": SimpleNamespace(full_name="Your name", email=company.sender_email or "you@yourcompany.co.za"),
+        }
+        return render(kind, company, template, doc=doc, customer=customer, amount_due=doc.total, **sample_people)
 
 
 def _sample(company):
@@ -197,6 +215,7 @@ def _sample(company):
     customer = SimpleNamespace(
         id=uuid.uuid4(), name="Thandeka Holdings (Pty) Ltd", email="accounts@thandeka.example.com",
         billing_address="12 Loop Street\nCape Town\n8001", tax_number="4123456789",
+        delivery_address="Unit 4, Rosebank Office Park\n15 Tyrwhitt Avenue\nRosebank, Johannesburg\n2196", phone="011 555 0140",
     )
     items = [
         SimpleNamespace(description="Website design and build", quantity=Decimal("1"), unit_price=Decimal("18500.00"), tax_rate=Decimal("15"), line_total=Decimal("18500.00")),
@@ -208,6 +227,7 @@ def _sample(company):
         invoice_number=f"{company.invoice_prefix}0042", quote_number=f"{company.quote_prefix}0017",
         issue_date=today, due_date=today + timedelta(days=company.payment_terms_days or 30), expiry_date=today + timedelta(days=30),
         subtotal=subtotal, tax_total=tax, total=subtotal + tax, amount_paid=Decimal("0"), notes="Thank you for your business.", items=items, po_number="PO-7781", reference="Rosebank office fit-out",
+        title="Rosebank office fit-out: website and support", description="A new website for the Rosebank office, with three months of hosting and support after launch.",
     )
     inv = lambda n, d, total, due: SimpleNamespace(id=n, invoice_number=f"{company.invoice_prefix}00{n}", issue_date=today - timedelta(days=d), due_date=today - timedelta(days=d - 30), total=Decimal(total))  # noqa: E731
     invoices = [inv(38, 75, "8625.00", 0), inv(40, 40, "4312.50", 0), inv(42, 5, "23517.50", 0)]

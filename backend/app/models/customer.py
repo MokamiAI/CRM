@@ -17,6 +17,8 @@ class Customer(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     email: Mapped[str | None] = mapped_column(String(255), nullable=True)
     phone: Mapped[str | None] = mapped_column(String(50), nullable=True)
     billing_address: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Where goods or services go, when not the billing address.
+    delivery_address: Mapped[str | None] = mapped_column(Text, nullable=True)
     tax_number: Mapped[str | None] = mapped_column(String(100), nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)

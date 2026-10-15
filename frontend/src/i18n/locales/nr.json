@@ -452,7 +452,9 @@
     "phone": "Ucingo",
     "saveFailed": "Asikghonanga ukubulunga ikhasimende.",
     "taxNumber": "Inomboro ye-VAT",
-    "updated": "Ikhasimende livuselelwe"
+    "updated": "Ikhasimende livuselelwe",
+    "deliveryAddress": "Ikheli lokuthumela",
+    "deliveryHint": "Kwaphela nange lihlukile kwikheli lokubhadela. Liboniswa eenlinganisweni nakuma-invoyisi."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Tjengisa ilogo yami",
       "statement_title": "Isihloko sesitatimende",
       "swift_code": "Ikhowudi ye-SWIFT",
-      "tax_label": "Ilebula yenomboro ye-VAT"
+      "tax_label": "Ilebula yenomboro ye-VAT",
+      "phone": "Ifoni",
+      "website": "Iwebhusayidi",
+      "branch_name": "Ibizo legatja"
     },
     "intro": "Khetha bona ama-invoyisi wakho, iinlinganiso neentatimende kubukeka njani. Ukubuka kokuthoma kuyavuselelwa msinyana; gcina bona uthome ukukusebenzisa.",
     "invoiceTermsPlaceholder": "isib. Imbhadelo ifanele ingakadluli amalanga ama-30. Inzalo ingabhadeliswa kuma-akhawunti asele.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Susa {{name}}",
     "deliveryAddress": "Ikheli lokuletha",
     "deliveryAddressHint": "Lapho umthengisi kufanele alethe khona.",
-    "notesHintSupplier": "Kutjengiswa umthengisi ku-oda nakwi-imeyili"
+    "notesHintSupplier": "Kutjengiswa umthengisi ku-oda nakwi-imeyili",
+    "title": "Isihloko",
+    "titleHint": "Bona isilinganiso lesi senzelwe ini, kutjengiswa phezulu.",
+    "titlePlaceholder": "isib. Ukuvuselelwa kwesizo somnyaka",
+    "descriptionLabel": "Ihlathululo",
+    "descriptionHint": "Isifinyezo esifitjhani sekhasimende lakho, ngaphezu kwemigqa."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "I-akhawunti le imisiwe. Sibawa uthintane nesekelo le-YGT.",

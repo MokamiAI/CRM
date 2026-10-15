@@ -13,6 +13,12 @@
 </table>
 {% endblock %}
 {% block body %}
+{% if doc.title or doc.description %}
+<div class="terms" style="margin-top:22px;">
+  {% if doc.title %}<p style="font-size:12pt;font-weight:700;">{{ doc.title }}</p>{% endif %}
+  {% if doc.description %}<p class="muted" style="margin-top:4px;">{{ lines_of(doc.description) }}</p>{% endif %}
+</div>
+{% endif %}
 {{ items_table(doc) }}
 <div class="totals">
   <table>

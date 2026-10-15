@@ -73,6 +73,9 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   const [issueDate, setIssueDate] = useState(initial?.issue_date ?? initial?.start_date ?? todayISO());
   const [secondDate, setSecondDate] = useState((dateField && initial?.[dateField]) || "");
   const [notes, setNotes] = useState(initial?.notes ?? "");
+  const [title, setTitle] = useState(initial?.title ?? "");
+  const [description, setDescription] = useState(initial?.description ?? "");
+  const quote = kind === "quote";
   const [reference, setReference] = useState(initial?.reference ?? "");
   const [deliveryAddress, setDeliveryAddress] = useState(initial?.delivery_address ?? "");
   const [items, setItems] = useState(() =>
@@ -135,6 +138,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
       ...(secondDate && { [dateField]: secondDate }),
       notes: notes || null,
       reference: reference.trim() || null,
+      ...(quote && { title: title.trim(), description: description.trim() }),
       ...(purchase && { delivery_address: deliveryAddress.trim() || null }),
       items: payloadItems(),
     });
@@ -176,6 +180,16 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
           )}
         </div>
         {children}
+        {quote && (
+          <>
+            <Field label={t("editor.title")} hint={t("editor.titleHint")}>
+              <input className="input" maxLength={200} value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("editor.titlePlaceholder")} />
+            </Field>
+            <Field label={t("editor.descriptionLabel")} hint={t("editor.descriptionHint")}>
+              <textarea className="input" rows={3} maxLength={5000} value={description} onChange={(e) => setDescription(e.target.value)} />
+            </Field>
+          </>
+        )}
         <div>
           <Field label={t("editor.reference")} hint={t("editor.referenceHint")}>
             <input className="input" maxLength={100} value={reference} onChange={(e) => setReference(e.target.value)} placeholder={t("editor.referencePlaceholder")} />

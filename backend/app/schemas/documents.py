@@ -20,11 +20,15 @@ class DocumentTemplate(BaseModel):
     show_logo: bool = True
     show_customer_tax_number: bool = True
     registration_number: str | None = _text(60)
+    # Your contact details on every document.
+    phone: str | None = _text(40)
+    website: str | None = _text(120)
     # Where to pay (shown on invoices and statements).
     bank_name: str | None = _text(80)
     account_holder: str | None = _text(120)
     account_number: str | None = _text(40)
     branch_code: str | None = _text(20)
+    branch_name: str | None = _text(80)
     account_type: str | None = _text(40)
     swift_code: str | None = _text(20)
     payment_reference: str | None = Field(default="Please use the invoice number as your payment reference.", max_length=200)

@@ -452,7 +452,9 @@
     "phone": "Founu",
     "saveFailed": "Ro kundelwa u vhulunga murengi.",
     "taxNumber": "Nomboro ya VAT",
-    "updated": "Murengi o khwiniswa"
+    "updated": "Murengi o khwiniswa",
+    "deliveryAddress": "Diresi ya u isa",
+    "deliveryHint": "Fhedzi arali yo fhambana na diresi ya mbadelo. I sumbedzwa kha khotheshini na dziinvoisi."
   },
   "customers": {
     "col": {
@@ -752,7 +754,10 @@
       "show_logo": "Sumbedzani logo yanga",
       "statement_title": "Ṱhoho ya tshitatamennde",
       "swift_code": "Khoudu ya SWIFT",
-      "tax_label": "Ḽeibuḽu ya nomboro ya VAT"
+      "tax_label": "Ḽeibuḽu ya nomboro ya VAT",
+      "phone": "Founu",
+      "website": "Webusaithi",
+      "branch_name": "Dzina ḽa davhi"
     },
     "intro": "Nangani nḓila ine dzi-invoice, zwiṱangadzamitengo na tshitatamennde zwaṋu zwa vhonala ngayo. Tshivhonelo tshi vusuludzwa nga u ṱavhanya; vhulungani u thoma u tshi shumisa.",
     "invoiceTermsPlaceholder": "tsumbo Mbadelo i fanela u itwa nga maḓuvha a 30. Nzwalelo i nga badeliswa kha akhaunthe dzo fhirwaho nga tshifhinga.",
@@ -831,7 +836,12 @@
     "deleteSaved": "Phumulani {{name}}",
     "deliveryAddress": "Ḓiresi ya u isa",
     "deliveryAddressHint": "Hune muṋetshedzi a fanela u isa hone.",
-    "notesHintSupplier": "Zwi sumbedzwa muṋetshedzi kha oda na kha imeiḽi"
+    "notesHintSupplier": "Zwi sumbedzwa muṋetshedzi kha oda na kha imeiḽi",
+    "title": "Tholoho",
+    "titleHint": "Zwine khotheshini iyi ya vha zwa zwone, zwi sumbedzwa nṱha.",
+    "titlePlaceholder": "tsumbo, U vusuludzwa ha thikhedzo ya ṅwaha",
+    "descriptionLabel": "Ṱhaluso",
+    "descriptionHint": "Pfufhifhadzo pfufhi ya murengi waṋu, nṱha ha mitevhe."
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhaunthe iyi yo imiswa. Ri humbela ni kwame thikhedzo ya YGT.",
