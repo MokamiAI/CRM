@@ -51,7 +51,7 @@ const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, o
       });
       // 2. The line draws back the way it came.
       if (line) {
-        run.push(line.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], { duration: 450, easing: EASE_IN_OUT, fill: "forwards" }));
+        run.push(line.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], { duration: 950, easing: EASE_IN_OUT, fill: "forwards" }));
       }
       capitals.forEach((c, i) => {
         const dx = offsets[i];
@@ -149,7 +149,7 @@ const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, o
     // 4. A gradient line sweeps underneath.
     if (line) {
       run.push(
-        line.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration: 500, delay: delay + 1750, easing: EASE_OUT, fill: "both" })
+        line.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration: 1000, delay: delay + 1750, easing: EASE_OUT, fill: "both" })
       );
     }
     Promise.all(run.map((a) => a.finished)).then(() => onDone?.(), () => {});
