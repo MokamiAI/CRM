@@ -184,6 +184,8 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [form, setForm] = useState({ company_name: "", full_name: "", email: "", password: "" });
+  // Optional: the year's revenue goal, for the dashboard's goal card.
+  const [goal, setGoal] = useState("");
   // ?plan=scale from a "Start free trial" button; Grow otherwise.
   const [plan, setPlan] = useState(() => (["hustle", "grow", "scale"].includes(location.search.match(/plan=(\w+)/)?.[1]) ? location.search.match(/plan=(\w+)/)[1] : "grow"));
   // Step 1: who you are; step 2: which plan to try.
@@ -201,7 +203,8 @@ export function RegisterPage() {
     }
     setIsSubmitting(true);
     try {
-      await register({ ...form, plan });
+      const target = Number(String(goal).replace(/[^\d.]/g, ""));
+      await register({ ...form, plan, ...(target > 0 && { annual_revenue_goal: String(target) }) });
       navigate("/", { replace: true });
     } catch (err) {
       const code = err?.response?.data?.error_code;
@@ -236,15 +239,24 @@ export function RegisterPage() {
 
       <form onSubmit={handleSubmit} className="mt-5 space-y-4">
         {step === 1 ? (
-          fields.map(({ id, hint, ...props }) => (
-            <div key={id}>
-              <label className="label" htmlFor={id}>
-                {t(`register.${id}`)}
+          <>
+            {fields.map(({ id, hint, ...props }) => (
+              <div key={id}>
+                <label className="label" htmlFor={id}>
+                  {t(`register.${id}`)}
+                </label>
+                <GlowField id={id} required value={form[id]} onChange={set(id)} {...props} />
+                {hint && <span className="mt-1.5 block text-xs text-zinc-500">{hint}</span>}
+              </div>
+            ))}
+            <div>
+              <label className="label" htmlFor="annual_revenue_goal">
+                {t("goal.signupLabel")} <span className="font-normal text-zinc-400">{t("goal.optional")}</span>
               </label>
-              <GlowField id={id} required value={form[id]} onChange={set(id)} {...props} />
-              {hint && <span className="mt-1.5 block text-xs text-zinc-500">{hint}</span>}
+              <GlowField id="annual_revenue_goal" inputMode="decimal" placeholder={t("goal.placeholder")} value={goal} onChange={(e) => setGoal(e.target.value)} />
+              <span className="mt-1.5 block text-xs text-zinc-500">{t("goal.signupHint")}</span>
             </div>
-          ))
+          </>
         ) : (
           <PlanPicker value={plan} onChange={setPlan} />
         )}

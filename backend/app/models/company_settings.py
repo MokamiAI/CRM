@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, Integer, Numeric, String, Text
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -29,6 +29,10 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
     po_prefix: Mapped[str] = mapped_column(String(20), nullable=False, default="PO-", server_default="PO-")
     next_po_number: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
     payment_terms_days: Mapped[int] = mapped_column(Integer, nullable=False, default=30)
+    # The year's revenue goal (won deals count towards it) and the month the
+    # company's year starts: 3 = March, the usual South African financial year.
+    annual_revenue_goal: Mapped[float | None] = mapped_column(Numeric(14, 2), nullable=True)
+    financial_year_start_month: Mapped[int] = mapped_column(Integer, nullable=False, default=3, server_default="3")
 
     # Outgoing-email configuration for sending invoices/quotes/reminders.
     # When smtp_host is null, the app falls back to the SMTP_* env vars

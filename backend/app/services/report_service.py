@@ -156,6 +156,33 @@ class ReportService:
                 for d, name in top
             ],
             "recent_activity": await self._recent_activity(),
+            "goal": await self._goal(settings_row, today),
+        }
+
+    async def _goal(self, company, today: date) -> dict:
+        """This financial year: the goal, deals won and cash collected so far."""
+        month = company.financial_year_start_month or 3
+        year = today.year if today.month >= month else today.year - 1
+        start = date(year, month, 1)
+        end = date(year + 1, month, 1)
+        won = (
+            await self.db.execute(
+                select(func.count(), func.coalesce(func.sum(Deal.value), 0)).where(
+                    Deal.stage == DealStage.WON, Deal.closed_at >= _utc(start), Deal.closed_at < _utc(end)
+                )
+            )
+        ).one()
+        local_paid = func.timezone(company.default_timezone, Payment.paid_at)
+        collected = await self.db.scalar(
+            select(func.coalesce(func.sum(Payment.amount), 0)).where(func.date(local_paid) >= start, func.date(local_paid) < end)
+        )
+        return {
+            "target": company.annual_revenue_goal,
+            "year_start": start.isoformat(),
+            "year_end": (end - timedelta(days=1)).isoformat(),
+            "won_value": won[1],
+            "won_count": won[0],
+            "collected": collected,
         }
 
     async def _recent_activity(self, limit: int = 8) -> list[dict]:

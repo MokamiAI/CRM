@@ -4,7 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Avatar } from "./ui";
-import { ActivityIcon, EditActivityButton, PencilIcon, STAGE_LABELS } from "./crm";
+import { ActivityIcon, EditActivityButton, JourneyBar, PencilIcon, STAGE_LABELS } from "./crm";
 import DealFormSheet from "./DealFormSheet";
 import { EditCustomerSheet } from "./CustomerFormSheet";
 import { useAuth } from "../context/AuthContext";
@@ -24,6 +24,7 @@ export const Icons = {
   quote: <><path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4 3v-3H5a1 1 0 0 1-1-1V5Z" /><path d="M8 9h8M8 12h5" /></>,
   activity: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
+  target: <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.5" /></>,
   up: <path d="m6 15 6-6 6 6" />,
   down: <path d="m6 9 6 6 6-6" />,
 };
@@ -116,6 +117,109 @@ export function KpiCard({ to, icon, tone, label, value, detail, change, spark, s
   );
 }
 
+/* ------------------------------------------------------- annual goal */
+
+const DAY_MS = 86400000;
+
+/** The year's revenue goal: deals won so far, against where you'd be if
+ *  wins came evenly through the year, and what each month left needs. */
+export function GoalCard({ goal, today, canEdit }) {
+  const { t, i18n } = useTranslation();
+  const month = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString(i18n.language, { month: "short", year: "numeric" });
+  const range = `${month(goal.year_start)} – ${month(goal.year_end)}`;
+  if (!goal.target || Number(goal.target) <= 0) {
+    return (
+      <section className="card flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+        <div className="flex items-center gap-3">
+          <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ring-4 ${TONES.blue}`}>
+            <Svg d={Icons.target} className="h-5 w-5" />
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-midnight">{t("goal.emptyTitle")}</p>
+            <p className="text-xs text-slate-500">{t("goal.emptyBody")}</p>
+          </div>
+        </div>
+        {canEdit && (
+          <Link to="/settings" className="btn btn-secondary !h-9 !text-sm">
+            {t("goal.set")}
+          </Link>
+        )}
+      </section>
+    );
+  }
+  const target = Number(goal.target);
+  const won = Number(goal.won_value);
+  const start = new Date(`${goal.year_start}T00:00:00`);
+  const end = new Date(`${goal.year_end}T00:00:00`);
+  const now = new Date(`${today}T00:00:00`);
+  const elapsed = Math.min(1, Math.max(0, (now - start + DAY_MS) / (end - start + DAY_MS)));
+  const pct = Math.min(100, (won / target) * 100);
+  const expected = target * elapsed;
+  const onPace = won >= expected * 0.95;
+  const reached = won >= target;
+  const monthsLeft = Math.max(1, (end.getFullYear() - now.getFullYear()) * 12 + end.getMonth() - now.getMonth() + 1);
+  const perMonth = Math.max(0, target - won) / monthsLeft;
+  return (
+    <section className="card p-5" aria-label={t("goal.title")}>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ring-4 ${TONES[reached ? "emerald" : "blue"]}`}>
+            <Svg d={Icons.target} className="h-5 w-5" />
+          </span>
+          <div>
+            <h2 className="text-[15px] font-semibold text-midnight">{t("goal.title")}</h2>
+            <p className="text-xs text-slate-500">{range}</p>
+          </div>
+        </div>
+        <span
+          className={`rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${
+            reached || onPace ? "bg-emerald-50 text-emerald-700 ring-emerald-200/70" : "bg-amber-50 text-amber-800 ring-amber-200/70"
+          }`}
+        >
+          {reached ? t("goal.reached") : onPace ? t("goal.onPace") : t("goal.behind", { amount: formatMoneyWhole(expected - won) })}
+        </span>
+      </div>
+      <p className="mt-3 text-sm text-slate-600">
+        <span className="text-2xl font-bold tabular-nums text-midnight">{formatMoneyWhole(won)}</span> {t("goal.of", { target: formatMoneyWhole(target) })}
+      </p>
+      {/* The bar is progress; the tick is where an even pace would be today. */}
+      <div className="relative mt-3">
+        <div
+          className="h-3 overflow-hidden rounded-full bg-slate-100"
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(pct)}
+          aria-label={t("goal.aria", { pct: Math.round(pct) })}
+        >
+          <div className={`h-full rounded-full ${reached ? "bg-emerald-500" : "bg-gradient-to-r from-blue-600 to-violet-500"}`} style={{ width: `${Math.max(pct, won > 0 ? 1.5 : 0)}%` }} />
+        </div>
+        {!reached && (
+          <span className="absolute -top-1 h-5 w-0.5 rounded-full bg-midnight/60" style={{ left: `${elapsed * 100}%` }} title={t("goal.paceMarker")} aria-hidden="true" />
+        )}
+      </div>
+      <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+        <div>
+          <dt className="text-xs text-slate-500">{t("goal.progress")}</dt>
+          <dd className="font-semibold tabular-nums text-midnight">{t("goal.percent", { pct: pct < 10 ? pct.toFixed(1) : Math.round(pct) })}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{t("goal.wonDeals")}</dt>
+          <dd className="font-semibold tabular-nums text-midnight">{goal.won_count}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{t("goal.perMonth", { count: monthsLeft })}</dt>
+          <dd className="font-semibold tabular-nums text-midnight">{reached ? "—" : formatMoneyWhole(perMonth)}</dd>
+        </div>
+        <div>
+          <dt className="text-xs text-slate-500">{t("goal.collected")}</dt>
+          <dd className="font-semibold tabular-nums text-midnight">{formatMoneyWhole(goal.collected)}</dd>
+        </div>
+      </dl>
+    </section>
+  );
+}
+
 /** A row of headline figures above a list. */
 export function StatStrip({ children }) {
   return <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">{children}</div>;
@@ -171,6 +275,7 @@ function DealCard({ deal, customer, owner }) {
     <DealFormSheet open={editing} onClose={() => setEditing(false)} deal={deal} />
     <Link to={`/deals/${deal.id}`} className="block rounded-xl border border-white bg-white p-3 shadow-card [@media(hover:none)]:pr-10 transition-shadow duration-150 hover:shadow-pop">
       <span className="line-clamp-2 text-[13px] font-semibold leading-snug text-midnight">{deal.title}</span>
+      <JourneyBar milestones={deal.milestones} className="my-1.5" />
       <span className="mt-0.5 block truncate text-xs text-slate-500">{customer?.name ?? "…"}</span>
       <span className="mt-2 flex items-center justify-between gap-2">
         <span className="text-[13px] font-semibold tabular-nums text-slate-900">{formatMoneyWhole(deal.value)}</span>

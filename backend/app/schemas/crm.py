@@ -99,6 +99,9 @@ class DealOut(BaseModel):
     # Earliest open activity: drives the board's overdue/today/none
     # indicators (Pipedrive's "next activity"). Filled in by DealService.
     next_activity: NextActivity | None = None
+    # Lead-to-client milestones reached, from real activity: lead,
+    # contacted, qualified, quote_sent, negotiation, won.
+    milestones: list[str] = []
 
 
 # ---------- Activities ----------

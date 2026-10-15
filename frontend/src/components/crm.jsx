@@ -150,6 +150,72 @@ export function EditActivityButton({ activity, className = "" }) {
   );
 }
 
+// ---------- Lead to client ----------
+
+// The six steps from a lead to a client; the server says which are reached.
+export const MILESTONES = ["lead", "contacted", "qualified", "quote_sent", "negotiation", "won"];
+
+export function journeyPercent(milestones = []) {
+  return Math.round((MILESTONES.filter((m) => milestones.includes(m)).length / MILESTONES.length) * 100);
+}
+
+/** Thin progress bar for cards and rows: how far a lead is to a client. */
+export function JourneyBar({ milestones, className = "" }) {
+  const { t } = useTranslation();
+  const pct = journeyPercent(milestones);
+  return (
+    <span
+      className={`block h-1.5 overflow-hidden rounded-full bg-slate-100 ${className}`}
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={pct}
+      aria-label={t("journey.aria", { pct })}
+    >
+      <span className={`block h-full rounded-full ${pct === 100 ? "bg-emerald-500" : "bg-blue-600"}`} style={{ width: `${pct}%` }} />
+    </span>
+  );
+}
+
+/** Deal page: percentage, the six steps ticked from real activity, and
+ *  the next one to take. */
+export function DealJourney({ milestones }) {
+  const { t } = useTranslation();
+  const pct = journeyPercent(milestones);
+  const next = MILESTONES.find((m) => !milestones.includes(m));
+  return (
+    <section className="card p-4 sm:p-5" aria-label={t("journey.title")}>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-sm font-semibold text-midnight">{t("journey.title")}</h2>
+        <span className={`text-sm font-bold tabular-nums ${pct === 100 ? "text-emerald-600" : "text-blue-700"}`}>{t("journey.percent", { pct })}</span>
+      </div>
+      <JourneyBar milestones={milestones} className="mt-2 !h-2" />
+      <ol className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs sm:grid-cols-3 lg:grid-cols-6">
+        {MILESTONES.map((m) => {
+          const done = milestones.includes(m);
+          return (
+            <li key={m} className={`flex items-center gap-1.5 ${done ? "text-slate-700" : m === next ? "font-semibold text-blue-700" : "text-slate-400"}`}>
+              <span
+                className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${done ? "bg-emerald-500 text-white" : m === next ? "ring-2 ring-blue-600" : "ring-1 ring-slate-300"}`}
+                aria-hidden="true"
+              >
+                {done && (
+                  <svg viewBox="0 0 16 16" fill="none" className="h-2.5 w-2.5">
+                    <path d="M3.5 8.5 6.5 11.5 12.5 4.5" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </span>
+              <span>{t(`journey.step.${m}`)}</span>
+              <span className="sr-only">{done ? t("journey.done") : t("journey.todo")}</span>
+            </li>
+          );
+        })}
+      </ol>
+      {next && <p className="mt-3 text-sm text-slate-600">{t(`journey.next.${next}`)}</p>}
+    </section>
+  );
+}
+
 /** The pencil at the end of a table row: opens the edit (a link or a
  *  sheet) without also opening the row. */
 export function RowEditButton({ label, to, onClick }) {

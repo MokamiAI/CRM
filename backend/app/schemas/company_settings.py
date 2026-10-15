@@ -1,3 +1,4 @@
+from decimal import Decimal
 import uuid
 from datetime import datetime
 from typing import Literal
@@ -33,6 +34,9 @@ class CompanySettingsUpdate(BaseModel):
 
     reminders_enabled: bool | None = None
     reminder_offsets: list[int] | None = Field(default=None, max_length=10)
+
+    annual_revenue_goal: Decimal | None = Field(default=None, ge=0, le=Decimal("999999999999"))
+    financial_year_start_month: int | None = Field(default=None, ge=1, le=12)
 
     @field_validator("reminder_offsets")
     @classmethod
@@ -72,6 +76,8 @@ class CompanySettingsOut(BaseModel):
     email_signature: str | None
     reminders_enabled: bool
     reminder_offsets: list[int]
+    annual_revenue_goal: Decimal | None = None
+    financial_year_start_month: int = 3
     created_at: datetime
     updated_at: datetime
 

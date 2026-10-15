@@ -10,7 +10,7 @@ import { useCustomFieldRows } from "../components/CustomFields";
 import DealFormSheet from "../components/DealFormSheet";
 import Sheet from "../components/Sheet";
 import { BackLink } from "../components/DocumentView";
-import { ActivityRow, ComposerSheet, QuickActions, STAGES, STAGE_LABELS, Timeline, industryLabel, useToggleActivity } from "../components/crm";
+import { ActivityRow, ComposerSheet, DealJourney, QuickActions, STAGES, STAGE_LABELS, Timeline, industryLabel, useToggleActivity } from "../components/crm";
 import { Avatar, Button, ButtonLink, ErrorState, Field, ListSkeleton, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
 import { errorMessage, formatDate, formatMoney } from "../utils/format";
 import { celebrate } from "../utils/motion";
@@ -187,6 +187,7 @@ export default function DealDetailPage() {
       ) : (
         <StageBar stage={deal.stage} disabled={!canWrite || move.isPending} onMove={(stage) => move.mutate({ stage })} />
       )}
+      {deal.stage !== "lost" && <DealJourney milestones={deal.milestones ?? []} />}
 
       <div className="grid items-start gap-6 lg:grid-cols-12">
         {/* Left: the facts */}

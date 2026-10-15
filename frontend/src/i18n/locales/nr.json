@@ -2297,5 +2297,55 @@
     "expiring": "Kuphelelwa sikhathi kileveke",
     "quotes_one": "Isilinganiso esi-{{count}}",
     "quotes_other": "Iinlinganiso ezi-{{count}}"
+  },
+  "goal": {
+    "signupLabel": "Umnqopho wemali engenako wonyaka lo",
+    "optional": "(akukateleleki)",
+    "placeholder": "isib. 1200000",
+    "signupHint": "Sizokutjengisa bona iimvumelwano ozithumbako zikusondeza kangangani. Ungawutjhentjha nanini.",
+    "settingsTitle": "Umnqopho wemali engenako wonyaka",
+    "settingsIntro": "Iimvumelwano ozithumbako ziyabalwa kuwo. Idashibhodi itjengisa bona ukude kangangani nebelo olitlhogako.",
+    "amount": "Umnqopho wonyaka (R)",
+    "yearStarts": "Umnyaka wakho uthoma ngo-",
+    "yearStartsHint": "Amabhizinisi amanengi weSewula Afrika athoma ngoTjhirhweni.",
+    "emptyTitle": "Setha umnqopho wemali engenako wonyaka",
+    "emptyBody": "Bona bona iimvumelwano ozithumbako zikusondeza kangangani, nebelo olitlhogako.",
+    "set": "Setha umnqopho",
+    "title": "Umnqopho wemali engenako wonyaka",
+    "reached": "Umnqopho ufikelelwe",
+    "onPace": "Ebelweni elifaneleko",
+    "behind": "Ngemva kwebelo ngo-{{amount}}",
+    "of": "ka-{{target}}, kusukela eemvumelwaneni ezithunjiweko",
+    "aria": "{{pct}}% womnqopho wonyaka",
+    "paceMarker": "Lapho ibelo elilinganako belizokuba khona namhlanje",
+    "progress": "Ituthuko",
+    "percent": "{{pct}}%",
+    "wonDeals": "Iimvumelwano ezithunjiweko",
+    "perMonth_one": "Okutlhogekako kunyanga le",
+    "perMonth_other": "Okutlhogekako ngenyanga (ezi-{{count}} ezisele)",
+    "collected": "Imali ebuthelelweko kunyaka lo"
+  },
+  "journey": {
+    "aria": "{{pct}}% wendlela kusukela kukhasimende elingaba khona kuya kukhasimende",
+    "title": "Kusukela kukhasimende elingaba khona kuya kukhasimende",
+    "percent": "{{pct}}% sekufikiwe",
+    "step": {
+      "lead": "Lingeziwe",
+      "contacted": "Ukuthintana kokuthoma",
+      "qualified": "Liyafaneleka",
+      "quote_sent": "Isilinganiso sithunyelwe",
+      "negotiation": "Kuyakhulunyiswana",
+      "won": "Kuthunjiwe: nje likhasimende"
+    },
+    "done": "kwenziwe",
+    "todo": "ukwenza",
+    "next": {
+      "contacted": "Okulandelako: thintana nabo kokuthoma. Tlola ifoni, i-imeyili namkha umhlangano njengokwenziweko.",
+      "qualified": "Okulandelako: hlola ikhasimende bese ulidlulisela ku-Liyafaneleka.",
+      "quote_sent": "Okulandelako: bathumele isilinganiso.",
+      "negotiation": "Okulandelako: khulumisananani ngemibandela bese ukudlulisela ku-Kuyakhulunyiswana.",
+      "won": "Okulandelako: kuvale. Tshwaya isivumelwano njengesithunjiweko nabathi iye."
+    },
+    "column": "Ituthuko"
   }
 }

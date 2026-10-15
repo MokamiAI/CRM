@@ -2297,5 +2297,55 @@
     "expiring": "Di fela beke eno",
     "quotes_one": "Kotheišene e {{count}}",
     "quotes_other": "Dikotheišene di le {{count}}"
+  },
+  "goal": {
+    "signupLabel": "Maikaelelo a lotseno a ngwaga ono",
+    "optional": "(ga se tlamo)",
+    "placeholder": "sk. 1200000",
+    "signupHint": "Re tla bontsha gore ditumalano tse o di gapang di go atametsa go le kana kang. O ka a fetola nako nngwe le nngwe.",
+    "settingsTitle": "Maikaelelo a lotseno a ngwaga",
+    "settingsIntro": "Ditumalano tse o di gapang di balelwa mo go one. Dashboard e bontsha gore o kae le lebelo le o le tlhokang.",
+    "amount": "Maikaelelo a ngwaga (R)",
+    "yearStarts": "Ngwaga wa gago o simologa ka",
+    "yearStartsHint": "Dikgwebo tse dintsi tsa Aforika Borwa di simologa ka Mopitlo.",
+    "emptyTitle": "Baya maikaelelo a lotseno a ngwaga",
+    "emptyBody": "Bona gore ditumalano tse o di gapang di go atametsa go le kana kang, le lebelo le o le tlhokang.",
+    "set": "Baya maikaelelo",
+    "title": "Maikaelelo a lotseno a ngwaga",
+    "reached": "Maikaelelo a fitlheletswe",
+    "onPace": "Mo lebelong le le siameng",
+    "behind": "Kwa morago ga lebelo ka {{amount}}",
+    "of": "ya {{target}}, go tswa mo ditumalanong tse di gapilweng",
+    "aria": "{{pct}}% ya maikaelelo a ngwaga",
+    "paceMarker": "Kwa lebelo le le lekalekanang le neng le tla nna teng gompieno",
+    "progress": "Kgatelopele",
+    "percent": "{{pct}}%",
+    "wonDeals": "Ditumalano tse di gapilweng",
+    "perMonth_one": "Tse di tlhokegang kgwedi eno",
+    "perMonth_other": "Tse di tlhokegang ka kgwedi ({{count}} di setse)",
+    "collected": "Madi a a kokoantsweng ngwaga ono"
+  },
+  "journey": {
+    "aria": "{{pct}}% ya tsela go tswa mo modirising yo o ka nnang teng go ya kwa modirising",
+    "title": "Go tswa mo modirising yo o ka nnang teng go ya kwa modirising",
+    "percent": "{{pct}}% go fitlha",
+    "step": {
+      "lead": "O okeditswe",
+      "contacted": "Kgolagano ya ntlha",
+      "qualified": "O tshwanelegile",
+      "quote_sent": "Kotheišene e romeletswe",
+      "negotiation": "Go a buisanwa",
+      "won": "E gapilwe: jaanong ke modirisi"
+    },
+    "done": "e dirilwe",
+    "todo": "go dirwa",
+    "next": {
+      "contacted": "Se se latelang: ikgolaganye le bone la ntlha. Kwala mogala, imeile kgotsa kopano jaaka e dirilwe.",
+      "qualified": "Se se latelang: tlhatlhoba modirisi o bo o mo isa kwa O tshwanelegile.",
+      "quote_sent": "Se se latelang: ba romelele kotheišene.",
+      "negotiation": "Se se latelang: buisanang ka dipeelo o bo o e isa kwa Go a buisanwa.",
+      "won": "Se se latelang: e tswale. Tshwaya tumalano jaaka e gapilwe fa ba re ee."
+    },
+    "column": "Kgatelopele"
   }
 }

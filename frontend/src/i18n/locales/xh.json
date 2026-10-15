@@ -2297,5 +2297,55 @@
     "expiring": "Ziphelelwa lixesha kule veki",
     "quotes_one": "Ikowuti e-{{count}}",
     "quotes_other": "Iikowuti ezi-{{count}}"
+  },
+  "goal": {
+    "signupLabel": "Injongo yengeniso yalo nyaka",
+    "optional": "(ayinyanzelekanga)",
+    "placeholder": "umz. 1200000",
+    "signupHint": "Siza kubonisa ukuba izivumelwano ozifumanayo zikusondeza kangakanani. Ungayitshintsha nanini na.",
+    "settingsTitle": "Injongo yengeniso yonyaka",
+    "settingsIntro": "Izivumelwano ozifumanayo ziyabalwa kuyo. Ideshibhodi ibonisa ukuba ukude kangakanani nesantya osifunayo.",
+    "amount": "Injongo yonyaka (R)",
+    "yearStarts": "Unyaka wakho uqala ngo-",
+    "yearStartsHint": "Uninzi lwamashishini aseMzantsi Afrika luqala ngoKwindla.",
+    "emptyTitle": "Seta injongo yengeniso yonyaka",
+    "emptyBody": "Bona ukuba izivumelwano ozifumanayo zikusondeza kangakanani, nesantya osifunayo.",
+    "set": "Seta injongo",
+    "title": "Injongo yengeniso yonyaka",
+    "reached": "Injongo ifikelelwe",
+    "onPace": "Kwisantya esifanelekileyo",
+    "behind": "Ngasemva ngo-{{amount}}",
+    "of": "ku-{{target}}, kwizivumelwano eziphumeleleyo",
+    "aria": "{{pct}}% wenjongo yonyaka",
+    "paceMarker": "Apho isantya esilinganayo besiya kuba khona namhlanje",
+    "progress": "Inkqubela",
+    "percent": "{{pct}}%",
+    "wonDeals": "Izivumelwano eziphumeleleyo",
+    "perMonth_one": "Okufunekayo kule nyanga",
+    "perMonth_other": "Okufunekayo ngenyanga (kuseleyo ezi-{{count}})",
+    "collected": "Imali efunyenweyo kulo nyaka"
+  },
+  "journey": {
+    "aria": "{{pct}}% wendlela ukusuka kumthengi onokubakho ukuya kumthengi",
+    "title": "Ukusuka kumthengi onokubakho ukuya kumthengi",
+    "percent": "{{pct}}% ufikile",
+    "step": {
+      "lead": "Yongeziwe",
+      "contacted": "Uqhagamshelwano lokuqala",
+      "qualified": "Ufanelekile",
+      "quote_sent": "Ikowuti ithunyelwe",
+      "negotiation": "Kuyathethathethwana",
+      "won": "Kuphumelele: ngoku ngumthengi"
+    },
+    "done": "kwenziwe",
+    "todo": "ukwenza",
+    "next": {
+      "contacted": "Okulandelayo: qhagamshelana nabo okokuqala. Bhala umnxeba, i-imeyile okanye intlanganiso njengokwenziweyo.",
+      "qualified": "Okulandelayo: hlola umthengi uze umse ku-Ufanelekile.",
+      "quote_sent": "Okulandelayo: bathumele ikowuti.",
+      "negotiation": "Okulandelayo: thethathethanani ngemiqathango uze uyise ku-Kuyathethathethwana.",
+      "won": "Okulandelayo: kuvale. Phawula isivumelwano njengesiphumeleleyo xa bethi ewe."
+    },
+    "column": "Inkqubela"
   }
 }

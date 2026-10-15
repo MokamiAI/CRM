@@ -55,6 +55,7 @@ class AuthService:
             sender_name=data.company_name.strip(),
             # Customer replies reach the founder until they set up email.
             sender_email=data.email.lower(),
+            annual_revenue_goal=data.annual_revenue_goal or None,
         )
         self.db.add(company)
         await self.db.flush()

@@ -2297,5 +2297,55 @@
     "expiring": "Kuphela kulelivikini",
     "quotes_one": "Sicalo lesingu-{{count}}",
     "quotes_other": "Ticalo letingu-{{count}}"
+  },
+  "goal": {
+    "signupLabel": "Umgomo wemali lengenako walomnyaka",
+    "optional": "(akuphoceleli)",
+    "placeholder": "sib. 1200000",
+    "signupHint": "Sitakukhombisa kutsi tivumelwano lotiwinako tikusondzeta kangakanani. Ungawushintja nobe nini.",
+    "settingsTitle": "Umgomo wemali lengenako wemnyaka",
+    "settingsIntro": "Tivumelwano lotiwinako tibalwa kuwo. Lideshibhodi likhombisa kutsi ukude kangakanani nejubane lolidzingako.",
+    "amount": "Umgomo wemnyaka (R)",
+    "yearStarts": "Umnyaka wakho ucala nga-",
+    "yearStartsHint": "Emabhizinisi lamanyenti aseNingizimu Afrika acala ngaVelabahlolo.",
+    "emptyTitle": "Setha umgomo wemali lengenako wemnyaka",
+    "emptyBody": "Bona kutsi tivumelwano lotiwinako tikusondzeta kangakanani, nejubane lolidzingako.",
+    "set": "Setha umgomo",
+    "title": "Umgomo wemali lengenako wemnyaka",
+    "reached": "Umgomo ufinyelelwe",
+    "onPace": "Ejubaneni lelifanele",
+    "behind": "Ngemuva kwejubane nga-{{amount}}",
+    "of": "wa-{{target}}, kusuka etivumelwaneni letiwiniwe",
+    "aria": "{{pct}}% wemgomo wemnyaka",
+    "paceMarker": "Lapho lijubane lelilinganako beliyawuba khona lamuhla",
+    "progress": "Inchubekelembili",
+    "percent": "{{pct}}%",
+    "wonDeals": "Tivumelwano letiwiniwe",
+    "perMonth_one": "Lokudzingekako kulenyanga",
+    "perMonth_other": "Lokudzingekako ngenyanga ({{count}} letisele)",
+    "collected": "Imali lecongelelwe kulomnyaka"
+  },
+  "journey": {
+    "aria": "{{pct}}% wendlela kusuka kulikhasimende lelingaba khona kuya kulikhasimende",
+    "title": "Kusuka kulikhasimende lelingaba khona kuya kulikhasimende",
+    "percent": "{{pct}}% sekufikiwe",
+    "step": {
+      "lead": "Lingetiwe",
+      "contacted": "Kutsintsana kwekucala",
+      "qualified": "Liyafaneleka",
+      "quote_sent": "Sicalo sitfunyelwe",
+      "negotiation": "Kuyacocisanwa",
+      "won": "Kuwiniwe: nyalo lilikhasimende"
+    },
+    "done": "kwentiwe",
+    "todo": "kwenta",
+    "next": {
+      "contacted": "Lokulandzelako: tsintsana nabo kwekucala. Bhala lucingo, i-imeyili noma umhlangano njengalokwentiwe.",
+      "qualified": "Lokulandzelako: hlola likhasimende bese ulidlulisela ku-Liyafaneleka.",
+      "quote_sent": "Lokulandzelako: batfumele sicalo.",
+      "negotiation": "Lokulandzelako: cocisanani ngemigomo bese ukudlulisela ku-Kuyacocisanwa.",
+      "won": "Lokulandzelako: kuvale. Maka sivumelwano njengalesiwiniwe nabatsi yebo."
+    },
+    "column": "Inchubekelembili"
   }
 }

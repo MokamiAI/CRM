@@ -2297,5 +2297,55 @@
     "expiring": "Swi hela vhiki leri",
     "quotes_one": "Khotexini ya {{count}}",
     "quotes_other": "Tikhotexini ta {{count}}"
+  },
+  "goal": {
+    "signupLabel": "Xikongomelo xa mali lama nghenaka xa lembe leri",
+    "optional": "(a swi bohi)",
+    "placeholder": "xik. 1200000",
+    "signupHint": "Hi ta kombisa leswaku tintwanano leti u ti hluraka ti ku tshineta ku fikela kwihi. U nga xi cinca nkarhi wun'wana ni wun'wana.",
+    "settingsTitle": "Xikongomelo xa mali lama nghenaka xa lembe",
+    "settingsIntro": "Tintwanano leti u ti hluraka ti hlayiwa eka xona. Dashboard yi kombisa laha u nga kona ni rivilo leri u ri lavaka.",
+    "amount": "Xikongomelo xa lembe (R)",
+    "yearStarts": "Lembe ra wena ri sungula hi",
+    "yearStartsHint": "Mabindzu yo tala ya Afrika Dzonga ma sungula hi Nyenyankulu.",
+    "emptyTitle": "Veka xikongomelo xa mali lama nghenaka xa lembe",
+    "emptyBody": "Vona leswaku tintwanano leti u ti hluraka ti ku tshineta ku fikela kwihi, ni rivilo leri u ri lavaka.",
+    "set": "Veka xikongomelo",
+    "title": "Xikongomelo xa mali lama nghenaka xa lembe",
+    "reached": "Xikongomelo xi fikeleriwile",
+    "onPace": "Eka rivilo leri faneleke",
+    "behind": "Endzhaku ka rivilo hi {{amount}}",
+    "of": "ya {{target}}, ku suka eka tintwanano leti hluriweke",
+    "aria": "{{pct}}% wa xikongomelo xa lembe",
+    "paceMarker": "Laha rivilo leri ringanaka a ri ta va kona namuntlha",
+    "progress": "Nhluvukiso",
+    "percent": "{{pct}}%",
+    "wonDeals": "Tintwanano leti hluriweke",
+    "perMonth_one": "Leswi lavekaka n'hweti leyi",
+    "perMonth_other": "Leswi lavekaka hi n'hweti ({{count}} ti sele)",
+    "collected": "Mali leyi hlengeletiweke lembe leri"
+  },
+  "journey": {
+    "aria": "{{pct}}% wa ndlela ku suka eka muxavi loyi a nga vaka kona ku ya eka muxavi",
+    "title": "Ku suka eka muxavi loyi a nga vaka kona ku ya eka muxavi",
+    "percent": "{{pct}}% ku fika",
+    "step": {
+      "lead": "U engeteriwile",
+      "contacted": "Vuhlanganisi byo sungula",
+      "qualified": "U faneleka",
+      "quote_sent": "Khotexini yi rhumeriwile",
+      "negotiation": "Ku burisaniwa",
+      "won": "Swi hluriwile: sweswi i muxavi"
+    },
+    "done": "swi endliwile",
+    "todo": "swo endla",
+    "next": {
+      "contacted": "Leswi landzelaka: hlanganani na vona ro sungula. Tsala riqingho, imeyili kumbe nhlengeletano tanihi leswi endliweke.",
+      "qualified": "Leswi landzelaka: kambela muxavi u n'wi yisa eka U faneleka.",
+      "quote_sent": "Leswi landzelaka: va rhumeleni khotexini.",
+      "negotiation": "Leswi landzelaka: burisanani hi swipimelo kutani u swi yisa eka Ku burisaniwa.",
+      "won": "Leswi landzelaka: swi pfale. Funga ntwanano tanihi lowu hluriweke loko va ku ina."
+    },
+    "column": "Nhluvukiso"
   }
 }

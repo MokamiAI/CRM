@@ -9,7 +9,7 @@ import { useCustomerMap, useDeals, useTeamMap } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import DealFormSheet from "../components/DealFormSheet";
 import Sheet from "../components/Sheet";
-import { NextActivityBadge, RowEditButton, STAGES, dueState, industryLabel } from "../components/crm";
+import { JourneyBar, NextActivityBadge, RowEditButton, STAGES, dueState, industryLabel, journeyPercent } from "../components/crm";
 import { Avatar, Button, ErrorState, Field, FilterChips, PageHeader, PlusIcon, Tooltip } from "../components/ui";
 import { errorMessage, formatMoney, formatShortDate } from "../utils/format";
 import { celebrate } from "../utils/motion";
@@ -326,7 +326,8 @@ function DealCard({ deal, customer, owner, dragging, landed, draggable, onDragSt
     >
       <p className="text-sm font-medium leading-snug text-zinc-900">{deal.title}</p>
       <p className="mt-0.5 truncate text-xs text-zinc-500">{customer?.name ?? "…"}</p>
-      <div className="mt-3 flex items-center justify-between gap-2">
+      <JourneyBar milestones={deal.milestones} className="mt-2.5" />
+      <div className="mt-2.5 flex items-center justify-between gap-2">
         <span className="text-sm font-semibold text-zinc-900">{formatMoney(deal.value)}</span>
         {owner && <Avatar name={owner.full_name} size="sm" />}
       </div>
@@ -353,6 +354,7 @@ function DealTable({ deals, customers, team, loading }) {
           <tr>
             <th>{t("deals.col.deal")}</th>
             <th>{t("deals.col.stage")}</th>
+            <th className="w-28">{t("journey.column")}</th>
             <th className="text-right">{t("deals.col.value")}</th>
             <th>{t("deals.col.industry")}</th>
             <th>{t("deals.col.owner")}</th>
@@ -382,6 +384,12 @@ function DealTable({ deals, customers, team, loading }) {
                       aria-hidden="true"
                     />
                     {STAGES[stageIndex]?.label}
+                  </span>
+                </td>
+                <td>
+                  <span className="flex items-center gap-2">
+                    <JourneyBar milestones={deal.milestones} className="w-16" />
+                    <span className="text-xs tabular-nums text-slate-500">{journeyPercent(deal.milestones)}%</span>
                   </span>
                 </td>
                 <td className="whitespace-nowrap text-right font-medium tabular-nums text-zinc-900">{formatMoney(deal.value)}</td>

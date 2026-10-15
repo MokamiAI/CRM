@@ -2297,5 +2297,55 @@
     "expiring": "Verval hierdie week",
     "quotes_one": "{{count}} kwotasie",
     "quotes_other": "{{count}} kwotasies"
+  },
+  "goal": {
+    "signupLabel": "Inkomstedoel vir hierdie jaar",
+    "optional": "(opsioneel)",
+    "placeholder": "bv. 1200000",
+    "signupHint": "Ons wys hoe naby die transaksies wat jy wen jou bring. Jy kan dit enige tyd verander.",
+    "settingsTitle": "Jaarlikse inkomstedoel",
+    "settingsIntro": "Transaksies wat jy wen tel daarvoor. Die paneelbord wys hoe ver jy is en die tempo wat jy nodig het.",
+    "amount": "Doel vir die jaar (R)",
+    "yearStarts": "Jou jaar begin in",
+    "yearStartsHint": "Die meeste Suid-Afrikaanse besighede begin in Maart.",
+    "emptyTitle": "Stel 'n inkomstedoel vir die jaar",
+    "emptyBody": "Sien hoe naby die transaksies wat jy wen jou bring, en die tempo wat jy nodig het.",
+    "set": "Stel 'n doel",
+    "title": "Jaarlikse inkomstedoel",
+    "reached": "Doel bereik",
+    "onPace": "Op koers",
+    "behind": "Agter koers met {{amount}}",
+    "of": "van {{target}}, uit gewende transaksies",
+    "aria": "{{pct}}% van die jaarlikse doel",
+    "paceMarker": "Waar 'n egalige tempo vandag sou wees",
+    "progress": "Vordering",
+    "percent": "{{pct}}%",
+    "wonDeals": "Transaksies gewen",
+    "perMonth_one": "Nodig hierdie maand",
+    "perMonth_other": "Nodig per maand ({{count}} oor)",
+    "collected": "Kontant ontvang hierdie jaar"
+  },
+  "journey": {
+    "aria": "{{pct}}% van die pad van leidraad tot kliënt",
+    "title": "Van leidraad tot kliënt",
+    "percent": "{{pct}}% daar",
+    "step": {
+      "lead": "Leidraad bygevoeg",
+      "contacted": "Eerste kontak",
+      "qualified": "Gekwalifiseer",
+      "quote_sent": "Kwotasie gestuur",
+      "negotiation": "Onderhandel",
+      "won": "Gewen: nou 'n kliënt"
+    },
+    "done": "klaar",
+    "todo": "om te doen",
+    "next": {
+      "contacted": "Volgende: maak eerste kontak. Teken 'n oproep, e-pos of vergadering as klaar aan.",
+      "qualified": "Volgende: kwalifiseer die leidraad en skuif dit na Gekwalifiseer.",
+      "quote_sent": "Volgende: stuur vir hulle 'n kwotasie.",
+      "negotiation": "Volgende: bespreek terme en skuif dit na Onderhandeling.",
+      "won": "Volgende: sluit dit. Merk die transaksie Gewen wanneer hulle ja sê."
+    },
+    "column": "Vordering"
   }
 }

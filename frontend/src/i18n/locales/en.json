@@ -2297,5 +2297,55 @@
     "expiring": "Expiring this week",
     "quotes_one": "{{count}} quote",
     "quotes_other": "{{count}} quotes"
+  },
+  "goal": {
+    "signupLabel": "Revenue goal for this year",
+    "optional": "(optional)",
+    "placeholder": "e.g. 1200000",
+    "signupHint": "We'll show how close the deals you win bring you. You can change it any time.",
+    "settingsTitle": "Annual revenue goal",
+    "settingsIntro": "Deals you win count towards it. The dashboard shows how far you are and the pace you need.",
+    "amount": "Goal for the year (R)",
+    "yearStarts": "Your year starts in",
+    "yearStartsHint": "Most South African businesses start in March.",
+    "emptyTitle": "Set a revenue goal for the year",
+    "emptyBody": "See how close the deals you win bring you, and the pace you need.",
+    "set": "Set a goal",
+    "title": "Annual revenue goal",
+    "reached": "Goal reached",
+    "onPace": "On pace",
+    "behind": "Behind pace by {{amount}}",
+    "of": "of {{target}}, from deals won",
+    "aria": "{{pct}}% of the annual goal",
+    "paceMarker": "Where an even pace would be today",
+    "progress": "Progress",
+    "percent": "{{pct}}%",
+    "wonDeals": "Deals won",
+    "perMonth_one": "Needed this month",
+    "perMonth_other": "Needed per month ({{count}} left)",
+    "collected": "Cash collected this year"
+  },
+  "journey": {
+    "aria": "{{pct}}% of the way from lead to client",
+    "title": "From lead to client",
+    "percent": "{{pct}}% there",
+    "step": {
+      "lead": "Lead added",
+      "contacted": "First contact",
+      "qualified": "Qualified",
+      "quote_sent": "Quote sent",
+      "negotiation": "Negotiating",
+      "won": "Won: now a client"
+    },
+    "done": "done",
+    "todo": "to do",
+    "next": {
+      "contacted": "Next: make first contact. Log a call, email or meeting as done.",
+      "qualified": "Next: qualify the lead and move it to Qualified.",
+      "quote_sent": "Next: send them a quote.",
+      "negotiation": "Next: talk terms and move it to Negotiation.",
+      "won": "Next: close it. Mark the deal Won when they say yes."
+    },
+    "column": "Progress"
   }
 }

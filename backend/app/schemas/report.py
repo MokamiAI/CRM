@@ -44,6 +44,15 @@ class FeedItem(BaseModel):
     params: dict[str, str] = {}  # see TimelineItem.params
 
 
+class GoalProgress(BaseModel):
+    target: Decimal | None  # none set yet
+    year_start: str
+    year_end: str
+    won_value: Decimal
+    won_count: int
+    collected: Decimal
+
+
 class ReportSummary(BaseModel):
     pipeline: list[StageTotal]
     open_pipeline_value: Decimal
@@ -60,6 +69,7 @@ class ReportSummary(BaseModel):
     new_customers_this_month: int
     top_deals: list[TopDeal]
     recent_activity: list[FeedItem]
+    goal: GoalProgress
 
 
 class CustomerOverview(BaseModel):

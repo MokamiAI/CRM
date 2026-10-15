@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import ConflictError, NotFoundError
@@ -46,12 +46,56 @@ class DealService:
         first: dict[uuid.UUID, Activity] = {}
         for activity in result.scalars():
             first.setdefault(activity.deal_id, activity)
+        reached = await self._milestones(deals)
         out = []
         for deal in deals:
             item = DealOut.model_validate(deal)
             if (activity := first.get(deal.id)) is not None:
                 item.next_activity = NextActivity.model_validate(activity, from_attributes=True)
+            item.milestones = reached[deal.id]
             out.append(item)
+        return out
+
+    async def _milestones(self, deals: list[Deal]) -> dict[uuid.UUID, list[str]]:
+        """Which steps from lead to client each deal has reached, in two
+        queries for the whole list: a call, email or meeting marked done
+        (on the deal, or with the customer since the deal began), and a
+        quote on the deal that has gone out."""
+        from app.models.enums import ActivityType, QuoteStatus
+        from app.models.quote import Quote
+
+        ids = [d.id for d in deals]
+        contact_types = (ActivityType.CALL, ActivityType.EMAIL, ActivityType.MEETING)
+        on_deal = await self.db.scalars(
+            select(Activity.deal_id).where(Activity.deal_id.in_(ids), Activity.done.is_(True), Activity.type.in_(contact_types))
+        )
+        contacted = set(on_deal.all())
+        by_customer = await self.db.execute(
+            select(Activity.customer_id, func.min(Activity.done_at)).where(
+                Activity.customer_id.in_({d.customer_id for d in deals}), Activity.done.is_(True), Activity.type.in_(contact_types)
+            ).group_by(Activity.customer_id)
+        )
+        first_contact = dict(by_customer.all())
+        quoted = set(
+            (await self.db.scalars(select(Quote.deal_id).where(Quote.deal_id.in_(ids), Quote.status != QuoteStatus.DRAFT))).all()
+        )
+        order = [DealStage.LEAD, DealStage.QUALIFIED, DealStage.PROPOSAL, DealStage.NEGOTIATION, DealStage.WON]
+        out: dict[uuid.UUID, list[str]] = {}
+        for d in deals:
+            rank = order.index(d.stage) if d.stage in order else -1
+            since = first_contact.get(d.customer_id)
+            reached = ["lead"]
+            if d.id in contacted or (since is not None and since >= d.created_at) or rank >= 1:
+                reached.append("contacted")
+            if rank >= 1:
+                reached.append("qualified")
+            if d.id in quoted or rank >= 4:
+                reached.append("quote_sent")
+            if rank >= 3:
+                reached.append("negotiation")
+            if d.stage == DealStage.WON:
+                reached.append("won")
+            out[d.id] = reached
         return out
 
     async def list_deals(

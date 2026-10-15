@@ -2297,5 +2297,55 @@
     "expiring": "Di fela beke ye",
     "quotes_one": "Kotheišene e {{count}}",
     "quotes_other": "Dikotheišene tše {{count}}"
+  },
+  "goal": {
+    "signupLabel": "Nepo ya letseno ya ngwaga wo",
+    "optional": "(ga e gapeletšwe)",
+    "placeholder": "mohl. 1200000",
+    "signupHint": "Re tla bontšha gore dikwano tšeo o di thopago di go batametša gakaakang. O ka e fetola nako efe goba efe.",
+    "settingsTitle": "Nepo ya letseno ya ngwaga",
+    "settingsIntro": "Dikwano tšeo o di thopago di balelwa go yona. Dašepoto e bontšha gore o kae le lebelo leo o le hlokago.",
+    "amount": "Nepo ya ngwaga (R)",
+    "yearStarts": "Ngwaga wa gago o thoma ka",
+    "yearStartsHint": "Dikgwebo tše dintši tša Afrika Borwa di thoma ka Matšhe.",
+    "emptyTitle": "Bea nepo ya letseno ya ngwaga",
+    "emptyBody": "Bona gore dikwano tšeo o di thopago di go batametša gakaakang, le lebelo leo o le hlokago.",
+    "set": "Bea nepo",
+    "title": "Nepo ya letseno ya ngwaga",
+    "reached": "Nepo e fihleletšwe",
+    "onPace": "Lebelong le le nepagetšego",
+    "behind": "Ka morago ga lebelo ka {{amount}}",
+    "of": "ya {{target}}, go tšwa dikwanong tše di thopilwego",
+    "aria": "{{pct}}% ya nepo ya ngwaga",
+    "paceMarker": "Moo lebelo le le lekanago le bego le tla ba gona lehono",
+    "progress": "Tšwelopele",
+    "percent": "{{pct}}%",
+    "wonDeals": "Dikwano tše di thopilwego",
+    "perMonth_one": "Tše di hlokegago kgwedi ye",
+    "perMonth_other": "Tše di hlokegago ka kgwedi ({{count}} di šetše)",
+    "collected": "Tšhelete ye e kgobokeditšwego ngwaga wo"
+  },
+  "journey": {
+    "aria": "{{pct}}% ya tsela go tloga go moreki yo a ka bago gona go ya go moreki",
+    "title": "Go tloga go moreki yo a ka bago gona go ya go moreki",
+    "percent": "{{pct}}% go fihla",
+    "step": {
+      "lead": "Moreki o okeditšwe",
+      "contacted": "Kgokagano ya mathomo",
+      "qualified": "O kwalifaile",
+      "quote_sent": "Kotheišene e rometšwe",
+      "negotiation": "Go a rerišanwa",
+      "won": "E thopilwe: bjale ke moreki"
+    },
+    "done": "e dirilwe",
+    "todo": "go dirwa",
+    "next": {
+      "contacted": "Se se latelago: ikgokaganye le bona la mathomo. Ngwala mogala, imeile goba kopano bjalo ka ye e dirilwego.",
+      "qualified": "Se se latelago: kwalifaya moreki gomme o mo iše go O kwalifaile.",
+      "quote_sent": "Se se latelago: ba romelele kotheišene.",
+      "negotiation": "Se se latelago: rerišanang ka dipeelano gomme o e iše go Go a rerišanwa.",
+      "won": "Se se latelago: e tswalele. Swaya kwano bjalo ka ye e thopilwego ge ba re ee."
+    },
+    "column": "Tšwelopele"
   }
 }

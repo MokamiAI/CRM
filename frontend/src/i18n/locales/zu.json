@@ -2297,5 +2297,55 @@
     "expiring": "Kuphelelwa yisikhathi kuleli sonto",
     "quotes_one": "Isilinganiso esingu-{{count}}",
     "quotes_other": "Izilinganiso ezingu-{{count}}"
+  },
+  "goal": {
+    "signupLabel": "Umgomo wemali engenayo walo nyaka",
+    "optional": "(akuphoqelekile)",
+    "placeholder": "isb. 1200000",
+    "signupHint": "Sizokukhombisa ukuthi izivumelwano ozinqobayo zikusondeza kangakanani. Ungawushintsha noma nini.",
+    "settingsTitle": "Umgomo wemali engenayo wonyaka",
+    "settingsIntro": "Izivumelwano ozinqobayo zibalwa kuwo. Ideshibhodi ikhombisa ukuthi ukude kangakanani nejubane olidingayo.",
+    "amount": "Umgomo wonyaka (R)",
+    "yearStarts": "Unyaka wakho uqala ngo-",
+    "yearStartsHint": "Amabhizinisi amaningi aseNingizimu Afrika aqala ngoNdasa.",
+    "emptyTitle": "Setha umgomo wemali engenayo wonyaka",
+    "emptyBody": "Bona ukuthi izivumelwano ozinqobayo zikusondeza kangakanani, nejubane olidingayo.",
+    "set": "Setha umgomo",
+    "title": "Umgomo wemali engenayo wonyaka",
+    "reached": "Umgomo ufinyelelwe",
+    "onPace": "Ujubane lufanele",
+    "behind": "Ungemuva ngo-{{amount}}",
+    "of": "ku-{{target}}, kusuka ezivumelwaneni eziwinwe",
+    "aria": "{{pct}}% womgomo wonyaka",
+    "paceMarker": "Lapho ijubane elilinganayo belizoba khona namuhla",
+    "progress": "Inqubekela phambili",
+    "percent": "{{pct}}%",
+    "wonDeals": "Izivumelwano eziwinwe",
+    "perMonth_one": "Okudingekayo kule nyanga",
+    "perMonth_other": "Okudingekayo ngenyanga (kusele ezingu-{{count}})",
+    "collected": "Imali eqoqiwe kulo nyaka"
+  },
+  "journey": {
+    "aria": "{{pct}}% wendlela kusuka kumakhasimende angaba khona kuya kwikhasimende",
+    "title": "Kusuka kwikhasimende elingaba khona kuya kwikhasimende",
+    "percent": "{{pct}}% sekufinyelelwe",
+    "step": {
+      "lead": "Kungezwe",
+      "contacted": "Ukuxhumana kokuqala",
+      "qualified": "Kufanelekile",
+      "quote_sent": "Isilinganiso sithunyelwe",
+      "negotiation": "Kuyaxoxiswana",
+      "won": "Kuwinwe: manje yikhasimende"
+    },
+    "done": "kwenziwe",
+    "todo": "okufanele kwenziwe",
+    "next": {
+      "contacted": "Okulandelayo: xhumana nabo okokuqala. Bhala ucingo, i-imeyili noma umhlangano njengokwenziwe.",
+      "qualified": "Okulandelayo: hlola ikhasimende bese ulidlulisela ku-Kufanelekile.",
+      "quote_sent": "Okulandelayo: bathumele isilinganiso.",
+      "negotiation": "Okulandelayo: xoxisanani ngemigomo bese ukudlulisela ku-Kuyaxoxiswana.",
+      "won": "Okulandelayo: kuvale. Maka isivumelwano njengesiwinwe uma bethi yebo."
+    },
+    "column": "Inqubekela phambili"
   }
 }

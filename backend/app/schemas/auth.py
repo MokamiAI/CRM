@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Literal
 
 from pydantic import BaseModel, EmailStr, Field
@@ -31,3 +32,5 @@ class RegisterRequest(BaseModel):
     password: str = Field(min_length=8, max_length=128)
     # The plan they're trying (free for the trial; chosen again at checkout).
     plan: Literal["hustle", "grow", "scale"] = "grow"
+    # Optional: the year's revenue goal, for the dashboard's goal card.
+    annual_revenue_goal: Decimal | None = Field(default=None, ge=0, le=Decimal("999999999999"))

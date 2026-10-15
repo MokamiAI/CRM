@@ -37,6 +37,8 @@ const EMPTY_FORM = {
   email_signature: "",
   reminders_enabled: true,
   reminder_offsets: [-3, 0, 7, 14],
+  annual_revenue_goal: "",
+  financial_year_start_month: 3,
 };
 
 // Days relative to the due date, offered as toggles. Any other value saved
@@ -95,6 +97,7 @@ export default function SettingsPage() {
       smtp_password: "",
       smtp_port: data.smtp_port ?? "",
       email_signature: data.email_signature ?? "",
+      annual_revenue_goal: data.annual_revenue_goal == null ? "" : String(Number(data.annual_revenue_goal)),
     });
   }, [data]);
 
@@ -125,6 +128,7 @@ export default function SettingsPage() {
     // send it if the admin actually typed a new one.
     if (!payload.smtp_password) delete payload.smtp_password;
     if (payload.smtp_port === "") payload.smtp_port = null;
+    payload.annual_revenue_goal = payload.annual_revenue_goal === "" ? null : payload.annual_revenue_goal;
     mutation.mutate(payload);
   }
 
@@ -187,6 +191,36 @@ export default function SettingsPage() {
                 onChange={(e) => update("default_timezone", e.target.value)}
                 required
               />
+            </Field>
+          </div>
+        </section>
+        )}
+
+        {tab === "general" && (
+        <section className="card p-4 sm:p-6">
+          <h2 className="mb-1 text-base font-semibold text-zinc-900">{t("goal.settingsTitle")}</h2>
+          <p className="mb-4 text-sm text-zinc-500">{t("goal.settingsIntro")}</p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <Field label={t("goal.amount")}>
+              <input
+                type="number"
+                min={0}
+                step="1000"
+                inputMode="decimal"
+                className={inputClass}
+                value={form.annual_revenue_goal}
+                placeholder={t("goal.placeholder")}
+                onChange={(e) => update("annual_revenue_goal", e.target.value)}
+              />
+            </Field>
+            <Field label={t("goal.yearStarts")} hint={t("goal.yearStartsHint")}>
+              <select className={inputClass} value={form.financial_year_start_month} onChange={(e) => update("financial_year_start_month", Number(e.target.value))}>
+                {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
+                  <option key={m} value={m}>
+                    {new Date(2026, m - 1, 1).toLocaleDateString(i18n.language, { month: "long" })}
+                  </option>
+                ))}
+              </select>
             </Field>
           </div>
         </section>

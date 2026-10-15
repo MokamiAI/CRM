@@ -9,6 +9,7 @@ import { PlanBanner } from "../components/Billing";
 import { ButtonLink, ErrorState, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
 import { Link } from "react-router-dom";
 import {
+  GoalCard,
   KpiCard,
   OwedList,
   Panel,
@@ -179,6 +180,8 @@ export default function DashboardPage() {
           detail={t("dashboard.kpi.newThisMonth", { count: s.new_customers_this_month })}
         />
       </div>
+
+      <GoalCard goal={s.goal} today={today} canEdit={user?.role === "admin"} />
 
       <div className="grid gap-5 xl:grid-cols-3">
         {/* Left: the pipeline, then money over time. Right: what to do next. */}

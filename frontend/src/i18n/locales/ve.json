@@ -2297,5 +2297,55 @@
     "expiring": "Dzi a fhela vhegeni iyi",
     "quotes_one": "Khotheshini ya {{count}}",
     "quotes_other": "Khotheshini dza {{count}}"
+  },
+  "goal": {
+    "signupLabel": "Tshipikwa tsha mbuelo tsha ṅwaha uyu",
+    "optional": "(a si tshi ṱoḓea)",
+    "placeholder": "tsumbo, 1200000",
+    "signupHint": "Ri ḓo sumbedza uri thendelano dzine na dzi kunda dzi ni sendedza zwingafhani. Ni nga tshi shandukisa tshifhinga tshiṅwe na tshiṅwe.",
+    "settingsTitle": "Tshipikwa tsha mbuelo tsha ṅwaha",
+    "settingsIntro": "Thendelano dzine na dzi kunda dzi vhalelwa khatsho. Dashboard i sumbedza uri ni ngafhi na tshimbilo tshine na tshi ṱoḓa.",
+    "amount": "Tshipikwa tsha ṅwaha (R)",
+    "yearStarts": "Ṅwaha waṋu u thoma nga",
+    "yearStartsHint": "Mabindu manzhi a Afrika Tshipembe a thoma nga Ṱhafamuhwe.",
+    "emptyTitle": "Vhetshani tshipikwa tsha mbuelo tsha ṅwaha",
+    "emptyBody": "Vhonani uri thendelano dzine na dzi kunda dzi ni sendedza zwingafhani, na tshimbilo tshine na tshi ṱoḓa.",
+    "set": "Vhetshani tshipikwa",
+    "title": "Tshipikwa tsha mbuelo tsha ṅwaha",
+    "reached": "Tshipikwa tsho swikelelwa",
+    "onPace": "Kha tshimbilo tsho teaho",
+    "behind": "Murahu ha tshimbilo nga {{amount}}",
+    "of": "ya {{target}}, u bva kha thendelano dzo kundwaho",
+    "aria": "{{pct}}% ya tshipikwa tsha ṅwaha",
+    "paceMarker": "Hune tshimbilo tsho linganaho tsha vha tshi tshi ḓo vha hone ṋamusi",
+    "progress": "Mvelaphanḓa",
+    "percent": "{{pct}}%",
+    "wonDeals": "Thendelano dzo kundwaho",
+    "perMonth_one": "Zwi ṱoḓeaho ṅwedzi uyu",
+    "perMonth_other": "Zwi ṱoḓeaho nga ṅwedzi ({{count}} yo salaho)",
+    "collected": "Tshelede yo kuvhanganywaho ṅwaha uyu"
+  },
+  "journey": {
+    "aria": "{{pct}}% ya nḓila u bva kha murengi a re na tshikhala u ya kha murengi",
+    "title": "U bva kha murengi a re na tshikhala u ya kha murengi",
+    "percent": "{{pct}}% u swika",
+    "step": {
+      "lead": "O engedzwa",
+      "contacted": "Vhukwamani ha u thoma",
+      "qualified": "O fanelea",
+      "quote_sent": "Khotheshini yo rumelwa",
+      "negotiation": "Hu khou ambiwa",
+      "won": "Yo kundwa: zwino ndi murengi"
+    },
+    "done": "zwo itwa",
+    "todo": "u itwa",
+    "next": {
+      "contacted": "Zwi tevhelaho: kwamani navho u thoma. Ṅwalani luṱingo, imeiḽi kana muṱangano sa zwo itwaho.",
+      "qualified": "Zwi tevhelaho: ṱolani murengi ni mu ise kha O fanelea.",
+      "quote_sent": "Zwi tevhelaho: vha rumeleni khotheshini.",
+      "negotiation": "Zwi tevhelaho: ambani nga zwiimiswa ni i ise kha Hu khou ambiwa.",
+      "won": "Zwi tevhelaho: i valeni. Swayani thendelano sa yo kundwaho musi vha tshi ri ee."
+    },
+    "column": "Mvelaphanḓa"
   }
 }

@@ -2297,5 +2297,55 @@
     "expiring": "Di fela bekeng ena",
     "quotes_one": "Kotheishene e {{count}}",
     "quotes_other": "Dikotheishene tse {{count}}"
+  },
+  "goal": {
+    "signupLabel": "Sepheo sa lekeno sa selemo sena",
+    "optional": "(ha se tlamo)",
+    "placeholder": "mohl. 1200000",
+    "signupHint": "Re tla bontsha hore ditumellano tseo o di hapang di o atametsa hakae. O ka se fetola neng kapa neng.",
+    "settingsTitle": "Sepheo sa lekeno sa selemo",
+    "settingsIntro": "Ditumellano tseo o di hapang di balwa ho sona. Dashboard e bontsha hore o hokae le lebelo leo o le hlokang.",
+    "amount": "Sepheo sa selemo (R)",
+    "yearStarts": "Selemo sa hao se qala ka",
+    "yearStartsHint": "Dikgwebo tse ngata tsa Afrika Borwa di qala ka Hlakubele.",
+    "emptyTitle": "Beha sepheo sa lekeno sa selemo",
+    "emptyBody": "Bona hore ditumellano tseo o di hapang di o atametsa hakae, le lebelo leo o le hlokang.",
+    "set": "Beha sepheo",
+    "title": "Sepheo sa lekeno sa selemo",
+    "reached": "Sepheo se fihlelletswe",
+    "onPace": "Lebelong le nepahetseng",
+    "behind": "Ka mora lebelo ka {{amount}}",
+    "of": "ya {{target}}, ho tswa ditumellanong tse hapilweng",
+    "aria": "{{pct}}% ya sepheo sa selemo",
+    "paceMarker": "Moo lebelo le lekanang le neng le tla ba teng kajeno",
+    "progress": "Tswelopele",
+    "percent": "{{pct}}%",
+    "wonDeals": "Ditumellano tse hapilweng",
+    "perMonth_one": "Tse hlokahalang kgwedi ena",
+    "perMonth_other": "Tse hlokahalang ka kgwedi ({{count}} di setse)",
+    "collected": "Tjhelete e bokelletsweng selemong sena"
+  },
+  "journey": {
+    "aria": "{{pct}}% ya tsela ho tloha ho moreki ya ka bang teng ho ya ho moreki",
+    "title": "Ho tloha ho moreki ya ka bang teng ho ya ho moreki",
+    "percent": "{{pct}}% ho fihla",
+    "step": {
+      "lead": "O eketsitswe",
+      "contacted": "Kopano ya pele",
+      "qualified": "O tshwanelehile",
+      "quote_sent": "Kotheishene e rometswe",
+      "negotiation": "Ho a buisanwa",
+      "won": "E hapilwe: jwale ke moreki"
+    },
+    "done": "e entswe",
+    "todo": "ho etswa",
+    "next": {
+      "contacted": "Se latelang: ikopanye le bona ka lekgetlo la pele. Ngola mohala, imeile kapa kopano e le e entsweng.",
+      "qualified": "Se latelang: hlahloba moreki mme o mo ise ho O tshwanelehile.",
+      "quote_sent": "Se latelang: ba romelle kotheishene.",
+      "negotiation": "Se latelang: buisanang ka dipehelo mme o e ise ho Ho a buisanwa.",
+      "won": "Se latelang: e kwale. Tshwaya tumellano e le e hapilweng ha ba re e."
+    },
+    "column": "Tswelopele"
   }
 }
