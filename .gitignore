@@ -33,9 +33,10 @@ Thumbs.db
 # Logs
 *.log
 
-# Private keys and local tooling: never commit
-documents
-documents.pub
+# Private keys and local tooling: never commit. Anchored to the top
+# folder: a bare "documents" also hid backend/app/templates/documents.
+/documents
+/documents.pub
 *.pem
 *.key
 id_rsa*

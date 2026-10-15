@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+{% from "_parts.html" import items_table with context %}
+{# YGT's invoice to a subscriber: one per payment, already paid. #}
+{% block title %}{{ t.invoice_title }} {{ invoice.number }}{% endblock %}
+{% block doc_title %}{{ t.invoice_title }}{% endblock %}
+{% block meta %}
+<table>
+  <tr><td>Number</td><td><strong>{{ invoice.number }}</strong></td></tr>
+  <tr><td>Date</td><td>{{ invoice.issued_at.strftime("%d %b %Y") }}</td></tr>
+  <tr><td>Period</td><td>{{ invoice.period_start.strftime("%d %b %Y") }} – {{ invoice.period_end.strftime("%d %b %Y") }}</td></tr>
+  <tr><td>Status</td><td><strong>Paid</strong></td></tr>
+</table>
+{% endblock %}
+{% block body %}
+{{ items_table(doc) }}
+<div class="totals">
+  <table>
+    {% if vat_vendor %}
+    <tr><td class="muted">Total excl. VAT</td><td class="num">{{ money(doc.subtotal) }}</td></tr>
+    <tr><td class="muted">VAT (15%)</td><td class="num">{{ money(doc.tax_total) }}</td></tr>
+    {% endif %}
+    <tr><td>Total</td><td class="num">{{ money(doc.total) }}</td></tr>
+    <tr><td class="muted">Paid</td><td class="num">− {{ money(doc.total) }}</td></tr>
+    <tr class="grand"><td>Amount due</td><td class="num">{{ money(0) }}</td></tr>
+  </table>
+</div>
+<div class="terms">
+  <p class="label">Payment</p>
+  <p>Paid in full by card through Paystack on {{ invoice.issued_at.strftime("%d %b %Y") }}. Payment reference: <strong>{{ invoice.payment_reference }}</strong>.</p>
+  {% if not vat_vendor %}<p class="muted" style="margin-top:6px;">{{ company.company_name }} is not registered for VAT, so no VAT is charged.</p>{% endif %}
+</div>
+{% endblock %}
