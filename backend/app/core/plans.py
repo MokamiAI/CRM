@@ -4,18 +4,18 @@ There is no free plan: every company starts with a free trial of Grow,
 and once it ends (or a paid plan lapses) the company is read-only until
 someone chooses a plan. Nothing is deleted.
 
-Prices are in cents (ZAR), per seat (one seat per person). Every seat is
-cheaper once a company takes TEAM_SEATS or more. Annual billing charges ten
-months for twelve.
+Prices are in cents (ZAR). Hustle is one price per company for up to three
+people. Grow and Scale are per seat (one seat per person), and every seat
+is cheaper once a company takes TEAM_SEATS or more. Annual billing charges
+ten months for twelve.
 Every plan includes all 11 languages, email conversations, quotes,
-invoices and payment reminders; the limits and features below are the
+invoices, payment reminders and custom fields; the limits and features below are the
 only differences."""
 from dataclasses import dataclass, field
 
 # Features a plan can unlock. Anything not listed here is in every plan.
 WHATSAPP_SMS = "whatsapp_sms"
 MARKETING = "marketing"
-CUSTOM_FIELDS = "custom_fields"
 TEAM_CHAT = "team_chat"
 PRIORITY_SUPPORT = "priority_support"
 REPORTS = "reports"  # "Who owes you" (aged receivables)
@@ -58,13 +58,15 @@ class Plan:
         return seats if self.per_user else self.max_users
 
 
-GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, CUSTOM_FIELDS, TEAM_CHAT, REPORTS})
+GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, TEAM_CHAT, REPORTS})
 SCALE_FEATURES = GROW_FEATURES | {RECURRING, DISCOVERY, PRIORITY_SUPPORT}
 
 PLANS: dict[str, Plan] = {
-    # Per seat per month: 1–2 seats, then from TEAM_SEATS seats.
-    "hustle": Plan("hustle", "Hustle", 14_900, team_cents=11_900, per_user=True),
-    "grow": Plan("grow", "Grow", 18_900, team_cents=14_900, per_user=True, features=GROW_FEATURES),
+    # Per company: up to three people.
+    "hustle": Plan("hustle", "Hustle", 19_900, max_users=3),
+    # Per seat per month: 1–2 seats, then from TEAM_SEATS seats. Grow's full
+    # seat price stays above Hustle, so one person never pays less for more.
+    "grow": Plan("grow", "Grow", 22_900, team_cents=14_900, per_user=True, features=GROW_FEATURES),
     "scale": Plan("scale", "Scale", 29_900, team_cents=24_900, per_user=True, features=SCALE_FEATURES),
 }
 PAID_PLANS = list(PLANS.values())

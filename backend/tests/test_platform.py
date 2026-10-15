@@ -7,7 +7,7 @@ from decimal import Decimal
 import pytest
 
 from app.core.middleware import _MemoryCounter
-from app.core.plans import CUSTOM_FIELDS, DISCOVERY, LOCKED, MARKETING, PLANS, PRIORITY_SUPPORT, RECURRING, REPORTS, TEAM_CHAT, TRIAL_PLAN, WHATSAPP_SMS
+from app.core.plans import DISCOVERY, LOCKED, MARKETING, PLANS, PRIORITY_SUPPORT, RECURRING, REPORTS, TEAM_CHAT, TRIAL_PLAN, WHATSAPP_SMS
 from app.schemas.platform import Availability
 from app.services.booking_service import free_slots
 from app.services.data_service import RowError, _date, _money, _stage
@@ -104,12 +104,12 @@ def test_sign_in_attempts_also_count_per_account():
 def test_each_plan_gets_what_it_pays_for():
     """The features on each price card are exactly what the API allows."""
     assert PLANS["hustle"].features == frozenset()
-    grow = {WHATSAPP_SMS, MARKETING, CUSTOM_FIELDS, TEAM_CHAT, REPORTS}
+    grow = {WHATSAPP_SMS, MARKETING, TEAM_CHAT, REPORTS}  # custom fields: every plan
     assert PLANS["grow"].features == grow
     assert PLANS["scale"].features == grow | {RECURRING, DISCOVERY, PRIORITY_SUPPORT}
     assert PLANS[TRIAL_PLAN] is PLANS["grow"]  # the trial is Grow
     assert LOCKED.features == frozenset()
-    assert PLANS["hustle"].user_limit(2) == 2 and PLANS["grow"].user_limit(7) == 7  # one seat per person
+    assert PLANS["hustle"].user_limit(1) == 3 and PLANS["grow"].user_limit(7) == 7  # Hustle: three people
 
 
 def test_production_refuses_example_secrets():

@@ -503,7 +503,6 @@ export default function SettingsPage() {
         />
       )}
       {tab === "team" && <TeamManager />}
-      {tab === "fields" && <PlanNotice feature="custom_fields" />}
       {tab === "fields" && <CustomFieldsManager />}
       {tab === "billing" && <BillingSettings />}
       {tab === "documents" && <DocumentTemplateSettings />}

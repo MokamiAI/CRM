@@ -3,9 +3,8 @@ import uuid
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_user, get_db, plan_feature, require_role
+from app.api.deps import get_current_user, get_db, require_role
 from app.core.database import CommitBeforeResponseRoute
-from app.core.plans import CUSTOM_FIELDS
 from app.models.enums import UserRole
 from app.models.user import User
 from app.schemas.custom_field import CustomFieldCreate, CustomFieldOut, CustomFieldUpdate, Entity
@@ -26,7 +25,8 @@ async def list_custom_fields(
     return await CustomFieldService(db).list_fields(entity)
 
 
-@router.post("", response_model=CustomFieldOut, status_code=201, dependencies=[Depends(plan_feature(CUSTOM_FIELDS))])
+# Custom fields are in every plan.
+@router.post("", response_model=CustomFieldOut, status_code=201)
 async def create_custom_field(
     data: CustomFieldCreate, db: AsyncSession = Depends(get_db), _: User = Depends(_require_admin)
 ):

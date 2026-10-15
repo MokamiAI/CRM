@@ -26,6 +26,7 @@ function planLines(plan, t) {
   if (plan.invoices_per_month) lines.push(t("billing.lines.invoices", { count: plan.invoices_per_month }));
   if (!plan.max_customers && !plan.invoices_per_month) lines.push(t("billing.lines.unlimited"));
   lines.push(t("billing.lines.core"));
+  lines.push(t("billing.features.custom_fields")); // in every plan
   plan.features.forEach((f) => lines.push(t(`billing.features.${f}`)));
   return lines;
 }
