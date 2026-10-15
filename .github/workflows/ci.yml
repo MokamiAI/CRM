@@ -45,7 +45,20 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libpango-1.0-0 libpangocairo-1.0-0 libcairo2
       - run: pip install -r requirements.txt
       - run: alembic upgrade head
-      - run: pytest -q
+      - run: pytest -q --junitxml=junit.xml
+      # Failed tests as annotations on the check, readable without signing
+      # in to GitHub (the full log needs an account).
+      - if: failure()
+        run: |
+          python - <<'EOF'
+          import xml.etree.ElementTree as ET
+          for case in ET.parse("junit.xml").iter("testcase"):
+              for bad in list(case.iter("failure")) + list(case.iter("error")):
+                  text = (bad.get("message") or "") + " " + (bad.text or "")[-1500:]
+                  text = text.replace("%", "%25").replace("", "").replace("
+", "%0A")
+                  print(f"::error title={case.get('classname')}.{case.get('name')}::{text}")
+          EOF
 
   frontend:
     runs-on: ubuntu-24.04
