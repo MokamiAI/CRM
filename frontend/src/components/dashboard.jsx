@@ -4,8 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Avatar } from "./ui";
-import { ActivityIcon, EditActivityButton, JourneyBar, PencilIcon, STAGE_LABELS } from "./crm";
-import DealFormSheet from "./DealFormSheet";
+import { ActivityIcon, EditActivityButton, PencilIcon, STAGE_LABELS } from "./crm";
 import { EditCustomerSheet } from "./CustomerFormSheet";
 import { useAuth } from "../context/AuthContext";
 import { formatMoney, formatMoneyWhole, formatShortDate } from "../utils/format";
@@ -234,7 +233,6 @@ const STAGE_TONE = {
   negotiation: { col: "bg-rose-50/70", head: "text-rose-700", dot: "bg-rose-500" },
   won: { col: "bg-emerald-50/80", head: "text-emerald-700", dot: "bg-emerald-500" },
 };
-const CARDS_PER_STAGE = 2;
 
 /** A small pencil in a card's corner: edit without leaving the page. */
 function PencilButton({ label, onClick, className = "" }) {
@@ -255,87 +253,42 @@ function useCanWrite() {
   return user?.role !== "viewer";
 }
 
-function DealCard({ deal, customer, owner }) {
+/** The pipeline in totals: one bar split by stage value, then each stage's
+ *  count and value. The deals themselves live on the Pipeline page. */
+export function PipelineSummary({ stages }) {
   const { t } = useTranslation();
-  const canWrite = useCanWrite();
-  const [editing, setEditing] = useState(false);
-  const next = deal.next_activity;
-  const when = deal.stage === "won" ? deal.closed_at?.slice(0, 10) : next?.due_date ?? deal.expected_close_date;
+  const open = stages.filter((s) => s.stage !== "won");
+  const total = open.reduce((sum, s) => sum + Number(s.value), 0);
   return (
-    <div className="group relative">
-    {/* With a mouse the pencil appears on hover or keyboard focus, so the
-        narrow cards keep their width; on touch it is always there. */}
-    {canWrite && (
-      <PencilButton
-        label={t("edit.deal", { title: deal.title })}
-        onClick={() => setEditing(true)}
-        className="absolute right-2 top-2 z-[1] transition-opacity duration-150 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:focus-visible:opacity-100 [@media(hover:hover)]:group-hover:opacity-100"
-      />
-    )}
-    <DealFormSheet open={editing} onClose={() => setEditing(false)} deal={deal} />
-    <Link
-      to={`/deals/${deal.id}`}
-      className={`block rounded-xl p-3 shadow-card transition-shadow duration-150 hover:shadow-pop [@media(hover:none)]:pr-10 ${
-        // Won: the whole card green, as on the Pipeline page.
-        deal.stage === "won" ? "border-2 border-emerald-500 bg-emerald-50 ring-1 ring-inset ring-emerald-200" : "border border-white bg-white"
-      }`}
-    >
-      <span className="line-clamp-2 text-[13px] font-semibold leading-snug text-midnight">{deal.title}</span>
-      <JourneyBar milestones={deal.milestones} className="my-1.5" />
-      <span className="mt-0.5 block truncate text-xs text-slate-500">{customer?.name ?? "…"}</span>
-      <span className="mt-2 flex items-center justify-between gap-2">
-        <span className="text-[13px] font-semibold tabular-nums text-slate-900">{formatMoneyWhole(deal.value)}</span>
-        {owner && (
-          <span title={owner.full_name}>
-            <Avatar name={owner.full_name} size="sm" />
-          </span>
-        )}
-      </span>
-      {when && (
-        <span className="mt-1 block truncate text-[11px] text-slate-400">
-          {deal.stage === "won" ? t("dashboard.pipeline.wonOn", { date: formatShortDate(when) }) : next ? `${next.subject} · ${formatShortDate(when)}` : t("dashboard.pipeline.closes", { date: formatShortDate(when) })}
-        </span>
-      )}
-    </Link>
-    </div>
-  );
-}
-
-/** The pipeline at a glance: each open stage, then this month's wins.
- *  Columns scroll sideways on a phone (snap to a column). */
-export function PipelineBoard({ stages, deals, customers, team }) {
-  const { t } = useTranslation();
-  return (
-    <div className="-mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-1 [scrollbar-width:thin] lg:grid lg:snap-none lg:grid-cols-5 lg:overflow-visible">
-      {stages.map((s) => {
-        const tone = STAGE_TONE[s.stage];
-        const list = deals.filter((d) => d.stage === s.stage).sort((a, b) => Number(b.value) - Number(a.value));
-        const more = Math.max(0, s.count - CARDS_PER_STAGE);
-        return (
-          <section key={s.stage} className={`flex w-[15rem] shrink-0 snap-start flex-col rounded-2xl p-2.5 lg:w-auto ${tone.col}`} aria-label={STAGE_LABELS[s.stage]}>
-            <header className="px-1 pb-2">
-              <h3 className={`flex items-center gap-1.5 text-[13px] font-semibold ${tone.head}`}>
-                <span className={`h-2 w-2 rounded-full ${tone.dot}`} aria-hidden="true" />
-                {s.stage === "won" ? t("dashboard.pipeline.wonThisMonth") : STAGE_LABELS[s.stage]}
-              </h3>
-              <p className="mt-0.5 text-xs text-slate-500">
-                {t("dashboard.deals", { count: s.count })} · <span className="tabular-nums">{formatMoneyWhole(s.value)}</span>
-              </p>
-            </header>
-            <div className="flex flex-1 flex-col gap-2">
-              {list.slice(0, CARDS_PER_STAGE).map((d) => (
-                <DealCard key={d.id} deal={d} customer={customers.get(d.customer_id)} owner={team.get(d.owner_id)} />
-              ))}
-              {!list.length && <p className="rounded-xl border border-dashed border-slate-300/70 px-3 py-4 text-center text-xs text-slate-400">{t("dashboard.pipeline.empty")}</p>}
-            </div>
-            {more > 0 && (
-              <Link to="/deals" className="mt-2 px-1 text-xs font-semibold text-slate-600 hover:text-midnight">
-                {t("dashboard.pipeline.more", { count: more })}
+    <div>
+      <div className="flex h-2.5 overflow-hidden rounded-full bg-slate-100" aria-hidden="true">
+        {total > 0 &&
+          open.map((s) => (
+            <span key={s.stage} className={STAGE_TONE[s.stage].dot} style={{ width: `${(Number(s.value) / total) * 100}%` }} />
+          ))}
+      </div>
+      <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+        {stages.map((s) => {
+          const tone = STAGE_TONE[s.stage];
+          return (
+            <li key={s.stage}>
+              <Link
+                to="/deals"
+                className={`block h-full rounded-xl p-3 transition-shadow duration-150 hover:shadow-card ${
+                  s.stage === "won" ? "border-2 border-emerald-500 bg-emerald-50" : `border border-transparent ${tone.col}`
+                }`}
+              >
+                <span className={`flex items-center gap-1.5 text-xs font-semibold ${tone.head}`}>
+                  <span className={`h-2 w-2 rounded-full ${tone.dot}`} aria-hidden="true" />
+                  {s.stage === "won" ? t("dashboard.pipeline.wonThisMonth") : STAGE_LABELS[s.stage]}
+                </span>
+                <span className="mt-1.5 block text-lg font-bold tabular-nums text-midnight">{formatMoneyWhole(s.value)}</span>
+                <span className="block text-xs text-slate-500">{t("dashboard.deals", { count: s.count })}</span>
               </Link>
-            )}
-          </section>
-        );
-      })}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

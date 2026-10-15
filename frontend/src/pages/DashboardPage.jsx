@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useActivities, useCustomerMap, useCustomerOverview, useDeals, useInvoices, useQuotes, useReportSummary, useTeamMap } from "../hooks/useApi";
+import { useActivities, useCustomerMap, useCustomerOverview, useInvoices, useQuotes, useReportSummary } from "../hooks/useApi";
 import GetStarted from "../components/GetStarted";
 import { useAuth } from "../context/AuthContext";
 import i18n from "../i18n";
@@ -13,7 +13,7 @@ import {
   KpiCard,
   OwedList,
   Panel,
-  PipelineBoard,
+  PipelineSummary,
   QuickActions,
   RecentCustomers,
   RevenueChart,
@@ -60,8 +60,6 @@ export default function DashboardPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { data: s, isLoading, isError, refetch } = useReportSummary();
-  const { data: openDeals = [] } = useDeals({ status: "open" });
-  const { data: wonDeals = [] } = useDeals({ status: "won" });
   const { data: overdueActs = [] } = useActivities({ scope: "overdue", mine: true });
   const { data: todayActs = [] } = useActivities({ scope: "today", mine: true });
   const { data: nextActs = [] } = useActivities({ scope: "upcoming", mine: true });
@@ -71,14 +69,11 @@ export default function DashboardPage() {
   const { data: overview = [] } = useCustomerOverview();
   const { data: sentQuotes = [] } = useQuotes({ status: "sent" });
   const customers = useCustomerMap();
-  const team = useTeamMap();
   const toggle = useToggleActivity();
   const [range, setRange] = useState(6);
   const today = todayISO();
   const canWrite = user?.role !== "viewer";
 
-  const monthStart = today.slice(0, 8) + "01";
-  const wonThisMonth = useMemo(() => wonDeals.filter((d) => d.closed_at && d.closed_at.slice(0, 10) >= monthStart), [wonDeals, monthStart]);
   const owed = useMemo(
     () => [...overdueInv, ...partInv, ...sentInv].sort((a, b) => (a.due_date ?? "9999").localeCompare(b.due_date ?? "9999")).slice(0, 5),
     [overdueInv, partInv, sentInv]
@@ -193,11 +188,10 @@ export default function DashboardPage() {
             bodyClass="px-4 pb-4"
             tour="dash-charts"
           >
-            <PipelineBoard stages={stages} deals={[...openDeals, ...wonThisMonth]} customers={customers} team={team} />
-            {/* The sales numbers from the first dashboard, kept compact. */}
-            <dl className="mt-4 grid grid-cols-3 divide-x divide-slate-100 rounded-xl border border-slate-200/80 text-center">
+            <PipelineSummary stages={stages} />
+            {/* How well deals close; this month's wins are the green tile above. */}
+            <dl className="mt-4 grid grid-cols-2 divide-x divide-slate-100 rounded-xl border border-slate-200/80 text-center">
               {[
-                [t("dashboard.kpi.won"), formatMoneyWhole(s.won_this_month.value), t("dashboard.deals", { count: s.won_this_month.count })],
                 [t("dashboard.kpi.winRate"), s.win_rate == null ? "—" : `${Math.round(s.win_rate * 100)}%`, t("dashboard.kpi.winRateDetail")],
                 [t("dashboard.kpi.avgDeal"), s.avg_won_deal == null ? "—" : formatMoneyWhole(s.avg_won_deal), t("dashboard.kpi.avgDealDetail")],
               ].map(([label, value, hint]) => (
