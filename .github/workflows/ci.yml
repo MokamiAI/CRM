@@ -49,16 +49,7 @@ jobs:
       # Failed tests as annotations on the check, readable without signing
       # in to GitHub (the full log needs an account).
       - if: failure()
-        run: |
-          python - <<'EOF'
-          import xml.etree.ElementTree as ET
-          for case in ET.parse("junit.xml").iter("testcase"):
-              for bad in list(case.iter("failure")) + list(case.iter("error")):
-                  text = (bad.get("message") or "") + " " + (bad.text or "")[-1500:]
-                  text = text.replace("%", "%25").replace("", "").replace("
-", "%0A")
-                  print(f"::error title={case.get('classname')}.{case.get('name')}::{text}")
-          EOF
+        run: python ../.github/scripts/junit_annotations.py junit.xml
 
   frontend:
     runs-on: ubuntu-24.04
