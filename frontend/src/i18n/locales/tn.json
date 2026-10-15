@@ -730,7 +730,8 @@
     "total": "Palogotlhe",
     "totalExcl": "Palogotlhe kwa ntle ga VAT",
     "vat": "VAT",
-    "totalIncl": "Palogotlhe go akaretsa VAT"
+    "totalIncl": "Palogotlhe go akaretsa VAT",
+    "createdBy": "E dirilwe ke"
   },
   "documents": {
     "accent": "Mmala wa letshwao",

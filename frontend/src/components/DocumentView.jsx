@@ -54,6 +54,12 @@ export function DetailGrid({ rows }) {
 }
 
 /** Side-panel summary: label/value rows, the last one emphasized. */
+/** Who made a document and when, for its page (never printed). */
+export function createdRow(t, doc, team, formatDate) {
+  const who = team.get(doc.created_by)?.full_name;
+  return [t("document.createdBy"), who ? `${who} · ${formatDate(doc.created_at)}` : formatDate(doc.created_at)];
+}
+
 export function SummaryCard({ title, rows, emphasis }) {
   const { t } = useTranslation();
   return (

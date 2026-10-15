@@ -6,11 +6,11 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
 import apiClient from "../services/apiClient";
-import { useCustomerMap, useQuote, useQuotes } from "../hooks/useApi";
+import { useCustomerMap, useQuote, useQuotes, useTeamMap } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import DocumentEditor from "../components/DocumentEditor";
 import { RowEditButton } from "../components/crm";
-import { BackLink, LineItems, SummaryCard } from "../components/DocumentView";
+import { BackLink, LineItems, SummaryCard, createdRow } from "../components/DocumentView";
 import Sheet from "../components/Sheet";
 import { ClientFilter, DocumentViewer } from "../components/Documents";
 import {
@@ -238,6 +238,7 @@ export function QuoteDetailPage() {
 
   const { data: quote, isLoading, isError, refetch } = useQuote(id);
   const customer = useCustomerMap().get(quote?.customer_id);
+  const team = useTeamMap();
   const [sheet, setSheet] = useState(null);
   // A row's pencil on a sent quote arrives as ?edit=1: ask once.
   const [searchParams, setSearchParams] = useSearchParams();
@@ -418,6 +419,7 @@ export function QuoteDetailPage() {
               ...(quote.reference ? [[t("editor.reference"), quote.reference]] : []),
               [t("quotes.validUntil"), formatDate(quote.expiry_date)],
               [t("document.lineItems"), quote.items.length],
+              createdRow(t, quote, team, formatDate),
             ]}
             emphasis={[t("document.totalIncl"), formatMoney(quote.total)]}
           />

@@ -140,17 +140,15 @@ class DocumentService:
         company = await self.companies.get_current()
         return company, resolve_template(company)
 
-    async def _people(self, customer_id, created_by):
-        """The customer's main contact (for "Attention") and whoever
-        prepared the document, by name and email."""
+    async def _people(self, customer_id):
+        """The customer's main contact, printed as "Attention". (Who made
+        the document shows in the app, not on the printout.)"""
         from app.models.crm import Contact
-        from app.models.user import User
 
         contact = await self.db.scalar(
             select(Contact).where(Contact.customer_id == customer_id).order_by(Contact.is_primary.desc(), Contact.created_at).limit(1)
         )
-        author = await self.db.get(User, created_by) if created_by else None
-        return {"contact": contact, "author": author}
+        return {"contact": contact}
 
     async def invoice_html(self, invoice_id: uuid.UUID) -> str:
         invoice = await InvoiceRepository(self.db).get_by_id(invoice_id)
@@ -158,7 +156,7 @@ class DocumentService:
             raise NotFoundError("Invoice not found", "INVOICE_NOT_FOUND")
         customer = await CustomerRepository(self.db).get_by_id(invoice.customer_id)
         company, template = await self._company()
-        people = await self._people(invoice.customer_id, invoice.created_by)
+        people = await self._people(invoice.customer_id)
         return render("invoice", company, template, doc=invoice, customer=customer, amount_due=invoice.total - invoice.amount_paid, **people)
 
     async def quote_html(self, quote_id: uuid.UUID) -> str:
@@ -167,7 +165,7 @@ class DocumentService:
             raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
         customer = await CustomerRepository(self.db).get_by_id(quote.customer_id)
         company, template = await self._company()
-        people = await self._people(quote.customer_id, quote.created_by)
+        people = await self._people(quote.customer_id)
         return render("quote", company, template, doc=quote, customer=customer, **people)
 
     async def purchase_order_html(self, po_id: uuid.UUID) -> str:
@@ -176,10 +174,9 @@ class DocumentService:
         po = await PurchaseOrderService(self.db).get(po_id)
         supplier = await self.db.get(Supplier, po.supplier_id)
         company, template = await self._company()
-        people = await self._people(None, po.created_by)
         # The supplier's contact person prints as "Attention", like a customer's.
         contact = SimpleNamespace(first_name=supplier.contact_name, last_name=None, job_title=None, email=None, phone=None) if supplier.contact_name else None
-        return render("purchase_order", company, template, doc=po, customer=supplier_party(supplier), author=people["author"], contact=contact)
+        return render("purchase_order", company, template, doc=po, customer=supplier_party(supplier), contact=contact)
 
     async def statement(self, customer_id: uuid.UUID, start: date, end: date):
         customer = await CustomerRepository(self.db).get_by_id(customer_id)
@@ -208,7 +205,6 @@ class DocumentService:
             return render("statement", company, template, customer=customer, statement=statement)
         sample_people = {
             "contact": SimpleNamespace(first_name="Lindiwe", last_name="Khoza", email="lindiwe@thandeka.example.com", phone="011 555 0142", job_title="Finance manager"),
-            "author": SimpleNamespace(full_name="Your name", email=company.sender_email or "you@yourcompany.co.za"),
         }
         return render(kind, company, template, doc=doc, customer=customer, amount_due=doc.total, **sample_people)
 

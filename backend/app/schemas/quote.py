@@ -75,6 +75,7 @@ class QuoteOut(BaseModel):
     title: str | None = None
     description: str | None = None
     items: list[QuoteItemOut]
+    created_by: uuid.UUID | None = None  # shown in the app, never printed
     created_at: datetime
     updated_at: datetime
 

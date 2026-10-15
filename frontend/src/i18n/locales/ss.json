@@ -730,7 +730,8 @@
     "total": "Sigaba",
     "totalExcl": "Konkhe ngaphandle kwe-VAT",
     "vat": "I-VAT",
-    "totalIncl": "Konkhe kufaka i-VAT"
+    "totalIncl": "Konkhe kufaka i-VAT",
+    "createdBy": "Kwentiwe ngu-"
   },
   "documents": {
     "accent": "Umbala welibhrendi",

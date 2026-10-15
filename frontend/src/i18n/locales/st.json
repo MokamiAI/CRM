@@ -730,7 +730,8 @@
     "total": "Kakaretso yohle",
     "totalExcl": "Kakaretso ntle le VAT",
     "vat": "VAT",
-    "totalIncl": "Kakaretso ho kenyeleditswe VAT"
+    "totalIncl": "Kakaretso ho kenyeleditswe VAT",
+    "createdBy": "E entswe ke"
   },
   "documents": {
     "accent": "Mmala wa letshwao",

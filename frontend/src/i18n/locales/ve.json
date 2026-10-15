@@ -730,7 +730,8 @@
     "total": "Tshanḓanyiso",
     "totalExcl": "Tshoṱhe nga nnḓa ha VAT",
     "vat": "VAT",
-    "totalIncl": "Tshoṱhe hu tshi katelwa VAT"
+    "totalIncl": "Tshoṱhe hu tshi katelwa VAT",
+    "createdBy": "Zwo itwa nga"
   },
   "documents": {
     "accent": "Muvhala wa luswayo",

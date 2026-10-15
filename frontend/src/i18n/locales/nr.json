@@ -730,7 +730,8 @@
     "total": "Isamba",
     "totalExcl": "Koke ngaphandle kwe-VAT",
     "vat": "I-VAT",
-    "totalIncl": "Koke kufaka i-VAT"
+    "totalIncl": "Koke kufaka i-VAT",
+    "createdBy": "Kwenziwe ngu-"
   },
   "documents": {
     "accent": "Umbala wephawu",

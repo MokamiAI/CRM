@@ -84,6 +84,7 @@ class InvoiceOut(BaseModel):
     # Set when a recurring schedule made it.
     recurring_invoice_id: uuid.UUID | None = None
     items: list[InvoiceItemOut]
+    created_by: uuid.UUID | None = None  # shown in the app, never printed
     created_at: datetime
     updated_at: datetime
 

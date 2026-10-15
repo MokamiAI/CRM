@@ -730,7 +730,8 @@
     "total": "Palomoka",
     "totalExcl": "Palomoka ntle le VAT",
     "vat": "VAT",
-    "totalIncl": "Palomoka go akaretšwa VAT"
+    "totalIncl": "Palomoka go akaretšwa VAT",
+    "createdBy": "E dirilwe ke"
   },
   "documents": {
     "accent": "Mmala wa leswao",

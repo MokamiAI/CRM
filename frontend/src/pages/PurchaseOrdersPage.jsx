@@ -4,10 +4,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
-import { useCompany, usePurchaseOrder, usePurchaseOrders, useSupplierMap, useSuppliers } from "../hooks/useApi";
+import { useCompany, usePurchaseOrder, usePurchaseOrders, useSupplierMap, useSuppliers, useTeamMap } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import DocumentEditor from "../components/DocumentEditor";
-import { BackLink, LineItems, SummaryCard } from "../components/DocumentView";
+import { BackLink, LineItems, SummaryCard, createdRow } from "../components/DocumentView";
 import Sheet from "../components/Sheet";
 import { DocumentViewer } from "../components/Documents";
 import { Avatar, Button, ButtonLink, EmptyState, ErrorState, Field, FilterChips, ListSkeleton, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
@@ -337,6 +337,7 @@ export function PurchaseOrderDetailPage() {
   const canWrite = user?.role !== "viewer";
   const { data: po, isLoading, isError, refetch } = usePurchaseOrder(id);
   const supplier = useSupplierMap().get(po?.supplier_id);
+  const team = useTeamMap();
   const [sheet, setSheet] = useState(null);
   const [notify, setNotify] = useState(true);
   const queryClient = useQueryClient();
@@ -443,6 +444,7 @@ export function PurchaseOrderDetailPage() {
               [t("purchases.deliverBy"), po.delivery_date ? formatDate(po.delivery_date) : "—"],
               ...(po.reference ? [[t("editor.reference"), po.reference]] : []),
               [t("document.lineItems"), po.items.length],
+              createdRow(t, po, team, formatDate),
             ]}
             emphasis={[t("document.totalIncl"), formatMoney(po.total)]}
           />

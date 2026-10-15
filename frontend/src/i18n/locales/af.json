@@ -730,7 +730,8 @@
     "total": "Totaal",
     "totalExcl": "Totaal uitgesluit BTW",
     "vat": "BTW",
-    "totalIncl": "Totaal ingesluit BTW"
+    "totalIncl": "Totaal ingesluit BTW",
+    "createdBy": "Geskep deur"
   },
   "documents": {
     "accent": "Handelsmerkkleur",

@@ -100,6 +100,7 @@ class PurchaseOrderOut(BaseModel):
     tax_total: Decimal
     total: Decimal
     items: list[PurchaseOrderItemOut]
+    created_by: uuid.UUID | None = None  # shown in the app, never printed
     created_at: datetime
     updated_at: datetime
 

@@ -33,9 +33,11 @@ async def test_documents_show_company_customer_and_contact_details(api):
     html = (await api.get(f"/invoices/{inv['id']}/document", headers=h)).text
     for text in ("Intermediate Data Systems", "96 Rivonia Road", "4460271002", "2009/106070/23", "011 555 0100", "ids.example.com",
                  "Bayajula Services PTY LTD", "246 Jean Avenue", "4999999999", "012 555 0199", "Gate 3", "Delivery address",
-                 "Attention:", "Sipho Nkosi", "Procurement", "Prepared by", "Test Owner", "Freshdesk renewal (4 licences)",
+                 "Attention:", "Sipho Nkosi", "Procurement", "Freshdesk renewal (4 licences)",
                  "Standard Bank", "372291600", "Centurion Lifestyle", "002645", "65"):
         assert text in html, text
+    assert "Prepared by" not in html  # who made it shows in the app, not on paper
+    assert inv["created_by"] == str(owner["user_id"])
 
     quote = (await api.post("/quotes", json={"customer_id": customer["id"], "issue_date": TODAY, "title": "Freshdesk renewal 2027",
                                                "description": "Annual renewal of four Omnichannel Pro licences,\nwith the bot builder included.", "items": ITEM}, headers=h)).json()
@@ -56,7 +58,7 @@ async def test_purchase_order_shows_where_to_deliver_and_who_ordered(api):
     po = (await api.post("/purchase-orders", json={"supplier_id": supplier["id"], "issue_date": TODAY, "items": ITEM}, headers=h)).json()
     html = (await api.get(f"/purchase-orders/{po['id']}/document", headers=h)).text
     assert "Deliver to" in html and "7 Main Road" in html  # no address given: the company's own
-    assert "Prepared by" in html and "Test Owner" in html
+    assert "Prepared by" not in html and po["created_by"] == str(owner["user_id"])
     assert "Attention:" in html and "Pieter van Wyk" in html and "021 555 0199" in html
 
     site = (await api.post("/purchase-orders", json={"supplier_id": supplier["id"], "issue_date": TODAY, "delivery_address": "Gate 2, Kyalami Estate", "items": ITEM}, headers=h)).json()

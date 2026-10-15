@@ -730,7 +730,8 @@
     "total": "Isixa",
     "totalExcl": "Iyonke ngaphandle kwe-VAT",
     "vat": "I-VAT",
-    "totalIncl": "Iyonke iquka i-VAT"
+    "totalIncl": "Iyonke iquka i-VAT",
+    "createdBy": "Yenziwe ngu-"
   },
   "documents": {
     "accent": "Umbala wophawu",

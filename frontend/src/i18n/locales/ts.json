@@ -730,7 +730,8 @@
     "total": "Nhlayo-hinkwayo",
     "totalExcl": "Hinkwaswo handle ka VAT",
     "vat": "VAT",
-    "totalIncl": "Hinkwaswo ku katsa VAT"
+    "totalIncl": "Hinkwaswo ku katsa VAT",
+    "createdBy": "Swi endliwe hi"
   },
   "documents": {
     "accent": "Muhlovo wa mfungho",

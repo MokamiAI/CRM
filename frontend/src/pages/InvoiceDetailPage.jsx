@@ -5,11 +5,11 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
 import apiClient from "../services/apiClient";
-import { useCustomerMap, useInvoice, usePayments, useReminders } from "../hooks/useApi";
+import { useCustomerMap, useInvoice, usePayments, useReminders, useTeamMap } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import Sheet from "../components/Sheet";
 import { DocumentViewer } from "../components/Documents";
-import { BackLink, LineItems, SummaryCard } from "../components/DocumentView";
+import { BackLink, LineItems, SummaryCard, createdRow } from "../components/DocumentView";
 import { Button, ButtonLink, ErrorState, Field, ListSkeleton, PageHeader, StatusBadge } from "../components/ui";
 import { errorMessage, formatDate, formatMoney, todayISO } from "../utils/format";
 
@@ -42,6 +42,7 @@ export default function InvoiceDetailPage() {
   const { data: payments = [] } = usePayments(id);
   const { data: reminders = [] } = useReminders(id);
   const customer = useCustomerMap().get(invoice?.customer_id);
+  const team = useTeamMap();
 
   const [sheet, setSheet] = useState(null); // "send" | "pay" | "void" | "delete" | "correct" | null
   // A row's pencil on a sent invoice arrives as ?edit=1: ask once.
@@ -220,6 +221,7 @@ export default function InvoiceDetailPage() {
               [t("invoices.col.due"), formatDate(invoice.due_date)],
               [t("document.totalIncl"), formatMoney(invoice.total)],
               [t("status.paid"), formatMoney(invoice.amount_paid)],
+              createdRow(t, invoice, team, formatDate),
             ]}
             emphasis={[t("invoice.balanceDue"), formatMoney(balance)]}
           />

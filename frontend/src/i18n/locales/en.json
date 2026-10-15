@@ -730,7 +730,8 @@
     "total": "Total",
     "totalExcl": "Total excl. VAT",
     "vat": "VAT",
-    "totalIncl": "Total incl. VAT"
+    "totalIncl": "Total incl. VAT",
+    "createdBy": "Created by"
   },
   "documents": {
     "accent": "Brand colour",

@@ -110,13 +110,6 @@
     </div>
     {% endif %}
     {% block party_extra %}{% endblock %}
-    {% if author %}
-    <div>
-      <p class="label">Prepared by</p>
-      <p>{{ author.full_name }}</p>
-      {% if author.email %}<p class="muted">{{ author.email }}</p>{% endif %}
-    </div>
-    {% endif %}
   </section>
 
   {% block body %}{% endblock %}
