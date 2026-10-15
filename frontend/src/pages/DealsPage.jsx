@@ -46,7 +46,9 @@ export default function DealsPage() {
   const [scope, setScope] = useState("all");
   // Board or list: remembered per browser (a convenience, so storage
   // failures in private mode just fall back to the board).
+  const focusStage = new URLSearchParams(window.location.search).get("stage");
   const [view, setView] = useState(() => {
+    if (focusStage) return "board"; // a stage link wants the board, just this once
     try {
       return localStorage.getItem("deals-view") ?? "board";
     } catch {
@@ -86,6 +88,13 @@ export default function DealsPage() {
     return () => clearTimeout(timer);
   }, [landedId]);
   const [lostReason, setLostReason] = useState("");
+  const [focused, setFocused] = useState(focusStage);
+  useEffect(() => {
+    if (!focused || isLoading) return undefined;
+    document.getElementById(`stage-${focused}`)?.scrollIntoView({ block: "nearest", inline: "center" });
+    const timer = setTimeout(() => setFocused(null), 2000);
+    return () => clearTimeout(timer);
+  }, [focused, isLoading]);
 
   const move = useMutation({
     mutationFn: ({ id, stage, lost_reason }) => apiClient.patch(`/deals/${id}`, { stage, ...(lost_reason && { lost_reason }) }),
@@ -197,8 +206,11 @@ export default function DealsPage() {
             return (
               <section
                 key={stage.value}
+                id={`stage-${stage.value}`}
                 {...dropProps(stage.value)}
-                className={`flex w-[85%] shrink-0 snap-start flex-col rounded-xl p-2 transition-colors duration-150 md:w-auto md:min-w-[10.5rem] md:flex-1 ${isOver ? "bg-zinc-200/70" : tint}`}
+                className={`flex w-[85%] shrink-0 snap-start flex-col rounded-xl p-2 transition-[background-color,box-shadow] duration-300 md:w-auto md:min-w-[10.5rem] md:flex-1 ${isOver ? "bg-zinc-200/70" : tint} ${
+                  focused === stage.value ? "ring-2 ring-blue-500" : ""
+                }`}
               >
                 {/* Open stages: slices of one spectrum, read as progress.
                     Won is green and Lost red, so outcomes read at a glance. */}

@@ -109,7 +109,7 @@ export default function QuoteOfTheWeek({ who, hold = false, className = "" }) {
       className={`quote-week ${state === "closing" ? "quote-week-out" : ""} fixed inset-x-4 z-[60] mx-auto max-w-md overflow-hidden rounded-2xl bg-zinc-900 text-white shadow-pop ${className}`}
     >
       <span className="brand-bg absolute inset-x-0 top-0 h-1" aria-hidden="true" />
-      <div className="p-5 pt-6">
+      <div className="p-4 pt-5 sm:p-5 sm:pt-6">
         <div className="flex items-center gap-2">
           <span className="text-lg leading-none" aria-hidden="true">🔥</span>
           <h2 id="quote-week-title" className="text-xs font-semibold uppercase tracking-[0.12em] text-zinc-300">
@@ -118,7 +118,7 @@ export default function QuoteOfTheWeek({ who, hold = false, className = "" }) {
           <button
             type="button"
             onClick={close}
-            className="ml-auto -mr-2 -mt-1 flex h-8 w-8 items-center justify-center rounded-full text-zinc-400 transition-colors duration-150 hover:bg-white/10 hover:text-white"
+            className="ml-auto -mr-2 -mt-1 flex h-8 w-8 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11 items-center justify-center rounded-full text-zinc-400 transition-colors duration-150 hover:bg-white/10 hover:text-white"
             aria-label={t("common.close")}
           >
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.8} className="h-4 w-4" aria-hidden="true">
@@ -126,11 +126,11 @@ export default function QuoteOfTheWeek({ who, hold = false, className = "" }) {
             </svg>
           </button>
         </div>
-        <blockquote className="mt-3 text-[17px] font-medium leading-snug tracking-tight">“{week.quote.text}”</blockquote>
-        <p className="mt-2 text-sm text-zinc-400">— {week.quote.by}</p>
-        <div className="mt-4 flex items-center justify-between gap-3">
-          <span className="text-xs text-zinc-500">{t("quoteWeek.footer")}</span>
-          <button type="button" onClick={close} className="btn brand-bg !h-9 shrink-0 !px-4 !text-sm text-white">
+        <blockquote className="mt-2 text-[15px] font-medium leading-snug tracking-tight sm:mt-3 sm:text-[17px]">“{week.quote.text}”</blockquote>
+        <p className="mt-1 text-sm text-zinc-400 sm:mt-2">— {week.quote.by}</p>
+        <div className="mt-3 flex items-center justify-between gap-3 sm:mt-4">
+          <span className="hidden text-xs text-zinc-400 sm:inline">{t("quoteWeek.footer")}</span>
+          <button type="button" onClick={close} className="btn brand-bg !h-9 ml-auto shrink-0 !px-4 !text-sm text-white">
             {t("quoteWeek.go")}
           </button>
         </div>

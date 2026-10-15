@@ -24,13 +24,15 @@ class InvoiceRepository:
         limit: int = 50,
         customer_id: uuid.UUID | None = None,
         status: InvoiceStatus | None = None,
+        sort: str = "created",
     ) -> list[Invoice]:
         stmt = select(Invoice).options(selectinload(Invoice.items))
         if customer_id is not None:
             stmt = stmt.where(Invoice.customer_id == customer_id)
         if status is not None:
             stmt = stmt.where(Invoice.status == status)
-        stmt = stmt.order_by(Invoice.created_at.desc()).offset(offset).limit(limit)
+        order = (Invoice.due_date.asc().nulls_last(), Invoice.created_at.desc()) if sort == "due" else (Invoice.created_at.desc(),)
+        stmt = stmt.order_by(*order).offset(offset).limit(limit)
         result = await self.db.execute(stmt)
         return list(result.scalars().unique().all())
 

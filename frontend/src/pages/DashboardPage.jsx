@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useActivities, useCustomerMap, useCustomerOverview, useInvoices, useQuotes, useReportSummary } from "../hooks/useApi";
+import { useActivities, useCustomerMap, useInvoices, useQuotes, useReportSummary } from "../hooks/useApi";
 import GetStarted from "../components/GetStarted";
 import { useAuth } from "../context/AuthContext";
 import i18n from "../i18n";
@@ -15,7 +15,6 @@ import {
   Panel,
   PipelineSummary,
   QuickActions,
-  RecentCustomers,
   RevenueChart,
   UpcomingList,
   ViewAll,
@@ -63,11 +62,11 @@ export default function DashboardPage() {
   const { data: overdueActs = [] } = useActivities({ scope: "overdue", mine: true });
   const { data: todayActs = [] } = useActivities({ scope: "today", mine: true });
   const { data: nextActs = [] } = useActivities({ scope: "upcoming", mine: true });
-  const { data: overdueInv = [] } = useInvoices({ status: "overdue" });
-  const { data: sentInv = [] } = useInvoices({ status: "sent" });
-  const { data: partInv = [] } = useInvoices({ status: "partially_paid" });
-  const { data: overview = [] } = useCustomerOverview();
-  const { data: sentQuotes = [] } = useQuotes({ status: "sent" });
+  // Only the rows shown: five per unpaid status, soonest due first.
+  const { data: overdueInv = [] } = useInvoices({ status: "overdue", sort: "due", limit: 5 });
+  const { data: sentInv = [] } = useInvoices({ status: "sent", sort: "due", limit: 5 });
+  const { data: partInv = [] } = useInvoices({ status: "partially_paid", sort: "due", limit: 5 });
+  const { data: sentQuotes = [] } = useQuotes({ status: "sent", limit: 4 });
   const customers = useCustomerMap();
   const toggle = useToggleActivity();
   const [range, setRange] = useState(6);
@@ -77,10 +76,6 @@ export default function DashboardPage() {
   const owed = useMemo(
     () => [...overdueInv, ...partInv, ...sentInv].sort((a, b) => (a.due_date ?? "9999").localeCompare(b.due_date ?? "9999")).slice(0, 5),
     [overdueInv, partInv, sentInv]
-  );
-  const recent = useMemo(
-    () => overview.filter((c) => c.is_active).sort((a, b) => (b.last_activity_at ?? "").localeCompare(a.last_activity_at ?? "")).slice(0, 5),
-    [overview]
   );
 
   if (isLoading) return <DashboardSkeleton />;
@@ -198,7 +193,7 @@ export default function DashboardPage() {
                 <div key={label} className="min-w-0 px-2 py-3">
                   <dt className="truncate text-xs font-medium text-slate-500">{label}</dt>
                   <dd className="mt-0.5 truncate text-base font-bold tabular-nums text-midnight sm:text-lg">{value}</dd>
-                  <dd className="hidden truncate text-[11px] text-slate-400 sm:block">{hint}</dd>
+                  <dd className="hidden truncate text-xs text-slate-500 sm:block">{hint}</dd>
                 </div>
               ))}
             </dl>
@@ -223,6 +218,9 @@ export default function DashboardPage() {
             bodyClass="px-5 pb-5"
           >
             {hasMoney ? <RevenueChart months={months} /> : <p className="py-10 text-center text-sm text-slate-500">{t("dashboard.revenue.empty")}</p>}
+          </Panel>
+          <Panel title={t("dashboard.owes.title")} action={<ViewAll to="/invoices/aging">{t("dashboard.viewAll")}</ViewAll>}>
+            {owed.length ? <OwedList invoices={owed} customers={customers} today={today} /> : <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.owes.empty")}</p>}
           </Panel>
         </div>
         <div className="grid min-w-0 content-start gap-5">
@@ -263,15 +261,9 @@ export default function DashboardPage() {
               <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.noQuotesWaiting")}</p>
             )}
           </Panel>
-          <Panel title={t("dashboard.owes.title")} subtitle={Number(s.outstanding) > 0 ? t("dashboard.owes.total", { amount: formatMoney(s.outstanding) }) : undefined} action={<ViewAll to="/invoices/aging">{t("dashboard.viewAll")}</ViewAll>}>
-            {owed.length ? <OwedList invoices={owed} customers={customers} today={today} /> : <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.owes.empty")}</p>}
-          </Panel>
         </div>
       </div>
 
-      <Panel title={t("dashboard.recent.title")} action={<ViewAll to="/customers">{t("dashboard.viewAll")}</ViewAll>}>
-        {recent.length ? <RecentCustomers rows={recent} /> : <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.recent.empty")}</p>}
-      </Panel>
     </div>
   );
 }

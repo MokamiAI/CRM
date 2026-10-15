@@ -81,7 +81,7 @@ export default function GetStarted() {
                 </svg>
               </span>
               <span className="min-w-0 flex-1">
-                <span className={`block text-sm font-medium ${item.done ? "text-zinc-400 line-through decoration-zinc-300" : "text-zinc-900"}`}>
+                <span className={`block text-sm font-medium ${item.done ? "text-zinc-500 line-through decoration-zinc-300" : "text-zinc-900"}`}>
                   {t(`getStarted.items.${item.key}.title`)}
                   {item.optional && <span className="ml-1.5 text-xs font-normal text-zinc-400">{t("channels.optional")}</span>}
                 </span>

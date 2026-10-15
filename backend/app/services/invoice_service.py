@@ -106,9 +106,9 @@ class InvoiceService:
         await self.quotes.save(quote)
         return invoice
 
-    async def list_invoices(self, offset=0, limit=50, customer_id=None, status=None) -> list[Invoice]:
+    async def list_invoices(self, offset=0, limit=50, customer_id=None, status=None, sort="created") -> list[Invoice]:
         return await self.invoices.list_all(
-            offset=offset, limit=limit, customer_id=customer_id, status=status
+            offset=offset, limit=limit, customer_id=customer_id, status=status, sort=sort
         )
 
     async def get_invoice(self, invoice_id: uuid.UUID) -> Invoice:

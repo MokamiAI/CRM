@@ -1,4 +1,5 @@
 import uuid
+from typing import Literal
 
 from fastapi import APIRouter, Depends, Query, status
 from fastapi.responses import HTMLResponse
@@ -56,11 +57,13 @@ async def list_invoices(
     limit: int = Query(50, ge=1, le=200),
     customer_id: uuid.UUID | None = Query(default=None),
     status_filter: InvoiceStatus | None = Query(default=None, alias="status"),
+    # "due": soonest due date first (the dashboard's "Who owes you?").
+    sort: Literal["created", "due"] = Query("created"),
     db: AsyncSession = Depends(get_db),
     _: User = Depends(get_current_user),
 ):
     return await InvoiceService(db).list_invoices(
-        offset=offset, limit=limit, customer_id=customer_id, status=status_filter
+        offset=offset, limit=limit, customer_id=customer_id, status=status_filter, sort=sort
     )
 
 

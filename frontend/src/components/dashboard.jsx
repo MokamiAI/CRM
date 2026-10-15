@@ -46,7 +46,7 @@ export function Panel({ title, subtitle, action, children, className = "", bodyC
 
 export function ViewAll({ to, children }) {
   return (
-    <Link to={to} className="inline-flex shrink-0 items-center gap-1 rounded-md text-xs font-semibold text-blue-600 hover:text-blue-800">
+    <Link to={to} className="-my-2 -mr-2 inline-flex min-h-8 shrink-0 items-center gap-1 rounded-md px-2 py-2 text-xs font-semibold text-blue-600 hover:bg-blue-50 hover:text-blue-800">
       {children}
       <Svg d={Icons.arrow} className="h-3.5 w-3.5" />
     </Link>
@@ -241,7 +241,7 @@ function PencilButton({ label, onClick, className = "" }) {
       type="button"
       onClick={onClick}
       aria-label={label}
-      className={`pressable flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/90 text-slate-400 ring-1 ring-slate-200 hover:text-blue-700 hover:ring-blue-200 ${className}`}
+      className={`pressable flex h-8 w-8 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11 shrink-0 items-center justify-center rounded-full bg-white/90 text-slate-400 ring-1 ring-slate-200 hover:text-blue-700 hover:ring-blue-200 ${className}`}
     >
       <PencilIcon className="h-3.5 w-3.5" />
     </button>
@@ -271,9 +271,9 @@ export function PipelineSummary({ stages }) {
         {stages.map((s) => {
           const tone = STAGE_TONE[s.stage];
           return (
-            <li key={s.stage}>
+            <li key={s.stage} className={s.stage === "won" ? "col-span-2 sm:col-span-1" : ""}>
               <Link
-                to="/deals"
+                to={`/deals?stage=${s.stage}`}
                 className={`block h-full rounded-xl p-3 transition-shadow duration-150 hover:shadow-card ${
                   s.stage === "won" ? "border-2 border-emerald-500 bg-emerald-50" : `border border-transparent ${tone.col}`
                 }`}
@@ -283,7 +283,7 @@ export function PipelineSummary({ stages }) {
                   {s.stage === "won" ? t("dashboard.pipeline.wonThisMonth") : STAGE_LABELS[s.stage]}
                 </span>
                 <span className="mt-1.5 block text-lg font-bold tabular-nums text-midnight">{formatMoneyWhole(s.value)}</span>
-                <span className="block text-xs text-slate-500">{t("dashboard.deals", { count: s.count })}</span>
+                <span className="block text-xs text-slate-600">{t("dashboard.deals", { count: s.count })}</span>
               </Link>
             </li>
           );
@@ -335,15 +335,15 @@ export function UpcomingList({ items, customers, today, onToggle }) {
                 {day}
                 {a.due_time && ` · ${a.due_time.slice(0, 5)}`}
               </span>
-              <span className="block truncate text-sm font-medium text-midnight hover:underline">{a.subject}</span>
+              <span className="line-clamp-2 text-sm font-medium leading-snug text-midnight hover:underline">{a.subject}</span>
               {customer && <span className="block truncate text-xs text-slate-500">{customer.name}</span>}
             </Link>
-            <EditActivityButton activity={a} />
+            <EditActivityButton activity={a} className="[@media(pointer:coarse)]:!h-11 [@media(pointer:coarse)]:!w-11" />
             <button
               type="button"
               onClick={() => onToggle(a)}
               aria-label={t("dashboard.upcoming.markDone", { subject: a.subject })}
-              className="pressable flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-600"
+              className="pressable flex h-8 w-8 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-500 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-600"
             >
               <Svg d={<path d="m5 12.5 4.5 4.5L19 7.5" />} className="h-4 w-4" />
             </button>
