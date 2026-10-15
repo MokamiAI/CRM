@@ -79,3 +79,19 @@ class PaymentOut(BaseModel):
     interval: str
     seats: int
     paid_at: datetime
+
+
+class SubscriptionInvoiceOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    number: str
+    payment_reference: str
+    issued_at: datetime
+    plan: str
+    interval: str
+    seats: int
+    period_start: datetime
+    period_end: datetime
+    amount_cents: int
+    vat_cents: int

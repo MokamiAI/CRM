@@ -225,7 +225,10 @@
         "support": "Ondersteuning soos met jou span ooreengekom"
       },
       "cta": "Kontak ons"
-    }
+    },
+    "invoices": "Fakture",
+    "invoicesHint": "Een van YGT vir elke betaling, aan jou ge-e-pos wanneer jy betaal.",
+    "paystackRef": "Paystack-verwysing {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Volgende: sluit dit. Merk die transaksie Gewen wanneer hulle ja sê."
     },
     "column": "Vordering"
+  },
+  "vat": {
+    "registered": "Geregistreer vir BTW",
+    "notRegisteredHint": "Merk dit sodra jy geregistreer is. Tot dan sê jou dokumente \"Faktuur\" en wys geen BTW-nommer nie.",
+    "chargingWarning": "Jy is nie vir BTW geregistreer nie, so jy moet dit nie hef nie. Stel BTW op 0%, of merk \"Geregistreer vir BTW\" in Instellings sodra jy is."
   }
 }

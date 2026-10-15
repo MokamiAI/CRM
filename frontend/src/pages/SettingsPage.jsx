@@ -38,6 +38,7 @@ const EMPTY_FORM = {
   reminders_enabled: true,
   reminder_offsets: [-3, 0, 7, 14],
   annual_revenue_goal: "",
+  vat_registered: false,
   financial_year_start_month: 3,
 };
 
@@ -153,9 +154,14 @@ export default function SettingsPage() {
                 required
               />
             </Field>
-            <Field label={t("customerForm.taxNumber")}>
+            <Field label={t("customerForm.taxNumber")} hint={form.vat_registered ? undefined : t("vat.notRegisteredHint")}>
+              <label className="mb-2 flex items-center gap-2 text-sm text-zinc-700">
+                <input type="checkbox" className="h-4 w-4 rounded border-zinc-300" checked={Boolean(form.vat_registered)} onChange={(e) => update("vat_registered", e.target.checked)} />
+                {t("vat.registered")}
+              </label>
               <input
                 className={inputClass}
+                disabled={!form.vat_registered}
                 value={form.tax_number ?? ""}
                 onChange={(e) => update("tax_number", e.target.value)}
               />

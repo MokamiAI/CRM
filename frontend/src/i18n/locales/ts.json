@@ -225,7 +225,10 @@
         "support": "Nseketelo lowu pfumelelaniweke ni ntlawa wa wena"
       },
       "cta": "Hlanganani na hina"
-    }
+    },
+    "invoices": "Tiinvhoyisi",
+    "invoicesHint": "Yin'we ku suka eka YGT eka hakelo yin'wana ni yin'wana, yi rhumeriwa eka wena hi imeyili loko u hakela.",
+    "paystackRef": "Xikombo xa Paystack {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Leswi landzelaka: swi pfale. Funga ntwanano tanihi lowu hluriweke loko va ku ina."
     },
     "column": "Nhluvukiso"
+  },
+  "vat": {
+    "registered": "U tsarisiwile eka VAT",
+    "notRegisteredHint": "Funga leswi loko se u tsarisiwile. Ku fikela hi nkarhi wolowo tidokumente ta wena ti ri \"Invhoyisi\" naswona a ti kombisi nomboro ya VAT.",
+    "chargingWarning": "A wu tsarisiwanga eka VAT, hikwalaho a wu fanelanga ku yi hakerisa. Veka VAT eka 0%, kumbe u funga \"U tsarisiwile eka VAT\" eka Swiveko loko se u tsarisiwile."
   }
 }

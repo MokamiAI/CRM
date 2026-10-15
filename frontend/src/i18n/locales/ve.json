@@ -225,7 +225,10 @@
         "support": "Thikhedzo yo tendelanwaho na tshigwada tshaṋu"
       },
       "cta": "Ri kwameni"
-    }
+    },
+    "invoices": "Dziinvoisi",
+    "invoicesHint": "Nthihi i bvaho kha YGT kha mbadelo iṅwe na iṅwe, i rumelwa kha inwi nga imeiḽi musi ni tshi badela.",
+    "paystackRef": "Tsumbo ya Paystack {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Zwi tevhelaho: i valeni. Swayani thendelano sa yo kundwaho musi vha tshi ri ee."
     },
     "column": "Mvelaphanḓa"
+  },
+  "vat": {
+    "registered": "No ṅwalisela VAT",
+    "notRegisteredHint": "Swayani izwi musi no no ṅwaliswa. U swika tshifhingani itsho maṅwalwa aṋu a ri \"Invoisi\" nahone a sumbedzi nomboro ya VAT.",
+    "chargingWarning": "A no ngo ṅwalisela VAT, ngauralo a ni fanelwi u i badelisa. Vhetshani VAT kha 0%, kana ni swaye \"No ṅwalisela VAT\" kha Zwivhewa musi no no ṅwaliswa."
   }
 }

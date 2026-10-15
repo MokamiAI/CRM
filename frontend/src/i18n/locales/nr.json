@@ -225,7 +225,10 @@
         "support": "Ukusekelwa okuvumelene nesiqhema sakho"
       },
       "cta": "Thintana nathi"
-    }
+    },
+    "invoices": "Ama-invoyisi",
+    "invoicesHint": "Linye elivela ku-YGT ngebhadelo ngalinye, lithunyelwa kuwe nge-imeyili nawubhadelako.",
+    "paystackRef": "Isitjengiso se-Paystack {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Okulandelako: kuvale. Tshwaya isivumelwano njengesithunjiweko nabathi iye."
     },
     "column": "Ituthuko"
+  },
+  "vat": {
+    "registered": "Ubhalisele i-VAT",
+    "notRegisteredHint": "Tshwaya lokhu nawusubhalisile. Bekube kusesikhathi leso amadokhumende wakho athi \"I-invoyisi\" begodu akatjengisi inomboro ye-VAT.",
+    "chargingWarning": "Awukabhaliseli i-VAT, ngalokho akukafaneli uyibhadelise. Setha i-VAT ibe ngu-0%, namkha utshwaye \"Ubhalisele i-VAT\" kuZilungiselelo nawusubhalisile."
   }
 }

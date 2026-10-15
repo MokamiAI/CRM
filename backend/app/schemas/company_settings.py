@@ -10,6 +10,7 @@ class CompanySettingsUpdate(BaseModel):
     company_name: str | None = Field(default=None, min_length=1, max_length=255)
     address: str | None = None
     tax_number: str | None = Field(default=None, max_length=100)
+    vat_registered: bool | None = None
     default_currency: str | None = Field(default=None, min_length=3, max_length=10)
     default_timezone: str | None = Field(default=None, max_length=50)
     logo_url: str | None = Field(default=None, max_length=500)
@@ -55,6 +56,7 @@ class CompanySettingsOut(BaseModel):
     company_name: str
     address: str | None
     tax_number: str | None
+    vat_registered: bool = False
     default_currency: str
     default_timezone: str
     logo_url: str | None
@@ -110,6 +112,7 @@ class CompanyProfileOut(BaseModel):
     company_name: str
     # Printed on every document anyway; a new purchase order delivers here.
     address: str | None = None
+    vat_registered: bool = False
     default_currency: str
     logo_url: str | None
     customer_term: str

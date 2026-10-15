@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import AppError, NotFoundError
 from app.core.plans import PLANS
-from app.models.billing import BillingPayment, Subscription
+from app.models.billing import BillingPayment, Subscription, SubscriptionInvoice
 from app.models.company_settings import CompanySettings
 from app.models.customer import Customer
 from app.models.enums import InvoiceStatus, UserRole
@@ -138,6 +138,7 @@ class AdminService:
         sub = await self.db.scalar(select(Subscription).where(Subscription.company_id == company_id))
         payments = list(await self.db.scalars(select(BillingPayment).where(BillingPayment.company_id == company_id).order_by(BillingPayment.paid_at.desc())))
         refunds = list(await self.db.scalars(select(BillingRefund).where(BillingRefund.company_id == company_id).order_by(BillingRefund.created_at.desc())))
+        numbers = dict((await self.db.execute(select(SubscriptionInvoice.payment_id, SubscriptionInvoice.number).where(SubscriptionInvoice.company_id == company_id))).all())
         users = list(await self.db.scalars(select(User).where(User.company_id == company_id).order_by(User.created_at)))
         quotes = await self.db.scalar(select(func.count()).select_from(Quote).where(Quote.company_id == company_id))
         return {
@@ -159,6 +160,7 @@ class AdminService:
                 {
                     "id": p.id,
                     "reference": p.reference,
+                    "invoice_number": numbers.get(p.id),
                     "amount_cents": p.amount_cents,
                     "plan": p.plan,
                     "interval": p.interval,

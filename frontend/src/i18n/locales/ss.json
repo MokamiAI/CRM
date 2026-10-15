@@ -225,7 +225,10 @@
         "support": "Kusekelwa lokuvumelene nelicembu lakho"
       },
       "cta": "Tsintsana natsi"
-    }
+    },
+    "invoices": "Ema-invoyisi",
+    "invoicesHint": "Linye lelivela ku-YGT ngenkhokhelo ngayinye, litfunyelwa kuwe nge-imeyili nawukhokha.",
+    "paystackRef": "Inkhomba ye-Paystack {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Lokulandzelako: kuvale. Maka sivumelwano njengalesiwiniwe nabatsi yebo."
     },
     "column": "Inchubekelembili"
+  },
+  "vat": {
+    "registered": "Ubhalisele i-VAT",
+    "notRegisteredHint": "Maka loku nawusubhalisile. Kute kube ngulesikhatsi emadokhumenti akho atsi \"I-invoyisi\" futsi akakhombisi inombolo ye-VAT.",
+    "chargingWarning": "Awukabhaliseli i-VAT, ngako akufanele uyikhokhise. Setha i-VAT ibe ngu-0%, noma umake \"Ubhalisele i-VAT\" kuTilungiselelo nawusubhalisile."
   }
 }

@@ -225,7 +225,10 @@
         "support": "Tshehetso e dumellanweng le sehlopha sa hao"
       },
       "cta": "Ikopanye le rona"
-    }
+    },
+    "invoices": "Di-invoice",
+    "invoicesHint": "E le nngwe e tswang ho YGT bakeng sa tefo ka nngwe, e romelwa ho wena ka imeile ha o lefa.",
+    "paystackRef": "Tshupiso ya Paystack {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Se latelang: e kwale. Tshwaya tumellano e le e hapilweng ha ba re e."
     },
     "column": "Tswelopele"
+  },
+  "vat": {
+    "registered": "O ngodiseditswe VAT",
+    "notRegisteredHint": "Tshwaya sena ha o se o ngodisitswe. Ho fihlela ka nako eo ditokomane tsa hao di re \"Invoice\" mme ha di bontshe nomoro ya VAT.",
+    "chargingWarning": "Ha o a ngodisetswa VAT, ka hona ha o a lokela ho e lefisa. Beha VAT ho 0%, kapa o tshwaye \"O ngodiseditswe VAT\" ho Disetting ha o se o ngodisitswe."
   }
 }

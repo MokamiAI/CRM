@@ -225,7 +225,10 @@
         "support": "Thekgo ye e dumelelanwego le sehlopha sa gago"
       },
       "cta": "Ikgokaganye le rena"
-    }
+    },
+    "invoices": "Di-invoice",
+    "invoicesHint": "E tee go tšwa go YGT go tefelo ye nngwe le ye nngwe, e romelwa go wena ka imeile ge o lefa.",
+    "paystackRef": "Tšhupetšo ya Paystack {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Se se latelago: e tswalele. Swaya kwano bjalo ka ye e thopilwego ge ba re ee."
     },
     "column": "Tšwelopele"
+  },
+  "vat": {
+    "registered": "O ngwadišeditšwe VAT",
+    "notRegisteredHint": "Swaya se ge o šetše o ngwadišitšwe. Go fihla ka nako yeo ditokumente tša gago di re \"Invoice\" gomme ga di bontšhe nomoro ya VAT.",
+    "chargingWarning": "Ga o a ngwadišetšwa VAT, ka fao ga wa swanela go e lefiša. Bea VAT go 0%, goba o swaye \"O ngwadišeditšwe VAT\" go Dipeakanyo ge o šetše o ngwadišitšwe."
   }
 }

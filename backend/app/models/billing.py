@@ -1,6 +1,8 @@
+import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, Integer, String, UniqueConstraint
+from sqlalchemy import DateTime, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -46,6 +48,32 @@ class BillingPayment(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     interval: Mapped[str] = mapped_column(String(10), nullable=False)
     seats: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     paid_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+
+class SubscriptionInvoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
+    """YGT's invoice for one subscription payment, made the moment Paystack
+    confirms it and emailed to the company. Numbered YGT-INV-000001 upwards,
+    one per payment (the unique payment_id makes a repeated webhook a
+    no-op). Seller and buyer details are copied in at the time, so a later
+    change of address or VAT status never rewrites an issued invoice."""
+
+    __tablename__ = "subscription_invoices"
+
+    number: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
+    payment_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("billing_payments.id", ondelete="CASCADE"), nullable=False, unique=True
+    )
+    payment_reference: Mapped[str] = mapped_column(String(100), nullable=False)
+    issued_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    plan: Mapped[str] = mapped_column(String(20), nullable=False)
+    interval: Mapped[str] = mapped_column(String(10), nullable=False)
+    seats: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+    period_start: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    period_end: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    amount_cents: Mapped[int] = mapped_column(Integer, nullable=False)  # what was paid, VAT included if any
+    vat_cents: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    seller: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    buyer: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
 
 
 class PaystackPlan(UUIDPKMixin, TimestampMixin, Base):

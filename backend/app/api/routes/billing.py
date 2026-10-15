@@ -1,5 +1,9 @@
 """Settings > Billing: the company's YGT plan, paid through Paystack."""
+import uuid
+
 from fastapi import APIRouter, Depends
+from fastapi.responses import HTMLResponse
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, require_role
@@ -17,9 +21,12 @@ from app.schemas.billing import (
     Limits,
     PaymentOut,
     PlanOut,
+    SubscriptionInvoiceOut,
     Usage,
 )
-from app.services import paystack
+from app.core.exceptions import NotFoundError
+from app.models.billing import SubscriptionInvoice
+from app.services import paystack, subscription_invoices
 from app.services.billing_service import BillingService, effective
 
 router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/billing", tags=["billing"])
@@ -98,3 +105,18 @@ async def manage_card(db: AsyncSession = Depends(get_db)):
 @router.get("/payments", response_model=list[PaymentOut], dependencies=[_admin])
 async def payments(db: AsyncSession = Depends(get_db)):
     return await BillingService(db).payments()
+
+
+@router.get("/invoices", response_model=list[SubscriptionInvoiceOut], dependencies=[_admin])
+async def invoices(db: AsyncSession = Depends(get_db)):
+    """YGT's invoices to this company, newest first (one per payment)."""
+    rows = await db.scalars(select(SubscriptionInvoice).order_by(SubscriptionInvoice.issued_at.desc()).limit(60))
+    return list(rows.all())
+
+
+@router.get("/invoices/{invoice_id}/document", response_class=HTMLResponse, dependencies=[_admin])
+async def invoice_document(invoice_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
+    invoice = await db.scalar(select(SubscriptionInvoice).where(SubscriptionInvoice.id == invoice_id))
+    if invoice is None:
+        raise NotFoundError("Invoice not found", "INVOICE_NOT_FOUND")
+    return HTMLResponse(subscription_invoices.render_html(invoice))

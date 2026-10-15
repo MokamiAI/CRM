@@ -16,6 +16,9 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
     company_name: Mapped[str] = mapped_column(String(255), nullable=False)
     address: Mapped[str | None] = mapped_column(Text, nullable=True)
     tax_number: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    # Registered for VAT? Off: documents say "Invoice", show no VAT number,
+    # and new lines start at 0% VAT. Ticked when the company registers.
+    vat_registered: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
     default_currency: Mapped[str] = mapped_column(String(10), nullable=False, default="ZAR")
     default_timezone: Mapped[str] = mapped_column(
         String(50), nullable=False, default="Africa/Johannesburg"

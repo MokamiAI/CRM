@@ -77,7 +77,8 @@
       {% if t.show_logo and company.logo_url %}<img src="{{ company.logo_url }}" alt="{{ company.company_name }}">{% endif %}
       <p class="name">{{ company.company_name }}</p>
       {% if company.address %}<p class="muted">{{ lines_of(company.address) }}</p>{% endif %}
-      {% if company.tax_number %}<p><span class="muted">{{ t.tax_label }}:</span> {{ company.tax_number }}</p>{% endif %}
+      {# A VAT number only once the company is registered for VAT. #}
+      {% if company.tax_number and (company.vat_registered is not defined or company.vat_registered) %}<p><span class="muted">{{ t.tax_label }}:</span> {{ company.tax_number }}</p>{% endif %}
       {% if t.registration_number %}<p><span class="muted">Reg. no.:</span> {{ t.registration_number }}</p>{% endif %}
       {% if t.phone %}<p class="muted">{{ t.phone }}</p>{% endif %}
       {% if company.sender_email %}<p class="muted">{{ company.sender_email }}</p>{% endif %}

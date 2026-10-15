@@ -225,7 +225,10 @@
         "support": "Support agreed with your team"
       },
       "cta": "Contact us"
-    }
+    },
+    "invoices": "Invoices",
+    "invoicesHint": "One from YGT for every payment, emailed to you when you pay.",
+    "paystackRef": "Paystack reference {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Next: close it. Mark the deal Won when they say yes."
     },
     "column": "Progress"
+  },
+  "vat": {
+    "registered": "Registered for VAT",
+    "notRegisteredHint": "Tick this once you're registered. Until then your documents say \"Invoice\" and show no VAT number.",
+    "chargingWarning": "You're not registered for VAT, so you shouldn't charge it. Set VAT to 0%, or tick \"Registered for VAT\" in Settings once you are."
   }
 }

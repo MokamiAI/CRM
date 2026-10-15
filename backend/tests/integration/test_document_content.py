@@ -15,7 +15,7 @@ TODAY = date.today().isoformat()
 async def test_documents_show_company_customer_and_contact_details(api):
     owner = await new_company(api, "Intermediate Data Systems")
     h = owner["headers"]
-    await api.patch("/settings", json={"address": "4th Floor, 96 Rivonia Road\nSandton\n2057", "tax_number": "4460271002"}, headers=h)
+    await api.patch("/settings", json={"address": "4th Floor, 96 Rivonia Road\nSandton\n2057", "tax_number": "4460271002", "vat_registered": True}, headers=h)
     res = await api.put(
         "/settings/documents",
         json={"registration_number": "2009/106070/23", "phone": "011 555 0100", "website": "ids.example.com", "bank_name": "Standard Bank",

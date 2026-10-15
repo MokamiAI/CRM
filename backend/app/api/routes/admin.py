@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, Query
+from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -33,6 +34,16 @@ from app.services.billing_service import effective
 from app.services.booking_service import BookingService
 from app.services.helpdesk_service import HelpdeskService
 from app.models.billing import Subscription
+
+class YgtDetails(BaseModel):
+    legal_name: str = Field(min_length=1, max_length=200)
+    address: str | None = Field(default=None, max_length=500)
+    registration_number: str | None = Field(default=None, max_length=60)
+    vat_number: str | None = Field(default=None, max_length=30)
+    email: str | None = Field(default=None, max_length=200)
+    phone: str | None = Field(default=None, max_length=40)
+    website: str | None = Field(default=None, max_length=120)
+
 
 router = APIRouter(
     route_class=CommitBeforeResponseRoute, prefix="/admin", tags=["admin"], dependencies=[Depends(require_platform_admin)]
@@ -272,6 +283,23 @@ async def cancel_booking(booking_id: uuid.UUID, db: AsyncSession = Depends(get_d
     row = await BookingService(db).cancel(booking_id, by_team=True)
     names = await AdminService(db).company_names([row.company_id])
     return _booking(row, names)
+
+
+@router.get("/ygt-details")
+async def ygt_details(db: AsyncSession = Depends(get_db)) -> dict:
+    """YGT's legal details as printed on subscriber invoices."""
+    from app.services import subscription_invoices
+
+    return await subscription_invoices.get_details(db)
+
+
+@router.put("/ygt-details")
+async def save_ygt_details(data: YgtDetails, db: AsyncSession = Depends(get_db)) -> dict:
+    """Takes effect from the next invoice; issued ones keep their details.
+    Adding a VAT number turns new invoices into tax invoices with VAT."""
+    from app.services import subscription_invoices
+
+    return await subscription_invoices.save_details(db, data.model_dump())
 
 
 @router.get("/booking-settings", response_model=Availability)

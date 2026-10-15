@@ -9,6 +9,7 @@ import { useBilling, usePlans } from "../hooks/useApi";
 import { errorMessage, formatDate, formatMoney, formatMoneyWhole } from "../utils/format";
 import { celebrate } from "../utils/motion";
 import { Button } from "./ui";
+import { DocumentViewer } from "./Documents";
 
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -166,7 +167,8 @@ export default function BillingSettings() {
   const queryClient = useQueryClient();
   const { data: billing } = useBilling();
   const { data: plans } = usePlans();
-  const { data: payments } = useQuery({ queryKey: ["billing", "payments"], queryFn: () => apiClient.get("/billing/payments").then((r) => r.data) });
+  const { data: invoices } = useQuery({ queryKey: ["billing", "invoices"], queryFn: () => apiClient.get("/billing/invoices").then((r) => r.data) });
+  const [viewing, setViewing] = useState(null);
   const [params, setParams] = useSearchParams();
   const [interval, setInterval] = useState("monthly");
   const [users, setUsers] = useState({});
@@ -340,24 +342,37 @@ export default function BillingSettings() {
         </p>
       </section>
 
-      {/* ---- Payments ---- */}
-      {payments?.length > 0 && (
+      {/* ---- YGT's invoices: one per payment, ready to view and print ---- */}
+      {invoices?.length > 0 && (
         <section className="card p-4 sm:p-6">
-          <h2 className="text-base font-semibold text-zinc-900">{t("billing.payments")}</h2>
+          <h2 className="text-base font-semibold text-zinc-900">{t("billing.invoices")}</h2>
+          <p className="mt-0.5 text-sm text-zinc-500">{t("billing.invoicesHint")}</p>
           <ul className="mt-3 divide-y divide-zinc-100 text-sm">
-            {payments.map((p) => (
-              <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 py-2.5">
-                <span className="text-zinc-600">{formatDate(p.paid_at)}</span>
-                <span className="text-zinc-900">
-                  {t(`billing.planName.${p.plan}`)} · {t(`billing.${p.interval}`)}
-                  {p.seats > 1 ? ` · ${t("billing.peopleCount", { count: p.seats })}` : ""}
+            {invoices.map((inv) => (
+              <li key={inv.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-2.5">
+                <span className="w-32 font-medium text-zinc-900">{inv.number}</span>
+                <span className="text-zinc-600">{formatDate(inv.issued_at)}</span>
+                <span className="min-w-0 flex-1 truncate text-zinc-700">
+                  {t(`billing.planName.${inv.plan}`)} · {t(`billing.${inv.interval}`)}
+                  {inv.seats > 1 ? ` · ${t("billing.peopleCount", { count: inv.seats })}` : ""}
+                  <span className="block truncate text-xs text-zinc-400">{t("billing.paystackRef", { ref: inv.payment_reference })}</span>
                 </span>
-                <span className="font-medium tabular-nums text-zinc-900">{formatMoney(p.amount_cents / 100)}</span>
+                <span className="font-medium tabular-nums text-zinc-900">{formatMoney(inv.amount_cents / 100)}</span>
+                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200/70">{t("status.paid")}</span>
+                <button type="button" className="btn btn-secondary !h-8 !text-xs" onClick={() => setViewing(inv)}>
+                  {t("documents.view")}
+                </button>
               </li>
             ))}
           </ul>
         </section>
       )}
+      <DocumentViewer
+        open={Boolean(viewing)}
+        onClose={() => setViewing(null)}
+        url={viewing ? `/billing/invoices/${viewing.id}/document` : null}
+        title={viewing?.number ?? ""}
+      />
     </div>
   );
 }

@@ -225,7 +225,10 @@
         "support": "Inkxaso evunyelwene neqela lakho"
       },
       "cta": "Qhagamshelana nathi"
-    }
+    },
+    "invoices": "Ii-invoyisi",
+    "invoicesHint": "Enye evela ku-YGT kwintlawulo nganye, ithunyelwa kuwe nge-imeyile xa uhlawula.",
+    "paystackRef": "Isalathiso se-Paystack {{ref}}"
   },
   "channels": {
     "appPassword": {
@@ -2357,5 +2360,10 @@
       "won": "Okulandelayo: kuvale. Phawula isivumelwano njengesiphumeleleyo xa bethi ewe."
     },
     "column": "Inkqubela"
+  },
+  "vat": {
+    "registered": "Ubhalisele i-VAT",
+    "notRegisteredHint": "Phawula oku xa sele ubhalisile. Kude kube lelo xesha amaxwebhu akho athi \"I-invoyisi\" kwaye akabonisi nombolo ye-VAT.",
+    "chargingWarning": "Awubhaliselanga i-VAT, ngoko akufanelanga uyibize. Seta i-VAT ibe yi-0%, okanye uphawule \"Ubhalisele i-VAT\" kwiiSetingi xa sele ubhalisile."
   }
 }

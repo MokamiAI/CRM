@@ -1,7 +1,9 @@
 {% extends "_base.html" %}
+{# Not registered for VAT: an "Invoice", never a "Tax invoice". #}
+{% set doc_name = "Invoice" if (company.vat_registered is defined and not company.vat_registered and t.invoice_title == "Tax invoice") else t.invoice_title %}
 {% from "_parts.html" import bank_box, items_table, lines_of with context %}
-{% block title %}{{ t.invoice_title }} {{ doc.invoice_number }}{% endblock %}
-{% block doc_title %}{{ t.invoice_title }}{% endblock %}
+{% block title %}{{ doc_name }} {{ doc.invoice_number }}{% endblock %}
+{% block doc_title %}{{ doc_name }}{% endblock %}
 {% block meta %}
 <table>
   <tr><td>Number</td><td><strong>{{ doc.invoice_number }}</strong></td></tr>

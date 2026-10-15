@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import apiClient from "../services/apiClient";
-import { useCustomers, useLineTemplates, useProducts, useSuppliers } from "../hooks/useApi";
+import { useCompany, useCustomers, useLineTemplates, useProducts, useSuppliers } from "../hooks/useApi";
 import { Button, Field } from "./ui";
 import { errorMessage, formatMoney, todayISO } from "../utils/format";
 
@@ -31,7 +31,10 @@ export function computeTotals(items) {
 }
 
 let nextKey = 1;
-const blankItem = () => ({ key: nextKey++, product_id: null, description: "", quantity: "1", unit_price: "", tax_rate: "15" });
+// New lines start at 15% VAT, or 0% on sales documents of a company not
+// registered for VAT (see DocumentEditor's `vatRate`).
+let defaultVat = "15";
+const blankItem = () => ({ key: nextKey++, product_id: null, description: "", quantity: "1", unit_price: "", tax_rate: defaultVat });
 const isBlank = (item) => !item.description.trim() && !item.unit_price;
 
 /** True on screens wide enough for the line-items table. */
@@ -63,6 +66,9 @@ const NUMBER = { inputMode: "decimal", pattern: "\\d+(\\.\\d{1,2})?" };
 export default function DocumentEditor({ kind = "invoice", dateField, dateLabel, dateHint, issueLabel, submitLabel, isSubmitting, onSubmit, initialCustomerId, initial, lockParty = false, children }) {
   const { t } = useTranslation();
   const purchase = kind === "purchaseOrder";
+  const { data: company } = useCompany();
+  const notVatRegistered = !purchase && company && !company.vat_registered;
+  defaultVat = notVatRegistered ? "0" : "15";
   const { data: customers = [] } = useCustomers({ is_active: true });
   const { data: suppliers = [] } = useSuppliers();
   const parties = purchase ? suppliers : customers;
@@ -197,6 +203,9 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
         </div>
       </section>
 
+      {notVatRegistered && items.some((i) => Number(i.tax_rate) > 0) && (
+        <p role="status" className="rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900 ring-1 ring-inset ring-amber-200/70">{t("vat.chargingWarning")}</p>
+      )}
       <section className="card p-4 sm:p-5">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-sm font-semibold text-zinc-900">{t("document.lineItems")}</h2>

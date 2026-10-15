@@ -114,10 +114,71 @@ export function AdminOverview() {
                 </div>
               </section>
             </div>
+            <YgtDetails />
           </div>
         )}
       </Loading>
     </>
+  );
+}
+
+const YGT_FIELDS = [
+  ["legal_name", "Legal name", "YGT (Pty) Ltd"],
+  ["registration_number", "Registration number", "2026/123456/07"],
+  ["vat_number", "VAT number (leave empty until registered)", ""],
+  ["email", "Billing email", "billing@yougt.co.za"],
+  ["phone", "Phone", ""],
+  ["website", "Website", "yougt.co.za"],
+];
+
+/** YGT's own details on subscriber invoices. A VAT number turns new
+ *  invoices into tax invoices with VAT; issued ones never change. */
+function YgtDetails() {
+  const queryClient = useQueryClient();
+  const query = useQuery({ queryKey: ["admin", "ygt-details"], queryFn: () => get("/admin/ygt-details") });
+  const [form, setForm] = useState(null);
+  if (query.data && !form) setForm(query.data);
+  const save = useMutation({
+    mutationFn: () => apiClient.put("/admin/ygt-details", form).then((r) => r.data),
+    onSuccess: (data) => {
+      queryClient.setQueryData(["admin", "ygt-details"], data);
+      setForm(data);
+      toast.success("Saved. New subscriber invoices use these details.");
+    },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  if (!form) return null;
+  return (
+    <section className="card p-5">
+      <h2 className="text-sm font-semibold text-zinc-900">YGT's details on subscriber invoices</h2>
+      <p className="mt-0.5 text-sm text-zinc-500">
+        Every subscription payment gets an invoice from these details, emailed to the company. Without a VAT number it's an "Invoice" with no VAT; add the number once
+        registered and new invoices become tax invoices. Invoices already issued keep their details.
+      </p>
+      <form
+        className="mt-4 grid gap-3 sm:grid-cols-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          save.mutate();
+        }}
+      >
+        {YGT_FIELDS.map(([key, label, placeholder]) => (
+          <label key={key} className="text-sm">
+            <span className="mb-1 block font-medium text-zinc-700">{label}</span>
+            <input className="input" required={key === "legal_name"} value={form[key] ?? ""} placeholder={placeholder} onChange={(e) => setForm({ ...form, [key]: e.target.value })} />
+          </label>
+        ))}
+        <label className="text-sm sm:col-span-2">
+          <span className="mb-1 block font-medium text-zinc-700">Address</span>
+          <textarea className="input" rows={3} value={form.address ?? ""} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+        </label>
+        <div className="sm:col-span-2">
+          <Button type="submit" disabled={save.isPending}>
+            Save details
+          </Button>
+        </div>
+      </form>
+    </section>
   );
 }
 
@@ -292,7 +353,9 @@ export function AdminTenant() {
                   {t.payments.map((p) => (
                     <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
                       <span>
+                        {p.invoice_number && <span className="mr-1.5 font-medium text-zinc-900">{p.invoice_number}</span>}
                         {formatDate(p.paid_at)} · {PLAN[p.plan]} {p.interval} · <span className="font-medium tabular-nums">{rands(p.amount_cents)}</span>
+                        <span className="block text-xs text-zinc-400">Paystack ref {p.reference}</span>
                         {p.refunded_cents > 0 && <span className="ml-1.5 text-xs text-rose-700">({rands(p.refunded_cents)} refunded)</span>}
                       </span>
                       {p.refunded_cents < p.amount_cents && (

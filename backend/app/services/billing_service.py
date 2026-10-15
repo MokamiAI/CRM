@@ -22,7 +22,7 @@ from app.models.billing import BillingPayment, PaystackPlan, Subscription
 from app.models.customer import Customer
 from app.models.invoice import Invoice
 from app.models.user import User
-from app.services import paystack
+from app.services import paystack, platform_email, subscription_invoices
 
 logger = logging.getLogger(__name__)
 
@@ -262,18 +262,17 @@ class BillingService:
         sub.billing_email = customer.get("email") or sub.billing_email
         if plan_code:
             sub.paystack_plan_code = plan_code
-        self.db.add(
-            BillingPayment(
-                company_id=sub.company_id,
-                reference=reference or f"ygt_{uuid.uuid4().hex}",
-                amount_cents=int(data.get("amount") or 0),
-                currency=data.get("currency") or "ZAR",
-                plan=sub.plan,
-                interval=sub.interval,
-                seats=sub.seats,
-                paid_at=paid_at,
-            )
+        payment = BillingPayment(
+            company_id=sub.company_id,
+            reference=reference or f"ygt_{uuid.uuid4().hex}",
+            amount_cents=int(data.get("amount") or 0),
+            currency=data.get("currency") or "ZAR",
+            plan=sub.plan,
+            interval=sub.interval,
+            seats=sub.seats,
+            paid_at=paid_at,
         )
+        self.db.add(payment)
         await self.db.flush()
         await self._link_subscription(sub, customer.get("id"))
         # Changing plan: stop the old Paystack subscription so the card isn't charged twice.
@@ -282,6 +281,12 @@ class BillingService:
                 await paystack.disable(previous_code, previous_token)
             except paystack.PaystackError:
                 pass
+        # YGT's invoice for this payment, emailed to the company's admins
+        # and billing contact once everything above is saved.
+        invoice = await subscription_invoices.issue_for_payment(self.db, payment, sub.current_period_end)
+        if invoice is not None:
+            to = await subscription_invoices.recipients(self.db, sub.company_id, sub.billing_email)
+            await platform_email.queue(self.db, *(subscription_invoices.email_for(invoice, address) for address in to))
 
     async def _link_subscription(self, sub: Subscription, customer_id) -> None:
         """Find the Paystack subscription the charge created, so it can be

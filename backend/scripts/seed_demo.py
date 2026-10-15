@@ -57,7 +57,7 @@ def main() -> None:
     c.headers["Authorization"] = f"Bearer {check(res)['access_token']}"
 
     # The company's own details, as they print on quotes and invoices.
-    check(c.patch("/settings", json={"address": "18 Bree Street\nCape Town City Centre\n8001", "tax_number": "4870123456", "annual_revenue_goal": "1200000", "financial_year_start_month": 3}))
+    check(c.patch("/settings", json={"address": "18 Bree Street\nCape Town City Centre\n8001", "tax_number": "4870123456", "vat_registered": True, "annual_revenue_goal": "1200000", "financial_year_start_month": 3}))
     check(c.put("/settings/documents", json={
         "registration_number": "2021/456789/07", "phone": "021 555 0100", "website": "www.democatering.example.com",
         "bank_name": "Standard Bank", "account_holder": "Demo Catering Co", "account_number": "071234567", "account_type": "Business Current Account",
