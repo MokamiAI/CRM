@@ -35,7 +35,9 @@ export default function Sheet({ open, onClose, title, children, footer }) {
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (event) => event.key === "Escape" && onClose();
+    // An open list inside the sheet (e.g. suggestions) handles its own
+    // Escape and marks it handled; only a plain Escape closes the sheet.
+    const onKey = (event) => event.key === "Escape" && !event.defaultPrevented && onClose();
     document.addEventListener("keydown", onKey);
     const { overflow } = document.body.style;
     document.body.style.overflow = "hidden";

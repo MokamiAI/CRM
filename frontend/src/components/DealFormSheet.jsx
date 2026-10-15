@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
@@ -6,6 +6,7 @@ import apiClient from "../services/apiClient";
 import { useContacts, useCustomers, useTeam } from "../hooks/useApi";
 import Sheet from "./Sheet";
 import { Button, Field } from "./ui";
+import PartyCombobox from "./PartyCombobox";
 import { STAGES, industryFromCustomer, industryOptions } from "./crm";
 import { CustomFieldInputs, toFormValues } from "./CustomFields";
 import { CURRENCY, errorMessage } from "../utils/format";
@@ -13,6 +14,7 @@ import { CURRENCY, errorMessage } from "../utils/format";
 const blank = (customerId) => ({
   title: "",
   customer_id: customerId ?? "",
+  customer_name: "", // typed; a new customer is added on save
   contact_id: "",
   owner_id: "",
   stage: "lead",
@@ -30,6 +32,12 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
   const { data: customers = [] } = useCustomers({ is_active: true });
   const { data: contacts = [] } = useContacts(form.customer_id || null);
   const { data: team = [] } = useTeam();
+  // A customer chosen up front (from a customer's page): show its name.
+  useEffect(() => {
+    if (!form.customer_id || form.customer_name) return;
+    const known = customers.find((c) => c.id === form.customer_id);
+    if (known) setForm((prev) => ({ ...prev, customer_name: known.name }));
+  }, [customers, form.customer_id, form.customer_name]);
 
   const [lastOpen, setLastOpen] = useState(false);
   if (open !== lastOpen) {
@@ -58,7 +66,16 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
   }
 
   const save = useMutation({
-    mutationFn: () => {
+    mutationFn: async () => {
+      // A new name typed in: add the customer first, then the deal.
+      let customerIdToUse = form.customer_id;
+      if (!deal && !customerIdToUse) {
+        const { data: made } = await apiClient.post("/customers", { name: form.customer_name.trim() });
+        customerIdToUse = made.id;
+        setForm((prev) => ({ ...prev, customer_id: made.id, customer_name: made.name }));
+        queryClient.invalidateQueries({ queryKey: ["customers"] });
+        toast.success(t("party.added.customer", { name: made.name }));
+      }
       const payload = {
         title: form.title,
         contact_id: form.contact_id || null,
@@ -70,7 +87,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
       };
       return deal
         ? apiClient.patch(`/deals/${deal.id}`, payload).then((r) => r.data)
-        : apiClient.post("/deals", { ...payload, customer_id: form.customer_id, stage: form.stage }).then((r) => r.data);
+        : apiClient.post("/deals", { ...payload, customer_id: customerIdToUse, stage: form.stage }).then((r) => r.data);
     },
     onSuccess: (saved) => {
       queryClient.invalidateQueries({ queryKey: ["deals"] });
@@ -122,16 +139,23 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
         </Field>
         {!deal && (
           <Field label={t("dealForm.customer")}>
-            <select className="input" required value={form.customer_id} onChange={set("customer_id")} disabled={Boolean(customerId)}>
-              <option value="" disabled>
-                {t("dealForm.chooseCustomer")}
-              </option>
-              {customers.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
+            <PartyCombobox
+              parties={customers}
+              value={{ id: form.customer_id || null, name: form.customer_name }}
+              onChange={({ id, name }) =>
+                setForm((prev) => ({
+                  ...prev,
+                  customer_id: id ?? "",
+                  customer_name: name,
+                  contact_id: id === (prev.customer_id || null) ? prev.contact_id : "",
+                  industry: prev.industry || (id ? industryFromCustomer(customers.find((c) => c.id === id)) : ""),
+                }))
+              }
+              kind="customer"
+              required
+              disabled={Boolean(customerId)}
+              placeholder={t("party.typeCustomer")}
+            />
           </Field>
         )}
         <Field label={t("dealForm.contact")}>

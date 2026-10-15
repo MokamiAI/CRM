@@ -69,7 +69,8 @@ export default function PartyCombobox({ parties, value, onChange, kind = "custom
       e.preventDefault(); // choose, don't submit the form
       choose(rows[active]);
     } else if (e.key === "Escape" && open) {
-      e.preventDefault();
+      e.preventDefault(); // closes the list only, not a sheet around it
+      e.stopPropagation();
       setOpen(false);
     }
   }
