@@ -100,7 +100,7 @@ export function StartupIntro() {
   return <IntroLayer t={t} onClosed={done} />;
 }
 
-const INTRO_HOLD = 900; // ms "You Got This" stays before folding back
+const INTRO_HOLD = 1900; // ms "You Got This" stays before folding back
 
 function IntroLayer({ t, onClosed }) {
   const words = useRef(null);
