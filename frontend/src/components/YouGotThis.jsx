@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react";
 import { EASE_OUT, prefersReducedMotion } from "../utils/motion";
 
 const WORDS = [
@@ -19,9 +19,65 @@ const EASE_IN_OUT = "cubic-bezier(0.77, 0, 0.175, 1)";
  *
  * `onDone` fires when it has finished (or at once under reduced motion,
  * where the full words simply appear). `delay` holds the start (ms).
+ *
+ * `ref.current.outro()` plays it backwards to close: the words un-write
+ * into their capitals, the line draws back, the capitals glide together
+ * into YGT, hold a beat, then rise away. Resolves when it's gone.
  */
-export default function YouGotThis({ className = "", delay = 0, onDone }) {
+const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, onDone }, ref) {
   const root = useRef(null);
+  const parts = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    outro() {
+      const el = root.current;
+      if (!el) return Promise.resolve();
+      if (prefersReducedMotion() || !parts.current) {
+        return el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, easing: "ease", fill: "forwards" }).finished.catch(() => {});
+      }
+      const { capitals, tails, line, offsets } = parts.current;
+      const run = [];
+      // 1. The words un-write back into their capitals, last word first.
+      [...tails].reverse().forEach((tail, i) => {
+        run.push(
+          tail.animate(
+            [
+              { clipPath: "inset(-0.2em -0.2em -0.2em 0)", opacity: 1 },
+              { clipPath: "inset(-0.2em 100% -0.2em 0)", opacity: 0 },
+            ],
+            { duration: 500, delay: i * 90, easing: EASE_IN_OUT, fill: "forwards" }
+          )
+        );
+      });
+      // 2. The line draws back the way it came.
+      if (line) {
+        run.push(line.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], { duration: 450, easing: EASE_IN_OUT, fill: "forwards" }));
+      }
+      capitals.forEach((c, i) => {
+        const dx = offsets[i];
+        // 3. The capitals glide back together: YGT again.
+        run.push(
+          c.animate([{ transform: "translate(0, 0)" }, { transform: `translate(${dx}px, 0)` }], {
+            duration: 750,
+            delay: 550,
+            easing: EASE_IN_OUT,
+            fill: "forwards",
+          })
+        );
+        // 4. A beat as YGT, then they rise away one after another.
+        run.push(
+          c.animate(
+            [
+              { transform: `translate(${dx}px, 0)`, opacity: 1 },
+              { transform: `translate(${dx}px, -40%)`, opacity: 0 },
+            ],
+            { duration: 450, delay: 1700 + i * 70, easing: EASE_OUT, fill: "forwards" }
+          )
+        );
+      });
+      return Promise.all(run.map((a) => a.finished)).catch(() => {});
+    },
+  }));
 
   useLayoutEffect(() => {
     const el = root.current;
@@ -51,6 +107,8 @@ export default function YouGotThis({ className = "", delay = 0, onDone }) {
       x += r.width;
       return dx;
     });
+
+    parts.current = { capitals, tails, line, offsets };
 
     const run = [];
     capitals.forEach((c, i) => {
@@ -115,4 +173,6 @@ export default function YouGotThis({ className = "", delay = 0, onDone }) {
       <span data-line className="brand-bg mt-[0.12em] block h-[0.06em] min-h-[3px] w-full origin-left rounded-full" aria-hidden="true" />
     </span>
   );
-}
+});
+
+export default YouGotThis;

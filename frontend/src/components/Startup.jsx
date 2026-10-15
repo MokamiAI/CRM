@@ -36,13 +36,16 @@ export function welcomeQueued() {
   return readSession(WELCOME_KEY) === "1";
 }
 
-/** A full-screen layer that leaves by fading and lifting slightly. */
-function useOverlay(onClosed) {
+/** A full-screen layer. It can close gracefully (the words play backwards,
+ *  then the layer fades and lifts) or at once; a second request while the
+ *  graceful close is playing skips the rest of it. */
+function useOverlay(onClosed, outro, { keysGraceful = false } = {}) {
   const layer = useRef(null);
-  const leaving = useRef(false);
-  const close = useCallback(() => {
-    if (leaving.current) return;
-    leaving.current = true;
+  const phase = useRef("open"); // open | outro | leaving
+  const [closing, setClosing] = useState(false);
+  const leave = useCallback(() => {
+    if (phase.current === "leaving") return;
+    phase.current = "leaving";
     const el = layer.current;
     if (!el || prefersReducedMotion()) return onClosed();
     el.animate(
@@ -53,12 +56,24 @@ function useOverlay(onClosed) {
       { duration: 420, easing: EASE_OUT, fill: "forwards" }
     ).finished.then(onClosed, onClosed);
   }, [onClosed]);
-  // Any key or a click skips it; the page underneath doesn't scroll meanwhile.
+  const close = useCallback(
+    (graceful = false) => {
+      if (phase.current === "open" && graceful && outro) {
+        phase.current = "outro";
+        setClosing(true);
+        outro().then(leave);
+      } else {
+        leave();
+      }
+    },
+    [outro, leave]
+  );
+  // Any key closes it (gracefully where asked); the page doesn't scroll meanwhile.
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Tab") return;
       e.preventDefault();
-      close();
+      close(keysGraceful);
     };
     window.addEventListener("keydown", onKey);
     const { overflow } = document.body.style;
@@ -67,11 +82,12 @@ function useOverlay(onClosed) {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = overflow;
     };
-  }, [close]);
-  return { layer, close };
+  }, [close, keysGraceful]);
+  return { layer, close, closing };
 }
 
-/** Home page: once per visit, YGT turns into You Got This, then lifts away. */
+/** Home page: once per visit, YGT turns into You Got This, holds, then
+ *  folds back into YGT and lifts away. */
 export function StartupIntro() {
   const { t } = useTranslation();
   // Not with reduced motion: the point of it is the movement.
@@ -84,22 +100,32 @@ export function StartupIntro() {
   return <IntroLayer t={t} onClosed={done} />;
 }
 
+const INTRO_HOLD = 2000; // ms "You Got This" stays before folding back
+
 function IntroLayer({ t, onClosed }) {
-  const { layer, close } = useOverlay(onClosed);
-  const finished = useCallback(() => setTimeout(close, 650), [close]);
+  const words = useRef(null);
+  const outro = useCallback(() => words.current?.outro() ?? Promise.resolve(), []);
+  const { layer, close, closing } = useOverlay(onClosed, outro);
+  const timer = useRef(null);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const finished = useCallback(() => {
+    timer.current = setTimeout(() => close(true), INTRO_HOLD);
+  }, [close]);
   return (
     <div
       ref={layer}
       className="fixed inset-0 z-[90] flex cursor-pointer flex-col items-center justify-center bg-white px-6"
-      onClick={close}
+      onClick={() => close()}
       role="presentation"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <span className="aurora-blob -left-24 top-[-4rem] h-96 w-96 bg-violet-300" />
         <span className="aurora-blob right-[-6rem] bottom-[-4rem] h-96 w-96 bg-sky-300" />
       </div>
-      <YouGotThis className="relative text-[clamp(2.75rem,11vw,7.5rem)] leading-none" delay={150} onDone={finished} />
-      <p className="intro-tagline relative mt-6 text-base font-medium text-slate-600 sm:text-lg">{t("home.hero.title")}</p>
+      <YouGotThis ref={words} className="relative text-[clamp(2.75rem,11vw,7.5rem)] leading-none" delay={150} onDone={finished} />
+      <div className={`relative transition-opacity duration-300 ${closing ? "opacity-0" : "opacity-100"}`}>
+        <p className="intro-tagline mt-6 text-base font-medium text-slate-600 sm:text-lg">{t("home.hero.title")}</p>
+      </div>
       <button
         type="button"
         onClick={(e) => {
@@ -114,10 +140,15 @@ function IntroLayer({ t, onClosed }) {
   );
 }
 
-/** After signing in: a welcome from the team, once per sign-in. */
+const WELCOME_HOLD = 8000; // ms after the words land before it closes itself
+
+/** After signing in: a welcome from the team, once per sign-in. Closing
+ *  (button, key, click or on its own) folds the words back into YGT. */
 export function WelcomeSplash({ name, onClosed }) {
   const { t } = useTranslation();
-  const { layer, close } = useOverlay(onClosed);
+  const words = useRef(null);
+  const outro = useCallback(() => words.current?.outro() ?? Promise.resolve(), []);
+  const { layer, close, closing } = useOverlay(onClosed, outro, { keysGraceful: true });
   const [ready, setReady] = useState(false);
   const go = useRef(null);
   useEffect(() => writeSession(WELCOME_KEY, null), []); // shown: once per sign-in
@@ -125,17 +156,18 @@ export function WelcomeSplash({ name, onClosed }) {
     setReady(true);
     go.current?.focus();
   }, []);
-  // It leaves on its own a few seconds after the words land.
+  // It closes on its own a while after the words land.
   useEffect(() => {
     if (!ready) return undefined;
-    const timer = setTimeout(close, 6000);
+    const timer = setTimeout(() => close(true), WELCOME_HOLD);
     return () => clearTimeout(timer);
   }, [ready, close]);
+  const shown = ready && !closing;
   return (
     <div
       ref={layer}
       className="fixed inset-0 z-[90] flex flex-col items-center justify-center bg-white px-6 text-center"
-      onClick={close}
+      onClick={() => close(true)}
       role="dialog"
       aria-modal="true"
       aria-labelledby="welcome-title"
@@ -145,12 +177,14 @@ export function WelcomeSplash({ name, onClosed }) {
         <span className="aurora-blob right-[-6rem] bottom-[-4rem] h-96 w-96 bg-sky-300" />
       </div>
       <div className="relative flex max-w-xl flex-col items-center">
-        <h1 id="welcome-title" className="welcome-in text-2xl font-semibold tracking-tight text-midnight sm:text-3xl">
-          {name ? t("startup.welcomeName", { name }) : t("startup.welcome")}
-        </h1>
-        <p className="welcome-in mt-2 text-base text-slate-600 [animation-delay:120ms] sm:text-lg">{t("startup.fromTeam")}</p>
-        <YouGotThis className="mt-6 text-[clamp(2.5rem,9vw,5.5rem)] leading-none" delay={500} onDone={finished} />
-        <p className={`mt-6 text-lg font-medium text-slate-700 transition-[opacity,transform] duration-500 sm:text-xl ${ready ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"}`}>
+        <div className={`transition-opacity duration-300 ${closing ? "opacity-0" : "opacity-100"}`}>
+          <h1 id="welcome-title" className="welcome-in text-2xl font-semibold tracking-tight text-midnight sm:text-3xl">
+            {name ? t("startup.welcomeName", { name }) : t("startup.welcome")}
+          </h1>
+          <p className="welcome-in mt-2 text-base text-slate-600 [animation-delay:120ms] sm:text-lg">{t("startup.fromTeam")}</p>
+        </div>
+        <YouGotThis ref={words} className="mt-6 text-[clamp(2.5rem,9vw,5.5rem)] leading-none" delay={500} onDone={finished} />
+        <p className={`mt-6 text-lg font-medium text-slate-700 transition-[opacity,transform] duration-500 sm:text-xl ${shown ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"}`}>
           {t("startup.capable")}
         </p>
         <button
@@ -158,9 +192,9 @@ export function WelcomeSplash({ name, onClosed }) {
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            close();
+            close(true);
           }}
-          className={`btn btn-primary mt-8 !h-11 !px-6 transition-opacity duration-500 ${ready ? "opacity-100" : "opacity-0"}`}
+          className={`btn btn-primary mt-8 !h-11 !px-6 transition-opacity duration-500 ${shown ? "opacity-100" : "opacity-0"}`}
         >
           {t("startup.go")}
         </button>
