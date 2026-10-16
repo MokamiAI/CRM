@@ -1933,7 +1933,14 @@
       "addSeatsFirst": "Qala ngokongeza isitulo",
       "over_one": "Unabantu abayi-{{used}} kodwa uhlawulele abayi-{{limit}} kuphela, ngoko umntu oyi-{{count}} ufuna isitulo. Yongeza izitulo zabo bonke, kunye nesinye selungu elitsha ngalinye.",
       "over_other": "Unabantu abayi-{{used}} kodwa uhlawulele abayi-{{limit}} kuphela, ngoko abantu abayi-{{count}} bafuna izitulo. Yongeza izitulo zabo bonke, kunye nesinye selungu elitsha ngalinye."
-    }
+    },
+    "invited": "Isimemo sithunyelwe",
+    "invitedHint": "U-{{email}} uza kufumana i-imeyile yokwenza ipaswedi yakhe aze ajoyine.",
+    "invitedBadge": "Umenyiwe",
+    "resendInvite": "Thumela isimemo kwakhona",
+    "inviteResent": "Isimemo sithunyelwe kwakhona",
+    "inviteHint": "Baza kufumana i-imeyile yokwenza ipaswedi yabo. Akukho mfuneko yokwabelana ngayo.",
+    "sendInvite": "Thumela isimemo"
   },
   "time": {
     "daysAgo_one": "usuku olu-{{count}} oludlulileyo",
@@ -2503,5 +2510,13 @@
     "donePlaceholder": "Wenze ntoni? umz. Kubhukishwe ngoLwesihlanu ngo-08:00",
     "history": "Uhlaziyo",
     "noHistory": "Akukabikho hlaziyo."
+  },
+  "invite": {
+    "title": "Joyina i-{{company}} kwi-YGT",
+    "intro": "Molo {{name}}, yenza ipaswedi ye-{{email}} uze ungene.",
+    "password": "Yenza ipaswedi",
+    "submit": "Yenza ipaswedi uze ujoyine",
+    "badLinkTitle": "Esi simemo asinakusetyenziswa",
+    "alreadyJoined": "Sele ujoyinile?"
   }
 }

@@ -64,6 +64,12 @@ export function AuthProvider({ children }) {
     return startSession(data);
   }
 
+  /** An invited team member chose their password: signed in. */
+  async function acceptInvite(token, password) {
+    const { data } = await apiClient.post("/auth/invite", { token, password });
+    return startSession(data);
+  }
+
   /** Sign up a new company; the person signing up becomes its admin. */
   async function register(details) {
     const { data } = await apiClient.post("/auth/register", details);
@@ -163,7 +169,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout, setLanguage, markTourDone, updateProfile, reloadUser }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, acceptInvite, logout, setLanguage, markTourDone, updateProfile, reloadUser }}>
       {children}
     </AuthContext.Provider>
   );

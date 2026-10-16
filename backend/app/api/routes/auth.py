@@ -14,6 +14,7 @@ from app.schemas.platform import ForgotPassword, ResetPassword
 from app.repositories.user_repository import UserRepository
 from app.services.auth_service import AuthService
 from app.services.password_service import PasswordService
+from app.services.invite_service import InviteService
 from app.services.verification_service import VerificationService, verify_by
 from app.services.email_service import clean_signature
 
@@ -38,6 +39,27 @@ async def register(data: RegisterRequest, db: AsyncSession = Depends(get_db)):
     user = await UserRepository(db).get_by_email(data.email)
     await VerificationService(db).send(user)
     return tokens
+
+
+class AcceptInvite(BaseModel):
+    token: str = Field(min_length=20, max_length=200)
+    password: str = Field(min_length=8, max_length=128)
+
+
+@router.get("/invite")
+async def invite_details(token: str, db: AsyncSession = Depends(get_db)):
+    """Who an invitation is for, to greet them on the page."""
+    return await InviteService(db).describe(token)
+
+
+@router.post("/invite", response_model=TokenResponse)
+async def accept_invite(data: AcceptInvite, request: Request, db: AsyncSession = Depends(get_db)):
+    """They chose their password: signed in, email confirmed."""
+    user = await InviteService(db).accept(data.token, data.password)
+    request.state.actor_email = user.email
+    request.state.user_id = str(user.id)
+    request.state.company_id = str(user.company_id)
+    return await AuthService(db)._issue_tokens(user)
 
 
 class VerifyEmail(BaseModel):

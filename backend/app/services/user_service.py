@@ -2,6 +2,7 @@ import uuid
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.services.invite_service import unusable_password
 from app.core.exceptions import ConflictError, NotFoundError
 from app.core.security import hash_password
 from app.models.user import User
@@ -19,7 +20,7 @@ class UserService:
             raise ConflictError("A user with this email already exists", "USER_EMAIL_TAKEN")
         user = User(
             email=data.email.lower(),
-            password_hash=hash_password(data.password),
+            password_hash=hash_password(data.password) if data.password else unusable_password(),
             full_name=data.full_name,
             role=data.role,
         )

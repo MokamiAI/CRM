@@ -44,6 +44,7 @@ const ForgotPasswordPage = named(publicPages, "ForgotPasswordPage");
 const LegalPage = named(publicPages, "LegalPage");
 const ResetPasswordPage = named(publicPages, "ResetPasswordPage");
 const VerifyEmailPage = named(publicPages, "VerifyEmailPage");
+const InvitePage = named(publicPages, "InvitePage");
 const AdminLayout = lazy(() => import("./layouts/AdminLayout"));
 const adminPages = () => import("./pages/admin/AdminPages");
 const AdminActivity = named(adminPages, "AdminActivity");
@@ -78,6 +79,7 @@ export default function App() {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/verify-email" element={<VerifyEmailPage />} />
+      <Route path="/invite" element={<InvitePage />} />
       <Route path="/terms" element={<LegalPage kind="terms" />} />
       <Route path="/privacy" element={<LegalPage kind="privacy" />} />
       <Route path="/refunds" element={<LegalPage kind="refunds" />} />

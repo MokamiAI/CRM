@@ -34,6 +34,14 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # When this person clicked the link we emailed them, proving the inbox is
     # theirs. Until then the app asks them to; YGT admin access needs it.
     email_verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # Added by an admin without a password: invited (the email went out)
+    # until they open the link and choose their own (accepted).
+    invited_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    invite_accepted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    @property
+    def invite_pending(self) -> bool:
+        return self.invited_at is not None and self.invite_accepted_at is None
 
     @property
     def is_platform_admin(self) -> bool:

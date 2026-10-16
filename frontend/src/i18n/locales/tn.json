@@ -1933,7 +1933,14 @@
       "addSeatsFirst": "Oketsa setulo pele",
       "over_one": "O na le batho ba le {{used}} mme o duelela ba le {{limit}} fela, ka jalo motho a le {{count}} o tlhoka setulo. Oketsa ditulo tsa botlhe, le se le sengwe sa leloko le lesha lengwe le lengwe.",
       "over_other": "O na le batho ba le {{used}} mme o duelela ba le {{limit}} fela, ka jalo batho ba le {{count}} ba tlhoka ditulo. Oketsa ditulo tsa botlhe, le se le sengwe sa leloko le lesha lengwe le lengwe."
-    }
+    },
+    "invited": "Taletso e rometswe",
+    "invitedHint": "{{email}} o tla amogela imeile ya go dira lefoko-sephiri la gagwe le go tsena.",
+    "invitedBadge": "O laleditswe",
+    "resendInvite": "Romela taletso gape",
+    "inviteResent": "Taletso e rometswe gape",
+    "inviteHint": "Ba tla amogela imeile ya go dira lefoko-sephiri la bone. Ga go tlhokege gore o le abelane.",
+    "sendInvite": "Romela taletso"
   },
   "time": {
     "daysAgo_one": "letsatsi le le {{count}} le le fetileng",
@@ -2503,5 +2510,13 @@
     "donePlaceholder": "O dirile eng? sk. Go beeletswe Labotlhano ka 08:00",
     "history": "Ditokafatso",
     "noHistory": "Ga go ise go nne le ditokafatso."
+  },
+  "invite": {
+    "title": "Tsena mo {{company}} mo YGT",
+    "intro": "Dumela {{name}}, dira lefoko-sephiri la {{email}} mme o tsene.",
+    "password": "Dira lefoko-sephiri",
+    "submit": "Dira lefoko-sephiri mme o tsene",
+    "badLinkTitle": "Taletso e ga e kgone go dirisiwa",
+    "alreadyJoined": "O setse o tsene?"
   }
 }

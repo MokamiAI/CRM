@@ -1933,7 +1933,14 @@
       "addSeatsFirst": "Engedzani tshidulo u thoma",
       "over_one": "Ni na vhathu vha {{used}} fhedzi no badela vha {{limit}} fhedzi, ngauralo muthu wa {{count}} u ṱoḓa tshidulo. Engedzani zwidulo zwa vhoṱhe, na tshithihi tsha muraḓo muswa muṅwe na muṅwe.",
       "over_other": "Ni na vhathu vha {{used}} fhedzi no badela vha {{limit}} fhedzi, ngauralo vhathu vha {{count}} vha ṱoḓa zwidulo. Engedzani zwidulo zwa vhoṱhe, na tshithihi tsha muraḓo muswa muṅwe na muṅwe."
-    }
+    },
+    "invited": "Ṱhamo yo rumelwa",
+    "invitedHint": "{{email}} u ḓo wana imeiḽi ya u ita phasiweḓe yawe na u ṅwalisa.",
+    "invitedBadge": "O rambiwa",
+    "resendInvite": "Rumelani ṱhamo hafhu",
+    "inviteResent": "Ṱhamo yo rumelwa hafhu",
+    "inviteHint": "Vha ḓo wana imeiḽi ya u ita phasiweḓe yavho. A zwi ṱoḓei uri ni i kovhekane.",
+    "sendInvite": "Rumelani ṱhamo"
   },
   "time": {
     "daysAgo_one": "ḓuvha ḽa {{count}} ḽo fhiraho",
@@ -2503,5 +2510,13 @@
     "donePlaceholder": "No ita mini? tsumbo. Zwo bukwa nga Ḽavhuṱanu nga 08:00",
     "history": "Mveledziso",
     "noHistory": "A hu athu vha na mveledziso."
+  },
+  "invite": {
+    "title": "Dzhenani kha {{company}} kha YGT",
+    "intro": "Ndaa {{name}}, itani phasiweḓe ya {{email}} ni dzhene.",
+    "password": "Itani phasiweḓe",
+    "submit": "Itani phasiweḓe ni dzhene",
+    "badLinkTitle": "Iyi ṱhamo a i koni u shumiswa",
+    "alreadyJoined": "No no dzhena?"
   }
 }

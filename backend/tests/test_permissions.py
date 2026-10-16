@@ -9,6 +9,7 @@ from app.main import app
 # own proof (Paystack signature, per-channel token, unsubscribe token).
 PUBLIC = {
     "/api/v1/auth/forgot-password",
+    "/api/v1/auth/invite",  # accepting an invitation: the emailed token is the proof
     "/api/v1/auth/login",
     "/api/v1/auth/logout",
     "/api/v1/auth/refresh",

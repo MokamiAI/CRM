@@ -1933,7 +1933,14 @@
       "addSeatsFirst": "Engetela xitulu ku sungula",
       "over_one": "U na vanhu va {{used}} kambe u hakelele va {{limit}} ntsena, hikwalaho munhu wa {{count}} u lava xitulu. Engetela switulu swa hinkwavo, ni xin'we xa xirho lexintshwa xin'wana na xin'wana.",
       "over_other": "U na vanhu va {{used}} kambe u hakelele va {{limit}} ntsena, hikwalaho vanhu va {{count}} va lava switulu. Engetela switulu swa hinkwavo, ni xin'we xa xirho lexintshwa xin'wana na xin'wana."
-    }
+    },
+    "invited": "Xirhambo xi rhumeriwile",
+    "invitedHint": "{{email}} u ta kuma imeyili yo endla phasiwedi ya yena no nghena.",
+    "invitedBadge": "U rhambiwile",
+    "resendInvite": "Rhumela xirhambo nakambe",
+    "inviteResent": "Xirhambo xi rhumeriwile nakambe",
+    "inviteHint": "Va ta kuma imeyili yo endla phasiwedi ya vona. A swi lavi u yi avelana.",
+    "sendInvite": "Rhumela xirhambo"
   },
   "time": {
     "daysAgo_one": "siku ra {{count}} leri hundzeke",
@@ -2503,5 +2510,13 @@
     "donePlaceholder": "U endle yini? xik. Swi bukiwile hi Ravuntlhanu hi 08:00",
     "history": "Mimpfuxeto",
     "noHistory": "A ku si va na mimpfuxeto."
+  },
+  "invite": {
+    "title": "Nghena eka {{company}} eka YGT",
+    "intro": "Avuxeni {{name}}, endla phasiwedi ya {{email}} kutani u nghena.",
+    "password": "Endla phasiwedi",
+    "submit": "Endla phasiwedi u nghena",
+    "badLinkTitle": "Xirhambo lexi a xi tirhiseki",
+    "alreadyJoined": "Se u nghenile?"
   }
 }

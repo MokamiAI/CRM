@@ -1933,7 +1933,14 @@
       "addSeatsFirst": "Oketša setulo pele",
       "over_one": "O na le batho ba {{used}} eupša o lefeletše ba {{limit}} feela, ka fao motho yo {{count}} o hloka setulo. Oketša ditulo tša bohle, le se tee sa setho se sefsa se sengwe le se sengwe.",
       "over_other": "O na le batho ba {{used}} eupša o lefeletše ba {{limit}} feela, ka fao batho ba {{count}} ba hloka ditulo. Oketša ditulo tša bohle, le se tee sa setho se sefsa se sengwe le se sengwe."
-    }
+    },
+    "invited": "Taletšo e rometšwe",
+    "invitedHint": "{{email}} o tla hwetša imeile ya go hlama phasewete ya gagwe le go tsena.",
+    "invitedBadge": "O laleditšwe",
+    "resendInvite": "Romela taletšo gape",
+    "inviteResent": "Taletšo e rometšwe gape",
+    "inviteHint": "Ba tla hwetša imeile ya go hlama phasewete ya bona. Ga go hlokege gore o abelane ka yona.",
+    "sendInvite": "Romela taletšo"
   },
   "time": {
     "daysAgo_one": "letšatši le {{count}} le fetilego",
@@ -2503,5 +2510,13 @@
     "donePlaceholder": "O dirile eng? mohl. Go beeletšwe Labohlano ka 08:00",
     "history": "Dimpshafatšo",
     "noHistory": "Ga go dimpshafatšo ga bjale."
+  },
+  "invite": {
+    "title": "Tsena go {{company}} go YGT",
+    "intro": "Thobela {{name}}, hlama phasewete ya {{email}} gomme o tsene.",
+    "password": "Hlama phasewete",
+    "submit": "Hlama phasewete gomme o tsene",
+    "badLinkTitle": "Taletšo ye e ka se šomišwe",
+    "alreadyJoined": "O šetše o tsene?"
   }
 }

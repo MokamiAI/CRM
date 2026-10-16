@@ -10,7 +10,7 @@ import { errorMessage, formatMoneyWhole } from "../utils/format";
 import { Avatar, Button, StatusBadge } from "./ui";
 
 const ROLES = ["admin", "manager", "staff", "viewer"];
-const BLANK = { full_name: "", email: "", role: "staff", password: "" };
+const BLANK = { full_name: "", email: "", role: "staff" };
 
 /** Seats: one per person. How many are used, and what to do when they're
  *  all taken (add seats on Grow/Scale; move up from Hustle's three). */
@@ -91,10 +91,15 @@ export default function TeamManager() {
   const create = useMutation({
     mutationFn: () => apiClient.post("/users", draft),
     onSuccess: () => {
-      toast.success(t("team.added"), { description: t("team.addedHint", { email: draft.email }) });
+      toast.success(t("team.invited"), { description: t("team.invitedHint", { email: draft.email }) });
       setDraft(BLANK);
       refresh();
     },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  const resend = useMutation({
+    mutationFn: (u) => apiClient.post(`/users/${u.id}/invite`).then(() => u),
+    onSuccess: (u) => toast.success(t("team.inviteResent"), { description: u.email }),
     onError: (error) => toast.error(errorMessage(error)),
   });
   const update = useMutation({
@@ -124,6 +129,14 @@ export default function TeamManager() {
                 <p className="truncate text-xs text-zinc-500">{u.email}</p>
               </div>
               {!u.is_active && <StatusBadge status="inactive" />}
+              {u.is_active && u.invite_pending && (
+                <>
+                  <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 ring-1 ring-inset ring-amber-200">{t("team.invitedBadge")}</span>
+                  <Button variant="secondary" className="!h-9 !px-3 !text-xs" disabled={resend.isPending} onClick={() => resend.mutate(u)}>
+                    {t("team.resendInvite")}
+                  </Button>
+                </>
+              )}
               <select
                 className="input !h-9 !w-auto !py-0 !text-sm"
                 aria-label={t("team.role")}
@@ -176,14 +189,10 @@ export default function TeamManager() {
             ))}
           </select>
         </label>
-        <label className="block">
-          <span className="label">{t("team.tempPassword")}</span>
-          <input className="input" type="text" minLength={8} required autoComplete="off" value={draft.password} onChange={(e) => setDraft({ ...draft, password: e.target.value })} />
-          <span className="mt-1.5 block text-xs text-zinc-500">{t("team.tempPasswordHint")}</span>
-        </label>
+        <p className="self-end text-xs leading-snug text-zinc-500">{t("team.inviteHint")}</p>
         <div className="flex justify-end sm:col-span-2">
           <button type="submit" className="btn btn-primary" disabled={create.isPending || full}>
-            {full ? t("team.seats.addSeatsFirst") : t("team.add")}
+            {full ? t("team.seats.addSeatsFirst") : t("team.sendInvite")}
           </button>
         </div>
       </form>

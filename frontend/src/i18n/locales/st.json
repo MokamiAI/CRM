@@ -1933,7 +1933,14 @@
       "addSeatsFirst": "Eketsa setulo pele",
       "over_one": "O na le batho ba {{used}} empa o lefeletse ba {{limit}} feela, ka hona motho a {{count}} o hloka setulo. Eketsa ditulo tsa bohle, le se le seng bakeng sa setho se setjha ka seng.",
       "over_other": "O na le batho ba {{used}} empa o lefeletse ba {{limit}} feela, ka hona batho ba {{count}} ba hloka ditulo. Eketsa ditulo tsa bohle, le se le seng bakeng sa setho se setjha ka seng."
-    }
+    },
+    "invited": "Memo e rometswe",
+    "invitedHint": "{{email}} o tla fumana imeile ya ho etsa phasewete ya hae le ho kena.",
+    "invitedBadge": "O memilwe",
+    "resendInvite": "Romela memo hape",
+    "inviteResent": "Memo e rometswe hape",
+    "inviteHint": "Ba tla fumana imeile ya ho etsa phasewete ya bona. Ha ho hlokehe hore o arolelane yona.",
+    "sendInvite": "Romela memo"
   },
   "time": {
     "daysAgo_one": "letsatsi le {{count}} le fetileng",
@@ -2503,5 +2510,13 @@
     "donePlaceholder": "O entse eng? mohl. Ho behetswe Labohlano ka 08:00",
     "history": "Dintjhafatso",
     "noHistory": "Ha ho dintjhafatso ho fihlela jwale."
+  },
+  "invite": {
+    "title": "Kena ho {{company}} ho YGT",
+    "intro": "Dumela {{name}}, etsa phasewete ya {{email}} mme o kene.",
+    "password": "Etsa phasewete",
+    "submit": "Etsa phasewete mme o kene",
+    "badLinkTitle": "Memo ena e ke ke ya sebediswa",
+    "alreadyJoined": "O se o kene?"
   }
 }

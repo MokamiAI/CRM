@@ -1933,7 +1933,14 @@
       "addSeatsFirst": "Add a seat first",
       "over_one": "You have {{used}} people but only {{limit}} paid for, so {{count}} person needs a seat. Add seats to cover everyone, plus one for each new team member.",
       "over_other": "You have {{used}} people but only {{limit}} paid for, so {{count}} people need a seat. Add seats to cover everyone, plus one for each new team member."
-    }
+    },
+    "invited": "Invitation sent",
+    "invitedHint": "{{email}} will get an email to create their password and join.",
+    "invitedBadge": "Invited",
+    "resendInvite": "Resend invite",
+    "inviteResent": "Invitation sent again",
+    "inviteHint": "They'll get an email to create their own password. No need to share one.",
+    "sendInvite": "Send invitation"
   },
   "time": {
     "daysAgo_one": "{{count}} day ago",
@@ -2503,5 +2510,13 @@
     "donePlaceholder": "What did you do? e.g. Booked for Friday 08:00",
     "history": "Updates",
     "noHistory": "No updates yet."
+  },
+  "invite": {
+    "title": "Join {{company}} on YGT",
+    "intro": "Hi {{name}}, create a password for {{email}} and you're in.",
+    "password": "Create a password",
+    "submit": "Create password and join",
+    "badLinkTitle": "This invitation can't be used",
+    "alreadyJoined": "Already joined?"
   }
 }

@@ -1933,7 +1933,14 @@
       "addSeatsFirst": "Voeg eers 'n sitplek by",
       "over_one": "Jy het {{used}} mense maar het net vir {{limit}} betaal, so {{count}} persoon het 'n sitplek nodig. Voeg sitplekke by vir almal, plus een vir elke nuwe spanlid.",
       "over_other": "Jy het {{used}} mense maar het net vir {{limit}} betaal, so {{count}} mense het 'n sitplek nodig. Voeg sitplekke by vir almal, plus een vir elke nuwe spanlid."
-    }
+    },
+    "invited": "Uitnodiging gestuur",
+    "invitedHint": "{{email}} kry 'n e-pos om hul wagwoord te skep en aan te sluit.",
+    "invitedBadge": "Uitgenooi",
+    "resendInvite": "Stuur uitnodiging weer",
+    "inviteResent": "Uitnodiging weer gestuur",
+    "inviteHint": "Hulle kry 'n e-pos om hul eie wagwoord te skep. Jy hoef nie een te deel nie.",
+    "sendInvite": "Stuur uitnodiging"
   },
   "time": {
     "daysAgo_one": "{{count}} dag gelede",
@@ -2503,5 +2510,13 @@
     "donePlaceholder": "Wat het jy gedoen? bv. Bespreek vir Vrydag 08:00",
     "history": "Opdaterings",
     "noHistory": "Nog geen opdaterings nie."
+  },
+  "invite": {
+    "title": "Sluit by {{company}} op YGT aan",
+    "intro": "Hallo {{name}}, skep 'n wagwoord vir {{email}} en jy is binne.",
+    "password": "Skep 'n wagwoord",
+    "submit": "Skep wagwoord en sluit aan",
+    "badLinkTitle": "Hierdie uitnodiging kan nie gebruik word nie",
+    "alreadyJoined": "Reeds aangesluit?"
   }
 }

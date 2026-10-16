@@ -9,6 +9,7 @@ import GlowField from "../components/GlowField";
 import { AuthShell, FormError, SwitchLink } from "./LoginPage";
 import { Field } from "../components/ui";
 import { errorMessage } from "../utils/format";
+import { queueWelcome } from "../components/Startup";
 
 // Your business details for the legal pages. Fill these in before going
 // live (Paystack checks them when it reviews your account).
@@ -302,6 +303,86 @@ export function ResetPasswordPage() {
         </button>
       </form>
       <SwitchLink prompt={t("password.remembered")} to="/login" label={t("login.signIn")} />
+    </AuthShell>
+  );
+}
+
+/** From the invitation email: "Join <company> on YGT". They choose a
+ *  password (typed twice), and they're in. */
+export function InvitePage() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { acceptInvite, logout, user } = useAuth();
+  const [params] = useSearchParams();
+  const token = params.get("token") || "";
+  const [invite, setInvite] = useState(null);
+  const [linkError, setLinkError] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    apiClient
+      .get("/auth/invite", { params: { token } })
+      .then(({ data }) => setInvite(data))
+      .catch((err) => setLinkError(errorMessage(err)));
+  }, [token]);
+  const mismatch = confirm.length > 0 && password !== confirm;
+  async function submit(e) {
+    e.preventDefault();
+    if (password !== confirm) {
+      setError(t("password.mismatch"));
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      // Someone else signed in on this browser: this is the invited person now.
+      if (user) await logout();
+      await acceptInvite(token, password);
+      queueWelcome();
+      navigate("/", { replace: true });
+    } catch (err) {
+      setError(errorMessage(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+  if (linkError) {
+    return (
+      <AuthShell>
+        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">{t("invite.badLinkTitle")}</h1>
+        <FormError>{linkError}</FormError>
+        <SwitchLink prompt={t("invite.alreadyJoined")} to="/login" label={t("login.signIn")} />
+      </AuthShell>
+    );
+  }
+  return (
+    <AuthShell>
+      <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+        {invite ? t("invite.title", { company: invite.company_name }) : t("common.loading")}
+      </h1>
+      {invite && <p className="mt-1.5 text-sm text-zinc-500">{t("invite.intro", { name: invite.full_name.split(" ")[0], email: invite.email })}</p>}
+      <form onSubmit={submit} className="mt-7 space-y-5">
+        <div>
+          <label className="label" htmlFor="password">
+            {t("invite.password")}
+          </label>
+          <GlowField id="password" type="password" autoComplete="new-password" minLength={8} required autoFocus value={password} onChange={(e) => setPassword(e.target.value)} />
+          <span className="mt-1.5 block text-xs text-zinc-500">{t("register.passwordHint")}</span>
+        </div>
+        <div>
+          <label className="label" htmlFor="confirm">
+            {t("password.confirm")}
+          </label>
+          <GlowField id="confirm" type="password" autoComplete="new-password" minLength={8} required value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+          {mismatch && <span className="mt-1.5 block text-xs font-medium text-red-600">{t("password.mismatch")}</span>}
+        </div>
+        <FormError>{error}</FormError>
+        <button type="submit" className="btn btn-primary w-full" disabled={busy || !invite || mismatch}>
+          {busy ? t("common.saving") : t("invite.submit")}
+        </button>
+      </form>
     </AuthShell>
   );
 }

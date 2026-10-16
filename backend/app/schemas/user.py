@@ -9,7 +9,8 @@ from app.models.enums import SUPPORTED_LANGUAGES, UserRole
 
 class UserCreate(BaseModel):
     email: EmailStr
-    password: str = Field(min_length=8, max_length=128)
+    # Left out: they're invited by email and choose their own password.
+    password: str | None = Field(default=None, min_length=8, max_length=128)
     full_name: str = Field(min_length=1, max_length=255)
     role: UserRole = UserRole.STAFF
 
@@ -35,6 +36,8 @@ class UserOut(BaseModel):
     email_verified_at: datetime | None = None
     # YGT's own team: may open the admin site.
     is_platform_admin: bool = False
+    # Invited but hasn't chosen a password yet.
+    invite_pending: bool = False
     created_at: datetime
 
 
