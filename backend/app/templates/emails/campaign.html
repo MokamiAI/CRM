@@ -51,6 +51,6 @@
 {% endblock %}
 {% block footer_extra %}
 <div style="margin-top:10px;">You're receiving this because you're a customer of {{ company.company_name }}.
-<a href="{{ unsubscribe_url }}" style="color:#6b7280;">Unsubscribe</a></div>
+<a href="{{ unsubscribe_url }}" style="color:inherit;text-decoration:underline;">Unsubscribe</a></div>
 {% if pixel_url %}<img src="{{ pixel_url }}" width="1" height="1" alt="" style="display:block;border:0;">{% endif %}
 {% endblock %}

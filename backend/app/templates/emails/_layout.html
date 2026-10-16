@@ -28,13 +28,24 @@
             {% block content %}{% endblock %}
           </td>
         </tr>
+        {% set ink = accent|on_accent %}
+        {% set tt = t if t is defined and t else None %}
         <tr>
-          <td style="padding:16px 32px;border-top:1px solid #e5e7eb;font-size:12px;line-height:1.5;color:#6b7280;">
-            {{ company.company_name }}
-            {% if company.address %}<div style="white-space:pre-line;">{{ company.address }}</div>{% endif %}
-            {% if company.tax_number %}<div>{{ t.tax_label if t is defined and t else "VAT number" }}: {{ company.tax_number }}</div>{% endif %}
-            {% block footer_extra %}{% endblock %}
+          <td style="padding:22px 32px;background:{{ accent }};color:{{ ink }};font-size:13px;line-height:1.6;">
+            <div style="font-size:16px;font-weight:bold;margin-bottom:4px;">{{ company.company_name }}</div>
+            {% if company.address %}<div style="white-space:pre-line;opacity:.92;">{{ company.address }}</div>{% endif %}
+            <div style="margin-top:8px;">
+              {% if tt and tt.phone %}<span style="white-space:nowrap;">&#9742;&nbsp;{{ tt.phone }}</span>&nbsp;&nbsp;&nbsp;{% endif %}
+              {% if company.sender_email is defined and company.sender_email %}<a href="mailto:{{ company.sender_email }}" style="color:{{ ink }};text-decoration:underline;white-space:nowrap;">&#9993;&nbsp;{{ company.sender_email }}</a>&nbsp;&nbsp;&nbsp;{% endif %}
+              {% if tt and tt.website %}<a href="{{ tt.website if '://' in tt.website else 'https://' ~ tt.website }}" style="color:{{ ink }};text-decoration:underline;white-space:nowrap;">&#127760;&nbsp;{{ tt.website }}</a>{% endif %}
+            </div>
+            {% if company.tax_number and (company.vat_registered is not defined or company.vat_registered) %}<div style="margin-top:6px;opacity:.9;">{{ tt.tax_label if tt else "VAT number" }}: {{ company.tax_number }}</div>{% endif %}
+            {% if tt and tt.registration_number %}<div style="opacity:.9;">Registration: {{ tt.registration_number }}</div>{% endif %}
+            <div style="opacity:.9;">{% block footer_extra %}{% endblock %}</div>
           </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 32px;background:#f9fafb;color:#9ca3af;font-size:11px;text-align:center;">Sent with <a href="https://yougt.co.za" style="color:#6b7280;">YGT</a> &middot; You Got This</td>
         </tr>
       </table>
     </td>

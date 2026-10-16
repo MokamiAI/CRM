@@ -27,6 +27,20 @@ _templates = Environment(
 # YGT's default where there's no company choice.
 _templates.globals["accent"] = "#4f46e5"
 
+
+def on_accent(hex_colour: str) -> str:
+    """Readable text on the accent (WCAG relative luminance)."""
+    try:
+        r, g, b = (int(hex_colour.lstrip("#")[i : i + 2], 16) / 255 for i in (0, 2, 4))
+    except ValueError:
+        return "#ffffff"
+    lin = lambda c: c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4  # noqa: E731
+    luminance = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
+    return "#111827" if luminance > 0.36 else "#ffffff"
+
+
+_templates.filters["on_accent"] = on_accent
+
 _SMTP_TIMEOUT_SECONDS = 30
 
 
