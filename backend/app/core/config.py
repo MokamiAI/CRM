@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timezone
 from functools import lru_cache
 from urllib.parse import urlsplit
 
@@ -14,6 +15,12 @@ class Settings(BaseSettings):
     # App
     APP_NAME: str = "YGT"
     ENVIRONMENT: str = "development"
+    # Sign-up checks that an email's domain receives mail (a DNS look-up).
+    # None: on in production only, so tests and offline work don't need DNS.
+    CHECK_EMAIL_DOMAINS: bool | None = None
+    # Accounts made before the 48-hour email confirmation rule get their 48
+    # hours from this moment (see services/verification_service.py).
+    EMAIL_VERIFY_RULE_STARTED: datetime = datetime(2026, 10, 16, tzinfo=timezone.utc)
     DEBUG: bool = True
     API_V1_PREFIX: str = "/api/v1"
 

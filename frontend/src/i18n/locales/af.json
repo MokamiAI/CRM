@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "Dit kan nie met hierdie bestelling in sy huidige toestand gedoen word nie.",
     "PURCHASE_ORDER_NOT_DELETABLE": "Slegs 'n konsepbestelling kan geskrap word.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "Slegs 'n bestelling wat reeds gestuur is, kan weer gestuur word.",
-    "LINE_TEMPLATE_EXISTS": "Gestoorde items met daardie naam bestaan reeds."
+    "LINE_TEMPLATE_EXISTS": "Gestoorde items met daardie naam bestaan reeds.",
+    "EMAIL_DISPOSABLE": "Gebruik asseblief jou eie e-posadres, nie 'n tydelike een nie.",
+    "EMAIL_UNDELIVERABLE": "Ons kan nie e-pos na hierdie adres stuur nie. Gaan dit asseblief vir tikfoute na.",
+    "EMAIL_NOT_VERIFIED": "Bevestig asseblief jou e-posadres om YGT te bly gebruik. Ons het vir jou 'n skakel gestuur."
   },
   "feed": {
     "activityDone": "{{type}} voltooi",
@@ -1620,7 +1623,17 @@
     "step": "Stap {{n}} van {{total}}",
     "stepDetails": "Jou besonderhede",
     "continue": "Gaan voort",
-    "back": "Terug"
+    "back": "Terug",
+    "business_address": "Besigheidsadres",
+    "addressHint": "Waar jou besigheid is. Dit verskyn op jou kwotasies en fakture.",
+    "addressPlaceholder": "bv. Kerkstraat 12, Polokwane, 0700",
+    "verifyNote": "Ons e-pos vir jou 'n skakel om dit te bevestig. Bevestig binne 48 uur om toegang te behou.",
+    "checkDetails": "Gaan asseblief jou besonderhede na: die besigheidsadres het 'n straat en 'n dorp nodig.",
+    "protectedTitle": "Jou data is beskerm",
+    "protected1": "Geënkripteerde verbinding: wat jy vir ons stuur, reis veilig.",
+    "protected2": "Jou wagwoord word versleutel gestoor, so niemand kan dit lees nie, selfs nie ons nie.",
+    "protected3": "Jou maatskappy se data is privaat vir jou span en apart van elke ander besigheid gehou, in lyn met POPIA.",
+    "privacyLink": "Lees ons privaatheidsbeleid"
   },
   "role": {
     "admin": "Administrateur",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Bevestig asseblief jou e-posadres",
-    "bannerBody": "Ons het 'n skakel na {{email}} gestuur. Klik daarop sodat ons jou oor jou rekening kan kontak.",
+    "bannerBody": "Ons het 'n skakel na {{email}} gestuur. Bevestig dit om toegang tot jou rekening te behou.",
     "resend": "Stuur die skakel weer",
     "resent": "Bevestigingskakel gestuur",
     "checking": "Bevestig jou e-pos…",
     "doneTitle": "Jou e-pos is bevestig",
     "doneBody": "Dankie. Jy is gereed.",
     "failedTitle": "Ons kon nie jou e-pos bevestig nie",
-    "goToApp": "Gaan na YGT"
+    "goToApp": "Gaan na YGT",
+    "hoursLeft_one": "{{count}} uur oor.",
+    "hoursLeft_other": "{{count}} uur oor.",
+    "gateTitle": "Bevestig jou e-pos om voort te gaan",
+    "gateBody": "Dis 48 uur sedert jy aangesluit het en jou e-pos is nog nie bevestig nie. Ons het 'n skakel na {{email}} gestuur: klik daarop en kom dan terug. Al jou werk is veilig.",
+    "gateDone": "Ek het dit bevestig",
+    "notYet": "Nog nie bevestig nie. Klik die skakel in die e-pos en probeer weer."
   },
   "purchases": {
     "subtitle": "Bestel by jou verskaffers en hou by wat aangekom het.",

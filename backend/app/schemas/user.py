@@ -42,6 +42,8 @@ class MeOut(UserOut):
     # The company is suspended: the app shows a notice instead of the screens.
     account_suspended: bool = False
     suspended_reason: str | None = None
+    # Unconfirmed email: access ends at this time unless the link is clicked.
+    verify_by: datetime | None = None
 
 
 class ProfileUpdate(BaseModel):

@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "Lokho akunakwenziwa kuleli oda esimweni salo samanje.",
     "PURCHASE_ORDER_NOT_DELETABLE": "I-oda eliwuhlaka kuphela elingasuswa.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "I-oda eselithunyelwe kuphela elingaphinda lithunyelwe.",
-    "LINE_TEMPLATE_EXISTS": "Izinto ezilondoloziwe ezinalelo gama sezikhona."
+    "LINE_TEMPLATE_EXISTS": "Izinto ezilondoloziwe ezinalelo gama sezikhona.",
+    "EMAIL_DISPOSABLE": "Sicela usebenzise ikheli lakho le-imeyili, hhayi elesikhashana.",
+    "EMAIL_UNDELIVERABLE": "Asikwazi ukuthumela i-imeyili kuleli kheli. Sicela ulihlole ukuthi alinamaphutha.",
+    "EMAIL_NOT_VERIFIED": "Sicela uqinisekise ikheli lakho le-imeyili ukuze uqhubeke usebenzisa i-YGT. Sikuthumelele isixhumanisi."
   },
   "feed": {
     "activityDone": "{{type}} kuqediwe",
@@ -1620,7 +1623,17 @@
     "step": "Isinyathelo {{n}} kwezi-{{total}}",
     "stepDetails": "Imininingwane yakho",
     "continue": "Qhubeka",
-    "back": "Emuva"
+    "back": "Emuva",
+    "business_address": "Ikheli lebhizinisi",
+    "addressHint": "Lapho ibhizinisi lakho likhona. Livela ezilinganisweni nakuma-invoyisi akho.",
+    "addressPlaceholder": "isib. 12 Church Street, Polokwane, 0700",
+    "verifyNote": "Sizokuthumelela isixhumanisi nge-imeyili ukuze uliqinisekise. Qinisekisa phakathi kwamahora angu-48 ukuze uqhubeke ufinyelela.",
+    "checkDetails": "Sicela uhlole imininingwane yakho: ikheli lebhizinisi lidinga umgwaqo nedolobha.",
+    "protectedTitle": "Imininingwane yakho ivikelekile",
+    "protected1": "Uxhumano olubethelwe: okusithumelayo kuhamba ngokuphepha.",
+    "protected2": "Iphasiwedi yakho igcinwa ixutshiwe, ngakho akekho ongayifunda, ngisho nathi.",
+    "protected3": "Imininingwane yenkampani yakho iyimfihlo yeqembu lakho futhi ihlukaniswe nawo wonke amanye amabhizinisi, ngokuhambisana ne-POPIA.",
+    "privacyLink": "Funda inqubomgomo yethu yobumfihlo"
   },
   "role": {
     "admin": "Umphathi",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Sicela uqinisekise ikheli lakho le-imeyili",
-    "bannerBody": "Sithumele isixhumanisi ku-{{email}}. Chofoza kuso ukuze sikwazi ukuxhumana nawe mayelana ne-akhawunti yakho.",
+    "bannerBody": "Sithumele isixhumanisi ku-{{email}}. Siqinisekise ukuze uqhubeke ufinyelela e-akhawuntini yakho.",
     "resend": "Thumela isixhumanisi futhi",
     "resent": "Isixhumanisi sokuqinisekisa sithunyelwe",
     "checking": "Siqinisekisa i-imeyili yakho…",
     "doneTitle": "I-imeyili yakho iqinisekisiwe",
     "doneBody": "Siyabonga. Usulungile.",
     "failedTitle": "Asikwazanga ukuqinisekisa i-imeyili yakho",
-    "goToApp": "Iya ku-YGT"
+    "goToApp": "Iya ku-YGT",
+    "hoursLeft_one": "Kusele ihora elingu-{{count}}.",
+    "hoursLeft_other": "Kusele amahora angu-{{count}}.",
+    "gateTitle": "Qinisekisa i-imeyili yakho ukuze uqhubeke",
+    "gateBody": "Sekudlule amahora angu-48 wabhalisa futhi i-imeyili yakho ayikaqinisekiswa. Sithumele isixhumanisi ku-{{email}}: sicindezele, bese ubuyela lapha. Wonke umsebenzi wakho uphephile.",
+    "gateDone": "Sengiyiqinisekisile",
+    "notYet": "Akukaqinisekiswa. Cindezela isixhumanisi ku-imeyili, bese uzama futhi."
   },
   "purchases": {
     "subtitle": "Oda kubahlinzeki bakho futhi ulandelele okufikile.",

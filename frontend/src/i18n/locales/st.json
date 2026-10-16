@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "Seo se ke ke sa etswa ho taelo ena boemong ba yona ba hajwale.",
     "PURCHASE_ORDER_NOT_DELETABLE": "Ke taelo ya theko ya draft feela e ka hlakolwang.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "Ke taelo e seng e rometswe feela e ka romelwang hape.",
-    "LINE_TEMPLATE_EXISTS": "Dintho tse bolokilweng tsa lebitso leo di se di le teng."
+    "LINE_TEMPLATE_EXISTS": "Dintho tse bolokilweng tsa lebitso leo di se di le teng.",
+    "EMAIL_DISPOSABLE": "Ka kopo sebedisa aterese ya hao ya imeile, eseng ya nakwana.",
+    "EMAIL_UNDELIVERABLE": "Re ke ke ra romela imeile atereseng ena. Ka kopo e hlahlobe diphoso.",
+    "EMAIL_NOT_VERIFIED": "Ka kopo netefatsa aterese ya hao ya imeile ho tswela pele ho sebedisa YGT. Re o rometse lehokela."
   },
   "feed": {
     "activityDone": "{{type}} e phethilwe",
@@ -1620,7 +1623,17 @@
     "step": "Mohato wa {{n}} ho e {{total}}",
     "stepDetails": "Dintlha tsa hao",
     "continue": "Tswela pele",
-    "back": "Morao"
+    "back": "Morao",
+    "business_address": "Aterese ya kgwebo",
+    "addressHint": "Moo kgwebo ya hao e leng teng. E hlaha ho dikotheishene le di-invoice tsa hao.",
+    "addressPlaceholder": "mohl. 12 Church Street, Polokwane, 0700",
+    "verifyNote": "Re tla o romela lehokela ka imeile ho e netefatsa. Netefatsa nakong ya dihora tse 48 ho tswela pele ho fihlella.",
+    "checkDetails": "Ka kopo hlahloba dintlha tsa hao: aterese ya kgwebo e hloka seterata le toropo.",
+    "protectedTitle": "Data ya hao e sirelleditswe",
+    "protected1": "Kgokahano e patilweng: seo o re romelang sona se tsamaya ka polokeho.",
+    "protected2": "Phasewete ya hao e bolokwa e kopantswe, ka hona ha ho motho ya ka e balang, esita le rona.",
+    "protected3": "Data ya khampani ya hao ke lekunutu la sehlopha sa hao mme e arohantswe le dikgwebo tse ding kaofela, ho latela POPIA.",
+    "privacyLink": "Bala leano la rona la lekunutu"
   },
   "role": {
     "admin": "Motsamaisi",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Ka kopo netefatsa aterese ya hao ya imeile",
-    "bannerBody": "Re romile lehokela ho {{email}}. Le tobetse hore re tle re kgone ho ikopanya le wena mabapi le akhaonto ya hao.",
+    "bannerBody": "Re rometse lehokela ho {{email}}. Le netefatse ho tswela pele ho fihlella akhaonte ya hao.",
     "resend": "Romela lehokela hape",
     "resent": "Lehokela la netefatso le rometswe",
     "checking": "Re netefatsa imeile ya hao…",
     "doneTitle": "Imeile ya hao e netefaditswe",
     "doneBody": "Re a leboha. O lokile.",
     "failedTitle": "Ha re a kgona ho netefatsa imeile ya hao",
-    "goToApp": "Eya ho YGT"
+    "goToApp": "Eya ho YGT",
+    "hoursLeft_one": "Ho setse hora e {{count}}.",
+    "hoursLeft_other": "Ho setse dihora tse {{count}}.",
+    "gateTitle": "Netefatsa imeile ya hao ho tswela pele",
+    "gateBody": "Ho fetile dihora tse 48 o ngodisitse mme imeile ya hao ha e so netefatswe. Re rometse lehokela ho {{email}}: le tobetse, ebe o kgutlela mona. Mosebetsi wa hao kaofela o bolokehile.",
+    "gateDone": "Ke e netefaditse",
+    "notYet": "Ha e so netefatswe. Tobetsa lehokela ho imeile, ebe o leka hape."
   },
   "purchases": {
     "subtitle": "Odara ho bafani ba hao mme o latele tse fihlileng.",

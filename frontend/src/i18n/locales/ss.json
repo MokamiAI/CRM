@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "Loko akunakwentiwa kuleli-oda esimeni salo sanyalo.",
     "PURCHASE_ORDER_NOT_DELETABLE": "I-oda lelisalukhuni kuphela lelingasuswa.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "I-oda leselitfunyelwe kuphela lelingaphindze litfunyelwe.",
-    "LINE_TEMPLATE_EXISTS": "Tintfo letilondvolotiwe tanalelo libito setikhona."
+    "LINE_TEMPLATE_EXISTS": "Tintfo letilondvolotiwe tanalelo libito setikhona.",
+    "EMAIL_DISPOSABLE": "Sicela usebentise likheli lakho le-imeyili, hhayi lelesikhashana.",
+    "EMAIL_UNDELIVERABLE": "Asikhoni kutfumela i-imeyili kulelikheli. Sicela ulihlole emaphutsa.",
+    "EMAIL_NOT_VERIFIED": "Sicela ucinisekise likheli lakho le-imeyili kute uchubeke usebentisa i-YGT. Sikutfumelele sixhumanisi."
   },
   "feed": {
     "activityDone": "{{type}} kuphetsiwe",
@@ -1620,7 +1623,17 @@
     "step": "Sinyatselo {{n}} kuku-{{total}}",
     "stepDetails": "Imininingwane yakho",
     "continue": "Chubeka",
-    "back": "Emuva"
+    "back": "Emuva",
+    "business_address": "Likheli lelibhizinisi",
+    "addressHint": "Lapho libhizinisi lakho likhona. Livela etilinganisweni nakuma-invoyisi akho.",
+    "addressPlaceholder": "sib. 12 Church Street, Polokwane, 0700",
+    "verifyNote": "Sitakutfumelela sixhumanisi nge-imeyili kute ulicinisekise. Cinisekisa ngekhatsi kwemahora langu-48 kute uchubeke ufinyelela.",
+    "checkDetails": "Sicela uhlole imininingwane yakho: likheli lelibhizinisi lidzinga umgwaco nelidolobha.",
+    "protectedTitle": "Imininingwane yakho ivikelekile",
+    "protected1": "Kuchumana lokubetselwe: loko lositfumelako kuhamba ngekuphepha.",
+    "protected2": "Liphasiwedi lakho ligcinwa lixutjiwe, ngako kute longalifundza, ngisho natsi.",
+    "protected3": "Imininingwane yenkampani yakho iyimfihlo yelicembu lakho futsi yehlukaniswe nawo onkhe lamanye emabhizinisi, ngekuvumelana ne-POPIA.",
+    "privacyLink": "Fundza inchubomgomo yetfu yemfihlo"
   },
   "role": {
     "admin": "Umphatsi",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Sicela ucinisekise likheli lakho le-imeyili",
-    "bannerBody": "Sitfumele sixhumanisi ku-{{email}}. Sicindzetele kute sikhone kuxhumana nawe mayelana ne-akhawunti yakho.",
+    "bannerBody": "Sitfumele sixhumanisi ku-{{email}}. Sicinisekise kute uchubeke ufinyelela ku-akhawunti yakho.",
     "resend": "Tfumela sixhumanisi futsi",
     "resent": "Sixhumanisi sekucinisekisa sitfunyelwe",
     "checking": "Sicinisekisa i-imeyili yakho…",
     "doneTitle": "I-imeyili yakho icinisekisiwe",
     "doneBody": "Siyabonga. Usulungile.",
     "failedTitle": "Asikhonanga kucinisekisa i-imeyili yakho",
-    "goToApp": "Hamba ku-YGT"
+    "goToApp": "Hamba ku-YGT",
+    "hoursLeft_one": "Kusele lihora lelingu-{{count}}.",
+    "hoursLeft_other": "Kusele emahora langu-{{count}}.",
+    "gateTitle": "Cinisekisa i-imeyili yakho kute uchubeke",
+    "gateBody": "Sekwendlule emahora langu-48 ubhalisile futsi i-imeyili yakho ayikacinisekiswa. Sitfumele sixhumanisi ku-{{email}}: sicindzetele, bese ubuyela lapha. Wonkhe umsebenti wakho uphephile.",
+    "gateDone": "Sengiyicinisekisile",
+    "notYet": "Ayikacinisekiswa. Cindzetela sixhumanisi ku-imeyili, bese uyetama futsi."
   },
   "purchases": {
     "subtitle": "Oda kubahlinzeki bakho bese ulandzelela loku sekufikile.",

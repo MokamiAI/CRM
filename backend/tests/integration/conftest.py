@@ -12,7 +12,7 @@ import pytest
 import pytest_asyncio
 from celery.app.task import Task
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy import select
+from sqlalchemy import func, select, update
 
 from app.core.config import settings
 from app.core.database import AsyncSessionLocal, engine
@@ -50,14 +50,26 @@ async def api(monkeypatch):
     await engine.dispose()
 
 
+ADDRESS = "12 Church Street, Polokwane, 0700"
+
+
+async def mark_verified(email: str) -> None:
+    """As if the person clicked the link in "Confirm your email"."""
+    async with AsyncSessionLocal() as db:
+        set_system(db)
+        await db.execute(update(User).where(User.email == email.lower()).values(email_verified_at=func.now()))
+        await db.commit()
+
+
 async def new_company(api: AsyncClient, name: str, plan: str = "grow") -> dict:
     """Signs a new company up on a trial of `plan`; returns its auth headers, email and id."""
     email = f"{uuid.uuid4().hex[:12]}@example.com"
     res = await api.post(
         "/auth/register",
-        json={"company_name": name, "full_name": "Test Owner", "email": email, "password": "Correct-Horse-9", "plan": plan},
+        json={"company_name": name, "full_name": "Test Owner", "email": email, "password": "Correct-Horse-9", "plan": plan, "business_address": ADDRESS},
     )
     assert res.status_code == 201, res.text
+    await mark_verified(email)
     async with AsyncSessionLocal() as db:
         set_system(db)
         user_id, company_id = (await db.execute(select(User.id, User.company_id).where(User.email == email))).one()

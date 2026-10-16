@@ -2,7 +2,7 @@
 do day-to-day work but not manager actions, and only an admin manages people."""
 import pytest
 
-from .conftest import new_company
+from .conftest import mark_verified, new_company
 
 ITEM = [{"description": "Platter (serves 10)", "quantity": "1", "unit_price": "650", "tax_rate": "15"}]
 
@@ -11,6 +11,7 @@ async def _member(api, admin_headers: dict, role: str) -> dict:
     email = f"{role}-{admin_headers['Authorization'][-10:].lower()}@example.com".replace("_", "-")
     res = await api.post("/users", json={"email": email, "password": "Correct-Horse-9", "full_name": f"A {role}", "role": role}, headers=admin_headers)
     assert res.status_code == 201, res.text
+    await mark_verified(email)
     login = await api.post("/auth/login", json={"email": email, "password": "Correct-Horse-9"})
     assert login.status_code == 200, login.text
     return {"Authorization": f"Bearer {login.json()['access_token']}"}

@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
+import { VerifyGate, verificationOverdue } from "./VerifyEmailBanner";
 
 // The public home page: what YGT is, for visitors who aren't signed in.
 const HomePage = lazy(() => import("../pages/HomePage"));
@@ -49,6 +50,9 @@ export default function ProtectedRoute({ children, roles }) {
       </div>
     );
   }
+
+  // 48 hours on without a confirmed email: confirm first, then carry on.
+  if (verificationOverdue(user)) return <VerifyGate />;
 
   if (roles && !roles.includes(user.role)) {
     return <Navigate to="/" replace />;

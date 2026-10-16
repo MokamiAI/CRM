@@ -19,6 +19,7 @@ from app.repositories.refresh_token_repository import RefreshTokenRepository
 from app.repositories.user_repository import UserRepository
 from app.schemas.auth import RegisterRequest, TokenResponse
 from app.services.billing_service import new_trial
+from app.services.email_check import ensure_deliverable
 
 
 class AuthService:
@@ -48,6 +49,7 @@ class AuthService:
         """Creates a company (tenant) with its first admin and signs them in."""
         if await self.users.email_taken(data.email):
             raise ConflictError("An account with this email already exists", "USER_EMAIL_TAKEN")
+        await ensure_deliverable(data.email)
         company = CompanySettings(
             company_name=data.company_name.strip(),
             default_currency=settings.DEFAULT_CURRENCY,
@@ -56,6 +58,7 @@ class AuthService:
             # Customer replies reach the founder until they set up email.
             sender_email=data.email.lower(),
             annual_revenue_goal=data.annual_revenue_goal or None,
+            address=data.business_address,
         )
         self.db.add(company)
         await self.db.flush()

@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "That can't be done to this purchase order in its current state.",
     "PURCHASE_ORDER_NOT_DELETABLE": "Only a draft purchase order can be deleted.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "Only a purchase order that has been sent can be sent again.",
-    "LINE_TEMPLATE_EXISTS": "Saved items with that name already exist."
+    "LINE_TEMPLATE_EXISTS": "Saved items with that name already exist.",
+    "EMAIL_DISPOSABLE": "Please use your own email address, not a temporary one.",
+    "EMAIL_UNDELIVERABLE": "We can't send email to this address. Please check it for typos.",
+    "EMAIL_NOT_VERIFIED": "Please confirm your email address to keep using YGT. We've sent you a link."
   },
   "feed": {
     "activityDone": "{{type}} completed",
@@ -1620,7 +1623,17 @@
     "step": "Step {{n}} of {{total}}",
     "stepDetails": "Your details",
     "continue": "Continue",
-    "back": "Back"
+    "back": "Back",
+    "business_address": "Business address",
+    "addressHint": "Where your business is. It appears on your quotes and invoices.",
+    "addressPlaceholder": "e.g. 12 Church Street, Polokwane, 0700",
+    "verifyNote": "We'll email you a link to confirm it. Confirm within 48 hours to keep access.",
+    "checkDetails": "Please check your details: the business address needs a street and a town.",
+    "protectedTitle": "Your data is protected",
+    "protected1": "Encrypted connection: what you send us travels securely.",
+    "protected2": "Your password is stored scrambled, so no one can read it, not even us.",
+    "protected3": "Your company's data is private to your team and kept separate from every other business, in line with POPIA.",
+    "privacyLink": "Read our privacy policy"
   },
   "role": {
     "admin": "Admin",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Please confirm your email address",
-    "bannerBody": "We sent a link to {{email}}. Click it so we can reach you about your account.",
+    "bannerBody": "We sent a link to {{email}}. Confirm it to keep access to your account.",
     "resend": "Send the link again",
     "resent": "Confirmation link sent",
     "checking": "Confirming your email…",
     "doneTitle": "Your email is confirmed",
     "doneBody": "Thank you. You're all set.",
     "failedTitle": "We couldn't confirm your email",
-    "goToApp": "Go to YGT"
+    "goToApp": "Go to YGT",
+    "hoursLeft_one": "{{count}} hour left.",
+    "hoursLeft_other": "{{count}} hours left.",
+    "gateTitle": "Confirm your email to continue",
+    "gateBody": "It's been 48 hours since you signed up and your email isn't confirmed yet. We sent a link to {{email}}: click it, then come back here. All your work is safe.",
+    "gateDone": "I've confirmed it",
+    "notYet": "Not confirmed yet. Click the link in the email, then try again."
   },
   "purchases": {
     "subtitle": "Order from your suppliers and track what's arrived.",

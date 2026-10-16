@@ -14,7 +14,7 @@ from app.schemas.platform import ForgotPassword, ResetPassword
 from app.repositories.user_repository import UserRepository
 from app.services.auth_service import AuthService
 from app.services.password_service import PasswordService
-from app.services.verification_service import VerificationService
+from app.services.verification_service import VerificationService, verify_by
 from app.services.email_service import clean_signature
 
 router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/auth", tags=["auth"])
@@ -67,14 +67,25 @@ async def logout(data: LogoutRequest, db: AsyncSession = Depends(get_db)):
     await AuthService(db).logout(data.refresh_token)
 
 
+async def _me_out(user: User, db: AsyncSession) -> MeOut:
+    """The signed-in person, with what the app needs to know about access."""
+    company = await db.get(CompanySettings, user.company_id)
+    suspended = company is not None and company.suspended_at is not None and not user.is_platform_admin
+    return MeOut(
+        **UserOut.model_validate(user).model_dump(),
+        account_suspended=suspended,
+        suspended_reason=company.suspended_reason if suspended else None,
+        verify_by=verify_by(user),
+    )
+
+
 @router.get("/me", response_model=MeOut)
 async def me(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
-    company = await db.get(CompanySettings, current_user.company_id)
-    suspended = company is not None and company.suspended_at is not None and not current_user.is_platform_admin
-    return MeOut(**UserOut.model_validate(current_user).model_dump(), account_suspended=suspended, suspended_reason=company.suspended_reason if suspended else None)
+    return await _me_out(current_user, db)
 
 
-@router.patch("/me", response_model=UserOut)
+# The same shape as GET /me, so saving a setting keeps what the app knows.
+@router.patch("/me", response_model=MeOut)
 async def update_me(
     data: ProfileUpdate,
     db: AsyncSession = Depends(get_db),
@@ -90,7 +101,7 @@ async def update_me(
     for field, value in changes.items():
         setattr(current_user, field, value)
     await db.flush()
-    return current_user
+    return await _me_out(current_user, db)
 
 
 @router.post("/forgot-password", status_code=status.HTTP_202_ACCEPTED)

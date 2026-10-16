@@ -51,7 +51,7 @@ def main() -> None:
             sys.exit(f"Refusing: {name} is not on this machine ({urlsplit(url).hostname}). This script is for local testing only.")
 
     c = httpx.Client(base_url=API, timeout=60)
-    res = c.post("/auth/register", json={"company_name": "Demo Catering Co", "full_name": "Thandi Mokoena", "email": EMAIL, "password": PASSWORD, "plan": "scale"})
+    res = c.post("/auth/register", json={"company_name": "Demo Catering Co", "full_name": "Thandi Mokoena", "email": EMAIL, "password": PASSWORD, "plan": "scale", "business_address": "18 Bree Street, Cape Town City Centre, 8001"})
     if res.status_code == 409:
         sys.exit(f"{EMAIL} already exists: the demo company is already seeded. Drop and recreate ygt_dev to start over.")
     c.headers["Authorization"] = f"Bearer {check(res)['access_token']}"

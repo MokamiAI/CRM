@@ -6,7 +6,7 @@ from datetime import date
 
 import pytest
 
-from .conftest import new_company
+from .conftest import mark_verified, new_company
 
 
 def _png() -> bytes:
@@ -52,5 +52,6 @@ async def test_logo_rejects_svg_fakes_big_files_and_non_admins(api):
     import uuid
     email = f"{uuid.uuid4().hex[:10]}@example.com"
     await api.post("/users", json={"email": email, "password": "Correct-Horse-9", "full_name": "Sam", "role": "staff"}, headers=h)
+    await mark_verified(email)
     staff = {"Authorization": f"Bearer {(await api.post('/auth/login', json={'email': email, 'password': 'Correct-Horse-9'})).json()['access_token']}"}
     assert (await api.post("/settings/logo", files={"file": ("logo.png", _png(), "image/png")}, headers=staff)).status_code == 403

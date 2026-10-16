@@ -186,7 +186,7 @@ export function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [form, setForm] = useState({ company_name: "", full_name: "", email: "", password: "" });
+  const [form, setForm] = useState({ company_name: "", business_address: "", full_name: "", email: "", password: "" });
   // Optional: the year's revenue goal, for the dashboard's goal card.
   const [goal, setGoal] = useState("");
   // ?plan=scale from a "Start free trial" button; Grow otherwise.
@@ -211,8 +211,19 @@ export function RegisterPage() {
       navigate("/", { replace: true });
     } catch (err) {
       const code = err?.response?.data?.error_code;
-      if (code === "USER_EMAIL_TAKEN") setStep(1); // the fix is on the first step
-      setError(t(code === "USER_EMAIL_TAKEN" ? "register.emailTaken" : code === "RATE_LIMITED" ? "errors.RATE_LIMITED" : "register.failed"));
+      const onFirstStep = ["USER_EMAIL_TAKEN", "EMAIL_DISPOSABLE", "EMAIL_UNDELIVERABLE", "VALIDATION_ERROR"];
+      if (onFirstStep.includes(code)) setStep(1); // the fix is on the first step
+      setError(
+        t(
+          code === "USER_EMAIL_TAKEN"
+            ? "register.emailTaken"
+            : ["RATE_LIMITED", "EMAIL_DISPOSABLE", "EMAIL_UNDELIVERABLE"].includes(code)
+              ? `errors.${code}`
+              : code === "VALIDATION_ERROR"
+                ? "register.checkDetails"
+                : "register.failed"
+        )
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -221,7 +232,7 @@ export function RegisterPage() {
   const fields = [
     { id: "company_name", autoComplete: "organization", autoFocus: true },
     { id: "full_name", autoComplete: "name" },
-    { id: "email", type: "email", inputMode: "email", autoComplete: "email", autoCapitalize: "none", autoCorrect: "off" },
+    { id: "email", type: "email", inputMode: "email", autoComplete: "email", autoCapitalize: "none", autoCorrect: "off", hint: t("register.verifyNote") },
     { id: "password", type: "password", autoComplete: "new-password", minLength: 8, hint: t("register.passwordHint") },
   ];
 
@@ -250,6 +261,26 @@ export function RegisterPage() {
                 </label>
                 <GlowField id={id} required value={form[id]} onChange={set(id)} {...props} />
                 {hint && <span className="mt-1.5 block text-xs text-zinc-500">{hint}</span>}
+                {id === "company_name" && (
+                  <div className="mt-4">
+                    <label className="label" htmlFor="business_address">
+                      {t("register.business_address")}
+                    </label>
+                    <textarea
+                      id="business_address"
+                      className="input min-h-[4.5rem] resize-y"
+                      rows={2}
+                      required
+                      minLength={10}
+                      maxLength={500}
+                      autoComplete="street-address"
+                      placeholder={t("register.addressPlaceholder")}
+                      value={form.business_address}
+                      onChange={set("business_address")}
+                    />
+                    <span className="mt-1.5 block text-xs text-zinc-500">{t("register.addressHint")}</span>
+                  </div>
+                )}
               </div>
             ))}
             <div>
@@ -261,7 +292,10 @@ export function RegisterPage() {
             </div>
           </>
         ) : (
-          <PlanPicker value={plan} onChange={setPlan} />
+          <>
+            <PlanPicker value={plan} onChange={setPlan} />
+            <DataProtected />
+          </>
         )}
         <FormError>{error}</FormError>
         {step === 1 ? (
@@ -281,6 +315,30 @@ export function RegisterPage() {
       </form>
       <SwitchLink prompt={t("register.haveAccount")} to="/login" label={t("login.signIn")} />
     </AuthShell>
+  );
+}
+
+/** How sign-up data is looked after: only what is true of YGT today. */
+function DataProtected() {
+  const { t } = useTranslation();
+  return (
+    <section className="rounded-xl bg-emerald-50/60 px-4 py-3 ring-1 ring-inset ring-emerald-200/70" aria-labelledby="data-protected">
+      <h2 id="data-protected" className="flex items-center gap-2 text-sm font-semibold text-emerald-950">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-emerald-700" aria-hidden="true">
+          <path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z" />
+          <path d="m9 12 2 2 4-4" />
+        </svg>
+        {t("register.protectedTitle")}
+      </h2>
+      <ul className="mt-2 space-y-1 text-xs leading-relaxed text-emerald-900">
+        <li>{t("register.protected1")}</li>
+        <li>{t("register.protected2")}</li>
+        <li>{t("register.protected3")}</li>
+      </ul>
+      <Link to="/privacy" className="mt-2 inline-block text-xs font-medium text-emerald-800 underline underline-offset-2 hover:text-emerald-950">
+        {t("register.privacyLink")}
+      </Link>
+    </section>
   );
 }
 

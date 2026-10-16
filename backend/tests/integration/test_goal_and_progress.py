@@ -11,7 +11,7 @@ from app.core.database import AsyncSessionLocal
 from app.core.tenancy import set_system
 from app.models.crm import Deal
 
-from .conftest import new_company
+from .conftest import ADDRESS, mark_verified, new_company
 
 ITEM = [{"description": "Catering", "quantity": "1", "unit_price": "1000", "tax_rate": "15"}]
 
@@ -54,9 +54,11 @@ async def test_goal_counts_deals_won_this_financial_year(api):
 async def test_goal_can_be_set_at_sign_up(api):
     import uuid
 
-    res = await api.post("/auth/register", json={"company_name": "Goal At Signup", "full_name": "Owner", "email": f"{uuid.uuid4().hex[:10]}@example.com",
-                                                  "password": "Correct-Horse-9", "annual_revenue_goal": "500000"})
+    email = f"{uuid.uuid4().hex[:10]}@example.com"
+    res = await api.post("/auth/register", json={"company_name": "Goal At Signup", "full_name": "Owner", "email": email,
+                                                  "password": "Correct-Horse-9", "annual_revenue_goal": "500000", "business_address": ADDRESS})
     assert res.status_code == 201, res.text
+    await mark_verified(email)
     h = {"Authorization": f"Bearer {res.json()['access_token']}"}
     g = (await api.get("/reports/summary", headers=h)).json()["goal"]
     assert Decimal(g["target"]) == Decimal("500000")

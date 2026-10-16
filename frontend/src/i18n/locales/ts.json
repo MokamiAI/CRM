@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "Sweswo a swi koteki ku endliwa eka oda leyi hi xiyimo xa yona xa sweswi.",
     "PURCHASE_ORDER_NOT_DELETABLE": "I oda yo xava ya xiyimiso ntsena leyi nga susiwaka.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "I oda leyi se yi rhumeriweke ntsena leyi nga rhumeriwaka nakambe.",
-    "LINE_TEMPLATE_EXISTS": "Swilo leswi hlayisiweke swa vito rero se swi kona."
+    "LINE_TEMPLATE_EXISTS": "Swilo leswi hlayisiweke swa vito rero se swi kona.",
+    "EMAIL_DISPOSABLE": "Hi kombela u tirhisa adirese ya wena ya imeyili, ku nga ri ya nkarhinyana.",
+    "EMAIL_UNDELIVERABLE": "A hi swi koti ku rhumela imeyili eka adirese leyi. Hi kombela u yi kambela swihoxo.",
+    "EMAIL_NOT_VERIFIED": "Hi kombela u tiyisisa adirese ya wena ya imeyili leswaku u ya emahlweni u tirhisa YGT. Hi ku rhumelerile xihlanganisi."
   },
   "feed": {
     "activityDone": "{{type}} yi hetiwile",
@@ -1620,7 +1623,17 @@
     "step": "Goza ra {{n}} eka {{total}}",
     "stepDetails": "Vuxokoxoko bya wena",
     "continue": "Yisa emahlweni",
-    "back": "Endzhaku"
+    "back": "Endzhaku",
+    "business_address": "Adirese ya bindzu",
+    "addressHint": "Laha bindzu ra wena ri nga kona. Yi humelela eka tikhotexini ni tiinvhoyisi ta wena.",
+    "addressPlaceholder": "xik. 12 Church Street, Polokwane, 0700",
+    "verifyNote": "Hi ta ku rhumela xihlanganisi hi imeyili leswaku u yi tiyisisa. Tiyisisa endzeni ka tiawara ta 48 leswaku u ya emahlweni u fikelela.",
+    "checkDetails": "Hi kombela u kambela vuxokoxoko bya wena: adirese ya bindzu yi lava xitarata ni doroba.",
+    "protectedTitle": "Data ya wena yi sirhelelekile",
+    "protected1": "Vuhlanganisi lebyi khumbiweke: leswi u hi rhumelaka swona swi famba hi vuhlayiseki.",
+    "protected2": "Phasiwedi ya wena yi hlayisiwa yi pfanganisiwile, hikwalaho a nga kona loyi a nga yi hlayaka, hambi ku ri hina.",
+    "protected3": "Data ya khampani ya wena i xihundla xa ntlawa wa wena naswona yi hambanisiwile ni mabindzu man'wana hinkwawo, hi ku landza POPIA.",
+    "privacyLink": "Hlaya pholisi ya hina ya xihundla"
   },
   "role": {
     "admin": "Mulawuri",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Hi kombela u tiyisisa adirese ya wena ya imeyili",
-    "bannerBody": "Hi rhumele xihlanganisi eka {{email}}. Xi tsindzirhi leswaku hi ta kota ku vulavula na wena hi akhawunti ya wena.",
+    "bannerBody": "Hi rhumele xihlanganisi eka {{email}}. Xi tiyisise leswaku u ya emahlweni u fikelela akhawunti ya wena.",
     "resend": "Rhumela xihlanganisi nakambe",
     "resent": "Xihlanganisi xa ku tiyisisa xi rhumeriwile",
     "checking": "Hi tiyisisa imeyili ya wena…",
     "doneTitle": "Imeyili ya wena yi tiyisisiwile",
     "doneBody": "Hi khensile. U lunghekile.",
     "failedTitle": "A hi swi kotanga ku tiyisisa imeyili ya wena",
-    "goToApp": "Yana eka YGT"
+    "goToApp": "Yana eka YGT",
+    "hoursLeft_one": "Ku sale awara ya {{count}}.",
+    "hoursLeft_other": "Ku sale tiawara ta {{count}}.",
+    "gateTitle": "Tiyisisa imeyili ya wena leswaku u ya emahlweni",
+    "gateBody": "Ku hundzile tiawara ta 48 u tsarisile naswona imeyili ya wena a yi si tiyisisiwa. Hi rhumele xihlanganisi eka {{email}}: xi tlikela, kutani u vuyela laha. Ntirho wa wena hinkwawo wu hlayisekile.",
+    "gateDone": "Ndzi yi tiyisisile",
+    "notYet": "A yi si tiyisisiwa. Tlikela xihlanganisi eka imeyili, kutani u ringeta nakambe."
   },
   "purchases": {
     "subtitle": "Oda eka vaphakeri va wena u landzelela leswi fikeke.",

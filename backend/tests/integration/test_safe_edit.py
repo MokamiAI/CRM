@@ -12,7 +12,7 @@ from app.core.database import AsyncSessionLocal
 from app.core.tenancy import set_tenant
 from app.services.invoice_service import InvoiceService
 
-from .conftest import new_company
+from .conftest import mark_verified, new_company
 
 ITEMS = [
     {"description": "Platter (serves 10)", "quantity": "2", "unit_price": "650", "tax_rate": "15"},
@@ -74,6 +74,7 @@ async def test_paid_invoices_and_staff_cannot_correct(api):
 
     email = f"{uuid.uuid4().hex[:10]}@example.com"
     await api.post("/users", json={"email": email, "password": "Correct-Horse-9", "full_name": "Sam Staff", "role": "staff"}, headers=h)
+    await mark_verified(email)
     staff = {"Authorization": f"Bearer {(await api.post('/auth/login', json={'email': email, 'password': 'Correct-Horse-9'})).json()['access_token']}"}
     other = (await api.post("/invoices", json={"customer_id": await _customer(api, h), "issue_date": TODAY, "items": ITEMS}, headers=h)).json()
     await api.post(f"/invoices/{other['id']}/send", params={"notify": "false"}, headers=h)

@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "Izwo a zwi nga itwi kha oda iyi nga nyimele yayo ya zwino.",
     "PURCHASE_ORDER_NOT_DELETABLE": "Ndi oda ya u renga ya bammbiri ḽa u thoma fhedzi ine ya nga phumulwa.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "Ndi oda yo no rumelwaho fhedzi ine ya nga rumelwa hafhu.",
-    "LINE_TEMPLATE_EXISTS": "Zwithu zwo vhulungwaho zwa dzina iḽo zwo no vha hone."
+    "LINE_TEMPLATE_EXISTS": "Zwithu zwo vhulungwaho zwa dzina iḽo zwo no vha hone.",
+    "EMAIL_DISPOSABLE": "Ri humbela ni shumise diresi yaṋu ya imeiḽi, i si ya tshifhinganyana.",
+    "EMAIL_UNDELIVERABLE": "A ri koni u rumela imeiḽi kha heyi diresi. Ri humbela ni i sedze vhukhakhi.",
+    "EMAIL_NOT_VERIFIED": "Ri humbela ni khwaṱhisedze diresi yaṋu ya imeiḽi u bvela phanḓa ni tshi shumisa YGT. Ro ni rumela vhukwamani."
   },
   "feed": {
     "activityDone": "{{type}} yo fhela",
@@ -1620,7 +1623,17 @@
     "step": "Khwiṱhi ya {{n}} kha {{total}}",
     "stepDetails": "Zwidodombedzwa zwaṋu",
     "continue": "Bvelaphanḓa",
-    "back": "Murahu"
+    "back": "Murahu",
+    "business_address": "Diresi ya bindu",
+    "addressHint": "Hune bindu ḽaṋu ḽa vha hone. I vhonala kha khotheshini na dziinvoisi dzaṋu.",
+    "addressPlaceholder": "tsumbo. 12 Church Street, Polokwane, 0700",
+    "verifyNote": "Ri ḓo ni rumela vhukwamani nga imeiḽi u i khwaṱhisedza. Khwaṱhisedzani nga ngomu ha awara dza 48 u bvela phanḓa ni tshi swikelela.",
+    "checkDetails": "Ri humbela ni sedze zwidodombedzwa zwaṋu: diresi ya bindu i ṱoḓa tshiṱaraṱa na ḓorobo.",
+    "protectedTitle": "Data yaṋu yo tsireledzea",
+    "protected1": "Vhukwamani ho dzumbiwaho: zwine na ri rumela zwi tshimbila nga tsireledzo.",
+    "protected2": "Phasiweḓe yaṋu i vhulungwa yo ḓilinganywa, ngauralo a hu na ane a nga i vhala, na riṋe.",
+    "protected3": "Data ya khamphani yaṋu ndi tshiphiri tsha tshigwada tshaṋu nahone yo khethululwa na mabindu maṅwe oṱhe, u ya nga POPIA.",
+    "privacyLink": "Vhalani mbekanyamaitele yashu ya tshiphiri"
   },
   "role": {
     "admin": "Mulanguli",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Ri humbela ni khwaṱhisedze ḓiresi yaṋu ya imeiḽi",
-    "bannerBody": "Ro rumela vhukwamani kha {{email}}. Vhu kwatisheni uri ri kone u kwamana naṋwi nga ha akhaunthe yaṋu.",
+    "bannerBody": "Ro rumela vhukwamani kha {{email}}. Vhu khwaṱhisedzeni u bvela phanḓa ni tshi swikelela akhaunthu yaṋu.",
     "resend": "Rumelani vhukwamani hafhu",
     "resent": "Vhukwamani ha u khwaṱhisedza ho rumelwa",
     "checking": "Ri khou khwaṱhisedza imeiḽi yaṋu…",
     "doneTitle": "Imeiḽi yaṋu yo khwaṱhisedzwa",
     "doneBody": "Ri a livhuwa. No lugela.",
     "failedTitle": "A ro ngo kona u khwaṱhisedza imeiḽi yaṋu",
-    "goToApp": "Iyani kha YGT"
+    "goToApp": "Iyani kha YGT",
+    "hoursLeft_one": "Ho sala awara ya {{count}}.",
+    "hoursLeft_other": "Ho sala awara dza {{count}}.",
+    "gateTitle": "Khwaṱhisedzani imeiḽi yaṋu u bvela phanḓa",
+    "gateBody": "Ho fhira awara dza 48 no ḽwalisa nahone imeiḽi yaṋu a i athu khwaṱhisedzwa. Ro rumela vhukwamani kha {{email}}: vhu kwatiseni, ni dovhe ni vhuyelele fhano. Mushumo waṋu woṱhe wo tsireledzea.",
+    "gateDone": "Ndo i khwaṱhisedza",
+    "notYet": "A i athu khwaṱhisedzwa. Kwatisani vhukwamani kha imeiḽi, ni dovhe ni lingedze."
   },
   "purchases": {
     "subtitle": "Odani kha vhaṋetshedzi vhaṋu ni tevhele zwo swikaho.",

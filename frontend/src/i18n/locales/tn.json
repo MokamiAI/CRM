@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "Seo ga se kgone go dirwa mo taelong eno mo seemong sa yone sa jaanong.",
     "PURCHASE_ORDER_NOT_DELETABLE": "Ke taelo ya theko ya draft fela e e ka phimolwang.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "Ke taelo e e setseng e rometswe fela e e ka romelwang gape.",
-    "LINE_TEMPLATE_EXISTS": "Dilo tse di bolokilweng tsa leina leo di setse di le teng."
+    "LINE_TEMPLATE_EXISTS": "Dilo tse di bolokilweng tsa leina leo di setse di le teng.",
+    "EMAIL_DISPOSABLE": "Tsweetswee dirisa aterese ya gago ya imeile, e seng ya nakwana.",
+    "EMAIL_UNDELIVERABLE": "Ga re kgone go romela imeile kwa atereseng e. Tsweetswee e tlhole diphoso.",
+    "EMAIL_NOT_VERIFIED": "Tsweetswee netefatsa aterese ya gago ya imeile go tswelela o dirisa YGT. Re go rometse kgolagano."
   },
   "feed": {
     "activityDone": "{{type}} e weditswe",
@@ -1620,7 +1623,17 @@
     "step": "Kgato ya {{n}} go tse {{total}}",
     "stepDetails": "Dintlha tsa gago",
     "continue": "Tswelela",
-    "back": "Morago"
+    "back": "Morago",
+    "business_address": "Aterese ya kgwebo",
+    "addressHint": "Kwa kgwebo ya gago e leng teng. E tlhaga mo dikotheišeneng le di-invoice tsa gago.",
+    "addressPlaceholder": "sk. 12 Church Street, Polokwane, 0700",
+    "verifyNote": "Re tla go romela kgolagano ka imeile go e netefatsa. Netefatsa mo diureng tse 48 go tswelela o fitlhelela.",
+    "checkDetails": "Tsweetswee tlhola dintlha tsa gago: aterese ya kgwebo e tlhoka mmila le toropo.",
+    "protectedTitle": "Data ya gago e sireletsegile",
+    "protected1": "Kgolagano e e fitlhilweng: se o se re romelang se tsamaya ka polokesego.",
+    "protected2": "Lefoko-sephiri la gago le bolokwa le tswakantswe, ka jalo ga go ope yo o ka le balang, le rona.",
+    "protected3": "Data ya khampani ya gago ke sephiri sa setlhopha sa gago e bile e kgaogantswe le dikgwebo tse dingwe tsotlhe, go ya ka POPIA.",
+    "privacyLink": "Bala pholisi ya rona ya sephiri"
   },
   "role": {
     "admin": "Motsamaisi",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Tsweetswee netefatsa aterese ya gago ya imeile",
-    "bannerBody": "Re rometse kgolagano kwa {{email}}. E tobetse gore re kgone go ikgolaganya le wena ka ga akhaonto ya gago.",
+    "bannerBody": "Re rometse kgolagano go {{email}}. E netefatse go tswelela o fitlhelela akhaonte ya gago.",
     "resend": "Romela kgolagano gape",
     "resent": "Kgolagano ya netefatso e rometswe",
     "checking": "Re netefatsa imeile ya gago…",
     "doneTitle": "Imeile ya gago e netefaditswe",
     "doneBody": "Re a leboga. O siametse.",
     "failedTitle": "Ga re a kgona go netefatsa imeile ya gago",
-    "goToApp": "Ya kwa YGT"
+    "goToApp": "Ya kwa YGT",
+    "hoursLeft_one": "Go setse ura e {{count}}.",
+    "hoursLeft_other": "Go setse diura tse {{count}}.",
+    "gateTitle": "Netefatsa imeile ya gago go tswelela",
+    "gateBody": "Go fetile diura tse 48 o ikwadisitse e bile imeile ya gago ga e ise e netefadiwe. Re rometse kgolagano go {{email}}: e tobetse, mme o boele fano. Tiro ya gago yotlhe e bolokesegile.",
+    "gateDone": "Ke e netefaditse",
+    "notYet": "Ga e ise e netefadiwe. Tobetsa kgolagano mo imeileng, mme o leke gape."
   },
   "purchases": {
     "subtitle": "Odara mo batlameding ba gago mme o latele tse di fitlhileng.",

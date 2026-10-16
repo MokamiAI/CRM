@@ -15,7 +15,7 @@ from app.models.quote import Quote
 from app.services import discovery_osm
 from app.tasks.discovery_tasks import _run_company
 
-from .conftest import new_company
+from .conftest import mark_verified, new_company
 
 TODAY = date.today()
 ITEM = [{"description": "Catering", "quantity": "1", "unit_price": "1000", "tax_rate": "15"}]
@@ -177,6 +177,7 @@ async def test_scale_only_roles_and_other_companies(api, fake_osm):
     viewer_email = f"{uuid.uuid4().hex[:10]}@example.com"
     invite = await api.post("/users", json={"email": viewer_email, "full_name": "Vee Viewer", "role": "viewer", "password": "Correct-Horse-9"}, headers=owner["headers"])
     assert invite.status_code == 201, invite.text
+    await mark_verified(viewer_email)
     login = await api.post("/auth/login", json={"email": viewer_email, "password": "Correct-Horse-9"})
     vh = {"Authorization": f"Bearer {login.json()['access_token']}"}
     assert (await api.get("/discovery/leads", headers=vh)).status_code == 200

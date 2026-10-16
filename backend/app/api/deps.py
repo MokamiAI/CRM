@@ -15,6 +15,7 @@ from app.models.enums import UserRole
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
 from app.services.billing_service import BillingService
+from app.services.verification_service import verification_overdue
 
 __all__ = ["get_db", "get_current_user", "require_role"]
 
@@ -60,6 +61,10 @@ async def get_current_user(
     request.state.company_id = str(user.company_id)
     request.state.actor_email = user.email
     path = request.url.path.removeprefix(settings.API_V1_PREFIX)
+    # Email still not confirmed 48 hours on: only signing in/out, "who am I"
+    # and resending the link work until the address is proven.
+    if verification_overdue(user) and not path.startswith("/auth/"):
+        raise PermissionDeniedError("Please confirm your email address to keep using YGT. We've sent you a link.", "EMAIL_NOT_VERIFIED")
     if not user.is_platform_admin and not path.startswith("/auth/"):
         company = await db.get(CompanySettings, user.company_id)
         if company is not None and company.suspended_at is not None:

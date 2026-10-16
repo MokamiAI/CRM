@@ -895,7 +895,10 @@
     "PURCHASE_ORDER_INVALID_TRANSITION": "Oko akunakwenziwa kule odolo kwimeko ekuyo ngoku.",
     "PURCHASE_ORDER_NOT_DELETABLE": "Yi-odolo eyidrafti kuphela enokucinywa.",
     "PURCHASE_ORDER_NOT_RESENDABLE": "Yi-odolo esele ithunyelwe kuphela enokuthunyelwa kwakhona.",
-    "LINE_TEMPLATE_EXISTS": "Izinto ezigciniweyo ezinelo gama sele zikhona."
+    "LINE_TEMPLATE_EXISTS": "Izinto ezigciniweyo ezinelo gama sele zikhona.",
+    "EMAIL_DISPOSABLE": "Nceda usebenzise idilesi yakho ye-imeyile, hayi eyexeshana.",
+    "EMAIL_UNDELIVERABLE": "Asikwazi ukuthumela i-imeyile kule dilesi. Nceda uyijonge iimpazamo zokuchwetheza.",
+    "EMAIL_NOT_VERIFIED": "Nceda uqinisekise idilesi yakho ye-imeyile ukuze uqhubeke usebenzisa i-YGT. Sikuthumelele ikhonkco."
   },
   "feed": {
     "activityDone": "{{type}} igqityiwe",
@@ -1620,7 +1623,17 @@
     "step": "Inyathelo {{n}} kwezi-{{total}}",
     "stepDetails": "Iinkcukacha zakho",
     "continue": "Qhubeka",
-    "back": "Buyela umva"
+    "back": "Buyela umva",
+    "business_address": "Idilesi yeshishini",
+    "addressHint": "Apho ishishini lakho likhona. Ivela kwiikowuti nakwii-invoyisi zakho.",
+    "addressPlaceholder": "umz. 12 Church Street, Polokwane, 0700",
+    "verifyNote": "Siza kukuthumelela ikhonkco nge-imeyile ukuze uyiqinisekise. Qinisekisa kwiiyure ezingama-48 ukuze uqhubeke ufikelela.",
+    "checkDetails": "Nceda ujonge iinkcukacha zakho: idilesi yeshishini ifuna isitrato nedolophu.",
+    "protectedTitle": "Iinkcukacha zakho zikhuselekile",
+    "protected1": "Unxibelelwano olufihliweyo: oko usithumelayo kuhamba ngokukhuselekileyo.",
+    "protected2": "Ipaswedi yakho igcinwa ixutyiwe, ngoko akukho mntu unokuyifunda, nkqu nathi.",
+    "protected3": "Iinkcukacha zenkampani yakho ziyimfihlo kwiqela lakho kwaye zahlulwe kuwo onke amanye amashishini, ngokuhambelana ne-POPIA.",
+    "privacyLink": "Funda umgaqo-nkqubo wethu wabucala"
   },
   "role": {
     "admin": "Umlawuli",
@@ -1950,14 +1963,20 @@
   },
   "verify": {
     "bannerTitle": "Nceda uqinisekise idilesi yakho ye-imeyile",
-    "bannerBody": "Sithumele ikhonkco ku-{{email}}. Licofe ukuze sikwazi ukuqhagamshelana nawe malunga neakhawunti yakho.",
+    "bannerBody": "Sithumele ikhonkco ku-{{email}}. Liqinisekise ukuze uqhubeke ufikelela kwi-akhawunti yakho.",
     "resend": "Thumela ikhonkco kwakhona",
     "resent": "Ikhonkco lokuqinisekisa lithunyelwe",
     "checking": "Siqinisekisa i-imeyile yakho…",
     "doneTitle": "I-imeyile yakho iqinisekisiwe",
     "doneBody": "Enkosi. Ulungile.",
     "failedTitle": "Asikwazanga ukuqinisekisa i-imeyile yakho",
-    "goToApp": "Yiya kwi-YGT"
+    "goToApp": "Yiya kwi-YGT",
+    "hoursLeft_one": "Kusele iyure e-{{count}}.",
+    "hoursLeft_other": "Kusele iiyure ezi-{{count}}.",
+    "gateTitle": "Qinisekisa i-imeyile yakho ukuze uqhubeke",
+    "gateBody": "Sele kudlule iiyure ezingama-48 ubhalisile kwaye i-imeyile yakho ayikaqinisekiswa. Sithumele ikhonkco ku-{{email}}: licofe, uze ubuyele apha. Wonke umsebenzi wakho ukhuselekile.",
+    "gateDone": "Ndiyiqinisekisile",
+    "notYet": "Ayikaqinisekiswa. Cofa ikhonkco kwi-imeyile, uze uzame kwakhona."
   },
   "purchases": {
     "subtitle": "Odola kubaboneleli bakho kwaye ulandele okufikileyo.",

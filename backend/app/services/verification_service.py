@@ -1,16 +1,35 @@
 """Confirming that people own the email address they signed up with."""
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import jwt
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import settings
 from app.core.exceptions import AppError
 from app.core.security import create_email_token, decode_token
 from app.core.tenancy import ALL_TENANTS, set_tenant
 from app.models.user import User
 from app.services import platform_email
+
+
+# A new account works straight away; its email must be confirmed within
+# this long to keep access. Accounts made before the rule get it from then.
+VERIFY_WITHIN = timedelta(hours=48)
+RULE_STARTED = settings.EMAIL_VERIFY_RULE_STARTED
+
+
+def verify_by(user: User) -> datetime | None:
+    """When an unconfirmed account stops working (None once confirmed)."""
+    if user.email_verified_at is not None:
+        return None
+    return max(user.created_at, RULE_STARTED) + VERIFY_WITHIN
+
+
+def verification_overdue(user: User, now: datetime | None = None) -> bool:
+    deadline = verify_by(user)
+    return deadline is not None and (now or datetime.now(timezone.utc)) >= deadline
 
 
 class VerificationService:
@@ -31,7 +50,11 @@ class VerificationService:
                 to=user.email,
                 subject="Confirm your email for YGT",
                 title="Confirm your email",
-                paragraphs=[f"Hi {user.full_name.split(' ')[0]},", intro, "The link works for 7 days. If you didn't sign up for YGT, you can ignore this email."],
+                paragraphs=[
+                    f"Hi {user.full_name.split(' ')[0]},",
+                    intro,
+                    "Please confirm within 48 hours to keep access to your account. The link works for 7 days. If you didn't sign up for YGT, you can ignore this email.",
+                ],
                 button=("Confirm my email", platform_email.app_link(f"/verify-email?token={token}")),
             ),
         )

@@ -1,7 +1,7 @@
 from decimal import Decimal
 from typing import Literal
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class LoginRequest(BaseModel):
@@ -34,3 +34,15 @@ class RegisterRequest(BaseModel):
     plan: Literal["hustle", "grow", "scale"] = "grow"
     # Optional: the year's revenue goal, for the dashboard's goal card.
     annual_revenue_goal: Decimal | None = Field(default=None, ge=0, le=Decimal("999999999999"))
+    # Where the business is: saved as the company's address (on its documents).
+    business_address: str = Field(min_length=10, max_length=500)
+
+    @field_validator("business_address")
+    @classmethod
+    def _real_address(cls, value: str) -> str:
+        value = value.strip()
+        # A street or place and a town, at least: two words with letters in.
+        words = [w for w in value.replace(",", " ").split() if any(ch.isalpha() for ch in w)]
+        if len(value) < 10 or len(words) < 2:
+            raise ValueError("Enter the business's street address and town")
+        return value
