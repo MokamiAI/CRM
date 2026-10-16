@@ -5,12 +5,13 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import ConflictError, NotFoundError, PermissionDeniedError
-from app.models.crm import Activity, Contact, Deal, Note
+from app.models.crm import Activity, Contact, Deal, Note, TaskUpdate
 from app.models.customer import Customer
 from app.models.enums import UserRole
 from app.models.user import User
 from app.repositories.company_settings_repository import CompanySettingsRepository
-from app.schemas.crm import ActivityCreate, ActivityUpdate, NoteCreate
+from app.schemas.crm import ActivityCreate, ActivityUpdate, NoteCreate, TaskUpdateCreate
+from app.services.notify import notify
 from app.services.reminder_service import company_today
 
 # Scopes for the activities list, matching how sales tools split the
@@ -108,17 +109,83 @@ class ActivityService:
         )
         self.db.add(activity)
         await self.db.flush()
+        if activity.owner_id != user.id:
+            await self._tell_assignee(activity, user)
         return activity
 
-    async def update_activity(self, activity_id: uuid.UUID, data: ActivityUpdate) -> Activity:
+    async def update_activity(self, activity_id: uuid.UUID, data: ActivityUpdate, user: User | None = None) -> Activity:
         activity = await self.get_activity(activity_id)
         changes = data.model_dump(exclude_unset=True)
         if "done" in changes and changes["done"] != activity.done:
             activity.done_at = datetime.now(timezone.utc) if changes["done"] else None
+            # Ticked off (or un-ticked): the status follows.
+            activity.status = "done" if changes["done"] else "todo"
+        reassigned = "owner_id" in changes and changes["owner_id"] and changes["owner_id"] != activity.owner_id
         for field, value in changes.items():
             setattr(activity, field, value)
         await self.db.flush()
+        if reassigned and user is not None and activity.owner_id != user.id:
+            await self._tell_assignee(activity, user)
         return activity
+
+    # ------------------------------------------------------------ team tasks
+
+    async def _tell_assignee(self, activity: Activity, by: User) -> None:
+        """Someone gave this to another person: tell them, once."""
+        owner = await self.db.get(User, activity.owner_id)
+        if owner is None:
+            return
+        when = activity.due_date.strftime("%d %b") + (f" at {activity.due_time.strftime('%H:%M')}" if activity.due_time else "")
+        await notify(
+            self.db, owner,
+            kind="task_assigned",
+            title=f"{by.full_name} assigned you: {activity.subject}",
+            body=f"Due {when}." + (f" {activity.note}" if activity.note else ""),
+            link=f"/activities?task={activity.id}",
+            params={"by": by.full_name, "subject": activity.subject, "due": activity.due_date.isoformat(), "time": activity.due_time.strftime("%H:%M") if activity.due_time else None},
+            key=f"assigned:{activity.id}:{activity.owner_id}",
+        )
+
+    async def list_updates(self, activity_id: uuid.UUID) -> list[TaskUpdate]:
+        await self.get_activity(activity_id)
+        rows = await self.db.scalars(select(TaskUpdate).where(TaskUpdate.activity_id == activity_id).order_by(TaskUpdate.created_at))
+        return list(rows.all())
+
+    async def add_update(self, activity_id: uuid.UUID, data: TaskUpdateCreate, user: User) -> TaskUpdate:
+        """The person reports back: a status, a note, or both. Finishing or
+        being stuck needs a word on what happened, for whoever's waiting."""
+        activity = await self.get_activity(activity_id)
+        note = (data.note or "").strip() or None
+        if data.status is None and note is None:
+            raise ConflictError("Choose a status or write a note", "TASK_UPDATE_EMPTY")
+        if data.status in ("done", "blocked") and note is None:
+            raise ConflictError("Please add a note saying what you did or what's in the way", "TASK_NOTE_REQUIRED")
+        status = data.status if data.status and data.status != activity.status else None
+        if status:
+            activity.status = status
+            if (status == "done") != activity.done:
+                activity.done = status == "done"
+                activity.done_at = datetime.now(timezone.utc) if activity.done else None
+        update = TaskUpdate(activity_id=activity.id, author_id=user.id, status=status, note=note)
+        self.db.add(update)
+        await self.db.flush()
+        # Whoever handed it out and whoever it's for hear about it (not the author).
+        label = {"todo": "To do", "in_progress": "In progress", "blocked": "Blocked", "done": "Done"}
+        for person_id in {activity.created_by, activity.owner_id} - {user.id, None}:
+            person = await self.db.get(User, person_id)
+            if person is None:
+                continue
+            headline = f"{user.full_name}: {label[status]}" if status else f"{user.full_name} added a note"
+            await notify(
+                self.db, person,
+                kind="task_update",
+                title=f"{headline} · {activity.subject}",
+                body=note,
+                link=f"/activities?task={activity.id}",
+                params={"by": user.full_name, "subject": activity.subject, "status": status, "note": note},
+                key=f"update:{update.id}",
+            )
+        return update
 
     async def delete_activity(self, activity_id: uuid.UUID) -> None:
         activity = await self.get_activity(activity_id)

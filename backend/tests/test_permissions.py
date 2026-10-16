@@ -27,6 +27,11 @@ PUBLIC = {
 ANY_SIGNED_IN = {
     "/api/v1/auth/me",
     "/api/v1/auth/verify-email/resend",
+    # Their own bell and their own phones/computers (viewers get reminders too).
+    "/api/v1/notifications/read",
+    "/api/v1/notifications/push",
+    "/api/v1/notifications/push/remove",
+    "/api/v1/notifications/test",
     "/api/v1/bookings",
     "/api/v1/bookings/{booking_id}/cancel",
     "/api/v1/marketing/audience/preview",

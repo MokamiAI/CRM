@@ -18,6 +18,12 @@ class Settings(BaseSettings):
     # Sign-up checks that an email's domain receives mail (a DNS look-up).
     # None: on in production only, so tests and offline work don't need DNS.
     CHECK_EMAIL_DOMAINS: bool | None = None
+    # Push messages to phones and computers (Web Push). Make a key pair once
+    # (scripts/make_vapid_keys.py) and put both halves in the server's .env;
+    # without them, notifications still go to the bell and by email.
+    VAPID_PUBLIC_KEY: str = ""
+    VAPID_PRIVATE_KEY: str = ""
+    VAPID_SUBJECT: str = "mailto:support@yougt.co.za"
     # Accounts made before the 48-hour email confirmation rule get their 48
     # hours from this moment (see services/verification_service.py).
     EMAIL_VERIFY_RULE_STARTED: datetime = datetime(2026, 10, 16, tzinfo=timezone.utc)

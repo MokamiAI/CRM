@@ -3,7 +3,8 @@
 # `from app.models import *`).
 from app.models.billing import BillingPayment, PaystackPlan, Subscription, SubscriptionInvoice
 from app.models.company_settings import CompanySettings
-from app.models.crm import Activity, Contact, Deal, Note
+from app.models.crm import Activity, Contact, Deal, Note, TaskUpdate
+from app.models.notification import Notification, PushSubscription
 from app.models.custom_field import CustomFieldDefinition
 from app.models.customer import Customer
 from app.models.invoice import Invoice, InvoiceItem
@@ -30,6 +31,9 @@ from app.models.reminder import ReminderLog
 from app.models.user import RefreshToken, User
 
 __all__ = [
+    "PushSubscription",
+    "Notification",
+    "TaskUpdate",
     "Activity",
     "AuditEvent",
     "BillingRefund",

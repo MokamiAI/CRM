@@ -136,6 +136,27 @@ class ActivityUpdate(BaseModel):
     owner_id: uuid.UUID | None = None
 
 
+TaskStatus = Literal["todo", "in_progress", "blocked", "done"]
+
+
+class TaskUpdateCreate(BaseModel):
+    """What the person did: a new status, a note, or both. Done and
+    Blocked need a note (checked in ActivityService.add_update)."""
+
+    status: TaskStatus | None = None
+    note: str | None = Field(default=None, max_length=2000)
+
+
+class TaskUpdateOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    author_id: uuid.UUID | None
+    status: str | None
+    note: str | None
+    created_at: datetime
+
+
 class ActivityOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -147,10 +168,12 @@ class ActivityOut(BaseModel):
     due_time: time | None
     done: bool
     done_at: datetime | None
+    status: str = "todo"
     customer_id: uuid.UUID | None
     deal_id: uuid.UUID | None
     contact_id: uuid.UUID | None
     owner_id: uuid.UUID | None
+    created_by: uuid.UUID | None = None
     created_at: datetime
 
 

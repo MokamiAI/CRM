@@ -15,6 +15,7 @@ celery_app = Celery(
         "app.tasks.invoice_tasks",
         "app.tasks.marketing_tasks",
         "app.tasks.messaging_tasks",
+        "app.tasks.notification_tasks",
         "app.tasks.platform_tasks",
         "app.tasks.recurring_tasks",
         "app.tasks.reminder_tasks",
@@ -39,6 +40,12 @@ celery_app.conf.beat_schedule = {
     "weekly-discovery": {
         "task": "app.tasks.discovery_tasks.weekly_discovery_task",
         "schedule": crontab(hour=7, minute=30, day_of_week=1),
+    },
+    # Every minute: activities falling due (a minute before their time) and,
+    # on Monday mornings, deals with no next step.
+    "due-reminders": {
+        "task": "app.tasks.notification_tasks.due_reminders_task",
+        "schedule": crontab(),
     },
     # Before the reminders: today's recurring drafts are ready first.
     "daily-recurring-invoices": {

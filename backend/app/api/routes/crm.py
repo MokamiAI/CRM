@@ -17,6 +17,8 @@ from app.models.enums import UserRole
 from app.models.quote import Quote
 from app.models.user import User
 from app.schemas.crm import (
+    TaskUpdateCreate,
+    TaskUpdateOut,
     ActivityCreate,
     ActivityOut,
     ActivityUpdate,
@@ -163,9 +165,24 @@ async def create_activity(data: ActivityCreate, db: AsyncSession = Depends(get_d
 
 @router.patch("/activities/{activity_id}", response_model=ActivityOut)
 async def update_activity(
-    activity_id: uuid.UUID, data: ActivityUpdate, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)
+    activity_id: uuid.UUID, data: ActivityUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(_can_write)
 ):
-    return await ActivityService(db).update_activity(activity_id, data)
+    return await ActivityService(db).update_activity(activity_id, data, current_user)
+
+
+@router.get("/activities/{activity_id}/updates", response_model=list[TaskUpdateOut])
+async def list_task_updates(activity_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    """What people did on this task, oldest first."""
+    return await ActivityService(db).list_updates(activity_id)
+
+
+@router.post("/activities/{activity_id}/updates", response_model=TaskUpdateOut, status_code=201)
+async def add_task_update(
+    activity_id: uuid.UUID, data: TaskUpdateCreate, db: AsyncSession = Depends(get_db), current_user: User = Depends(_can_write)
+):
+    """Report back on a task: a status (to do, in progress, blocked, done)
+    and/or a note; tells whoever assigned it."""
+    return await ActivityService(db).add_update(activity_id, data, current_user)
 
 
 @router.delete("/activities/{activity_id}", status_code=status.HTTP_204_NO_CONTENT)

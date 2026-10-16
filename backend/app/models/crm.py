@@ -71,6 +71,7 @@ class Deal(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
 
 class Activity(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     __tablename__ = "activities"
+    __table_args__ = (CheckConstraint("status IN ('todo', 'in_progress', 'blocked', 'done')", name="ck_activities_status"),)
 
     type: Mapped[ActivityType] = mapped_column(
         Enum(ActivityType, name="activity_type", values_callable=lambda e: [m.value for m in e]),
@@ -83,6 +84,9 @@ class Activity(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     due_time: Mapped[time | None] = mapped_column(Time, nullable=True)
     done: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, index=True)
     done_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # A task's progress, kept in step with `done`: todo, in_progress,
+    # blocked, done. The assignee reports it with a note (TaskUpdate).
+    status: Mapped[str] = mapped_column(String(20), nullable=False, default="todo", server_default="todo")
     customer_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("customers.id", ondelete="CASCADE"), nullable=True, index=True
     )
@@ -107,3 +111,20 @@ class Note(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
         UUID(as_uuid=True), ForeignKey("deals.id", ondelete="CASCADE"), nullable=True, index=True
     )
     author_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), _user_fk(), nullable=True)
+
+
+TASK_STATUSES = ("todo", "in_progress", "blocked", "done")
+
+
+class TaskUpdate(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
+    """What someone did on an activity: a status change, a note, or both.
+    Done and Blocked need a note, so the person who assigned it knows."""
+
+    __tablename__ = "task_updates"
+
+    activity_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("activities.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    author_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), _user_fk(), nullable=True)
+    status: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)

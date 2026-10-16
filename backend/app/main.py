@@ -15,6 +15,7 @@ from app.api.routes import (
     invoices,
     marketing,
     messaging,
+    notifications,
     onboarding,
     payments,
     products,
@@ -53,6 +54,28 @@ app.add_middleware(
 
 register_exception_handlers(app)
 
+
+# Working locally without Redis there's no worker or scheduler: check for
+# due reminders here every 30 seconds instead (the server runs this job
+# every minute in celery, see celery_app.py).
+if settings.REDIS_URL.startswith("memory") and settings.ENVIRONMENT != "production":
+    import asyncio
+    import logging
+
+    @app.on_event("startup")
+    async def _local_reminder_loop() -> None:
+        from app.tasks.notification_tasks import remind_all
+
+        async def loop() -> None:
+            while True:
+                try:
+                    await remind_all()
+                except Exception:
+                    logging.getLogger(__name__).exception("Local reminder check failed")
+                await asyncio.sleep(30)
+
+        app.state.reminder_loop = asyncio.create_task(loop())
+
 app.include_router(auth.router, prefix=settings.API_V1_PREFIX)
 app.include_router(users.router, prefix=settings.API_V1_PREFIX)
 app.include_router(customers.router, prefix=settings.API_V1_PREFIX)
@@ -71,6 +94,7 @@ app.include_router(custom_fields.router, prefix=settings.API_V1_PREFIX)
 app.include_router(marketing.router, prefix=settings.API_V1_PREFIX)
 app.include_router(messaging.router, prefix=settings.API_V1_PREFIX)
 app.include_router(channels.router, prefix=settings.API_V1_PREFIX)
+app.include_router(notifications.router, prefix=settings.API_V1_PREFIX)
 app.include_router(onboarding.router, prefix=settings.API_V1_PREFIX)
 app.include_router(billing.router, prefix=settings.API_V1_PREFIX)
 app.include_router(support.router, prefix=settings.API_V1_PREFIX)
