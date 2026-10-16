@@ -48,6 +48,10 @@ class ContactOut(BaseModel):
 Industry = Literal[INDUSTRIES]
 
 
+# A deal's importance to the business.
+Priority = Literal["high", "medium", "low"]
+
+
 class DealCreate(BaseModel):
     title: str = Field(min_length=1, max_length=255)
     customer_id: uuid.UUID
@@ -57,6 +61,7 @@ class DealCreate(BaseModel):
     value: Decimal = Field(default=Decimal("0"), ge=0)
     expected_close_date: date | None = None
     industry: Industry | None = None
+    priority: Priority = "medium"
     custom_fields: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -69,6 +74,7 @@ class DealUpdate(BaseModel):
     expected_close_date: date | None = None
     lost_reason: str | None = Field(default=None, max_length=255)
     industry: Industry | None = None
+    priority: Priority | None = None
     custom_fields: dict[str, Any] | None = None
 
 
@@ -93,6 +99,7 @@ class DealOut(BaseModel):
     closed_at: datetime | None
     lost_reason: str | None
     industry: str | None = None
+    priority: Priority = "medium"
     custom_fields: dict[str, Any] = {}
     created_at: datetime
     updated_at: datetime

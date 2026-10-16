@@ -91,7 +91,8 @@ def main() -> None:
         ("Fundraiser dinner", "Kopano Community Trust", "won", "27000", -5),
         ("Office year-end", "Lerato Legal Services", "lost", "18000", -12),
     ]:
-        deal = check(c.post("/deals", json={"title": title, "customer_id": customers[cust]["id"], "stage": stage, "value": value, "expected_close_date": d(close)}))
+        priority = {"Wedding, 120 guests": "high", "Site lunches, October": "high", "Birthday platters": "low"}.get(title, "medium")
+        deal = check(c.post("/deals", json={"title": title, "customer_id": customers[cust]["id"], "stage": stage, "value": value, "expected_close_date": d(close), "priority": priority}))
         deal_ids[title] = deal["id"]
     check(c.patch(f"/deals/{deal_ids['Office year-end']}", json={"lost_reason": "Chose a cheaper caterer"}))
 

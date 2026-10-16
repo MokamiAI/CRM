@@ -2418,5 +2418,13 @@
     "go": "Let's go",
     "welcomeBack": "Welcome back to YGT",
     "welcomeBackName": "Welcome back to YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Priority",
+    "hint": "How much this deal matters. High deals lead their column.",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "any": "Any priority"
   }
 }

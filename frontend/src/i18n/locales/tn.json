@@ -2418,5 +2418,13 @@
     "go": "A re simololeng",
     "welcomeBack": "O amogelesegile gape mo YGT",
     "welcomeBackName": "O amogelesegile gape mo YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Botlhokwa",
+    "hint": "Tumalano e e botlhokwa go le kae. Tse di botlhokwa thata di eteletsa kholomo ya tsone pele.",
+    "high": "Kwa godimo",
+    "medium": "Fa gare",
+    "low": "Kwa tlase",
+    "any": "Epe fela"
   }
 }

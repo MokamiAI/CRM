@@ -2418,5 +2418,13 @@
     "go": "Asihambe",
     "welcomeBack": "Siyakwamukela futhi ku-YGT",
     "welcomeBackName": "Siyakwamukela futhi ku-YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Ukubaluleka",
+    "hint": "Lesi sivumelwano sibaluleke kangakanani. Ezibaluleke kakhulu zihamba phambili kukholamu yazo.",
+    "high": "Kuphezulu",
+    "medium": "Kumaphakathi",
+    "low": "Kuphansi",
+    "any": "Noma yikuphi"
   }
 }

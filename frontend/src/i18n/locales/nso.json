@@ -2418,5 +2418,13 @@
     "go": "A re thome",
     "welcomeBack": "O amogelwa gape go YGT",
     "welcomeBackName": "O amogelwa gape go YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Bohlokwa",
+    "hint": "Kwano ye e bohlokwa gakaakang. Tše bohlokwa kudu di eta kholomo ya tšona.",
+    "high": "Godimo",
+    "medium": "Magareng",
+    "low": "Fase",
+    "any": "Efe goba efe"
   }
 }

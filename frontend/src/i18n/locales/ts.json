@@ -2418,5 +2418,13 @@
     "go": "A hi sunguleni",
     "welcomeBack": "U amukeriwile nakambe eka YGT",
     "welcomeBackName": "U amukeriwile nakambe eka YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Nkoka",
+    "hint": "Ntwanano lowu wu na nkoka ku fikela kwihi. Leti nga ni nkoka swinene ti rhangela kholomo ya tona.",
+    "high": "Henhla",
+    "medium": "Exikarhi",
+    "low": "Ehansi",
+    "any": "Yihi na yihi"
   }
 }

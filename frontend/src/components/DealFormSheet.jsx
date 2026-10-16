@@ -7,9 +7,16 @@ import { useContacts, useCustomers, useTeam } from "../hooks/useApi";
 import Sheet from "./Sheet";
 import { Button, Field } from "./ui";
 import PartyCombobox from "./PartyCombobox";
-import { STAGES, industryFromCustomer, industryOptions } from "./crm";
+import { PRIORITIES, STAGES, industryFromCustomer, industryOptions } from "./crm";
 import { CustomFieldInputs, toFormValues } from "./CustomFields";
 import { CURRENCY, errorMessage } from "../utils/format";
+
+// The chosen priority button, in its own colour.
+const SELECTED = {
+  high: "bg-red-50 text-red-800 ring-red-400",
+  medium: "bg-amber-50 text-amber-900 ring-amber-400",
+  low: "bg-zinc-100 text-zinc-800 ring-zinc-400",
+};
 
 const blank = (customerId) => ({
   title: "",
@@ -18,6 +25,7 @@ const blank = (customerId) => ({
   contact_id: "",
   owner_id: "",
   stage: "lead",
+  priority: "medium",
   value: "",
   expected_close_date: "",
   industry: "",
@@ -52,6 +60,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
               contact_id: deal.contact_id ?? "",
               owner_id: deal.owner_id ?? "",
               stage: deal.stage,
+              priority: deal.priority ?? "medium",
               value: String(Number(deal.value)),
               expected_close_date: deal.expected_close_date ?? "",
               industry: deal.industry ?? "",
@@ -83,6 +92,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
         value: form.value || "0",
         expected_close_date: form.expected_close_date || null,
         industry: form.industry || null,
+        priority: form.priority,
         custom_fields: custom,
       };
       return deal
@@ -207,6 +217,23 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
             </div>
           </fieldset>
         )}
+        <fieldset>
+          <legend className="mb-1.5 block text-sm font-medium text-zinc-700">{t("priority.label")}</legend>
+          <div className="grid grid-cols-3 gap-2">
+            {PRIORITIES.map((p) => (
+              <label
+                key={p}
+                className={`flex min-h-11 cursor-pointer items-center justify-center rounded-lg px-2 text-sm font-medium ring-1 ring-inset transition-colors duration-150 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-500 ${
+                  form.priority === p ? SELECTED[p] : "bg-white text-zinc-700 ring-zinc-200 hover:bg-zinc-50"
+                }`}
+              >
+                <input type="radio" name="deal-priority" value={p} checked={form.priority === p} onChange={set("priority")} className="sr-only" />
+                {t(`priority.${p}`)}
+              </label>
+            ))}
+          </div>
+          <p className="mt-1.5 text-xs text-zinc-500">{t("priority.hint")}</p>
+        </fieldset>
         {team.length > 1 && (
           <Field label={t("dealForm.owner")}>
             <select className="input" value={form.owner_id} onChange={set("owner_id")}>

@@ -9,7 +9,7 @@ import { useCustomerMap, useDeals, useTeamMap } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import DealFormSheet from "../components/DealFormSheet";
 import Sheet from "../components/Sheet";
-import { JourneyBar, NextActivityBadge, RowEditButton, STAGES, dueState, industryLabel, journeyPercent } from "../components/crm";
+import { JourneyBar, NextActivityBadge, PRIORITY_RANK, PriorityBadge, RowEditButton, STAGES, dueState, industryLabel, journeyPercent } from "../components/crm";
 import { Avatar, Button, ErrorState, Field, FilterChips, PageHeader, PlusIcon, Tooltip } from "../components/ui";
 import { errorMessage, formatMoney, formatShortDate } from "../utils/format";
 import { celebrate } from "../utils/motion";
@@ -24,10 +24,12 @@ function urgency(deal) {
   return [state === "overdue" ? 0 : state === "today" ? 1 : 3, next.due_date];
 }
 
+// High-priority deals lead each column; within a priority, urgency decides.
 function byUrgency(a, b) {
+  const rank = (d) => PRIORITY_RANK[d.priority] ?? 1;
   const [ua, da] = urgency(a);
   const [ub, db] = urgency(b);
-  return ua - ub || da.localeCompare(db);
+  return rank(a) - rank(b) || ua - ub || da.localeCompare(db);
 }
 
 const sum = (deals) => deals.reduce((total, d) => total + Number(d.value), 0);
@@ -65,7 +67,8 @@ export default function DealsPage() {
   };
   const params = { status: "all", ...(scope === "mine" && { mine: true }) };
   const { data: allDeals = [], isLoading, isError, refetch } = useDeals(params);
-  const deals = allDeals.filter((d) => isOpen(d) || recentlyClosed(d));
+  const [priority, setPriority] = useState("any");
+  const deals = allDeals.filter((d) => (isOpen(d) || recentlyClosed(d)) && (priority === "any" || (d.priority ?? "medium") === priority));
   const openDeals = deals.filter(isOpen);
   const customers = useCustomerMap();
   const team = useTeamMap();
@@ -180,6 +183,16 @@ export default function DealsPage() {
           ]}
           value={scope}
           onChange={setScope}
+        />
+        <FilterChips
+          options={[
+            { value: "any", label: t("priority.any") },
+            { value: "high", label: t("priority.high") },
+            { value: "medium", label: t("priority.medium") },
+            { value: "low", label: t("priority.low") },
+          ]}
+          value={priority}
+          onChange={setPriority}
         />
         <FilterChips
           options={[
@@ -373,7 +386,10 @@ function DealCard({ deal, customer, owner, dragging, landed, draggable, onDragSt
       } ${landed ? "card-land" : ""}`}
     >
       {deal.stage === "won" || deal.stage === "lost" ? <OutcomeBadge deal={deal} /> : null}
-      <p className={`text-sm font-medium leading-snug ${deal.stage === "won" ? "text-emerald-950" : deal.stage === "lost" ? "text-zinc-600" : "text-zinc-900"}`}>{deal.title}</p>
+      <p className={`flex items-start justify-between gap-2 text-sm font-medium leading-snug ${deal.stage === "won" ? "text-emerald-950" : deal.stage === "lost" ? "text-zinc-600" : "text-zinc-900"}`}>
+        <span className="min-w-0">{deal.title}</span>
+        {isOpen(deal) && <PriorityBadge priority={deal.priority} quiet />}
+      </p>
       <p className="mt-0.5 truncate text-xs text-zinc-500">{customer?.name ?? "…"}</p>
       {deal.stage !== "lost" && <JourneyBar milestones={deal.milestones} className="mt-2.5" />}
       <div className="mt-2.5 flex items-center justify-between gap-2">
@@ -408,6 +424,7 @@ function DealTable({ deals, customers, team, loading }) {
           <tr>
             <th>{t("deals.col.deal")}</th>
             <th>{t("deals.col.stage")}</th>
+            <th>{t("priority.label")}</th>
             <th className="w-28">{t("journey.column")}</th>
             <th className="text-right">{t("deals.col.value")}</th>
             <th>{t("deals.col.industry")}</th>
@@ -452,6 +469,9 @@ function DealTable({ deals, customers, team, loading }) {
                   )}
                 </td>
                 <td>
+                  <PriorityBadge priority={deal.priority} />
+                </td>
+                <td>
                   <span className="flex items-center gap-2">
                     <JourneyBar milestones={deal.milestones} className="w-16" />
                     <span className="text-xs tabular-nums text-slate-500">{journeyPercent(deal.milestones)}%</span>
@@ -482,7 +502,10 @@ function DealTable({ deals, customers, team, loading }) {
           <li key={deal.id}>
             <Link to={`/deals/${deal.id}`} className="flex items-center justify-between gap-3 px-4 py-3.5 active:bg-zinc-50">
               <div className="min-w-0">
-                <p className="truncate font-medium text-zinc-900">{deal.title}</p>
+                <p className="flex items-center gap-2 font-medium text-zinc-900">
+                  <span className="truncate">{deal.title}</span>
+                  {isOpen(deal) && <PriorityBadge priority={deal.priority} quiet />}
+                </p>
                 <p className="truncate text-[13px] text-zinc-500">
                   {customers.get(deal.customer_id)?.name ?? "…"} · {STAGES.find((s) => s.value === deal.stage)?.label}
                 </p>

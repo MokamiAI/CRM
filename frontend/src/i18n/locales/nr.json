@@ -2418,5 +2418,13 @@
     "go": "Asithome",
     "welcomeBack": "Wamukelekile godu ku-YGT",
     "welcomeBackName": "Wamukelekile godu ku-YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Ukuqakatheka",
+    "hint": "Isivumelwano lesi siqakatheke kangangani. Eziqakatheke khulu zirhola ikholamu yazo.",
+    "high": "Phezulu",
+    "medium": "Phakathi",
+    "low": "Phasi",
+    "any": "Nanyana ngikuphi"
   }
 }

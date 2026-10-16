@@ -10,7 +10,7 @@ record can show one chronological timeline.
 import uuid
 from datetime import date, datetime, time
 
-from sqlalchemy import Boolean, Date, DateTime, Enum, ForeignKey, Numeric, String, Text, Time
+from sqlalchemy import Boolean, CheckConstraint, Date, DateTime, Enum, ForeignKey, Numeric, String, Text, Time
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -41,6 +41,7 @@ class Contact(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
 
 class Deal(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     __tablename__ = "deals"
+    __table_args__ = (CheckConstraint("priority IN ('high', 'medium', 'low')", name="ck_deals_priority"),)
 
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     customer_id: Mapped[uuid.UUID] = mapped_column(
@@ -61,6 +62,9 @@ class Deal(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     closed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     lost_reason: Mapped[str | None] = mapped_column(String(255), nullable=True)
     industry: Mapped[str | None] = mapped_column(String(40), nullable=True, index=True)
+    # How much this deal matters to the business: high, medium or low.
+    # High deals lead each pipeline column; urgency orders within a level.
+    priority: Mapped[str] = mapped_column(String(10), nullable=False, default="medium", server_default="medium")
     custom_fields: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), _user_fk(), nullable=True)
 

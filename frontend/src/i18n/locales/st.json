@@ -2418,5 +2418,13 @@
     "go": "Ha re qaleng",
     "welcomeBack": "O amohelehile hape ho YGT",
     "welcomeBackName": "O amohelehile hape ho YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Bohlokwa",
+    "hint": "Tumellano ena e bohlokwa hakae. Tse bohlokwa haholo di etella kholomo ya tsona pele.",
+    "high": "Hodimo",
+    "medium": "Mahareng",
+    "low": "Tlase",
+    "any": "Efe kapa efe"
   }
 }

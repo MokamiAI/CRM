@@ -2418,5 +2418,13 @@
     "go": "Masihambe",
     "welcomeBack": "Wamkelekile kwakhona kwi-YGT",
     "welcomeBackName": "Wamkelekile kwakhona kwi-YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Ukubaluleka",
+    "hint": "Esi sivumelwano sibaluleke kangakanani. Ezibaluleke kakhulu zikhokela ikholamu yazo.",
+    "high": "Kuphezulu",
+    "medium": "Kuphakathi",
+    "low": "Kuphantsi",
+    "any": "Nayiphi na"
   }
 }

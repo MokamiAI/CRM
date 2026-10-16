@@ -2418,5 +2418,13 @@
     "go": "Kom ons begin",
     "welcomeBack": "Welkom terug by YGT",
     "welcomeBackName": "Welkom terug by YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Prioriteit",
+    "hint": "Hoe belangrik hierdie transaksie is. Hoë transaksies lei hul kolom.",
+    "high": "Hoog",
+    "medium": "Medium",
+    "low": "Laag",
+    "any": "Enige prioriteit"
   }
 }

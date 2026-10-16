@@ -2418,5 +2418,13 @@
     "go": "Kha ri thome",
     "welcomeBack": "Ni a ṱanganedzwa hafhu kha YGT",
     "welcomeBackName": "Ni a ṱanganedzwa hafhu kha YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Ndeme",
+    "hint": "Ndi ndeme hani heyi thendelano. Dza ndeme vhukuma dzi ranga phanḓa kholomu yadzo.",
+    "high": "Nṱha",
+    "medium": "Vhukati",
+    "low": "Fhasi",
+    "any": "Ifhio na ifhio"
   }
 }

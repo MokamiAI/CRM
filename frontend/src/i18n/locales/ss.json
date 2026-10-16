@@ -2418,5 +2418,13 @@
     "go": "Asihambe",
     "welcomeBack": "Wemukelekile futsi ku-YGT",
     "welcomeBackName": "Wemukelekile futsi ku-YGT, {{name}}"
+  },
+  "priority": {
+    "label": "Kubaluleka",
+    "hint": "Lesivumelwano sibaluleke kangakanani. Letibaluleke kakhulu tihamba embili kukholamu yato.",
+    "high": "Kuphezulu",
+    "medium": "Kusemkhatsini",
+    "low": "Kuphansi",
+    "any": "Nobe ngukuphi"
   }
 }

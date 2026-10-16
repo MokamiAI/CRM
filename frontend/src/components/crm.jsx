@@ -27,6 +27,31 @@ const translated = (values, prefix) =>
 export const STAGES = translated(["lead", "qualified", "proposal", "negotiation"], "stage");
 export const STAGE_LABELS = new Proxy({}, { get: (_, stage) => i18n.t(`stage.${String(stage)}`) });
 
+// A deal's importance to the business; high leads each pipeline column.
+export const PRIORITIES = ["high", "medium", "low"];
+export const PRIORITY_RANK = { high: 0, medium: 1, low: 2 };
+const PRIORITY_TONE = {
+  high: "bg-red-50 text-red-700 ring-red-200",
+  medium: "bg-amber-50 text-amber-800 ring-amber-200",
+  low: "bg-zinc-100 text-zinc-600 ring-zinc-200",
+};
+
+/** "High", "Medium" or "Low", as a small tag. `quiet`: show nothing for
+ *  Low, so a busy board only marks what matters. */
+export function PriorityBadge({ priority = "medium", quiet = false, className = "" }) {
+  if (quiet && priority === "low") return null;
+  return (
+    <span className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold ring-1 ring-inset ${PRIORITY_TONE[priority] ?? PRIORITY_TONE.medium} ${className}`}>
+      {priority === "high" && (
+        <svg viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3" aria-hidden="true">
+          <path d="M3 2a1 1 0 0 1 1 1v.3l7.6-.9a.8.8 0 0 1 .7 1.3L11 5.8l1.3 2.1a.8.8 0 0 1-.7 1.3L4 10.1V14a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Z" />
+        </svg>
+      )}
+      {i18n.t(`priority.${priority}`)}
+    </span>
+  );
+}
+
 // Same codes as INDUSTRIES in backend app/models/enums.py.
 export const INDUSTRY_CODES = [
   "agriculture", "automotive", "construction", "education", "energy", "financial_services", "food_beverage",

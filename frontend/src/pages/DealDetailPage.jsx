@@ -10,7 +10,7 @@ import { useCustomFieldRows } from "../components/CustomFields";
 import DealFormSheet from "../components/DealFormSheet";
 import Sheet from "../components/Sheet";
 import { BackLink } from "../components/DocumentView";
-import { ActivityRow, ComposerSheet, DealJourney, QuickActions, STAGES, STAGE_LABELS, Timeline, industryLabel, useToggleActivity } from "../components/crm";
+import { ActivityRow, ComposerSheet, DealJourney, industryLabel, PriorityBadge, QuickActions, STAGE_LABELS, STAGES, Timeline, useToggleActivity } from "../components/crm";
 import { Avatar, Button, ButtonLink, ErrorState, Field, ListSkeleton, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
 import { errorMessage, formatDate, formatMoney } from "../utils/format";
 import { celebrate } from "../utils/motion";
@@ -121,7 +121,7 @@ export default function DealDetailPage() {
         title={
           <span className="flex flex-wrap items-center gap-3">
             {deal.title}
-            {closed && <StatusBadge status={deal.stage} />}
+            {closed ? <StatusBadge status={deal.stage} /> : <PriorityBadge priority={deal.priority} />}
           </span>
         }
         subtitle={
