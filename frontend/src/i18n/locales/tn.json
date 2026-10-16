@@ -2020,7 +2020,8 @@
     "gateBody": "Go fetile diura tse 48 o ikwadisitse e bile imeile ya gago ga e ise e netefadiwe. Re rometse kgolagano go {{email}}: e tobetse, mme o boele fano. Tiro ya gago yotlhe e bolokesegile.",
     "gateDone": "Ke e netefaditse",
     "notYet": "Ga e ise e netefadiwe. Tobetsa kgolagano mo imeileng, mme o leke gape.",
-    "confirmedToast": "Re a leboga, imeile ya gago e netefaditswe."
+    "confirmedToast": "Re a leboga, imeile ya gago e netefaditswe.",
+    "badLink": "Kgolagano e e robegile kgotsa e fetile nako. Tsena mme o dirise “Romela kgolagano gape” go bona e ntšha."
   },
   "purchases": {
     "subtitle": "Odara mo batlameding ba gago mme o latele tse di fitlhileng.",

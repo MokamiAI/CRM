@@ -2020,7 +2020,8 @@
     "gateBody": "Ku hundzile tiawara ta 48 u tsarisile naswona imeyili ya wena a yi si tiyisisiwa. Hi rhumele xihlanganisi eka {{email}}: xi tlikela, kutani u vuyela laha. Ntirho wa wena hinkwawo wu hlayisekile.",
     "gateDone": "Ndzi yi tiyisisile",
     "notYet": "A yi si tiyisisiwa. Tlikela xihlanganisi eka imeyili, kutani u ringeta nakambe.",
-    "confirmedToast": "Ha khensa, imeyili ya wena yi tiyisisiwile."
+    "confirmedToast": "Ha khensa, imeyili ya wena yi tiyisisiwile.",
+    "badLink": "Vuhlanganisi lebyi byi tshovekile kumbe byi hundzile nkarhi. Nghena u tirhisa “Rhumela xihlanganisi nakambe” ku kuma lebyintshwa."
   },
   "purchases": {
     "subtitle": "Oda eka vaphakeri va wena u landzelela leswi fikeke.",

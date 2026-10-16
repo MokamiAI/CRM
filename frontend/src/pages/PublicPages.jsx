@@ -152,7 +152,7 @@ export function ContactPage() {
         {LEGAL.email && (
           <p className="mt-2 text-sm text-zinc-500">
             {t("contact.orEmail")}{" "}
-            <a href={`mailto:${LEGAL.email}`} className="font-medium text-indigo-600 hover:text-indigo-700">
+            <a href={`mailto:${LEGAL.email}`} className="inline-block py-2 -my-2 font-medium text-indigo-600 hover:text-indigo-700">
               {LEGAL.email}
             </a>
           </p>
@@ -234,7 +234,8 @@ export function VerifyEmailPage() {
         announceVerified(); // other open tabs drop their reminder at once
       })
       .catch((err) => {
-        setError(errorMessage(err));
+        const status = err?.response?.status;
+        setError(status >= 400 && status < 500 ? t("verify.badLink") : errorMessage(err));
         setState("failed");
       });
   }, [params, reloadUser]);

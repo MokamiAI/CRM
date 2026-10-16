@@ -2020,7 +2020,8 @@
     "gateBody": "Ho fetile dihora tse 48 o ngodisitse mme imeile ya hao ha e so netefatswe. Re rometse lehokela ho {{email}}: le tobetse, ebe o kgutlela mona. Mosebetsi wa hao kaofela o bolokehile.",
     "gateDone": "Ke e netefaditse",
     "notYet": "Ha e so netefatswe. Tobetsa lehokela ho imeile, ebe o leka hape.",
-    "confirmedToast": "Re a leboha, imeile ya hao e netefaditswe."
+    "confirmedToast": "Re a leboha, imeile ya hao e netefaditswe.",
+    "badLink": "Kgokahano ena e robehile kapa e fetile nako. Kena mme o sebedise “Romela lehokela hape” ho fumana e ntjha."
   },
   "purchases": {
     "subtitle": "Odara ho bafani ba hao mme o latele tse fihlileng.",

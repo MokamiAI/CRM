@@ -2020,7 +2020,8 @@
     "gateBody": "Go fetile diiri tše 48 o ingwadiša gomme imeile ya gago ga se ya netefatšwa. Re rometše linki go {{email}}: e kgotle, ke moka o boele mo. Mošomo wa gago ka moka o bolokegile.",
     "gateDone": "Ke e netefaditše",
     "notYet": "Ga se ya netefatšwa. Kgotla linki ka imeileng, ke moka o leke gape.",
-    "confirmedToast": "Re a leboga, imeile ya gago e netefaditšwe."
+    "confirmedToast": "Re a leboga, imeile ya gago e netefaditšwe.",
+    "badLink": "Kgokagano ye e robegile goba e fetile nako. Tsena gomme o šomiše “Romela kgokagano gape” go hwetša ye mpsha."
   },
   "purchases": {
     "subtitle": "Odara go bafepi ba gago gomme o latele tšeo di fihlilego.",

@@ -123,7 +123,7 @@ export default function AboutPage() {
             <h2 className="mt-6 font-semibold text-zinc-900">{t("about.supportTitle")}</h2>
             <p className="mt-3 text-sm text-zinc-600">
               {SUPPORT_EMAIL ? (
-                <a href={`mailto:${SUPPORT_EMAIL}`} className="font-medium text-indigo-600 hover:text-indigo-700">
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="inline-block py-2 -my-2 font-medium text-indigo-600 hover:text-indigo-700">
                   {SUPPORT_EMAIL}
                 </a>
               ) : (
@@ -138,13 +138,13 @@ export default function AboutPage() {
             © {new Date().getFullYear()} {APP_NAME} · {t("about.madeIn")}
           </span>
           <span className="flex flex-wrap gap-x-4 gap-y-1">
-            <Link to="/terms" className="hover:text-zinc-700">
+            <Link to="/terms" className="inline-block py-2 -my-2 hover:text-zinc-700">
               {t("legal.terms")}
             </Link>
-            <Link to="/privacy" className="hover:text-zinc-700">
+            <Link to="/privacy" className="inline-block py-2 -my-2 hover:text-zinc-700">
               {t("legal.privacy")}
             </Link>
-            <Link to="/refunds" className="hover:text-zinc-700">
+            <Link to="/refunds" className="inline-block py-2 -my-2 hover:text-zinc-700">
               {t("legal.refunds")}
             </Link>
             <span className="tabular-nums">{t("about.version", { version: pkg.version })}</span>

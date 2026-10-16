@@ -2020,7 +2020,8 @@
     "gateBody": "Dis 48 uur sedert jy aangesluit het en jou e-pos is nog nie bevestig nie. Ons het 'n skakel na {{email}} gestuur: klik daarop en kom dan terug. Al jou werk is veilig.",
     "gateDone": "Ek het dit bevestig",
     "notYet": "Nog nie bevestig nie. Klik die skakel in die e-pos en probeer weer.",
-    "confirmedToast": "Dankie, jou e-pos is bevestig."
+    "confirmedToast": "Dankie, jou e-pos is bevestig.",
+    "badLink": "Hierdie skakel is stukkend of het verval. Meld aan en gebruik “Stuur die skakel weer” om 'n nuwe een te kry."
   },
   "purchases": {
     "subtitle": "Bestel by jou verskaffers en hou by wat aangekom het.",

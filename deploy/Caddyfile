@@ -3,6 +3,11 @@
 {$DOMAIN} {
 	encode zstd gzip
 
+	# One address for the site: www.yougt.co.za goes to yougt.co.za (search
+	# engines then see one site, not two copies).
+	@www header_regexp www Host ^www\.(.+)$
+	redir @www https://{re.www.1}{uri} 308
+
 	# The API (and the public webhook/unsubscribe links it serves).
 	handle /api/* {
 		reverse_proxy backend:8000

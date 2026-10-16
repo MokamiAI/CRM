@@ -1,0 +1,11 @@
+# yougt.co.za: the public pages may be indexed; the app itself needs a sign-in.
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /settings
+Disallow: /invite
+Disallow: /reset-password
+Disallow: /verify-email
+
+Sitemap: https://yougt.co.za/sitemap.xml

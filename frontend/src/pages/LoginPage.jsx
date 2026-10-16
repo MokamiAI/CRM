@@ -45,19 +45,19 @@ export function AuthShell({ children }) {
         <footer className="relative flex items-center justify-between py-6 text-xs text-zinc-400">
           <span>
             © {new Date().getFullYear()} {APP_NAME} ·{" "}
-            <Link to="/about" className="hover:text-zinc-600">
+            <Link to="/about" className="inline-block py-2 -my-2 hover:text-zinc-600">
               {t("about.link")}
             </Link>
             {" · "}
-            <Link to="/contact" className="hover:text-zinc-600">
+            <Link to="/contact" className="inline-block py-2 -my-2 hover:text-zinc-600">
               {t("contact.link")}
             </Link>
             {" · "}
-            <Link to="/terms" className="hover:text-zinc-600">
+            <Link to="/terms" className="inline-block py-2 -my-2 hover:text-zinc-600">
               {t("legal.terms")}
             </Link>
             {" · "}
-            <Link to="/privacy" className="hover:text-zinc-600">
+            <Link to="/privacy" className="inline-block py-2 -my-2 hover:text-zinc-600">
               {t("legal.privacy")}
             </Link>
           </span>
@@ -91,7 +91,7 @@ export function SwitchLink({ prompt, to, label }) {
   return (
     <p className="mt-6 text-center text-sm text-zinc-500">
       {prompt}{" "}
-      <Link to={to} className="font-medium text-indigo-600 hover:text-indigo-700">
+      <Link to={to} className="inline-block py-2 -my-2 font-medium text-indigo-600 hover:text-indigo-700">
         {label}
       </Link>
     </p>
@@ -156,7 +156,7 @@ export default function LoginPage() {
             <label className="label" htmlFor="password">
               {t("login.password")}
             </label>
-            <Link to="/forgot-password" className="text-xs font-medium text-indigo-600 hover:text-indigo-700">
+            <Link to="/forgot-password" className="inline-block py-2 -my-2 text-xs font-medium text-indigo-600 hover:text-indigo-700">
               {t("password.forgot")}
             </Link>
           </div>

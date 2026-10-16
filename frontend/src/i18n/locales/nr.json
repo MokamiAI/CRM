@@ -2020,7 +2020,8 @@
     "gateBody": "Sekudlule ama-awara ama-48 watlolisa begodu i-imeyili yakho ayikaqinisekiswa. Sithumele isihlanganisi ku-{{email}}: sitjhinye, bese ubuyela lapha. Woke umsebenzi wakho uphephile.",
     "gateDone": "Sengiyiqinisekisile",
     "notYet": "Ayikaqinisekiswa. Tjhinya isihlanganisi ku-imeyili, bese uyalinga godu.",
-    "confirmedToast": "Siyathokoza, i-imeyili yakho iqinisekisiwe."
+    "confirmedToast": "Siyathokoza, i-imeyili yakho iqinisekisiwe.",
+    "badLink": "Isihlanganisi lesi siphukile namkha siphelelwe sikhathi. Ngena bese usebenzisa “Thumela isihlanganisi godu” ukuthola esitjha."
   },
   "purchases": {
     "subtitle": "Oda kubathengisi bakho ulandelele okufikileko.",

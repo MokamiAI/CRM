@@ -2020,7 +2020,8 @@
     "gateBody": "Sekwendlule emahora langu-48 ubhalisile futsi i-imeyili yakho ayikacinisekiswa. Sitfumele sixhumanisi ku-{{email}}: sicindzetele, bese ubuyela lapha. Wonkhe umsebenti wakho uphephile.",
     "gateDone": "Sengiyicinisekisile",
     "notYet": "Ayikacinisekiswa. Cindzetela sixhumanisi ku-imeyili, bese uyetama futsi.",
-    "confirmedToast": "Siyabonga, i-imeyili yakho icinisekisiwe."
+    "confirmedToast": "Siyabonga, i-imeyili yakho icinisekisiwe.",
+    "badLink": "Lesixhumanisi siphukile nobe sesiphelelwe sikhatsi. Ngena bese usebentisa “Tfumela sixhumanisi futsi” kute utfole lesisha."
   },
   "purchases": {
     "subtitle": "Oda kubahlinzeki bakho bese ulandzelela loku sekufikile.",

@@ -2020,7 +2020,8 @@
     "gateBody": "Sele kudlule iiyure ezingama-48 ubhalisile kwaye i-imeyile yakho ayikaqinisekiswa. Sithumele ikhonkco ku-{{email}}: licofe, uze ubuyele apha. Wonke umsebenzi wakho ukhuselekile.",
     "gateDone": "Ndiyiqinisekisile",
     "notYet": "Ayikaqinisekiswa. Cofa ikhonkco kwi-imeyile, uze uzame kwakhona.",
-    "confirmedToast": "Enkosi, i-imeyile yakho iqinisekisiwe."
+    "confirmedToast": "Enkosi, i-imeyile yakho iqinisekisiwe.",
+    "badLink": "Eli khonkco laphukile okanye liphelelwe lixesha. Ngena uze usebenzise “Thumela ikhonkco kwakhona” ukuze ufumane elitsha."
   },
   "purchases": {
     "subtitle": "Odola kubaboneleli bakho kwaye ulandele okufikileyo.",

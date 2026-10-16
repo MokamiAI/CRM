@@ -2020,7 +2020,8 @@
     "gateBody": "Ho fhira awara dza 48 no ḽwalisa nahone imeiḽi yaṋu a i athu khwaṱhisedzwa. Ro rumela vhukwamani kha {{email}}: vhu kwatiseni, ni dovhe ni vhuyelele fhano. Mushumo waṋu woṱhe wo tsireledzea.",
     "gateDone": "Ndo i khwaṱhisedza",
     "notYet": "A i athu khwaṱhisedzwa. Kwatisani vhukwamani kha imeiḽi, ni dovhe ni lingedze.",
-    "confirmedToast": "Ri a livhuwa, imeiḽi yaṋu yo khwaṱhisedzwa."
+    "confirmedToast": "Ri a livhuwa, imeiḽi yaṋu yo khwaṱhisedzwa.",
+    "badLink": "Iyi linki yo tshinyala kana tshifhinga tshayo tsho fhela. Dzhenani ni shumise “Rumelani vhukwamani hafhu” u wana ntswa."
   },
   "purchases": {
     "subtitle": "Odani kha vhaṋetshedzi vhaṋu ni tevhele zwo swikaho.",
