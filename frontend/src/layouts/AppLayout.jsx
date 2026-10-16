@@ -329,7 +329,8 @@ function TeamQuote() {
   if (!user) return null;
   return (
     <>
-      {welcome && <WelcomeSplash name={user.full_name?.split(" ")[0]} onClosed={() => setWelcome(false)} />}
+      {/* Been here before (the first visit ends with the tour): "Welcome back". */}
+      {welcome && <WelcomeSplash name={user.full_name?.split(" ")[0]} returning={Boolean(user.tour_completed_at)} onClosed={() => setWelcome(false)} />}
       <QuoteOfTheWeek who={user.id} hold={busy || welcome} className="bottom-[calc(var(--tabbar-height)+0.75rem)] md:bottom-6 md:left-[calc(var(--sidebar-w)+1rem)]" />
     </>
   );

@@ -1976,7 +1976,8 @@
     "gateTitle": "Tiyisisa imeyili ya wena leswaku u ya emahlweni",
     "gateBody": "Ku hundzile tiawara ta 48 u tsarisile naswona imeyili ya wena a yi si tiyisisiwa. Hi rhumele xihlanganisi eka {{email}}: xi tlikela, kutani u vuyela laha. Ntirho wa wena hinkwawo wu hlayisekile.",
     "gateDone": "Ndzi yi tiyisisile",
-    "notYet": "A yi si tiyisisiwa. Tlikela xihlanganisi eka imeyili, kutani u ringeta nakambe."
+    "notYet": "A yi si tiyisisiwa. Tlikela xihlanganisi eka imeyili, kutani u ringeta nakambe.",
+    "confirmedToast": "Ha khensa, imeyili ya wena yi tiyisisiwile."
   },
   "purchases": {
     "subtitle": "Oda eka vaphakeri va wena u landzelela leswi fikeke.",
@@ -2414,6 +2415,8 @@
     "welcomeName": "U amukeriwile eka YGT, {{name}}",
     "fromTeam": "Ku suka eka hina hinkwerhu eka YGT, hi lava u tiva leswaku:",
     "capable": "U swi kota ku fikelela swikongomelo swa bindzu ra wena.",
-    "go": "A hi sunguleni"
+    "go": "A hi sunguleni",
+    "welcomeBack": "U amukeriwile nakambe",
+    "welcomeBackName": "U amukeriwile nakambe, {{name}}"
   }
 }

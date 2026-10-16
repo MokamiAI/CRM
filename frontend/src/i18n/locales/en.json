@@ -1976,7 +1976,8 @@
     "gateTitle": "Confirm your email to continue",
     "gateBody": "It's been 48 hours since you signed up and your email isn't confirmed yet. We sent a link to {{email}}: click it, then come back here. All your work is safe.",
     "gateDone": "I've confirmed it",
-    "notYet": "Not confirmed yet. Click the link in the email, then try again."
+    "notYet": "Not confirmed yet. Click the link in the email, then try again.",
+    "confirmedToast": "Thanks, your email is confirmed."
   },
   "purchases": {
     "subtitle": "Order from your suppliers and track what's arrived.",
@@ -2414,6 +2415,8 @@
     "welcomeName": "Welcome to YGT, {{name}}",
     "fromTeam": "From all of us at YGT, we'd like you to know:",
     "capable": "You are capable of reaching your business goals.",
-    "go": "Let's go"
+    "go": "Let's go",
+    "welcomeBack": "Welcome back",
+    "welcomeBackName": "Welcome back, {{name}}"
   }
 }

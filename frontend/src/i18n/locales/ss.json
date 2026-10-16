@@ -1976,7 +1976,8 @@
     "gateTitle": "Cinisekisa i-imeyili yakho kute uchubeke",
     "gateBody": "Sekwendlule emahora langu-48 ubhalisile futsi i-imeyili yakho ayikacinisekiswa. Sitfumele sixhumanisi ku-{{email}}: sicindzetele, bese ubuyela lapha. Wonkhe umsebenti wakho uphephile.",
     "gateDone": "Sengiyicinisekisile",
-    "notYet": "Ayikacinisekiswa. Cindzetela sixhumanisi ku-imeyili, bese uyetama futsi."
+    "notYet": "Ayikacinisekiswa. Cindzetela sixhumanisi ku-imeyili, bese uyetama futsi.",
+    "confirmedToast": "Siyabonga, i-imeyili yakho icinisekisiwe."
   },
   "purchases": {
     "subtitle": "Oda kubahlinzeki bakho bese ulandzelela loku sekufikile.",
@@ -2414,6 +2415,8 @@
     "welcomeName": "Wemukelekile ku-YGT, {{name}}",
     "fromTeam": "Kusuka kitsi sonkhe ku-YGT, sifuna wati kutsi:",
     "capable": "Uyakhona kufinyelela tinjongo tebhizinisi lakho.",
-    "go": "Asihambe"
+    "go": "Asihambe",
+    "welcomeBack": "Wemukelekile futsi",
+    "welcomeBackName": "Wemukelekile futsi, {{name}}"
   }
 }

@@ -1976,7 +1976,8 @@
     "gateTitle": "Netefatsa imeile ya hao ho tswela pele",
     "gateBody": "Ho fetile dihora tse 48 o ngodisitse mme imeile ya hao ha e so netefatswe. Re rometse lehokela ho {{email}}: le tobetse, ebe o kgutlela mona. Mosebetsi wa hao kaofela o bolokehile.",
     "gateDone": "Ke e netefaditse",
-    "notYet": "Ha e so netefatswe. Tobetsa lehokela ho imeile, ebe o leka hape."
+    "notYet": "Ha e so netefatswe. Tobetsa lehokela ho imeile, ebe o leka hape.",
+    "confirmedToast": "Re a leboha, imeile ya hao e netefaditswe."
   },
   "purchases": {
     "subtitle": "Odara ho bafani ba hao mme o latele tse fihlileng.",
@@ -2414,6 +2415,8 @@
     "welcomeName": "O amohelehile ho YGT, {{name}}",
     "fromTeam": "Ho tswa ho rona bohle ho YGT, re batla o tsebe hore:",
     "capable": "O na le bokgoni ba ho fihlella dipheo tsa kgwebo ya hao.",
-    "go": "Ha re qaleng"
+    "go": "Ha re qaleng",
+    "welcomeBack": "O amohelehile hape",
+    "welcomeBackName": "O amohelehile hape, {{name}}"
   }
 }

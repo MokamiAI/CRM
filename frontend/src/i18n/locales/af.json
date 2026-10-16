@@ -1976,7 +1976,8 @@
     "gateTitle": "Bevestig jou e-pos om voort te gaan",
     "gateBody": "Dis 48 uur sedert jy aangesluit het en jou e-pos is nog nie bevestig nie. Ons het 'n skakel na {{email}} gestuur: klik daarop en kom dan terug. Al jou werk is veilig.",
     "gateDone": "Ek het dit bevestig",
-    "notYet": "Nog nie bevestig nie. Klik die skakel in die e-pos en probeer weer."
+    "notYet": "Nog nie bevestig nie. Klik die skakel in die e-pos en probeer weer.",
+    "confirmedToast": "Dankie, jou e-pos is bevestig."
   },
   "purchases": {
     "subtitle": "Bestel by jou verskaffers en hou by wat aangekom het.",
@@ -2414,6 +2415,8 @@
     "welcomeName": "Welkom by YGT, {{name}}",
     "fromTeam": "Van almal by YGT wil ons hê jy moet weet:",
     "capable": "Jy is in staat om jou besigheidsdoelwitte te bereik.",
-    "go": "Kom ons begin"
+    "go": "Kom ons begin",
+    "welcomeBack": "Welkom terug",
+    "welcomeBackName": "Welkom terug, {{name}}"
   }
 }

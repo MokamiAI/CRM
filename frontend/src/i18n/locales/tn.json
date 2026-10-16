@@ -1976,7 +1976,8 @@
     "gateTitle": "Netefatsa imeile ya gago go tswelela",
     "gateBody": "Go fetile diura tse 48 o ikwadisitse e bile imeile ya gago ga e ise e netefadiwe. Re rometse kgolagano go {{email}}: e tobetse, mme o boele fano. Tiro ya gago yotlhe e bolokesegile.",
     "gateDone": "Ke e netefaditse",
-    "notYet": "Ga e ise e netefadiwe. Tobetsa kgolagano mo imeileng, mme o leke gape."
+    "notYet": "Ga e ise e netefadiwe. Tobetsa kgolagano mo imeileng, mme o leke gape.",
+    "confirmedToast": "Re a leboga, imeile ya gago e netefaditswe."
   },
   "purchases": {
     "subtitle": "Odara mo batlameding ba gago mme o latele tse di fitlhileng.",
@@ -2414,6 +2415,8 @@
     "welcomeName": "O amogelesegile mo YGT, {{name}}",
     "fromTeam": "Go tswa go rona rotlhe kwa YGT, re batla o itse gore:",
     "capable": "O kgona go fitlhelela maikaelelo a kgwebo ya gago.",
-    "go": "A re simololeng"
+    "go": "A re simololeng",
+    "welcomeBack": "O amogelesegile gape",
+    "welcomeBackName": "O amogelesegile gape, {{name}}"
   }
 }

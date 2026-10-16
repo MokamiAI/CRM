@@ -160,7 +160,7 @@ const WELCOME_HOLD = 3500; // ms after the words land before it closes itself
 
 /** After signing in: a welcome from the team, once per sign-in. Closing
  *  (button, key, click or on its own) folds the words back into YGT. */
-export function WelcomeSplash({ name, onClosed }) {
+export function WelcomeSplash({ name, returning = false, onClosed }) {
   const { t } = useTranslation();
   const words = useRef(null);
   const outro = useCallback(() => words.current?.outro() ?? Promise.resolve(), []);
@@ -195,7 +195,13 @@ export function WelcomeSplash({ name, onClosed }) {
       <div className="relative flex max-w-xl flex-col items-center">
         <div className={`transition-opacity duration-300 ${closing ? "opacity-0" : "opacity-100"}`}>
           <h1 id="welcome-title" className="welcome-in text-2xl font-semibold tracking-tight text-midnight sm:text-3xl">
-            {name ? t("startup.welcomeName", { name }) : t("startup.welcome")}
+            {returning
+            ? name
+              ? t("startup.welcomeBackName", { name })
+              : t("startup.welcomeBack")
+            : name
+              ? t("startup.welcomeName", { name })
+              : t("startup.welcome")}
           </h1>
           <p className="welcome-in mt-2 text-base text-slate-600 [animation-delay:120ms] sm:text-lg">{t("startup.fromTeam")}</p>
         </div>

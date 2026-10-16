@@ -1976,7 +1976,8 @@
     "gateTitle": "Qinisekisa i-imeyili yakho ukuze uqhubeke",
     "gateBody": "Sekudlule amahora angu-48 wabhalisa futhi i-imeyili yakho ayikaqinisekiswa. Sithumele isixhumanisi ku-{{email}}: sicindezele, bese ubuyela lapha. Wonke umsebenzi wakho uphephile.",
     "gateDone": "Sengiyiqinisekisile",
-    "notYet": "Akukaqinisekiswa. Cindezela isixhumanisi ku-imeyili, bese uzama futhi."
+    "notYet": "Akukaqinisekiswa. Cindezela isixhumanisi ku-imeyili, bese uzama futhi.",
+    "confirmedToast": "Siyabonga, i-imeyili yakho iqinisekisiwe."
   },
   "purchases": {
     "subtitle": "Oda kubahlinzeki bakho futhi ulandelele okufikile.",
@@ -2414,6 +2415,8 @@
     "welcomeName": "Siyakwamukela ku-YGT, {{name}}",
     "fromTeam": "Sonke e-YGT sifuna wazi ukuthi:",
     "capable": "Uyakwazi ukufinyelela imigomo yebhizinisi lakho.",
-    "go": "Asihambe"
+    "go": "Asihambe",
+    "welcomeBack": "Siyakwamukela futhi",
+    "welcomeBackName": "Siyakwamukela futhi, {{name}}"
   }
 }

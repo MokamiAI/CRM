@@ -1,9 +1,24 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import apiClient from "../services/apiClient";
 import i18n from "../i18n";
 
 const AuthContext = createContext(null);
+
+// Tabs of this browser tell each other when the email has been confirmed.
+const AUTH_CHANNEL = "ygt-auth";
+
+/** The confirm-email page calls this: other open tabs update at once. */
+export function announceVerified() {
+  try {
+    const channel = new BroadcastChannel(AUTH_CHANNEL);
+    channel.postMessage("verified");
+    channel.close();
+  } catch {
+    /* older browsers: the other tabs notice on their next check */
+  }
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -99,6 +114,42 @@ export function AuthProvider({ children }) {
       /* not signed in */
     }
   }
+
+  // Waiting for the email to be confirmed: notice as soon as it is, even
+  // if the link was opened on another device. Other tabs here say so at
+  // once; otherwise check every 30 seconds and whenever the tab is back
+  // in view.
+  const waitingForLink = Boolean(user && !user.email_verified_at);
+  useEffect(() => {
+    if (!waitingForLink) return undefined;
+    const check = () => reloadUser();
+    const onVisible = () => document.visibilityState === "visible" && check();
+    const timer = setInterval(check, 30 * 1000);
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", check);
+    let channel;
+    try {
+      channel = new BroadcastChannel(AUTH_CHANNEL);
+      channel.onmessage = check;
+    } catch {
+      /* no BroadcastChannel: the timer and focus checks still work */
+    }
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", check);
+      channel?.close();
+    };
+  }, [waitingForLink]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // It just turned confirmed (here or elsewhere): say thank you, once.
+  const wasWaiting = useRef(false);
+  useEffect(() => {
+    if (wasWaiting.current && user?.email_verified_at && !window.location.pathname.startsWith("/verify-email")) {
+      toast.success(i18n.t("verify.confirmedToast"));
+    }
+    wasWaiting.current = waitingForLink;
+  }, [waitingForLink, user?.email_verified_at]);
 
   // The guided tour: done (finished or skipped) or wanted again from Help.
   async function markTourDone(done) {

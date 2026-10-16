@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
-import { useAuth } from "../context/AuthContext";
+import { announceVerified, useAuth } from "../context/AuthContext";
 import { APP_NAME, BrandMark } from "../components/Brand";
 import LanguagePicker from "../components/LanguagePicker";
 import GlowField from "../components/GlowField";
@@ -230,6 +230,7 @@ export function VerifyEmailPage() {
       .then(() => {
         setState("done");
         reloadUser();
+        announceVerified(); // other open tabs drop their reminder at once
       })
       .catch((err) => {
         setError(errorMessage(err));

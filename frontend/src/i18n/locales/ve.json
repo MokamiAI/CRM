@@ -1976,7 +1976,8 @@
     "gateTitle": "Khwaṱhisedzani imeiḽi yaṋu u bvela phanḓa",
     "gateBody": "Ho fhira awara dza 48 no ḽwalisa nahone imeiḽi yaṋu a i athu khwaṱhisedzwa. Ro rumela vhukwamani kha {{email}}: vhu kwatiseni, ni dovhe ni vhuyelele fhano. Mushumo waṋu woṱhe wo tsireledzea.",
     "gateDone": "Ndo i khwaṱhisedza",
-    "notYet": "A i athu khwaṱhisedzwa. Kwatisani vhukwamani kha imeiḽi, ni dovhe ni lingedze."
+    "notYet": "A i athu khwaṱhisedzwa. Kwatisani vhukwamani kha imeiḽi, ni dovhe ni lingedze.",
+    "confirmedToast": "Ri a livhuwa, imeiḽi yaṋu yo khwaṱhisedzwa."
   },
   "purchases": {
     "subtitle": "Odani kha vhaṋetshedzi vhaṋu ni tevhele zwo swikaho.",
@@ -2414,6 +2415,8 @@
     "welcomeName": "Ni a ṱanganedzwa kha YGT, {{name}}",
     "fromTeam": "U bva kha riṋe roṱhe kha YGT, ri ṱoḓa ni tshi ḓivha uri:",
     "capable": "Ni a kona u swikelela zwipikwa zwa bindu ḽaṋu.",
-    "go": "Kha ri thome"
+    "go": "Kha ri thome",
+    "welcomeBack": "Ni a ṱanganedzwa hafhu",
+    "welcomeBackName": "Ni a ṱanganedzwa hafhu, {{name}}"
   }
 }
