@@ -128,7 +128,7 @@ class BookingService:
 
     async def _send_invites(self, booking: SessionBooking, rules: Availability, method: str, by_team: bool = False) -> None:
         team = settings.BOOKING_CALENDAR_EMAIL or settings.SUPPORT_EMAIL
-        organizer = settings.SUPPORT_EMAIL or team
+        organizer = platform_email.public_support_email() or team
         if not organizer:
             return
         company = await self.db.get(CompanySettings, booking.company_id)

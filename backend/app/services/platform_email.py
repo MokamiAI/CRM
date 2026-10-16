@@ -1,6 +1,7 @@
 """Emails YGT itself sends (not a company): password resets, help desk
 updates, Contact us notifications and session booking invites. They use
-the server's SMTP_* settings: from SMTP_FROM_EMAIL, replies to SUPPORT_EMAIL."""
+the server's SMTP_* settings, from SMTP_FROM_EMAIL (e.g. noreply@): no
+Reply-To, and the footer points to the public support address."""
 from dataclasses import asdict
 from datetime import datetime, timezone
 
@@ -19,12 +20,17 @@ def platform_config() -> EffectiveEmailConfig:
         username=settings.SMTP_USERNAME,
         password=settings.SMTP_PASSWORD,
         use_tls=settings.SMTP_USE_TLS,
-        # Sent as the mail account's own address (providers such as GoDaddy
-        # refuse any other domain); replies go to SUPPORT_EMAIL.
+        # The no-reply sender, on the mail account's own domain (providers
+        # such as GoDaddy refuse any other). No Reply-To: replies aren't read.
         from_email=settings.SMTP_FROM_EMAIL or settings.SUPPORT_EMAIL or "",
         from_name="YGT",
-        reply_to=settings.SUPPORT_EMAIL if settings.SMTP_FROM_EMAIL and settings.SUPPORT_EMAIL != settings.SMTP_FROM_EMAIL else None,
     )
+
+
+def public_support_email() -> str | None:
+    """The support address people may see (never the private inbox,
+    unless no public one is set)."""
+    return settings.PUBLIC_SUPPORT_EMAIL or settings.SUPPORT_EMAIL
 
 
 def compose(
@@ -50,10 +56,18 @@ def compose(
         quote=quote,
         button_label=button[0] if button else None,
         button_url=button[1] if button else None,
-        footer=None,
+        # People can't reply to YGT's own emails; say where help is.
+        # (Emails to the YGT team carry a Reply-To and need no such line.)
+        footer=None if reply_to else _no_reply_footer(),
     )
     headers = {"Reply-To": reply_to} if reply_to else {}
     return OutgoingEmail(to=email.to, subject=email.subject, html=email.html, text=email.text, headers=headers, calendar=calendar, calendar_method=calendar_method)
+
+
+def _no_reply_footer() -> str:
+    support = public_support_email()
+    line = "This is an automated email from YGT. Replies to it aren't received."
+    return f"{line} Need help? Write to {support}." if support else line
 
 
 async def queue(db: AsyncSession, *emails: OutgoingEmail) -> None:

@@ -94,10 +94,13 @@ class Settings(BaseSettings):
     # Comma-separated emails of people who may open /admin. They sign in
     # with their normal YGT account.
     PLATFORM_ADMIN_EMAILS: str = ""
-    # Where new help desk tickets and Contact us messages are emailed, and
-    # the sender of YGT's own emails (password resets, ticket replies,
-    # booking invites). Sent with the SMTP_* settings above.
+    # Where new help desk tickets and Contact us messages are delivered: a
+    # private inbox, never shown to anyone.
     SUPPORT_EMAIL: str | None = None
+    # The support address people see: on the website, in the footer of
+    # YGT's own (no-reply) emails, and as the organiser of session invites.
+    # Defaults to SUPPORT_EMAIL.
+    PUBLIC_SUPPORT_EMAIL: str | None = None
     # Discovery (Scale): free OpenStreetMap services. Both ask for a
     # descriptive User-Agent and light use; swap for a self-hosted mirror
     # if YGT grows.

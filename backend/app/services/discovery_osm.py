@@ -66,7 +66,7 @@ class OsmUnavailable(Exception):
 
 
 def _headers() -> dict:
-    contact = settings.SUPPORT_EMAIL or "support@yougt.co.za"
+    contact = settings.PUBLIC_SUPPORT_EMAIL or "support@yougt.co.za"
     return {"User-Agent": f"YGT-CRM-Discovery/1.0 ({contact})", "Accept": "application/json"}
 
 

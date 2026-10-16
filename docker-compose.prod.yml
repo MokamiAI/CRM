@@ -79,7 +79,7 @@ services:
       context: .
       dockerfile: deploy/Dockerfile.web
       args:
-        VITE_SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
+        VITE_SUPPORT_EMAIL: ${PUBLIC_SUPPORT_EMAIL:-${SUPPORT_EMAIL:-}}
     restart: unless-stopped
     env_file: .env
     ports:

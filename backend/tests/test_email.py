@@ -348,16 +348,24 @@ class _Capture:
         self.sent.append(message)
 
 
-def test_ygt_emails_come_from_the_mail_account_and_reply_to_support(monkeypatch):
-    """Providers like GoDaddy only send as the signed-in account's domain."""
+def test_ygt_emails_are_no_reply_and_point_to_public_support(monkeypatch):
+    """Sent from the no-reply address on the mail account's domain, with no
+    Reply-To; the footer names the public support address, never the
+    private inbox."""
     from app.core.config import settings
-    from app.services.platform_email import platform_config
+    from app.services import platform_email
 
-    monkeypatch.setattr(settings, "SMTP_FROM_EMAIL", "billing@yougt.co.za")
+    monkeypatch.setattr(settings, "SMTP_FROM_EMAIL", "noreply@yougt.co.za")
     monkeypatch.setattr(settings, "SUPPORT_EMAIL", "owner@gmail.com")
-    cfg = platform_config()
-    assert cfg.from_email == "billing@yougt.co.za" and cfg.reply_to == "owner@gmail.com"
+    monkeypatch.setattr(settings, "PUBLIC_SUPPORT_EMAIL", "support@yougt.co.za")
+    cfg = platform_email.platform_config()
+    assert cfg.from_email == "noreply@yougt.co.za" and cfg.reply_to is None
 
-    monkeypatch.setattr(settings, "SMTP_FROM_EMAIL", None)
-    cfg = platform_config()
-    assert cfg.from_email == "owner@gmail.com" and cfg.reply_to is None
+    mail = platform_email.compose(to="someone@example.com", subject="Hi", title="Hi", paragraphs=["Hello"])
+    assert "Reply-To" not in mail.headers
+    for body in (mail.text, mail.html):
+        assert "support@yougt.co.za" in body and "Replies to it aren" in body and "owner@gmail.com" not in body
+
+    # To the YGT team (with the sender as Reply-To): no no-reply line.
+    team = platform_email.compose(to="owner@gmail.com", subject="Contact", title="Contact", paragraphs=["Hi"], reply_to="visitor@example.com")
+    assert team.headers["Reply-To"] == "visitor@example.com" and "Replies to it aren" not in team.text
