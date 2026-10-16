@@ -369,3 +369,9 @@ def test_ygt_emails_are_no_reply_and_point_to_public_support(monkeypatch):
     # To the YGT team (with the sender as Reply-To): no no-reply line.
     team = platform_email.compose(to="owner@gmail.com", subject="Contact", title="Contact", paragraphs=["Hi"], reply_to="visitor@example.com")
     assert team.headers["Reply-To"] == "visitor@example.com" and "Replies to it aren" not in team.text
+
+    # From a real mailbox (billing@), replies are read: no no-reply line.
+    monkeypatch.setattr(settings, "SMTP_FROM_EMAIL", "billing@yougt.co.za")
+    assert platform_email.platform_config().from_email == "billing@yougt.co.za"
+    plain = platform_email.compose(to="someone@example.com", subject="Hi", title="Hi", paragraphs=["Hello"])
+    assert "Replies to it aren" not in plain.text and "owner@gmail.com" not in plain.text

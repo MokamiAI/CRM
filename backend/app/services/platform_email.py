@@ -1,7 +1,8 @@
 """Emails YGT itself sends (not a company): password resets, help desk
 updates, Contact us notifications and session booking invites. They use
-the server's SMTP_* settings, from SMTP_FROM_EMAIL (e.g. noreply@): no
-Reply-To, and the footer points to the public support address."""
+the server's SMTP_* settings, from SMTP_FROM_EMAIL (e.g. billing@), with
+no Reply-To. From a no-reply address, the footer names the public support
+address instead."""
 from dataclasses import asdict
 from datetime import datetime, timezone
 
@@ -64,7 +65,12 @@ def compose(
     return OutgoingEmail(to=email.to, subject=email.subject, html=email.html, text=email.text, headers=headers, calendar=calendar, calendar_method=calendar_method)
 
 
-def _no_reply_footer() -> str:
+def _no_reply_footer() -> str | None:
+    """Only when sending from a no-reply address: from a real mailbox
+    (e.g. billing@), people can simply reply."""
+    sender = (settings.SMTP_FROM_EMAIL or "").lower()
+    if not sender.startswith(("no-reply@", "noreply@", "donotreply@", "do-not-reply@")):
+        return None
     support = public_support_email()
     line = "This is an automated email from YGT. Replies to it aren't received."
     return f"{line} Need help? Write to {support}." if support else line
