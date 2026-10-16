@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import VerifyEmailBanner from "../components/VerifyEmailBanner";
+import GetTheAppBanner from "../components/GetTheAppBanner";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 import { Avatar, ListSkeleton, Tooltip } from "../components/ui";
@@ -481,6 +482,7 @@ export default function AppLayout() {
         </header>
 
         <main className="relative z-[1] px-4 pb-[calc(var(--tabbar-height)+1.5rem)] pt-5 md:ml-[var(--sidebar-w)] md:px-6 md:pb-12 md:pt-6 lg:px-8">
+          <GetTheAppBanner />
           <div className="mx-auto max-w-[88rem]">
             <LockedBanner />
             <VerifyEmailBanner />

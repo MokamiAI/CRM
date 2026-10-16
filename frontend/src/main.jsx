@@ -7,6 +7,7 @@ import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext";
 import "@fontsource-variable/inter";
 import { i18nReady } from "./i18n";
+import "./utils/install"; // early, so the browser's install offer isn't missed
 import "./index.css";
 
 const queryClient = new QueryClient({

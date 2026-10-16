@@ -2501,6 +2501,21 @@
     },
     "goToActivities": "Go to activities"
   },
+  "getApp": {
+    "installLabel": "Install YGT",
+    "alertsLabel": "Turn on alerts",
+    "desktopText": "Open YGT straight from your desktop and taskbar, like any other app.",
+    "desktopButton": "Install YGT on this computer",
+    "phoneText": "Put YGT on your home screen and open it like any other app.",
+    "phoneButton": "Add to home screen",
+    "iosText": "Put YGT on your home screen: tap Share, then Add to Home Screen. Alerts work on iPhone once it's there.",
+    "macSafariText": "Keep YGT in your Dock: in Safari's menu, choose File, then Add to Dock.",
+    "alertsText": "Turn on alerts so reminders and new tasks reach you, even when YGT is closed.",
+    "alertsButton": "Turn on alerts",
+    "installed": "YGT is installed. Find it on your desktop, taskbar or home screen.",
+    "failed": "Couldn't install YGT. Try your browser's menu: Install YGT, or Add to home screen.",
+    "close": "Close"
+  },
   "task": {
     "status": {
       "todo": "To do",
