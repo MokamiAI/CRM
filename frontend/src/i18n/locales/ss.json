@@ -78,7 +78,10 @@
       "today": "Lamuhla",
       "upcoming": "Lokutako"
     },
-    "subtitle": "Tincingo, imihlangano nemisebenti: tinyatselo letilandzelako kuto tonkhe tivumelwano nebatsengi"
+    "subtitle": "Tincingo, imihlangano nemisebenti: tinyatselo letilandzelako kuto tonkhe tivumelwano nebatsengi",
+    "handedOut": "Lengikunikile",
+    "forPerson": "Kwa-{{name}}",
+    "fromPerson": "Kusuka ku-{{name}}"
   },
   "activity": {
     "done": "Kuphetsiwe",
@@ -861,7 +864,10 @@
     "titleHint": "Kutsi lesicalo sentelwe ini, kuboniswa etulu.",
     "titlePlaceholder": "sib. Kuvuselelwa kwelusito lwemnyaka",
     "descriptionLabel": "Inchazelo",
-    "descriptionHint": "Sifinyeto lesifisha selikhasimende lakho, ngetulu kwemigca."
+    "descriptionHint": "Sifinyeto lesifisha selikhasimende lakho, ngetulu kwemigca.",
+    "rememberItems": "Khumbula tintfo letinsha njengemikhicito, kute tiphakanyiswe nenani lato ngalokulandzelako",
+    "itemsRemembered_one": "Intfo lensha lengu-{{count}} igcinwe njengemkhicito",
+    "itemsRemembered_other": "Tintfo letinsha letingu-{{count}} tigcinwe njengemikhicito"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Le-akhawunti imisiwe. Sicela utsintse kusekela kwe-YGT.",
@@ -2426,5 +2432,59 @@
     "medium": "Kusemkhatsini",
     "low": "Kuphansi",
     "any": "Nobe ngukuphi"
+  },
+  "notify": {
+    "dueAt": "Kufanele nga-{{time}}: {{subject}}",
+    "dueToday": "Lamuhla: {{subject}}",
+    "assigned": "{{by}} ukuniketile: {{subject}}",
+    "dueOn": "Kufanele nga-{{date}}",
+    "dueOnAt": "Kufanele nga-{{date}} nga-{{time}}",
+    "updated": "{{by}}: {{status}} · {{subject}}",
+    "noted": "{{by}} wengete linothi · {{subject}}",
+    "noNextStep": "Kute sinyatselo lesilandzelako: {{deal}}",
+    "noNextStepBody": "Kute lokuhleliwe. Hlela lucingo, umhlangano nobe umsebenti kute kungapholi.",
+    "test": "Tatiso tivuliwe",
+    "testBody": "Lena yindlela i-YGT letakukhumbuta ngayo ngemisebenti.",
+    "justNow": "Nyalo nje",
+    "minutesAgo_one": "Emaminithi langu-{{count}} lendlulile",
+    "minutesAgo_other": "Emaminithi langu-{{count}} lendlulile",
+    "hoursAgo_one": "Lihora lelingu-{{count}} leledlulile",
+    "hoursAgo_other": "Emahora langu-{{count}} lendlulile",
+    "open": "Vula",
+    "recent": "Lokwakho",
+    "markAllRead": "Maka konkhe njengalokufundziwe",
+    "pushOn": "Teluleko tivuliwe kulelithuluzi",
+    "turnOn": "Vula teluleko kulelithuluzi",
+    "turnOnHint": "Tfola tikhumbuto nemisebenti kulelifoni nobe ikhompyutha, nanoma i-YGT ivaliwe.",
+    "push": {
+      "unsupported": "Lesiphequluli asikhoni kukhombisa teluleko. Ku-iPhone, cala ngekufaka i-YGT esikrinini sasekhaya.",
+      "unavailable": "Teluleko atikavulwa ku-YGT nyalo.",
+      "blocked": "Teluleko tivinjelwe ku-YGT kulesiphequluli. Tivumele etilungiselelweni tesayithi.",
+      "failed": "Akukhonakalanga kuvula teluleko. Sicela uphindze uzame."
+    },
+    "goToActivities": "Hamba emisebentini"
+  },
+  "task": {
+    "status": {
+      "todo": "Lokufanele kwentiwe",
+      "in_progress": "Kuyachubeka",
+      "blocked": "Kuvinjelwe",
+      "done": "Kuphelile"
+    },
+    "open": "Buyeketa",
+    "send": "Tfumela sibuyeketo",
+    "sent": "Sibuyeketo sitfunyelwe",
+    "assignedTo": "Kunikwe",
+    "assignedBy": "Kunikwe ngu-",
+    "deadline": "Lilanga lekugcina",
+    "statusLabel": "Simo",
+    "update": "Sekume kuphi?",
+    "note": "Linothi (nawutsandza)",
+    "noteRequired": "Linothi (liyadzingeka): lokwentiwe, nobe lokuvimbako",
+    "notePlaceholder": "sib. Ngibashayele, ngilindze i-oda",
+    "blockedPlaceholder": "Yini lokuvimbako, futsi udzingani?",
+    "donePlaceholder": "Wentseni? sib. Kubhukhiwe ngeLesihlanu nga-08:00",
+    "history": "Tibuyeketo",
+    "noHistory": "Kute tibuyeketo okwanyalo."
   }
 }

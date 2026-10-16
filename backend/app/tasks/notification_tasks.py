@@ -61,8 +61,9 @@ async def remind_company(company_id: uuid.UUID, now: datetime | None = None) -> 
         for activity in rows.all():
             when = _when(activity, tz)
             if activity.due_time is None:
-                # All day: any time on its day from 08:00 (e.g. made at 14:00).
-                if not (activity.due_date == today and now >= when):
+                # All day: any time on its day from 08:00. Made (or given)
+                # during that day after 08:00: they already know, no ping.
+                if not (activity.due_date == today and now >= when) or activity.created_at.astimezone(tz) >= when:
                     continue
             elif not (when - LEAD_TIME <= now < when + STALE_AFTER):
                 continue

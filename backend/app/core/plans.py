@@ -67,7 +67,7 @@ PLANS: dict[str, Plan] = {
     # Per seat per month: 1–2 seats, then from TEAM_SEATS seats. Grow's full
     # seat price stays above Hustle, so one person never pays less for more.
     "grow": Plan("grow", "Grow", 22_900, team_cents=14_900, per_user=True, features=GROW_FEATURES),
-    "scale": Plan("scale", "Scale", 29_900, team_cents=24_900, per_user=True, features=SCALE_FEATURES),
+    "scale": Plan("scale", "Scale", 34_900, team_cents=29_900, per_user=True, features=SCALE_FEATURES),
 }
 PAID_PLANS = list(PLANS.values())
 

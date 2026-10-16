@@ -78,7 +78,10 @@
       "today": "Kajeno",
       "upcoming": "Tse tlang"
     },
-    "subtitle": "Mehala, dikopano le mesebetsi: mehato e latelang tumellanong e nngwe le e nngwe le moreki"
+    "subtitle": "Mehala, dikopano le mesebetsi: mehato e latelang tumellanong e nngwe le e nngwe le moreki",
+    "handedOut": "Tseo ke di fileng",
+    "forPerson": "Tsa {{name}}",
+    "fromPerson": "Ho tswa ho {{name}}"
   },
   "activity": {
     "done": "Ho phethilwe",
@@ -861,7 +864,10 @@
     "titleHint": "Seo kotheishene ena e leng sa sona, se bontshwa hodimo.",
     "titlePlaceholder": "mohl. Ntjhafatso ya tshehetso ya selemo",
     "descriptionLabel": "Tlhaloso",
-    "descriptionHint": "Kakaretso e kgutshwane bakeng sa moreki wa hao, ka hodima mela."
+    "descriptionHint": "Kakaretso e kgutshwane bakeng sa moreki wa hao, ka hodima mela.",
+    "rememberItems": "Hopola dintho tse ntjha jwalo ka dihlahiswa, hore di sisinngwe le theko ya tsona nakong e tlang",
+    "itemsRemembered_one": "Ntho e ntjha e {{count}} e bolokilwe jwalo ka sehlahiswa",
+    "itemsRemembered_other": "Dintho tse ntjha tse {{count}} di bolokilwe jwalo ka dihlahiswa"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhaonto ena e emisitswe. Ka kopo ikopanye le tshehetso ya YGT.",
@@ -2426,5 +2432,59 @@
     "medium": "Mahareng",
     "low": "Tlase",
     "any": "Efe kapa efe"
+  },
+  "notify": {
+    "dueAt": "Ho lokela ka {{time}}: {{subject}}",
+    "dueToday": "Kajeno: {{subject}}",
+    "assigned": "{{by}} o o file: {{subject}}",
+    "dueOn": "Ho lokela ka {{date}}",
+    "dueOnAt": "Ho lokela ka {{date}} ka {{time}}",
+    "updated": "{{by}}: {{status}} · {{subject}}",
+    "noted": "{{by}} o kentse ntlha · {{subject}}",
+    "noNextStep": "Ha ho mohato o latelang: {{deal}}",
+    "noNextStepBody": "Ha ho letho le rerilweng. Hlophisa mohala, kopano kapa mosebetsi hore e se ke ya fola.",
+    "test": "Ditsebiso di butswe",
+    "testBody": "Ena ke tsela eo YGT e tla o hopotsa ka yona ka mesebetsi.",
+    "justNow": "Hona jwale",
+    "minutesAgo_one": "Metsotso e {{count}} e fetileng",
+    "minutesAgo_other": "Metsotso e {{count}} e fetileng",
+    "hoursAgo_one": "Hora e {{count}} e fetileng",
+    "hoursAgo_other": "Dihora tse {{count}} tse fetileng",
+    "open": "Bula",
+    "recent": "Tsa hao",
+    "markAllRead": "Tshwaya tsohle e le tse badilweng",
+    "pushOn": "Ditemoso di butswe sesebedisweng sena",
+    "turnOn": "Bula ditemoso sesebedisweng sena",
+    "turnOnHint": "Fumana dikgopotso le mesebetsi foung kapa khomphutha ena, le ha YGT e kwetswe.",
+    "push": {
+      "unsupported": "Sebadi sena se ke ke sa bontsha ditemoso. Ho iPhone, kenya YGT skrineng sa lehae pele.",
+      "unavailable": "Ditemoso ha di eso bulwe ho YGT.",
+      "blocked": "Ditemoso di thibetswe ho YGT sebading sena. Di dumelle disetting tsa saete.",
+      "failed": "Ha re a kgona ho bula ditemoso. Ka kopo leka hape."
+    },
+    "goToActivities": "Eya mesebetsing"
+  },
+  "task": {
+    "status": {
+      "todo": "Ho lokelang ho etswa",
+      "in_progress": "Ho a tswela pele",
+      "blocked": "Ho thibetswe",
+      "done": "Ho phethilwe"
+    },
+    "open": "Ntjhafatso",
+    "send": "Romela ntjhafatso",
+    "sent": "Ntjhafatso e rometswe",
+    "assignedTo": "E filwe",
+    "assignedBy": "E filwe ke",
+    "deadline": "Letsatsi la ho qetela",
+    "statusLabel": "Boemo",
+    "update": "Ho eme kae?",
+    "note": "Ntlha (ha o rata)",
+    "noteRequired": "Ntlha (e a hlokahala): se entsweng, kapa se thibelang",
+    "notePlaceholder": "mohl. Ke ba letseditse, ke emetse odara",
+    "blockedPlaceholder": "Ke eng se thibelang, mme o hloka eng?",
+    "donePlaceholder": "O entse eng? mohl. Ho behetswe Labohlano ka 08:00",
+    "history": "Dintjhafatso",
+    "noHistory": "Ha ho dintjhafatso ho fihlela jwale."
   }
 }

@@ -78,7 +78,10 @@
       "today": "Gompieno",
       "upcoming": "Tse di tlang"
     },
-    "subtitle": "Megala, dikopano le ditiro: dikgato tse di latelang mo tumalanong nngwe le nngwe le moreki"
+    "subtitle": "Megala, dikopano le ditiro: dikgato tse di latelang mo tumalanong nngwe le nngwe le moreki",
+    "handedOut": "Tse ke di neileng",
+    "forPerson": "Tsa {{name}}",
+    "fromPerson": "Go tswa go {{name}}"
   },
   "activity": {
     "done": "Go weditswe",
@@ -861,7 +864,10 @@
     "titleHint": "Se kotheišene eno e leng sa sone, se bontshiwa kwa godimo.",
     "titlePlaceholder": "sk. Ntšhwafatso ya tshegetso ya ngwaga",
     "descriptionLabel": "Tlhaloso",
-    "descriptionHint": "Kakaretso e khutshwane ya modirisi wa gago, fa godimo ga mela."
+    "descriptionHint": "Kakaretso e khutshwane ya modirisi wa gago, fa godimo ga mela.",
+    "rememberItems": "Gopola dilo tse dintšhwa jaaka ditlhagiswa, gore di tshitshinngwe le tlhwatlhwa ya tsone nako e e tlang",
+    "itemsRemembered_one": "Selo se sesha se le {{count}} se bolokilwe jaaka setlhagiswa",
+    "itemsRemembered_other": "Dilo tse dintšhwa di le {{count}} di bolokilwe jaaka ditlhagiswa"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhaonto eno e emisitswe. Tswee-tswee ikgolaganye le tshegetso ya YGT.",
@@ -2426,5 +2432,59 @@
     "medium": "Fa gare",
     "low": "Kwa tlase",
     "any": "Epe fela"
+  },
+  "notify": {
+    "dueAt": "Go tshwanetse ka {{time}}: {{subject}}",
+    "dueToday": "Gompieno: {{subject}}",
+    "assigned": "{{by}} o go neile: {{subject}}",
+    "dueOn": "Go tshwanetse ka {{date}}",
+    "dueOnAt": "Go tshwanetse ka {{date}} ka {{time}}",
+    "updated": "{{by}}: {{status}} · {{subject}}",
+    "noted": "{{by}} o oketsa ntlha · {{subject}}",
+    "noNextStep": "Ga go kgato e e latelang: {{deal}}",
+    "noNextStepBody": "Ga go sepe se se rulagantsweng. Rulaganya mogala, kopano kgotsa tiro gore e se ka ya fola.",
+    "test": "Dikitsiso di butswe",
+    "testBody": "Eno ke tsela e YGT e tla go gakolola ka yone ka ditiro.",
+    "justNow": "Jaanong",
+    "minutesAgo_one": "Metsotso e le {{count}} e e fetileng",
+    "minutesAgo_other": "Metsotso e le {{count}} e e fetileng",
+    "hoursAgo_one": "Ura e le {{count}} e e fetileng",
+    "hoursAgo_other": "Diura di le {{count}} tse di fetileng",
+    "open": "Bula",
+    "recent": "Tsa gago",
+    "markAllRead": "Tshwaya tsotlhe di badilwe",
+    "pushOn": "Ditlhagiso di butswe mo sedirisiweng se",
+    "turnOn": "Bula ditlhagiso mo sedirisiweng se",
+    "turnOnHint": "Bona dikgakololo le ditiro mo mogaleng kgotsa khomphiutara e, le fa YGT e tswetswe.",
+    "push": {
+      "unsupported": "Sebatli se ga se kgone go bontsha ditlhagiso. Mo iPhone, tsenya YGT mo sekirining sa gae pele.",
+      "unavailable": "Ditlhagiso ga di ise di bulwe mo YGT.",
+      "blocked": "Ditlhagiso di thibetswe mo YGT mo sebatling se. Di letlelele mo dithulaganyong tsa saete.",
+      "failed": "Ga re a kgona go bula ditlhagiso. Tsweetswee leka gape."
+    },
+    "goToActivities": "Ya kwa ditirong"
+  },
+  "task": {
+    "status": {
+      "todo": "Go tshwanetse go dirwa",
+      "in_progress": "Go a tswelela",
+      "blocked": "Go thibetswe",
+      "done": "Go weditswe"
+    },
+    "open": "Tokafatso",
+    "send": "Romela tokafatso",
+    "sent": "Tokafatso e rometswe",
+    "assignedTo": "E neilwe",
+    "assignedBy": "E neilwe ke",
+    "deadline": "Letlha la bofelo",
+    "statusLabel": "Seemo",
+    "update": "Go eme kae?",
+    "note": "Ntlha (fa o rata)",
+    "noteRequired": "Ntlha (e a tlhokega): se se dirilweng, kgotsa se se thibelang",
+    "notePlaceholder": "sk. Ke ba leleditse, ke emetse odara",
+    "blockedPlaceholder": "Ke eng se se thibelang, mme o tlhoka eng?",
+    "donePlaceholder": "O dirile eng? sk. Go beeletswe Labotlhano ka 08:00",
+    "history": "Ditokafatso",
+    "noHistory": "Ga go ise go nne le ditokafatso."
   }
 }

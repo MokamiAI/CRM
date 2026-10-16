@@ -13,6 +13,7 @@ import { TourProvider, useTour } from "../components/Tour";
 import { ProfileSheet } from "../components/Signature";
 import { LockedBanner, useHasFeature } from "../components/Billing";
 import QuoteOfTheWeek from "../components/QuoteOfTheWeek";
+import { NotificationList, NotificationPopper, PushToggle, useMyNotifications } from "../components/NotificationCenter";
 import { WelcomeSplash, welcomeQueued } from "../components/Startup";
 import { useActivityCounts, useCompany, useDiscoveryCounts, useInboxCounts } from "../hooks/useApi";
 
@@ -232,7 +233,8 @@ function Notifications() {
     { to: "/messages", icon: MessagesIcon, count: inbox?.unread ?? 0, text: "messages" },
     ...(discovery ? [{ to: "/discovery", icon: DiscoveryIcon, count: found?.new ?? 0, text: "discovery" }] : []),
   ].filter((r) => r.count > 0);
-  const total = rows.reduce((n, r) => n + r.count, 0);
+  const { data: mine } = useMyNotifications();
+  const total = rows.reduce((n, r) => n + r.count, 0) + (mine?.unread ?? 0);
   return (
     <div className="relative" ref={ref}>
       <button
@@ -250,7 +252,7 @@ function Notifications() {
         )}
       </button>
       {open && (
-        <div className={`${MENU} w-72 max-w-[calc(100vw-2rem)]`} role="menu">
+        <div className={`${MENU} w-80 max-w-[calc(100vw-2rem)]`} role="menu">
           <p className="px-4 pb-2 pt-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">{t("nav.notifications")}</p>
           {rows.length ? (
             rows.map((r) => (
@@ -262,8 +264,12 @@ function Notifications() {
               </Link>
             ))
           ) : (
-            <p className="px-4 pb-3 pt-1 text-sm text-slate-500">{t("nav.allCaughtUp")}</p>
+            !mine?.items?.length && <p className="px-4 pb-3 pt-1 text-sm text-slate-500">{t("nav.allCaughtUp")}</p>
           )}
+          <NotificationList onNavigate={() => setOpen(false)} />
+          <div className="border-t border-slate-100">
+            <PushToggle />
+          </div>
         </div>
       )}
     </div>
@@ -551,6 +557,7 @@ export default function AppLayout() {
           </div>
         </Sheet>
         <TeamQuote />
+        <NotificationPopper />
         <ProfileSheet open={profileOpen} onClose={() => setProfileOpen(false)} />
       </div>
     </TourProvider>

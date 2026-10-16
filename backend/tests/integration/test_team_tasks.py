@@ -8,6 +8,11 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
+from sqlalchemy import update
+
+from app.core.database import AsyncSessionLocal
+from app.core.tenancy import set_system
+from app.models.crm import Activity
 from app.tasks.notification_tasks import remind_company
 
 from .conftest import mark_verified, new_company
@@ -115,6 +120,11 @@ async def test_a_reminder_a_minute_before_and_only_once(api):
     assert soon.status_code == later.status_code == allday.status_code == 201
 
     company = owner["company_id"]
+    # Made today (before the 08:00 reminder time in this test's clock): it counts.
+    async with AsyncSessionLocal() as db:
+        set_system(db)
+        await db.execute(update(Activity).where(Activity.subject == "Send the quote").values(created_at=datetime.combine(today, time(7, 0), SAST)))
+        await db.commit()
     # 14:28: nothing yet. 14:29 (a minute before): Call Thabo, plus the all-day one (after 08:00).
     assert await remind_company(company, datetime.combine(today, time(14, 28), SAST)) == 1  # the all-day task
     assert await remind_company(company, datetime.combine(today, time(14, 29), SAST)) == 1  # Call Thabo
@@ -145,3 +155,16 @@ async def test_devices_can_subscribe_to_push(api):
     assert set(settings) == {"enabled", "public_key"}
     assert (await api.post("/notifications/test", headers=h)).status_code == 202
     assert (await _bell(api, h))["items"][0]["kind"] == "test"
+
+
+@pytest.mark.asyncio
+async def test_no_due_today_ping_for_a_task_made_that_day(api):
+    owner = await new_company(api, "Fresh Task Co")
+    today = date.today()
+    await api.post("/activities", json={"subject": "Made at lunchtime", "due_date": today.isoformat()}, headers=owner["headers"])
+    async with AsyncSessionLocal() as db:
+        set_system(db)
+        await db.execute(update(Activity).where(Activity.subject == "Made at lunchtime").values(created_at=datetime.combine(today, time(12, 0), SAST)))
+        await db.commit()
+    # Made at 12:00 on its day, after the 08:00 reminder time: they already know.
+    assert await remind_company(owner["company_id"], datetime.combine(today, time(23, 0), SAST)) == 0

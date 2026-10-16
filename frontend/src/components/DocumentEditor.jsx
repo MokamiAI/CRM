@@ -80,6 +80,8 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   // in, which is added when the document is saved.
   const [party, setParty] = useState({ id: initial?.[purchase ? "supplier_id" : "customer_id"] ?? initialCustomerId ?? null, name: "" });
   const [addingParty, setAddingParty] = useState(false);
+  // New line items (typed, not picked) are kept as products for next time.
+  const [rememberItems, setRememberItems] = useState(true);
   const queryClient = useQueryClient();
   useEffect(() => {
     if (!party.id || party.name) return;
@@ -166,6 +168,30 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
         setAddingParty(false);
       }
     }
+    // Remember what was typed: each new item becomes a product, so next
+    // time it's suggested with its price and VAT. Never blocks the save.
+    let lines = items;
+    const known = new Set(products.map((p) => p.name.trim().toLowerCase()));
+    const fresh = !purchase && rememberItems ? items.filter((i) => !i.product_id && i.description.trim() && Number(i.unit_price) > 0 && !known.has(i.description.trim().toLowerCase())) : [];
+    if (fresh.length) {
+      const made = new Map();
+      for (const item of fresh) {
+        const name = item.description.trim();
+        if (made.has(name.toLowerCase())) continue;
+        try {
+          const { data } = await apiClient.post("/products", { name, unit_price: item.unit_price, tax_rate: item.tax_rate || "0" });
+          made.set(name.toLowerCase(), data.id);
+        } catch {
+          /* e.g. a viewer, or a name clash: the document still saves */
+        }
+      }
+      if (made.size) {
+        lines = items.map((i) => (!i.product_id && made.has(i.description.trim().toLowerCase()) ? { ...i, product_id: made.get(i.description.trim().toLowerCase()) } : i));
+        setItems(lines);
+        queryClient.invalidateQueries({ queryKey: ["products"] });
+        toast.success(t("editor.itemsRemembered", { count: made.size }));
+      }
+    }
     onSubmit({
       [purchase ? "supplier_id" : "customer_id"]: partyId,
       issue_date: issueDate,
@@ -174,7 +200,13 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
       reference: reference.trim() || null,
       ...(quote && { title: title.trim(), description: description.trim() }),
       ...(purchase && { delivery_address: deliveryAddress.trim() || null }),
-      items: payloadItems(),
+      items: lines.map(({ product_id, description, quantity, unit_price, tax_rate }) => ({
+        product_id,
+        description,
+        quantity,
+        unit_price: unit_price || "0",
+        tax_rate: tax_rate || "0",
+      })),
     });
   }
 
@@ -345,6 +377,12 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
         <Button variant="secondary" className="mt-4 w-full" onClick={() => setItems((prev) => [...prev, blankItem()])}>
           {t("editor.addLine")}
         </Button>
+        {!purchase && (
+          <label className="mt-3 flex items-start gap-2 text-sm text-zinc-600">
+            <input type="checkbox" className="mt-0.5 h-4 w-4 rounded border-zinc-300" checked={rememberItems} onChange={(e) => setRememberItems(e.target.checked)} />
+            <span>{t("editor.rememberItems")}</span>
+          </label>
+        )}
       </section>
 
       <section className="card space-y-4 p-4 sm:p-5">

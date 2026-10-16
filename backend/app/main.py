@@ -72,7 +72,7 @@ if settings.REDIS_URL.startswith("memory") and settings.ENVIRONMENT != "producti
                     await remind_all()
                 except Exception:
                     logging.getLogger(__name__).exception("Local reminder check failed")
-                await asyncio.sleep(30)
+                await asyncio.sleep(20)
 
         app.state.reminder_loop = asyncio.create_task(loop())
 

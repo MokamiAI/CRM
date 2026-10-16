@@ -78,7 +78,10 @@
       "today": "Today",
       "upcoming": "Upcoming"
     },
-    "subtitle": "Calls, meetings and tasks: the next steps on every deal and customer"
+    "subtitle": "Calls, meetings and tasks: the next steps on every deal and customer",
+    "handedOut": "Handed out by me",
+    "forPerson": "For {{name}}",
+    "fromPerson": "From {{name}}"
   },
   "activity": {
     "done": "Done",
@@ -861,7 +864,10 @@
     "titleHint": "What this quote is for, shown at the top.",
     "titlePlaceholder": "e.g. Annual support renewal",
     "descriptionLabel": "Description",
-    "descriptionHint": "A short summary for your customer, above the line items."
+    "descriptionHint": "A short summary for your customer, above the line items.",
+    "rememberItems": "Remember new items as products, so they're suggested next time with their price",
+    "itemsRemembered_one": "{{count}} new item saved as a product",
+    "itemsRemembered_other": "{{count}} new items saved as products"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "This account is suspended. Please contact YGT support.",
@@ -2426,5 +2432,59 @@
     "medium": "Medium",
     "low": "Low",
     "any": "Any priority"
+  },
+  "notify": {
+    "dueAt": "Due at {{time}}: {{subject}}",
+    "dueToday": "Due today: {{subject}}",
+    "assigned": "{{by}} assigned you: {{subject}}",
+    "dueOn": "Due {{date}}",
+    "dueOnAt": "Due {{date}} at {{time}}",
+    "updated": "{{by}}: {{status}} · {{subject}}",
+    "noted": "{{by}} added a note · {{subject}}",
+    "noNextStep": "No next step: {{deal}}",
+    "noNextStepBody": "Nothing is planned. Schedule a call, meeting or task so it doesn't go cold.",
+    "test": "Notifications are on",
+    "testBody": "This is how YGT will remind you about activities and tasks.",
+    "justNow": "Just now",
+    "minutesAgo_one": "{{count}} min ago",
+    "minutesAgo_other": "{{count}} min ago",
+    "hoursAgo_one": "{{count}} hour ago",
+    "hoursAgo_other": "{{count}} hours ago",
+    "open": "Open",
+    "recent": "For you",
+    "markAllRead": "Mark all read",
+    "pushOn": "Alerts are on for this device",
+    "turnOn": "Turn on alerts on this device",
+    "turnOnHint": "Get reminders and tasks on this phone or computer, even when YGT is closed.",
+    "push": {
+      "unsupported": "This browser can't show alerts. On iPhone, add YGT to your home screen first.",
+      "unavailable": "Alerts aren't switched on for YGT yet.",
+      "blocked": "Alerts are blocked for YGT in this browser. Allow them in the browser's site settings.",
+      "failed": "Couldn't turn on alerts. Please try again."
+    },
+    "goToActivities": "Go to activities"
+  },
+  "task": {
+    "status": {
+      "todo": "To do",
+      "in_progress": "In progress",
+      "blocked": "Blocked",
+      "done": "Done"
+    },
+    "open": "Update",
+    "send": "Send update",
+    "sent": "Update sent",
+    "assignedTo": "Assigned to",
+    "assignedBy": "Assigned by",
+    "deadline": "Deadline",
+    "statusLabel": "Status",
+    "update": "Where is it at?",
+    "note": "Note (optional)",
+    "noteRequired": "Note (required): what was done, or what's in the way",
+    "notePlaceholder": "e.g. Called them, waiting for the PO",
+    "blockedPlaceholder": "What's in the way, and what do you need?",
+    "donePlaceholder": "What did you do? e.g. Booked for Friday 08:00",
+    "history": "Updates",
+    "noHistory": "No updates yet."
   }
 }

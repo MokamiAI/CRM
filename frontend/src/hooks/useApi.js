@@ -127,8 +127,8 @@ export function useDealQuotes(id) {
   return useQuery({ queryKey: ["deal-quotes", id], queryFn: () => get(`/deals/${id}/quotes`) });
 }
 
-export function useActivities(params = {}) {
-  return useQuery({ queryKey: ["activities", params], queryFn: () => get("/activities", params) });
+export function useActivities(params = {}, options = {}) {
+  return useQuery({ queryKey: ["activities", params], queryFn: () => get("/activities", params), ...options });
 }
 
 export function useActivityCounts() {

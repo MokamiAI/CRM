@@ -78,7 +78,10 @@
       "today": "Namuhla",
       "upcoming": "Okuzayo"
     },
-    "subtitle": "Izingcingo, imihlangano nemisebenzi: izinyathelo ezilandelayo kuwo wonke amadili namakhasimende"
+    "subtitle": "Izingcingo, imihlangano nemisebenzi: izinyathelo ezilandelayo kuwo wonke amadili namakhasimende",
+    "handedOut": "Engikunikezile",
+    "forPerson": "Ka-{{name}}",
+    "fromPerson": "Kusuka ku-{{name}}"
   },
   "activity": {
     "done": "Kuqediwe",
@@ -861,7 +864,10 @@
     "titleHint": "Ukuthi lesi silinganiso esani, kuboniswa phezulu.",
     "titlePlaceholder": "isb. Ukuvuselelwa kosizo lonyaka",
     "descriptionLabel": "Incazelo",
-    "descriptionHint": "Isifinyezo esifushane sekhasimende lakho, ngaphezu kwemigqa."
+    "descriptionHint": "Isifinyezo esifushane sekhasimende lakho, ngaphezu kwemigqa.",
+    "rememberItems": "Khumbula izinto ezintsha njengemikhiqizo, ukuze ziphakanyiswe ngenani lazo ngokuzayo",
+    "itemsRemembered_one": "Into entsha engu-{{count}} igcinwe njengomkhiqizo",
+    "itemsRemembered_other": "Izinto ezintsha ezingu-{{count}} zigcinwe njengemikhiqizo"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Le akhawunti imisiwe. Sicela uxhumane nosizo lwe-YGT.",
@@ -2426,5 +2432,59 @@
     "medium": "Kumaphakathi",
     "low": "Kuphansi",
     "any": "Noma yikuphi"
+  },
+  "notify": {
+    "dueAt": "Kufanele ngo-{{time}}: {{subject}}",
+    "dueToday": "Namuhla: {{subject}}",
+    "assigned": "U-{{by}} ukunikeze: {{subject}}",
+    "dueOn": "Kufanele ngo-{{date}}",
+    "dueOnAt": "Kufanele ngo-{{date}} ngo-{{time}}",
+    "updated": "{{by}}: {{status}} · {{subject}}",
+    "noted": "U-{{by}} wengeze inothi · {{subject}}",
+    "noNextStep": "Asikho isinyathelo esilandelayo: {{deal}}",
+    "noNextStepBody": "Akukho okuhleliwe. Hlela ucingo, umhlangano noma umsebenzi ukuze kungapholi.",
+    "test": "Izaziso zivuliwe",
+    "testBody": "Yile ndlela i-YGT ezokukhumbuza ngayo ngemisebenzi.",
+    "justNow": "Manje nje",
+    "minutesAgo_one": "Imizuzu engu-{{count}} edlule",
+    "minutesAgo_other": "Imizuzu engu-{{count}} edlule",
+    "hoursAgo_one": "Ihora elingu-{{count}} eledlule",
+    "hoursAgo_other": "Amahora angu-{{count}} edlule",
+    "open": "Vula",
+    "recent": "Okwakho",
+    "markAllRead": "Maka konke njengokufundiwe",
+    "pushOn": "Izexwayiso zivuliwe kule divayisi",
+    "turnOn": "Vula izexwayiso kule divayisi",
+    "turnOnHint": "Thola izikhumbuzo nemisebenzi kule foni noma ikhompyutha, noma i-YGT ivaliwe.",
+    "push": {
+      "unsupported": "Lesi siphequluli asikwazi ukukhombisa izexwayiso. Ku-iPhone, qala ngokufaka i-YGT esikrinini sasekhaya.",
+      "unavailable": "Izexwayiso azikavulwa ku-YGT okwamanje.",
+      "blocked": "Izexwayiso zivinjiwe ku-YGT kulesi siphequluli. Zivumele kuzilungiselelo zesayithi.",
+      "failed": "Akukwazanga ukuvula izexwayiso. Sicela uzame futhi."
+    },
+    "goToActivities": "Iya emisebenzini"
+  },
+  "task": {
+    "status": {
+      "todo": "Okumele kwenziwe",
+      "in_progress": "Kuyaqhubeka",
+      "blocked": "Kuvinjiwe",
+      "done": "Kuqediwe"
+    },
+    "open": "Buyekeza",
+    "send": "Thumela isibuyekezo",
+    "sent": "Isibuyekezo sithunyelwe",
+    "assignedTo": "Kunikezwe u-",
+    "assignedBy": "Kunikezwe ngu-",
+    "deadline": "Usuku lokugcina",
+    "statusLabel": "Isimo",
+    "update": "Sekumi kuphi?",
+    "note": "Inothi (uma uthanda)",
+    "noteRequired": "Inothi (kuyadingeka): okwenziwe, noma okuvimbayo",
+    "notePlaceholder": "isib. Ngibashayele, ngilinde i-oda",
+    "blockedPlaceholder": "Yini evimbayo, futhi udingani?",
+    "donePlaceholder": "Wenzeni? isib. Kubhukhwe ngoLwesihlanu ngo-08:00",
+    "history": "Izibuyekezo",
+    "noHistory": "Azikabi khona izibuyekezo."
   }
 }

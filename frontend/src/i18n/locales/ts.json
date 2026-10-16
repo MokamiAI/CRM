@@ -78,7 +78,10 @@
       "today": "Namuntlha",
       "upcoming": "Leswi taka"
     },
-    "subtitle": "Swirhambo, minhlangano ni mintirho: magoza lama landzelaka eka ntwanano wun'wana ni wun'wana ni muxavi"
+    "subtitle": "Swirhambo, minhlangano ni mintirho: magoza lama landzelaka eka ntwanano wun'wana ni wun'wana ni muxavi",
+    "handedOut": "Leswi ndzi swi nyikeke",
+    "forPerson": "Swa {{name}}",
+    "fromPerson": "Ku suka eka {{name}}"
   },
   "activity": {
     "done": "Swi hetiwile",
@@ -861,7 +864,10 @@
     "titleHint": "Leswi khotexini leyi yi nga swa swona, swi kombisiwa ehenhla.",
     "titlePlaceholder": "xik. Ku pfuxetiwa ka nseketelo wa lembe",
     "descriptionLabel": "Nhlamuselo",
-    "descriptionHint": "Nkatsakanyo wo koma wa muxavi wa wena, ehenhla ka tilayini."
+    "descriptionHint": "Nkatsakanyo wo koma wa muxavi wa wena, ehenhla ka tilayini.",
+    "rememberItems": "Tsundzuka swilo leswintshwa tanihi swikumiwa, leswaku swi ringanyetiwa ni nxavo wa swona nkarhi lowu taka",
+    "itemsRemembered_one": "Xilo xintshwa xa {{count}} xi hlayisiwile tanihi xikumiwa",
+    "itemsRemembered_other": "Swilo swintshwa swa {{count}} swi hlayisiwile tanihi swikumiwa"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhawunti leyi yi yimisiwile. Hi kombela u tihlanganisa na nseketelo wa YGT.",
@@ -2426,5 +2432,59 @@
     "medium": "Exikarhi",
     "low": "Ehansi",
     "any": "Yihi na yihi"
+  },
+  "notify": {
+    "dueAt": "Fanele hi {{time}}: {{subject}}",
+    "dueToday": "Namuntlha: {{subject}}",
+    "assigned": "{{by}} u ku nyikile: {{subject}}",
+    "dueOn": "Fanele hi {{date}}",
+    "dueOnAt": "Fanele hi {{date}} hi {{time}}",
+    "updated": "{{by}}: {{status}} · {{subject}}",
+    "noted": "{{by}} u engetele xitsundzuxo · {{subject}}",
+    "noNextStep": "A ku na goza leri landzelaka: {{deal}}",
+    "noNextStepBody": "A ku na nchumu lowu kunguhatiweke. Kunguhata riqingho, nhlangano kumbe ntirho leswaku wu nga titimeli.",
+    "test": "Swilemukiso swi pfuriwile",
+    "testBody": "Leyi i ndlela leyi YGT yi nga ta ku tsundzuxa ha yona hi mintirho.",
+    "justNow": "Sweswi",
+    "minutesAgo_one": "Timinete ta {{count}} leti hundzeke",
+    "minutesAgo_other": "Timinete ta {{count}} leti hundzeke",
+    "hoursAgo_one": "Awara ya {{count}} leyi hundzeke",
+    "hoursAgo_other": "Tiawara ta {{count}} leti hundzeke",
+    "open": "Pfula",
+    "recent": "Swa wena",
+    "markAllRead": "Funga hinkwaswo tanihi leswi hlayiweke",
+    "pushOn": "Swilemukiso swi pfuriwile eka xitirhisiwa lexi",
+    "turnOn": "Pfula swilemukiso eka xitirhisiwa lexi",
+    "turnOnHint": "Kuma switsundzuxo ni mintirho eka foni kumbe khompyuta leyi, hambiloko YGT yi pfariwile.",
+    "push": {
+      "unsupported": "Burawuza leyi a yi swi koti ku kombisa swilemukiso. Eka iPhone, engetela YGT eka xikirini xa le kaya ku sungula.",
+      "unavailable": "Swilemukiso a swi si pfuriwa eka YGT.",
+      "blocked": "Swilemukiso swi siviriwile eka YGT eka burawuza leyi. Swi pfumelele eka swiveko swa saiti.",
+      "failed": "A hi swi kotanga ku pfula swilemukiso. Hi kombela u ringeta nakambe."
+    },
+    "goToActivities": "Yana eka mintirho"
+  },
+  "task": {
+    "status": {
+      "todo": "Swa ku endliwa",
+      "in_progress": "Swa ya emahlweni",
+      "blocked": "Swi siviriwile",
+      "done": "Swi herile"
+    },
+    "open": "Mpfuxeto",
+    "send": "Rhumela mpfuxeto",
+    "sent": "Mpfuxeto wu rhumeriwile",
+    "assignedTo": "Swi nyikiwe",
+    "assignedBy": "Swi nyikiwe hi",
+    "deadline": "Siku ro hetelela",
+    "statusLabel": "Xiyimo",
+    "update": "Swi yime kwihi?",
+    "note": "Xitsundzuxo (loko u lava)",
+    "noteRequired": "Xitsundzuxo (xa laveka): leswi endliweke, kumbe leswi sivelaka",
+    "notePlaceholder": "xik. Ndzi va ringile, ndzi rindzile oda",
+    "blockedPlaceholder": "I yini leswi sivelaka, naswona u lava yini?",
+    "donePlaceholder": "U endle yini? xik. Swi bukiwile hi Ravuntlhanu hi 08:00",
+    "history": "Mimpfuxeto",
+    "noHistory": "A ku si va na mimpfuxeto."
   }
 }

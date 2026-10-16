@@ -52,13 +52,13 @@ def test_prices_per_seat_cheaper_from_three():
     # Grow and Scale, one or two seats: the full price per seat.
     assert PLANS["grow"].price_cents("monthly", 1) == 22_900
     assert PLANS["grow"].price_cents("monthly", 2) == 45_800
-    assert PLANS["scale"].price_cents("monthly", 2) == 59_800
+    assert PLANS["scale"].price_cents("monthly", 2) == 69_800
     # From three seats every seat is at the team price.
     assert PLANS["grow"].price_cents("monthly", 3) == 44_700
-    assert PLANS["scale"].price_cents("monthly", 7) == 174_300
+    assert PLANS["scale"].price_cents("monthly", 7) == 209_300
     # Annual: ten months for twelve, at the same seat price.
     assert PLANS["grow"].price_cents("annually", 1) == 229_000
-    assert PLANS["scale"].price_cents("annually", 5) == 1_245_000
+    assert PLANS["scale"].price_cents("annually", 5) == 1_495_000
     # One person never pays less for Grow than for Hustle, nor for Scale than Grow.
     assert PLANS["hustle"].price_cents("monthly", 1) < PLANS["grow"].price_cents("monthly", 1)
     for n in range(1, 12):

@@ -78,7 +78,10 @@
       "today": "Ṋamusi",
       "upcoming": "Zwi ḓaho"
     },
-    "subtitle": "Mafounu, maṱangano na mishumo: zwikalo zwi tevhelaho kha thendelano iṅwe na iṅwe na murengi"
+    "subtitle": "Mafounu, maṱangano na mishumo: zwikalo zwi tevhelaho kha thendelano iṅwe na iṅwe na murengi",
+    "handedOut": "Zwe nda zwi ṋea",
+    "forPerson": "Zwa {{name}}",
+    "fromPerson": "U bva kha {{name}}"
   },
   "activity": {
     "done": "Zwo fhela",
@@ -861,7 +864,10 @@
     "titleHint": "Zwine khotheshini iyi ya vha zwa zwone, zwi sumbedzwa nṱha.",
     "titlePlaceholder": "tsumbo, U vusuludzwa ha thikhedzo ya ṅwaha",
     "descriptionLabel": "Ṱhaluso",
-    "descriptionHint": "Pfufhifhadzo pfufhi ya murengi waṋu, nṱha ha mitevhe."
+    "descriptionHint": "Pfufhifhadzo pfufhi ya murengi waṋu, nṱha ha mitevhe.",
+    "rememberItems": "Humbulani zwithu zwiswa sa zwibveledzwa, uri zwi ṱoḓiswe na mutengo wazwo tshifhingani tshi ḓaho",
+    "itemsRemembered_one": "Tshithu tshiswa tsha {{count}} tsho vhulungwa sa tshibveledzwa",
+    "itemsRemembered_other": "Zwithu zwiswa zwa {{count}} zwo vhulungwa sa zwibveledzwa"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Akhaunthe iyi yo imiswa. Ri humbela ni kwame thikhedzo ya YGT.",
@@ -2426,5 +2432,59 @@
     "medium": "Vhukati",
     "low": "Fhasi",
     "any": "Ifhio na ifhio"
+  },
+  "notify": {
+    "dueAt": "Zwi tea nga {{time}}: {{subject}}",
+    "dueToday": "Ṋamusi: {{subject}}",
+    "assigned": "{{by}} o ni ṋea: {{subject}}",
+    "dueOn": "Zwi tea nga {{date}}",
+    "dueOnAt": "Zwi tea nga {{date}} nga {{time}}",
+    "updated": "{{by}}: {{status}} · {{subject}}",
+    "noted": "{{by}} o engedza nyimele · {{subject}}",
+    "noNextStep": "A hu na tshikalo tshi tevhelaho: {{deal}}",
+    "noNextStepBody": "A hu na zwo dzudzanywaho. Dzudzanyani luṱingo, muṱangano kana mushumo uri zwi sa ṱonifhale.",
+    "test": "Ndivhadzo dzo vulwa",
+    "testBody": "Iyi ndi nḓila ine YGT ya ḓo ni humbudza ngayo nga mishumo.",
+    "justNow": "Zwino",
+    "minutesAgo_one": "Minethe dza {{count}} dzo fhiraho",
+    "minutesAgo_other": "Minethe dza {{count}} dzo fhiraho",
+    "hoursAgo_one": "Awara ya {{count}} yo fhiraho",
+    "hoursAgo_other": "Awara dza {{count}} dzo fhiraho",
+    "open": "Vulani",
+    "recent": "Zwaṋu",
+    "markAllRead": "Swayani zwoṱhe sa zwo vhalwaho",
+    "pushOn": "Tsevho dzo vulwa kha tshishumiswa itshi",
+    "turnOn": "Vulani tsevho kha tshishumiswa itshi",
+    "turnOnHint": "Wanani khumbudzo na mishumo kha luṱingo kana khomphiyutha iyi, naho YGT yo valwa.",
+    "push": {
+      "unsupported": "Burausa iyi a i koni u sumbedza tsevho. Kha iPhone, engedzani YGT kha tshikirini tsha hayani u thoma.",
+      "unavailable": "Tsevho a dzi athu vulwa kha YGT.",
+      "blocked": "Tsevho dzo thivhelwa kha YGT kha burausa iyi. Dzi tendeleni kha zwivhewa zwa saithi.",
+      "failed": "A ro ngo kona u vula tsevho. Ri humbela ni lingedze hafhu."
+    },
+    "goToActivities": "Iyani kha mishumo"
+  },
+  "task": {
+    "status": {
+      "todo": "Zwi tea u itwa",
+      "in_progress": "Zwi khou bvela phanḓa",
+      "blocked": "Zwo thivhelwa",
+      "done": "Zwo fhela"
+    },
+    "open": "Mveledziso",
+    "send": "Rumelani mveledziso",
+    "sent": "Mveledziso yo rumelwa",
+    "assignedTo": "Zwo ṋewa",
+    "assignedBy": "Zwo ṋewa nga",
+    "deadline": "Ḓuvha ḽa u fhedza",
+    "statusLabel": "Tshiimo",
+    "update": "Zwo ima ngafhi?",
+    "note": "Nyimele (arali ni tshi funa)",
+    "noteRequired": "Nyimele (i a ṱoḓea): zwo itwaho, kana zwi thivhelaho",
+    "notePlaceholder": "tsumbo. Ndo vha founela, ndi khou lindela oda",
+    "blockedPlaceholder": "Ndi mini zwi thivhelaho, nahone ni ṱoḓa mini?",
+    "donePlaceholder": "No ita mini? tsumbo. Zwo bukwa nga Ḽavhuṱanu nga 08:00",
+    "history": "Mveledziso",
+    "noHistory": "A hu athu vha na mveledziso."
   }
 }

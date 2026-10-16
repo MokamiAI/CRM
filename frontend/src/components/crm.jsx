@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { StatusChip } from "./TaskSheet";
 import { Link } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -275,7 +276,7 @@ export function PencilIcon(props) {
   );
 }
 
-export function ActivityRow({ activity, context, onToggle }) {
+export function ActivityRow({ activity, context, onToggle, onOpen }) {
   const { t } = useTranslation();
   const [optimisticDone, setOptimisticDone] = useState(null);
   const [leaving, setLeaving] = useState(false);
@@ -312,7 +313,16 @@ export function ActivityRow({ activity, context, onToggle }) {
             </svg>
           </button>
           <div className="min-w-0 flex-1">
-            <p className={`text-sm font-medium transition-colors duration-150 ${done ? "text-zinc-400 line-through" : "text-zinc-900"}`}>{activity.subject}</p>
+            <p className={`flex flex-wrap items-center gap-2 text-sm font-medium transition-colors duration-150 ${done ? "text-zinc-400 line-through" : "text-zinc-900"}`}>
+              {onOpen ? (
+                <button type="button" onClick={() => onOpen(activity)} className="text-left hover:underline">
+                  {activity.subject}
+                </button>
+              ) : (
+                activity.subject
+              )}
+              {!done && (activity.status === "in_progress" || activity.status === "blocked") && <StatusChip status={activity.status} />}
+            </p>
             <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-zinc-500">
               <span className="inline-flex items-center gap-1">
                 <ActivityIcon type={activity.type} className="h-3.5 w-3.5" />
@@ -323,6 +333,15 @@ export function ActivityRow({ activity, context, onToggle }) {
             </p>
             {activity.note && <p className="mt-1 whitespace-pre-line text-sm text-zinc-600">{activity.note}</p>}
           </div>
+          {onOpen && (
+            <button
+              type="button"
+              onClick={() => onOpen(activity)}
+              className="pressable -mt-1 shrink-0 rounded-lg px-2 py-1 text-xs font-semibold text-blue-600 hover:bg-blue-50"
+            >
+              {i18n.t("task.open")}
+            </button>
+          )}
           {!done && <EditActivityButton activity={activity} className="-mr-1 -mt-1" />}
         </div>
       </div>

@@ -78,7 +78,10 @@
       "today": "Vandag",
       "upcoming": "Komend"
     },
-    "subtitle": "Oproepe, vergaderings en take: die volgende stappe op elke transaksie en kliënt"
+    "subtitle": "Oproepe, vergaderings en take: die volgende stappe op elke transaksie en kliënt",
+    "handedOut": "Deur my gegee",
+    "forPerson": "Vir {{name}}",
+    "fromPerson": "Van {{name}}"
   },
   "activity": {
     "done": "Klaar",
@@ -861,7 +864,10 @@
     "titleHint": "Waarvoor hierdie kwotasie is, bo-aan gewys.",
     "titlePlaceholder": "bv. Jaarlikse ondersteuning hernuwing",
     "descriptionLabel": "Beskrywing",
-    "descriptionHint": "'n Kort opsomming vir jou kliënt, bo die lyne."
+    "descriptionHint": "'n Kort opsomming vir jou kliënt, bo die lyne.",
+    "rememberItems": "Onthou nuwe items as produkte, sodat hulle volgende keer met hul prys voorgestel word",
+    "itemsRemembered_one": "{{count}} nuwe item as 'n produk gestoor",
+    "itemsRemembered_other": "{{count}} nuwe items as produkte gestoor"
   },
   "errors": {
     "ACCOUNT_SUSPENDED": "Hierdie rekening is opgeskort. Kontak asseblief YGT-ondersteuning.",
@@ -2426,5 +2432,59 @@
     "medium": "Medium",
     "low": "Laag",
     "any": "Enige prioriteit"
+  },
+  "notify": {
+    "dueAt": "Sperdatum {{time}}: {{subject}}",
+    "dueToday": "Vandag: {{subject}}",
+    "assigned": "{{by}} het jou toegewys: {{subject}}",
+    "dueOn": "Sperdatum {{date}}",
+    "dueOnAt": "Sperdatum {{date}} om {{time}}",
+    "updated": "{{by}}: {{status}} · {{subject}}",
+    "noted": "{{by}} het 'n nota bygevoeg · {{subject}}",
+    "noNextStep": "Geen volgende stap: {{deal}}",
+    "noNextStepBody": "Niks is beplan nie. Skeduleer 'n oproep, vergadering of taak sodat dit nie koud word nie.",
+    "test": "Kennisgewings is aan",
+    "testBody": "So sal YGT jou aan aktiwiteite en take herinner.",
+    "justNow": "Nou net",
+    "minutesAgo_one": "{{count}} min gelede",
+    "minutesAgo_other": "{{count}} min gelede",
+    "hoursAgo_one": "{{count}} uur gelede",
+    "hoursAgo_other": "{{count}} uur gelede",
+    "open": "Maak oop",
+    "recent": "Vir jou",
+    "markAllRead": "Merk alles as gelees",
+    "pushOn": "Waarskuwings is aan vir hierdie toestel",
+    "turnOn": "Skakel waarskuwings aan op hierdie toestel",
+    "turnOnHint": "Kry herinneringe en take op hierdie foon of rekenaar, selfs wanneer YGT toe is.",
+    "push": {
+      "unsupported": "Hierdie blaaier kan nie waarskuwings wys nie. Op iPhone, voeg YGT eers by jou tuisskerm.",
+      "unavailable": "Waarskuwings is nog nie vir YGT aangeskakel nie.",
+      "blocked": "Waarskuwings is vir YGT in hierdie blaaier geblokkeer. Laat dit toe in die blaaier se werfinstellings.",
+      "failed": "Kon nie waarskuwings aanskakel nie. Probeer asseblief weer."
+    },
+    "goToActivities": "Gaan na aktiwiteite"
+  },
+  "task": {
+    "status": {
+      "todo": "Om te doen",
+      "in_progress": "Besig",
+      "blocked": "Vas",
+      "done": "Klaar"
+    },
+    "open": "Opdatering",
+    "send": "Stuur opdatering",
+    "sent": "Opdatering gestuur",
+    "assignedTo": "Toegewys aan",
+    "assignedBy": "Toegewys deur",
+    "deadline": "Sperdatum",
+    "statusLabel": "Status",
+    "update": "Waar staan dit?",
+    "note": "Nota (opsioneel)",
+    "noteRequired": "Nota (verpligtend): wat is gedoen, of wat staan in die pad",
+    "notePlaceholder": "bv. Hulle gebel, wag vir die bestelling",
+    "blockedPlaceholder": "Wat staan in die pad, en wat het jy nodig?",
+    "donePlaceholder": "Wat het jy gedoen? bv. Bespreek vir Vrydag 08:00",
+    "history": "Opdaterings",
+    "noHistory": "Nog geen opdaterings nie."
   }
 }
