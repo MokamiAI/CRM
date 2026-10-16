@@ -232,7 +232,14 @@
     "invoicesHint": "Linye lelivela ku-YGT ngenkhokhelo ngayinye, litfunyelwa kuwe nge-imeyili nawukhokha.",
     "paystackRef": "Inkhomba ye-Paystack {{ref}}",
     "teamFrom": "{{price}} ngesihlalo kusukela etihlalweni letingu-{{count}}",
-    "teamPrice": "Intsengo yelicembu: tihlalo letingu-{{count}}+"
+    "teamPrice": "Intsengo yelicembu: tihlalo letingu-{{count}}+",
+    "afterTrial": {
+      "title": "Ngemuva kwekuhlola kwakho kwamahhala",
+      "small": "Ngemuva kwekuhlola, i-Hustle ifaka bantfu labafika ku-{{limit}}. Nangabe bangetulu kwa-{{limit}}, utawukhetsa i-Grow noma i-Scale bese ukhokhela sihlalo sinye ngemuntfu ngamunye.",
+      "big_one": "Unebantfu labangu-{{count}}, futsi bonkhe bachubeka nekungena ngesikhatsi sekuhlola. I-Hustle ifaka labafika ku-{{limit}}, ngako ngemuva kwekuhlola utawudzinga i-Grow noma i-Scale, ukhokhiswe tihlalo letingu-{{count}} (kusukela ku-{{price}} ngesihlalo ngenyanga).",
+      "big_other": "Unebantfu labangu-{{count}}, futsi bonkhe bachubeka nekungena ngesikhatsi sekuhlola. I-Hustle ifaka labafika ku-{{limit}}, ngako ngemuva kwekuhlola utawudzinga i-Grow noma i-Scale, ukhokhiswe tihlalo letingu-{{count}} (kusukela ku-{{price}} ngesihlalo ngenyanga)."
+    },
+    "tooSmall": "Unebantfu labangu-{{count}}. I-Hustle ifaka labafika ku-{{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Tintfo letilondvolotiwe tanalelo libito setikhona.",
     "EMAIL_DISPOSABLE": "Sicela usebentise likheli lakho le-imeyili, hhayi lelesikhashana.",
     "EMAIL_UNDELIVERABLE": "Asikhoni kutfumela i-imeyili kulelikheli. Sicela ulihlole emaphutsa.",
-    "EMAIL_NOT_VERIFIED": "Sicela ucinisekise likheli lakho le-imeyili kute uchubeke usebentisa i-YGT. Sikutfumelele sixhumanisi."
+    "EMAIL_NOT_VERIFIED": "Sicela ucinisekise likheli lakho le-imeyili kute uchubeke usebentisa i-YGT. Sikutfumelele sixhumanisi.",
+    "BILLING_PLAN_TOO_SMALL": "I-Hustle ifaka bantfu labafika ku-3. Nangabe banyenti, khetsa i-Grow noma i-Scale: sihlalo sinye ngemuntfu ngamunye."
   },
   "feed": {
     "activityDone": "{{type}} kuphetsiwe",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Tihlalo",
       "used": "{{used}} kuletingu-{{limit}} tiyasetjentiswa",
-      "trial": "Ngesikhatsi sekuhlola kwamahhala ungengeta bantfu labafika ku-{{limit}}. Nawukhetsa luhlelo, utawukhetsa sihlalo sinye semuntu ngamunye elicenjini lakho.",
+      "trial": "Ngesikhatsi sekuhlola kwamahhala ungengeta bantfu labafika ku-{{limit}}. Kute lotawususwa nangabe kuhlola kuphela.",
       "full_one": "Luhlelo lwakho lunesihlalo lesingu-{{count}}, futsi siyasetjentiswa. Kute wengete lilunga lelicembu, mengetele sihlalo: sihlalo sinye ngemuntu ngamunye.",
       "full_other": "Tonkhe tihlalo letingu-{{count}} tiyasetjentiswa. Kute wengete lelinye lilunga, mengetele sihlalo: sihlalo sinye ngemuntu ngamunye.",
       "room_one": "Sihlalo lesingu-{{count}} lesikhululekile: ungengeta lomunye umuntu munye.",

@@ -232,7 +232,14 @@
     "invoicesHint": "Yin'we ku suka eka YGT eka hakelo yin'wana ni yin'wana, yi rhumeriwa eka wena hi imeyili loko u hakela.",
     "paystackRef": "Xikombo xa Paystack {{ref}}",
     "teamFrom": "{{price}} hi xitulu ku sukela eka switulu swa {{count}}",
-    "teamPrice": "Nxavo wa ntlawa: switulu swa {{count}}+"
+    "teamPrice": "Nxavo wa ntlawa: switulu swa {{count}}+",
+    "afterTrial": {
+      "title": "Endzhaku ka ndzingeto wa wena wa mahala",
+      "small": "Endzhaku ka ndzingeto, Hustle yi katsa vanhu ku fika eka {{limit}}. Loko va tlula {{limit}}, u ta hlawula Grow kumbe Scale u hakela xitulu xin'we hi munhu un'wana na un'wana.",
+      "big_one": "U na vanhu va {{count}}, naswona hinkwavo va hambeta va nghena hi nkarhi wa ndzingeto. Hustle yi katsa ku fika eka {{limit}}, hikwalaho endzhaku ka ndzingeto u ta lava Grow kumbe Scale, u hakerisiwa swifulu swa {{count}} (ku sukela eka {{price}} hi xitulu hi n'hweti).",
+      "big_other": "U na vanhu va {{count}}, naswona hinkwavo va hambeta va nghena hi nkarhi wa ndzingeto. Hustle yi katsa ku fika eka {{limit}}, hikwalaho endzhaku ka ndzingeto u ta lava Grow kumbe Scale, u hakerisiwa swifulu swa {{count}} (ku sukela eka {{price}} hi xitulu hi n'hweti)."
+    },
+    "tooSmall": "U na vanhu va {{count}}. Hustle yi katsa ku fika eka {{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Swilo leswi hlayisiweke swa vito rero se swi kona.",
     "EMAIL_DISPOSABLE": "Hi kombela u tirhisa adirese ya wena ya imeyili, ku nga ri ya nkarhinyana.",
     "EMAIL_UNDELIVERABLE": "A hi swi koti ku rhumela imeyili eka adirese leyi. Hi kombela u yi kambela swihoxo.",
-    "EMAIL_NOT_VERIFIED": "Hi kombela u tiyisisa adirese ya wena ya imeyili leswaku u ya emahlweni u tirhisa YGT. Hi ku rhumelerile xihlanganisi."
+    "EMAIL_NOT_VERIFIED": "Hi kombela u tiyisisa adirese ya wena ya imeyili leswaku u ya emahlweni u tirhisa YGT. Hi ku rhumelerile xihlanganisi.",
+    "BILLING_PLAN_TOO_SMALL": "Hustle yi katsa vanhu ku fika eka 3. Loko va tlula, hlawula Grow kumbe Scale: xitulu xin'we hi munhu un'wana na un'wana."
   },
   "feed": {
     "activityDone": "{{type}} yi hetiwile",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Switulu",
       "used": "{{used}} eka {{limit}} swi tirhisiwa",
-      "trial": "Hi nkarhi wa ndzingeto wa mahala u nga engetela vanhu ku fika eka {{limit}}. Loko u hlawula kungu, u ta hlawula xitulu xin'we xa munhu un'wana na un'wana eka ntlawa wa wena.",
+      "trial": "Hi nkarhi wa ndzingeto wa mahala u nga engetela vanhu ku fika eka {{limit}}. A ku na munhu loyi a nga ta susiwa loko ndzingeto wu hela.",
       "full_one": "Kungu ra wena ri na xitulu xa {{count}}, naswona xa tirhisiwa. Ku engetela xirho xa ntlawa, xi engetelela xitulu: xitulu xin'we hi munhu.",
       "full_other": "Switulu hinkwaswo swa {{count}} swa tirhisiwa. Ku engetela xirho xin'wana, xi engetelela xitulu: xitulu xin'we hi munhu.",
       "room_one": "Xitulu xa {{count}} lexi ntshunxekeke: u nga engetela munhu un'wana un'we.",

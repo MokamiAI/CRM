@@ -232,7 +232,14 @@
     "invoicesHint": "E tee go tšwa go YGT go tefelo ye nngwe le ye nngwe, e romelwa go wena ka imeile ge o lefa.",
     "paystackRef": "Tšhupetšo ya Paystack {{ref}}",
     "teamFrom": "{{price}} ka setulo go thoma ka ditulo tše {{count}}",
-    "teamPrice": "Theko ya sehlopha: ditulo tše {{count}}+"
+    "teamPrice": "Theko ya sehlopha: ditulo tše {{count}}+",
+    "afterTrial": {
+      "title": "Ka morago ga teko ya gago ya mahala",
+      "small": "Ka morago ga teko, Hustle e akaretša batho go fihla go {{limit}}. Ge e le ba fetago {{limit}}, o tla kgetha Grow goba Scale gomme o lefele setulo se tee motho o mongwe le o mongwe.",
+      "big_one": "O na le batho ba {{count}}, gomme ka moka ba tšwela pele go tsena nakong ya teko. Hustle e akaretša go fihla go {{limit}}, ka gona ka morago ga teko o tla hloka Grow goba Scale, o lefišwe ditulo tše {{count}} (go thoma ka {{price}} setulo ka kgwedi).",
+      "big_other": "O na le batho ba {{count}}, gomme ka moka ba tšwela pele go tsena nakong ya teko. Hustle e akaretša go fihla go {{limit}}, ka gona ka morago ga teko o tla hloka Grow goba Scale, o lefišwe ditulo tše {{count}} (go thoma ka {{price}} setulo ka kgwedi)."
+    },
+    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretša go fihla go {{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Dilo tše di bolokilwego tša leina leo di šetše di le gona.",
     "EMAIL_DISPOSABLE": "Hle šomiša aterese ya gago ya imeile, e sego ya nakwana.",
     "EMAIL_UNDELIVERABLE": "Re ka se kgone go romela imeile go aterese ye. Hle e lekole diphošo.",
-    "EMAIL_NOT_VERIFIED": "Hle netefatša aterese ya gago ya imeile gore o tšwe o šomiša YGT. Re go rometše linki."
+    "EMAIL_NOT_VERIFIED": "Hle netefatša aterese ya gago ya imeile gore o tšwe o šomiša YGT. Re go rometše linki.",
+    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretša batho go fihla go 3. Ge ba feta, kgetha Grow goba Scale: setulo se tee motho o mongwe le o mongwe."
   },
   "feed": {
     "activityDone": "{{type}} e fetšitšwe",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Ditulo",
       "used": "{{used}} go {{limit}} di a šomišwa",
-      "trial": "Nakong ya teko ya mahala o ka oketša batho go fihla go {{limit}}. Ge o kgetha leano, o tla kgetha setulo se tee sa motho yo mongwe le yo mongwe sehlopheng sa gago.",
+      "trial": "Nakong ya teko ya mahala o ka oketša batho go fihla go {{limit}}. Ga go motho yo a tlago go tlošwa ge teko e fela.",
       "full_one": "Leano la gago le na le setulo se {{count}}, gomme se a šomišwa. Go oketša setho sa sehlopha, mo oketšetše setulo: setulo se tee ka motho.",
       "full_other": "Ditulo ka moka tše {{count}} di a šomišwa. Go oketša setho se sengwe, mo oketšetše setulo: setulo se tee ka motho.",
       "room_one": "Setulo se {{count}} sa go se šomišwe: o ka oketša motho yo mongwe a tee.",

@@ -17,6 +17,30 @@ function daysLeft(iso) {
   return Math.max(0, Math.ceil((new Date(iso) - Date.now()) / DAY));
 }
 
+/** During a trial: everyone added stays. With more people than Hustle
+ *  covers, after the trial it's Grow or Scale, billed per person. */
+export function AfterTrialNote({ billing, compact = false }) {
+  const { t } = useTranslation();
+  const { data: plans } = usePlans();
+  const hustle = plans?.find((p) => p.key === "hustle");
+  const grow = plans?.find((p) => p.key === "grow");
+  if (!billing || billing.state !== "trialing" || !hustle || !grow) return null;
+  const people = billing.usage.users;
+  const limit = hustle.max_users;
+  if (people <= limit) {
+    return compact ? null : <p className="text-sm text-zinc-600">{t("billing.afterTrial.small", { limit })}</p>;
+  }
+  const seat = people >= (grow.team_seats ?? 3) ? (grow.team_monthly_cents ?? grow.monthly_cents) : grow.monthly_cents;
+  const body = t("billing.afterTrial.big", { count: people, limit, price: formatMoneyWhole(seat / 100) });
+  if (compact) return <span className="mt-0.5 block text-amber-900">{body}</span>;
+  return (
+    <div className="rounded-xl bg-amber-50 p-3 ring-1 ring-inset ring-amber-200/80" role="status">
+      <p className="text-sm font-semibold text-amber-950">{t("billing.afterTrial.title")}</p>
+      <p className="mt-0.5 text-sm text-amber-900">{body}</p>
+    </div>
+  );
+}
+
 /** What a plan includes, as short lines for its card. */
 function planLines(plan, t) {
   const lines = [];
@@ -77,7 +101,7 @@ export function PlanPrice({ plan, interval, users = 1 }) {
 }
 
 /** One plan's card. `action` is the button (or nothing for Free). */
-export function PlanCard({ plan, interval, users, onUsers, action, highlight = false, badge }) {
+export function PlanCard({ plan, interval, users, onUsers, action, highlight = false, badge, note }) {
   const { t } = useTranslation();
   return (
     <div className={`relative flex flex-col rounded-2xl bg-white p-5 ring-1 ring-inset ${highlight ? "ring-2 ring-indigo-500" : "ring-zinc-200"}`}>
@@ -113,7 +137,8 @@ export function PlanCard({ plan, interval, users, onUsers, action, highlight = f
           </li>
         ))}
       </ul>
-      {action && <div className="mt-5">{action}</div>}
+      {note && <p className="mt-4 text-xs font-medium text-amber-800">{note}</p>}
+      {action && <div className={note ? "mt-2" : "mt-5"}>{action}</div>}
     </div>
   );
 }
@@ -319,6 +344,10 @@ export default function BillingSettings() {
           </div>
         )}
 
+        <div className="mt-4">
+          <AfterTrialNote billing={billing} />
+        </div>
+
         <div className="mt-5 grid gap-4 sm:grid-cols-3">
           <Meter label={t("billing.usage.users")} used={billing.usage.users} limit={billing.limits.users} />
           <Meter label={t("billing.usage.customers")} used={billing.usage.customers} limit={billing.limits.customers} />
@@ -341,6 +370,7 @@ export default function BillingSettings() {
         <div className="grid gap-4 md:grid-cols-3">
           {paidPlans.map((plan) => {
             const current = isCurrent(plan);
+            const tooSmall = !plan.per_user && plan.max_users != null && billing.usage.users > plan.max_users;
             return (
               <PlanCard
                 key={plan.key}
@@ -351,11 +381,12 @@ export default function BillingSettings() {
                 // During a trial, the plan they chose at sign-up stands out.
                 highlight={billing.state === "trialing" ? plan.key === billing.plan : plan.key === "grow"}
                 badge={billing.state === "trialing" && plan.key === billing.plan ? t("billing.state.trialing") : plan.key === "grow" ? t("billing.popular") : undefined}
+                note={tooSmall ? t("billing.tooSmall", { count: billing.usage.users, limit: plan.max_users }) : undefined}
                 action={
                   <Button
                     className="w-full"
                     variant={plan.key === "grow" ? "primary" : "secondary"}
-                    disabled={current || checkout.isPending || !billing.payments_enabled}
+                    disabled={current || tooSmall || checkout.isPending || !billing.payments_enabled}
                     onClick={() => checkout.mutate({ plan: plan.key, interval, users: usersFor(plan) })}
                   >
                     {current
@@ -463,7 +494,10 @@ export function PlanBanner() {
         urgent ? "bg-amber-50 ring-amber-200/70" : "bg-white/70 ring-zinc-200/80"
       }`}
     >
-      <p className={`text-sm ${urgent ? "text-amber-900" : "text-zinc-700"}`}>{text}</p>
+      <p className={`text-sm ${urgent ? "text-amber-900" : "text-zinc-700"}`}>
+        {text}
+        <AfterTrialNote billing={billing} compact />
+      </p>
       <Link to="/settings?tab=billing" className={`btn ${urgent ? "btn-primary" : "btn-secondary"} !h-8 !px-3 !text-xs`}>
         {t(billing.state === "past_due" ? "billing.fixPayment" : "billing.seePlans")}
       </Link>

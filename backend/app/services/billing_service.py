@@ -191,8 +191,16 @@ class BillingService:
         if not plan.paid:
             raise AppError("Choose a paid plan", "BILLING_PLAN_INVALID")
         users = max(users, plan.min_users) if plan.per_user else 1
-        if plan.per_user and users < (await self.usage())["users"]:
+        active = (await self.usage())["users"]
+        if plan.per_user and users < active:
             raise AppError("Choose at least as many users as are active now", "BILLING_TOO_FEW_USERS")
+        # Nobody is removed to fit a plan: a team bigger than a flat plan
+        # covers needs a plan priced per person.
+        if not plan.per_user and plan.max_users is not None and active > plan.max_users:
+            raise AppError(
+                f"{plan.name} covers up to {plan.max_users} people and you have {active}. Choose Grow or Scale: one seat per person.",
+                "BILLING_PLAN_TOO_SMALL",
+            )
         sub = await self.subscription()
 
         async def start(fresh: bool) -> str:

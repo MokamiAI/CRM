@@ -232,7 +232,14 @@
     "invoicesHint": "Eyodwa evela ku-YGT ngenkokhelo ngayinye, ithunyelwa kuwe nge-imeyili uma ukhokha.",
     "paystackRef": "Inkomba ye-Paystack {{ref}}",
     "teamFrom": "{{price}} ngesihlalo kusukela ezihlalweni ezingu-{{count}}",
-    "teamPrice": "Intengo yeqembu: izihlalo ezingu-{{count}}+"
+    "teamPrice": "Intengo yeqembu: izihlalo ezingu-{{count}}+",
+    "afterTrial": {
+      "title": "Ngemva kokuhlola kwakho kwamahhala",
+      "small": "Ngemva kokuhlola, i-Hustle ihlanganisa abantu abafika ku-{{limit}}. Uma bengaphezu kuka-{{limit}}, uzokhetha i-Grow noma i-Scale bese ukhokhela isihlalo esisodwa ngomuntu ngamunye.",
+      "big_one": "Unabantu abangu-{{count}}, futhi bonke bagcina ukufinyelela ngesikhathi sokuhlola. I-Hustle ihlanganisa abafika ku-{{limit}}, ngakho ngemva kokuhlola uzodinga i-Grow noma i-Scale, ukhokhiswe izihlalo ezingu-{{count}} (kusukela ku-{{price}} ngesihlalo ngenyanga).",
+      "big_other": "Unabantu abangu-{{count}}, futhi bonke bagcina ukufinyelela ngesikhathi sokuhlola. I-Hustle ihlanganisa abafika ku-{{limit}}, ngakho ngemva kokuhlola uzodinga i-Grow noma i-Scale, ukhokhiswe izihlalo ezingu-{{count}} (kusukela ku-{{price}} ngesihlalo ngenyanga)."
+    },
+    "tooSmall": "Unabantu abangu-{{count}}. I-Hustle ihlanganisa abafika ku-{{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Izinto ezilondoloziwe ezinalelo gama sezikhona.",
     "EMAIL_DISPOSABLE": "Sicela usebenzise ikheli lakho le-imeyili, hhayi elesikhashana.",
     "EMAIL_UNDELIVERABLE": "Asikwazi ukuthumela i-imeyili kuleli kheli. Sicela ulihlole ukuthi alinamaphutha.",
-    "EMAIL_NOT_VERIFIED": "Sicela uqinisekise ikheli lakho le-imeyili ukuze uqhubeke usebenzisa i-YGT. Sikuthumelele isixhumanisi."
+    "EMAIL_NOT_VERIFIED": "Sicela uqinisekise ikheli lakho le-imeyili ukuze uqhubeke usebenzisa i-YGT. Sikuthumelele isixhumanisi.",
+    "BILLING_PLAN_TOO_SMALL": "I-Hustle ihlanganisa abantu abafika ku-3. Uma bebaningi, khetha i-Grow noma i-Scale: isihlalo esisodwa ngomuntu ngamunye."
   },
   "feed": {
     "activityDone": "{{type}} kuqediwe",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Izihlalo",
       "used": "{{used}} kwezingu-{{limit}} zisetshenziswa",
-      "trial": "Ngesikhathi sokuzama kwamahhala ungangeza abantu abangafika ku-{{limit}}. Uma ukhetha uhlelo, uzokhetha isihlalo esisodwa somuntu ngamunye eqenjini lakho.",
+      "trial": "Ngesikhathi sokuhlola kwamahhala ungengeza abantu abafika ku-{{limit}}. Akekho ozosuswa uma ukuhlola kuphela.",
       "full_one": "Uhlelo lwakho lunesihlalo esingu-{{count}}, futhi siyasetshenziswa. Ukuze wengeze ilungu leqembu, mengezele isihlalo: isihlalo esisodwa umuntu ngamunye.",
       "full_other": "Zonke izihlalo ezingu-{{count}} ziyasetshenziswa. Ukuze wengeze elinye ilungu, mengezele isihlalo: isihlalo esisodwa umuntu ngamunye.",
       "room_one": "Isihlalo esingu-{{count}} samahhala: ungangeza omunye umuntu oyedwa.",

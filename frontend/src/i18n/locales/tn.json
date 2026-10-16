@@ -232,7 +232,14 @@
     "invoicesHint": "Nngwe go tswa kwa YGT ya tuelo nngwe le nngwe, e romelwa go wena ka imeile fa o duela.",
     "paystackRef": "Kaelo ya Paystack {{ref}}",
     "teamFrom": "{{price}} ka setulo go simolola ka ditulo di le {{count}}",
-    "teamPrice": "Tlhwatlhwa ya setlhopha: ditulo di le {{count}}+"
+    "teamPrice": "Tlhwatlhwa ya setlhopha: ditulo di le {{count}}+",
+    "afterTrial": {
+      "title": "Morago ga teko ya gago ya mahala",
+      "small": "Morago ga teko, Hustle e akaretsa batho go fitlha go {{limit}}. Fa ba feta {{limit}}, o tla tlhopha Grow kgotsa Scale mme o duelele setulo se le sengwe motho mongwe le mongwe.",
+      "big_one": "O na le batho ba {{count}}, mme botlhe ba tswelela go tsena ka nako ya teko. Hustle e akaretsa go fitlha go {{limit}}, ka jalo morago ga teko o tla tlhoka Grow kgotsa Scale, o duedisiwe ditulo di le {{count}} (go simolola ka {{price}} setulo ka kgwedi).",
+      "big_other": "O na le batho ba {{count}}, mme botlhe ba tswelela go tsena ka nako ya teko. Hustle e akaretsa go fitlha go {{limit}}, ka jalo morago ga teko o tla tlhoka Grow kgotsa Scale, o duedisiwe ditulo di le {{count}} (go simolola ka {{price}} setulo ka kgwedi)."
+    },
+    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretsa go fitlha go {{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Dilo tse di bolokilweng tsa leina leo di setse di le teng.",
     "EMAIL_DISPOSABLE": "Tsweetswee dirisa aterese ya gago ya imeile, e seng ya nakwana.",
     "EMAIL_UNDELIVERABLE": "Ga re kgone go romela imeile kwa atereseng e. Tsweetswee e tlhole diphoso.",
-    "EMAIL_NOT_VERIFIED": "Tsweetswee netefatsa aterese ya gago ya imeile go tswelela o dirisa YGT. Re go rometse kgolagano."
+    "EMAIL_NOT_VERIFIED": "Tsweetswee netefatsa aterese ya gago ya imeile go tswelela o dirisa YGT. Re go rometse kgolagano.",
+    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretsa batho go fitlha go 3. Fa ba feta, tlhopha Grow kgotsa Scale: setulo se le sengwe motho mongwe le mongwe."
   },
   "feed": {
     "activityDone": "{{type}} e weditswe",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Ditulo",
       "used": "{{used}} mo go {{limit}} di a dirisiwa",
-      "trial": "Mo nakong ya teko ya mahala o ka oketsa batho go fitlha go {{limit}}. Fa o tlhopha leano, o tla tlhopha setulo se le sengwe sa motho mongwe le mongwe mo setlhopheng sa gago.",
+      "trial": "Ka nako ya teko ya mahala o ka oketsa batho go fitlha go {{limit}}. Ga go ope yo o tla tlosiwang fa teko e fela.",
       "full_one": "Leano la gago le na le setulo se le {{count}}, e bile se a dirisiwa. Go oketsa leloko la setlhopha, le oketsetse setulo: setulo se le sengwe ka motho.",
       "full_other": "Ditulo tsotlhe di le {{count}} di a dirisiwa. Go oketsa leloko le lengwe, le oketsetse setulo: setulo se le sengwe ka motho.",
       "room_one": "Setulo se le {{count}} se se gololesegileng: o ka oketsa motho yo mongwe a le esi.",

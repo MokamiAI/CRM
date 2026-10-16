@@ -232,7 +232,14 @@
     "invoicesHint": "E le nngwe e tswang ho YGT bakeng sa tefo ka nngwe, e romelwa ho wena ka imeile ha o lefa.",
     "paystackRef": "Tshupiso ya Paystack {{ref}}",
     "teamFrom": "{{price}} ka setulo ho qala ka ditulo tse {{count}}",
-    "teamPrice": "Theko ya sehlopha: ditulo tse {{count}}+"
+    "teamPrice": "Theko ya sehlopha: ditulo tse {{count}}+",
+    "afterTrial": {
+      "title": "Kamora teko ya hao ya mahala",
+      "small": "Kamora teko, Hustle e akaretsa batho ho fihla ho {{limit}}. Ha ba feta {{limit}}, o tla kgetha Grow kapa Scale mme o lefe setulo se le seng motho ka mong.",
+      "big_one": "O na le batho ba {{count}}, mme bohle ba tswela pele ho kena nakong ya teko. Hustle e akaretsa ho fihla ho {{limit}}, kahoo kamora teko o tla hloka Grow kapa Scale, o lefiswe ditulo tse {{count}} (ho qala ka {{price}} setulo ka kgwedi).",
+      "big_other": "O na le batho ba {{count}}, mme bohle ba tswela pele ho kena nakong ya teko. Hustle e akaretsa ho fihla ho {{limit}}, kahoo kamora teko o tla hloka Grow kapa Scale, o lefiswe ditulo tse {{count}} (ho qala ka {{price}} setulo ka kgwedi)."
+    },
+    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretsa ho fihla ho {{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Dintho tse bolokilweng tsa lebitso leo di se di le teng.",
     "EMAIL_DISPOSABLE": "Ka kopo sebedisa aterese ya hao ya imeile, eseng ya nakwana.",
     "EMAIL_UNDELIVERABLE": "Re ke ke ra romela imeile atereseng ena. Ka kopo e hlahlobe diphoso.",
-    "EMAIL_NOT_VERIFIED": "Ka kopo netefatsa aterese ya hao ya imeile ho tswela pele ho sebedisa YGT. Re o rometse lehokela."
+    "EMAIL_NOT_VERIFIED": "Ka kopo netefatsa aterese ya hao ya imeile ho tswela pele ho sebedisa YGT. Re o rometse lehokela.",
+    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretsa batho ho fihla ho 3. Ha ba feta, kgetha Grow kapa Scale: setulo se le seng motho ka mong."
   },
   "feed": {
     "activityDone": "{{type}} e phethilwe",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Ditulo",
       "used": "{{used}} ho {{limit}} di a sebediswa",
-      "trial": "Nakong ya teko ya mahala o ka eketsa batho ho fihla ho {{limit}}. Ha o kgetha morero, o tla kgetha setulo se le seng bakeng sa motho ka mong sehlopheng sa hao.",
+      "trial": "Nakong ya teko ya mahala o ka eketsa batho ho fihla ho {{limit}}. Ha ho motho ya tla tloswa ha teko e fela.",
       "full_one": "Morero wa hao o na le setulo se {{count}}, mme se a sebediswa. Ho eketsa setho sa sehlopha, se eketsetse setulo: setulo se le seng ka motho.",
       "full_other": "Ditulo tsohle tse {{count}} di a sebediswa. Ho eketsa setho se seng, se eketsetse setulo: setulo se le seng ka motho.",
       "room_one": "Setulo se {{count}} se lokolohileng: o ka eketsa motho e mong a le mong.",

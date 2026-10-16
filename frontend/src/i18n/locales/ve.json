@@ -232,7 +232,14 @@
     "invoicesHint": "Nthihi i bvaho kha YGT kha mbadelo iṅwe na iṅwe, i rumelwa kha inwi nga imeiḽi musi ni tshi badela.",
     "paystackRef": "Tsumbo ya Paystack {{ref}}",
     "teamFrom": "{{price}} nga tshidulo u thoma kha zwidulo zwa {{count}}",
-    "teamPrice": "Mutengo wa tshigwada: zwidulo zwa {{count}}+"
+    "teamPrice": "Mutengo wa tshigwada: zwidulo zwa {{count}}+",
+    "afterTrial": {
+      "title": "Nga murahu ha ndingo yaṋu ya mahala",
+      "small": "Nga murahu ha ndingo, Hustle i katela vhathu u swika kha {{limit}}. Arali vha fhira {{limit}}, ni ḓo nanga Grow kana Scale nahone na badela tshidulo tshithihi nga muthu muṅwe na muṅwe.",
+      "big_one": "Ni na vhathu vha {{count}}, nahone vhoṱhe vha bvela phanḓa u dzhena tshifhingani tsha ndingo. Hustle i katela u swika kha {{limit}}, nga zwenezwo nga murahu ha ndingo ni ḓo ṱoḓa Grow kana Scale, na badeliswa zwidulo zwa {{count}} (u thoma kha {{price}} nga tshidulo nga ṅwedzi).",
+      "big_other": "Ni na vhathu vha {{count}}, nahone vhoṱhe vha bvela phanḓa u dzhena tshifhingani tsha ndingo. Hustle i katela u swika kha {{limit}}, nga zwenezwo nga murahu ha ndingo ni ḓo ṱoḓa Grow kana Scale, na badeliswa zwidulo zwa {{count}} (u thoma kha {{price}} nga tshidulo nga ṅwedzi)."
+    },
+    "tooSmall": "Ni na vhathu vha {{count}}. Hustle i katela u swika kha {{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Zwithu zwo vhulungwaho zwa dzina iḽo zwo no vha hone.",
     "EMAIL_DISPOSABLE": "Ri humbela ni shumise diresi yaṋu ya imeiḽi, i si ya tshifhinganyana.",
     "EMAIL_UNDELIVERABLE": "A ri koni u rumela imeiḽi kha heyi diresi. Ri humbela ni i sedze vhukhakhi.",
-    "EMAIL_NOT_VERIFIED": "Ri humbela ni khwaṱhisedze diresi yaṋu ya imeiḽi u bvela phanḓa ni tshi shumisa YGT. Ro ni rumela vhukwamani."
+    "EMAIL_NOT_VERIFIED": "Ri humbela ni khwaṱhisedze diresi yaṋu ya imeiḽi u bvela phanḓa ni tshi shumisa YGT. Ro ni rumela vhukwamani.",
+    "BILLING_PLAN_TOO_SMALL": "Hustle i katela vhathu u swika kha 3. Arali vha fhira, nangani Grow kana Scale: tshidulo tshithihi nga muthu muṅwe na muṅwe."
   },
   "feed": {
     "activityDone": "{{type}} yo fhela",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Zwidulo",
       "used": "{{used}} kha {{limit}} zwi a shumiswa",
-      "trial": "Tshifhingani tsha ndingo ya mahala ni nga engedza vhathu u swika kha {{limit}}. Musi ni tshi nanga pulane, ni ḓo nanga tshidulo tshithihi tsha muthu muṅwe na muṅwe tshigwadani tshaṋu.",
+      "trial": "Tshifhingani tsha ndingo ya mahala ni nga engedza vhathu u swika kha {{limit}}. A hu na muthu ane a ḓo bviswa musi ndingo i tshi fhela.",
       "full_one": "Pulane yaṋu i na tshidulo tsha {{count}}, nahone tshi a shumiswa. U engedza muraḓo wa tshigwada, mu engedzeleni tshidulo: tshidulo tshithihi nga muthu.",
       "full_other": "Zwidulo zwoṱhe zwa {{count}} zwi a shumiswa. U engedza muṅwe muraḓo, mu engedzeleni tshidulo: tshidulo tshithihi nga muthu.",
       "room_one": "Tshidulo tsha {{count}} tsho vhofholowaho: ni nga engedza muṅwe muthu muthihi.",

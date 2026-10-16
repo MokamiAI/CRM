@@ -232,7 +232,14 @@
     "invoicesHint": "Een van YGT vir elke betaling, aan jou ge-e-pos wanneer jy betaal.",
     "paystackRef": "Paystack-verwysing {{ref}}",
     "teamFrom": "{{price}} per sitplek vanaf {{count}} sitplekke",
-    "teamPrice": "Spanprys: {{count}}+ sitplekke"
+    "teamPrice": "Spanprys: {{count}}+ sitplekke",
+    "afterTrial": {
+      "title": "Ná jou gratis proeftydperk",
+      "small": "Ná die proeftydperk dek Hustle tot {{limit}} mense. Met meer as {{limit}} kies jy Grow of Scale en betaal vir een plek per persoon.",
+      "big_one": "Jy het {{count}} mense, en almal behou toegang tydens die proeftydperk. Hustle dek tot {{limit}}, so ná die proeftydperk het jy Grow of Scale nodig, gefaktureer vir {{count}} plekke (vanaf {{price}} per plek per maand).",
+      "big_other": "Jy het {{count}} mense, en almal behou toegang tydens die proeftydperk. Hustle dek tot {{limit}}, so ná die proeftydperk het jy Grow of Scale nodig, gefaktureer vir {{count}} plekke (vanaf {{price}} per plek per maand)."
+    },
+    "tooSmall": "Jy het {{count}} mense. Hustle dek tot {{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Gestoorde items met daardie naam bestaan reeds.",
     "EMAIL_DISPOSABLE": "Gebruik asseblief jou eie e-posadres, nie 'n tydelike een nie.",
     "EMAIL_UNDELIVERABLE": "Ons kan nie e-pos na hierdie adres stuur nie. Gaan dit asseblief vir tikfoute na.",
-    "EMAIL_NOT_VERIFIED": "Bevestig asseblief jou e-posadres om YGT te bly gebruik. Ons het vir jou 'n skakel gestuur."
+    "EMAIL_NOT_VERIFIED": "Bevestig asseblief jou e-posadres om YGT te bly gebruik. Ons het vir jou 'n skakel gestuur.",
+    "BILLING_PLAN_TOO_SMALL": "Hustle dek tot 3 mense. Met meer, kies Grow of Scale: een plek per persoon."
   },
   "feed": {
     "activityDone": "{{type}} voltooi",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Sitplekke",
       "used": "{{used}} van {{limit}} gebruik",
-      "trial": "Tydens jou gratis proeftydperk kan jy tot {{limit}} mense byvoeg. Wanneer jy 'n plan kies, kies jy een sitplek vir elke persoon in jou span.",
+      "trial": "Tydens jou gratis proeftydperk kan jy tot {{limit}} mense byvoeg. Niemand word verwyder wanneer die proeftydperk eindig nie.",
       "full_one": "Jou plan het {{count}} sitplek, en dit is in gebruik. Om 'n spanlid by te voeg, voeg 'n sitplek vir hulle by: een sitplek per persoon.",
       "full_other": "Al {{count}} sitplekke is in gebruik. Om nog 'n spanlid by te voeg, voeg 'n sitplek vir hulle by: een sitplek per persoon.",
       "room_one": "{{count}} vrye sitplek: jy kan nog een persoon byvoeg.",

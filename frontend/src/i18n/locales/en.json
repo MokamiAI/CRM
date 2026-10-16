@@ -232,7 +232,14 @@
     "invoicesHint": "One from YGT for every payment, emailed to you when you pay.",
     "paystackRef": "Paystack reference {{ref}}",
     "teamFrom": "{{price}} per seat from {{count}} seats",
-    "teamPrice": "Team price: {{count}}+ seats"
+    "teamPrice": "Team price: {{count}}+ seats",
+    "afterTrial": {
+      "title": "After your free trial",
+      "small": "After the trial, Hustle covers up to {{limit}} people. With more than {{limit}}, you'll choose Grow or Scale and pay for one seat per person.",
+      "big_one": "You have {{count}} people, and they all keep access during the trial. Hustle covers up to {{limit}}, so after the trial you'll need Grow or Scale, billed for {{count}} seats (from {{price}} per seat a month).",
+      "big_other": "You have {{count}} people, and they all keep access during the trial. Hustle covers up to {{limit}}, so after the trial you'll need Grow or Scale, billed for {{count}} seats (from {{price}} per seat a month)."
+    },
+    "tooSmall": "You have {{count}} people. Hustle covers up to {{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Saved items with that name already exist.",
     "EMAIL_DISPOSABLE": "Please use your own email address, not a temporary one.",
     "EMAIL_UNDELIVERABLE": "We can't send email to this address. Please check it for typos.",
-    "EMAIL_NOT_VERIFIED": "Please confirm your email address to keep using YGT. We've sent you a link."
+    "EMAIL_NOT_VERIFIED": "Please confirm your email address to keep using YGT. We've sent you a link.",
+    "BILLING_PLAN_TOO_SMALL": "Hustle covers up to 3 people. With more, choose Grow or Scale: one seat per person."
   },
   "feed": {
     "activityDone": "{{type}} completed",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Seats",
       "used": "{{used}} of {{limit}} used",
-      "trial": "During your free trial you can add up to {{limit}} people. When you choose a plan, you'll pick one seat for each person on your team.",
+      "trial": "During your free trial you can add up to {{limit}} people. Nobody is removed when the trial ends.",
       "full_one": "Your plan has {{count}} seat, and it's in use. To add a team member, add a seat for them: one seat per person.",
       "full_other": "All {{count}} seats are in use. To add another team member, add a seat for them: one seat per person.",
       "room_one": "{{count}} free seat: you can add one more person.",

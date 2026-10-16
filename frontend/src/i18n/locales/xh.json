@@ -232,7 +232,14 @@
     "invoicesHint": "Enye evela ku-YGT kwintlawulo nganye, ithunyelwa kuwe nge-imeyile xa uhlawula.",
     "paystackRef": "Isalathiso se-Paystack {{ref}}",
     "teamFrom": "{{price}} ngesitulo ukusuka kwizitulo ezi-{{count}}",
-    "teamPrice": "Ixabiso leqela: izitulo ezi-{{count}}+"
+    "teamPrice": "Ixabiso leqela: izitulo ezi-{{count}}+",
+    "afterTrial": {
+      "title": "Emva kovavanyo lwakho lwasimahla",
+      "small": "Emva kovavanyo, i-Hustle igubungela abantu abafikelela kwi-{{limit}}. Ukuba bangaphezu kwe-{{limit}}, uza kukhetha i-Grow okanye i-Scale uze uhlawule isihlalo esinye ngomntu ngamnye.",
+      "big_one": "Unabantu aba-{{count}}, kwaye bonke bagcina ukufikelela ngexesha lovavanyo. I-Hustle igubungela abafikelela kwi-{{limit}}, ngoko emva kovavanyo uza kufuna i-Grow okanye i-Scale, uhlawuliswe izihlalo eziyi-{{count}} (ukusuka kwi-{{price}} ngesihlalo ngenyanga).",
+      "big_other": "Unabantu aba-{{count}}, kwaye bonke bagcina ukufikelela ngexesha lovavanyo. I-Hustle igubungela abafikelela kwi-{{limit}}, ngoko emva kovavanyo uza kufuna i-Grow okanye i-Scale, uhlawuliswe izihlalo eziyi-{{count}} (ukusuka kwi-{{price}} ngesihlalo ngenyanga)."
+    },
+    "tooSmall": "Unabantu aba-{{count}}. I-Hustle igubungela abafikelela kwi-{{limit}}."
   },
   "channels": {
     "appPassword": {
@@ -904,7 +911,8 @@
     "LINE_TEMPLATE_EXISTS": "Izinto ezigciniweyo ezinelo gama sele zikhona.",
     "EMAIL_DISPOSABLE": "Nceda usebenzise idilesi yakho ye-imeyile, hayi eyexeshana.",
     "EMAIL_UNDELIVERABLE": "Asikwazi ukuthumela i-imeyile kule dilesi. Nceda uyijonge iimpazamo zokuchwetheza.",
-    "EMAIL_NOT_VERIFIED": "Nceda uqinisekise idilesi yakho ye-imeyile ukuze uqhubeke usebenzisa i-YGT. Sikuthumelele ikhonkco."
+    "EMAIL_NOT_VERIFIED": "Nceda uqinisekise idilesi yakho ye-imeyile ukuze uqhubeke usebenzisa i-YGT. Sikuthumelele ikhonkco.",
+    "BILLING_PLAN_TOO_SMALL": "I-Hustle igubungela abantu abafikelela kwi-3. Ukuba baninzi, khetha i-Grow okanye i-Scale: isihlalo esinye ngomntu ngamnye."
   },
   "feed": {
     "activityDone": "{{type}} igqityiwe",
@@ -1920,7 +1928,7 @@
     "seats": {
       "title": "Izitulo",
       "used": "{{used}} kwezi-{{limit}} zisetyenziswa",
-      "trial": "Ngexesha lolingo lwasimahla unokongeza abantu ukuya kwi-{{limit}}. Xa ukhetha isicwangciso, uza kukhetha isitulo esinye somntu ngamnye kwiqela lakho.",
+      "trial": "Ngexesha lovavanyo lwasimahla ungongeza abantu abafikelela kwi-{{limit}}. Akukho mntu uza kususwa xa uvavanyo luphela.",
       "full_one": "Isicwangciso sakho sinesitulo esi-{{count}}, kwaye siyasetyenziswa. Ukuze wongeze ilungu leqela, mongezele isitulo: isitulo esinye ngomntu ngamnye.",
       "full_other": "Zonke izitulo ezi-{{count}} ziyasetyenziswa. Ukuze wongeze elinye ilungu, mongezele isitulo: isitulo esinye ngomntu ngamnye.",
       "room_one": "Isitulo esi-{{count}} esisimahla: ungongeza omnye umntu omnye.",

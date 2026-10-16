@@ -6,6 +6,7 @@ import apiClient from "../services/apiClient";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useBilling, usePlans } from "../hooks/useApi";
+import { AfterTrialNote } from "./Billing";
 import { errorMessage, formatMoneyWhole } from "../utils/format";
 import { Avatar, Button, StatusBadge } from "./ui";
 
@@ -62,6 +63,11 @@ function SeatsPanel({ billing }) {
         <div className={`h-full rounded-full ${full ? "bg-amber-500" : "bg-indigo-500"}`} style={{ width: `${pct}%` }} />
       </div>
       <p className="mt-2 text-sm text-zinc-700">{message}</p>
+      {trial && (
+        <div className="mt-2">
+          <AfterTrialNote billing={billing} />
+        </div>
+      )}
       {price && !trial && <p className="mt-1 text-xs text-zinc-500">{price}</p>}
       {action && (
         <Link to={action.to} className="btn btn-primary mt-3 !h-9 !text-sm">
