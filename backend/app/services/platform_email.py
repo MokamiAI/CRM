@@ -1,6 +1,6 @@
 """Emails YGT itself sends (not a company): password resets, help desk
 updates, Contact us notifications and session booking invites. They use
-the server's SMTP_* settings and come from SUPPORT_EMAIL."""
+the server's SMTP_* settings: from SMTP_FROM_EMAIL, replies to SUPPORT_EMAIL."""
 from dataclasses import asdict
 from datetime import datetime, timezone
 
@@ -19,8 +19,11 @@ def platform_config() -> EffectiveEmailConfig:
         username=settings.SMTP_USERNAME,
         password=settings.SMTP_PASSWORD,
         use_tls=settings.SMTP_USE_TLS,
-        from_email=settings.SUPPORT_EMAIL or settings.SMTP_FROM_EMAIL or "",
+        # Sent as the mail account's own address (providers such as GoDaddy
+        # refuse any other domain); replies go to SUPPORT_EMAIL.
+        from_email=settings.SMTP_FROM_EMAIL or settings.SUPPORT_EMAIL or "",
         from_name="YGT",
+        reply_to=settings.SUPPORT_EMAIL if settings.SMTP_FROM_EMAIL and settings.SUPPORT_EMAIL != settings.SMTP_FROM_EMAIL else None,
     )
 
 

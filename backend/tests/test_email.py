@@ -346,3 +346,18 @@ class _Capture:
 
     def send_message(self, message):
         self.sent.append(message)
+
+
+def test_ygt_emails_come_from_the_mail_account_and_reply_to_support(monkeypatch):
+    """Providers like GoDaddy only send as the signed-in account's domain."""
+    from app.core.config import settings
+    from app.services.platform_email import platform_config
+
+    monkeypatch.setattr(settings, "SMTP_FROM_EMAIL", "billing@yougt.co.za")
+    monkeypatch.setattr(settings, "SUPPORT_EMAIL", "owner@gmail.com")
+    cfg = platform_config()
+    assert cfg.from_email == "billing@yougt.co.za" and cfg.reply_to == "owner@gmail.com"
+
+    monkeypatch.setattr(settings, "SMTP_FROM_EMAIL", None)
+    cfg = platform_config()
+    assert cfg.from_email == "owner@gmail.com" and cfg.reply_to is None
