@@ -118,10 +118,19 @@ async def test_pause_resume_end_and_other_companies(api):
 
 
 @pytest.mark.asyncio
-async def test_recurring_needs_scale(api):
-    """Grow can't start or restart a schedule, and the daily run leaves a
+async def test_recurring_needs_grow_or_scale(api):
+    """Hustle can't start or restart a schedule, and the run leaves a
     downgraded company's schedules waiting; it can still see and stop them."""
-    grow = await new_company(api, "Pi Plumbing")
+    grow_owner = await new_company(api, "Pi Grow")
+    gcustomer = (await api.post("/customers", json={"name": "Client"}, headers=grow_owner["headers"])).json()
+    ok = await api.post(
+        "/recurring-invoices",
+        json={"customer_id": gcustomer["id"], "frequency": "monthly", "start_date": date.today().isoformat(), "items": ITEMS},
+        headers=grow_owner["headers"],
+    )
+    assert ok.status_code == 201, ok.text  # Grow includes recurring invoices
+
+    grow = await new_company(api, "Pi Plumbing", plan="hustle")
     customer = (await api.post("/customers", json={"name": "Client"}, headers=grow["headers"])).json()
     res = await api.post(
         "/recurring-invoices",
@@ -134,7 +143,7 @@ async def test_recurring_needs_scale(api):
     schedule = await _schedule(api, owner, add_months(date.today(), 1))  # first cycle next month
     async with AsyncSessionLocal() as db:
         set_system(db)
-        await db.execute(update(Subscription).where(Subscription.company_id == owner["company_id"]).values(plan="grow"))
+        await db.execute(update(Subscription).where(Subscription.company_id == owner["company_id"]).values(plan="hustle"))
         await db.commit()
     async with AsyncSessionLocal() as db:
         set_tenant(db, owner["company_id"])

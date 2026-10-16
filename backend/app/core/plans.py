@@ -58,8 +58,8 @@ class Plan:
         return seats if self.per_user else self.max_users
 
 
-GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, TEAM_CHAT, REPORTS})
-SCALE_FEATURES = GROW_FEATURES | {RECURRING, DISCOVERY, PRIORITY_SUPPORT}
+GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, TEAM_CHAT, REPORTS, RECURRING})
+SCALE_FEATURES = GROW_FEATURES | {DISCOVERY, PRIORITY_SUPPORT}
 
 PLANS: dict[str, Plan] = {
     # Per company: up to three people.

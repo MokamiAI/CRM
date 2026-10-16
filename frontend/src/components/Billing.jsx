@@ -405,7 +405,7 @@ export default function BillingSettings() {
 }
 
 // The smallest plan with each feature; anything not listed starts at Grow.
-const FEATURE_PLAN = { recurring_invoices: "scale", discovery: "scale" };
+const FEATURE_PLAN = { discovery: "scale" };
 
 /** Does the company's plan include this feature? undefined while loading. */
 export function useHasFeature(feature) {
