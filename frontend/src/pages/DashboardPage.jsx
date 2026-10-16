@@ -19,7 +19,7 @@ import {
   UpcomingList,
   ViewAll,
 } from "../components/dashboard";
-import { formatMoney, formatMoneyWhole, formatShortDate, todayISO } from "../utils/format";
+import { formatMoney, formatMoneyWhole, formatShortDate, todayISO, formatMoneyFit } from "../utils/format";
 import { useFirstToday } from "../utils/motion";
 
 function greeting() {
@@ -141,7 +141,8 @@ export default function DashboardPage() {
           icon="cash"
           tone="emerald"
           label={t("dashboard.kpi.collected")}
-          value={formatMoneyWhole(s.collected_by_month.at(-1).total)}
+          value={formatMoneyFit(s.collected_by_month.at(-1).total, 10_000_000)}
+          exact={formatMoneyWhole(s.collected_by_month.at(-1).total)}
           change={change(s.collected_by_month)}
           detail={t("dashboard.kpi.thisMonth")}
           spark={s.collected_by_month.slice(-6).map((m) => Number(m.total))}
@@ -152,7 +153,8 @@ export default function DashboardPage() {
           icon="invoice"
           tone="amber"
           label={t("dashboard.kpi.outstanding")}
-          value={formatMoneyWhole(s.outstanding)}
+          value={formatMoneyFit(s.outstanding, 10_000_000)}
+          exact={formatMoneyWhole(s.outstanding)}
           detail={Number(s.overdue) > 0 ? t("dashboard.overdueAmount", { amount: formatMoneyWhole(s.overdue) }) : t("dashboard.acrossInvoices", { count: s.open_invoice_count })}
         />
         <KpiCard
@@ -160,7 +162,8 @@ export default function DashboardPage() {
           icon="deals"
           tone="blue"
           label={t("dashboard.kpi.openDeals")}
-          value={formatMoneyWhole(s.open_pipeline_value)}
+          value={formatMoneyFit(s.open_pipeline_value, 10_000_000)}
+          exact={formatMoneyWhole(s.open_pipeline_value)}
           detail={t("dashboard.openDeals", { count: s.open_deal_count })}
         />
         <KpiCard

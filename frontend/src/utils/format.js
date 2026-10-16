@@ -37,6 +37,13 @@ export function formatMoneyCompact(value) {
   );
 }
 
+// Tiles and small boxes: exact up to a million ("R 465 060"), then short
+// ("R 125M", "R 4,5M"), so big pipelines never spill out of their box.
+// Show the exact amount as a tooltip (title) next to it.
+export function formatMoneyFit(value, limit = 1_000_000) {
+  return Math.abs(Number(value ?? 0)) >= limit ? formatMoneyCompact(value) : formatMoneyWhole(value);
+}
+
 // "2026-10-05" is a calendar date with no timezone. new Date("2026-10-05")
 // would parse it as UTC midnight and can show the previous day west of
 // UTC, so build it from its parts in local time.

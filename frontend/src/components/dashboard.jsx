@@ -7,7 +7,7 @@ import { Avatar } from "./ui";
 import { ActivityIcon, EditActivityButton, PencilIcon, STAGE_LABELS } from "./crm";
 import { EditCustomerSheet } from "./CustomerFormSheet";
 import { useAuth } from "../context/AuthContext";
-import { formatMoney, formatMoneyWhole, formatShortDate } from "../utils/format";
+import { formatMoney, formatMoneyFit, formatMoneyWhole, formatShortDate } from "../utils/format";
 import { celebrate, firstTime } from "../utils/motion";
 
 const Svg = ({ d, className = "h-5 w-5", ...props }) => (
@@ -81,7 +81,7 @@ function Sparkline({ values, color }) {
 
 /** One headline number. `change` is a real month-on-month comparison or
  *  null. With `to` the card is a link; without, a plain figure. */
-export function KpiCard({ to, icon, tone, label, value, detail, change, spark, sparkColor, compact = false }) {
+export function KpiCard({ to, icon, tone, label, value, exact, detail, change, spark, sparkColor, compact = false }) {
   const { t } = useTranslation();
   const Shell = to ? Link : "div";
   return (
@@ -95,7 +95,9 @@ export function KpiCard({ to, icon, tone, label, value, detail, change, spark, s
         </span>
         <span className="line-clamp-2 text-[13px] font-medium leading-tight text-slate-500">{label}</span>
       </span>
-      <span className={`block truncate text-lg font-bold tracking-tight tabular-nums text-midnight ${compact ? "mt-2 sm:text-xl" : "mt-3 sm:text-2xl"}`}>{value}</span>
+      <span className={`block truncate text-lg font-bold tracking-tight tabular-nums text-midnight ${compact ? "mt-2 sm:text-xl" : "mt-3 sm:text-2xl"}`} title={exact}>
+        {value}
+      </span>
       <span className="mt-1 flex items-end justify-between gap-2">
         <span className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-slate-500">
           {change != null && (
@@ -287,7 +289,7 @@ export function PipelineSummary({ stages }) {
             <li key={s.stage} className={s.stage === "won" ? "col-span-2 sm:col-span-1" : ""}>
               <Link
                 to={`/deals?stage=${s.stage}`}
-                className={`block h-full rounded-xl p-3 transition-shadow duration-150 hover:shadow-card ${
+                className={`block h-full min-w-0 rounded-xl p-3 transition-shadow duration-150 hover:shadow-card ${
                   s.stage === "won" ? "border-2 border-emerald-500 bg-emerald-50" : `border border-transparent ${tone.col}`
                 }`}
               >
@@ -295,7 +297,9 @@ export function PipelineSummary({ stages }) {
                   <span className={`h-2 w-2 rounded-full ${tone.dot}`} aria-hidden="true" />
                   {s.stage === "won" ? t("dashboard.pipeline.wonThisMonth") : STAGE_LABELS[s.stage]}
                 </span>
-                <span className="mt-1.5 block text-lg font-bold tabular-nums text-midnight">{formatMoneyWhole(s.value)}</span>
+                <span className="mt-1.5 block truncate text-lg font-bold tabular-nums text-midnight lg:text-base 2xl:text-lg" title={formatMoneyWhole(s.value)}>
+                  {formatMoneyFit(s.value)}
+                </span>
                 <span className="block text-xs text-slate-600">{t("dashboard.deals", { count: s.count })}</span>
               </Link>
             </li>
