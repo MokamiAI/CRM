@@ -2416,7 +2416,7 @@
     "fromTeam": "Go tswa go rona rotlhe kwa YGT, re batla o itse gore:",
     "capable": "O kgona go fitlhelela maikaelelo a kgwebo ya gago.",
     "go": "A re simololeng",
-    "welcomeBack": "O amogelesegile gape",
-    "welcomeBackName": "O amogelesegile gape, {{name}}"
+    "welcomeBack": "O amogelesegile gape mo YGT",
+    "welcomeBackName": "O amogelesegile gape mo YGT, {{name}}"
   }
 }

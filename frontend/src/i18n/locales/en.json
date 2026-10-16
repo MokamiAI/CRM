@@ -2416,7 +2416,7 @@
     "fromTeam": "From all of us at YGT, we'd like you to know:",
     "capable": "You are capable of reaching your business goals.",
     "go": "Let's go",
-    "welcomeBack": "Welcome back",
-    "welcomeBackName": "Welcome back, {{name}}"
+    "welcomeBack": "Welcome back to YGT",
+    "welcomeBackName": "Welcome back to YGT, {{name}}"
   }
 }

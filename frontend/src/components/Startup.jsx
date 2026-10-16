@@ -161,6 +161,49 @@ const WELCOME_HOLD = 3500; // ms after the words land before it closes itself
 /** After signing in: a welcome from the team, once per sign-in. Closing
  *  (button, key, click or on its own) folds the words back into YGT. */
 export function WelcomeSplash({ name, returning = false, onClosed }) {
+  // Someone who has been here before: a short hello, not the whole welcome.
+  if (returning) return <WelcomeBack name={name} onClosed={onClosed} />;
+  return <FirstWelcome name={name} onClosed={onClosed} />;
+}
+
+const BACK_HOLD = 1300; // ms "Welcome back to YGT" stays before fading
+
+/** "Welcome back to YGT, Thandi": the YGT letters rise in, then it fades
+ *  away, about two seconds in all. Any key or click closes it sooner. */
+function WelcomeBack({ name, onClosed }) {
+  const { t } = useTranslation();
+  const { layer, close } = useOverlay(onClosed);
+  useEffect(() => writeSession(WELCOME_KEY, null), []); // shown: once per sign-in
+  useEffect(() => {
+    const timer = setTimeout(() => close(), BACK_HOLD);
+    return () => clearTimeout(timer);
+  }, [close]);
+  return (
+    <div
+      ref={layer}
+      className="fixed inset-0 z-[90] flex flex-col items-center justify-center bg-white px-6 text-center"
+      onClick={() => close()}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcome-title"
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <span className="aurora-blob -left-24 top-[-4rem] h-96 w-96 bg-violet-300" />
+        <span className="aurora-blob right-[-6rem] bottom-[-4rem] h-96 w-96 bg-sky-300" />
+      </div>
+      <span className="brand-join relative inline-flex text-[clamp(3.5rem,12vw,6.5rem)] font-extrabold leading-none tracking-[-0.04em]" aria-hidden="true">
+        <span className="brand-text">Y</span>
+        <span className="brand-text">G</span>
+        <span className="brand-text">T</span>
+      </span>
+      <h1 id="welcome-title" className="welcome-in relative mt-5 text-2xl font-semibold tracking-tight text-midnight [animation-delay:200ms] sm:text-3xl">
+        {name ? t("startup.welcomeBackName", { name }) : t("startup.welcomeBack")}
+      </h1>
+    </div>
+  );
+}
+
+function FirstWelcome({ name, onClosed }) {
   const { t } = useTranslation();
   const words = useRef(null);
   const outro = useCallback(() => words.current?.outro() ?? Promise.resolve(), []);
@@ -195,13 +238,7 @@ export function WelcomeSplash({ name, returning = false, onClosed }) {
       <div className="relative flex max-w-xl flex-col items-center">
         <div className={`transition-opacity duration-300 ${closing ? "opacity-0" : "opacity-100"}`}>
           <h1 id="welcome-title" className="welcome-in text-2xl font-semibold tracking-tight text-midnight sm:text-3xl">
-            {returning
-            ? name
-              ? t("startup.welcomeBackName", { name })
-              : t("startup.welcomeBack")
-            : name
-              ? t("startup.welcomeName", { name })
-              : t("startup.welcome")}
+            {name ? t("startup.welcomeName", { name }) : t("startup.welcome")}
           </h1>
           <p className="welcome-in mt-2 text-base text-slate-600 [animation-delay:120ms] sm:text-lg">{t("startup.fromTeam")}</p>
         </div>

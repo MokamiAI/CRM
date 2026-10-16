@@ -53,7 +53,7 @@ class VerificationService:
                 paragraphs=[
                     f"Hi {user.full_name.split(' ')[0]},",
                     intro,
-                    "Please confirm within 48 hours to keep access to your account. The link works for 7 days. If you didn't sign up for YGT, you can ignore this email.",
+                    "Please confirm within 48 hours to keep access to your account. This link works for 24 hours; you can ask for a new one from the app. If you didn't sign up for YGT, you can ignore this email.",
                 ],
                 button=("Confirm my email", platform_email.app_link(f"/verify-email?token={token}")),
             ),

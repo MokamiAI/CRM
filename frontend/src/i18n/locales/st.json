@@ -2416,7 +2416,7 @@
     "fromTeam": "Ho tswa ho rona bohle ho YGT, re batla o tsebe hore:",
     "capable": "O na le bokgoni ba ho fihlella dipheo tsa kgwebo ya hao.",
     "go": "Ha re qaleng",
-    "welcomeBack": "O amohelehile hape",
-    "welcomeBackName": "O amohelehile hape, {{name}}"
+    "welcomeBack": "O amohelehile hape ho YGT",
+    "welcomeBackName": "O amohelehile hape ho YGT, {{name}}"
   }
 }

@@ -120,3 +120,22 @@ async def test_a_domain_that_cannot_receive_mail_is_refused(api, monkeypatch):
     assert bad.status_code == 400 and bad.json()["error_code"] == "EMAIL_UNDELIVERABLE"
     good = await api.post("/auth/register", json={**SIGNUP, "email": _email()})
     assert good.status_code == 201, good.text
+
+
+@pytest.mark.asyncio
+async def test_the_link_works_for_24_hours(api):
+    import jwt
+
+    from app.core.security import decode_token
+
+    email = _email()
+    res = await api.post("/auth/register", json={**SIGNUP, "email": email})
+    me = (await api.get("/auth/me", headers={"Authorization": f"Bearer {res.json()['access_token']}"})).json()
+    token = create_email_token(me["id"], email)
+    left = datetime.fromtimestamp(decode_token(token)["exp"], timezone.utc) - datetime.now(timezone.utc)
+    assert timedelta(hours=23, minutes=59) < left <= timedelta(hours=24)
+    # An expired link is refused, with a way forward.
+    expired = jwt.encode({"sub": me["id"], "email": email, "type": "verify-email", "exp": datetime.now(timezone.utc) - timedelta(seconds=1)},
+                         settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+    bad = await api.post("/auth/verify-email", json={"token": expired})
+    assert bad.status_code == 400 and bad.json()["error_code"] == "VERIFY_LINK_INVALID"
