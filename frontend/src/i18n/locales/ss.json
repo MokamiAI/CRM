@@ -1916,7 +1916,24 @@
     "tempPassword": "Iphasiwedi yesikhashana",
     "tempPasswordHint": "Lokungenani tinhlavu leti-8. Yabelane nabo ngasese.",
     "title": "Lithimba",
-    "updated": "Lithimba libuyeketiwe"
+    "updated": "Lithimba libuyeketiwe",
+    "seats": {
+      "title": "Tihlalo",
+      "used": "{{used}} kuletingu-{{limit}} tiyasetjentiswa",
+      "trial": "Ngesikhatsi sekuhlola kwamahhala ungengeta bantfu labafika ku-{{limit}}. Nawukhetsa luhlelo, utawukhetsa sihlalo sinye semuntu ngamunye elicenjini lakho.",
+      "full_one": "Luhlelo lwakho lunesihlalo lesingu-{{count}}, futsi siyasetjentiswa. Kute wengete lilunga lelicembu, mengetele sihlalo: sihlalo sinye ngemuntu ngamunye.",
+      "full_other": "Tonkhe tihlalo letingu-{{count}} tiyasetjentiswa. Kute wengete lelinye lilunga, mengetele sihlalo: sihlalo sinye ngemuntu ngamunye.",
+      "room_one": "Sihlalo lesingu-{{count}} lesikhululekile: ungengeta lomunye umuntu munye.",
+      "room_other": "Tihlalo letingu-{{count}} letikhululekile: ungengeta labanye bantfu labangu-{{count}}.",
+      "price": "Sihlalo ngasinye singu-{{full}} ngenyanga, nobe {{team}} ngasinye nawunetihlalo letingu-{{count}} nobe ngetulu.",
+      "hustle": "I-Hustle ifaka bantfu labafika ku-{{limit}}. Labanye labangu-{{free}} bangangena.",
+      "hustleFull": "I-Hustle ifaka bantfu labafika ku-{{limit}}, futsi bonkhe bakhona. Kute ukhulise licembu, tfutsela ku-Grow bese wengeta sihlalo semuntu ngamunye.",
+      "addSeats": "Engeta tihlalo",
+      "moveToGrow": "Tfutsela ku-Grow",
+      "addSeatsFirst": "Cala ngekwengeta sihlalo",
+      "over_one": "Unebantfu labangu-{{used}} kodvwa ukhokhele labangu-{{limit}} kuphela, ngako umuntu longu-{{count}} udzinga sihlalo. Engeta tihlalo tabo bonkhe, kanye nesinye selilunga lelisha ngalinye.",
+      "over_other": "Unebantfu labangu-{{used}} kodvwa ukhokhele labangu-{{limit}} kuphela, ngako bantfu labangu-{{count}} badzinga tihlalo. Engeta tihlalo tabo bonkhe, kanye nesinye selilunga lelisha ngalinye."
+    }
   },
   "time": {
     "daysAgo_one": "lilanga le-{{count}} lelendlulile",

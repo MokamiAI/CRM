@@ -1916,7 +1916,24 @@
     "tempPassword": "Lefoko-sephiri la nakwana",
     "tempPasswordHint": "Bonnye ditlhaka di le 8. Le abelane le bone ka sephiri.",
     "title": "Setlhopha",
-    "updated": "Setlhopha se ntšhafaditswe"
+    "updated": "Setlhopha se ntšhafaditswe",
+    "seats": {
+      "title": "Ditulo",
+      "used": "{{used}} mo go {{limit}} di a dirisiwa",
+      "trial": "Mo nakong ya teko ya mahala o ka oketsa batho go fitlha go {{limit}}. Fa o tlhopha leano, o tla tlhopha setulo se le sengwe sa motho mongwe le mongwe mo setlhopheng sa gago.",
+      "full_one": "Leano la gago le na le setulo se le {{count}}, e bile se a dirisiwa. Go oketsa leloko la setlhopha, le oketsetse setulo: setulo se le sengwe ka motho.",
+      "full_other": "Ditulo tsotlhe di le {{count}} di a dirisiwa. Go oketsa leloko le lengwe, le oketsetse setulo: setulo se le sengwe ka motho.",
+      "room_one": "Setulo se le {{count}} se se gololesegileng: o ka oketsa motho yo mongwe a le esi.",
+      "room_other": "Ditulo di le {{count}} tse di gololesegileng: o ka oketsa batho ba bangwe ba le {{count}}.",
+      "price": "Setulo sengwe le sengwe ke {{full}} ka kgwedi, kgotsa {{team}} sengwe fa o na le ditulo di le {{count}} kgotsa go feta.",
+      "hustle": "Hustle e akaretsa batho go fitlha go {{limit}}. Ba bangwe ba le {{free}} ba ka tsena.",
+      "hustleFull": "Hustle e akaretsa batho go fitlha go {{limit}}, e bile botlhe ba teng. Go godisa setlhopha, fetogela go Grow mme o oketse setulo sa motho mongwe le mongwe.",
+      "addSeats": "Oketsa ditulo",
+      "moveToGrow": "Fetogela go Grow",
+      "addSeatsFirst": "Oketsa setulo pele",
+      "over_one": "O na le batho ba le {{used}} mme o duelela ba le {{limit}} fela, ka jalo motho a le {{count}} o tlhoka setulo. Oketsa ditulo tsa botlhe, le se le sengwe sa leloko le lesha lengwe le lengwe.",
+      "over_other": "O na le batho ba le {{used}} mme o duelela ba le {{limit}} fela, ka jalo batho ba le {{count}} ba tlhoka ditulo. Oketsa ditulo tsa botlhe, le se le sengwe sa leloko le lesha lengwe le lengwe."
+    }
   },
   "time": {
     "daysAgo_one": "letsatsi le le {{count}} le le fetileng",

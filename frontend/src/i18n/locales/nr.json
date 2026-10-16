@@ -1916,7 +1916,24 @@
     "tempPassword": "Iphasiwedi yesikhathana",
     "tempPasswordHint": "Okungenani iimpawu ezi-8. Yabelana nabo ngefihlo.",
     "title": "Isiqhema",
-    "updated": "Isiqhema sibuyekeziwe"
+    "updated": "Isiqhema sibuyekeziwe",
+    "seats": {
+      "title": "Iinhlalo",
+      "used": "{{used}} kwezi-{{limit}} ziyasetjenziswa",
+      "trial": "Ngesikhathi sokulinga kwamahhala ungangezelela abantu abafika ku-{{limit}}. Nawukhetha ihlelo, uzokukhetha isihlalo sinye somuntu ngamunye esiqhemeni sakho.",
+      "full_one": "Ihlelo lakho linesihlalo esi-{{count}}, begodu siyasetjenziswa. Bona ungezelele ilunga lesiqhema, ngezelela isihlalo salo: isihlalo sinye ngomuntu ngamunye.",
+      "full_other": "Zoke iinhlalo ezi-{{count}} ziyasetjenziswa. Bona ungezelele elinye ilunga, ngezelela isihlalo salo: isihlalo sinye ngomuntu ngamunye.",
+      "room_one": "Isihlalo esi-{{count}} esikhululekileko: ungangezelela omunye umuntu munye.",
+      "room_other": "Iinhlalo ezi-{{count}} ezikhululekileko: ungangezelela abanye abantu abali-{{count}}.",
+      "price": "Isihlalo ngasinye singu-{{full}} ngenyanga, namkha {{team}} ngasinye nawuneenhlalo ezi-{{count}} namkha ngaphezulu.",
+      "hustle": "I-Hustle ifaka abantu abafika ku-{{limit}}. Abanye abali-{{free}} bangajoyina.",
+      "hustleFull": "I-Hustle ifaka abantu abafika ku-{{limit}}, begodu boke bakhona. Bona ukhulise isiqhema, thuthela ku-Grow bese ungezelela isihlalo somuntu ngamunye.",
+      "addSeats": "Ngezelela iinhlalo",
+      "moveToGrow": "Thuthela ku-Grow",
+      "addSeatsFirst": "Thoma ngokungezelela isihlalo",
+      "over_one": "Unabantu abali-{{used}} kodwana ubhadelele abali-{{limit}} kwaphela, ngalokho umuntu oli-{{count}} utlhoga isihlalo. Ngezelela iinhlalo zabo boke, kunye nesinye selunga elitjha ngalinye.",
+      "over_other": "Unabantu abali-{{used}} kodwana ubhadelele abali-{{limit}} kwaphela, ngalokho abantu abali-{{count}} batlhoga iinhlalo. Ngezelela iinhlalo zabo boke, kunye nesinye selunga elitjha ngalinye."
+    }
   },
   "time": {
     "daysAgo_one": "ilanga eli-{{count}} elidlulileko",

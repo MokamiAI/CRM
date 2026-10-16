@@ -1916,7 +1916,24 @@
     "tempPassword": "Phasewete ya nakwana",
     "tempPasswordHint": "Bonnyane dihlaka tše 8. E abelane le bona ka sephiring.",
     "title": "Sehlopha",
-    "updated": "Sehlopha se mpshafaditšwe"
+    "updated": "Sehlopha se mpshafaditšwe",
+    "seats": {
+      "title": "Ditulo",
+      "used": "{{used}} go {{limit}} di a šomišwa",
+      "trial": "Nakong ya teko ya mahala o ka oketša batho go fihla go {{limit}}. Ge o kgetha leano, o tla kgetha setulo se tee sa motho yo mongwe le yo mongwe sehlopheng sa gago.",
+      "full_one": "Leano la gago le na le setulo se {{count}}, gomme se a šomišwa. Go oketša setho sa sehlopha, mo oketšetše setulo: setulo se tee ka motho.",
+      "full_other": "Ditulo ka moka tše {{count}} di a šomišwa. Go oketša setho se sengwe, mo oketšetše setulo: setulo se tee ka motho.",
+      "room_one": "Setulo se {{count}} sa go se šomišwe: o ka oketša motho yo mongwe a tee.",
+      "room_other": "Ditulo tše {{count}} tša go se šomišwe: o ka oketša batho ba bangwe ba {{count}}.",
+      "price": "Setulo se sengwe le se sengwe ke {{full}} ka kgwedi, goba {{team}} se sengwe ge o na le ditulo tše {{count}} goba go feta.",
+      "hustle": "Hustle e akaretša batho go fihla go {{limit}}. Ba bangwe ba {{free}} ba ka tsena.",
+      "hustleFull": "Hustle e akaretša batho go fihla go {{limit}}, gomme ka moka ba gona. Go godiša sehlopha, fetogela go Grow gomme o oketše setulo sa motho yo mongwe le yo mongwe.",
+      "addSeats": "Oketša ditulo",
+      "moveToGrow": "Fetogela go Grow",
+      "addSeatsFirst": "Oketša setulo pele",
+      "over_one": "O na le batho ba {{used}} eupša o lefeletše ba {{limit}} feela, ka fao motho yo {{count}} o hloka setulo. Oketša ditulo tša bohle, le se tee sa setho se sefsa se sengwe le se sengwe.",
+      "over_other": "O na le batho ba {{used}} eupša o lefeletše ba {{limit}} feela, ka fao batho ba {{count}} ba hloka ditulo. Oketša ditulo tša bohle, le se tee sa setho se sefsa se sengwe le se sengwe."
+    }
   },
   "time": {
     "daysAgo_one": "letšatši le {{count}} le fetilego",

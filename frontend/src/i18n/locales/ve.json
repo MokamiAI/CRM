@@ -1916,7 +1916,24 @@
     "tempPassword": "Phasiwede ya tshifhinganyana",
     "tempPasswordHint": "Nyana ya zwiṅwalwa zwa 8. I kovhekanyeni navho nga tshiphiri.",
     "title": "Tshigwada",
-    "updated": "Tshigwada tsho vusuludzwa"
+    "updated": "Tshigwada tsho vusuludzwa",
+    "seats": {
+      "title": "Zwidulo",
+      "used": "{{used}} kha {{limit}} zwi a shumiswa",
+      "trial": "Tshifhingani tsha ndingo ya mahala ni nga engedza vhathu u swika kha {{limit}}. Musi ni tshi nanga pulane, ni ḓo nanga tshidulo tshithihi tsha muthu muṅwe na muṅwe tshigwadani tshaṋu.",
+      "full_one": "Pulane yaṋu i na tshidulo tsha {{count}}, nahone tshi a shumiswa. U engedza muraḓo wa tshigwada, mu engedzeleni tshidulo: tshidulo tshithihi nga muthu.",
+      "full_other": "Zwidulo zwoṱhe zwa {{count}} zwi a shumiswa. U engedza muṅwe muraḓo, mu engedzeleni tshidulo: tshidulo tshithihi nga muthu.",
+      "room_one": "Tshidulo tsha {{count}} tsho vhofholowaho: ni nga engedza muṅwe muthu muthihi.",
+      "room_other": "Zwidulo zwa {{count}} zwo vhofholowaho: ni nga engedza vhaṅwe vhathu vha {{count}}.",
+      "price": "Tshidulo tshiṅwe na tshiṅwe ndi {{full}} nga ṅwedzi, kana {{team}} tshiṅwe musi ni na zwidulo zwa {{count}} kana u fhira.",
+      "hustle": "Hustle i katela vhathu u swika kha {{limit}}. Vhaṅwe vha {{free}} vha nga ṅwalisa.",
+      "hustleFull": "Hustle i katela vhathu u swika kha {{limit}}, nahone vhoṱhe vha hone. U aluwisa tshigwada, pfulutshelani kha Grow ni engedze tshidulo tsha muthu muṅwe na muṅwe.",
+      "addSeats": "Engedzani zwidulo",
+      "moveToGrow": "Pfulutshelani kha Grow",
+      "addSeatsFirst": "Engedzani tshidulo u thoma",
+      "over_one": "Ni na vhathu vha {{used}} fhedzi no badela vha {{limit}} fhedzi, ngauralo muthu wa {{count}} u ṱoḓa tshidulo. Engedzani zwidulo zwa vhoṱhe, na tshithihi tsha muraḓo muswa muṅwe na muṅwe.",
+      "over_other": "Ni na vhathu vha {{used}} fhedzi no badela vha {{limit}} fhedzi, ngauralo vhathu vha {{count}} vha ṱoḓa zwidulo. Engedzani zwidulo zwa vhoṱhe, na tshithihi tsha muraḓo muswa muṅwe na muṅwe."
+    }
   },
   "time": {
     "daysAgo_one": "ḓuvha ḽa {{count}} ḽo fhiraho",

@@ -1916,7 +1916,24 @@
     "tempPassword": "Phasiwedi ya nkarhinyana",
     "tempPasswordHint": "Kwalomu ka marito ya 8. Yi avelane na vona hi xihundla.",
     "title": "Ntlawa",
-    "updated": "Ntlawa wu pfuxetiwile"
+    "updated": "Ntlawa wu pfuxetiwile",
+    "seats": {
+      "title": "Switulu",
+      "used": "{{used}} eka {{limit}} swi tirhisiwa",
+      "trial": "Hi nkarhi wa ndzingeto wa mahala u nga engetela vanhu ku fika eka {{limit}}. Loko u hlawula kungu, u ta hlawula xitulu xin'we xa munhu un'wana na un'wana eka ntlawa wa wena.",
+      "full_one": "Kungu ra wena ri na xitulu xa {{count}}, naswona xa tirhisiwa. Ku engetela xirho xa ntlawa, xi engetelela xitulu: xitulu xin'we hi munhu.",
+      "full_other": "Switulu hinkwaswo swa {{count}} swa tirhisiwa. Ku engetela xirho xin'wana, xi engetelela xitulu: xitulu xin'we hi munhu.",
+      "room_one": "Xitulu xa {{count}} lexi ntshunxekeke: u nga engetela munhu un'wana un'we.",
+      "room_other": "Switulu swa {{count}} leswi ntshunxekeke: u nga engetela vanhu van'wana va {{count}}.",
+      "price": "Xitulu xin'wana na xin'wana i {{full}} hi n'hweti, kumbe {{team}} xin'wana loko u ri na switulu swa {{count}} kumbe ku tlula.",
+      "hustle": "Hustle yi katsa vanhu ku fika eka {{limit}}. Van'wana va {{free}} va nga nghena.",
+      "hustleFull": "Hustle yi katsa vanhu ku fika eka {{limit}}, naswona hinkwavo va kona. Ku kurisa ntlawa, rhurhela eka Grow kutani u engetela xitulu xa munhu un'wana na un'wana.",
+      "addSeats": "Engetela switulu",
+      "moveToGrow": "Rhurhela eka Grow",
+      "addSeatsFirst": "Engetela xitulu ku sungula",
+      "over_one": "U na vanhu va {{used}} kambe u hakelele va {{limit}} ntsena, hikwalaho munhu wa {{count}} u lava xitulu. Engetela switulu swa hinkwavo, ni xin'we xa xirho lexintshwa xin'wana na xin'wana.",
+      "over_other": "U na vanhu va {{used}} kambe u hakelele va {{limit}} ntsena, hikwalaho vanhu va {{count}} va lava switulu. Engetela switulu swa hinkwavo, ni xin'we xa xirho lexintshwa xin'wana na xin'wana."
+    }
   },
   "time": {
     "daysAgo_one": "siku ra {{count}} leri hundzeke",

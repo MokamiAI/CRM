@@ -198,7 +198,16 @@ export default function BillingSettings() {
   const [viewing, setViewing] = useState(null);
   const [params, setParams] = useSearchParams();
   const [interval, setInterval] = useState("monthly");
-  const [users, setUsers] = useState({});
+  // From Team settings ("Add seats"): that plan with the seats asked for.
+  const [users, setUsers] = useState(() => {
+    const seats = Number(params.get("seats"));
+    const plan = params.get("plan");
+    return seats > 0 && plan ? { [plan]: seats } : {};
+  });
+  const choosePlan = useRef(null);
+  useEffect(() => {
+    if (params.get("seats") && plans) choosePlan.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [plans]); // eslint-disable-line react-hooks/exhaustive-deps
   const [confirmCancel, setConfirmCancel] = useState(false);
   const planCard = useRef(null);
   const confirmed = useRef(false);
@@ -318,7 +327,7 @@ export default function BillingSettings() {
       </section>
 
       {/* ---- Choose a plan ---- */}
-      <section className="space-y-4">
+      <section ref={choosePlan} className="scroll-mt-6 space-y-4">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-base font-semibold text-zinc-900">{t(paying ? "billing.changePlan" : "billing.choosePlan")}</h2>

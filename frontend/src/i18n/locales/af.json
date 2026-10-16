@@ -1916,7 +1916,24 @@
     "tempPassword": "Tydelike wagwoord",
     "tempPasswordHint": "Minstens 8 karakters. Deel dit privaat met hulle.",
     "title": "Span",
-    "updated": "Span bygewerk"
+    "updated": "Span bygewerk",
+    "seats": {
+      "title": "Sitplekke",
+      "used": "{{used}} van {{limit}} gebruik",
+      "trial": "Tydens jou gratis proeftydperk kan jy tot {{limit}} mense byvoeg. Wanneer jy 'n plan kies, kies jy een sitplek vir elke persoon in jou span.",
+      "full_one": "Jou plan het {{count}} sitplek, en dit is in gebruik. Om 'n spanlid by te voeg, voeg 'n sitplek vir hulle by: een sitplek per persoon.",
+      "full_other": "Al {{count}} sitplekke is in gebruik. Om nog 'n spanlid by te voeg, voeg 'n sitplek vir hulle by: een sitplek per persoon.",
+      "room_one": "{{count}} vrye sitplek: jy kan nog een persoon byvoeg.",
+      "room_other": "{{count}} vrye sitplekke: jy kan nog {{count}} mense byvoeg.",
+      "price": "Elke sitplek is {{full}} per maand, of {{team}} elk sodra jy {{count}} of meer sitplekke het.",
+      "hustle": "Hustle sluit tot {{limit}} mense in. Nog {{free}} kan aansluit.",
+      "hustleFull": "Hustle sluit tot {{limit}} mense in, en almal is hier. Om jou span te laat groei, skuif na Grow en voeg 'n sitplek vir elke persoon by.",
+      "addSeats": "Voeg sitplekke by",
+      "moveToGrow": "Skuif na Grow",
+      "addSeatsFirst": "Voeg eers 'n sitplek by",
+      "over_one": "Jy het {{used}} mense maar het net vir {{limit}} betaal, so {{count}} persoon het 'n sitplek nodig. Voeg sitplekke by vir almal, plus een vir elke nuwe spanlid.",
+      "over_other": "Jy het {{used}} mense maar het net vir {{limit}} betaal, so {{count}} mense het 'n sitplek nodig. Voeg sitplekke by vir almal, plus een vir elke nuwe spanlid."
+    }
   },
   "time": {
     "daysAgo_one": "{{count}} dag gelede",

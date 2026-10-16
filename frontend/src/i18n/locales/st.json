@@ -1916,7 +1916,24 @@
     "tempPassword": "Phasewete ya nakwana",
     "tempPasswordHint": "Bonyane ditlhaku tse 8. E arolelane le bona ka lekunutu.",
     "title": "Sehlopha",
-    "updated": "Sehlopha se ntjhafaditswe"
+    "updated": "Sehlopha se ntjhafaditswe",
+    "seats": {
+      "title": "Ditulo",
+      "used": "{{used}} ho {{limit}} di a sebediswa",
+      "trial": "Nakong ya teko ya mahala o ka eketsa batho ho fihla ho {{limit}}. Ha o kgetha morero, o tla kgetha setulo se le seng bakeng sa motho ka mong sehlopheng sa hao.",
+      "full_one": "Morero wa hao o na le setulo se {{count}}, mme se a sebediswa. Ho eketsa setho sa sehlopha, se eketsetse setulo: setulo se le seng ka motho.",
+      "full_other": "Ditulo tsohle tse {{count}} di a sebediswa. Ho eketsa setho se seng, se eketsetse setulo: setulo se le seng ka motho.",
+      "room_one": "Setulo se {{count}} se lokolohileng: o ka eketsa motho e mong a le mong.",
+      "room_other": "Ditulo tse {{count}} tse lokolohileng: o ka eketsa batho ba bang ba {{count}}.",
+      "price": "Setulo ka seng ke {{full}} ka kgwedi, kapa {{team}} ka seng ha o na le ditulo tse {{count}} kapa ho feta.",
+      "hustle": "Hustle e kenyelletsa batho ho fihla ho {{limit}}. Ba bang ba {{free}} ba ka kena.",
+      "hustleFull": "Hustle e kenyelletsa batho ho fihla ho {{limit}}, mme bohle ba teng. Ho hodisa sehlopha, fetohela ho Grow mme o eketse setulo bakeng sa motho ka mong.",
+      "addSeats": "Eketsa ditulo",
+      "moveToGrow": "Fetohela ho Grow",
+      "addSeatsFirst": "Eketsa setulo pele",
+      "over_one": "O na le batho ba {{used}} empa o lefeletse ba {{limit}} feela, ka hona motho a {{count}} o hloka setulo. Eketsa ditulo tsa bohle, le se le seng bakeng sa setho se setjha ka seng.",
+      "over_other": "O na le batho ba {{used}} empa o lefeletse ba {{limit}} feela, ka hona batho ba {{count}} ba hloka ditulo. Eketsa ditulo tsa bohle, le se le seng bakeng sa setho se setjha ka seng."
+    }
   },
   "time": {
     "daysAgo_one": "letsatsi le {{count}} le fetileng",

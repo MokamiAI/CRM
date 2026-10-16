@@ -1916,7 +1916,24 @@
     "tempPassword": "Temporary password",
     "tempPasswordHint": "At least 8 characters. Share it with them privately.",
     "title": "Team",
-    "updated": "Team updated"
+    "updated": "Team updated",
+    "seats": {
+      "title": "Seats",
+      "used": "{{used}} of {{limit}} used",
+      "trial": "During your free trial you can add up to {{limit}} people. When you choose a plan, you'll pick one seat for each person on your team.",
+      "full_one": "Your plan has {{count}} seat, and it's in use. To add a team member, add a seat for them: one seat per person.",
+      "full_other": "All {{count}} seats are in use. To add another team member, add a seat for them: one seat per person.",
+      "room_one": "{{count}} free seat: you can add one more person.",
+      "room_other": "{{count}} free seats: you can add {{count}} more people.",
+      "price": "Each seat is {{full}} a month, or {{team}} each once you have {{count}} or more seats.",
+      "hustle": "Hustle includes up to {{limit}} people. {{free}} more can join.",
+      "hustleFull": "Hustle includes up to {{limit}} people, and they're all here. To grow your team, move to Grow and add a seat for each person.",
+      "addSeats": "Add seats",
+      "moveToGrow": "Move to Grow",
+      "addSeatsFirst": "Add a seat first",
+      "over_one": "You have {{used}} people but only {{limit}} paid for, so {{count}} person needs a seat. Add seats to cover everyone, plus one for each new team member.",
+      "over_other": "You have {{used}} people but only {{limit}} paid for, so {{count}} people need a seat. Add seats to cover everyone, plus one for each new team member."
+    }
   },
   "time": {
     "daysAgo_one": "{{count}} day ago",

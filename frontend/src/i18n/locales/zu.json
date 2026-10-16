@@ -1916,7 +1916,24 @@
     "tempPassword": "Iphasiwedi yesikhashana",
     "tempPasswordHint": "Okungenani izinhlamvu ezi-8. Yabelane nabo ngasese.",
     "title": "Ithimba",
-    "updated": "Ithimba libuyekeziwe"
+    "updated": "Ithimba libuyekeziwe",
+    "seats": {
+      "title": "Izihlalo",
+      "used": "{{used}} kwezingu-{{limit}} zisetshenziswa",
+      "trial": "Ngesikhathi sokuzama kwamahhala ungangeza abantu abangafika ku-{{limit}}. Uma ukhetha uhlelo, uzokhetha isihlalo esisodwa somuntu ngamunye eqenjini lakho.",
+      "full_one": "Uhlelo lwakho lunesihlalo esingu-{{count}}, futhi siyasetshenziswa. Ukuze wengeze ilungu leqembu, mengezele isihlalo: isihlalo esisodwa umuntu ngamunye.",
+      "full_other": "Zonke izihlalo ezingu-{{count}} ziyasetshenziswa. Ukuze wengeze elinye ilungu, mengezele isihlalo: isihlalo esisodwa umuntu ngamunye.",
+      "room_one": "Isihlalo esingu-{{count}} samahhala: ungangeza omunye umuntu oyedwa.",
+      "room_other": "Izihlalo ezingu-{{count}} zamahhala: ungangeza abanye abantu abangu-{{count}}.",
+      "price": "Isihlalo ngasinye singu-{{full}} ngenyanga, noma {{team}} ngasinye uma unezihlalo ezingu-{{count}} noma ngaphezulu.",
+      "hustle": "I-Hustle ifaka abantu abangafika ku-{{limit}}. Abanye abangu-{{free}} bangajoyina.",
+      "hustleFull": "I-Hustle ifaka abantu abangafika ku-{{limit}}, futhi bonke bakhona. Ukuze ukhulise iqembu, thuthela ku-Grow bese wengeza isihlalo somuntu ngamunye.",
+      "addSeats": "Engeza izihlalo",
+      "moveToGrow": "Thuthela ku-Grow",
+      "addSeatsFirst": "Qala ngokwengeza isihlalo",
+      "over_one": "Unabantu abangu-{{used}} kodwa ukhokhele abangu-{{limit}} kuphela, ngakho umuntu ongu-{{count}} udinga isihlalo. Engeza izihlalo zabo bonke, kanye nesisodwa selungu elisha ngalinye.",
+      "over_other": "Unabantu abangu-{{used}} kodwa ukhokhele abangu-{{limit}} kuphela, ngakho abantu abangu-{{count}} badinga izihlalo. Engeza izihlalo zabo bonke, kanye nesisodwa selungu elisha ngalinye."
+    }
   },
   "time": {
     "daysAgo_one": "usuku olu-{{count}} olwedlule",
