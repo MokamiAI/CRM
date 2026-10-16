@@ -10,7 +10,7 @@
   {% if invoice.reference %}<tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Reference</td><td>{{ invoice.reference }}</td></tr>{% endif %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Issue date</td><td>{{ invoice.issue_date.strftime("%d %b %Y") }}</td></tr>
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Due date</td><td>{{ invoice.due_date.strftime("%d %b %Y") }}</td></tr>
-  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Amount due</td><td><strong>{{ money(amount_due) }}</strong></td></tr>
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Amount due</td><td><strong style="color:{{ accent }};">{{ money(amount_due) }}</strong></td></tr>
   {% if t and t.show_customer_tax_number and customer.tax_number %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Your {{ t.tax_label }}</td><td>{{ customer.tax_number }}</td></tr>
   {% endif %}

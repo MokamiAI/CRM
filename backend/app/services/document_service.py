@@ -1,6 +1,7 @@
 """Printable invoices, quotes and statements, styled by the company's
 document template (Settings > Documents). People print them, or save
 them as PDF, from the browser's print dialog."""
+import logging
 import uuid
 from datetime import date, datetime, timedelta
 from decimal import Decimal
@@ -12,6 +13,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import settings
 from app.core.exceptions import NotFoundError
 from app.models.enums import InvoiceStatus, PaymentMethod
 from app.models.invoice import Invoice
@@ -40,6 +42,8 @@ _METHOD = {
     PaymentMethod.OTHER: "Payment",
 }
 
+logger = logging.getLogger(__name__)
+
 
 def money_formatter(currency: str):
     def money(amount) -> str:
@@ -50,6 +54,30 @@ def money_formatter(currency: str):
 
 def quantity(value) -> str:
     return f"{Decimal(str(value)).normalize():f}"
+
+
+def pdf_from_html(html: str) -> bytes | None:
+    """The page as a PDF (WeasyPrint). None where it can't be made, e.g. a
+    machine without the Pango libraries: the email then goes without it."""
+    try:
+        from weasyprint import HTML
+
+        return HTML(string=html, base_url=settings.FRONTEND_URL).write_pdf()
+    except Exception:
+        logger.warning("Could not make a PDF", exc_info=True)
+        return None
+
+
+async def pdf_attachment(html: str, filename: str) -> dict[str, str] | None:
+    """A PDF of the document, ready to attach to an email (or None)."""
+    import asyncio
+    import base64
+
+    data = await asyncio.to_thread(pdf_from_html, html)
+    if not data:
+        return None
+    safe = "".join(ch if ch.isalnum() or ch in " -_." else "-" for ch in filename).strip() or "document"
+    return {"filename": f"{safe}.pdf", "content": base64.b64encode(data).decode(), "mime": "application/pdf"}
 
 
 def render(kind: str, company, template: DocumentTemplate, **context) -> str:

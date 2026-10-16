@@ -141,13 +141,18 @@ async def deal_quotes(deal_id: uuid.UUID, db: AsyncSession = Depends(get_db), _:
 async def list_activities(
     scope: str = Query("all", pattern=f"^({'|'.join(SCOPES)})$"),
     mine: bool = Query(False, description="Only activities assigned to the current user"),
+    handed_out: bool = Query(False, description="Only tasks the current user gave to someone else"),
     customer_id: uuid.UUID | None = Query(default=None),
     deal_id: uuid.UUID | None = Query(default=None),
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     return await ActivityService(db).list_activities(
-        scope=scope, owner_id=current_user.id if mine else None, customer_id=customer_id, deal_id=deal_id
+        scope=scope,
+        owner_id=current_user.id if mine else None,
+        handed_out_by=current_user.id if handed_out else None,
+        customer_id=customer_id,
+        deal_id=deal_id,
     )
 
 

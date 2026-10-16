@@ -12,7 +12,7 @@
   {% if quote.expiry_date %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Valid until</td><td>{{ quote.expiry_date.strftime("%d %b %Y") }}</td></tr>
   {% endif %}
-  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Total</td><td><strong>{{ money(quote.total) }}</strong></td></tr>
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Total</td><td><strong style="color:{{ accent }};">{{ money(quote.total) }}</strong></td></tr>
   {% if t and t.show_customer_tax_number and customer.tax_number %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Your {{ t.tax_label }}</td><td>{{ customer.tax_number }}</td></tr>
   {% endif %}

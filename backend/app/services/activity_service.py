@@ -57,6 +57,7 @@ class ActivityService:
         customer_id: uuid.UUID | None = None,
         deal_id: uuid.UUID | None = None,
         limit: int = 200,
+        handed_out_by: uuid.UUID | None = None,
     ) -> list[Activity]:
         stmt = select(Activity)
         today = await self.today()
@@ -70,6 +71,9 @@ class ActivityService:
             stmt = stmt.where(Activity.done.is_(True))
         if owner_id is not None:
             stmt = stmt.where(Activity.owner_id == owner_id)
+        if handed_out_by is not None:
+            # Given to someone else: what a manager is waiting on.
+            stmt = stmt.where(Activity.created_by == handed_out_by, Activity.owner_id != handed_out_by)
         if customer_id is not None:
             stmt = stmt.where(Activity.customer_id == customer_id)
         if deal_id is not None:

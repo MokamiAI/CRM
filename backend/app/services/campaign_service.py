@@ -6,6 +6,7 @@ from fastapi import status
 from sqlalchemy import case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.schemas.documents import resolve_template
 from app.core.config import settings
 from app.core.exceptions import AppError, NotFoundError
 from app.models.customer import Customer
@@ -176,6 +177,7 @@ class CampaignService:
             unsubscribe_url=unsubscribe,
             pixel_url=public_url(f"m/o/{token}.gif") if token else None,
             company=company,
+            accent=resolve_template(company).accent,  # the company's colour
             money=_money_formatter(company.default_currency),
         )
         email.headers["List-Unsubscribe"] = f"<{unsubscribe}>"

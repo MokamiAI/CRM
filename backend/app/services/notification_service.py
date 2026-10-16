@@ -1,3 +1,4 @@
+import logging
 import uuid
 from decimal import Decimal
 
@@ -16,6 +17,8 @@ from app.services.document_service import DocumentService
 from app.services.email_service import OutgoingEmail, render_email
 from app.services.email_settings import EffectiveEmailConfig, resolve_email_config
 from app.services.reminder_service import REMINDABLE, company_today
+
+logger = logging.getLogger(__name__)
 
 
 def _money_formatter(currency: str):
@@ -61,9 +64,24 @@ class NotificationService:
             "company": company,
             "signature": company.email_signature,
             "t": resolve_template(company),
+            "accent": resolve_template(company).accent,
             "money": _money_formatter(company.default_currency),
             "quantity": _quantity,
         }
+
+    async def _attach(self, email: OutgoingEmail, html_coroutine, name: str) -> OutgoingEmail:
+        """The document itself, as a PDF, on the email. If the PDF can't be
+        made, the email still goes: the message has the details."""
+        from app.services.document_service import pdf_attachment
+
+        try:
+            attachment = await pdf_attachment(await html_coroutine, name)
+        except Exception:
+            logger.warning("Could not attach %s", name, exc_info=True)
+            attachment = None
+        if attachment:
+            email.attachments.append(attachment)
+        return email
 
     async def compose_invoice_sent(self, invoice_id: uuid.UUID) -> OutgoingEmail | None:
         invoice = await self.invoices.get_by_id(invoice_id)
@@ -74,7 +92,7 @@ class NotificationService:
         if customer is None or not customer.email:
             return None
         company = await self.company_settings.get_current()
-        return render_email(
+        email = render_email(
             "invoice_sent",
             to=customer.email,
             subject=f"Invoice {invoice.invoice_number} from {company.company_name}",
@@ -83,6 +101,7 @@ class NotificationService:
             amount_due=invoice.total - invoice.amount_paid,
             **self._base_context(company),
         )
+        return await self._attach(email, DocumentService(self.db).invoice_html(invoice.id), f"Invoice {invoice.invoice_number}")
 
     async def compose_quote_sent(self, quote_id: uuid.UUID) -> OutgoingEmail | None:
         quote = await self.quotes.get_by_id(quote_id)
@@ -93,7 +112,7 @@ class NotificationService:
         if customer is None or not customer.email:
             return None
         company = await self.company_settings.get_current()
-        return render_email(
+        email = render_email(
             "quote_sent",
             to=customer.email,
             subject=f"Quote {quote.quote_number} from {company.company_name}",
@@ -101,6 +120,7 @@ class NotificationService:
             quote=quote,
             **self._base_context(company),
         )
+        return await self._attach(email, DocumentService(self.db).quote_html(quote.id), f"Quote {quote.quote_number}")
 
     async def compose_purchase_order_sent(self, po_id: uuid.UUID) -> OutgoingEmail | None:
         from app.models.purchasing import Supplier
@@ -112,7 +132,7 @@ class NotificationService:
         if supplier is None or not supplier.email:
             return None
         company = await self.company_settings.get_current()
-        return render_email(
+        email = render_email(
             "purchase_order_sent",
             to=supplier.email,
             subject=f"Purchase order {po.po_number} from {company.company_name}",
@@ -120,6 +140,7 @@ class NotificationService:
             po=po,
             **self._base_context(company),
         )
+        return await self._attach(email, DocumentService(self.db).purchase_order_html(po.id), f"Purchase order {po.po_number}")
 
     async def compose_payment_receipt(self, payment_id: uuid.UUID) -> OutgoingEmail | None:
         payment = await self.payments.get_by_id(payment_id)
@@ -133,7 +154,7 @@ class NotificationService:
         if customer is None or not customer.email:
             return None
         company = await self.company_settings.get_current()
-        return render_email(
+        email = render_email(
             "payment_receipt",
             to=customer.email,
             subject=f"Payment received for invoice {invoice.invoice_number}",
@@ -143,6 +164,8 @@ class NotificationService:
             balance=invoice.total - invoice.amount_paid,
             **self._base_context(company),
         )
+        # The invoice as it stands now, showing what's been paid.
+        return await self._attach(email, DocumentService(self.db).invoice_html(invoice.id), f"Invoice {invoice.invoice_number}")
 
     async def compose_invoice_reminder(self, invoice_id: uuid.UUID) -> OutgoingEmail | None:
         """Payment reminder, worded for where the invoice stands on the day
@@ -165,7 +188,7 @@ class NotificationService:
             subject = f"Due today: invoice {invoice.invoice_number} from {company.company_name}"
         else:
             subject = f"Reminder: invoice {invoice.invoice_number} is due soon"
-        return render_email(
+        email = render_email(
             "invoice_reminder",
             to=customer.email,
             subject=subject,
@@ -175,6 +198,7 @@ class NotificationService:
             days_past_due=days_past_due,
             **self._base_context(company),
         )
+        return await self._attach(email, DocumentService(self.db).invoice_html(invoice.id), f"Invoice {invoice.invoice_number}")
 
     async def compose_test_email(self, to: str) -> OutgoingEmail:
         company = await self.company_settings.get_current()
@@ -194,7 +218,7 @@ class NotificationService:
         if not customer.email:
             return None
         _, company, template, statement = await DocumentService(self.db).statement(customer_id, start, end)
-        return render_email(
+        email = render_email(
             "statement",
             to=customer.email,
             subject=f"{template.statement_title} from {company.company_name}: {start:%d %b %Y} to {end:%d %b %Y}",
@@ -202,3 +226,4 @@ class NotificationService:
             statement=statement,
             **self._base_context(company),
         )
+        return await self._attach(email, DocumentService(self.db).statement_html(customer_id, start, end), f"Statement {start:%Y-%m-%d} to {end:%Y-%m-%d}")

@@ -1,3 +1,4 @@
+import base64
 import smtplib
 import ssl
 from dataclasses import dataclass, field
@@ -22,6 +23,9 @@ _templates = Environment(
     trim_blocks=True,
     lstrip_blocks=True,
 )
+# The company's colour (Settings > Documents > accent) styles its emails;
+# YGT's default where there's no company choice.
+_templates.globals["accent"] = "#4f46e5"
 
 _SMTP_TIMEOUT_SECONDS = 30
 
@@ -43,6 +47,9 @@ class OutgoingEmail:
     # sent as a calendar part so mail apps offer to add it to the calendar.
     calendar: str | None = None
     calendar_method: str = "REQUEST"
+    # Files to attach, e.g. the invoice as a PDF: {"filename", "content"
+    # (base64, so the email can travel to the worker as JSON), "mime"}.
+    attachments: list[dict[str, str]] = field(default_factory=list)
 
 
 def clean_signature(value: str | None) -> str | None:
@@ -93,6 +100,9 @@ def send_email(config: EffectiveEmailConfig, email: OutgoingEmail) -> None:
         # Gmail and Apple read the inline part; Outlook prefers the attachment.
         message.add_alternative(email.calendar, subtype="calendar", params={"method": email.calendar_method})
         message.add_attachment(email.calendar.encode(), maintype="text", subtype="calendar", filename="invite.ics", params={"method": email.calendar_method})
+    for item in email.attachments:
+        maintype, _, subtype = item.get("mime", "application/pdf").partition("/")
+        message.add_attachment(base64.b64decode(item["content"]), maintype=maintype, subtype=subtype, filename=item["filename"])
 
     tls_context = ssl.create_default_context()
     if config.port == 465:

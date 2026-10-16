@@ -9,7 +9,7 @@
   {% if po.reference %}<tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Reference</td><td>{{ po.reference }}</td></tr>{% endif %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Date</td><td>{{ po.issue_date.strftime("%d %b %Y") }}</td></tr>
   {% if po.delivery_date %}<tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Deliver by</td><td>{{ po.delivery_date.strftime("%d %b %Y") }}</td></tr>{% endif %}
-  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Total</td><td><strong>{{ money(po.total) }}</strong></td></tr>
+  <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Total</td><td><strong style="color:{{ accent }};">{{ money(po.total) }}</strong></td></tr>
 </table>
 {{ line_items(po, money) }}
 {% if po.delivery_address %}<p><strong>Deliver to</strong><br><span style="white-space:pre-line;">{{ po.delivery_address }}</span></p>{% endif %}

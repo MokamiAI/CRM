@@ -46,6 +46,11 @@ async def test_assign_report_back_and_hear_about_it(api):
     task = task.json()
     assert task["status"] == "todo" and task["created_by"] == str(owner["user_id"])
 
+    # The owner sees it under "handed out"; Lerato sees it as hers.
+    handed = (await api.get("/activities", params={"handed_out": True}, headers=owner["headers"])).json()
+    assert [x["id"] for x in handed] == [task["id"]]
+    assert [x["id"] for x in (await api.get("/activities", params={"mine": True}, headers=staff)).json()] == [task["id"]]
+
     # Lerato hears about it: behind the bell, and by email.
     bell = await _bell(api, staff)
     assert bell["unread"] == 1 and bell["items"][0]["kind"] == "task_assigned"
