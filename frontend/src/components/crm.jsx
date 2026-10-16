@@ -11,6 +11,7 @@ import Sheet from "./Sheet";
 import { Button, Field } from "./ui";
 import i18n from "../i18n";
 import { errorMessage, formatDateTime, formatMoney, formatShortDate, todayISO } from "../utils/format";
+import Attachments, { uploadPending } from "./Attachments";
 
 // ---------- Pipeline vocabulary ----------
 
@@ -392,6 +393,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
   const [ownerId, setOwnerId] = useState("");
   const [body, setBody] = useState("");
   const [note, setNote] = useState("");
+  const [files, setFiles] = useState([]);
   const editing = Boolean(activity);
 
   const [lastOpen, setLastOpen] = useState(false);
@@ -405,6 +407,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
       setDueDate(activity?.due_date ?? todayISO());
       setDueTime(activity?.due_time?.slice(0, 5) ?? "");
       setOwnerId(activity?.owner_id ?? "");
+      setFiles([]);
     }
   }
 
@@ -424,8 +427,10 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
               deal_id: dealId ?? null,
               owner_id: ownerId || null,
             }),
-    onSuccess: () => {
-      for (const key of ["activities", "timeline", "deals", "deal"]) queryClient.invalidateQueries({ queryKey: [key] });
+    onSuccess: async (res) => {
+      // Files chosen before the activity existed go up now.
+      if (mode !== "note" && !editing && files.length && res?.data?.id) await uploadPending(res.data.id, files);
+      for (const key of ["activities", "timeline", "deals", "deal", "attachments"]) queryClient.invalidateQueries({ queryKey: [key] });
       toast.success(t(mode === "note" ? "composer.noteAdded" : editing ? "edit.activitySaved" : "composer.scheduled"));
       onClose();
     },
@@ -491,6 +496,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
             <Field label={t("edit.details")}>
               <textarea className="input" rows={2} value={note} onChange={(e) => setNote(e.target.value)} />
             </Field>
+            <Attachments activityId={editing ? activity.id : null} pending={files} onPending={setFiles} />
             {team.length > 1 && (
               <Field label={t("composer.assignedTo")}>
                 <select className="input" value={ownerId} onChange={(e) => setOwnerId(e.target.value)}>

@@ -6,7 +6,9 @@ matching the customer and invoice routes. Deleting a deal (it takes its
 activities and notes with it) is ADMIN/MANAGER only."""
 import uuid
 
-from fastapi import APIRouter, Depends, Query, status
+from urllib.parse import quote
+
+from fastapi import APIRouter, Depends, File, Query, Response, UploadFile, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -17,6 +19,7 @@ from app.models.enums import UserRole
 from app.models.quote import Quote
 from app.models.user import User
 from app.schemas.crm import (
+    AttachmentOut,
     TaskUpdateCreate,
     TaskUpdateOut,
     ActivityCreate,
@@ -36,6 +39,7 @@ from app.schemas.crm import (
 )
 from app.schemas.quote import QuoteOut
 from app.services.activity_service import SCOPES, ActivityService, NoteService
+from app.services.attachment_service import MAX_BYTES, AttachmentService
 from app.services.contact_service import ContactService
 from app.services.deal_service import DealService
 from app.services.timeline_service import SearchService, TimelineService
@@ -188,6 +192,45 @@ async def add_task_update(
     """Report back on a task: a status (to do, in progress, blocked, done)
     and/or a note; tells whoever assigned it."""
     return await ActivityService(db).add_update(activity_id, data, current_user)
+
+
+@router.get("/activities/{activity_id}/attachments", response_model=list[AttachmentOut])
+async def list_attachments(activity_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    return await AttachmentService(db).list(activity_id)
+
+
+@router.post("/activities/{activity_id}/attachments", response_model=AttachmentOut, status_code=201)
+async def add_attachment(
+    activity_id: uuid.UUID, file: UploadFile = File(...), db: AsyncSession = Depends(get_db), current_user: User = Depends(_can_write)
+):
+    """A file for the activity (10 MB max)."""
+    content = await file.read(MAX_BYTES + 1)
+    return await AttachmentService(db).add(activity_id, file.filename, content, current_user)
+
+
+@router.get("/activities/{activity_id}/attachments/{attachment_id}", include_in_schema=False)
+async def download_attachment(
+    activity_id: uuid.UUID, attachment_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)
+):
+    row = await AttachmentService(db).get(activity_id, attachment_id, with_data=True)
+    return Response(
+        row.data,
+        media_type=row.content_type,
+        headers={
+            # Always a download: an uploaded file never runs as part of the app.
+            "Content-Disposition": f"attachment; filename*=UTF-8''{quote(row.filename)}",
+            "X-Content-Type-Options": "nosniff",
+            "Content-Security-Policy": "sandbox",
+            "Cache-Control": "private, no-store",
+        },
+    )
+
+
+@router.delete("/activities/{activity_id}/attachments/{attachment_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def remove_attachment(
+    activity_id: uuid.UUID, attachment_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)
+):
+    await AttachmentService(db).remove(activity_id, attachment_id)
 
 
 @router.delete("/activities/{activity_id}", status_code=status.HTTP_204_NO_CONTENT)

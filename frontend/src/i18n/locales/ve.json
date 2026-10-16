@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Ri humbela ni shumise diresi yaṋu ya imeiḽi, i si ya tshifhinganyana.",
     "EMAIL_UNDELIVERABLE": "A ri koni u rumela imeiḽi kha heyi diresi. Ri humbela ni i sedze vhukhakhi.",
     "EMAIL_NOT_VERIFIED": "Ri humbela ni khwaṱhisedze diresi yaṋu ya imeiḽi u bvela phanḓa ni tshi shumisa YGT. Ro ni rumela vhukwamani.",
-    "BILLING_PLAN_TOO_SMALL": "Hustle i katela vhathu u swika kha 3. Arali vha fhira, nangani Grow kana Scale: tshidulo tshithihi nga muthu muṅwe na muṅwe."
+    "BILLING_PLAN_TOO_SMALL": "Hustle i katela vhathu u swika kha 3. Arali vha fhira, nangani Grow kana Scale: tshidulo tshithihi nga muthu muṅwe na muṅwe.",
+    "ATTACHMENT_BAD_TYPE": "Nambatedzani PDF, tshifanyiso, ḽiṅwalwa ḽa Office, CSV kana faela ya maṅwalwa.",
+    "ATTACHMENT_TOO_LARGE": "Faela iṅwe na iṅwe i fanela u vha 10 MB kana nga fhasi.",
+    "ATTACHMENT_LIMIT": "Mushumo u nga vha na faela u swika kha 20.",
+    "ATTACHMENT_EMPTY": "Iyo faela a i na tshithu."
   },
   "feed": {
     "activityDone": "{{type}} yo fhela",
@@ -1692,7 +1696,8 @@
       "logo": "URL ya logo",
       "name": "Dzina ḽa khamphani",
       "timezone": "Tshifhinga tsha fhethu tsha tshiofisi",
-      "title": "Khamphani"
+      "title": "Khamphani",
+      "attachLogo": "Nambatedzani logo"
     },
     "documents": {
       "invoicePrefix": "Mathomo a nomboro ya invoice",
@@ -2526,5 +2531,16 @@
     "submit": "Itani phasiweḓe ni dzhene",
     "badLinkTitle": "Iyi ṱhamo a i koni u shumiswa",
     "alreadyJoined": "No no dzhena?"
+  },
+  "attachments": {
+    "title": "Zwo nambatedzwaho",
+    "attach": "Nambatedzani faela",
+    "uploading": "Zwi khou dzheniswa…",
+    "hint": "Engedzani khotheishini, zwifanyiso, fomo dzo sainiwaho kana spredishithi. PDF, zwifanyiso, Word, Excel, CSV kana maṅwalwa, u swika kha 10 MB iṅwe na iṅwe.",
+    "none": "A hu na faela dzo nambatedzwaho.",
+    "remove": "Bvisani",
+    "tooBig": "{{name}} i khulwane u fhira 10 MB",
+    "added_one": "Faela dza {{count}} dzo nambatedzwa",
+    "added_other": "Faela dza {{count}} dzo nambatedzwa"
   }
 }

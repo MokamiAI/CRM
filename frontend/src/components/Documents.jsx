@@ -175,16 +175,16 @@ const TEXT_FIELDS = {
 };
 
 /** Upload or remove the logo printed on documents and emails. */
-function LogoUpload({ onChanged }) {
+export function LogoUpload({ onChanged = () => {} }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { data: company } = useCompany();
   const input = useRef(null);
-  const done = (message) => () => {
+  const done = (message) => (saved) => {
     queryClient.invalidateQueries({ queryKey: ["company"] });
     queryClient.invalidateQueries({ queryKey: ["settings"] });
     queryClient.removeQueries({ queryKey: ["document"] });
-    onChanged();
+    onChanged(saved);
     toast.success(message);
   };
   const upload = useMutation({

@@ -10,9 +10,9 @@ record can show one chronological timeline.
 import uuid
 from datetime import date, datetime, time
 
-from sqlalchemy import Boolean, CheckConstraint, Date, DateTime, Enum, ForeignKey, Numeric, String, Text, Time
+from sqlalchemy import Boolean, CheckConstraint, Date, DateTime, Enum, ForeignKey, Integer, LargeBinary, Numeric, String, Text, Time
 from sqlalchemy.dialects.postgresql import JSONB, UUID
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, deferred, mapped_column
 
 from app.core.database import Base
 from app.core.tenancy import TenantMixin
@@ -114,6 +114,23 @@ class Note(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
 
 
 TASK_STATUSES = ("todo", "in_progress", "blocked", "done")
+
+
+class ActivityAttachment(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
+    """A file on an activity or task (a quote, a photo, a signed form).
+    The bytes stay in the database, like the company logo, and are only
+    loaded when someone opens the file."""
+
+    __tablename__ = "activity_attachments"
+
+    activity_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("activities.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    filename: Mapped[str] = mapped_column(String(255), nullable=False)
+    content_type: Mapped[str] = mapped_column(String(120), nullable=False)
+    size: Mapped[int] = mapped_column(Integer, nullable=False)
+    data: Mapped[bytes] = deferred(mapped_column(LargeBinary, nullable=False))
+    uploaded_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), _user_fk(), nullable=True)
 
 
 class TaskUpdate(TenantMixin, UUIDPKMixin, TimestampMixin, Base):

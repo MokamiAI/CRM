@@ -177,6 +177,18 @@ class ActivityOut(BaseModel):
     created_at: datetime
 
 
+class AttachmentOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    activity_id: uuid.UUID
+    filename: str
+    content_type: str
+    size: int
+    uploaded_by: uuid.UUID | None
+    created_at: datetime
+
+
 # ---------- Notes ----------
 
 

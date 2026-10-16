@@ -9,6 +9,7 @@ import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
 import { useTeamMap } from "../hooks/useApi";
 import { errorMessage, formatShortDate } from "../utils/format";
+import Attachments from "./Attachments";
 import Sheet from "./Sheet";
 import { Avatar } from "./ui";
 
@@ -115,6 +116,8 @@ export default function TaskSheet({ activity, open, onClose }) {
           </div>
         </dl>
         {activity.note && <p className="whitespace-pre-line rounded-lg bg-zinc-50 px-3 py-2 text-sm text-zinc-700">{activity.note}</p>}
+
+        <Attachments activityId={activity.id} canWrite={canWrite} />
 
         {canWrite && (
           <fieldset>

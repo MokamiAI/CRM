@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Hle šomiša aterese ya gago ya imeile, e sego ya nakwana.",
     "EMAIL_UNDELIVERABLE": "Re ka se kgone go romela imeile go aterese ye. Hle e lekole diphošo.",
     "EMAIL_NOT_VERIFIED": "Hle netefatša aterese ya gago ya imeile gore o tšwe o šomiša YGT. Re go rometše linki.",
-    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretša batho go fihla go 3. Ge ba feta, kgetha Grow goba Scale: setulo se tee motho o mongwe le o mongwe."
+    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretša batho go fihla go 3. Ge ba feta, kgetha Grow goba Scale: setulo se tee motho o mongwe le o mongwe.",
+    "ATTACHMENT_BAD_TYPE": "Kgomaretša PDF, seswantšho, tokumente ya Office, CSV goba faele ya sengwalwa.",
+    "ATTACHMENT_TOO_LARGE": "Faele ye nngwe le ye nngwe e swanetše go ba 10 MB goba ka tlase.",
+    "ATTACHMENT_LIMIT": "Mošomo o ka ba le difaele go fihla go 20.",
+    "ATTACHMENT_EMPTY": "Faele yeo ga e na selo."
   },
   "feed": {
     "activityDone": "{{type}} e fetšitšwe",
@@ -1692,7 +1696,8 @@
       "logo": "URL ya logo",
       "name": "Leina la khamphani",
       "timezone": "Lefelo la nako la tlwaelo",
-      "title": "Khamphani"
+      "title": "Khamphani",
+      "attachLogo": "Kgomaretša logo"
     },
     "documents": {
       "invoicePrefix": "Tlhogo ya nomoro ya invoice",
@@ -2526,5 +2531,16 @@
     "submit": "Hlama phasewete gomme o tsene",
     "badLinkTitle": "Taletšo ye e ka se šomišwe",
     "alreadyJoined": "O šetše o tsene?"
+  },
+  "attachments": {
+    "title": "Dikgomaretšo",
+    "attach": "Kgomaretša difaele",
+    "uploading": "E a laiša…",
+    "hint": "Oketša ditekanyetšo, diswantšho, difomo tše di saennwego goba dipapatlelo. PDF, diswantšho, Word, Excel, CSV goba sengwalwa, go fihla go 10 MB e nngwe le e nngwe.",
+    "none": "Ga go difaele tše di kgomaretšwego.",
+    "remove": "Tloša",
+    "tooBig": "{{name}} e kgolo go feta 10 MB",
+    "added_one": "Difaele tše {{count}} di kgomareditšwe",
+    "added_other": "Difaele tše {{count}} di kgomareditšwe"
   }
 }

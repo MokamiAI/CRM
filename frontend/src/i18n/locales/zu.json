@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Sicela usebenzise ikheli lakho le-imeyili, hhayi elesikhashana.",
     "EMAIL_UNDELIVERABLE": "Asikwazi ukuthumela i-imeyili kuleli kheli. Sicela ulihlole ukuthi alinamaphutha.",
     "EMAIL_NOT_VERIFIED": "Sicela uqinisekise ikheli lakho le-imeyili ukuze uqhubeke usebenzisa i-YGT. Sikuthumelele isixhumanisi.",
-    "BILLING_PLAN_TOO_SMALL": "I-Hustle ihlanganisa abantu abafika ku-3. Uma bebaningi, khetha i-Grow noma i-Scale: isihlalo esisodwa ngomuntu ngamunye."
+    "BILLING_PLAN_TOO_SMALL": "I-Hustle ihlanganisa abantu abafika ku-3. Uma bebaningi, khetha i-Grow noma i-Scale: isihlalo esisodwa ngomuntu ngamunye.",
+    "ATTACHMENT_BAD_TYPE": "Namathisela i-PDF, isithombe, idokhumenti ye-Office, i-CSV noma ifayela lombhalo.",
+    "ATTACHMENT_TOO_LARGE": "Ifayela ngalinye kufanele libe ngu-10 MB noma ngaphansi.",
+    "ATTACHMENT_LIMIT": "Umsebenzi ungaba namafayela afika ku-20.",
+    "ATTACHMENT_EMPTY": "Lelo fayela alinalutho."
   },
   "feed": {
     "activityDone": "{{type}} kuqediwe",
@@ -1692,7 +1696,8 @@
       "logo": "I-URL yelogo",
       "name": "Igama lenkampani",
       "timezone": "Isikhathi sendawo esizenzakalelayo",
-      "title": "Inkampani"
+      "title": "Inkampani",
+      "attachLogo": "Namathisela ilogo"
     },
     "documents": {
       "invoicePrefix": "Isiqalo senombolo ye-invoyisi",
@@ -2526,5 +2531,16 @@
     "submit": "Yakha iphasiwedi bese ujoyina",
     "badLinkTitle": "Lesi simemo asikwazi ukusetshenziswa",
     "alreadyJoined": "Usujoyinile?"
+  },
+  "attachments": {
+    "title": "Okunamathiselwe",
+    "attach": "Namathisela amafayela",
+    "uploading": "Iyalayisha…",
+    "hint": "Engeza izilinganiso, izithombe, amafomu asayiniwe noma amashidi. I-PDF, izithombe, i-Word, i-Excel, i-CSV noma umbhalo, kufika ku-10 MB ngalinye.",
+    "none": "Awekho amafayela anamathiselwe.",
+    "remove": "Susa",
+    "tooBig": "I-{{name}} inkulu kuno-10 MB",
+    "added_one": "Kunamathiselwe amafayela angu-{{count}}",
+    "added_other": "Kunamathiselwe amafayela angu-{{count}}"
   }
 }

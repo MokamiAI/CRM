@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Gebruik asseblief jou eie e-posadres, nie 'n tydelike een nie.",
     "EMAIL_UNDELIVERABLE": "Ons kan nie e-pos na hierdie adres stuur nie. Gaan dit asseblief vir tikfoute na.",
     "EMAIL_NOT_VERIFIED": "Bevestig asseblief jou e-posadres om YGT te bly gebruik. Ons het vir jou 'n skakel gestuur.",
-    "BILLING_PLAN_TOO_SMALL": "Hustle dek tot 3 mense. Met meer, kies Grow of Scale: een plek per persoon."
+    "BILLING_PLAN_TOO_SMALL": "Hustle dek tot 3 mense. Met meer, kies Grow of Scale: een plek per persoon.",
+    "ATTACHMENT_BAD_TYPE": "Heg 'n PDF, beeld, Office-dokument, CSV- of tekslêer aan.",
+    "ATTACHMENT_TOO_LARGE": "Elke lêer moet 10 MB of kleiner wees.",
+    "ATTACHMENT_LIMIT": "'n Aktiwiteit kan tot 20 lêers hê.",
+    "ATTACHMENT_EMPTY": "Daardie lêer is leeg."
   },
   "feed": {
     "activityDone": "{{type}} voltooi",
@@ -1692,7 +1696,8 @@
       "logo": "Logo-URL",
       "name": "Maatskappynaam",
       "timezone": "Verstek-tydsone",
-      "title": "Maatskappy"
+      "title": "Maatskappy",
+      "attachLogo": "Heg logo aan"
     },
     "documents": {
       "invoicePrefix": "Faktuurnommervoorvoegsel",
@@ -2526,5 +2531,16 @@
     "submit": "Skep wagwoord en sluit aan",
     "badLinkTitle": "Hierdie uitnodiging kan nie gebruik word nie",
     "alreadyJoined": "Reeds aangesluit?"
+  },
+  "attachments": {
+    "title": "Aanhegsels",
+    "attach": "Heg lêers aan",
+    "uploading": "Laai op…",
+    "hint": "Voeg kwotasies, foto's, getekende vorms of sigblaaie by. PDF, beelde, Word, Excel, CSV of teks, tot 10 MB elk.",
+    "none": "Geen lêers aangeheg nie.",
+    "remove": "Verwyder",
+    "tooBig": "{{name}} is groter as 10 MB",
+    "added_one": "{{count}} lêer(s) aangeheg",
+    "added_other": "{{count}} lêer(s) aangeheg"
   }
 }

@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Sibawa usebenzise ikheli lakho le-imeyili, ingasi lesikhatjhana.",
     "EMAIL_UNDELIVERABLE": "Asikghoni ukuthumela i-imeyili kileli kheli. Sibawa ulihlole iimphoso.",
     "EMAIL_NOT_VERIFIED": "Sibawa uqinisekise ikheli lakho le-imeyili bona uragele phambili usebenzisa i-YGT. Sikuthumelele isihlanganisi.",
-    "BILLING_PLAN_TOO_SMALL": "I-Hustle ifaka abantu abafika ku-3. Nangabe banengi, khetha i-Grow namkha i-Scale: isihlalo sinye ngomuntu ngamunye."
+    "BILLING_PLAN_TOO_SMALL": "I-Hustle ifaka abantu abafika ku-3. Nangabe banengi, khetha i-Grow namkha i-Scale: isihlalo sinye ngomuntu ngamunye.",
+    "ATTACHMENT_BAD_TYPE": "Namathisela i-PDF, isithombe, idokhumenti ye-Office, i-CSV namkha ifayela yetlolo.",
+    "ATTACHMENT_TOO_LARGE": "Ifayela ngalinye kufuze libe yi-10 MB namkha ngaphasi.",
+    "ATTACHMENT_LIMIT": "Umsebenzi ungaba namafayela afika ku-20.",
+    "ATTACHMENT_EMPTY": "Ifayela leyo ayinalitho."
   },
   "feed": {
     "activityDone": "{{type}} kuqediwe",
@@ -1692,7 +1696,8 @@
       "logo": "I-URL yelogo",
       "name": "Ibizo lekampani",
       "timezone": "Isikhathi sendawo esijayelekileko",
-      "title": "Ikampani"
+      "title": "Ikampani",
+      "attachLogo": "Namathisela ilogo"
     },
     "documents": {
       "invoicePrefix": "Isithomo senomboro ye-invoyisi",
@@ -2526,5 +2531,16 @@
     "submit": "Akha iphasiwedi bese ujoyina",
     "badLinkTitle": "Isimemo lesi asikghoni ukusetjenziswa",
     "alreadyJoined": "Sele ujoyinile?"
+  },
+  "attachments": {
+    "title": "Okunamathiselweko",
+    "attach": "Namathisela amafayela",
+    "uploading": "Iyalayisha…",
+    "hint": "Ngezelela iinlinganiso, iinthombe, amafomu atlikitlweko namkha amashidi. I-PDF, iinthombe, i-Word, i-Excel, i-CSV namkha itlolo, ukufika ku-10 MB ngalinye.",
+    "none": "Akunamafayela anamathiselweko.",
+    "remove": "Susa",
+    "tooBig": "I-{{name}} ikhulu ukudlula i-10 MB",
+    "added_one": "Kunamathiselwe amafayela ali-{{count}}",
+    "added_other": "Kunamathiselwe amafayela ali-{{count}}"
   }
 }

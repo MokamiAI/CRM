@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Ka kopo sebedisa aterese ya hao ya imeile, eseng ya nakwana.",
     "EMAIL_UNDELIVERABLE": "Re ke ke ra romela imeile atereseng ena. Ka kopo e hlahlobe diphoso.",
     "EMAIL_NOT_VERIFIED": "Ka kopo netefatsa aterese ya hao ya imeile ho tswela pele ho sebedisa YGT. Re o rometse lehokela.",
-    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretsa batho ho fihla ho 3. Ha ba feta, kgetha Grow kapa Scale: setulo se le seng motho ka mong."
+    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretsa batho ho fihla ho 3. Ha ba feta, kgetha Grow kapa Scale: setulo se le seng motho ka mong.",
+    "ATTACHMENT_BAD_TYPE": "Kgomaretsa PDF, setshwantsho, tokomane ya Office, CSV kapa faele ya mongolo.",
+    "ATTACHMENT_TOO_LARGE": "Faele ka nngwe e tlameha ho ba 10 MB kapa ka tlase.",
+    "ATTACHMENT_LIMIT": "Mosebetsi o ka ba le difaele ho fihla ho 20.",
+    "ATTACHMENT_EMPTY": "Faele eo ha e na letho."
   },
   "feed": {
     "activityDone": "{{type}} e phethilwe",
@@ -1692,7 +1696,8 @@
       "logo": "URL ya logo",
       "name": "Lebitso la khampani",
       "timezone": "Sebaka sa nako sa kamehla",
-      "title": "Khampani"
+      "title": "Khampani",
+      "attachLogo": "Kgomaretsa logo"
     },
     "documents": {
       "invoicePrefix": "Qalo ya nomoro ya invoice",
@@ -2526,5 +2531,16 @@
     "submit": "Etsa phasewete mme o kene",
     "badLinkTitle": "Memo ena e ke ke ya sebediswa",
     "alreadyJoined": "O se o kene?"
+  },
+  "attachments": {
+    "title": "Dikgomaretso",
+    "attach": "Kgomaretsa difaele",
+    "uploading": "E a kenya…",
+    "hint": "Kenya ditheko, ditshwantsho, difomo tse saennweng kapa dipampiri tsa dipalo. PDF, ditshwantsho, Word, Excel, CSV kapa mongolo, ho fihla ho 10 MB e nngwe le e nngwe.",
+    "none": "Ha ho difaele tse kgomareditsweng.",
+    "remove": "Tlosa",
+    "tooBig": "{{name}} e kgolo ho feta 10 MB",
+    "added_one": "Difaele tse {{count}} di kgomareditswe",
+    "added_other": "Difaele tse {{count}} di kgomareditswe"
   }
 }

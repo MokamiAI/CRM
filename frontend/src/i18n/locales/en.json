@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Please use your own email address, not a temporary one.",
     "EMAIL_UNDELIVERABLE": "We can't send email to this address. Please check it for typos.",
     "EMAIL_NOT_VERIFIED": "Please confirm your email address to keep using YGT. We've sent you a link.",
-    "BILLING_PLAN_TOO_SMALL": "Hustle covers up to 3 people. With more, choose Grow or Scale: one seat per person."
+    "BILLING_PLAN_TOO_SMALL": "Hustle covers up to 3 people. With more, choose Grow or Scale: one seat per person.",
+    "ATTACHMENT_BAD_TYPE": "Attach a PDF, image, Office document, CSV or text file.",
+    "ATTACHMENT_TOO_LARGE": "Each file must be 10 MB or smaller.",
+    "ATTACHMENT_LIMIT": "An activity can have up to 20 files.",
+    "ATTACHMENT_EMPTY": "That file is empty."
   },
   "feed": {
     "activityDone": "{{type}} completed",
@@ -1692,7 +1696,8 @@
       "logo": "Logo URL",
       "name": "Company name",
       "timezone": "Default timezone",
-      "title": "Company"
+      "title": "Company",
+      "attachLogo": "Attach logo"
     },
     "documents": {
       "invoicePrefix": "Invoice number prefix",
@@ -2526,5 +2531,16 @@
     "submit": "Create password and join",
     "badLinkTitle": "This invitation can't be used",
     "alreadyJoined": "Already joined?"
+  },
+  "attachments": {
+    "title": "Attachments",
+    "attach": "Attach files",
+    "uploading": "Uploading…",
+    "hint": "Add quotes, photos, signed forms or spreadsheets. PDF, images, Word, Excel, CSV or text, up to 10 MB each.",
+    "none": "No files attached.",
+    "remove": "Remove",
+    "added_one": "{{count}} file attached",
+    "added_other": "{{count}} files attached",
+    "tooBig": "{{name}} is larger than 10 MB"
   }
 }

@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Nceda usebenzise idilesi yakho ye-imeyile, hayi eyexeshana.",
     "EMAIL_UNDELIVERABLE": "Asikwazi ukuthumela i-imeyile kule dilesi. Nceda uyijonge iimpazamo zokuchwetheza.",
     "EMAIL_NOT_VERIFIED": "Nceda uqinisekise idilesi yakho ye-imeyile ukuze uqhubeke usebenzisa i-YGT. Sikuthumelele ikhonkco.",
-    "BILLING_PLAN_TOO_SMALL": "I-Hustle igubungela abantu abafikelela kwi-3. Ukuba baninzi, khetha i-Grow okanye i-Scale: isihlalo esinye ngomntu ngamnye."
+    "BILLING_PLAN_TOO_SMALL": "I-Hustle igubungela abantu abafikelela kwi-3. Ukuba baninzi, khetha i-Grow okanye i-Scale: isihlalo esinye ngomntu ngamnye.",
+    "ATTACHMENT_BAD_TYPE": "Ncamathela i-PDF, umfanekiso, uxwebhu lwe-Office, i-CSV okanye ifayile yesicatshulwa.",
+    "ATTACHMENT_TOO_LARGE": "Ifayile nganye mayibe yi-10 MB okanye ngaphantsi.",
+    "ATTACHMENT_LIMIT": "Umsebenzi unokuba neefayile ezifikelela kuma-20.",
+    "ATTACHMENT_EMPTY": "Loo fayile ayinanto."
   },
   "feed": {
     "activityDone": "{{type}} igqityiwe",
@@ -1692,7 +1696,8 @@
       "logo": "I-URL yelogo",
       "name": "Igama lenkampani",
       "timezone": "Ixesha lendawo elingagqibekanga",
-      "title": "Inkampani"
+      "title": "Inkampani",
+      "attachLogo": "Ncamathela ilogo"
     },
     "documents": {
       "invoicePrefix": "Isiqalo senombolo ye-invoyisi",
@@ -2526,5 +2531,16 @@
     "submit": "Yenza ipaswedi uze ujoyine",
     "badLinkTitle": "Esi simemo asinakusetyenziswa",
     "alreadyJoined": "Sele ujoyinile?"
+  },
+  "attachments": {
+    "title": "Izincamathelo",
+    "attach": "Ncamathela iifayile",
+    "uploading": "Iyalayisha…",
+    "hint": "Yongeza iikowuteshini, iifoto, iifom ezisayiniweyo okanye iispredishithi. I-PDF, imifanekiso, i-Word, i-Excel, i-CSV okanye isicatshulwa, ukuya kwi-10 MB nganye.",
+    "none": "Akukho fayile zincanyathelisiweyo.",
+    "remove": "Susa",
+    "tooBig": "I-{{name}} inkulu kune-10 MB",
+    "added_one": "Kuncanyathiselwe iifayile ezi-{{count}}",
+    "added_other": "Kuncanyathiselwe iifayile ezi-{{count}}"
   }
 }

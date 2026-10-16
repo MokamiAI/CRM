@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Tsweetswee dirisa aterese ya gago ya imeile, e seng ya nakwana.",
     "EMAIL_UNDELIVERABLE": "Ga re kgone go romela imeile kwa atereseng e. Tsweetswee e tlhole diphoso.",
     "EMAIL_NOT_VERIFIED": "Tsweetswee netefatsa aterese ya gago ya imeile go tswelela o dirisa YGT. Re go rometse kgolagano.",
-    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretsa batho go fitlha go 3. Fa ba feta, tlhopha Grow kgotsa Scale: setulo se le sengwe motho mongwe le mongwe."
+    "BILLING_PLAN_TOO_SMALL": "Hustle e akaretsa batho go fitlha go 3. Fa ba feta, tlhopha Grow kgotsa Scale: setulo se le sengwe motho mongwe le mongwe.",
+    "ATTACHMENT_BAD_TYPE": "Kgomaretsa PDF, setshwantsho, tokomane ya Office, CSV kgotsa faele ya mokwalo.",
+    "ATTACHMENT_TOO_LARGE": "Faele nngwe le nngwe e tshwanetse go nna 10 MB kgotsa go le kwa tlase.",
+    "ATTACHMENT_LIMIT": "Tiro e ka nna le difaele go fitlha go 20.",
+    "ATTACHMENT_EMPTY": "Faele eo ga e na sepe."
   },
   "feed": {
     "activityDone": "{{type}} e weditswe",
@@ -1692,7 +1696,8 @@
       "logo": "URL ya logo",
       "name": "Leina la khampani",
       "timezone": "Kgaolo ya nako ya tlwaelo",
-      "title": "Khampani"
+      "title": "Khampani",
+      "attachLogo": "Kgomaretsa logo"
     },
     "documents": {
       "invoicePrefix": "Tshimologo ya nomoro ya invoice",
@@ -2526,5 +2531,16 @@
     "submit": "Dira lefoko-sephiri mme o tsene",
     "badLinkTitle": "Taletso e ga e kgone go dirisiwa",
     "alreadyJoined": "O setse o tsene?"
+  },
+  "attachments": {
+    "title": "Dikgomaretso",
+    "attach": "Kgomaretsa difaele",
+    "uploading": "E a tsenya…",
+    "hint": "Tsenya ditlhwatlhwa, ditshwantsho, diforomo tse di saenilweng kgotsa dipampiri tsa dipalo. PDF, ditshwantsho, Word, Excel, CSV kgotsa mokwalo, go fitlha go 10 MB nngwe le nngwe.",
+    "none": "Ga go na difaele tse di kgomareditsweng.",
+    "remove": "Tlosa",
+    "tooBig": "{{name}} e kgolo go feta 10 MB",
+    "added_one": "Difaele di le {{count}} di kgomareditswe",
+    "added_other": "Difaele di le {{count}} di kgomareditswe"
   }
 }

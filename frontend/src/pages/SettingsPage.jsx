@@ -7,7 +7,7 @@ import i18n from "../i18n";
 import apiClient from "../services/apiClient";
 import CustomFieldsManager from "../components/CustomFieldsManager";
 import BillingSettings, { PlanNotice } from "../components/Billing";
-import { DocumentTemplateSettings } from "../components/Documents";
+import { DocumentTemplateSettings, LogoUpload } from "../components/Documents";
 import DataSettings from "../components/DataSettings";
 import { SignatureEditor } from "../components/Signature";
 import TeamManager from "../components/TeamManager";
@@ -180,6 +180,9 @@ export default function SettingsPage() {
                 value={form.logo_url ?? ""}
                 onChange={(e) => update("logo_url", e.target.value)}
               />
+            </Field>
+            <Field label={t("settings.company.attachLogo")}>
+              <LogoUpload onChanged={(saved) => update("logo_url", saved?.logo_url ?? "")} />
             </Field>
             <Field label={t("settings.company.currency")}>
               <input

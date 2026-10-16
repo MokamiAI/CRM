@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Sicela usebentise likheli lakho le-imeyili, hhayi lelesikhashana.",
     "EMAIL_UNDELIVERABLE": "Asikhoni kutfumela i-imeyili kulelikheli. Sicela ulihlole emaphutsa.",
     "EMAIL_NOT_VERIFIED": "Sicela ucinisekise likheli lakho le-imeyili kute uchubeke usebentisa i-YGT. Sikutfumelele sixhumanisi.",
-    "BILLING_PLAN_TOO_SMALL": "I-Hustle ifaka bantfu labafika ku-3. Nangabe banyenti, khetsa i-Grow noma i-Scale: sihlalo sinye ngemuntfu ngamunye."
+    "BILLING_PLAN_TOO_SMALL": "I-Hustle ifaka bantfu labafika ku-3. Nangabe banyenti, khetsa i-Grow noma i-Scale: sihlalo sinye ngemuntfu ngamunye.",
+    "ATTACHMENT_BAD_TYPE": "Namatsisela i-PDF, sitfombe, lidokhumenti le-Office, i-CSV nobe lifayela lembhalo.",
+    "ATTACHMENT_TOO_LARGE": "Lifayela ngalinye kufanele libe ngu-10 MB nobe ngaphasi.",
+    "ATTACHMENT_LIMIT": "Umsebenti ungaba nemafayela lafika ku-20.",
+    "ATTACHMENT_EMPTY": "Lelo fayela alinalutfo."
   },
   "feed": {
     "activityDone": "{{type}} kuphetsiwe",
@@ -1692,7 +1696,8 @@
       "logo": "I-URL yelogo",
       "name": "Libito lenkampani",
       "timezone": "Sikhatsi sendzawo lesijwayelekile",
-      "title": "Inkampani"
+      "title": "Inkampani",
+      "attachLogo": "Namatsisela lilogo"
     },
     "documents": {
       "invoicePrefix": "Sicalo senombolo ye-invoyisi",
@@ -2526,5 +2531,16 @@
     "submit": "Akha liphasiwedi bese uyajoyina",
     "badLinkTitle": "Lesimemo asikhoni kusetjentiswa",
     "alreadyJoined": "Sewujoyinile?"
+  },
+  "attachments": {
+    "title": "Lokunamatsiselwe",
+    "attach": "Namatsisela emafayela",
+    "uploading": "Iyalayisha…",
+    "hint": "Engeta tilinganiso, titfombe, emafomu lasayiniwe nobe emashidi. I-PDF, titfombe, i-Word, i-Excel, i-CSV nobe umbhalo, kufika ku-10 MB ngalinye.",
+    "none": "Akukho emafayela lanamatsiselwe.",
+    "remove": "Susa",
+    "tooBig": "I-{{name}} inkhulu kwendlula 10 MB",
+    "added_one": "Kunamatsiselwe emafayela langu-{{count}}",
+    "added_other": "Kunamatsiselwe emafayela langu-{{count}}"
   }
 }

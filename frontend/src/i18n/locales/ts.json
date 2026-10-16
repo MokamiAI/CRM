@@ -912,7 +912,11 @@
     "EMAIL_DISPOSABLE": "Hi kombela u tirhisa adirese ya wena ya imeyili, ku nga ri ya nkarhinyana.",
     "EMAIL_UNDELIVERABLE": "A hi swi koti ku rhumela imeyili eka adirese leyi. Hi kombela u yi kambela swihoxo.",
     "EMAIL_NOT_VERIFIED": "Hi kombela u tiyisisa adirese ya wena ya imeyili leswaku u ya emahlweni u tirhisa YGT. Hi ku rhumelerile xihlanganisi.",
-    "BILLING_PLAN_TOO_SMALL": "Hustle yi katsa vanhu ku fika eka 3. Loko va tlula, hlawula Grow kumbe Scale: xitulu xin'we hi munhu un'wana na un'wana."
+    "BILLING_PLAN_TOO_SMALL": "Hustle yi katsa vanhu ku fika eka 3. Loko va tlula, hlawula Grow kumbe Scale: xitulu xin'we hi munhu un'wana na un'wana.",
+    "ATTACHMENT_BAD_TYPE": "Namarheta PDF, xifaniso, dokumente ya Office, CSV kumbe fayili ya matsalwa.",
+    "ATTACHMENT_TOO_LARGE": "Fayili yin'wana na yin'wana yi fanele ku va 10 MB kumbe ehansi.",
+    "ATTACHMENT_LIMIT": "Ntirho wu nga va na tifayili ku fika eka 20.",
+    "ATTACHMENT_EMPTY": "Fayili yoleyo a yi na nchumu."
   },
   "feed": {
     "activityDone": "{{type}} yi hetiwile",
@@ -1692,7 +1696,8 @@
       "logo": "URL ya logo",
       "name": "Vito ra khamphani",
       "timezone": "Xiphemu xa nkarhi xa ntolovelo",
-      "title": "Khamphani"
+      "title": "Khamphani",
+      "attachLogo": "Namarheta logo"
     },
     "documents": {
       "invoicePrefix": "Masungulo ya nomboro ya nhlayo-xikoloto",
@@ -2526,5 +2531,16 @@
     "submit": "Endla phasiwedi u nghena",
     "badLinkTitle": "Xirhambo lexi a xi tirhiseki",
     "alreadyJoined": "Se u nghenile?"
+  },
+  "attachments": {
+    "title": "Swinamarheti",
+    "attach": "Namarheta tifayili",
+    "uploading": "Yi layicha…",
+    "hint": "Engetela tikotexini, swifaniso, tifomo leti sayiniweke kumbe tisipredxiti. PDF, swifaniso, Word, Excel, CSV kumbe matsalwa, ku fika eka 10 MB yin'wana na yin'wana.",
+    "none": "A ku na tifayili leti namarhetiweke.",
+    "remove": "Susa",
+    "tooBig": "{{name}} yi kulu ku tlula 10 MB",
+    "added_one": "Tifayili ta {{count}} ti namarhetiwile",
+    "added_other": "Tifayili ta {{count}} ti namarhetiwile"
   }
 }
