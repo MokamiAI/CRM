@@ -37,6 +37,7 @@ ANY_SIGNED_IN = {
     "/api/v1/bookings/{booking_id}/cancel",
     "/api/v1/marketing/audience/preview",
     "/api/v1/support/tickets",
+    "/api/v1/support/tickets/submit",  # same support access, with files included atomically
     "/api/v1/support/tickets/{ticket_id}/close",
     "/api/v1/support/tickets/{ticket_id}/messages",
     "/api/v1/team-chat/channels/{channel_id}/messages",
