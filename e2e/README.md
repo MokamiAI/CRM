@@ -10,6 +10,36 @@ anything but `localhost`.
 
 ## Running them
 
+### Ticket workflow (isolated local email capture)
+
+After migrating the local database and seeding the demo account, run these
+from the repository root in separate terminals (PowerShell):
+
+```powershell
+backend/.venv312/Scripts/python.exe e2e/ticket-qa-server.py
+```
+
+```powershell
+$env:VITE_API_BASE_URL='http://localhost:8002/api/v1'
+cd frontend
+npm.cmd run dev -- --port 5174
+```
+
+```powershell
+node e2e/tickets.mjs
+```
+
+The QA API listens only on loopback, requires a local database, grants the
+demo account platform admin access in that process, and captures Celery
+tasks in `e2e/out-ticket-qa/queued-emails.jsonl` instead of sending email.
+The browser test opens Chrome, submits a ticket with a file, checks its
+download, sends a predefined reply, saves templates, changes status,
+checks the customer's timeline and captured email, and takes desktop and
+phone screenshots. Chrome stays open for review. Test tickets remain in
+the local demo account. Stop both servers when finished.
+
+### General app and public-site regression
+
 ```sh
 scripts/dev-db.sh start                # local PostgreSQL on :5433
 scripts/dev-backend.sh                 # API on :8000, against .env.local

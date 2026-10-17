@@ -12,10 +12,11 @@ from app.core.exceptions import AppError, NotFoundError
 from app.core.plans import PRIORITY_SUPPORT
 from app.core.tenancy import ALL_TENANTS
 from app.models.company_settings import CompanySettings
-from app.models.platform import SupportTicket, TicketMessage
+from app.models.platform import SupportTicket, TicketMessage, TicketAttachment
 from app.models.user import User
 from app.services import platform_email
 from app.services.billing_service import BillingService
+from app.services import ticket_templates
 
 CATEGORY_LABELS = {"question": "Question", "problem": "Something isn't working", "billing": "Billing", "feature": "Feature idea", "account": "Account"}
 
@@ -48,7 +49,7 @@ class HelpdeskService:
             query = query.where(TicketMessage.internal.is_(False))
         return list(await self.db.scalars(query.execution_options(**{ALL_TENANTS: include_internal})))
 
-    async def open_ticket(self, user: User, subject: str, category: str, urgency: str, body: str) -> SupportTicket:
+    async def open_ticket(self, user: User, subject: str, category: str, urgency: str, body: str, attachments: list[dict] | None = None) -> SupportTicket:
         current = await BillingService(self.db).current()
         ticket = SupportTicket(
             company_id=user.company_id,
@@ -61,6 +62,8 @@ class HelpdeskService:
         )
         self.db.add(ticket)
         await self.db.flush()
+        for attachment in attachments or []:
+            self.db.add(TicketAttachment(company_id=user.company_id, ticket_id=ticket.id, **attachment))
         self.db.add(TicketMessage(company_id=user.company_id, ticket_id=ticket.id, author_name=user.full_name, author_user_id=user.id, body=body.strip()))
         await self.db.flush()
         await self.db.refresh(ticket)
@@ -115,6 +118,7 @@ class HelpdeskService:
         return message
 
     async def update(self, ticket: SupportTicket, status: str | None, urgency: str | None, assigned_to: str | None) -> SupportTicket:
+        changed = status is not None and status != ticket.status
         if status:
             ticket.status = status
             ticket.closed_at = _now() if status in ("resolved", "closed") else None
@@ -123,8 +127,14 @@ class HelpdeskService:
         if assigned_to is not None:
             ticket.assigned_to = assigned_to or None
         await self.db.flush()
-        if status == "resolved":
-            await self._tell_company(ticket, None, resolved=True)
+        if changed:
+            author = await self.db.get(User, ticket.created_by) if ticket.created_by else None
+            body = await ticket_templates.text(self.db, status, ticket, author.full_name if author else "there")
+            self.db.add(TicketMessage(company_id=ticket.company_id, ticket_id=ticket.id, author_name=SUPPORT_SENDER, from_platform=True, internal=False, body=body))
+            ticket.last_message_at = _now()
+            ticket.last_from_platform = True
+            await self.db.flush()
+            await self._tell_company(ticket, body, status_update=True)
         return ticket
 
     # ---------- emails ----------
@@ -158,26 +168,21 @@ class HelpdeskService:
             to=user.email,
             subject=f"We've received your ticket #{ticket.number}: {ticket.subject}",
             title=f"We've received your ticket #{ticket.number}",
-            paragraphs=[
-                f"Hi {user.full_name.split(' ')[0]},",
-                "Thanks for getting in touch. Your ticket is logged and our support team will get back to you, usually within one working day."
-                + (" Your Scale plan includes priority support, so you're at the front of the queue." if ticket.priority_plan else ""),
-                "We'll email you when we reply. You can add more details or follow the ticket in YGT at any time.",
-            ],
+            paragraphs=(await ticket_templates.text(self.db, "acknowledged", ticket, user.full_name)).split("\n\n"),
             details=[("Ticket", f"#{ticket.number}"), ("Subject", ticket.subject), ("Urgency", ticket.urgency.title())],
             button=("View the ticket", platform_email.app_link(f"/support/tickets/{ticket.id}")),
             from_name=SUPPORT_SENDER,
         )
         await platform_email.queue(self.db, email)
 
-    async def _tell_company(self, ticket: SupportTicket, body: str | None, resolved: bool = False) -> None:
+    async def _tell_company(self, ticket: SupportTicket, body: str | None, resolved: bool = False, status_update: bool = False) -> None:
         author = await self.db.get(User, ticket.created_by) if ticket.created_by else None
         if author is None:
             return
         email = platform_email.compose(
             to=author.email,
-            subject=f"{'Resolved' if resolved else 'Reply'}: #{ticket.number} {ticket.subject}",
-            title=f"Ticket #{ticket.number} has been resolved" if resolved else f"YGT support replied to ticket #{ticket.number}",
+            subject=f"{ticket.status.replace('_', ' ').title() if status_update else 'Reply'}: #{ticket.number} {ticket.subject}",
+            title=f"Ticket #{ticket.number}: {ticket.status.replace('_', ' ')}" if status_update else f"YGT support replied to ticket #{ticket.number}",
             paragraphs=[f"Hi {author.full_name.split(' ')[0]},"]
             + (["We've marked your ticket as resolved. If something still isn't right, just reply in the app and it will reopen."] if resolved else []),
             quote=body,

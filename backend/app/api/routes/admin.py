@@ -9,8 +9,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db, require_platform_admin
 from app.core.database import CommitBeforeResponseRoute
-from app.core.exceptions import NotFoundError
-from app.models.platform import ContactRequest, ErrorLog, SessionBooking, SupportTicket
+from app.core.exceptions import AppError, NotFoundError
+from app.models.platform import ContactRequest, ErrorLog, SessionBooking, SupportTicket, PlatformSetting
 from app.models.user import User
 from app.schemas.platform import (
     AdminBookingOut,
@@ -33,6 +33,8 @@ from app.services.admin_service import AdminService
 from app.services.billing_service import effective
 from app.services.booking_service import BookingService
 from app.services.helpdesk_service import HelpdeskService
+from app.services import ticket_templates, ticket_attachments
+from app.schemas.platform import TicketTemplate
 from app.models.billing import Subscription
 
 class YgtDetails(BaseModel):
@@ -212,7 +214,34 @@ async def tickets(status: str | None = None, company_id: uuid.UUID | None = None
 async def _admin_detail(db: AsyncSession, ticket: SupportTicket) -> AdminTicketDetail:
     (row,) = await _ticket_rows(db, [ticket])
     messages = await HelpdeskService(db).messages(ticket, include_internal=True)
-    return AdminTicketDetail(**row.model_dump(), messages=[TicketMessageOut.model_validate(m) for m in messages])
+    return AdminTicketDetail(**row.model_dump(), messages=[TicketMessageOut.model_validate(m) for m in messages], attachments=await ticket_attachments.list_files(db, ticket.id))
+
+
+@router.get("/ticket-templates", response_model=list[TicketTemplate])
+async def get_ticket_templates(db: AsyncSession = Depends(get_db)):
+    return await ticket_templates.templates(db)
+
+
+@router.put("/ticket-templates", response_model=list[TicketTemplate])
+async def save_ticket_templates(data: list[TicketTemplate], db: AsyncSession = Depends(get_db)):
+    keys = [t.key for t in data]
+    expected = {t["key"] for t in ticket_templates.DEFAULT_TEMPLATES}
+    if len(keys) != len(set(keys)) or set(keys) != expected or any(not t.body.strip() or not t.name.strip() for t in data):
+        raise AppError("Provide each ticket template exactly once", "INVALID_TEMPLATES", 422)
+    row = await db.get(PlatformSetting, "ticket_templates")
+    value = {"templates": [t.model_dump() for t in data]}
+    if row:
+        row.value = value
+    else:
+        db.add(PlatformSetting(key="ticket_templates", value=value))
+    await db.flush()
+    return data
+
+
+@router.get("/tickets/{ticket_id}/attachments/{attachment_id}")
+async def ticket_file(ticket_id: uuid.UUID, attachment_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
+    await HelpdeskService(db).admin_get(ticket_id)
+    return await ticket_attachments.download(db, ticket_id, attachment_id)
 
 
 @router.get("/tickets/{ticket_id}", response_model=AdminTicketDetail)

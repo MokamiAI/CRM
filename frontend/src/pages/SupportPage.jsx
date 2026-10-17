@@ -9,6 +9,7 @@ import { BackLink } from "../components/DocumentView";
 import { Button, EmptyState, ErrorState, Field, FilterChips, ListSkeleton, PageHeader, PlusIcon } from "../components/ui";
 import { errorMessage, formatDate, formatDateTime } from "../utils/format";
 import { celebrate } from "../utils/motion";
+import TicketAttachments, { TicketFileInput } from "../components/TicketAttachments";
 
 const CATEGORIES = ["question", "problem", "billing", "feature", "account"];
 const URGENCIES = ["low", "normal", "high"];
@@ -67,7 +68,7 @@ export default function SupportPage() {
 function TicketList({ onNew }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { data, isLoading, isError, refetch } = useQuery({ queryKey: ["tickets"], queryFn: () => apiClient.get("/support/tickets").then((r) => r.data) });
+  const { data, isLoading, isError, refetch } = useQuery({ queryKey: ["tickets"], queryFn: () => apiClient.get("/support/tickets").then((r) => r.data), refetchInterval: 15000 });
   if (isLoading) return <ListSkeleton rows={3} />;
   if (isError) return <ErrorState onRetry={refetch} />;
   if (!data.length) return <EmptyState title={t("support.none")} description={t("support.noneHint")} action={<Button onClick={onNew}>{t("support.newTicket")}</Button>} />;
@@ -97,13 +98,20 @@ function NewTicketSheet({ open, onClose }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [form, setForm] = useState({ subject: "", category: "question", urgency: "normal", body: "" });
+  const [files, setFiles] = useState([]);
   const set = (field) => (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
   const create = useMutation({
-    mutationFn: () => apiClient.post("/support/tickets", form).then((r) => r.data),
+    mutationFn: () => {
+      const data = new FormData();
+      Object.entries(form).forEach(([key, value]) => data.append(key, value));
+      files.forEach(file => data.append("files", file));
+      return apiClient.post("/support/tickets/submit", data).then(r => r.data);
+    },
     onSuccess: (ticket) => {
       queryClient.invalidateQueries({ queryKey: ["tickets"] });
       toast.success(t("support.created", { number: ticket.number }));
       setForm({ subject: "", category: "question", urgency: "normal", body: "" });
+      setFiles([]);
       onClose();
       navigate(`/support/tickets/${ticket.id}`);
     },
@@ -160,6 +168,7 @@ function NewTicketSheet({ open, onClose }) {
         <Field label={t("support.details")} hint={t("support.detailsHint")}>
           <textarea className="input min-h-[9rem]" required minLength={5} maxLength={10000} value={form.body} onChange={set("body")} />
         </Field>
+        <TicketFileInput files={files} onChange={setFiles} disabled={create.isPending} />
       </form>
     </Sheet>
   );
@@ -171,7 +180,7 @@ export function TicketPage() {
   const { id } = useParams();
   const queryClient = useQueryClient();
   const [body, setBody] = useState("");
-  const { data, isLoading, isError, refetch } = useQuery({ queryKey: ["ticket", id], queryFn: () => apiClient.get(`/support/tickets/${id}`).then((r) => r.data) });
+  const { data, isLoading, isError, refetch } = useQuery({ queryKey: ["ticket", id], queryFn: () => apiClient.get(`/support/tickets/${id}`).then((r) => r.data), refetchInterval: 15000 });
   const update = (next) => {
     queryClient.setQueryData(["ticket", id], next);
     queryClient.invalidateQueries({ queryKey: ["tickets"] });
@@ -213,6 +222,7 @@ export function TicketPage() {
         }
       />
       {data.priority_plan && <p className="-mt-2 text-sm font-medium text-indigo-700">{t("support.priority")}</p>}
+      <TicketAttachments ticket={data} />
       <ol className="space-y-3">
         {data.messages.map((m) => (
           <li key={m.id} className={`flex ${m.from_platform ? "justify-start" : "justify-end"}`}>

@@ -60,8 +60,23 @@ class TicketOut(BaseModel):
     closed_at: datetime | None
 
 
+class TicketAttachmentOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: uuid.UUID
+    filename: str
+    content_type: str
+    size: int
+
+
+class TicketTemplate(BaseModel):
+    key: str = Field(pattern=r"^[a-z_]{1,40}$")
+    name: str = Field(min_length=1, max_length=100)
+    body: str = Field(min_length=5, max_length=10000)
+
+
 class TicketDetail(TicketOut):
     messages: list[TicketMessageOut]
+    attachments: list[TicketAttachmentOut] = Field(default_factory=list)
 
 
 class AdminTicketOut(TicketOut):
@@ -75,6 +90,7 @@ class AdminTicketOut(TicketOut):
 
 class AdminTicketDetail(AdminTicketOut):
     messages: list[TicketMessageOut]
+    attachments: list[TicketAttachmentOut] = Field(default_factory=list)
 
 
 # ---------- Sessions ----------

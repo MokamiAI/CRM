@@ -21,6 +21,7 @@ from app.models.platform import (
     SessionBooking,
     SupportTicket,
     TicketMessage,
+    TicketAttachment,
 )
 from app.models.product import Product
 from app.models.purchasing import LineTemplate, PurchaseOrder, PurchaseOrderItem, Supplier
@@ -45,6 +46,7 @@ __all__ = [
     "SessionBooking",
     "SupportTicket",
     "TicketMessage",
+    "TicketAttachment",
     "BillingPayment",
     "SubscriptionInvoice",
     "Contact",

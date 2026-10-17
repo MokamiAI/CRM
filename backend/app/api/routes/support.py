@@ -2,7 +2,7 @@
 Open to everyone in the company, even after a trial ends."""
 import uuid
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, File, Form, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db
@@ -11,13 +11,14 @@ from app.models.user import User
 from app.schemas.platform import BookingCreate, BookingOut, SlotsOut, TicketCreate, TicketDetail, TicketMessageOut, TicketOut, TicketReply
 from app.services.booking_service import BookingService
 from app.services.helpdesk_service import HelpdeskService
+from app.services import ticket_attachments
 
 router = APIRouter(route_class=CommitBeforeResponseRoute, tags=["support"])
 
 
 async def _detail(service: HelpdeskService, ticket) -> TicketDetail:
     messages = await service.messages(ticket, include_internal=False)
-    return TicketDetail(**TicketOut.model_validate(ticket).model_dump(), messages=[TicketMessageOut.model_validate(m) for m in messages])
+    return TicketDetail(**TicketOut.model_validate(ticket).model_dump(), messages=[TicketMessageOut.model_validate(m) for m in messages], attachments=await ticket_attachments.list_files(service.db, ticket.id))
 
 
 @router.get("/support/tickets", response_model=list[TicketOut])
@@ -30,6 +31,26 @@ async def open_ticket(data: TicketCreate, db: AsyncSession = Depends(get_db), us
     service = HelpdeskService(db)
     ticket = await service.open_ticket(user, data.subject, data.category, data.urgency, data.body)
     return await _detail(service, ticket)
+
+
+@router.post("/support/tickets/submit", response_model=TicketDetail, status_code=201)
+async def submit_ticket(
+    subject: str = Form(..., min_length=3, max_length=200), body: str = Form(..., min_length=5, max_length=10000),
+    category: str = Form("question", pattern="^(question|problem|billing|feature|account)$"),
+    urgency: str = Form("normal", pattern="^(low|normal|high)$"),
+    files: list[UploadFile] = File(default=[]), db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user),
+):
+    # Validate every file before creating the ticket or queuing any email.
+    attachments = await ticket_attachments.read_files(files)
+    service = HelpdeskService(db)
+    ticket = await service.open_ticket(user, subject, category, urgency, body, attachments)
+    return await _detail(service, ticket)
+
+
+@router.get("/support/tickets/{ticket_id}/attachments/{attachment_id}")
+async def ticket_file(ticket_id: uuid.UUID, attachment_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    await HelpdeskService(db).get_mine(ticket_id)
+    return await ticket_attachments.download(db, ticket_id, attachment_id)
 
 
 @router.get("/support/tickets/{ticket_id}", response_model=TicketDetail)
