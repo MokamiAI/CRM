@@ -2466,8 +2466,8 @@
     "fromTeam": "Kusuka kitsi sonkhe ku-YGT, sifuna wati kutsi:",
     "capable": "Uyakhona kufinyelela tinjongo tebhizinisi lakho.",
     "go": "Asihambe",
-    "welcomeBack": "Wemukelekile futsi ku-YGT",
-    "welcomeBackName": "Wemukelekile futsi ku-YGT, {{name}}"
+    "welcomeBack": "Wemukelekile futsi",
+    "welcomeBackName": "Wemukelekile futsi, {{name}}"
   },
   "priority": {
     "label": "Kubaluleka",

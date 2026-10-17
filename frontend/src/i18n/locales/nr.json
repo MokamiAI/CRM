@@ -2466,8 +2466,8 @@
     "fromTeam": "Kusukela kithi soke e-YGT, sifuna wazi bona:",
     "capable": "Uyakghona ukufikelela iinhloso zebhizinisi lakho.",
     "go": "Asithome",
-    "welcomeBack": "Wamukelekile godu ku-YGT",
-    "welcomeBackName": "Wamukelekile godu ku-YGT, {{name}}"
+    "welcomeBack": "Wamukelekile godu",
+    "welcomeBackName": "Wamukelekile godu, {{name}}"
   },
   "priority": {
     "label": "Ukuqakatheka",
