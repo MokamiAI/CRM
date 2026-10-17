@@ -179,10 +179,11 @@ class HelpdeskService:
         author = await self.db.get(User, ticket.created_by) if ticket.created_by else None
         if author is None:
             return
+        status_label = "Waiting on client" if ticket.status == "waiting" else ticket.status.replace("_", " ").title()
         email = platform_email.compose(
             to=author.email,
-            subject=f"{ticket.status.replace('_', ' ').title() if status_update else 'Reply'}: #{ticket.number} {ticket.subject}",
-            title=f"Ticket #{ticket.number}: {ticket.status.replace('_', ' ')}" if status_update else f"YGT support replied to ticket #{ticket.number}",
+            subject=f"{status_label if status_update else 'Reply'}: #{ticket.number} {ticket.subject}",
+            title=f"Ticket #{ticket.number}: {status_label}" if status_update else f"YGT support replied to ticket #{ticket.number}",
             paragraphs=[f"Hi {author.full_name.split(' ')[0]},"]
             + (["We've marked your ticket as resolved. If something still isn't right, just reply in the app and it will reopen."] if resolved else []),
             quote=body,

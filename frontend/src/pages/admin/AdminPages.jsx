@@ -519,12 +519,13 @@ function RefundSheet({ payment, onClose, onDone }) {
 
 const TICKET_FILTERS = [
   ["active", "Needs work"],
-  ["waiting", "Waiting on them"],
+  ["waiting", "Waiting on client"],
   ["resolved", "Resolved"],
   ["closed", "Closed"],
   ["", "All"],
 ];
 const STATUSES = ["open", "in_progress", "waiting", "resolved", "closed"];
+const TICKET_STATUS_LABELS = { open: "Open", in_progress: "In progress", waiting: "Waiting on client", resolved: "Resolved", closed: "Closed" };
 
 export function AdminTickets() {
   const [status, setStatus] = useState("active");
@@ -565,7 +566,7 @@ export function AdminTickets() {
                         {t.assigned_to && ` · ${t.assigned_to}`}
                       </span>
                     </span>
-                    <Pill>{t.status.replace("_", " ")}</Pill>
+                    <Pill>{TICKET_STATUS_LABELS[t.status] ?? t.status}</Pill>
                   </button>
                 </li>
               ))}
@@ -658,7 +659,7 @@ export function AdminTicket() {
               <select className="input" disabled={update.isPending} value={t.status} onChange={(e) => update.mutate({ status: e.target.value })}>
                 {STATUSES.map((s) => (
                   <option key={s} value={s}>
-                    {s.replace("_", " ")}
+                    {TICKET_STATUS_LABELS[s]}
                   </option>
                 ))}
               </select>
