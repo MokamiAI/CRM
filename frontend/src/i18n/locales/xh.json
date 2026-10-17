@@ -745,7 +745,22 @@
     "none": {
       "won": "Akukabikho zivumelwano ziphumeleleyo",
       "lost": "Akukho zivumelwano zilahlekileyo. Kuhle."
-    }
+    },
+    "whose": "Izivumelwano zikabani",
+    "filters": "Izihluzi",
+    "howItWorks": "Isebenza njani",
+    "layout": "Ubume",
+    "show": "Bonisa",
+    "openOnly": "Izivumelwano ezivulekileyo kuphela",
+    "format": "Imbonakalo yombhobho",
+    "formatStandard": "Eqhelekileyo",
+    "clearFilters": "Cima izihluzi",
+    "helpStandard": "Ikholamu nganye linyathelo eliya ekuphumeleleni: Lead, Qualified, Proposal, Negotiation, emva koko Iphumelele okanye Ilahlekile. Sebenzisa u-Shenxisa ekhadini ukuthatha isivumelwano siye kwinyathelo elilandelayo, kunye no-Cwangcisa inyathelo elilandelayo ukuze kungabikho nto ibandayo. Izivumelwano ezingxamisekileyo zihlala phezulu kwikholamu nganye. Iphumelele kunye neLahlekile zibonisa iintsuku ezingama-90 zokugqibela; uLuhlu lubonisa yonke into.",
+    "move": "Shenxisa",
+    "moveTo": "Shenxisela ku-",
+    "moveDeal": "Shenxisa {{title}}",
+    "planNext": "Cwangcisa inyathelo elilandelayo",
+    "formatAdvanced": "Okuphambili"
   },
   "document": {
     "lineItems": "Izinto",

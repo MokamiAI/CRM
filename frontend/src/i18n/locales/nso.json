@@ -745,7 +745,22 @@
     "none": {
       "won": "Ga go dikwano tše di thopilwego go fihla bjale",
       "lost": "Ga go dikwano tše di lahlegilego. Go botse."
-    }
+    },
+    "whose": "Ditumelelano tša mang",
+    "filters": "Dihlotlo",
+    "howItWorks": "Ka moo e šomago",
+    "layout": "Peakanyo",
+    "show": "Bontšha",
+    "openOnly": "Ditumelelano tše di bulegilego fela",
+    "format": "Ponagalo ya peipi",
+    "formatStandard": "Ya tlwaelo",
+    "clearFilters": "Phumola dihlotlo",
+    "helpStandard": "Kholomo ye nngwe le ye nngwe ke kgato ya go thopa: Lead, Qualified, Proposal, Negotiation, ke moka Thopilwe goba Lahlegile. Šomiša Šuthiša kareteng go iša tumelelano kgatong ye e latelago, le Beakanya kgato ye e latelago gore go se be le selo se se tonyago. Ditumelelano tše di šušumetšago kudu di dula godimo ga kholomo ye nngwe le ye nngwe. Thopilwe le Lahlegile di bontšha matšatši a 90 a mafelelo; Lenaneo le bontšha tšohle.",
+    "move": "Šuthiša",
+    "moveTo": "Šuthišetša go",
+    "moveDeal": "Šuthiša {{title}}",
+    "planNext": "Beakanya kgato ye e latelago",
+    "formatAdvanced": "Ye e tšwetšego pele"
   },
   "document": {
     "lineItems": "Dilo",

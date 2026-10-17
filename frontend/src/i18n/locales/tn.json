@@ -745,7 +745,22 @@
     "none": {
       "won": "Ga go ise go nne le ditumalano tse di gapilweng",
       "lost": "Ga go ditumalano tse di latlhegileng. Go siame."
-    }
+    },
+    "whose": "Ditumalano tsa mang",
+    "filters": "Disefa",
+    "howItWorks": "Ka moo e dirang ka teng",
+    "layout": "Thulaganyo",
+    "show": "Bontsha",
+    "openOnly": "Ditumalano tse di bulegileng fela",
+    "format": "Ponalo ya phaepe",
+    "formatStandard": "E e tlwaelegileng",
+    "clearFilters": "Phimola disefa",
+    "helpStandard": "Kholomo nngwe le nngwe ke kgato e e lebileng phenyo: Lead, Qualified, Proposal, Negotiation, morago E fentswe kgotsa E latlhegile. Dirisa Tsamaisa mo karateng go isa tumalano kwa kgatong e e latelang, le Rulaganya kgato e e latelang gore go se nne le sepe se se tsididi. Ditumalano tse di potlakileng thata di nna kwa godimo ga kholomo nngwe le nngwe. E fentswe le E latlhegile di bontsha malatsi a le 90 a bofelo; Lenaane le bontsha tsotlhe.",
+    "move": "Tsamaisa",
+    "moveTo": "Tsamaisetsa kwa",
+    "moveDeal": "Tsamaisa {{title}}",
+    "planNext": "Rulaganya kgato e e latelang",
+    "formatAdvanced": "E e tswelelang pele"
   },
   "document": {
     "lineItems": "Dilo",

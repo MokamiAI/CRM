@@ -745,7 +745,22 @@
     "none": {
       "won": "A hu athu vha na thendelano dzo kundwaho",
       "lost": "A hu na thendelano dzo xelaho. Zwi khou naka."
-    }
+    },
+    "whose": "Thendelano dza nnyi",
+    "filters": "Zwikhethi",
+    "howItWorks": "Zwine zwa shuma ngazwo",
+    "layout": "Mbekanyo",
+    "show": "Sumbedzani",
+    "openOnly": "Thendelano dzo vulea fhedzi",
+    "format": "Mbonalo ya phaiphi",
+    "formatStandard": "Ya ḓuvha ḽiṅwe na ḽiṅwe",
+    "clearFilters": "Bvisani zwikhethi",
+    "helpStandard": "Kholomu iṅwe na iṅwe ndi khwaṱhisedzo ya u kunda: Lead, Qualified, Proposal, Negotiation, nga murahu Yo kundwa kana Yo xela. Shumisani Shandukisani kha khadi u isa thendelano kha khwaṱhisedzo i tevhelaho, na Dzudzanyani khwaṱhisedzo i tevhelaho uri hu si vhe na tshithu tshi rothaho. Thendelano dza ṱhoḓea nga u ṱavhanya dzi dzula nṱha ha kholomu iṅwe na iṅwe. Yo kundwa na Yo xela dzi sumbedza maḓuvha a 90 a u fhedza; Mutevhe u sumbedza zwoṱhe.",
+    "move": "Shandukisani",
+    "moveTo": "Shandukisani u ya kha",
+    "moveDeal": "Shandukisani {{title}}",
+    "planNext": "Dzudzanyani khwaṱhisedzo i tevhelaho",
+    "formatAdvanced": "Yo bvelaho phanḓa"
   },
   "document": {
     "lineItems": "Zwithu",

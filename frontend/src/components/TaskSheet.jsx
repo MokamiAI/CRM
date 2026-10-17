@@ -61,7 +61,7 @@ export default function TaskSheet({ activity, open, onClose }) {
         ...(note.trim() && { note: note.trim() }),
       }),
     onSuccess: () => {
-      for (const key of ["activities", "task-updates", "deals", "deal", "timeline", "notifications"]) queryClient.invalidateQueries({ queryKey: [key] });
+      for (const key of ["activities", "task-updates", "deals", "deal", "timeline", "notifications", "mcem", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
       toast.success(t("task.sent"));
       setStatus(null);
       setNote("");

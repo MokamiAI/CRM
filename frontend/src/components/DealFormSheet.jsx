@@ -29,6 +29,7 @@ const blank = (customerId) => ({
   value: "",
   expected_close_date: "",
   industry: "",
+  mcem_enabled: true,
 });
 
 /** Create a deal (deal = null), optionally pre-linked to a customer, or edit one. */
@@ -67,7 +68,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
             }
           : {
               ...blank(customerId),
-              stage: initialStage ?? "lead",
+              stage: "lead",
               industry: industryFromCustomer(customers.find((c) => c.id === customerId)),
             }
       );
@@ -97,7 +98,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
       };
       return deal
         ? apiClient.patch(`/deals/${deal.id}`, payload).then((r) => r.data)
-        : apiClient.post("/deals", { ...payload, customer_id: customerIdToUse, stage: form.stage }).then((r) => r.data);
+        : apiClient.post("/deals", { ...payload, customer_id: customerIdToUse, stage: form.stage, mcem_enabled: form.mcem_enabled }).then((r) => r.data);
     },
     onSuccess: (saved) => {
       queryClient.invalidateQueries({ queryKey: ["deals"] });
@@ -197,7 +198,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
             ))}
           </select>
         </Field>
-        {!deal && (
+        {!deal && !form.mcem_enabled && (
           // Four stages as buttons, not a dropdown: always all visible (a
           // native list near the bottom of the sheet opened off-screen).
           <fieldset>
@@ -210,13 +211,14 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
                     form.stage === s.value ? "bg-indigo-50 text-indigo-800 ring-indigo-500" : "bg-white text-zinc-700 ring-zinc-200 hover:bg-zinc-50"
                   }`}
                 >
-                  <input type="radio" name="deal-stage" value={s.value} checked={form.stage === s.value} onChange={set("stage")} className="sr-only" />
+                  <input type="radio" name="deal-stage" value={s.value} disabled={form.mcem_enabled && s.value !== "lead"} checked={form.stage === s.value} onChange={set("stage")} className="sr-only" />
                   {s.label}
                 </label>
               ))}
             </div>
           </fieldset>
         )}
+        {!deal && <div className="space-y-1"><label className="flex min-h-11 items-center gap-2 text-sm text-zinc-800"><input type="checkbox" checked={form.mcem_enabled} onChange={e => setForm(p => ({ ...p, mcem_enabled: e.target.checked, ...(e.target.checked ? { stage: "lead" } : {}) }))} />Use the advanced pipeline (customer milestones)</label><p className="text-xs text-zinc-500">Start in Listen and Consult. Confirm customer evidence before advancing; delivery and value reviews continue after Won.</p></div>}
         <fieldset>
           <legend className="mb-1.5 block text-sm font-medium text-zinc-700">{t("priority.label")}</legend>
           <div className="grid grid-cols-3 gap-2">

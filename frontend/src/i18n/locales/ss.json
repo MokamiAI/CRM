@@ -745,7 +745,22 @@
     "none": {
       "won": "Kute tivumelwano letiwiniwe okwanyalo",
       "lost": "Kute tivumelwano letilahlekile. Kuhle."
-    }
+    },
+    "whose": "Tivumelwano tabani",
+    "filters": "Tihlungi",
+    "howItWorks": "Kusebenta njani",
+    "layout": "Kubekwa",
+    "show": "Khombisa",
+    "openOnly": "Tivumelwano letivulekile kuphela",
+    "format": "Kubuka kwemphayiphi",
+    "formatStandard": "Lokujwayelekile",
+    "clearFilters": "Sula tihlungi",
+    "helpStandard": "Ikholomu ngayinye siyinyatselo lesiya ekunqobeni: Lead, Qualified, Proposal, Negotiation, bese kuba Kunqotjiwe nobe Kulahlekile. Sebentisa u-Hambisa ekhadini kuyisa sivumelwano esinyatselweni lesilandzelako, kanye ne-Hlela sinyatselo lesilandzelako kute kungabi khona lokuphola. Tivumelwano letiphutfumako tihlala etulu kwekholomu ngayinye. Kunqotjiwe ne-Kulahlekile kukhombisa emalanga langu-90 ekugcina; Luhlu lukhombisa konkhe.",
+    "move": "Hambisa",
+    "moveTo": "Hambisa ku-",
+    "moveDeal": "Hambisa {{title}}",
+    "planNext": "Hlela sinyatselo lesilandzelako",
+    "formatAdvanced": "Lokutfutfukile"
   },
   "document": {
     "lineItems": "Tintfo",

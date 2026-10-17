@@ -118,10 +118,13 @@ class DealService:
         return await self.with_next_activity(deals)
 
     async def create_deal(self, data: DealCreate, created_by_id: uuid.UUID) -> Deal:
+        from app.services.mcem_service import McemService
+        if data.mcem_enabled and data.stage != DealStage.LEAD:
+            raise ConflictError("Start an MCEM opportunity in Lead, then record evidence before advancing", "MCEM_START_IN_LEAD")
         await self._check_links(data.customer_id, data.contact_id)
         values = await CustomFieldService(self.db).clean_values("deal", data.custom_fields)
         deal = Deal(
-            **data.model_dump(exclude={"custom_fields"}),
+            **data.model_dump(exclude={"custom_fields", "mcem_enabled"}),
             custom_fields=values,
             created_by=created_by_id,
             closed_at=datetime.now(timezone.utc) if data.stage in CLOSED_STAGES else None,
@@ -131,10 +134,15 @@ class DealService:
             deal.owner_id = created_by_id
         self.db.add(deal)
         await self.db.flush()
+        if data.mcem_enabled:
+            from app.models.user import User
+            await McemService(self.db).enable(deal.id, await self.db.get(User, created_by_id))
         return deal
 
-    async def update_deal(self, deal_id: uuid.UUID, data: DealUpdate) -> Deal:
-        deal = await self.get_deal(deal_id)
+    async def update_deal(self, deal_id: uuid.UUID, data: DealUpdate, actor_id: uuid.UUID | None = None) -> Deal:
+        from app.services.mcem_service import McemService
+        mcem = McemService(self.db)
+        deal = await mcem.deal(deal_id, lock=True)
         changes = data.model_dump(exclude_unset=True)
         if changes.get("custom_fields") is not None:
             changes["custom_fields"] = await CustomFieldService(self.db).clean_values(
@@ -144,8 +152,13 @@ class DealService:
             changes.pop("custom_fields", None)
         if "contact_id" in changes:
             await self._check_links(deal.customer_id, changes["contact_id"])
+        if deal.mcem_enabled and "owner_id" in changes:
+            if changes["owner_id"] is None:
+                raise ConflictError("MCEM opportunities need a named sales owner", "MCEM_OWNER_REQUIRED")
+            await mcem.owner(changes["owner_id"])
         new_stage = changes.get("stage")
         if new_stage is not None and new_stage != deal.stage:
+            await mcem.transition(deal, new_stage.value, changes, actor_id)
             if new_stage in CLOSED_STAGES:
                 deal.closed_at = datetime.now(timezone.utc)
             else:

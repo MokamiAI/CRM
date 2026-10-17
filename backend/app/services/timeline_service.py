@@ -90,6 +90,11 @@ class TimelineService:
     async def _all(self, stmt):
         return list((await self.db.execute(stmt)).scalars().all())
 
+    async def _mcem(self, deal_ids):
+        from app.models.mcem import McemEvent
+        events = await self._all(select(McemEvent).where(McemEvent.deal_id.in_(deal_ids)).order_by(McemEvent.created_at.desc()).limit(_LIMIT))
+        return [TimelineItem(kind="mcem", at=e.created_at, title="Customer progress: " + e.kind.replace("_", " "), detail=(f"{e.detail.get('from')} to {e.detail.get('to')}" if e.kind == "stage_changed" else e.detail.get("message") or e.detail.get("reason") or e.detail.get("key")), ref_id=e.deal_id, event_id=e.id, actor_id=e.actor_id) for e in events]
+
     async def customer_timeline(self, customer_id: uuid.UUID) -> list[TimelineItem]:
         if await self.db.get(Customer, customer_id) is None:
             raise NotFoundError("Customer not found", "CUSTOMER_NOT_FOUND")
@@ -102,6 +107,8 @@ class TimelineService:
         ]
         for deal in await self._all(select(Deal).where(Deal.customer_id == customer_id)):
             items += _deal_items(deal)
+        deal_ids = select(Deal.id).where(Deal.customer_id == customer_id)
+        items += await self._mcem(deal_ids)
         items += [_quote_item(q) for q in await self._all(select(Quote).where(Quote.customer_id == customer_id))]
 
         invoices = await self._all(select(Invoice).where(Invoice.customer_id == customer_id))
@@ -172,6 +179,7 @@ class TimelineService:
         if deal is None:
             raise NotFoundError("Deal not found", "DEAL_NOT_FOUND")
         items = _deal_items(deal)
+        items += await self._mcem([deal.id])
         items += [_note_item(n) for n in await self._all(select(Note).where(Note.deal_id == deal_id))]
         items += [
             _activity_item(a)

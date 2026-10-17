@@ -745,7 +745,22 @@
     "none": {
       "won": "Nog geen transaksies gewen nie",
       "lost": "Geen transaksies verloor nie. Mooi so."
-    }
+    },
+    "whose": "Wie se transaksies",
+    "filters": "Filters",
+    "howItWorks": "Hoe dit werk",
+    "layout": "Uitleg",
+    "show": "Wys",
+    "openOnly": "Net oop transaksies",
+    "format": "Pyplynaansig",
+    "formatStandard": "Standaard",
+    "clearFilters": "Maak filters skoon",
+    "helpStandard": "Elke kolom is 'n stap nader aan wen: Lead, Gekwalifiseer, Voorstel, Onderhandeling, dan Gewen of Verloor. Gebruik Skuif op 'n kaart om 'n transaksie na die volgende stap te neem, en Beplan volgende stap sodat niks koud word nie. Die dringendste transaksies is bo-aan elke kolom. Gewen en Verloor wys die laaste 90 dae; die Lys wys alles.",
+    "move": "Skuif",
+    "moveTo": "Skuif na",
+    "moveDeal": "Skuif {{title}}",
+    "planNext": "Beplan volgende stap",
+    "formatAdvanced": "Gevorderd"
   },
   "document": {
     "lineItems": "Lynitems",

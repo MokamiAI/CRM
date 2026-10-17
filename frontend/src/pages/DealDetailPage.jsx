@@ -8,6 +8,7 @@ import { useActivities, useContacts, useCustomer, useDeal, useDealQuotes, useTea
 import { useAuth } from "../context/AuthContext";
 import { useCustomFieldRows } from "../components/CustomFields";
 import DealFormSheet from "../components/DealFormSheet";
+import McemProgress from "../components/McemProgress";
 import Sheet from "../components/Sheet";
 import { BackLink } from "../components/DocumentView";
 import { ActivityRow, ComposerSheet, DealJourney, industryLabel, PriorityBadge, QuickActions, STAGE_LABELS, STAGES, Timeline, useToggleActivity } from "../components/crm";
@@ -83,7 +84,7 @@ export default function DealDetailPage() {
   const close = () => setSheet(null);
 
   const refresh = () => {
-    for (const key of [["deal", id], ["deals"], ["timeline"]]) queryClient.invalidateQueries({ queryKey: key });
+    for (const key of [["deal", id], ["deals"], ["timeline"], ["mcem", id], ["mcem-report"]]) queryClient.invalidateQueries({ queryKey: key });
   };
   const move = useMutation({
     mutationFn: (body) => apiClient.patch(`/deals/${id}`, body),
@@ -184,10 +185,12 @@ export default function DealDetailPage() {
             {deal.lost_reason && ` · ${deal.lost_reason}`}
           </span>
         </div>
-      ) : (
+      ) : !deal.mcem_enabled ? (
         <StageBar stage={deal.stage} disabled={!canWrite || move.isPending} onMove={(stage) => move.mutate({ stage })} />
-      )}
-      {deal.stage !== "lost" && <DealJourney milestones={deal.milestones ?? []} />}
+      ) : null}
+      {!deal.mcem_enabled && deal.stage !== "lost" && <DealJourney milestones={deal.milestones ?? []} />}
+      {deal.parent_deal_id && <Link className="block text-sm text-indigo-700 underline" to={`/deals/${deal.parent_deal_id}`}>View original won opportunity</Link>}
+      <McemProgress deal={deal} canWrite={canWrite} />
 
       <div className="grid items-start gap-6 lg:grid-cols-12">
         {/* Left: the facts */}

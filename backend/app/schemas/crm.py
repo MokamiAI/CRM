@@ -63,6 +63,7 @@ class DealCreate(BaseModel):
     industry: Industry | None = None
     priority: Priority = "medium"
     custom_fields: dict[str, Any] = Field(default_factory=dict)
+    mcem_enabled: bool = False
 
 
 class DealUpdate(BaseModel):
@@ -101,12 +102,14 @@ class DealOut(BaseModel):
     industry: str | None = None
     priority: Priority = "medium"
     custom_fields: dict[str, Any] = {}
+    mcem_enabled: bool = False
+    parent_deal_id: uuid.UUID | None = None
     created_at: datetime
     updated_at: datetime
     # Earliest open activity: drives the board's overdue/today/none
     # indicators (Pipedrive's "next activity"). Filled in by DealService.
     next_activity: NextActivity | None = None
-    # Lead-to-client milestones reached, from real activity: lead,
+    # Legacy lead-to-client markers, not MCEM customer confirmations: lead,
     # contacted, qualified, quote_sent, negotiation, won.
     milestones: list[str] = []
 
@@ -221,6 +224,7 @@ TimelineKind = Literal[
     "payment",
     "reminder",
     "message",
+    "mcem",
 ]
 
 
@@ -235,6 +239,7 @@ class TimelineItem(BaseModel):
     detail: str | None = None
     ref_id: uuid.UUID
     actor_id: uuid.UUID | None = None
+    event_id: uuid.UUID | None = None
     # Structured pieces of the title/detail (number, status, amount, ...) so
     # clients can phrase the entry in the user's language.
     params: dict[str, str] = {}

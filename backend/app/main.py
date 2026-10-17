@@ -15,6 +15,7 @@ from app.api.routes import (
     invoices,
     marketing,
     messaging,
+    mcem,
     notifications,
     onboarding,
     payments,
@@ -89,6 +90,7 @@ app.include_router(payments.router, prefix=settings.API_V1_PREFIX)
 app.include_router(company_settings.router, prefix=settings.API_V1_PREFIX)
 app.include_router(company_settings.profile_router, prefix=settings.API_V1_PREFIX)
 app.include_router(crm.router, prefix=settings.API_V1_PREFIX)
+app.include_router(mcem.router, prefix=settings.API_V1_PREFIX)
 app.include_router(reports.router, prefix=settings.API_V1_PREFIX)
 app.include_router(custom_fields.router, prefix=settings.API_V1_PREFIX)
 app.include_router(marketing.router, prefix=settings.API_V1_PREFIX)

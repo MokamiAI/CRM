@@ -66,6 +66,8 @@ class Deal(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # High deals lead each pipeline column; urgency orders within a level.
     priority: Mapped[str] = mapped_column(String(10), nullable=False, default="medium", server_default="medium")
     custom_fields: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    mcem_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    parent_deal_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("deals.id", ondelete="SET NULL"), nullable=True, index=True)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), _user_fk(), nullable=True)
 
 

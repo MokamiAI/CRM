@@ -230,9 +230,12 @@ class ImportService:
         if existing:
             if not update_existing:
                 return "skipped"
-            for key, value in fields.items():
-                if value is not None:
-                    setattr(existing, key, value)
+            from app.schemas.crm import DealUpdate
+            from app.services.deal_service import DealService
+            try:
+                await DealService(self.db).update_deal(existing.id, DealUpdate(**{k: v for k, v in fields.items() if v is not None}), self.user.id)
+            except AppError as error:
+                raise RowError(error.message)
             return "updated"
         deal = Deal(company_id=self.company_id, title=title, customer_id=customer.id, created_by=self.user.id, **fields)
         if stage in (DealStage.WON, DealStage.LOST):

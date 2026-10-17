@@ -4,6 +4,7 @@
 from app.models.billing import BillingPayment, PaystackPlan, Subscription, SubscriptionInvoice
 from app.models.company_settings import CompanySettings
 from app.models.crm import Activity, ActivityAttachment, Contact, Deal, Note, TaskUpdate
+from app.models.mcem import McemJourney, McemMilestone, McemEvidence, McemEvent
 from app.models.notification import Notification, PushSubscription
 from app.models.custom_field import CustomFieldDefinition
 from app.models.customer import Customer
@@ -32,6 +33,7 @@ from app.models.reminder import ReminderLog
 from app.models.user import RefreshToken, User
 
 __all__ = [
+    "McemJourney", "McemMilestone", "McemEvidence", "McemEvent",
     "PushSubscription",
     "Notification",
     "TaskUpdate",

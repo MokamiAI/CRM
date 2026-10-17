@@ -357,7 +357,7 @@ export function useToggleActivity() {
     mutationFn: (activity) => apiClient.patch(`/activities/${activity.id}`, { done: !activity.done }).then((r) => r.data),
     onSuccess: (updated) => {
       const refresh = () => {
-        for (const key of ["activities", "deals", "deal", "timeline"]) queryClient.invalidateQueries({ queryKey: [key] });
+        for (const key of ["activities", "deals", "deal", "timeline", "mcem", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
       };
       refresh();
       if (updated.done) {
@@ -430,7 +430,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
     onSuccess: async (res) => {
       // Files chosen before the activity existed go up now.
       if (mode !== "note" && !editing && files.length && res?.data?.id) await uploadPending(res.data.id, files);
-      for (const key of ["activities", "timeline", "deals", "deal", "attachments"]) queryClient.invalidateQueries({ queryKey: [key] });
+      for (const key of ["activities", "timeline", "deals", "deal", "attachments", "mcem", "mcem-sources", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
       toast.success(t(mode === "note" ? "composer.noteAdded" : editing ? "edit.activitySaved" : "composer.scheduled"));
       onClose();
     },
@@ -519,6 +519,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
 // ---------- Timeline ----------
 
 const KIND_ICON = {
+  mcem: "task",
   note: "note",
   activity: "task",
   deal_created: "deadline",
@@ -531,6 +532,7 @@ const KIND_ICON = {
 };
 
 const KIND_TINT = {
+  mcem: "bg-indigo-50 text-indigo-700 ring-indigo-200/70",
   note: "bg-amber-50 text-amber-700 ring-amber-200/70",
   activity: "bg-emerald-50 text-emerald-700 ring-emerald-200/70",
   deal_created: "bg-violet-50 text-violet-700 ring-violet-200/70",
@@ -545,7 +547,7 @@ const KIND_TINT = {
 function linkFor(item) {
   if (item.kind === "invoice" || item.kind === "payment" || item.kind === "reminder") return `/invoices/${item.ref_id}`;
   if (item.kind === "quote") return `/quotes/${item.ref_id}`;
-  if (item.kind === "deal_created" || item.kind === "deal_closed") return `/deals/${item.ref_id}`;
+  if (item.kind === "deal_created" || item.kind === "deal_closed" || item.kind === "mcem") return `/deals/${item.ref_id}`;
   if (item.kind === "message") return `/messages?c=${item.ref_id}`;
   return null;
 }
@@ -568,7 +570,7 @@ function formatWhen(iso) {
   return formatDateTime(iso, { day: "numeric", month: "short", ...(then.getFullYear() !== new Date().getFullYear() && { year: "numeric" }) });
 }
 
-const itemKey = (item) => `${item.kind}-${item.ref_id}-${item.at}`;
+const itemKey = (item) => `${item.kind}-${item.ref_id}-${item.at}-${item.event_id ?? ""}`;
 
 // The server sends English title/detail plus structured params; the app
 // phrases each entry in the user's language from the params, keeping the

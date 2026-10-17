@@ -745,7 +745,22 @@
     "none": {
       "won": "A ku si va na tintwanano leti hluriweke",
       "lost": "A ku na tintwanano leti lahlekeke. Swi kahle."
-    }
+    },
+    "whose": "Swivumelwano swa mani",
+    "filters": "Swihluti",
+    "howItWorks": "Ndlela leyi swi tirhaka ha yona",
+    "layout": "Xivumbeko",
+    "show": "Kombisa",
+    "openOnly": "Swivumelwano leswi pfulekeke ntsena",
+    "format": "Langutelo ra phayiphi",
+    "formatStandard": "Ya ntolovelo",
+    "clearFilters": "Sula swihluti",
+    "helpStandard": "Kholomu yin'wana na yin'wana i goza ro ya eku hluleni: Lead, Qualified, Proposal, Negotiation, kutani Swi hluriwile kumbe Swi lahlekile. Tirhisa Rhurhela ekhadini ku yisa xivumelwano eka goza leri landzelaka, na Kunguhata goza leri landzelaka leswaku ku nga vi na nchumu lowu titimelaka. Swivumelwano leswi hatlisaka swinene swi tshama ehenhla ka kholomu yin'wana na yin'wana. Swi hluriwile na Swi lahlekile swi kombisa masiku ya 90 yo hetelela; Nxaxamelo wu kombisa hinkwaswo.",
+    "move": "Rhurhela",
+    "moveTo": "Rhurhela eka",
+    "moveDeal": "Rhurhela {{title}}",
+    "planNext": "Kunguhata goza leri landzelaka",
+    "formatAdvanced": "Leyi yisiweke emahlweni"
   },
   "document": {
     "lineItems": "Swilo",

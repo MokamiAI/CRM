@@ -745,7 +745,22 @@
     "none": {
       "won": "Azikabi khona iimvumelwano ezithunjiweko",
       "lost": "Azikho iimvumelwano ezilahlekileko. Kuhle."
-    }
+    },
+    "whose": "Iimvumelwano zakabani",
+    "filters": "Iinhluzi",
+    "howItWorks": "Kusebenza njani",
+    "layout": "Ukwakheka",
+    "show": "Tjengisa",
+    "openOnly": "Iimvumelwano ezivulekileko kwaphela",
+    "format": "Ukuqala kwepayipi",
+    "formatStandard": "Okujayelekileko",
+    "clearFilters": "Sula iinhluzi",
+    "helpStandard": "Ikholomu ngayinye sinyathelo esiya ekuthumbeni: Lead, Qualified, Proposal, Negotiation, bese kuba Kuthunjiwe namkha Kulahlekile. Sebenzisa u-Hambisa ekarandeni ukuthatha isivumelwano siye esinyathelweni esilandelako, begodu u-Hlela isinyathelo esilandelako bona kungabi nalokho okuphola. Iimvumelwano eziphuthumako zihlala phezulu kwekholomu ngayinye. Kuthunjiwe noKulahlekile kutjengisa amalanga ama-90 wokugcina; Irhelo litjengisa koke.",
+    "move": "Hambisa",
+    "moveTo": "Hambisa ku-",
+    "moveDeal": "Hambisa {{title}}",
+    "planNext": "Hlela isinyathelo esilandelako",
+    "formatAdvanced": "Okuthuthukileko"
   },
   "document": {
     "lineItems": "Izinto",

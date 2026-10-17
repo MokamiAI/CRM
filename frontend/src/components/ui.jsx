@@ -182,10 +182,12 @@ export function ListSkeleton({ rows = 5 }) {
 // Segmented filter. Native horizontal scroll on narrow screens (no JS
 // gesture), so the browser keeps its own touch physics. The active state
 // switches instantly: filters are clicked often, motion would only slow it.
-export function FilterChips({ options, value, onChange }) {
+/** `bare`: no outer spacing or scroller, for a chip group inside a toolbar row. */
+// tone="brand" fills the chosen option in blue, for a setting that changes the whole page.
+export function FilterChips({ options, value, onChange, bare = false, label, tone }) {
   return (
-    <div className="-mx-4 mb-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0">
-      <div className="inline-flex gap-1 rounded-lg border border-zinc-200/80 bg-zinc-100/70 p-1">
+    <div className={bare ? "min-w-0" : "-mx-4 mb-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0"}>
+      <div className="inline-flex gap-1 rounded-lg border border-zinc-200/80 bg-zinc-100/70 p-1" role="group" aria-label={label}>
         {options.map((option) => {
           const active = option.value === value;
           return (
@@ -194,8 +196,11 @@ export function FilterChips({ options, value, onChange }) {
               type="button"
               aria-pressed={active}
               onClick={() => onChange(option.value)}
-              className={`pressable shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 text-[13px] font-medium ${
-                active ? "bg-white text-zinc-900 shadow-xs ring-1 ring-zinc-200/80" : "text-zinc-500 hover:text-zinc-800"
+              // Fingers get a taller target; mice keep the compact size.
+              className={`pressable shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 text-[13px] font-medium [@media(pointer:coarse)]:min-h-10 ${
+                active
+                  ? tone === "brand" ? "bg-blue-600 text-white shadow-xs" : "bg-white text-zinc-900 shadow-xs ring-1 ring-zinc-200/80"
+                  : "text-zinc-500 hover:text-zinc-800"
               }`}
             >
               {option.label}

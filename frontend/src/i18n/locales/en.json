@@ -745,7 +745,22 @@
     "none": {
       "won": "No deals won yet",
       "lost": "No deals lost. Good going."
-    }
+    },
+    "whose": "Whose deals",
+    "filters": "Filters",
+    "howItWorks": "How it works",
+    "layout": "Layout",
+    "show": "Show",
+    "openOnly": "Open deals only",
+    "format": "Pipeline view",
+    "formatStandard": "Standard",
+    "clearFilters": "Clear filters",
+    "helpStandard": "Each column is a step towards winning: Lead, Qualified, Proposal, Negotiation, then Won or Lost. Use Move on a card to take a deal to its next step, and Plan next step so nothing goes cold. The most urgent deals sit at the top of each column. Won and Lost show the last 90 days; the List shows everything.",
+    "move": "Move",
+    "moveTo": "Move to",
+    "moveDeal": "Move {{title}}",
+    "planNext": "Plan next step",
+    "formatAdvanced": "Advanced"
   },
   "document": {
     "lineItems": "Line items",

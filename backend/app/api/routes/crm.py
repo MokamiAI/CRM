@@ -113,10 +113,10 @@ async def get_deal(deal_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: Us
 
 @router.patch("/deals/{deal_id}", response_model=DealOut)
 async def update_deal(
-    deal_id: uuid.UUID, data: DealUpdate, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)
+    deal_id: uuid.UUID, data: DealUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(_can_write)
 ):
     service = DealService(db)
-    return (await service.with_next_activity([await service.update_deal(deal_id, data)]))[0]
+    return (await service.with_next_activity([await service.update_deal(deal_id, data, current_user.id)]))[0]
 
 
 @router.delete("/deals/{deal_id}", status_code=status.HTTP_204_NO_CONTENT)

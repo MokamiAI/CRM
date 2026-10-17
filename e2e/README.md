@@ -40,6 +40,13 @@ the local demo account. Stop both servers when finished.
 
 ### General app and public-site regression
 
+For the MCEM sales-to-value workflow, use the isolated QA API/Vite commands
+above, then run `node e2e/mcem.mjs` from the repo root. It exercises enablement,
+stage blocking, evidence selection and confirmation, a Won customer journey,
+value review, separate expansion, reporting and desktop/phone layouts. See
+`MCEM.md` for the pilot's operating rules and scope. No production deployment
+is part of this pilot.
+
 ```sh
 scripts/dev-db.sh start                # local PostgreSQL on :5433
 scripts/dev-backend.sh                 # API on :8000, against .env.local

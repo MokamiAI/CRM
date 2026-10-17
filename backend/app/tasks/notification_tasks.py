@@ -106,6 +106,8 @@ async def remind_company(company_id: uuid.UUID, now: datetime | None = None) -> 
                     email=False,  # a nudge in the app and on the phone is enough
                 )
                 sent += note is not None
+        from app.services.mcem_service import McemService
+        sent += await McemService(db).remind(today)
     return sent
 
 

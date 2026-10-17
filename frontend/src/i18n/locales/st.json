@@ -745,7 +745,22 @@
     "none": {
       "won": "Ha ho ditumellano tse hapilweng ho fihlela jwale",
       "lost": "Ha ho ditumellano tse lahlehileng. Ho hotle."
-    }
+    },
+    "whose": "Ditumellano tsa mang",
+    "filters": "Difilthara",
+    "howItWorks": "Kamoo e sebetsang",
+    "layout": "Sebopeho",
+    "show": "Bontsha",
+    "openOnly": "Ditumellano tse bulehileng feela",
+    "format": "Pono ya phaephe",
+    "formatStandard": "E tlwaelehileng",
+    "clearFilters": "Hlakola difilthara",
+    "helpStandard": "Kholomo ka nngwe ke mohato o lebang ho hapa: Lead, Qualified, Proposal, Negotiation, ebe E hapilwe kapa E lahlehile. Sebedisa Tsamaisa kareteng ho isa tumellano mohatong o latelang, le Rera mohato o latelang hore ho se be letho le batang. Ditumellano tse potlakileng ka ho fetisisa di dula hodimo ho kholomo ka nngwe. E hapilwe le E lahlehile di bontsha matsatsi a 90 a ho qetela; Lenane le bontsha tsohle.",
+    "move": "Tsamaisa",
+    "moveTo": "Tsamaisetsa ho",
+    "moveDeal": "Tsamaisa {{title}}",
+    "planNext": "Rera mohato o latelang",
+    "formatAdvanced": "E tsoetseng pele"
   },
   "document": {
     "lineItems": "Dintho",
