@@ -46,3 +46,5 @@ backend/.venv312/
 # Browser test output and packages
 e2e/node_modules/
 e2e/out/
+e2e/out-ticket-qa/
+e2e/out-latest/

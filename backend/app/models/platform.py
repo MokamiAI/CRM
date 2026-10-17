@@ -8,9 +8,9 @@ company only ever sees its own; the admin site reads them across companies."""
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Identity, Index, Integer, String, Text, func, text
+from sqlalchemy import Boolean, DateTime, ForeignKey, Identity, Index, Integer, LargeBinary, String, Text, func, text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, deferred
 
 from app.core.database import Base
 from app.core.tenancy import TenantMixin
@@ -85,6 +85,16 @@ class TicketMessage(TenantMixin, UUIDPKMixin, Base):
     # Notes YGT's team keeps for itself; the company never sees these.
     internal: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     body: Mapped[str] = mapped_column(Text, nullable=False)
+
+
+class TicketAttachment(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
+    __tablename__ = "ticket_attachments"
+
+    ticket_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("support_tickets.id", ondelete="CASCADE"), nullable=False, index=True)
+    filename: Mapped[str] = mapped_column(String(255), nullable=False)
+    content_type: Mapped[str] = mapped_column(String(120), nullable=False)
+    size: Mapped[int] = mapped_column(Integer, nullable=False)
+    data: Mapped[bytes] = deferred(mapped_column(LargeBinary, nullable=False))
 
 
 class ContactRequest(UUIDPKMixin, TimestampMixin, Base):

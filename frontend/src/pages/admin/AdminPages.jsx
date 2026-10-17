@@ -6,6 +6,8 @@ import apiClient from "../../services/apiClient";
 import { useAdminOverview } from "../../layouts/AdminLayout";
 import { Button, ErrorState, ListSkeleton } from "../../components/ui";
 import Sheet from "../../components/Sheet";
+import TicketAttachments from "../../components/TicketAttachments";
+import TicketTemplates from "../../components/TicketTemplates";
 import { errorMessage, formatDate, formatDateTime, formatMoney } from "../../utils/format";
 
 // English only: the admin site is for YGT's own team.
@@ -580,7 +582,7 @@ export function AdminTicket() {
   const queryClient = useQueryClient();
   const [body, setBody] = useState("");
   const [internal, setInternal] = useState(false);
-  const query = useQuery({ queryKey: ["admin", "ticket", id], queryFn: () => get(`/admin/tickets/${id}`) });
+  const query = useQuery({ queryKey: ["admin", "ticket", id], queryFn: () => get(`/admin/tickets/${id}`), refetchInterval: 15000 });
   const done = (data) => {
     queryClient.setQueryData(["admin", "ticket", id], data);
     queryClient.invalidateQueries({ queryKey: ["admin", "tickets"] });
@@ -629,6 +631,7 @@ export function AdminTicket() {
                 </li>
               ))}
             </ol>
+            <div className="mt-4"><TicketAttachments ticket={t} admin /></div>
             <form
               className={`card mt-4 space-y-3 p-4 ${internal ? "ring-2 ring-amber-300" : ""}`}
               onSubmit={(e) => {
@@ -636,7 +639,8 @@ export function AdminTicket() {
                 if (body.trim()) reply.mutate();
               }}
             >
-              <textarea className="input min-h-[7rem]" placeholder={internal ? "A note for YGT's team (they won't see it)…" : `Reply to ${t.created_by_name ?? "them"}…`} value={body} onChange={(e) => setBody(e.target.value)} />
+              {!internal && <TicketTemplates ticket={t} onChoose={setBody} />}
+              <textarea aria-label={internal ? "Internal note" : "Reply text"} maxLength={10000} className="input min-h-[7rem]" placeholder={internal ? "A note for YGT's team (they won't see it)…" : `Reply to ${t.created_by_name ?? "them"}…`} value={body} onChange={(e) => setBody(e.target.value)} />
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <label className="flex items-center gap-2 text-sm text-zinc-700">
                   <input type="checkbox" className="h-4 w-4 rounded border-zinc-300" checked={internal} onChange={(e) => setInternal(e.target.checked)} />
@@ -651,7 +655,7 @@ export function AdminTicket() {
           <aside className="card space-y-4 p-4 text-sm lg:sticky lg:top-6">
             <label className="block">
               <span className="label">Status</span>
-              <select className="input" value={t.status} onChange={(e) => update.mutate({ status: e.target.value })}>
+              <select className="input" disabled={update.isPending} value={t.status} onChange={(e) => update.mutate({ status: e.target.value })}>
                 {STATUSES.map((s) => (
                   <option key={s} value={s}>
                     {s.replace("_", " ")}
