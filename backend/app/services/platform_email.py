@@ -46,6 +46,7 @@ def compose(
     reply_to: str | None = None,
     calendar: str | None = None,
     calendar_method: str = "REQUEST",
+    from_name: str | None = None,
 ) -> OutgoingEmail:
     email = render_email(
         "platform_message",
@@ -62,7 +63,10 @@ def compose(
         footer=None if reply_to else _no_reply_footer(),
     )
     headers = {"Reply-To": reply_to} if reply_to else {}
-    return OutgoingEmail(to=email.to, subject=email.subject, html=email.html, text=email.text, headers=headers, calendar=calendar, calendar_method=calendar_method)
+    return OutgoingEmail(
+        to=email.to, subject=email.subject, html=email.html, text=email.text, headers=headers,
+        calendar=calendar, calendar_method=calendar_method, from_name=from_name,
+    )
 
 
 def _no_reply_footer() -> str | None:

@@ -468,7 +468,13 @@
     "taxNumber": "VAT number",
     "updated": "Customer updated",
     "deliveryAddress": "Delivery address",
-    "deliveryHint": "Only if it's different from the billing address. Shown on quotes and invoices."
+    "deliveryHint": "Only if it's different from the billing address. Shown on quotes and invoices.",
+    "contactTitle": "Contact person",
+    "contactHint": "Who you deal with at this company. Saved as the main contact.",
+    "contactName": "Name",
+    "contactJobTitle": "Job title",
+    "contactEmail": "Their email",
+    "contactPhone": "Their phone"
   },
   "customers": {
     "col": {

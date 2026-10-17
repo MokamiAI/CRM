@@ -468,7 +468,13 @@
     "taxNumber": "Inombolo ye-VAT",
     "updated": "Umthengi uhlaziyiwe",
     "deliveryAddress": "Idilesi yokuhambisa",
-    "deliveryHint": "Kuphela ukuba yahlukile kwidilesi yokuhlawula. Iboniswa kwiikowuti nakwii-invoyisi."
+    "deliveryHint": "Kuphela ukuba yahlukile kwidilesi yokuhlawula. Iboniswa kwiikowuti nakwii-invoyisi.",
+    "contactTitle": "Umntu wonxibelelwano",
+    "contactHint": "Lowo usebenzisana naye kule nkampani. Ugcinwa njengonxibelelwano oluphambili.",
+    "contactName": "Igama",
+    "contactJobTitle": "Isikhundla",
+    "contactEmail": "I-imeyile yakhe",
+    "contactPhone": "Ifowuni yakhe"
   },
   "customers": {
     "col": {

@@ -468,7 +468,13 @@
     "taxNumber": "Nomoro ya VAT",
     "updated": "Moreki o ntšhafaditswe",
     "deliveryAddress": "Aterese ya go romela",
-    "deliveryHint": "Fela fa e farologana le aterese ya tuelo. E bontshiwa mo dikotheišeneng le di-invoice."
+    "deliveryHint": "Fela fa e farologana le aterese ya tuelo. E bontshiwa mo dikotheišeneng le di-invoice.",
+    "contactTitle": "Motho wa kgolagano",
+    "contactHint": "Yo o dirisanang le ene mo khampaning e. O bolokwa jaaka kgolagano e kgolo.",
+    "contactName": "Leina",
+    "contactJobTitle": "Maemo a tiro",
+    "contactEmail": "Imeile ya gagwe",
+    "contactPhone": "Mogala wa gagwe"
   },
   "customers": {
     "col": {

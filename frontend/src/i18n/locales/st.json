@@ -468,7 +468,13 @@
     "taxNumber": "Nomoro ya VAT",
     "updated": "Moreki o ntjhafaditswe",
     "deliveryAddress": "Aterese ya ho romela",
-    "deliveryHint": "Feela ha e fapane le aterese ya tefo. E bontshwa ho dikotheishene le di-invoice."
+    "deliveryHint": "Feela ha e fapane le aterese ya tefo. E bontshwa ho dikotheishene le di-invoice.",
+    "contactTitle": "Motho wa kgokahano",
+    "contactHint": "Eo o sebetsanang le yena khampaning ena. O bolokwa e le kgokahano e ka sehloohong.",
+    "contactName": "Lebitso",
+    "contactJobTitle": "Boemo ba mosebetsi",
+    "contactEmail": "Imeile ya hae",
+    "contactPhone": "Mohala wa hae"
   },
   "customers": {
     "col": {

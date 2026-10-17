@@ -64,6 +64,9 @@ class OutgoingEmail:
     # Files to attach, e.g. the invoice as a PDF: {"filename", "content"
     # (base64, so the email can travel to the worker as JSON), "mime"}.
     attachments: list[dict[str, str]] = field(default_factory=list)
+    # The sender's display name for this email (e.g. "YGT Support"); the
+    # address is always the configured one.
+    from_name: str | None = None
 
 
 def clean_signature(value: str | None) -> str | None:
@@ -102,7 +105,7 @@ def send_email(config: EffectiveEmailConfig, email: OutgoingEmail) -> None:
 
     message = EmailMessage()
     message["Subject"] = email.subject
-    message["From"] = formataddr((config.from_name, config.from_email))
+    message["From"] = formataddr((email.from_name or config.from_name, config.from_email))
     message["To"] = email.to
     for name, value in email.headers.items():
         message[name] = value

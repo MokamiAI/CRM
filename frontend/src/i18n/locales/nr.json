@@ -468,7 +468,13 @@
     "taxNumber": "Inomboro ye-VAT",
     "updated": "Ikhasimende livuselelwe",
     "deliveryAddress": "Ikheli lokuthumela",
-    "deliveryHint": "Kwaphela nange lihlukile kwikheli lokubhadela. Liboniswa eenlinganisweni nakuma-invoyisi."
+    "deliveryHint": "Kwaphela nange lihlukile kwikheli lokubhadela. Liboniswa eenlinganisweni nakuma-invoyisi.",
+    "contactTitle": "Umuntu wokuthintana",
+    "contactHint": "Lowo osebenzisana naye kilenkampani. Ubulungwa njengomuntu omkhulu wokuthintana.",
+    "contactName": "Ibizo",
+    "contactJobTitle": "Isikhundla",
+    "contactEmail": "I-imeyili yakhe",
+    "contactPhone": "Ifowuni yakhe"
   },
   "customers": {
     "col": {

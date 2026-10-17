@@ -1,13 +1,17 @@
 import uuid
 from datetime import datetime, timezone
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import NotFoundError
+from app.models.crm import Contact
 from app.models.customer import Customer
 from app.models.user import User
 from app.repositories.customer_repository import CustomerRepository
-from app.schemas.customer import CustomerCreate, CustomerUpdate
+from app.schemas.crm import ContactCreate
+from app.schemas.customer import ContactPerson, CustomerCreate, CustomerUpdate
+from app.services.contact_service import ContactService
 from app.services.custom_field_service import CustomFieldService
 
 
@@ -28,7 +32,28 @@ class CustomerService:
             custom_fields=await CustomFieldService(self.db).clean_values("customer", data.custom_fields),
             created_by=created_by.id,
         )
-        return await self.customers.create(customer)
+        customer = await self.customers.create(customer)
+        if data.contact:
+            await self._save_contact_person(customer, data.contact)
+        return customer
+
+    async def _save_contact_person(self, customer: Customer, person: ContactPerson) -> None:
+        """The main contact: updated if the customer has one, else added."""
+        first, _, last = person.name.strip().partition(" ")
+        fields = {
+            "first_name": first[:120],
+            "last_name": last.strip()[:120] or None,
+            "job_title": person.job_title or None,
+            "email": person.email,
+            "phone": person.phone or None,
+        }
+        primary = await self.db.scalar(select(Contact).where(Contact.customer_id == customer.id, Contact.is_primary.is_(True)))
+        if primary:
+            for key, value in fields.items():
+                setattr(primary, key, value)
+            await self.db.flush()
+        else:
+            await ContactService(self.db).create_contact(customer.id, ContactCreate(**fields, is_primary=True))
 
     async def list_customers(
         self,
@@ -50,6 +75,8 @@ class CustomerService:
     async def update_customer(self, customer_id: uuid.UUID, data: CustomerUpdate) -> Customer:
         customer = await self.get_customer(customer_id)
         changes = data.model_dump(exclude_unset=True)
+        if changes.pop("contact", None) is not None:
+            await self._save_contact_person(customer, data.contact)
         if changes.get("custom_fields") is not None:
             changes["custom_fields"] = await CustomFieldService(self.db).clean_values(
                 "customer", changes["custom_fields"], customer.custom_fields

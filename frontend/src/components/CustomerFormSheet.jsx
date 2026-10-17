@@ -1,4 +1,4 @@
-import { useCustomer } from "../hooks/useApi";
+import { useContacts, useCustomer } from "../hooks/useApi";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -11,6 +11,12 @@ import { CustomFieldInputs, toFormValues } from "./CustomFields";
 import { errorMessage } from "../utils/format";
 
 const EMPTY = { name: "", email: "", phone: "", billing_address: "", delivery_address: "", tax_number: "", notes: "" };
+// The person you deal with at a company: saved as its main contact.
+const EMPTY_CONTACT = { name: "", job_title: "", email: "", phone: "" };
+
+function fromContact(c) {
+  return c ? { name: [c.first_name, c.last_name].filter(Boolean).join(" "), job_title: c.job_title ?? "", email: c.email ?? "", phone: c.phone ?? "" } : EMPTY_CONTACT;
+}
 
 function nullsToEmpty(obj) {
   return Object.fromEntries(Object.keys(EMPTY).map((k) => [k, obj[k] ?? ""]));
@@ -28,8 +34,9 @@ export function EditCustomerSheet({ id, onClose }) {
   return <CustomerFormSheet open={Boolean(customer)} onClose={onClose} customer={customer ?? null} />;
 }
 
-/** Create (customer = null) or edit a customer. */
-export default function CustomerFormSheet({ open, onClose, customer, onSaved }) {
+/** Create (customer = null; `initialName` to start from, e.g. typed on an
+ *  invoice) or edit a customer. */
+export default function CustomerFormSheet({ open, onClose, customer, onSaved, initialName = "" }) {
   const { t } = useTranslation();
   const { user } = useAuth();
   const canDeactivate = ["admin", "manager"].includes(user?.role);
@@ -37,12 +44,22 @@ export default function CustomerFormSheet({ open, onClose, customer, onSaved }) 
   const [form, setForm] = useState(EMPTY);
   const [custom, setCustom] = useState({});
   const [marketing, setMarketing] = useState(true);
+  const [contact, setContact] = useState(EMPTY_CONTACT);
+  const [contactFor, setContactFor] = useState(null);
+  const { data: contacts } = useContacts(open ? customer?.id : null);
+  // Editing: start from the customer's main contact, once it has loaded.
+  if (open && customer && contacts && contactFor !== customer.id) {
+    setContactFor(customer.id);
+    setContact(fromContact(contacts.find((c) => c.is_primary) ?? null));
+  }
 
   const [lastOpen, setLastOpen] = useState(false);
   if (open !== lastOpen) {
     setLastOpen(open);
     if (open) {
-      setForm(customer ? nullsToEmpty(customer) : EMPTY);
+      setForm(customer ? nullsToEmpty(customer) : { ...EMPTY, name: initialName });
+      setContact(EMPTY_CONTACT);
+      setContactFor(null);
       setCustom(toFormValues(customer?.custom_fields));
       setMarketing(!customer?.marketing_opt_out);
     }
@@ -50,6 +67,7 @@ export default function CustomerFormSheet({ open, onClose, customer, onSaved }) 
 
   const refresh = () => {
     queryClient.invalidateQueries({ queryKey: ["customers"] });
+    queryClient.invalidateQueries({ queryKey: ["contacts"] });
     if (customer) queryClient.invalidateQueries({ queryKey: ["customer", customer.id] });
   };
 
@@ -102,7 +120,13 @@ export default function CustomerFormSheet({ open, onClose, customer, onSaved }) 
         id="customer-form"
         onSubmit={(event) => {
           event.preventDefault();
-          save.mutate({ ...emptyToNull(form), custom_fields: custom, ...(customer && { marketing_opt_out: !marketing }) });
+          save.mutate({
+            ...emptyToNull(form),
+            custom_fields: custom,
+            ...(customer && { marketing_opt_out: !marketing }),
+            // Only with a name; leaving it blank keeps any contact as it is.
+            ...(contact.name.trim() && { contact: { ...emptyToNull(contact), name: contact.name.trim() } }),
+          });
         }}
         className="space-y-4"
       >
@@ -117,6 +141,27 @@ export default function CustomerFormSheet({ open, onClose, customer, onSaved }) 
             <input className="input" type="tel" value={form.phone} onChange={update("phone")} />
           </Field>
         </div>
+        <fieldset className="space-y-3 rounded-xl bg-zinc-50 p-3.5 ring-1 ring-inset ring-zinc-200/70">
+          <legend className="sr-only">{t("customerForm.contactTitle")}</legend>
+          <div>
+            <p className="text-sm font-semibold text-zinc-900">{t("customerForm.contactTitle")}</p>
+            <p className="text-xs text-zinc-500">{t("customerForm.contactHint")}</p>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <Field label={t("customerForm.contactName")}>
+              <input className="input" autoComplete="off" value={contact.name} onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))} maxLength={240} />
+            </Field>
+            <Field label={t("customerForm.contactJobTitle")}>
+              <input className="input" autoComplete="off" value={contact.job_title} onChange={(e) => setContact((c) => ({ ...c, job_title: e.target.value }))} maxLength={120} />
+            </Field>
+            <Field label={t("customerForm.contactEmail")}>
+              <input className="input" type="email" autoCapitalize="none" autoCorrect="off" autoComplete="off" value={contact.email} onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))} />
+            </Field>
+            <Field label={t("customerForm.contactPhone")}>
+              <input className="input" type="tel" autoComplete="off" value={contact.phone} onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))} maxLength={50} />
+            </Field>
+          </div>
+        </fieldset>
         <Field label={t("customerForm.address")}>
           <textarea className="input" rows={3} value={form.billing_address} onChange={update("billing_address")} />
         </Field>

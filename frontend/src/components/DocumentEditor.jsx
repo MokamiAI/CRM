@@ -7,6 +7,8 @@ import apiClient from "../services/apiClient";
 import { useCompany, useCustomers, useLineTemplates, useProducts, useSuppliers } from "../hooks/useApi";
 import { Button, Field } from "./ui";
 import PartyCombobox from "./PartyCombobox";
+import CustomerFormSheet from "./CustomerFormSheet";
+import SupplierSheet from "./SupplierSheet";
 import { errorMessage, formatMoney, todayISO } from "../utils/format";
 
 // Mirrors backend/app/services/pricing.py: tax per line, each step rounded
@@ -83,6 +85,12 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   // New line items (typed, not picked) are kept as products for next time.
   const [rememberItems, setRememberItems] = useState(true);
   const queryClient = useQueryClient();
+  // A new name chosen from the list: its form opens now, with that name.
+  const [newParty, setNewParty] = useState(null);
+  const partyAdded = (saved) => {
+    setParty({ id: saved.id, name: saved.name });
+    queryClient.invalidateQueries({ queryKey: [purchase ? "suppliers" : "customers"] });
+  };
   useEffect(() => {
     if (!party.id || party.name) return;
     const known = parties.find((p) => p.id === party.id);
@@ -213,6 +221,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   const remove = (key) => setItems((prev) => prev.filter((i) => i.key !== key));
 
   return (
+    <>
     <form onSubmit={handleSubmit} className="space-y-5 pb-24 md:pb-0">
       <section className="card space-y-4 p-4 sm:p-5">
         <Field label={t(purchase ? "editor.supplier" : "editor.customer")}>
@@ -224,6 +233,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
             required
             disabled={lockParty}
             placeholder={t(purchase ? "party.typeSupplier" : "party.typeCustomer")}
+            onAddNew={setNewParty}
           />
           {purchase && suppliers.length === 0 && !party.name && (
             <p className="mt-1.5 text-xs text-zinc-500">
@@ -423,6 +433,12 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
         </div>
       </div>
     </form>
+      {purchase ? (
+        <SupplierSheet supplier={newParty !== null ? { name: newParty } : null} onClose={() => setNewParty(null)} onSaved={partyAdded} />
+      ) : (
+        <CustomerFormSheet open={newParty !== null} customer={null} initialName={newParty ?? ""} onClose={() => setNewParty(null)} onSaved={partyAdded} />
+      )}
+    </>
   );
 }
 

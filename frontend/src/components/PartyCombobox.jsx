@@ -25,7 +25,7 @@ function matches(parties, text) {
  * `value` is { id, name }: an id when an existing one is chosen (or typed
  * exactly), only a name when it's new.
  */
-export default function PartyCombobox({ parties, value, onChange, kind = "customer", disabled = false, required = false, placeholder }) {
+export default function PartyCombobox({ parties, value, onChange, kind = "customer", disabled = false, required = false, placeholder, onAddNew }) {
   const { t } = useTranslation();
   const listId = useId();
   const [open, setOpen] = useState(false);
@@ -55,6 +55,8 @@ export default function PartyCombobox({ parties, value, onChange, kind = "custom
   function choose(row) {
     onChange(row.isNew ? { id: null, name: row.name } : { id: row.id, name: row.name });
     setOpen(false);
+    // Add it now, with its details, rather than only a name on save.
+    if (row.isNew) onAddNew?.(row.name);
   }
 
   function onKeyDown(e) {

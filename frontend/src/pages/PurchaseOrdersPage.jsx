@@ -9,6 +9,7 @@ import { useAuth } from "../context/AuthContext";
 import DocumentEditor from "../components/DocumentEditor";
 import { BackLink, LineItems, SummaryCard, createdRow } from "../components/DocumentView";
 import Sheet from "../components/Sheet";
+import SupplierSheet, { EMPTY_SUPPLIER } from "../components/SupplierSheet";
 import { DocumentViewer } from "../components/Documents";
 import { Avatar, Button, ButtonLink, EmptyState, ErrorState, Field, FilterChips, ListSkeleton, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
 import { errorMessage, formatDate, formatMoney, formatShortDate } from "../utils/format";
@@ -156,7 +157,6 @@ function Orders() {
   );
 }
 
-const EMPTY_SUPPLIER = { name: "", contact_name: "", email: "", phone: "", tax_number: "", address: "", notes: "" };
 
 function Suppliers({ canWrite, adding, setAdding }) {
   const { t } = useTranslation();
@@ -210,84 +210,6 @@ function Suppliers({ canWrite, adding, setAdding }) {
         }}
       />
     </>
-  );
-}
-
-function SupplierSheet({ supplier, onClose }) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  const [form, setForm] = useState(EMPTY_SUPPLIER);
-  const [loadedFor, setLoadedFor] = useState(null);
-  if (supplier && loadedFor !== supplier) {
-    setLoadedFor(supplier);
-    setForm(Object.fromEntries(Object.keys(EMPTY_SUPPLIER).map((k) => [k, supplier[k] ?? ""])));
-  }
-  const isNew = supplier && !supplier.id;
-  const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
-  const done = (message) => {
-    queryClient.invalidateQueries({ queryKey: ["suppliers"] });
-    toast.success(message);
-    onClose();
-  };
-  const save = useMutation({
-    mutationFn: () => (isNew ? apiClient.post("/suppliers", form) : apiClient.patch(`/suppliers/${supplier.id}`, form)),
-    onSuccess: () => done(t("suppliers.saved")),
-    onError: (error) => toast.error(errorMessage(error)),
-  });
-  const toggle = useMutation({
-    mutationFn: () => apiClient.patch(`/suppliers/${supplier.id}`, { is_active: !supplier.is_active }),
-    onSuccess: () => done(t(supplier.is_active ? "suppliers.deactivated" : "suppliers.reactivated")),
-    onError: (error) => toast.error(errorMessage(error)),
-  });
-  const fields = [
-    ["name", { required: true, maxLength: 255, autoComplete: "organization" }],
-    ["contact_name", { maxLength: 255 }],
-    ["email", { type: "email", maxLength: 255 }],
-    ["phone", { type: "tel", maxLength: 50 }],
-    ["tax_number", { maxLength: 100 }],
-  ];
-  return (
-    <Sheet
-      open={Boolean(supplier)}
-      onClose={onClose}
-      title={t(isNew ? "suppliers.add" : "suppliers.edit")}
-      footer={
-        <>
-          {!isNew && (
-            <Button variant="secondary" className="mr-auto" disabled={toggle.isPending} onClick={() => toggle.mutate()}>
-              {t(supplier?.is_active ? "suppliers.deactivate" : "suppliers.reactivate")}
-            </Button>
-          )}
-          <Button variant="secondary" onClick={onClose}>
-            {t("common.cancel")}
-          </Button>
-          <Button disabled={!form.name.trim() || save.isPending} onClick={() => save.mutate()}>
-            {save.isPending ? t("common.saving") : t("common.save")}
-          </Button>
-        </>
-      }
-    >
-      <form
-        className="space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (form.name.trim()) save.mutate();
-        }}
-      >
-        {fields.map(([field, props]) => (
-          <Field key={field} label={t(`suppliers.fields.${field}`)}>
-            <input className="input" value={form[field]} onChange={set(field)} {...props} />
-          </Field>
-        ))}
-        <Field label={t("suppliers.fields.address")}>
-          <textarea className="input" rows={3} value={form.address} onChange={set("address")} />
-        </Field>
-        <Field label={t("suppliers.fields.notes")}>
-          <textarea className="input" rows={2} value={form.notes} onChange={set("notes")} />
-        </Field>
-        <p className="text-xs text-zinc-500">{t("suppliers.emailHint")}</p>
-      </form>
-    </Sheet>
   );
 }
 

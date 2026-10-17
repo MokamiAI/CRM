@@ -468,7 +468,13 @@
     "taxNumber": "Nomboro ya VAT",
     "updated": "Muxavi u pfuxetiwile",
     "deliveryAddress": "Adirese yo yisa",
-    "deliveryHint": "Ntsena loko yi hambanile ni adirese yo hakela. Yi kombisiwa eka tikhotexini ni tiinvhoyisi."
+    "deliveryHint": "Ntsena loko yi hambanile ni adirese yo hakela. Yi kombisiwa eka tikhotexini ni tiinvhoyisi.",
+    "contactTitle": "Munhu wa vuhlanganisi",
+    "contactHint": "Loyi u tirhisanaka na yena eka khampani leyi. U hlayisiwa tanihi vuhlanganisi lebyikulu.",
+    "contactName": "Vito",
+    "contactJobTitle": "Xikhundla",
+    "contactEmail": "Imeyili ya yena",
+    "contactPhone": "Riqingho ra yena"
   },
   "customers": {
     "col": {

@@ -468,7 +468,13 @@
     "taxNumber": "BTW-nommer",
     "updated": "Kliënt bygewerk",
     "deliveryAddress": "Afleweringsadres",
-    "deliveryHint": "Net as dit van die faktuuradres verskil. Verskyn op kwotasies en fakture."
+    "deliveryHint": "Net as dit van die faktuuradres verskil. Verskyn op kwotasies en fakture.",
+    "contactTitle": "Kontakpersoon",
+    "contactHint": "Met wie jy by hierdie maatskappy werk. Gestoor as die hoofkontak.",
+    "contactName": "Naam",
+    "contactJobTitle": "Posbenaming",
+    "contactEmail": "Hul e-pos",
+    "contactPhone": "Hul foon"
   },
   "customers": {
     "col": {

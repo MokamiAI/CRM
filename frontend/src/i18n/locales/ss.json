@@ -468,7 +468,13 @@
     "taxNumber": "Inombolo ye-VAT",
     "updated": "Umtsengi uvuseletiwe",
     "deliveryAddress": "Likheli lekulethwa",
-    "deliveryHint": "Kuphela nangabe lehlukile ekhelini lekukhokha. Liboniswa eticalweni nakuma-invoyisi."
+    "deliveryHint": "Kuphela nangabe lehlukile ekhelini lekukhokha. Liboniswa eticalweni nakuma-invoyisi.",
+    "contactTitle": "Umuntfu wekuchumana",
+    "contactHint": "Lowo usebentisana naye kulenkampani. Ugcinwa njengekuchumana lokukhulu.",
+    "contactName": "Ligama",
+    "contactJobTitle": "Sikhundla",
+    "contactEmail": "I-imeyili yakhe",
+    "contactPhone": "Lucingo lwakhe"
   },
   "customers": {
     "col": {

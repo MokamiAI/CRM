@@ -468,7 +468,13 @@
     "taxNumber": "Nomboro ya VAT",
     "updated": "Murengi o khwiniswa",
     "deliveryAddress": "Diresi ya u isa",
-    "deliveryHint": "Fhedzi arali yo fhambana na diresi ya mbadelo. I sumbedzwa kha khotheshini na dziinvoisi."
+    "deliveryHint": "Fhedzi arali yo fhambana na diresi ya mbadelo. I sumbedzwa kha khotheshini na dziinvoisi.",
+    "contactTitle": "Muthu wa vhukwamani",
+    "contactHint": "Ane na shumisana nae kha khamphani iyi. U vhulungwa sa vhukwamani ha ndeme.",
+    "contactName": "Dzina",
+    "contactJobTitle": "Vhuimo ha mushumo",
+    "contactEmail": "Imeiḽi yawe",
+    "contactPhone": "Founu yawe"
   },
   "customers": {
     "col": {

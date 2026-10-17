@@ -106,7 +106,7 @@ export default function QuoteOfTheWeek({ who, hold = false, className = "" }) {
     <aside
       role="status"
       aria-labelledby="quote-week-title"
-      className={`quote-week ${state === "closing" ? "quote-week-out" : ""} fixed inset-x-4 z-[60] mx-auto max-w-md overflow-hidden rounded-2xl bg-zinc-900 text-white shadow-pop ${className}`}
+      className={`quote-week ${state === "closing" ? "quote-week-out" : ""} fixed inset-x-4 z-[35] mx-auto max-w-md overflow-hidden rounded-2xl bg-zinc-900 text-white shadow-pop ${className}`}
     >
       <span className="brand-bg absolute inset-x-0 top-0 h-1" aria-hidden="true" />
       <div className="p-4 pt-5 sm:p-5 sm:pt-6">

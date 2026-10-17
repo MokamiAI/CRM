@@ -24,6 +24,9 @@ def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 
+# How help desk emails are signed: the name people see, not an inbox.
+SUPPORT_SENDER = "YGT Support"
+
 class HelpdeskService:
     def __init__(self, db: AsyncSession):
         self.db = db
@@ -62,6 +65,7 @@ class HelpdeskService:
         await self.db.flush()
         await self.db.refresh(ticket)
         company = await self.db.get(CompanySettings, user.company_id)
+        await self._acknowledge(ticket, user)
         await self._tell_team(ticket, company, user, body, new=True)
         return ticket
 
@@ -146,6 +150,26 @@ class HelpdeskService:
         )
         await platform_email.queue(self.db, email)
 
+    async def _acknowledge(self, ticket: SupportTicket, user: User) -> None:
+        """The automatic reply: their ticket is logged and what happens next.
+        Sent as "YGT Support" from YGT's sending address, never the team's
+        private inbox."""
+        email = platform_email.compose(
+            to=user.email,
+            subject=f"We've received your ticket #{ticket.number}: {ticket.subject}",
+            title=f"We've received your ticket #{ticket.number}",
+            paragraphs=[
+                f"Hi {user.full_name.split(' ')[0]},",
+                "Thanks for getting in touch. Your ticket is logged and our support team will get back to you, usually within one working day."
+                + (" Your Scale plan includes priority support, so you're at the front of the queue." if ticket.priority_plan else ""),
+                "We'll email you when we reply. You can add more details or follow the ticket in YGT at any time.",
+            ],
+            details=[("Ticket", f"#{ticket.number}"), ("Subject", ticket.subject), ("Urgency", ticket.urgency.title())],
+            button=("View the ticket", platform_email.app_link(f"/support/tickets/{ticket.id}")),
+            from_name=SUPPORT_SENDER,
+        )
+        await platform_email.queue(self.db, email)
+
     async def _tell_company(self, ticket: SupportTicket, body: str | None, resolved: bool = False) -> None:
         author = await self.db.get(User, ticket.created_by) if ticket.created_by else None
         if author is None:
@@ -158,5 +182,6 @@ class HelpdeskService:
             + (["We've marked your ticket as resolved. If something still isn't right, just reply in the app and it will reopen."] if resolved else []),
             quote=body,
             button=("View the ticket", platform_email.app_link(f"/support/tickets/{ticket.id}")),
+            from_name=SUPPORT_SENDER,
         )
         await platform_email.queue(self.db, email)
