@@ -55,6 +55,8 @@ async def test_every_status_notifies_once_and_internal_notes_stay_private(api, m
         assert result.json()["status"] == status
         sent = [e for e in emails(api, before) if e["to"] == owner["email"]]
         assert len(sent) == 1 and sent[0]["from_name"] == "YGT Support"
+        if status == "waiting":
+            assert sent[0]["subject"].startswith("Waiting on client:")
         assert "{" not in result.json()["messages"][-1]["body"]
         before = len(api.queued)
         await api.patch(path, json={"status": status}, headers=admin["headers"])
