@@ -166,9 +166,9 @@ export function WelcomeSplash({ name, returning = false, onClosed }) {
   return <FirstWelcome name={name} onClosed={onClosed} />;
 }
 
-const BACK_HOLD = 1300; // ms "Welcome back to YGT" stays before fading
+const BACK_HOLD = 1300; // ms the returning user's greeting stays before fading
 
-/** "Welcome back to YGT, Thandi": the YGT letters rise in, then it fades
+/** "Welcome back, Thandi": the YGT letters rise in, then it fades
  *  away, about two seconds in all. Any key or click closes it sooner. */
 function WelcomeBack({ name, onClosed }) {
   const { t } = useTranslation();

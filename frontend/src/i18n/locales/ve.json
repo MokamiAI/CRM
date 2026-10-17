@@ -2466,8 +2466,8 @@
     "fromTeam": "U bva kha riṋe roṱhe kha YGT, ri ṱoḓa ni tshi ḓivha uri:",
     "capable": "Ni a kona u swikelela zwipikwa zwa bindu ḽaṋu.",
     "go": "Kha ri thome",
-    "welcomeBack": "Ni a ṱanganedzwa hafhu kha YGT",
-    "welcomeBackName": "Ni a ṱanganedzwa hafhu kha YGT, {{name}}"
+    "welcomeBack": "Ni a ṱanganedzwa hafhu",
+    "welcomeBackName": "Ni a ṱanganedzwa hafhu, {{name}}"
   },
   "priority": {
     "label": "Ndeme",

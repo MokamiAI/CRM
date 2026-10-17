@@ -2466,8 +2466,8 @@
     "fromTeam": "Sonke apha kwi-YGT sifuna wazi ukuba:",
     "capable": "Unako ukufikelela iinjongo zeshishini lakho.",
     "go": "Masihambe",
-    "welcomeBack": "Wamkelekile kwakhona kwi-YGT",
-    "welcomeBackName": "Wamkelekile kwakhona kwi-YGT, {{name}}"
+    "welcomeBack": "Wamkelekile kwakhona",
+    "welcomeBackName": "Wamkelekile kwakhona, {{name}}"
   },
   "priority": {
     "label": "Ukubaluleka",

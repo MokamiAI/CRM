@@ -26,6 +26,8 @@ _templates = Environment(
 # The company's colour (Settings > Documents > accent) styles its emails;
 # YGT's default where there's no company choice.
 _templates.globals["accent"] = "#4f46e5"
+YGT_TAGLINE = "Grow · Manage · Succeed"
+_templates.globals["ygt_tagline"] = YGT_TAGLINE
 
 
 def on_accent(hex_colour: str) -> str:
@@ -90,7 +92,7 @@ def render_email(template: str, to: str, subject: str, **context) -> OutgoingEma
         to=to,
         subject=subject,
         html=_templates.get_template(f"{template}.html").render(subject=subject, **context),
-        text=_templates.get_template(f"{template}.txt").render(subject=subject, **context),
+        text=_templates.get_template(f"{template}.txt").render(subject=subject, **context).rstrip() + f"\n\n{YGT_TAGLINE}\n",
     )
 
 

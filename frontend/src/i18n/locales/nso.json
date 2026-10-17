@@ -2466,8 +2466,8 @@
     "fromTeam": "Go tswa go rena ka moka mo YGT, re nyaka o tsebe gore:",
     "capable": "O kgona go fihlelela dipakane tša kgwebo ya gago.",
     "go": "A re thome",
-    "welcomeBack": "O amogelwa gape go YGT",
-    "welcomeBackName": "O amogelwa gape go YGT, {{name}}"
+    "welcomeBack": "O amogelwa gape",
+    "welcomeBackName": "O amogelwa gape, {{name}}"
   },
   "priority": {
     "label": "Bohlokwa",

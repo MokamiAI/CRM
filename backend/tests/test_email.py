@@ -79,6 +79,7 @@ class TestRendering:
             **_context(company),
         )
         for body in (email.html, email.text):
+            assert "Grow · Manage · Succeed" in body
             assert "INV-0007" in body
             assert "ZAR 3,450.00" in body
             assert "31 Oct 2026" in body
@@ -150,6 +151,22 @@ class TestRendering:
             company=_company(document_template={"tax_label": "VAT reg. no."}),
         )
         assert "VAT reg. no.: 4123456789" in email.html
+        assert "Grow · Manage · Succeed" in email.html
+        assert email.text.rstrip().endswith("Grow · Manage · Succeed")
+
+    @pytest.mark.parametrize("sender", ["billing@ygt.test", "no-reply@ygt.test"])
+    def test_platform_footer_keeps_sender_guidance_and_adds_tagline(self, monkeypatch, sender):
+        from app.core.config import settings
+        from app.services.platform_email import compose
+
+        monkeypatch.setattr(settings, "SMTP_FROM_EMAIL", sender)
+        monkeypatch.setattr(settings, "PUBLIC_SUPPORT_EMAIL", "support@ygt.test")
+        email = compose("person@example.com", "Ticket update", "An update", ["We're working on your ticket."])
+        assert "Grow · Manage · Succeed" in email.html
+        assert email.text.rstrip().endswith("Grow · Manage · Succeed")
+        if sender.startswith("no-reply"):
+            assert "Replies to it aren't received" in email.text
+            assert "support@ygt.test" in email.html
 
 
 class _FakeSMTP:
