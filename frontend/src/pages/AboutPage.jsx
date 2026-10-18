@@ -18,7 +18,14 @@ const ICONS = {
   marketing: "M3 10.5v3a1 1 0 0 0 1 1h2l6 4.5V5L6 9.5H4a1 1 0 0 0-1 1ZM16 9a3.5 3.5 0 0 1 0 6",
   languages: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9s1.3-6.5 3.8-9Z",
   companies: "M12 3 4 7v6c0 4.4 3.4 7.6 8 8 4.6-.4 8-3.6 8-8V7l-8-4ZM9 12l2 2 4-4",
+  grow: "M3 17l6-6 4 4 8-8M15 7h6v6",
+  manage: "M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z",
+  succeed: "M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3",
+  mission: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10ZM12 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z",
+  vision: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z",
 };
+const PILLARS = ["grow", "manage", "succeed"];
+const VALUES = ["simplicity", "accessibility", "innovation", "reliability", "empowerment"];
 // Optional, set per deployment (VITE_SUPPORT_EMAIL in frontend/.env).
 const SUPPORT_EMAIL = import.meta.env.VITE_SUPPORT_EMAIL;
 const FOUNDER = "Mokami Johannes";
@@ -47,23 +54,33 @@ export default function AboutPage() {
       <div className="safe-top relative mx-auto max-w-4xl px-6">
         <header className="flex items-center gap-2.5 py-6">
           {/* Home for people signed in; the sign-in page for everyone else. */}
-          <Link to="/" className="flex items-center gap-2.5 rounded-lg">
+          <Link to="/" className="flex min-h-10 items-center gap-2.5 rounded-lg [@media(pointer:coarse)]:min-h-11">
             <BrandMark size="sm" />
             <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
           </Link>
           <div className="ml-auto flex items-center gap-3">
             <LanguagePicker />
-            <Link to={user ? "/" : "/login"} className="btn btn-secondary !h-9 !text-sm">
+            <Link to={user ? "/" : "/login"} className="btn btn-secondary !h-9 !text-sm [@media(pointer:coarse)]:!h-11">
               {t(user ? "about.backToApp" : "login.signIn")}
             </Link>
           </div>
         </header>
 
+        <main>
         <section className="py-12 text-center sm:py-16">
           <BrandMark size="lg" className="mx-auto" join />
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl">{APP_FULL_NAME}</h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-zinc-600">{t("about.tagline")}</p>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-zinc-500">{t("about.meaning", { name: APP_NAME, full: APP_FULL_NAME })}</p>
+          <h1 className="brand-text mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">{APP_FULL_NAME}.</h1>
+          <p className="mt-3 text-lg font-semibold text-zinc-900 sm:text-xl">{t("about.hero.motto")}</p>
+          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-zinc-600">{t("about.hero.body")}</p>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <Link to={user ? "/" : "/register"} className="btn btn-primary !h-11 !px-5 !text-[15px]">
+              {t(user ? "about.backToApp" : "about.hero.cta")}
+            </Link>
+            <a href="#about-features" className="btn btn-secondary !h-11 !px-5 !text-[15px]">
+              {t("about.hero.explore")}
+            </a>
+          </div>
+          <p className="mx-auto mt-6 max-w-xl text-sm text-zinc-500">{t("about.meaning", { name: APP_NAME, full: APP_FULL_NAME })}</p>
         </section>
 
         <section className="mx-auto mb-14 max-w-2xl" aria-labelledby="about-story">
@@ -83,7 +100,52 @@ export default function AboutPage() {
           </figure>
         </section>
 
-        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label={t("about.featuresTitle")}>
+        <section
+          className="mb-14 grid gap-8 rounded-2xl bg-gradient-to-br from-sky-50 to-violet-50 p-6 sm:grid-cols-2 sm:gap-10 sm:p-8"
+          aria-label={`${t("about.mission.title")}, ${t("about.vision.title")}`}
+        >
+          {["mission", "vision"].map((k) => (
+            <div key={k}>
+              <h2 className="flex items-center gap-2.5 text-lg font-semibold text-zinc-900">
+                <FeatureIcon name={k} />
+                {t(`about.${k}.title`)}
+              </h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">{t(`about.${k}.body`)}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mb-14" aria-labelledby="about-pillars">
+          <h2 id="about-pillars" className="text-2xl font-semibold tracking-tight text-zinc-900">
+            {t("about.pillars.title")}
+          </h2>
+          {/* Grow, then Manage, then Succeed: one band, read in order. */}
+          <ol className="card mt-6 grid divide-y divide-zinc-100 overflow-hidden md:grid-cols-3 md:divide-x md:divide-y-0">
+            {PILLARS.map((k, i) => (
+              <li key={k} className="relative p-5 sm:p-6">
+                <h3 className="flex items-center gap-2.5 text-lg font-semibold text-zinc-900">
+                  <FeatureIcon name={k} />
+                  {t(`about.pillars.${k}.title`)}
+                  {i < PILLARS.length - 1 && (
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.6} className="ml-auto hidden h-4 w-4 text-zinc-300 md:block" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">{t(`about.pillars.${k}.body`)}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="mb-6 max-w-2xl" aria-labelledby="about-built-for">
+          <h2 id="about-built-for" className="text-2xl font-semibold tracking-tight text-zinc-900">
+            {t("about.builtFor.title")}
+          </h2>
+          <p className="mt-2 text-[15px] leading-relaxed text-zinc-600">{t("about.builtFor.body")}</p>
+        </section>
+
+        <section id="about-features" className="scroll-mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label={t("about.featuresTitle")}>
           {FEATURES.map((key, i) => (
             <div key={key} className="card stagger-rise p-5" style={{ "--i": i }}>
               <FeatureIcon name={key} />
@@ -93,7 +155,46 @@ export default function AboutPage() {
           ))}
         </section>
 
+        <section className="mt-14" aria-labelledby="about-values">
+          <h2 id="about-values" className="text-2xl font-semibold tracking-tight text-zinc-900">
+            {t("about.values.title")}
+          </h2>
+          <dl className="mt-6 grid gap-x-10 gap-y-5 sm:grid-cols-2">
+            {VALUES.map((k) => (
+              <div key={k} className="border-t border-zinc-200 pt-4">
+                <dt className="font-semibold text-zinc-900">{t(`about.values.${k}.title`)}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-zinc-600">{t(`about.values.${k}.body`)}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <section className="mt-14 rounded-2xl bg-gradient-to-br from-sky-50 via-white to-violet-50 p-6 ring-1 ring-inset ring-zinc-200/70 sm:p-8" aria-labelledby="about-sa">
+          <h2 id="about-sa" className="text-2xl font-semibold tracking-tight text-zinc-900">
+            {t("about.sa.title")}
+          </h2>
+          <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-zinc-600">{t("about.sa.body")}</p>
+        </section>
+
         <Pricing />
+
+        {/* The YGT promise: the close. */}
+        <section className="mt-14 rounded-3xl bg-gradient-to-br from-sky-50 to-violet-100/70 px-6 py-12 text-center" aria-labelledby="about-promise">
+          <h2 id="about-promise" className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
+            {t("about.promise.title")}
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-zinc-600">{t("about.promise.body")}</p>
+          <p className="mt-5 font-semibold text-zinc-900">{t("about.hero.motto")}</p>
+          <p className="brand-text mt-1 text-3xl font-semibold tracking-tight sm:text-4xl">{APP_FULL_NAME}.</p>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <Link to={user ? "/" : "/register"} className="btn btn-primary !h-11 !px-5 !text-[15px]">
+              {t(user ? "about.backToApp" : "about.promise.cta")}
+            </Link>
+            <a href="#about-features" className="btn btn-secondary !h-11 !px-5 !text-[15px]">
+              {t("about.promise.explore")}
+            </a>
+          </div>
+        </section>
 
         <section className="mt-14 grid gap-6 rounded-2xl p-6 ring-1 ring-inset ring-zinc-200 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]" aria-labelledby="about-contact">
           <div>
@@ -133,18 +234,20 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <footer className="safe-bottom flex flex-wrap items-center justify-between gap-2 py-10 text-xs text-zinc-400">
+        </main>
+
+        <footer className="safe-bottom flex flex-wrap items-center justify-between gap-2 py-10 text-xs text-zinc-500">
           <span>
             © {new Date().getFullYear()} {APP_NAME} · {t("about.madeIn")}
           </span>
           <span className="flex flex-wrap gap-x-4 gap-y-1">
-            <Link to="/terms" className="inline-block py-2 -my-2 hover:text-zinc-700">
+            <Link to="/terms" className="inline-flex items-center py-2 -my-2 hover:text-zinc-800 [@media(pointer:coarse)]:min-h-11">
               {t("legal.terms")}
             </Link>
-            <Link to="/privacy" className="inline-block py-2 -my-2 hover:text-zinc-700">
+            <Link to="/privacy" className="inline-flex items-center py-2 -my-2 hover:text-zinc-800 [@media(pointer:coarse)]:min-h-11">
               {t("legal.privacy")}
             </Link>
-            <Link to="/refunds" className="inline-block py-2 -my-2 hover:text-zinc-700">
+            <Link to="/refunds" className="inline-flex items-center py-2 -my-2 hover:text-zinc-800 [@media(pointer:coarse)]:min-h-11">
               {t("legal.refunds")}
             </Link>
             <span className="tabular-nums">{t("about.version", { version: pkg.version })}</span>

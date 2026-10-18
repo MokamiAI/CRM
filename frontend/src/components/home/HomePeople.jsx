@@ -90,14 +90,14 @@ export default function HomePeople() {
             aria-pressed={paused}
             aria-label={t(paused ? "home.people.play" : "home.people.pause")}
             title={t(paused ? "home.people.play" : "home.people.pause")}
-            className="pressable absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white ring-1 ring-inset ring-white/25 backdrop-blur hover:bg-black/50"
+            className="pressable absolute right-3 top-3 flex h-9 w-9 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11 items-center justify-center rounded-full bg-black/35 text-white ring-1 ring-inset ring-white/25 backdrop-blur hover:bg-black/50"
           >
             <svg viewBox="0 0 16 16" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
               {paused ? <path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5Z" /> : <path d="M4.5 3h2.2v10H4.5zM9.3 3h2.2v10H9.3z" />}
             </svg>
           </button>
           <div key={person.key} className="absolute inset-x-3 bottom-3 space-y-2 sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[19rem]">
-            <p className="people-label inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/25 backdrop-blur">
+            <p className="people-label inline-flex rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white/25 backdrop-blur">
               {t(`home.people.${person.key}.label`)}
             </p>
             {FEED.map((f, i) => (

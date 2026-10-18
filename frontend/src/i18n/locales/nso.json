@@ -56,7 +56,76 @@
     "supportAdmin": "Ikgokaganye le molaodi wa khamphani ya gago.",
     "supportTitle": "Thekgo",
     "tagline": "CRM ye e kopanyago kgwebo ya gago, bareki ba gago le sehlopha sa gago.",
-    "version": "Kgatišo {{version}}"
+    "version": "Kgatišo {{version}}",
+    "hero": {
+      "motto": "Gola. Laola. Atlega.",
+      "eyebrow": "Ka ga YGT",
+      "body": "Go sepetša kgwebo go nyaka sebete, boikgafo le go šoma ka thata. Go e laola ga go swanele go dira leeto le be thata kudu. Re aga didirišwa tše bonolo, tše di kwagalago gore o kgone go tsepelela go se bohlokwa: go aga selo se se nago le morero.",
+      "cta": "Thoma",
+      "explore": "Hlahloba YGT"
+    },
+    "mission": {
+      "title": "Maikemišetšo a rena",
+      "body": "Go fa dikgwebo theknolotši ye e fihlelelegago, ye e botegago le ye bohlale ye e nolofatšago mošomo, e godiša tšweletšo gomme e thekga kgolo ye e tšwelago pele."
+    },
+    "vision": {
+      "title": "Pono ya rena",
+      "body": "Go ba molekane wa theknolotši yo a botegago wa dikgwebo go ralala Afrika Borwa le go feta, re thuša bagwebi go fetoša dikganyogo go ba dikgwebo tše di tšwelago pele."
+    },
+    "pillars": {
+      "title": "Ka moo YGT e thušago ka gona",
+      "grow": {
+        "title": "Gola",
+        "body": "Aga dikamano tše di tiilego le bareki, hwetša dibaka tše diswa gomme o iše thekišo pele ka pono ye e kwagalago ya peipi ya gago."
+      },
+      "manage": {
+        "title": "Laola",
+        "body": "Boloka mošomo wa gago wa letšatši le letšatši mmogo: bareki, dikotheišene, diinvoice, ditšweletšwa, mešongwana le melaetša."
+      },
+      "succeed": {
+        "title": "Atlega",
+        "body": "Dula o tseba, tšea diphetho tše kaone gomme o tšwele pele go ya dinepong tša gago. Katlego e fapana kgwebong ye nngwe le ye nngwe; YGT e go thuša go tsepelela go ya gago."
+      }
+    },
+    "builtFor": {
+      "title": "E agetšwe dikgwebo tša bogolo ka moka",
+      "body": "Le ge o thoma kgwebo ya gago ya mathomo, o laola khamphani ye e golago goba o eta pele sehlopha se segolo, YGT e agetšwe go thekga leeto la gago. Didirišwa tše maatla tša kgwebo di swanetše go šomega le go fihlelelega, e sego fela tša mekgatlo ye megolo."
+    },
+    "values": {
+      "title": "Seo se re tutuetšago",
+      "simplicity": {
+        "title": "Bonolo",
+        "body": "Theknolotši e swanetše go nolofatša bophelo."
+      },
+      "accessibility": {
+        "title": "Phihlelelo",
+        "body": "Didirišwa tše di holago tša kgwebo di swanetše go fihlelelwa ke bohle."
+      },
+      "innovation": {
+        "title": "Boitlhamelo",
+        "body": "Re tšwela pele go hwetša ditsela tše bohlale tša go rarolla ditlhohlo tša letšatši le letšatši."
+      },
+      "reliability": {
+        "title": "Botshepegi",
+        "body": "Theknolotši ye o ka e ithekgago letšatši le lengwe le le lengwe."
+      },
+      "empowerment": {
+        "title": "Maatlafatšo",
+        "body": "Re thuša bagwebi go dira ka boitshepo le go tšwela pele go gola."
+      }
+    },
+    "sa": {
+      "eyebrow": "Re ikgantšha ka go ba ba Afrika Borwa",
+      "title": "Afrika Borwa ye e phadimago le ye e tiilego",
+      "body": "Bagwebi ba Afrika Borwa ba lebane le ditlhohlo tša bona. YGT e tliša didirišwa tše di šomago le ditsela tša go šoma tše di swanelago dikgwebo tša gae, ka maleme ka moka a semmušo a 11, gore o kgone go phadišana, go gola le go atlega ekonoming ya titšithale."
+    },
+    "promise": {
+      "eyebrow": "Kholofetšo ya YGT",
+      "title": "Leeto la gago. Boikgafo bja rena.",
+      "body": "Go aga kgwebo ga se ka mehla go le bonolo, eupša ga o swanele go lebana le tlhohlo ye nngwe le ye nngwe o le noši. Re mo go nolofatša mošomo wa gago gore o kgone go tsepelela dinepong tša gago.",
+      "cta": "Thoma ka YGT",
+      "explore": "Hlahloba dikarolo"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Di-invoice",
     "invoicesHint": "E tee go tšwa go YGT go tefelo ye nngwe le ye nngwe, e romelwa go wena ka imeile ge o lefa.",
     "paystackRef": "Tšhupetšo ya Paystack {{ref}}",
-    "teamFrom": "{{price}} ka setulo go thoma ka ditulo tše {{count}}",
-    "teamPrice": "Theko ya sehlopha: ditulo tše {{count}}+",
+    "teamFrom": "Boloka {{percent}}% ka setulo go thoma ka ditulo tše {{count}}",
+    "teamPrice": "Theko ya sehlopha: o boloka {{percent}}%",
     "afterTrial": {
       "title": "Ka morago ga teko ya gago ya mahala",
       "small": "Ka morago ga teko, Hustle e akaretša batho go fihla go {{limit}}. Ge e le ba fetago {{limit}}, o tla kgetha Grow goba Scale gomme o lefele setulo se tee motho o mongwe le o mongwe.",
@@ -2105,9 +2174,9 @@
       "start": "Thoma teko ya mahala"
     },
     "hero": {
-      "eyebrow": "Tharollo e tee ya kgwebo ya bareki ba gago, thekišo, dikotheišene, di-invoice le ditefelo",
-      "title": "Dipampiri tše nnyane. Nako e ntši ya kgwebo ya gago.",
-      "body": "{{name}} ke lefelo le tee moo bareki ba gago, ditumelelano, ditheko, diinfoisi le ditefelo di dulago gona, gore bohle ba šome ka dinomoro tše di swanago tše di mpshafaditšwego. E a latelela le go go gopotša ka ditefelo legatong la gago, e go bolokela diiri beke le beke le tšhelete yeo o bego o tla e lahlegelwa, gore o tsepelele go sepediša kgwebo ya gago.",
+      "eyebrow": "Gola. Laola. Atlega.",
+      "title": "Lora o le mogolo. Re tla hlokomela mošomo wa taolo.",
+      "body": "{{name}} e boloka bareki ba gago, ditumelelano, dikotheišene le diinvoice lefelong le tee, gomme e go latišetša ditefelo. Nako ye ntši ya mošomo wo o o ratago.",
       "cta": "Thoma teko ya gago ya mahala",
       "secondary": "Bona ditheko"
     },

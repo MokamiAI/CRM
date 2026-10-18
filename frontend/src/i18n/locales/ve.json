@@ -56,7 +56,76 @@
     "supportAdmin": "Kwamani mulanguli wa khamphani yaṋu.",
     "supportTitle": "Thikhedzo",
     "tagline": "CRM i ṱanganyaho bindu ḽaṋu, vharengi vhaṋu na tshigwada tshaṋu.",
-    "version": "Vesheni {{version}}"
+    "version": "Vesheni {{version}}",
+    "hero": {
+      "motto": "Golani. Langani. Bvelelani.",
+      "eyebrow": "Nga ha YGT",
+      "body": "U tshimbidza bindu zwi ṱoḓa tshivhindi, u ḓiimisela na u shuma nga maanḓa. U ḽi langa a zwi fanela u ita uri lwendo lu konḓe u fhira. Ri fhaṱa zwishumiswa zwi leluwaho, zwi pfalaho uri ni kone u sedza kha zwi ndeme: u fhaṱa tshithu tshi re na ndivho.",
+      "cta": "Thomani",
+      "explore": "Ṱoḓisisani YGT"
+    },
+    "mission": {
+      "title": "Ndivho yashu",
+      "body": "U ṋea mabindu thekinoḽodzhi i swikeleaho, i fulufhedzeaho na i re na vhuṱali i leludzaho mushumo, i engedza vhubveledzi nahone i tikedza nyaluwo i dzulaho."
+    },
+    "vision": {
+      "title": "Bono ḽashu",
+      "body": "U vha mufarisi wa thekinoḽodzhi o fulufhedzeaho wa mabindu Afrika Tshipembe yoṱhe na nnḓa, ri tshi thusa vhorabindu u shandukisa dzitshuwo dza vha mabindu a dzulaho."
+    },
+    "pillars": {
+      "title": "Nḓila ine YGT ya thusa ngayo",
+      "grow": {
+        "title": "Golani",
+        "body": "Fhaṱani vhushaka vhu khwaṱhaho na vharengi, wanani zwikhala zviswa nahone ni ise phanḓa vhengiselo nga mbonalo i pfalaho ya phaiphi yaṋu."
+      },
+      "manage": {
+        "title": "Langani",
+        "body": "Vhulungani mushumo waṋu wa ḓuvha ḽiṅwe na ḽiṅwe fhethu huthihi: vharengi, khotheshini, dziinvoisi, zwibveledzwa, mishumo na milaedza."
+      },
+      "succeed": {
+        "title": "Bvelelani",
+        "body": "Dzulani ni tshi ḓivha, itani tsheo dzi khwiṋe nahone ni bvele phanḓa ni tshi ya kha zwipikwa zwaṋu. Mvelaphanḓa i a fhambana kha bindu ḽiṅwe na ḽiṅwe; YGT i ni thusa u sedza kha ḽaṋu."
+      }
+    },
+    "builtFor": {
+      "title": "Yo fhaṱelwa mabindu a vhuhulu hoṱhe",
+      "body": "Hu sa londwi uri ni khou thoma bindu ḽaṋu ḽa u thoma, ni langa khamphani i aluwaho kana ni ranga phanḓa tshigwada tshihulwane, YGT yo fhaṱelwa u tikedza lwendo lwaṋu. Zwishumiswa zwa bindu zwi re na maanḓa zwi fanela u shumisea na u swikelea, hu si zwa madzangano mahulwane fhedzi."
+    },
+    "values": {
+      "title": "Zwine zwa ri ṱuṱuwedza",
+      "simplicity": {
+        "title": "Vhuleluwi",
+        "body": "Thekinoḽodzhi i fanela u leludza vhutshilo."
+      },
+      "accessibility": {
+        "title": "U swikelea",
+        "body": "Zwishumiswa zwa bindu zwi re na mushumo zwi fanela u swikelelwa nga muṅwe na muṅwe."
+      },
+      "innovation": {
+        "title": "Vhusikaphanḓa",
+        "body": "Ri bvela phanḓa ri tshi wana nḓila dzi re na vhuṱali dza u tandulula khaedu dza ḓuvha ḽiṅwe na ḽiṅwe."
+      },
+      "reliability": {
+        "title": "Vhufulufhedzei",
+        "body": "Thekinoḽodzhi ine na nga i ḓitika ngayo ḓuvha ḽiṅwe na ḽiṅwe."
+      },
+      "empowerment": {
+        "title": "Maanḓafhadzo",
+        "body": "Ri thusa vhorabindu u dzhia vhukando nga u ḓiḓivha na u bvela phanḓa vha tshi aluwa."
+      }
+    },
+    "sa": {
+      "eyebrow": "Ri ḓiposha nga u vha vha Afrika Tshipembe",
+      "title": "Afrika Tshipembe i penyaho, i khwaṱhaho",
+      "body": "Vhorabindu vha Afrika Tshipembe vha sedzana na khaedu dzavho. YGT i ḓisa zwishumiswa zwi shumaho na nḓila dza u shuma dzi tshimbilelanaho na mabindu a hayani, nga nyambo dzoṱhe dza 11 dza tshiofisi, uri ni kone u ṱaṱisana, u aluwa na u bvelela kha ikonomi ya didzhithala."
+    },
+    "promise": {
+      "eyebrow": "Fulufhediso ya YGT",
+      "title": "Lwendo lwaṋu. U ḓiimisela hashu.",
+      "body": "U fhaṱa bindu a zwi leluwi tshifhinga tshoṱhe, fhedzi a ni tea u sedzana na khaedu iṅwe na iṅwe ni noṱhe. Ri hone u leludza mushumo waṋu uri ni kone u sedza kha zwipikwa zwaṋu.",
+      "cta": "Thomani nga YGT",
+      "explore": "Ṱoḓisisani zwiṱaluli"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Dziinvoisi",
     "invoicesHint": "Nthihi i bvaho kha YGT kha mbadelo iṅwe na iṅwe, i rumelwa kha inwi nga imeiḽi musi ni tshi badela.",
     "paystackRef": "Tsumbo ya Paystack {{ref}}",
-    "teamFrom": "{{price}} nga tshidulo u thoma kha zwidulo zwa {{count}}",
-    "teamPrice": "Mutengo wa tshigwada: zwidulo zwa {{count}}+",
+    "teamFrom": "Vhulungani {{percent}}% nga tshidulo u thoma kha zwidulo zwa {{count}}",
+    "teamPrice": "Mutengo wa tshigwada: ni vhulunga {{percent}}%",
     "afterTrial": {
       "title": "Nga murahu ha ndingo yaṋu ya mahala",
       "small": "Nga murahu ha ndingo, Hustle i katela vhathu u swika kha {{limit}}. Arali vha fhira {{limit}}, ni ḓo nanga Grow kana Scale nahone na badela tshidulo tshithihi nga muthu muṅwe na muṅwe.",
@@ -2105,9 +2174,9 @@
       "start": "Thomani u lingedza mahala"
     },
     "hero": {
-      "eyebrow": "Thandululo nthihi ya bindu ya vharengi vhaṋu, u rengisa, khotheshini, dziinvoisi na mbadelo",
-      "title": "Maṅwalo maṱuku. Tshifhinga tshinzhi tsha bindu ḽaṋu.",
-      "body": "{{name}} ndi fhethu huthihi hune vharengi vhaṋu, zwitenwa, mitengo, dziinvoisi na mbadelo zwa dzula hone, uri muṅwe na muṅwe a shume nga zwivhalo zwi fanaho zwo khwiniswaho. I a tevhela nahone i ni humbudza nga ha mbadelo, i ni vhulungela awara vhege iṅwe na iṅwe na tshelede ye na vha ni tshi ḓo i xelelwa, uri ni kone u sedza kha u tshimbidza bindu ḽaṋu.",
+      "eyebrow": "Golani. Langani. Bvelelani.",
+      "title": "Lorani zwihulwane. Ri ḓo ṱhogomela ndaulo.",
+      "body": "{{name}} i vhulunga vharengi vhaṋu, thendelano, khotheshini na dziinvoisi fhethu huthihi, nahone i ni tevhedzela mbadelo. Tshifhinga tshinzhi tsha mushumo une na u funa.",
       "cta": "Thomani u lingedza haṋu mahala",
       "secondary": "Vhonani mitengo"
     },

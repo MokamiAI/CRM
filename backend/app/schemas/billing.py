@@ -13,6 +13,7 @@ class PlanOut(BaseModel):
     team_monthly_cents: int | None  # per seat from team_seats seats
     team_annual_cents: int | None
     team_seats: int
+    team_discount_percent: int | None = None  # how much the team price saves
     per_user: bool
     min_users: int
     max_users: int | None

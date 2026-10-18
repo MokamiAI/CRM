@@ -81,7 +81,7 @@ await navTest("Header: Start free trial", "header a", "Start free trial", "/regi
   await p.evaluate(() => [...document.querySelectorAll("button[role=radio]")].find((x) => x.textContent.includes("Afrikaans")).click());
   await wait(1500);
   const h1 = await p.evaluate(() => document.querySelector("h1").textContent);
-  ok("Header: language picker opens and switches", opened >= 11 && h1.includes("Minder admin"), `${opened} languages, h1 "${h1}"`);
+  ok("Header: language picker opens and switches", opened >= 11 && h1.includes("Droom groot"), `${opened} languages, h1 "${h1}"`);
   await p.close();
 }
 // Hero

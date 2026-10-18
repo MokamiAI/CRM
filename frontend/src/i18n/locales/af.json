@@ -56,7 +56,76 @@
     "supportAdmin": "Kontak jou maatskappy se administrateur.",
     "supportTitle": "Ondersteuning",
     "tagline": "Die CRM wat jou besigheid, jou kliënte en jou span bymekaarbring.",
-    "version": "Weergawe {{version}}"
+    "version": "Weergawe {{version}}",
+    "hero": {
+      "motto": "Groei. Bestuur. Slaag.",
+      "eyebrow": "Oor YGT",
+      "body": "Om 'n besigheid te bedryf verg moed, vasberadenheid en harde werk. Om dit te bestuur behoort die reis nie moeiliker te maak nie. Ons bou eenvoudige, duidelike gereedskap sodat jy kan fokus op wat saak maak: om iets betekenisvols te bou.",
+      "cta": "Begin",
+      "explore": "Verken YGT"
+    },
+    "mission": {
+      "title": "Ons missie",
+      "body": "Om besighede toeganklike, betroubare en slim tegnologie te gee wat hul werk vereenvoudig, produktiwiteit verhoog en blywende groei ondersteun."
+    },
+    "vision": {
+      "title": "Ons visie",
+      "body": "Om 'n vertroude tegnologievennoot vir besighede regoor Suid-Afrika en verder te wees, en entrepreneurs te help om ambisie in blywende besighede te omskep."
+    },
+    "pillars": {
+      "title": "Hoe YGT help",
+      "grow": {
+        "title": "Groei",
+        "body": "Bou sterker kliëntverhoudings, vind nuwe geleenthede en beweeg verkope vorentoe met 'n duidelike blik op jou pyplyn."
+      },
+      "manage": {
+        "title": "Bestuur",
+        "body": "Hou jou daaglikse werk bymekaar: kliënte, kwotasies, fakture, produkte, aktiwiteite en boodskappe."
+      },
+      "succeed": {
+        "title": "Slaag",
+        "body": "Bly ingelig, neem beter besluite en beweeg aanhoudend na jou doelwitte. Sukses lyk anders vir elke besigheid; YGT help jou om op joune te fokus."
+      }
+    },
+    "builtFor": {
+      "title": "Gebou vir besighede van alle groottes",
+      "body": "Of jy jou eerste besigheid begin, 'n groeiende maatskappy bestuur of 'n groter span lei, YGT is gebou om jou reis te ondersteun. Kragtige besigheidsgereedskap moet prakties en toeganklik wees, nie net vir groot organisasies nie."
+    },
+    "values": {
+      "title": "Wat ons dryf",
+      "simplicity": {
+        "title": "Eenvoud",
+        "body": "Tegnologie moet die lewe makliker maak."
+      },
+      "accessibility": {
+        "title": "Toeganklikheid",
+        "body": "Nuttige besigheidsgereedskap moet binne almal se bereik wees."
+      },
+      "innovation": {
+        "title": "Innovasie",
+        "body": "Ons soek aanhoudend slimmer maniere om alledaagse uitdagings op te los."
+      },
+      "reliability": {
+        "title": "Betroubaarheid",
+        "body": "Tegnologie waarop jy elke dag kan staatmaak."
+      },
+      "empowerment": {
+        "title": "Bemagtiging",
+        "body": "Ons help entrepreneurs om met selfvertroue op te tree en aan te hou groei."
+      }
+    },
+    "sa": {
+      "eyebrow": "Trots Suid-Afrikaans",
+      "title": "Vir 'n beter, sterker Suid-Afrika",
+      "body": "Suid-Afrikaanse entrepreneurs staar hul eie uitdagings in die gesig. YGT bring praktiese gereedskap en werkswyses wat by plaaslike besighede pas, in al 11 amptelike tale, sodat jy kan meeding, groei en slaag in 'n digitale ekonomie."
+    },
+    "promise": {
+      "eyebrow": "Die YGT-belofte",
+      "title": "Jou reis. Ons verbintenis.",
+      "body": "Om 'n besigheid te bou is nie altyd maklik nie, maar jy hoef nie elke uitdaging alleen aan te pak nie. Ons is hier om jou werk te vereenvoudig sodat jy op jou doelwitte kan fokus.",
+      "cta": "Begin met YGT",
+      "explore": "Verken kenmerke"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Fakture",
     "invoicesHint": "Een van YGT vir elke betaling, aan jou ge-e-pos wanneer jy betaal.",
     "paystackRef": "Paystack-verwysing {{ref}}",
-    "teamFrom": "{{price}} per sitplek vanaf {{count}} sitplekke",
-    "teamPrice": "Spanprys: {{count}}+ sitplekke",
+    "teamFrom": "Spaar {{percent}}% per sitplek vanaf {{count}} sitplekke",
+    "teamPrice": "Spanprys: jy spaar {{percent}}%",
     "afterTrial": {
       "title": "Ná jou gratis proeftydperk",
       "small": "Ná die proeftydperk dek Hustle tot {{limit}} mense. Met meer as {{limit}} kies jy Grow of Scale en betaal vir een plek per persoon.",
@@ -2105,9 +2174,9 @@
       "start": "Begin gratis proeftydperk"
     },
     "hero": {
-      "eyebrow": "Een besigheidsoplossing vir jou kliënte, verkope, kwotasies, fakture en betalings",
-      "title": "Minder admin. Meer besigheid.",
-      "body": "{{name}} is die een plek waar jou kliënte, transaksies, kwotasies, fakture en betalings woon, sodat almal met dieselfde bygewerkte syfers werk. Dit volg op en jaag betalings vir jou agterna, en spaar elke week ure en geld wat jy andersins sou verloor, sodat jy op jou besigheid kan fokus.",
+      "eyebrow": "Groei. Bestuur. Slaag.",
+      "title": "Droom groot. Ons hanteer die admin.",
+      "body": "{{name}} hou jou kliënte, transaksies, kwotasies en fakture op een plek, en jaag betalings vir jou agterna. Meer tyd vir die werk waarvoor jy lief is.",
       "cta": "Begin jou gratis proeftydperk",
       "secondary": "Sien pryse"
     },

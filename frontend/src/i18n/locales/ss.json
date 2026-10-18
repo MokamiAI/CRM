@@ -56,7 +56,76 @@
     "supportAdmin": "Chumana nemphatsi wenkampani yakho.",
     "supportTitle": "Lusito",
     "tagline": "I-CRM lehlanganisa libhizinisi lakho, batsengi bakho nelicembu lakho.",
-    "version": "Inguculo {{version}}"
+    "version": "Inguculo {{version}}",
+    "hero": {
+      "motto": "Khula. Phatsa. Phumelela.",
+      "eyebrow": "Mayelana ne-YGT",
+      "body": "Kuchuba libhizinisi kudzinga sibindzi, kutimisela nekusebenta kamatima. Kuliphatsa akukafaneli kwente luhambo lube lumatima kakhulu. Sakha emathulusi lalula, lacacile kute ugxile kulokubalulekile: kwakha intfo lenenjongo.",
+      "cta": "Cala",
+      "explore": "Hlola i-YGT"
+    },
+    "mission": {
+      "title": "Inhloso yetfu",
+      "body": "Kunika emabhizinisi buchwepheshe lobufinyeleleka, lobetsembekile nalobuhlakaniphile lobenta umsebenti ube lula, bukhulise kukhicita futsi busekele kukhula lokuhlala njalo."
+    },
+    "vision": {
+      "title": "Umbono wetfu",
+      "body": "Kuba ngumlingani webuchwepheshe lotsembekile wemabhizinisi kulo lonkhe leNingizimu Afrika nangale, sisita bosomabhizinisi bagucule emaphupho abe ngemabhizinisi laphilako sikhatsi lesidze."
+    },
+    "pillars": {
+      "title": "Indlela i-YGT lesita ngayo",
+      "grow": {
+        "title": "Khula",
+        "body": "Yakha buhlobo lobucinile nemakhasimende, utfole ematfuba lamasha futsi uchubekisele embili kutsengisa ngekubuka lokucacile kwemphayiphi yakho."
+      },
+      "manage": {
+        "title": "Phatsa",
+        "body": "Gcina umsebenti wakho welilanga nelilanga ndzawonye: emakhasimende, ticalo, ema-invoyisi, imikhicito, imisebenti nemilayeto."
+      },
+      "succeed": {
+        "title": "Phumelela",
+        "body": "Hlala wati, wente tincumo letincono futsi uchubeke uya etinhlosweni takho. Imphumelelo yehlukile kulelo nalelo bhizinisi; i-YGT ikusita ugxile kuleyakho."
+      }
+    },
+    "builtFor": {
+      "title": "Yakhelwe emabhizinisi abo bonkhe bukhulu",
+      "body": "Nobe ucala libhizinisi lakho lekucala, uphatse inkampani lekhulako nobe uhola licembu lelikhulu, i-YGT yakhelwe kusekela luhambo lwakho. Emathulusi lanemandla ebhizinisi kufanele asebenteke futsi afinyeleleke, angagcinelwa tinhlangano letinkhulu kuphela."
+    },
+    "values": {
+      "title": "Lokusichubako",
+      "simplicity": {
+        "title": "Bulula",
+        "body": "Buchwepheshe kufanele bente imphilo ibe lula."
+      },
+      "accessibility": {
+        "title": "Kufinyeleleka",
+        "body": "Emathulusi ebhizinisi lawusito kufanele afinyeleleke kubo bonkhe bantfu."
+      },
+      "innovation": {
+        "title": "Kusungula",
+        "body": "Sichubeka sitfola tindlela letihlakaniphile tekuchazulula tinselelo telilanga nelilanga."
+      },
+      "reliability": {
+        "title": "Kwetsembeka",
+        "body": "Buchwepheshe longatsembela kubo onkhe malanga."
+      },
+      "empowerment": {
+        "title": "Kuniketa emandla",
+        "body": "Sisita bosomabhizinisi bente tintfo ngekutetsemba futsi bachubeke bakhula."
+      }
+    },
+    "sa": {
+      "eyebrow": "Siyatigcabha ngekuba ngebaseNingizimu Afrika",
+      "title": "INingizimu Afrika lekhanyako, lecinile",
+      "body": "Bosomabhizinisi baseNingizimu Afrika babhekene netinselelo tabo. I-YGT iletsa emathulusi lasebentako netindlela tekusebenta letifanele emabhizinisi ekhaya, ngato tonkhe tilimi letisemtsetfweni letingu-11, kute uncintisane, ukhule futsi uphumelele emnotfweni wedijithali."
+    },
+    "promise": {
+      "eyebrow": "Setsembiso se-YGT",
+      "title": "Luhambo lwakho. Kutibophelela kwetfu.",
+      "body": "Kwakha libhizinisi akusilo lula ngaso sonkhe sikhatsi, kodvwa awudzingi kubhekana nayo yonkhe inselelo uwedvwa. Silapha kwenta umsebenti wakho ube lula kute ugxile etinhlosweni takho.",
+      "cta": "Cala nge-YGT",
+      "explore": "Hlola tici"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Ema-invoyisi",
     "invoicesHint": "Linye lelivela ku-YGT ngenkhokhelo ngayinye, litfunyelwa kuwe nge-imeyili nawukhokha.",
     "paystackRef": "Inkhomba ye-Paystack {{ref}}",
-    "teamFrom": "{{price}} ngesihlalo kusukela etihlalweni letingu-{{count}}",
-    "teamPrice": "Intsengo yelicembu: tihlalo letingu-{{count}}+",
+    "teamFrom": "Yonga {{percent}}% ngesihlalo kusukela etihlalweni letingu-{{count}}",
+    "teamPrice": "Intsengo yelicembu: wonga {{percent}}%",
     "afterTrial": {
       "title": "Ngemuva kwekuhlola kwakho kwamahhala",
       "small": "Ngemuva kwekuhlola, i-Hustle ifaka bantfu labafika ku-{{limit}}. Nangabe bangetulu kwa-{{limit}}, utawukhetsa i-Grow noma i-Scale bese ukhokhela sihlalo sinye ngemuntfu ngamunye.",
@@ -2105,9 +2174,9 @@
       "start": "Cala kuvivinya mahhala"
     },
     "hero": {
-      "eyebrow": "Sixazululo sinye sebhizinisi semakhasimende akho, kutsengisa, ticalo, ema-invoyisi netinkhokhelo",
-      "title": "Emaphepha lambalwa. Sikhatsi lesinyenti sebhizinisi lakho.",
-      "body": "I-{{name}} yindzawo yinye lapho emakhasimende akho, tivumelwano, tintsengo, ema-invoyisi nekukhokhwa kuhlala khona, kuze wonkhe umuntfu asebente ngetinombolo letifanako letisesikhatsini. Iyalandzelela futsi ikukhumbutele ngekukhokhwa, ikongela emahora onkhe emaviki nemali bewungayilahlekelwa, kuze ugcile ekuchubeni ibhizinisi lakho.",
+      "eyebrow": "Khula. Phatsa. Phumelela.",
+      "title": "Phupha lokukhulu. Tsine sitawunakekela kuphatsa.",
+      "body": "{{name}} igcina emakhasimende akho, tivumelwano, ticalo nema-invoyisi endzaweni yinye, futsi ikulandzelela tinkhokhelo. Sikhatsi lesinyenti semsebenti lowutsandzako.",
       "cta": "Cala kuvivinya kwakho mahhala",
       "secondary": "Bona emanani"
     },

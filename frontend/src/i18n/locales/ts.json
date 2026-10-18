@@ -56,7 +56,76 @@
     "supportAdmin": "Tihlanganise ni mulawuri wa khamphani ya wena.",
     "supportTitle": "Mpfuno",
     "tagline": "CRM leyi hlanganisaka bindzu ra wena, vaxavi va wena ni ntlawa wa wena.",
-    "version": "Vuhundzuluxeri {{version}}"
+    "version": "Vuhundzuluxeri {{version}}",
+    "hero": {
+      "motto": "Kula. Fambisa. Humelela.",
+      "eyebrow": "Hi YGT",
+      "body": "Ku fambisa bindzu swi lava xivindzi, ku tiyimisela na ku tirha hi matimba. Ku ri fambisa a swi fanelanga ku endla leswaku riendzo ri tika ku tlula. Hi aka switirho swo olova, leswi twisisekaka leswaku u ta kota ku languta leswi nga swa nkoka: ku aka nchumu lowu nga na xikongomelo.",
+      "cta": "Sungula",
+      "explore": "Lavisisa YGT"
+    },
+    "mission": {
+      "title": "Xikongomelo xa hina",
+      "body": "Ku nyika mabindzu thekinoloji leyi fikelelekaka, leyi tshembekaka na leyi tlhariheke leyi olovisaka ntirho, yi engetela vuhumelerisi naswona yi seketela ku kula loku tshamaka."
+    },
+    "vision": {
+      "title": "Xivono xa hina",
+      "body": "Ku va munghana wa thekinoloji loyi a tshembekaka wa mabindzu eAfrika Dzonga hinkwayo na le handle, hi pfuna van'wamabindzu ku hundzula swinavelo swi va mabindzu lama tshamaka."
+    },
+    "pillars": {
+      "title": "Ndlela leyi YGT yi pfunaka ha yona",
+      "grow": {
+        "title": "Kula",
+        "body": "Aka vuxaka lebyi tiyeke na vaxavi, kuma minkarhi leyintshwa naswona u yisa mahlweni ku xavisa hi langutelo leri twisisekaka ra phayiphi ya wena."
+      },
+      "manage": {
+        "title": "Fambisa",
+        "body": "Hlayisa ntirho wa wena wa siku na siku swin'we: vaxavi, tikhotexini, tiinvhoyisi, swibyariwa, migingiriko na marungula."
+      },
+      "succeed": {
+        "title": "Humelela",
+        "body": "Tshama u tiva, endla swiboho swo antswa naswona u ya emahlweni u kongomile eka tipakani ta wena. Ku humelela ku hambana ebindzwini rin'wana na rin'wana; YGT yi ku pfuna ku languta eka ra wena."
+      }
+    },
+    "builtFor": {
+      "title": "Yi akeriwe mabindzu ya mimpimo hinkwayo",
+      "body": "Hambi u sungula bindzu ra wena ro sungula, u fambisa khampani leyi kulaka kumbe u rhangela ntlawa lowukulu, YGT yi akiwile ku seketela riendzo ra wena. Switirho swa matimba swa bindzu swi fanele ku tirheka na ku fikeleleka, ku nga ri swa tinhlangano letikulu ntsena."
+    },
+    "values": {
+      "title": "Leswi hi susumetaka",
+      "simplicity": {
+        "title": "Ku olova",
+        "body": "Thekinoloji yi fanele ku olovisa vutomi."
+      },
+      "accessibility": {
+        "title": "Ku fikeleleka",
+        "body": "Switirho swa bindzu leswi pfunaka swi fanele ku fikeleriwa hi un'wana na un'wana."
+      },
+      "innovation": {
+        "title": "Vutumbuluxi",
+        "body": "Hi ya emahlweni hi kuma tindlela to tlhariha to tlhantlha mintlhontlho ya siku na siku."
+      },
+      "reliability": {
+        "title": "Ku tshembeka",
+        "body": "Thekinoloji leyi u nga yi tshembaka siku na siku."
+      },
+      "empowerment": {
+        "title": "Ku nyika matimba",
+        "body": "Hi pfuna van'wamabindzu ku teka goza hi ku titshemba na ku ya emahlweni va kula."
+      }
+    },
+    "sa": {
+      "eyebrow": "Hi tinyungubyisa hi ku va va Afrika Dzonga",
+      "title": "Eka Afrika Dzonga leyi vangamaka, leyi tiyeke",
+      "body": "Van'wamabindzu va Afrika Dzonga va langutane na mintlhontlho ya vona. YGT yi tisa switirho leswi tirhaka na tindlela to tirha leti faneleke mabindzu ya laha kaya, hi tindzimi hinkwato ta 11 ta ximfumo, leswaku u ta kota ku phikizana, ku kula na ku humelela eka ikhonomi ya dijitali."
+    },
+    "promise": {
+      "eyebrow": "Xitshembiso xa YGT",
+      "title": "Riendzo ra wena. Ku tinyiketela ka hina.",
+      "body": "Ku aka bindzu a swi olovi minkarhi hinkwayo, kambe a wu boheki ku langutana na ntlhontlho wun'wana na wun'wana u ri wexe. Hi kona ku olovisa ntirho wa wena leswaku u ta languta tipakani ta wena.",
+      "cta": "Sungula hi YGT",
+      "explore": "Lavisisa swihlawulekisi"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Tiinvhoyisi",
     "invoicesHint": "Yin'we ku suka eka YGT eka hakelo yin'wana ni yin'wana, yi rhumeriwa eka wena hi imeyili loko u hakela.",
     "paystackRef": "Xikombo xa Paystack {{ref}}",
-    "teamFrom": "{{price}} hi xitulu ku sukela eka switulu swa {{count}}",
-    "teamPrice": "Nxavo wa ntlawa: switulu swa {{count}}+",
+    "teamFrom": "Hlayisa {{percent}}% hi xitulu ku sukela eka switulu swa {{count}}",
+    "teamPrice": "Nxavo wa ntlawa: u hlayisa {{percent}}%",
     "afterTrial": {
       "title": "Endzhaku ka ndzingeto wa wena wa mahala",
       "small": "Endzhaku ka ndzingeto, Hustle yi katsa vanhu ku fika eka {{limit}}. Loko va tlula {{limit}}, u ta hlawula Grow kumbe Scale u hakela xitulu xin'we hi munhu un'wana na un'wana.",
@@ -2105,9 +2174,9 @@
       "start": "Sungula ndzingeto wa mahala"
     },
     "hero": {
-      "eyebrow": "Ntlhantlho wun'we wa bindzu wa vaxavi va wena, vuxavisi, tikhotexini, tiinvhoyisi ni swihakelo",
-      "title": "Maphepha ma nga ri mangani. Nkarhi wo tala wa bindzu ra wena.",
-      "body": "{{name}} i ndhawu yin'we laha vaxavi va wena, swivumelwano, swikoweto, tiinvoyisi na swihakelo swi tshamaka kona, leswaku un'wana na un'wana a tirha hi tinomboro leti fanaka leti pfuxetiweke. Yi landzelela naswona yi ku tsundzuxela hi swihakelo, yi ku hlayisela tiawara vhiki na vhiki na mali leyi a wu ta yi lahlekeriwa, leswaku u kota ku languta ku fambisa bindzu ra wena.",
+      "eyebrow": "Kula. Fambisa. Humelela.",
+      "title": "Norha swo kula. Hina hi ta khathalela vulawuri.",
+      "body": "{{name}} yi hlayisa vaxavi va wena, swivumelwano, tikhotexini na tiinvhoyisi endhawini yin'we, naswona yi ku landzelerela ku hakeriwa. Nkarhi wo tala wa ntirho lowu u wu rhandzaka.",
       "cta": "Sungula ndzingeto wa wena wa mahala",
       "secondary": "Vona mintsengo"
     },

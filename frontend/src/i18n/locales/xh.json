@@ -56,7 +56,76 @@
     "supportAdmin": "Qhagamshelana nomlawuli wenkampani yakho.",
     "supportTitle": "Inkxaso",
     "tagline": "I-CRM edibanisa ishishini lakho, abathengi bakho neqela lakho.",
-    "version": "Uguqulelo {{version}}"
+    "version": "Uguqulelo {{version}}",
+    "hero": {
+      "motto": "Khula. Lawula. Phumelela.",
+      "eyebrow": "Malunga ne-YGT",
+      "body": "Ukuqhuba ishishini kufuna isibindi, ukuzimisela nokusebenza nzima. Ukulilawula akufanelanga kwenze uhambo lube nzima ngakumbi. Sakha izixhobo ezilula, ezicacileyo ukuze ugxile koko kubalulekileyo: ukwakha into enentsingiselo.",
+      "cta": "Qala",
+      "explore": "Phonononga i-YGT"
+    },
+    "mission": {
+      "title": "Injongo yethu",
+      "body": "Ukunika amashishini iteknoloji efikelelekayo, ethembekileyo nekrelekrele eyenza umsebenzi wawo ube lula, iphucule imveliso kwaye ixhase ukukhula okuhlala kuhleli."
+    },
+    "vision": {
+      "title": "Umbono wethu",
+      "body": "Ukuba liqabane leteknoloji elithembekileyo lamashishini kuwo wonke uMzantsi Afrika nangaphaya, sincede oosomashishini baguqule amabhongo abe ngamashishini ahlala ehleli."
+    },
+    "pillars": {
+      "title": "Indlela i-YGT encedisa ngayo",
+      "grow": {
+        "title": "Khula",
+        "body": "Yakha ubudlelwane obomeleleyo nabathengi, ufumane amathuba amatsha kwaye uqhubele phambili intengiso ngembono ecacileyo yombhobho wakho."
+      },
+      "manage": {
+        "title": "Lawula",
+        "body": "Gcina umsebenzi wakho wemihla ngemihla kunye: abathengi, iikowuti, ii-invoyisi, iimveliso, imisebenzi nemiyalezo."
+      },
+      "succeed": {
+        "title": "Phumelela",
+        "body": "Hlala unolwazi, wenze izigqibo ezingcono kwaye uqhubeke usiya kwiinjongo zakho. Impumelelo yahlukile kwishishini ngalinye; i-YGT ikunceda ugxile kweyakho."
+      }
+    },
+    "builtFor": {
+      "title": "Yakhelwe amashishini azo zonke iisayizi",
+      "body": "Nokuba uqala ishishini lakho lokuqala, ulawula inkampani ekhulayo okanye ukhokela iqela elikhulu, i-YGT yakhelwe ukuxhasa uhambo lwakho. Izixhobo zeshishini ezinamandla kufuneka zisebenziseke kwaye zifikeleleke, zingagcinelwa imibutho emikhulu kuphela."
+    },
+    "values": {
+      "title": "Into esiqhubayo",
+      "simplicity": {
+        "title": "Ubulula",
+        "body": "Iteknoloji kufuneka yenze ubomi bube lula."
+      },
+      "accessibility": {
+        "title": "Ukufikeleleka",
+        "body": "Izixhobo zeshishini eziluncedo kufuneka zifikeleleke kumntu wonke."
+      },
+      "innovation": {
+        "title": "Ukuyila",
+        "body": "Siqhubeka sifumana iindlela ezikrelekrele zokusombulula imingeni yemihla ngemihla."
+      },
+      "reliability": {
+        "title": "Ukuthembeka",
+        "body": "Iteknoloji onokuthembela kuyo yonke imihla."
+      },
+      "empowerment": {
+        "title": "Ukuxhobisa",
+        "body": "Sinceda oosomashishini benze izinto ngokuzithemba kwaye baqhubeke bekhula."
+      }
+    },
+    "sa": {
+      "eyebrow": "Siyazingca ngokuba ngabaseMzantsi Afrika",
+      "title": "UMzantsi Afrika oqaqambileyo nomeleleyo",
+      "body": "Oosomashishini baseMzantsi Afrika bajongene nemingeni yabo. I-YGT izisa izixhobo eziluncedo neendlela zokusebenza ezilungele amashishini asekhaya, kuzo zonke iilwimi ezisemthethweni ezili-11, ukuze ukhuphisane, ukhule kwaye uphumelele kuqoqosho lwedijithali."
+    },
+    "promise": {
+      "eyebrow": "Isithembiso se-YGT",
+      "title": "Uhambo lwakho. Ukuzibophelela kwethu.",
+      "body": "Ukwakha ishishini akusoloko kulula, kodwa akunyanzelekanga ujongane nomngeni ngamnye wedwa. Silapha ukwenza umsebenzi wakho ube lula ukuze ugxile kwiinjongo zakho.",
+      "cta": "Qala nge-YGT",
+      "explore": "Phonononga iimpawu"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Ii-invoyisi",
     "invoicesHint": "Enye evela ku-YGT kwintlawulo nganye, ithunyelwa kuwe nge-imeyile xa uhlawula.",
     "paystackRef": "Isalathiso se-Paystack {{ref}}",
-    "teamFrom": "{{price}} ngesitulo ukusuka kwizitulo ezi-{{count}}",
-    "teamPrice": "Ixabiso leqela: izitulo ezi-{{count}}+",
+    "teamFrom": "Yonga i-{{percent}}% ngesitulo ukusuka kwizitulo ezi-{{count}}",
+    "teamPrice": "Ixabiso leqela: wonga i-{{percent}}%",
     "afterTrial": {
       "title": "Emva kovavanyo lwakho lwasimahla",
       "small": "Emva kovavanyo, i-Hustle igubungela abantu abafikelela kwi-{{limit}}. Ukuba bangaphezu kwe-{{limit}}, uza kukhetha i-Grow okanye i-Scale uze uhlawule isihlalo esinye ngomntu ngamnye.",
@@ -2105,9 +2174,9 @@
       "start": "Qala ulingo lwasimahla"
     },
     "hero": {
-      "eyebrow": "Isisombululo esinye seshishini sabathengi bakho, intengiso, iikowuti, ii-invoyisi neentlawulo",
-      "title": "Amaphepha ambalwa. Ixesha elingakumbi leshishini lakho.",
-      "body": "I-{{name}} yindawo enye apho abathengi bakho, izivumelwano, iikowuti, ii-invoyisi neentlawulo zihlala khona, ukuze wonke umntu asebenze ngamanani afanayo ahlaziyiweyo. Iyalandelela kwaye ikhumbuze ngeentlawulo endaweni yakho, ikugcinela iiyure qho ngeveki nemali ongayilahlekelwa, ukuze ugxile ekuqhubeni ishishini lakho.",
+      "eyebrow": "Khula. Lawula. Phumelela.",
+      "title": "Phupha ngokukhulu. Thina siza kujongana nolawulo.",
+      "body": "{{name}} igcina abathengi bakho, izivumelwano, iikowuti kunye nee-invoyisi kwindawo enye, kwaye ikulandelela iintlawulo. Ixesha elingakumbi lomsebenzi owuthandayo.",
       "cta": "Qala ulingo lwakho lwasimahla",
       "secondary": "Bona amaxabiso"
     },

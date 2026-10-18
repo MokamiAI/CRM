@@ -23,8 +23,16 @@ RECURRING = "recurring_invoices"
 DISCOVERY = "discovery"  # potential leads, found weekly
 
 INTERVALS = ("monthly", "annually")
-# From this many seats, every seat is at the plan's team price.
+# From this many seats, every seat is at the plan's team price: this much
+# off the full seat price, to the whole rand. Kept at or below 33% so three
+# seats always cost more than two.
 TEAM_SEATS = 3
+TEAM_DISCOUNT_PERCENT = 20
+
+
+def team_price(full_cents: int) -> int:
+    """The team seat price: TEAM_DISCOUNT_PERCENT off, rounded to whole rand."""
+    return round(full_cents * (100 - TEAM_DISCOUNT_PERCENT) / 100 / 100) * 100
 
 
 @dataclass(frozen=True)
@@ -66,8 +74,8 @@ PLANS: dict[str, Plan] = {
     "hustle": Plan("hustle", "Hustle", 19_900, max_users=3),
     # Per seat per month: 1–2 seats, then from TEAM_SEATS seats. Grow's full
     # seat price stays above Hustle, so one person never pays less for more.
-    "grow": Plan("grow", "Grow", 22_900, team_cents=14_900, per_user=True, features=GROW_FEATURES),
-    "scale": Plan("scale", "Scale", 34_900, team_cents=29_900, per_user=True, features=SCALE_FEATURES),
+    "grow": Plan("grow", "Grow", 22_900, team_cents=team_price(22_900), per_user=True, features=GROW_FEATURES),
+    "scale": Plan("scale", "Scale", 34_900, team_cents=team_price(34_900), per_user=True, features=SCALE_FEATURES),
 }
 PAID_PLANS = list(PLANS.values())
 

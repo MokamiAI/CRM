@@ -56,7 +56,76 @@
     "supportAdmin": "Xhumana nomphathi wenkampani yakho.",
     "supportTitle": "Usizo",
     "tagline": "I-CRM ehlanganisa ibhizinisi lakho, amakhasimende akho nethimba lakho.",
-    "version": "Inguqulo {{version}}"
+    "version": "Inguqulo {{version}}",
+    "hero": {
+      "motto": "Khula. Phatha. Phumelela.",
+      "eyebrow": "Mayelana ne-YGT",
+      "body": "Ukuqhuba ibhizinisi kudinga isibindi, ukuzimisela nokusebenza kanzima. Ukuliphatha akufanele kwenze uhambo lube nzima kakhulu. Sakha amathuluzi alula, acacile ukuze ugxile kokubalulekile: ukwakha into enenjongo.",
+      "cta": "Qala",
+      "explore": "Hlola i-YGT"
+    },
+    "mission": {
+      "title": "Umgomo wethu",
+      "body": "Ukunika amabhizinisi ubuchwepheshe obufinyelelekayo, obuthembekile nobuhlakaniphile obenza umsebenzi ube lula, bukhulise ukukhiqiza futhi busekele ukukhula okuhlala njalo."
+    },
+    "vision": {
+      "title": "Umbono wethu",
+      "body": "Ukuba ngumlingani wobuchwepheshe othembekile wamabhizinisi kulo lonke elaseNingizimu Afrika nangale, sisiza osomabhizinisi baguqule amaphupho abe ngamabhizinisi ahlala njalo."
+    },
+    "pillars": {
+      "title": "Indlela i-YGT esiza ngayo",
+      "grow": {
+        "title": "Khula",
+        "body": "Yakha ubudlelwano obuqinile namakhasimende, uthole amathuba amasha futhi uqhubekisele phambili ukuthengisa ngokubuka okucacile kwepayipi lakho."
+      },
+      "manage": {
+        "title": "Phatha",
+        "body": "Gcina umsebenzi wakho wansuku zonke ndawonye: amakhasimende, izilinganiso, ama-invoyisi, imikhiqizo, imisebenzi nemilayezo."
+      },
+      "succeed": {
+        "title": "Phumelela",
+        "body": "Hlala wazi, wenze izinqumo ezingcono futhi uqhubeke uya emigomweni yakho. Impumelelo ihlukile ebhizinisini ngalinye; i-YGT ikusiza ugxile kweyakho."
+      }
+    },
+    "builtFor": {
+      "title": "Yakhelwe amabhizinisi abo bonke osayizi",
+      "body": "Noma uqala ibhizinisi lakho lokuqala, uphethe inkampani ekhulayo noma uhola ithimba elikhulu, i-YGT yakhelwe ukusekela uhambo lwakho. Amathuluzi anamandla ebhizinisi kufanele asebenziseke futhi afinyeleleke, angagcinelwa izinhlangano ezinkulu kuphela."
+    },
+    "values": {
+      "title": "Okusiqhubayo",
+      "simplicity": {
+        "title": "Ubulula",
+        "body": "Ubuchwepheshe kufanele benze impilo ibe lula."
+      },
+      "accessibility": {
+        "title": "Ukufinyeleleka",
+        "body": "Amathuluzi ebhizinisi awusizo kufanele afinyeleleke kuwo wonke umuntu."
+      },
+      "innovation": {
+        "title": "Ukusungula",
+        "body": "Siqhubeka sithola izindlela ezihlakaniphile zokuxazulula izinselelo zansuku zonke."
+      },
+      "reliability": {
+        "title": "Ukuthembeka",
+        "body": "Ubuchwepheshe ongathembela kubo nsuku zonke."
+      },
+      "empowerment": {
+        "title": "Ukunika amandla",
+        "body": "Sisiza osomabhizinisi benze izinto ngokuzethemba futhi baqhubeke bekhula."
+      }
+    },
+    "sa": {
+      "eyebrow": "Siyaziqhenya ngokuba ngabaseNingizimu Afrika",
+      "title": "INingizimu Afrika engcono, eqinile",
+      "body": "Osomabhizinisi baseNingizimu Afrika babhekana nezinselelo zabo. I-YGT iletha amathuluzi asebenzayo nezindlela zokusebenza ezifanele amabhizinisi asekhaya, kuzo zonke izilimi ezisemthethweni eziyi-11, ukuze uncintisane, ukhule futhi uphumelele emnothweni wedijithali."
+    },
+    "promise": {
+      "eyebrow": "Isithembiso se-YGT",
+      "title": "Uhambo lwakho. Ukuzibophezela kwethu.",
+      "body": "Ukwakha ibhizinisi akulula ngaso sonke isikhathi, kodwa awudingi ukubhekana nayo yonke inselelo uwedwa. Silapha ukwenza umsebenzi wakho ube lula ukuze ugxile emigomweni yakho.",
+      "cta": "Qala nge-YGT",
+      "explore": "Hlola izici"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Ama-invoyisi",
     "invoicesHint": "Eyodwa evela ku-YGT ngenkokhelo ngayinye, ithunyelwa kuwe nge-imeyili uma ukhokha.",
     "paystackRef": "Inkomba ye-Paystack {{ref}}",
-    "teamFrom": "{{price}} ngesihlalo kusukela ezihlalweni ezingu-{{count}}",
-    "teamPrice": "Intengo yeqembu: izihlalo ezingu-{{count}}+",
+    "teamFrom": "Yonga u-{{percent}}% ngesihlalo kusukela ezihlalweni ezingu-{{count}}",
+    "teamPrice": "Intengo yeqembu: wonga u-{{percent}}%",
     "afterTrial": {
       "title": "Ngemva kokuhlola kwakho kwamahhala",
       "small": "Ngemva kokuhlola, i-Hustle ihlanganisa abantu abafika ku-{{limit}}. Uma bengaphezu kuka-{{limit}}, uzokhetha i-Grow noma i-Scale bese ukhokhela isihlalo esisodwa ngomuntu ngamunye.",
@@ -2105,9 +2174,9 @@
       "start": "Qala ukuzama mahhala"
     },
     "hero": {
-      "eyebrow": "Isixazululo esisodwa sebhizinisi samakhasimende akho, ukuthengisa, izilinganiso, ama-invoyisi nezinkokhelo",
-      "title": "Amaphepha amancane. Isikhathi esiningi sebhizinisi lakho.",
-      "body": "I-{{name}} iyindawo eyodwa lapho amakhasimende akho, izivumelwano, izingcaphuno, ama-invoyisi nezinkokhelo kuhlala khona, ukuze wonke umuntu asebenze ngezinombolo ezifanayo ezisesikhathini. Iyalandelela futhi ikukhumbuzele ngezinkokhelo, ikongela amahora njalo ngesonto nemali obungayilahlekelwa, ukuze ugxile ekuqhubeni ibhizinisi lakho.",
+      "eyebrow": "Khula. Phatha. Phumelela.",
+      "title": "Phupha kakhulu. Thina sizobhekana nomsebenzi wokuphatha.",
+      "body": "{{name}} igcina amakhasimende akho, izivumelwano, izilinganiso nama-invoyisi endaweni eyodwa, futhi ikulandelela izinkokhelo. Isikhathi esengeziwe somsebenzi owuthandayo.",
       "cta": "Qala ukuzama kwakho mahhala",
       "secondary": "Bona amanani"
     },

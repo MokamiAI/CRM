@@ -53,12 +53,17 @@ def test_prices_per_seat_cheaper_from_three():
     assert PLANS["grow"].price_cents("monthly", 1) == 22_900
     assert PLANS["grow"].price_cents("monthly", 2) == 45_800
     assert PLANS["scale"].price_cents("monthly", 2) == 69_800
-    # From three seats every seat is at the team price.
-    assert PLANS["grow"].price_cents("monthly", 3) == 44_700
-    assert PLANS["scale"].price_cents("monthly", 7) == 209_300
+    # From three seats every seat is 20% off, to the whole rand: R183 and R279.
+    assert PLANS["grow"].seat_cents(3) == 18_300 and PLANS["scale"].seat_cents(3) == 27_900
+    assert PLANS["grow"].price_cents("monthly", 3) == 54_900
+    assert PLANS["scale"].price_cents("monthly", 7) == 195_300
     # Annual: ten months for twelve, at the same seat price.
     assert PLANS["grow"].price_cents("annually", 1) == 229_000
-    assert PLANS["scale"].price_cents("annually", 5) == 1_495_000
+    assert PLANS["scale"].price_cents("annually", 5) == 1_395_000
+    # Adding a person never lowers the bill.
+    for plan in ("grow", "scale"):
+        for n in range(1, 12):
+            assert PLANS[plan].price_cents("monthly", n + 1) > PLANS[plan].price_cents("monthly", n)
     # One person never pays less for Grow than for Hustle, nor for Scale than Grow.
     assert PLANS["hustle"].price_cents("monthly", 1) < PLANS["grow"].price_cents("monthly", 1)
     for n in range(1, 12):

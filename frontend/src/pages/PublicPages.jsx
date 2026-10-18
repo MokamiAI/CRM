@@ -64,7 +64,7 @@ export function PublicFooter() {
         © {new Date().getFullYear()} {APP_NAME}
       </span>
       {links.map(([to, label]) => (
-        <Link key={to} to={to} className="inline-flex min-h-9 items-center hover:text-zinc-800">
+        <Link key={to} to={to} className="inline-flex min-h-9 items-center hover:text-zinc-800 [@media(pointer:coarse)]:min-h-11">
           {label}
         </Link>
       ))}

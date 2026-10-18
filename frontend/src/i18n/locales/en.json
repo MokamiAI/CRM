@@ -56,7 +56,76 @@
     "supportAdmin": "Contact your company's administrator.",
     "supportTitle": "Support",
     "tagline": "The CRM that brings your business, your customers and your team together.",
-    "version": "Version {{version}}"
+    "version": "Version {{version}}",
+    "hero": {
+      "motto": "Grow. Manage. Succeed.",
+      "eyebrow": "About YGT",
+      "body": "Running a business takes courage, determination and hard work. Managing it shouldn't make the journey harder. We build simple, clear tools so you can focus on what matters: building something meaningful.",
+      "cta": "Get started",
+      "explore": "Explore YGT"
+    },
+    "mission": {
+      "title": "Our mission",
+      "body": "To give businesses accessible, reliable and intelligent technology that simplifies their work, lifts productivity and supports lasting growth."
+    },
+    "vision": {
+      "title": "Our vision",
+      "body": "To be a trusted technology partner for businesses across South Africa and beyond, helping entrepreneurs turn ambition into businesses that last."
+    },
+    "pillars": {
+      "title": "How YGT helps",
+      "grow": {
+        "title": "Grow",
+        "body": "Build stronger customer relationships, find new opportunities and move sales forward with a clear view of your pipeline."
+      },
+      "manage": {
+        "title": "Manage",
+        "body": "Keep your everyday work together: customers, quotes, invoices, products, activities and messages."
+      },
+      "succeed": {
+        "title": "Succeed",
+        "body": "Stay informed, make better decisions and keep moving towards your goals. Success looks different for every business; YGT helps you focus on yours."
+      }
+    },
+    "builtFor": {
+      "title": "Built for businesses of all sizes",
+      "body": "Whether you're starting your first business, running a growing company or leading a bigger team, YGT is built to support your journey. Powerful business tools should be practical and approachable, not reserved for large organisations."
+    },
+    "values": {
+      "title": "What drives us",
+      "simplicity": {
+        "title": "Simplicity",
+        "body": "Technology should make life easier."
+      },
+      "accessibility": {
+        "title": "Accessibility",
+        "body": "Useful business tools should be within everyone's reach."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "body": "We keep finding smarter ways to solve everyday challenges."
+      },
+      "reliability": {
+        "title": "Reliability",
+        "body": "Technology you can depend on, every day."
+      },
+      "empowerment": {
+        "title": "Empowerment",
+        "body": "Helping entrepreneurs act with confidence and keep growing."
+      }
+    },
+    "sa": {
+      "eyebrow": "Proudly South African",
+      "title": "For a brighter, stronger South Africa",
+      "body": "South African entrepreneurs face their own challenges. YGT brings practical tools and ways of working that suit local businesses, in all 11 official languages, so you can compete, grow and succeed in a digital economy."
+    },
+    "promise": {
+      "eyebrow": "The YGT promise",
+      "title": "Your journey. Our commitment.",
+      "body": "Building a business isn't always easy, but you don't have to face every challenge alone. We're here to simplify your work so you can focus on your goals.",
+      "cta": "Get started with YGT",
+      "explore": "Explore features"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Invoices",
     "invoicesHint": "One from YGT for every payment, emailed to you when you pay.",
     "paystackRef": "Paystack reference {{ref}}",
-    "teamFrom": "{{price}} per seat from {{count}} seats",
-    "teamPrice": "Team price: {{count}}+ seats",
+    "teamFrom": "Save {{percent}}% per seat from {{count}} seats",
+    "teamPrice": "Team price: you save {{percent}}%",
     "afterTrial": {
       "title": "After your free trial",
       "small": "After the trial, Hustle covers up to {{limit}} people. With more than {{limit}}, you'll choose Grow or Scale and pay for one seat per person.",
@@ -2105,9 +2174,9 @@
       "start": "Start free trial"
     },
     "hero": {
-      "eyebrow": "One business solution for your customers, sales, quotes, invoices and payments",
-      "title": "Less admin. More business.",
-      "body": "{{name}} is the one place your customers, deals, quotes, invoices and payments live, so everyone works from the same up-to-date numbers. It follows up and chases payments for you, saving hours every week and money you'd otherwise lose, so you can focus on running your business.",
+      "eyebrow": "Grow. Manage. Succeed.",
+      "title": "Dream big. We'll handle the admin.",
+      "body": "{{name}} keeps your customers, deals, quotes and invoices in one place, and chases payments for you. More time for the work you love.",
       "cta": "Start your free trial",
       "secondary": "See pricing"
     },

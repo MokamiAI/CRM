@@ -56,7 +56,76 @@
     "supportAdmin": "Ikopanye le motsamaisi wa khampani ya hao.",
     "supportTitle": "Tshehetso",
     "tagline": "CRM e kopanyang kgwebo ya hao, bareki ba hao le sehlopha sa hao.",
-    "version": "Phetolelo {{version}}"
+    "version": "Phetolelo {{version}}",
+    "hero": {
+      "motto": "Hola. Laola. Atleha.",
+      "eyebrow": "Ka YGT",
+      "body": "Ho tsamaisa kgwebo ho hloka sebete, boikemisetso le ho sebetsa ka thata. Ho e laola ha hoa lokela ho etsa leeto le be thata le ho feta. Re aha disebediswa tse bonolo, tse hlakileng hore o tsepamise maikutlo ho se bohlokwa: ho aha ntho e nang le morero.",
+      "cta": "Qala",
+      "explore": "Hlahloba YGT"
+    },
+    "mission": {
+      "title": "Sepheo sa rona",
+      "body": "Ho fa dikgwebo theknoloji e fumanehang, e tshepahalang le e bohlale e nolofatsang mosebetsi, e eketsang tlhahiso mme e tshehetsa kgolo e tsitsitseng."
+    },
+    "vision": {
+      "title": "Pono ya rona",
+      "body": "Ho ba molekane wa theknoloji ya tshepahalang wa dikgwebo ho pholletsa le Afrika Borwa le ho feta, re thusa borakgwebo ho fetola maikemisetso a bona hore e be dikgwebo tse tsitsitseng."
+    },
+    "pillars": {
+      "title": "Kamoo YGT e thusang kateng",
+      "grow": {
+        "title": "Hola",
+        "body": "Aha dikamano tse matla le bareki, fumana menyetla e metjha mme o ise thekiso pele ka pono e hlakileng ya phaephe ya hao."
+      },
+      "manage": {
+        "title": "Laola",
+        "body": "Boloka mosebetsi wa hao wa letsatsi le letsatsi mmoho: bareki, dikotheishene, di-invoice, dihlahiswa, mesebetsi le melaetsa."
+      },
+      "succeed": {
+        "title": "Atleha",
+        "body": "Dula o tseba, etsa diqeto tse betere mme o tswele pele ho ya ho dipheo tsa hao. Katleho e fapane kgwebong ka nngwe; YGT e o thusa ho tsepamisa maikutlo ho ya hao."
+      }
+    },
+    "builtFor": {
+      "title": "E ahetswe dikgwebo tsa boholo bohle",
+      "body": "Hore na o qala kgwebo ya hao ya pele, o tsamaisa khampani e holang kapa o etella pele sehlopha se seholo, YGT e ahetswe ho tshehetsa leeto la hao. Disebediswa tse matla tsa kgwebo di lokela ho sebetseha le ho fumaneha, eseng feela bakeng sa mekgatlo e meholo."
+    },
+    "values": {
+      "title": "Se re kgannang",
+      "simplicity": {
+        "title": "Bonolo",
+        "body": "Theknoloji e lokela ho nolofatsa bophelo."
+      },
+      "accessibility": {
+        "title": "Phihlello",
+        "body": "Disebediswa tsa kgwebo tse thusang di lokela ho fumanwa ke bohle."
+      },
+      "innovation": {
+        "title": "Boqapi",
+        "body": "Re tswela pele ho fumana mekgwa e bohlale ya ho rarolla diphephetso tsa letsatsi le letsatsi."
+      },
+      "reliability": {
+        "title": "Botshepehi",
+        "body": "Theknoloji eo o ka itshetlehang ka yona letsatsi le leng le le leng."
+      },
+      "empowerment": {
+        "title": "Matlafatso",
+        "body": "Re thusa borakgwebo ho nka kgato ka boitshepo le ho tswela pele ho hola."
+      }
+    },
+    "sa": {
+      "eyebrow": "Re ikgantsha ka ho ba Maafrika Borwa",
+      "title": "Bakeng sa Afrika Borwa e kganyang, e matla",
+      "body": "Borakgwebo ba Afrika Borwa ba tobane le diphephetso tsa bona. YGT e tlisa disebediswa tse sebetsang le mekgwa ya ho sebetsa e loketseng dikgwebo tsa lehae, ka dipuo tsohle tse 11 tsa semmuso, hore o kgone ho qothisana, ho hola le ho atleha moruong wa dijithale."
+    },
+    "promise": {
+      "eyebrow": "Tshepiso ya YGT",
+      "title": "Leeto la hao. Boitlamo ba rona.",
+      "body": "Ho aha kgwebo ha ho bonolo kamehla, empa ha o a tlameha ho tobana le phephetso e nngwe le e nngwe o le mong. Re teng ho nolofatsa mosebetsi wa hao hore o tsepamise maikutlo ho dipheo tsa hao.",
+      "cta": "Qala ka YGT",
+      "explore": "Hlahloba dikarolo"
+    }
   },
   "activities": {
     "empty": {
@@ -231,8 +300,8 @@
     "invoices": "Di-invoice",
     "invoicesHint": "E le nngwe e tswang ho YGT bakeng sa tefo ka nngwe, e romelwa ho wena ka imeile ha o lefa.",
     "paystackRef": "Tshupiso ya Paystack {{ref}}",
-    "teamFrom": "{{price}} ka setulo ho qala ka ditulo tse {{count}}",
-    "teamPrice": "Theko ya sehlopha: ditulo tse {{count}}+",
+    "teamFrom": "Boloka {{percent}}% ka setulo ho qala ka ditulo tse {{count}}",
+    "teamPrice": "Theko ya sehlopha: o boloka {{percent}}%",
     "afterTrial": {
       "title": "Kamora teko ya hao ya mahala",
       "small": "Kamora teko, Hustle e akaretsa batho ho fihla ho {{limit}}. Ha ba feta {{limit}}, o tla kgetha Grow kapa Scale mme o lefe setulo se le seng motho ka mong.",
@@ -2105,9 +2174,9 @@
       "start": "Qala teko ya mahala"
     },
     "hero": {
-      "eyebrow": "Tharollo e le nngwe ya kgwebo bakeng sa bareki ba hao, thekiso, dikotheishene, di-invoice le ditefo",
-      "title": "Dipampiri tse fokolang. Nako e ngata bakeng sa kgwebo ya hao.",
-      "body": "{{name}} ke sebaka se le seng moo bareki ba hao, ditumellano, ditheko, diinvoice le ditefo di dulang teng, e le hore bohle ba sebetse ka dipalo tse tshwanang tse ntjhafaditsweng. E a latedisa mme e o hopotsa ka ditefo, e o bolokela dihora beke le beke le tjhelete eo o neng o tla e lahlehelwa, e le hore o tsepamise maikutlo ho tsamaiseng kgwebo ya hao.",
+      "eyebrow": "Hola. Laola. Atleha.",
+      "title": "Lora ka ho hoholo. Re tla hlokomela tsamaiso.",
+      "body": "{{name}} e boloka bareki ba hao, ditumellano, dikotheishene le di-invoice sebakeng se le seng, mme e o latedisetsa ditefo. Nako e ngata ya mosebetsi oo o o ratang.",
       "cta": "Qala teko ya hao ya mahala",
       "secondary": "Bona ditheko"
     },

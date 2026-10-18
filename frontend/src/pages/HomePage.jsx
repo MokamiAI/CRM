@@ -68,7 +68,7 @@ export default function HomePage() {
 
       <div className="safe-top relative mx-auto max-w-6xl px-5 sm:px-6">
         <header className="hero-rise flex items-center gap-3 py-5">
-          <Link to="/" className="flex min-h-10 items-center gap-2.5 rounded-lg">
+          <Link to="/" className="flex min-h-10 items-center gap-2.5 rounded-lg [@media(pointer:coarse)]:min-h-11">
             <BrandMark size="sm" />
             <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
           </Link>
@@ -80,7 +80,7 @@ export default function HomePage() {
           </nav>
           <div className="ml-auto flex items-center gap-2 sm:gap-3">
             <LanguagePicker />
-            <Link to="/login" className="btn btn-secondary !h-9 !text-sm">
+            <Link to="/login" className="btn btn-secondary !h-9 !text-sm [@media(pointer:coarse)]:!h-11">
               {t("login.signIn")}
             </Link>
             <Link to="/register" className="btn btn-primary hidden !h-9 !text-sm sm:inline-flex">
@@ -89,6 +89,7 @@ export default function HomePage() {
           </div>
         </header>
 
+        <main>
         {/* What it is, for whom, and the way in. */}
         <section className="grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
           <div className="min-w-0">
@@ -179,6 +180,8 @@ export default function HomePage() {
             </Link>
           </div>
         </section>
+
+        </main>
 
         <PublicFooter />
       </div>

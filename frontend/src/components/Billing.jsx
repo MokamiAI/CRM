@@ -64,7 +64,7 @@ export function seatCents(plan, interval, users = 1) {
   return annual ? plan.annual_cents : plan.monthly_cents;
 }
 
-/** Price per seat for the seats chosen ("R149 per seat / month"), the full
+/** Price per seat for the seats chosen ("R183 per seat / month"), the full
  *  price struck through once the team price applies, and the total. */
 export function PlanPrice({ plan, interval, users = 1 }) {
   const { t } = useTranslation();
@@ -86,11 +86,11 @@ export function PlanPrice({ plan, interval, users = 1 }) {
       {teamCents != null &&
         (cents < full ? (
           <p className="mt-2 inline-flex rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-200/70">
-            {t("billing.teamPrice", { count: plan.team_seats })}
+            {t("billing.teamPrice", { count: plan.team_seats, percent: plan.team_discount_percent })}
           </p>
         ) : (
           <p className="mt-2 text-xs font-medium text-emerald-700 tabular-nums">
-            {t("billing.teamFrom", { price: formatMoneyWhole(teamCents / 100), count: plan.team_seats })}
+            {t("billing.teamFrom", { price: formatMoneyWhole(teamCents / 100), count: plan.team_seats, percent: plan.team_discount_percent })}
           </p>
         ))}
       {plan.per_user && cents > 0 && users > 1 && (
@@ -117,11 +117,11 @@ export function PlanCard({ plan, interval, users, onUsers, action, highlight = f
         <label className="mt-3 flex items-center justify-between gap-3 text-sm text-zinc-600">
           {t("billing.people")}
           <span className="inline-flex items-center rounded-lg ring-1 ring-inset ring-zinc-200">
-            <button type="button" className="pressable h-8 w-8 text-zinc-500" onClick={() => onUsers(Math.max(plan.min_users, users - 1))} aria-label={t("billing.fewer")}>
+            <button type="button" className="pressable h-8 w-8 text-zinc-500 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11" onClick={() => onUsers(Math.max(plan.min_users, users - 1))} aria-label={t("billing.fewer")}>
               −
             </button>
             <span className="w-8 text-center font-medium tabular-nums text-zinc-900">{users}</span>
-            <button type="button" className="pressable h-8 w-8 text-zinc-500" onClick={() => onUsers(Math.min(500, users + 1))} aria-label={t("billing.more")}>
+            <button type="button" className="pressable h-8 w-8 text-zinc-500 [@media(pointer:coarse)]:h-11 [@media(pointer:coarse)]:w-11" onClick={() => onUsers(Math.min(500, users + 1))} aria-label={t("billing.more")}>
               +
             </button>
           </span>
@@ -154,10 +154,10 @@ export function IntervalToggle({ value, onChange }) {
           role="radio"
           aria-checked={value === v}
           onClick={() => onChange(v)}
-          className={`rounded-lg px-3 py-1.5 font-medium transition-colors duration-150 ${value === v ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 hover:text-zinc-700"}`}
+          className={`rounded-lg px-3 py-1.5 font-medium transition-colors duration-150 [@media(pointer:coarse)]:min-h-11 ${value === v ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-600 hover:text-zinc-900"}`}
         >
           {t(`billing.${v}`)}
-          {v === "annually" && <span className="ml-1.5 text-xs font-semibold text-emerald-600">{t("billing.twoFree")}</span>}
+          {v === "annually" && <span className="ml-1.5 text-xs font-semibold text-emerald-700">{t("billing.twoFree")}</span>}
         </button>
       ))}
     </div>
