@@ -448,11 +448,12 @@ export default function AppLayout() {
           <button
             type="button"
             onClick={openCommandPalette}
+            aria-label={t("nav.searchWide")}
             data-tour="search"
             className="flex h-10 min-w-0 max-w-md flex-1 items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3 text-sm text-slate-400 shadow-xs transition-colors duration-150 hover:border-slate-300 hover:text-slate-600"
           >
             <SearchIcon className="h-4 w-4 shrink-0" />
-            <span className="truncate">{t("nav.searchWide")}</span>
+            <SearchLabel wide={t("nav.searchWide")} short={t("nav.search")} />
             <kbd className="ml-auto hidden shrink-0 rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-medium text-slate-400 lg:inline">Ctrl K</kbd>
           </button>
           <div className="ml-auto flex shrink-0 items-center gap-1.5">
@@ -563,5 +564,26 @@ export default function AppLayout() {
         <ProfileSheet open={profileOpen} onClose={() => setProfileOpen(false)} />
       </div>
     </TourProvider>
+  );
+}
+
+// The full "Search customers, deals, quotes…" when it fits, otherwise just
+// "Search": some languages run much longer, and a cut-off sentence reads badly.
+function SearchLabel({ wide, short }) {
+  const box = useRef(null);
+  const measure = useRef(null);
+  const [fits, setFits] = useState(true);
+  useEffect(() => {
+    const check = () => box.current && measure.current && setFits(measure.current.offsetWidth <= box.current.clientWidth);
+    check();
+    const observer = new ResizeObserver(check);
+    if (box.current) observer.observe(box.current);
+    return () => observer.disconnect();
+  }, [wide]);
+  return (
+    <span ref={box} className="relative min-w-0 flex-1 overflow-hidden text-left" aria-hidden="true">
+      <span ref={measure} className="invisible absolute whitespace-nowrap">{wide}</span>
+      <span className="whitespace-nowrap">{fits ? wide : short}</span>
+    </span>
   );
 }

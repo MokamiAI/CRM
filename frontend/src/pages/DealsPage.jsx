@@ -156,11 +156,25 @@ export default function DealsPage() {
         title={t("nav.deals")}
         subtitle={isLoading ? undefined : t("deals.subtitle", { count: openDeals.length, amount: formatMoney(openTotal) })}
         actions={
-          canWrite && (
-            <Button onClick={() => setCreating("lead")}>
-              <PlusIcon className="h-4 w-4" /> {t("dashboard.newDeal")}
-            </Button>
-          )
+          <>
+            {/* Which pipeline this page shows; changes the whole board, so it stays in view. */}
+            <FilterChips
+              bare
+              label={t("deals.format")}
+              tone="brand"
+              options={[
+                { value: "standard", label: t("deals.formatStandard") },
+                { value: "mcem", label: t("deals.formatAdvanced") },
+              ]}
+              value={format}
+              onChange={changeFormat}
+            />
+            {canWrite && (
+              <Button onClick={() => setCreating("lead")}>
+                <PlusIcon className="h-4 w-4" /> {t("dashboard.newDeal")}
+              </Button>
+            )}
+          </>
         }
       />
       {/* One row: whose deals, filters, how it works, board or list. The
@@ -191,16 +205,6 @@ export default function DealsPage() {
           {t("deals.filters")}
           {filtersOn > 0 && <span className="rounded-full bg-blue-600 px-1.5 text-[11px] font-semibold leading-5 text-white tabular-nums">{filtersOn}</span>}
         </button>
-        {isMcem && (
-          <button
-            type="button"
-            onClick={() => setShowFilters(true)}
-            title={t("deals.format")}
-            className="pressable inline-flex h-10 items-center gap-1.5 rounded-lg bg-blue-600 px-3 text-[13px] font-medium text-white shadow-xs hover:bg-blue-700"
-          >
-            {t("deals.formatAdvanced")}
-          </button>
-        )}
         <button
           type="button"
           aria-expanded={showHelp}
@@ -229,7 +233,7 @@ export default function DealsPage() {
       </div>
 
       {showFilters && (
-        <div id="deal-filters" className="mb-4 grid gap-4 rounded-xl border border-zinc-200/80 bg-white p-4 sm:grid-cols-[auto_auto_1fr] sm:items-start sm:gap-8">
+        <div id="deal-filters" className="mb-4 grid gap-4 rounded-xl border border-zinc-200/80 bg-white p-4 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-8">
           <div>
             <p className="mb-1.5 text-xs font-medium text-zinc-600">{t("priority.label")}</p>
             <FilterChips
@@ -252,24 +256,10 @@ export default function DealsPage() {
               {t("deals.openOnly")}
             </label>
           </div>
-          <div>
-            <p className="mb-1.5 text-xs font-medium text-zinc-600">{t("deals.format")}</p>
-            <FilterChips
-              bare
-              label={t("deals.format")}
-              tone="brand"
-              options={[
-                { value: "standard", label: t("deals.formatStandard") },
-                { value: "mcem", label: t("deals.formatAdvanced") },
-              ]}
-              value={format}
-              onChange={changeFormat}
-            />
-          </div>
           {filtersOn > 0 && (
             <button
               type="button"
-              className="justify-self-start text-sm font-medium text-blue-700 hover:text-blue-900 sm:col-span-3"
+              className="justify-self-start text-sm font-medium text-blue-700 hover:text-blue-900 sm:col-span-2"
               onClick={() => {
                 setPriority("any");
                 setActiveOnly(false);
@@ -544,7 +534,7 @@ function DealCard({ deal, customer, owner, progress, canWrite, onMove, onPlan })
         </Link>
         {isOpen(deal) && <PriorityBadge priority={deal.priority} quiet />}
       </p>
-      <p className="mt-0.5 truncate text-xs text-zinc-500">{customer?.name ?? "…"}</p>
+      <p className="mt-0.5 break-words text-xs text-zinc-500">{customer?.name ?? "…"}</p>
       {!deal.mcem_enabled && deal.stage !== "lost" && <JourneyBar milestones={deal.milestones} className="mt-2.5" />}
       <div className="mt-2.5 flex items-center justify-between gap-2">
         <span className={`text-sm font-semibold ${deal.stage === "won" ? "text-emerald-800" : deal.stage === "lost" ? "text-zinc-500 line-through decoration-red-300" : "text-zinc-900"}`}>
@@ -594,7 +584,9 @@ function DealTable({ deals, customers, team, loading, phases, isMcem }) {
   return (
     <div className="card overflow-hidden">
       <DealFormSheet open={Boolean(editing)} onClose={() => setEditing(null)} deal={editing} />
-      <table className="hidden w-full md:table">
+      {/* Long column names in some languages: scroll sideways inside the card, never cut off. */}
+      <div className="relative hidden overflow-x-auto md:block">
+      <table className="w-full">
         <thead className="table-head">
           <tr>
             <th>{t("deals.col.deal")}</th>
@@ -652,7 +644,7 @@ function DealTable({ deals, customers, team, loading, phases, isMcem }) {
                   </span>
                 </td>
                 <td className="whitespace-nowrap text-right font-medium tabular-nums text-zinc-900">{formatMoney(deal.value)}</td>
-                <td className="whitespace-nowrap text-zinc-600">{industryLabel(deal.industry) || "—"}</td>
+                <td className="text-zinc-600">{industryLabel(deal.industry) || "—"}</td>
                 <td>
                   {owner && (
                     <span className="inline-flex items-center gap-2 text-zinc-600">
@@ -671,16 +663,17 @@ function DealTable({ deals, customers, team, loading, phases, isMcem }) {
           })}
         </tbody>
       </table>
+      </div>
       <ul className="divide-y divide-zinc-100 md:hidden">
         {deals.map((deal) => (
           <li key={deal.id}>
             <Link to={`/deals/${deal.id}`} className="flex items-center justify-between gap-3 px-4 py-3.5 active:bg-zinc-50">
               <div className="min-w-0">
-                <p className="flex items-center gap-2 font-medium text-zinc-900">
-                  <span className="truncate">{deal.title}</span>
+                <p className="flex items-start gap-2 font-medium leading-snug text-zinc-900">
+                  <span className="min-w-0 break-words">{deal.title}</span>
                   {isOpen(deal) && <PriorityBadge priority={deal.priority} quiet />}
                 </p>
-                <p className="truncate text-[13px] text-zinc-500">
+                <p className="mt-0.5 break-words text-[13px] text-zinc-500">
                   {customers.get(deal.customer_id)?.name ?? "…"} · {!isMcem || deal.stage === "lost" ? t(`stage.${deal.stage}`) : phases.get(deal.id) ?? "Not set up yet"}
                 </p>
               </div>

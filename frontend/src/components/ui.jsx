@@ -187,7 +187,8 @@ export function ListSkeleton({ rows = 5 }) {
 export function FilterChips({ options, value, onChange, bare = false, label, tone }) {
   return (
     <div className={bare ? "min-w-0" : "-mx-4 mb-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0"}>
-      <div className="inline-flex gap-1 rounded-lg border border-zinc-200/80 bg-zinc-100/70 p-1" role="group" aria-label={label}>
+      {/* Wraps onto a second line rather than running off a narrow screen. */}
+      <div className={`${bare ? "inline-flex max-w-full flex-wrap" : "inline-flex"} gap-1 rounded-lg border border-zinc-200/80 bg-zinc-100/70 p-1`} role="group" aria-label={label}>
         {options.map((option) => {
           const active = option.value === value;
           return (
