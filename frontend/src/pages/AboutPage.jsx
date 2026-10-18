@@ -69,9 +69,12 @@ export default function AboutPage() {
         <main>
         <section className="py-12 text-center sm:py-16">
           <BrandMark size="lg" className="mx-auto" join />
-          <h1 className="brand-text mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">{APP_FULL_NAME}.</h1>
+          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.12em] text-indigo-600">{t("about.hero.eyebrow")}</p>
+          <h1 className="brand-text mt-3 text-5xl font-semibold tracking-tight sm:text-6xl">{APP_FULL_NAME}.</h1>
           <p className="mt-3 text-lg font-semibold text-zinc-900 sm:text-xl">{t("about.hero.motto")}</p>
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-zinc-600">{t("about.hero.body")}</p>
+          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-zinc-600">{t("about.hero.promise")}</p>
+          <p className="mx-auto mt-5 max-w-xl text-sm font-medium text-indigo-700">{t("about.hero.supporting")}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link to={user ? "/" : "/register"} className="btn btn-primary !h-11 !px-5 !text-[15px]">
               {t(user ? "about.backToApp" : "about.hero.cta")}

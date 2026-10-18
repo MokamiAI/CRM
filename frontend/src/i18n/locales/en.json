@@ -47,9 +47,9 @@
     },
     "privacyTitle": "Privacy & POPIA",
     "story": {
-      "p1": "{{full}} began with a moment of pride. {{founder}} watched a close associate start a company of their own, built around sales services, and saw first-hand how much courage it takes to begin.",
+      "p1": "{{full}} began with a moment of pride. {{founder}} watched close associates start their own companies and saw first-hand how much courage it takes to begin.",
       "p2": "That moment stayed with him. He has long been passionate about helping SMMEs reach their goals, to develop and to grow, and he wanted to build something that stands beside them while they do.",
-      "p3": "The name is the message he wanted to send to his associate, and to every business and organisation that uses it: you are capable. Keep pushing, and never stop.",
+      "p3": "The name is the message he wanted to send to his close associates, and to every business and organisation that uses it: you are capable. Keep pushing, and never stop.",
       "role": "Founder and creator",
       "title": "Our story"
     },
@@ -60,8 +60,10 @@
     "hero": {
       "motto": "Grow. Manage. Succeed.",
       "eyebrow": "About YGT",
-      "body": "Running a business takes courage, determination and hard work. Managing it shouldn't make the journey harder. We build simple, clear tools so you can focus on what matters: building something meaningful.",
-      "cta": "Get started",
+      "body": "Running a business takes courage, determination and hard work. Managing it shouldn't make the journey harder.",
+      "promise": "At YGT, we believe every entrepreneur deserves tools that make everyday business simpler, clearer and more manageable. Because when you have the right support behind you, you can focus on what matters: building something meaningful.",
+      "supporting": "Grow your opportunities. Manage your operations. Succeed on your terms.",
+      "cta": "Get Started",
       "explore": "Explore YGT"
     },
     "mission": {
