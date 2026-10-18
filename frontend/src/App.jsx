@@ -3,22 +3,31 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getCustomerTerm } from "./i18n";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AppLayout from "./layouts/AppLayout";
-import ActivitiesPage from "./pages/ActivitiesPage";
-import CustomerDetailPage from "./pages/CustomerDetailPage";
-import CustomersPage from "./pages/CustomersPage";
-import DealDetailPage from "./pages/DealDetailPage";
-import DealsPage from "./pages/DealsPage";
-import DashboardPage from "./pages/DashboardPage";
-import InvoiceDetailPage from "./pages/InvoiceDetailPage";
-import { InvoicesPage, NewInvoicePage } from "./pages/InvoicesPage";
-import LoginPage, { RegisterPage } from "./pages/LoginPage";
-import ProductsPage from "./pages/ProductsPage";
-import { NewQuotePage, QuoteDetailPage, QuotesPage } from "./pages/QuotesPage";
 
 // Pages people open less often load the first time they're visited, so the
 // everyday screens above reach a phone sooner.
 const named = (load, name) => lazy(() => load().then((module) => ({ default: module[name] })));
+// Every page loads on its own, when it's first opened: a visitor reading the
+// home page or signing in doesn't download the whole app first.
+const AppLayout = lazy(() => import("./layouts/AppLayout"));
+const ActivitiesPage = lazy(() => import("./pages/ActivitiesPage"));
+const CustomerDetailPage = lazy(() => import("./pages/CustomerDetailPage"));
+const CustomersPage = lazy(() => import("./pages/CustomersPage"));
+const DealDetailPage = lazy(() => import("./pages/DealDetailPage"));
+const DealsPage = lazy(() => import("./pages/DealsPage"));
+const DashboardPage = lazy(() => import("./pages/DashboardPage"));
+const InvoiceDetailPage = lazy(() => import("./pages/InvoiceDetailPage"));
+const invoicePages = () => import("./pages/InvoicesPage");
+const InvoicesPage = named(invoicePages, "InvoicesPage");
+const NewInvoicePage = named(invoicePages, "NewInvoicePage");
+const loginPages = () => import("./pages/LoginPage");
+const LoginPage = lazy(loginPages);
+const RegisterPage = named(loginPages, "RegisterPage");
+const ProductsPage = lazy(() => import("./pages/ProductsPage"));
+const quotePages = () => import("./pages/QuotesPage");
+const NewQuotePage = named(quotePages, "NewQuotePage");
+const QuoteDetailPage = named(quotePages, "QuoteDetailPage");
+const QuotesPage = named(quotePages, "QuotesPage");
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const MarketingPage = lazy(() => import("./pages/MarketingPage"));
 const MessagesPage = lazy(() => import("./pages/MessagesPage"));

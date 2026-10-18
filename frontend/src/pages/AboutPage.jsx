@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
-import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
+import { APP_FULL_NAME, APP_NAME, BrandMark, COMPANY_NAME } from "../components/Brand";
 import LanguagePicker from "../components/LanguagePicker";
 import { IntervalToggle, PlanCard } from "../components/Billing";
 import { ContactForm } from "./PublicPages";
@@ -238,7 +238,7 @@ export default function AboutPage() {
 
         <footer className="safe-bottom flex flex-wrap items-center justify-between gap-2 py-10 text-xs text-zinc-500">
           <span>
-            © {new Date().getFullYear()} {APP_NAME} · {t("about.madeIn")}
+            © {new Date().getFullYear()} {APP_NAME} · {t("about.developedBy", { company: COMPANY_NAME })} · {t("about.madeIn")}
           </span>
           <span className="flex flex-wrap gap-x-4 gap-y-1">
             <Link to="/terms" className="inline-flex items-center py-2 -my-2 hover:text-zinc-800 [@media(pointer:coarse)]:min-h-11">

@@ -125,7 +125,8 @@
       "body": "Building a business isn't always easy, but you don't have to face every challenge alone. We're here to simplify your work so you can focus on your goals.",
       "cta": "Get started with YGT",
       "explore": "Explore features"
-    }
+    },
+    "developedBy": "Developed by {{company}}"
   },
   "activities": {
     "empty": {

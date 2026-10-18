@@ -1,6 +1,8 @@
 // The product's name and mark, in one place.
 export const APP_NAME = "YGT";
 export const APP_FULL_NAME = "You Got This";
+// The company that develops and runs YGT.
+export const COMPANY_NAME = "YGT Nexovanta Technologies";
 
 /** The YGT monogram on the brand gradient. `join` lets the letters rise into
  *  place once (sign-in and About only; never in the sidebar). */

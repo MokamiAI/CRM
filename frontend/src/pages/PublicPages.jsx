@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
 import { announceVerified, useAuth } from "../context/AuthContext";
-import { APP_NAME, BrandMark } from "../components/Brand";
+import { APP_NAME, BrandMark, COMPANY_NAME } from "../components/Brand";
 import LanguagePicker from "../components/LanguagePicker";
 import GlowField from "../components/GlowField";
 import { AuthShell, FormError, SwitchLink } from "./LoginPage";
@@ -14,7 +14,7 @@ import { queueWelcome } from "../components/Startup";
 // Your business details for the legal pages. Fill these in before going
 // live (Paystack checks them when it reviews your account).
 export const LEGAL = {
-  company: "YGT (You Got This)",
+  company: COMPANY_NAME,
   registration: "", // CIPC registration number, e.g. 2026/123456/07
   address: "", // physical address in South Africa
   email: import.meta.env.VITE_SUPPORT_EMAIL || "",
@@ -61,7 +61,7 @@ export function PublicFooter() {
   return (
     <footer className="safe-bottom mt-12 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-zinc-100 py-6 text-xs text-zinc-500">
       <span>
-        © {new Date().getFullYear()} {APP_NAME}
+        © {new Date().getFullYear()} {APP_NAME} · {t("about.developedBy", { company: COMPANY_NAME })}
       </span>
       {links.map(([to, label]) => (
         <Link key={to} to={to} className="inline-flex min-h-9 items-center hover:text-zinc-800 [@media(pointer:coarse)]:min-h-11">
@@ -405,8 +405,8 @@ const LEGAL_PAGES = {
     body: () => (
       <>
         <p>
-          These terms apply when you or your organisation (“you”) use {LEGAL.company} (“YGT”, “we”), a customer relationship management and invoicing
-          service run from South Africa. By creating an account you agree to them on behalf of your organisation.
+          These terms apply when you or your organisation (“you”) use YGT (You Got This), a customer relationship management and invoicing service
+          developed and run from South Africa by {LEGAL.company} (“YGT”, “we”). By creating an account you agree to them on behalf of your organisation.
         </p>
         <Section title="1. Your account">
           <p>You are responsible for the people you invite, for keeping passwords safe, and for the information you put into YGT. Each person must use their own sign-in.</p>

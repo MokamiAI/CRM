@@ -125,7 +125,8 @@
       "body": "Om 'n besigheid te bou is nie altyd maklik nie, maar jy hoef nie elke uitdaging alleen aan te pak nie. Ons is hier om jou werk te vereenvoudig sodat jy op jou doelwitte kan fokus.",
       "cta": "Begin met YGT",
       "explore": "Verken kenmerke"
-    }
+    },
+    "developedBy": "Ontwikkel deur {{company}}"
   },
   "activities": {
     "empty": {

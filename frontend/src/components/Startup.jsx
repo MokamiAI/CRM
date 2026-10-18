@@ -49,7 +49,7 @@ export function welcomeQueued() {
 /** A full-screen layer. It can close gracefully (the words play backwards,
  *  then the layer fades and lifts) or at once; a second request while the
  *  graceful close is playing skips the rest of it. */
-function useOverlay(onClosed, outro, { keysGraceful = false, onLeaving } = {}) {
+function useOverlay(onClosed, outro, { keysGraceful = false, onLeaving, tabSkips = false } = {}) {
   const layer = useRef(null);
   const phase = useRef("open"); // open | outro | leaving
   const [closing, setClosing] = useState(false);
@@ -80,9 +80,10 @@ function useOverlay(onClosed, outro, { keysGraceful = false, onLeaving } = {}) {
     [outro, leave]
   );
   // Any key closes it (gracefully where asked); the page doesn't scroll meanwhile.
+  // Tab stays inside a dialog, but skips an overlay that has nothing to focus.
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "Tab") return;
+      if (e.key === "Tab" && !tabSkips) return;
       e.preventDefault();
       close(keysGraceful);
     };
@@ -93,7 +94,7 @@ function useOverlay(onClosed, outro, { keysGraceful = false, onLeaving } = {}) {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = overflow;
     };
-  }, [close, keysGraceful]);
+  }, [close, keysGraceful, tabSkips]);
   return { layer, close, closing };
 }
 
@@ -115,13 +116,26 @@ export function StartupIntro() {
   return <IntroLayer t={t} onClosed={done} />;
 }
 
-const INTRO_HOLD = 2900; // ms "You Got This" stays before folding back
+const INTRO_HOLD = 1500; // ms "You Got This" stays before folding back
 
 function IntroLayer({ t, onClosed }) {
   const words = useRef(null);
   const outro = useCallback(() => words.current?.outro() ?? Promise.resolve(), []);
-  const { layer, close, closing } = useOverlay(onClosed, outro, { onLeaving: releasePage });
-  useEffect(() => releasePage, []); // also if it goes away some other way
+  // While it shows, the page behind can't be reached by keyboard or screen
+  // reader; it comes back the moment the intro starts to leave.
+  const hidden = useRef([]);
+  const reveal = useCallback(() => {
+    hidden.current.forEach((el) => (el.inert = false));
+    hidden.current = [];
+    releasePage();
+  }, []);
+  const { layer, close, closing } = useOverlay(onClosed, outro, { onLeaving: reveal, tabSkips: true });
+  useEffect(() => {
+    const siblings = [...(layer.current?.parentElement?.children ?? [])].filter((el) => el !== layer.current && !el.inert);
+    siblings.forEach((el) => (el.inert = true));
+    hidden.current = siblings;
+    return reveal; // also if it goes away some other way
+  }, [layer, reveal]);
   const timer = useRef(null);
   useEffect(() => () => clearTimeout(timer.current), []);
   const finished = useCallback(() => {

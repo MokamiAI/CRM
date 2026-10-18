@@ -125,7 +125,8 @@
       "body": "Ukwakha ishishini akusoloko kulula, kodwa akunyanzelekanga ujongane nomngeni ngamnye wedwa. Silapha ukwenza umsebenzi wakho ube lula ukuze ugxile kwiinjongo zakho.",
       "cta": "Qala nge-YGT",
       "explore": "Phonononga iimpawu"
-    }
+    },
+    "developedBy": "Iphuhliswe ngu-{{company}}"
   },
   "activities": {
     "empty": {
