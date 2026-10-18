@@ -54,7 +54,7 @@ class Settings(BaseSettings):
     SMTP_PORT: int = 587
     SMTP_USERNAME: str | None = None
     SMTP_PASSWORD: str | None = None
-    SMTP_FROM_EMAIL: str | None = None
+    SMTP_FROM_EMAIL: str | None = "billing@yougt.co.za"
     SMTP_FROM_NAME: str = "YGT"
     # STARTTLS on port 587 (port 465 always uses TLS). Off only for a local test server.
     SMTP_USE_TLS: bool = True

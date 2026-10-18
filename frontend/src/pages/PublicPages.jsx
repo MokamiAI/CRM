@@ -15,9 +15,9 @@ import { queueWelcome } from "../components/Startup";
 // live (Paystack checks them when it reviews your account).
 export const LEGAL = {
   company: COMPANY_NAME,
-  registration: "", // CIPC registration number, e.g. 2026/123456/07
-  address: "", // physical address in South Africa
-  email: import.meta.env.VITE_SUPPORT_EMAIL || "",
+  registration: "K2026/825202/07",
+  address: "A remote-first company based in South Africa",
+  email: "johannes@yougt.co.za",
   informationOfficer: "Mokami Johannes",
   updated: "11 October 2026",
 };

@@ -333,6 +333,15 @@ class TestSender:
         config = resolve_email_config(self._company(smtp_host="mail.acme.test", sender_name="Acme Sales"))
         assert (config.from_email, config.from_name, config.reply_to) == ("sales@acme.test", "Acme Sales", None)
 
+    def test_company_without_email_settings_uses_shared_sender(self, monkeypatch):
+        from app.services import email_settings
+        from app.services.email_settings import resolve_email_config
+
+        monkeypatch.setattr(email_settings.settings, "SMTP_FROM_EMAIL", "billing@yougt.co.za")
+        config = resolve_email_config(self._company(sender_email=None))
+        assert config.host == "smtp.ygt.test"
+        assert (config.from_email, config.from_name, config.reply_to) == ("billing@yougt.co.za", "Acme Ltd", None)
+
     def test_reply_to_header_is_added_unless_the_email_sets_its_own(self, monkeypatch):
         from app.services.email_settings import resolve_email_config
 
