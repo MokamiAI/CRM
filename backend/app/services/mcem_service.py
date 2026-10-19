@@ -83,6 +83,8 @@ class McemService:
         self.db.add(McemEvent(company_id=deal.company_id, deal_id=deal.id, actor_id=actor_id, kind=kind, detail=jsonable_encoder(detail)))
 
     async def journey(self, deal):
+        if not deal.mcem_enabled:
+            raise ConflictError("Advanced pipeline is turned off", "MCEM_NOT_ENABLED")
         row = await self.db.scalar(select(McemJourney).where(McemJourney.deal_id == deal.id))
         if row is None:
             raise ConflictError("Enable MCEM on this opportunity first", "MCEM_NOT_ENABLED")
@@ -99,12 +101,30 @@ class McemService:
         await self.owner(owner_id)
         deal.mcem_enabled = True
         deal.owner_id = owner_id
-        self.db.add(McemJourney(company_id=deal.company_id, deal_id=deal.id, state="active" if deal.stage == DealStage.WON else "paused" if deal.stage == DealStage.LOST else "draft", delivery_owner_id=owner_id, account_owner_id=owner_id))
+        existing = await self.db.scalar(select(McemJourney).where(McemJourney.deal_id == deal.id))
+        state = "active" if deal.stage == DealStage.WON else "paused" if deal.stage == DealStage.LOST else "draft"
+        if existing is not None:
+            existing.state = state
+            self.event(deal, actor.id, "reenabled", {"stage": deal.stage.value})
+            await self.db.flush()
+            return await self.detail(deal_id)
+        self.db.add(McemJourney(company_id=deal.company_id, deal_id=deal.id, state=state, delivery_owner_id=owner_id, account_owner_id=owner_id))
         for key, _, _ in CATALOG:
             self.db.add(McemMilestone(company_id=deal.company_id, deal_id=deal.id, key=key, owner_id=owner_id))
         self.event(deal, actor.id, "enabled", {"stage": deal.stage.value, "message": "Milestones start unconfirmed; no customer agreement has been inferred."})
         await self.db.flush()
         return await self.detail(deal_id)
+
+    async def disable(self, deal_id, actor):
+        deal = await self.deal(deal_id, lock=True)
+        if not deal.mcem_enabled:
+            return {"enabled": False}
+        journey = await self.journey(deal)
+        journey.state = "paused"
+        deal.mcem_enabled = False
+        self.event(deal, actor.id, "disabled", {"stage": deal.stage.value})
+        await self.db.flush()
+        return {"enabled": False}
 
     async def issues(self, deal, target, changes=None):
         if not deal.mcem_enabled:
@@ -204,6 +224,8 @@ class McemService:
         return await self.detail(deal_id)
 
     async def milestone(self, deal, key):
+        if not deal.mcem_enabled:
+            raise ConflictError("Advanced pipeline is turned off", "MCEM_NOT_ENABLED")
         row = (await self.milestones(deal)).get(key)
         if row is None:
             raise NotFoundError("Milestone not found", "MCEM_MILESTONE_NOT_FOUND")

@@ -42,6 +42,11 @@ export default function McemProgress({ deal, canWrite }) {
     for (const key of [["deal", deal.id], ["deals"], ["timeline"], ["mcem-report"], ["mcem-history", deal.id]]) queryClient.invalidateQueries({ queryKey: key });
   };
   const enable = useMutation({ mutationFn: () => apiClient.post(`/deals/${deal.id}/mcem/enable`).then(r => r.data), onSuccess: done, onError: e => toast.error(errorMessage(e)) });
+  const disable = useMutation({
+    mutationFn: () => apiClient.post(`/deals/${deal.id}/mcem/disable`).then(r => r.data),
+    onSuccess: data => { done(data); toast.success("Advanced features turned off. Your progress is saved."); },
+    onError: e => toast.error(errorMessage(e)),
+  });
   const advance = useMutation({
     mutationFn: stage => apiClient.patch(`/deals/${deal.id}`, { stage }),
     onSuccess: () => {
@@ -59,7 +64,7 @@ export default function McemProgress({ deal, canWrite }) {
   if (query.isError) return <ErrorState onRetry={query.refetch} />;
   if (!query.data.enabled) return <section className="card flex flex-wrap items-center justify-between gap-4 p-5">
     <div className="max-w-2xl"><h2 className="text-sm font-semibold text-zinc-900">Customer progress</h2><p className="mt-1 text-sm text-zinc-600">Track customer-confirmed milestones, then continue into delivery and value reviews. Existing work starts unconfirmed; evidence is required before advancing.</p></div>
-    {canWrite && <Button variant="secondary" disabled={enable.isPending} onClick={() => enable.mutate()}>{enable.isPending ? "Enabling…" : "Turn on advanced pipeline"}</Button>}
+    {canWrite && <Button variant="secondary" className="font-bold" disabled={enable.isPending} onClick={() => enable.mutate()}>{enable.isPending ? "Enabling…" : "Turn on advanced pipeline"}</Button>}
   </section>;
   const data = query.data;
   const next = NEXT[deal.stage];
@@ -71,6 +76,12 @@ export default function McemProgress({ deal, canWrite }) {
     <div className="space-y-3 border-b border-zinc-200 p-5">
       <div className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="font-semibold text-zinc-900">Customer progress</h2><p className="mt-1 text-sm text-zinc-600">{data.phase}{deal.stage === "lost" ? " · Preserved at loss" : ""}</p></div>
         <span className="text-sm tabular-nums text-zinc-600">{visible.filter(m => m.status === "confirmed").length} of {visible.length} confirmed</span></div>
+      {canWrite && <div className="flex flex-wrap items-center gap-3">
+        <Button variant="secondary" className="font-bold" disabled={disable.isPending} onClick={() => disable.mutate()}>
+          {disable.isPending ? "Turning off..." : "Turn off advanced features"}
+        </Button>
+        <p className="text-xs text-zinc-600">Use the standard pipeline. Saved milestones and evidence are kept.</p>
+      </div>}
       {data.next_action ? <p className="text-sm text-zinc-700">Next customer action: <Link className="font-medium text-indigo-700 underline" to={`/activities?task=${data.next_action.id}`}>{data.next_action.subject}</Link> · {formatDate(data.next_action.due_date)}</p> : deal.stage !== "won" && deal.stage !== "lost" ? <p className="text-sm text-amber-800">Schedule a customer next action in Next steps below.</p> : null}
       {next && <details className="rounded-lg bg-zinc-50 px-3 py-2 text-sm"><summary className="cursor-pointer font-medium text-zinc-800">{missing.length ? `${missing.length} requirements to ${CHECKPOINTS[next].toLowerCase()}` : `Ready to ${CHECKPOINTS[next].toLowerCase()}`}</summary>{missing.length > 0 && <ul className="mt-2 list-disc space-y-1 pl-5 text-zinc-600">{missing.map(s => <li key={s}>{s}</li>)}</ul>}</details>}
       {next && canWrite && <div className="flex flex-wrap items-center gap-3"><Button variant="secondary" disabled={missing.length > 0 || advance.isPending} onClick={() => advance.mutate(next)}>{advance.isPending ? "Updating..." : CHECKPOINTS[next]}</Button><span className="text-xs text-zinc-600">Complete the evidence and handover requirements above to continue.</span></div>}
@@ -169,7 +180,7 @@ function EventDetails({ event, team, milestones }) {
 
 function McemHistory({ deal, team, milestones }) {
   const query = useInfiniteQuery({ queryKey: ["mcem-history", deal.id], initialPageParam: 0, queryFn: ({ pageParam }) => get(`/deals/${deal.id}/mcem/history?offset=${pageParam}&limit=10`), getNextPageParam: (last, pages) => last.length === 10 ? pages.reduce((n, p) => n + p.length, 0) : undefined });
-  const titles = { enabled: "Advanced pipeline turned on", stage_changed: "Sales stage changed", milestone_updated: "Milestone updated", evidence_added: "Customer evidence linked", confirmation_review_required: "Confirmations need review", journey_updated: "Customer journey updated", expansion_created: "Expansion opportunity created" };
+  const titles = { disabled: "Advanced pipeline turned off", reenabled: "Advanced pipeline turned back on", enabled: "Advanced pipeline turned on", stage_changed: "Sales stage changed", milestone_updated: "Milestone updated", evidence_added: "Customer evidence linked", confirmation_review_required: "Confirmations need review", journey_updated: "Customer journey updated", expansion_created: "Expansion opportunity created" };
   if (query.isLoading) return <p className="p-5 text-sm text-zinc-500">Loading customer progress history…</p>;
   if (query.isError) return <ErrorState onRetry={query.refetch} />;
   return <div className="p-5"><ol className="divide-y divide-zinc-100">{query.data.pages.flat().map(event => <li key={event.id} className="py-3"><p className="text-sm font-medium text-zinc-900">{titles[event.kind] ?? "Customer progress updated"}{event.detail.key ? ` · ${milestones.find(m => m.key === event.detail.key)?.label ?? event.detail.key}` : ""}</p><p className="mt-1 text-xs text-zinc-500">{formatDateTime(event.created_at)} · {team.find(u => u.id === event.actor_id)?.full_name ?? "Recorded by the system"}</p>{event.kind === "stage_changed" && <p className="mt-1 text-sm text-zinc-700">{event.detail.from} → {event.detail.to} · {event.detail.phase}{event.detail.reason ? ` · ${event.detail.reason}` : ""}</p>}<EventDetails event={event} team={team} milestones={milestones} /></li>)}</ol>{query.hasNextPage && <Button variant="secondary" disabled={query.isFetchingNextPage} onClick={() => query.fetchNextPage()}>{query.isFetchingNextPage ? "Loading…" : "Load earlier history"}</Button>}</div>;

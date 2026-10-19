@@ -185,3 +185,36 @@ async def test_due_reporting_and_team_reminders_are_deduplicated_without_email(a
         assert await McemService(db).remind(TODAY) == 1
         assert await McemService(db).remind(TODAY) == 0
     assert not any(name.endswith("send_platform_email_task") for name, _ in api.queued[before:])
+
+
+@pytest.mark.asyncio
+async def test_disable_and_reenable_preserve_progress_and_remove_gates(api):
+    owner, customer, person, deal, note = await setup(api)
+    h = owner["headers"]
+    path = f"/deals/{deal['id']}"
+    await confirm(api, owner, deal, note, "fit")
+    before = (await api.get(path + "/mcem", headers=h)).json()
+    other = await new_company(api, "Unrelated company")
+    assert (await api.post(path + "/mcem/disable", headers=other["headers"])).status_code == 404
+    result = await api.post(path + "/mcem/disable", headers=h)
+    assert result.status_code == 200, result.text
+    assert result.json() == {"enabled": False}
+    assert (await api.get(path, headers=h)).json()["mcem_enabled"] is False
+    assert (await api.get(path + "/mcem", headers=h)).json() == {"enabled": False}
+    assert not any(d["id"] == deal["id"] for d in (await api.get("/mcem/report", headers=h)).json()["opportunities"])
+    assert (await api.patch(path + "/mcem/journey", json={"scope": "Do not change"}, headers=h)).status_code == 409
+    assert (await api.patch(path + "/mcem/milestones/fit", json={"summary": "Do not change"}, headers=h)).status_code == 409
+    # Standard pipeline can advance without advanced evidence gates.
+    assert (await api.patch(path, json={"stage": "proposal"}, headers=h)).status_code == 200
+    assert (await api.post(path + "/mcem/disable", headers=h)).status_code == 200
+    enabled = await api.post(path + "/mcem/enable", headers=h)
+    assert enabled.status_code == 200, enabled.text
+    after = enabled.json()
+    assert after["journey"]["id"] == before["journey"]["id"]
+    assert len(after["milestones"]) == len(before["milestones"])
+    old = next(m for m in before["milestones"] if m["key"] == "fit")
+    restored = next(m for m in after["milestones"] if m["key"] == "fit")
+    assert restored["id"] == old["id"] and restored["status"] == old["status"]
+    assert restored["evidence"] == old["evidence"]
+    kinds = [e["kind"] for e in (await api.get(path + "/mcem/history", headers=h)).json()]
+    assert "disabled" in kinds and "reenabled" in kinds

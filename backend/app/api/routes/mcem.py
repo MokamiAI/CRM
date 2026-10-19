@@ -29,6 +29,11 @@ async def enable(deal_id: uuid.UUID, db: AsyncSession = Depends(get_db), user: U
     return jsonable_encoder(await McemService(db).enable(deal_id, user))
 
 
+@router.post("/deals/{deal_id}/mcem/disable")
+async def disable(deal_id: uuid.UUID, db: AsyncSession = Depends(get_db), user: User = Depends(write)):
+    return jsonable_encoder(await McemService(db).disable(deal_id, user))
+
+
 @router.patch("/deals/{deal_id}/mcem/journey")
 async def journey(deal_id: uuid.UUID, data: JourneyUpdate, db: AsyncSession = Depends(get_db), user: User = Depends(write)):
     return jsonable_encoder(await McemService(db).update_journey(deal_id, data, user))
