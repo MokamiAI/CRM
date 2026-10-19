@@ -20,9 +20,10 @@ class CustomerService:
         self.db = db
         self.customers = CustomerRepository(db)
 
-    async def create_customer(self, data: CustomerCreate, created_by: User) -> Customer:
+    async def create_customer(self, data: CustomerCreate, created_by: User, *, is_prospect: bool = False) -> Customer:
         customer = Customer(
             name=data.name,
+            is_prospect=is_prospect,
             email=data.email,
             phone=data.phone,
             billing_address=data.billing_address,

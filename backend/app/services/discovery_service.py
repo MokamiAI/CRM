@@ -148,6 +148,7 @@ class DiscoveryService:
                     notes="\n".join(p for p in ("Found by Discovery (© OpenStreetMap contributors).", lead.website) if p),
                 ),
                 created_by=user,
+                is_prospect=True,
             )
             customer_id = customer.id
         value = Decimal(lead.details.get("value") or 0)

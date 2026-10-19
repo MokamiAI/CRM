@@ -84,7 +84,7 @@ export default function DealDetailPage() {
   const close = () => setSheet(null);
 
   const refresh = () => {
-    for (const key of [["deal", id], ["deals"], ["timeline"], ["mcem", id], ["mcem-report"]]) queryClient.invalidateQueries({ queryKey: key });
+    for (const key of [["deal", id], ["deals"], ["timeline"], ["mcem", id], ["mcem-report"], ["customers"], ["customer", deal?.customer_id], ["pipeline-accounts"], ["reports"]]) queryClient.invalidateQueries({ queryKey: key });
   };
   const move = useMutation({
     mutationFn: (body) => apiClient.patch(`/deals/${id}`, body),
@@ -128,9 +128,10 @@ export default function DealDetailPage() {
         subtitle={
           <>
             {formatMoney(deal.value)} ·{" "}
+            {customer?.is_prospect ? <span className="font-medium text-zinc-700">{customer.name} ({t("dealForm.prospect")})</span> :
             <Link to={`/customers/${deal.customer_id}`} className="font-medium text-zinc-700 hover:underline">
               {customer?.name ?? "…"}
-            </Link>
+            </Link>}
           </>
         }
         actions={

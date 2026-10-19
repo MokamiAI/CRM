@@ -17,7 +17,10 @@ from app.api.deps import get_current_user, get_db, require_role
 from app.core.database import CommitBeforeResponseRoute
 from app.models.enums import UserRole
 from app.models.quote import Quote
+from app.models.customer import Customer
 from app.models.user import User
+from app.schemas.customer import CustomerCreate, CustomerOut
+from app.services.customer_service import CustomerService
 from app.schemas.crm import (
     AttachmentOut,
     TaskUpdateCreate,
@@ -48,6 +51,27 @@ router = APIRouter(route_class=CommitBeforeResponseRoute, tags=["crm"])
 
 _can_write = require_role(UserRole.ADMIN, UserRole.MANAGER, UserRole.STAFF)
 _can_manage = require_role(UserRole.ADMIN, UserRole.MANAGER)
+
+
+# Pipeline accounts include prospects as well as existing customers. Customer
+# list endpoints deliberately return only converted customer accounts.
+@router.get("/pipeline/accounts", response_model=list[CustomerOut])
+async def pipeline_accounts(
+    offset: int = Query(0, ge=0), limit: int = Query(200, ge=1, le=200),
+    search: str | None = Query(None),
+    db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user),
+):
+    query = select(Customer).where(Customer.is_active.is_(True))
+    if search:
+        query = query.where(Customer.name.ilike(f"%{search}%"))
+    return list((await db.scalars(query.order_by(Customer.name).offset(offset).limit(limit))).all())
+
+
+@router.post("/prospects", response_model=CustomerOut, status_code=201)
+async def create_prospect(
+    data: CustomerCreate, db: AsyncSession = Depends(get_db), user: User = Depends(_can_write),
+):
+    return await CustomerService(db).create_customer(data, created_by=user, is_prospect=True)
 
 
 # ---------- Contacts ----------

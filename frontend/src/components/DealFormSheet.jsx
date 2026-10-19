@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
-import { useContacts, useCustomers, useTeam } from "../hooks/useApi";
+import { useContacts, usePipelineAccounts, useTeam } from "../hooks/useApi";
 import Sheet from "./Sheet";
 import { Button, Field } from "./ui";
 import PartyCombobox from "./PartyCombobox";
@@ -39,7 +39,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
   const [form, setForm] = useState(blank(customerId));
   const [custom, setCustom] = useState({});
   const [person, setPerson] = useState(null);
-  const { data: customers = [] } = useCustomers({ is_active: true });
+  const { data: customers = [] } = usePipelineAccounts();
   const { data: contacts = [], isLoading: contactsLoading, isError: contactsError } = useContacts(form.customer_id || null);
   const { data: team = [] } = useTeam();
   // A customer chosen up front (from a customer's page): show its name.
@@ -98,11 +98,11 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
       // A new name typed in: add the customer first, then the deal.
       let customerIdToUse = form.customer_id;
       if (!deal && !customerIdToUse) {
-        const { data: made } = await apiClient.post("/customers", { name: form.customer_name.trim() });
+        const { data: made } = await apiClient.post("/prospects", { name: form.customer_name.trim() });
         customerIdToUse = made.id;
         setForm((prev) => ({ ...prev, customer_id: made.id, customer_name: made.name }));
-        queryClient.invalidateQueries({ queryKey: ["customers"] });
-        toast.success(t("party.added.customer", { name: made.name }));
+        queryClient.invalidateQueries({ queryKey: ["pipeline-accounts"] });
+        toast.success(t("party.added.prospect", { name: made.name }));
       }
       let contactId = person?.id || null;
       if (person?.name.trim()) {
@@ -136,6 +136,8 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
     },
     onSuccess: (saved) => {
       queryClient.invalidateQueries({ queryKey: ["deals"] });
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
+      queryClient.invalidateQueries({ queryKey: ["reports"] });
       queryClient.invalidateQueries({ queryKey: ["deal", saved.id] });
       queryClient.invalidateQueries({ queryKey: ["timeline"] });
       toast.success(t(deal ? "dealForm.updated" : "dealForm.created"));
@@ -183,7 +185,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
           <input className="input" required value={form.title} onChange={set("title")} />
         </Field>
         {!deal && (
-          <Field label={t("dealForm.customer")}>
+          <Field label={t("dealForm.account")}>
             <PartyCombobox
               parties={customers}
               value={{ id: form.customer_id || null, name: form.customer_name }}
@@ -197,10 +199,10 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
                   industry: prev.industry || (id ? industryFromCustomer(customers.find((c) => c.id === id)) : ""),
                 }));
               }}
-              kind="customer"
+              kind="prospect"
               required
               disabled={Boolean(customerId)}
-              placeholder={t("party.typeCustomer")}
+              placeholder={t("party.typeProspect")}
             />
           </Field>
         )}

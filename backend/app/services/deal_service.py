@@ -134,6 +134,9 @@ class DealService:
             deal.owner_id = created_by_id
         self.db.add(deal)
         await self.db.flush()
+        if data.stage == DealStage.WON:
+            (await self.db.get(Customer, deal.customer_id)).is_prospect = False
+            await self.db.flush()
         if data.mcem_enabled:
             from app.models.user import User
             await McemService(self.db).enable(deal.id, await self.db.get(User, created_by_id))
@@ -169,6 +172,8 @@ class DealService:
             changes.pop("lost_reason", None)
         for field, value in changes.items():
             setattr(deal, field, value)
+        if deal.stage == DealStage.WON:
+            (await self.db.get(Customer, deal.customer_id)).is_prospect = False
         await self.db.flush()
         return deal
 

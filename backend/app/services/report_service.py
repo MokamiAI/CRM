@@ -123,7 +123,7 @@ class ReportService:
 
         customers = (
             await self.db.execute(
-                select(func.count(), func.count().filter(Customer.created_at >= _utc(month_start))).where(Customer.is_active.is_(True))
+                select(func.count(), func.count().filter(Customer.created_at >= _utc(month_start))).where(Customer.is_active.is_(True), Customer.is_prospect.is_(False))
             )
         ).one()
 
@@ -289,7 +289,7 @@ class ReportService:
             .where(Invoice.customer_id == Customer.id)
             .scalar_subquery(),
         )
-        stmt = select(Customer, primary, open_deals, pipeline, owed, overdue, last_touch)
+        stmt = select(Customer, primary, open_deals, pipeline, owed, overdue, last_touch).where(Customer.is_prospect.is_(False))
         if search:
             pattern = f"%{search}%"
             stmt = stmt.where(or_(Customer.name.ilike(pattern), Customer.email.ilike(pattern)))

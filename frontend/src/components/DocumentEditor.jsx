@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import apiClient from "../services/apiClient";
-import { useCompany, useCustomers, useLineTemplates, useProducts, useSuppliers } from "../hooks/useApi";
+import { useCompany, useCustomers, usePipelineAccounts, useLineTemplates, useProducts, useSuppliers } from "../hooks/useApi";
 import { Button, Field } from "./ui";
 import PartyCombobox from "./PartyCombobox";
 import CustomerFormSheet from "./CustomerFormSheet";
@@ -74,7 +74,8 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   defaultVat = notVatRegistered ? "0" : "15";
   const { data: customers = [] } = useCustomers({ is_active: true });
   const { data: suppliers = [] } = useSuppliers();
-  const parties = purchase ? suppliers : customers;
+  const { data: pipelineAccounts = [] } = usePipelineAccounts({ enabled: kind === "quote" });
+  const parties = purchase ? suppliers : kind === "quote" ? pipelineAccounts : customers;
   const { data: products = [] } = useProducts({ is_active: true });
   const wide = useWide();
 

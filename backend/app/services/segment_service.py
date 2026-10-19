@@ -54,6 +54,7 @@ def audience_query(rules: list[dict]) -> Select:
     with an email address, and not opted out."""
     return select(Customer).where(
         Customer.is_active.is_(True),
+        Customer.is_prospect.is_(False),
         Customer.email.is_not(None),
         Customer.email != "",
         Customer.marketing_opt_out.is_(False),

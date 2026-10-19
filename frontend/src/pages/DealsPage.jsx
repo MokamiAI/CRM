@@ -121,7 +121,7 @@ export default function DealsPage() {
   const move = useMutation({
     mutationFn: ({ deal, body }) => apiClient.patch(`/deals/${deal.id}`, body),
     onSuccess: (_r, { deal, body }) => {
-      for (const key of [["deals"], ["deal", deal.id], ["mcem-report"], ["dashboard"]]) queryClient.invalidateQueries({ queryKey: key });
+      for (const key of [["deals"], ["deal", deal.id], ["mcem-report"], ["dashboard"], ["customers"], ["customer", deal.customer_id], ["pipeline-accounts"], ["reports"]]) queryClient.invalidateQueries({ queryKey: key });
       setLosing(null);
       if (body.stage === "won") toast.success(t("deals.wonToast"));
       else if (body.stage === "lost") toast(t("deals.lostToast"));

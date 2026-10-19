@@ -765,6 +765,8 @@
     "wonOn": "Won on {{date}}"
   },
   "dealForm": {
+    "account": "Prospect or customer",
+    "prospect": "Prospect",
     "contactLoadError": "Contact details could not load. Close this form and try again.",
     "chooseCustomer": "Choose a customer…",
     "contact": "Contact person",
@@ -2532,17 +2534,21 @@
     "chargingWarning": "You're not registered for VAT, so you shouldn't charge it. Set VAT to 0%, or tick \"Registered for VAT\" in Settings once you are."
   },
   "party": {
+    "typeProspect": "Type a name, or choose a prospect or customer",
     "typeCustomer": "Type a name, or choose a customer",
     "typeSupplier": "Type a name, or choose a supplier",
     "addNew": {
+      "prospect": "Use {{name}} as a prospect",
       "customer": "Add “{{name}}” as a new customer",
       "supplier": "Add “{{name}}” as a new supplier"
     },
     "willAdd": {
+      "prospect": "{{name}} will be saved as a prospect",
       "customer": "New customer: “{{name}}” is added to your customers when you save.",
       "supplier": "New supplier: “{{name}}” is added to your suppliers when you save."
     },
     "added": {
+      "prospect": "Prospect {{name}} saved",
       "customer": "{{name}} added to your customers",
       "supplier": "{{name}} added to your suppliers"
     }

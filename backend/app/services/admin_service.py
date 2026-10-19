@@ -202,7 +202,7 @@ class AdminService:
                 raise AppError("Couldn't stop their Paystack subscription, so nothing was deleted. Cancel it in the Paystack dashboard, then try again.", "PAYSTACK_CANCEL_FAILED") from exc
         counts = {
             "people": await self.db.scalar(select(func.count()).select_from(User).where(User.company_id == company_id)),
-            "customers": await self.db.scalar(select(func.count()).select_from(Customer).where(Customer.company_id == company_id)),
+            "customers": await self.db.scalar(select(func.count()).select_from(Customer).where(Customer.company_id == company_id, Customer.is_prospect.is_(False))),
             "invoices": await self.db.scalar(select(func.count()).select_from(Invoice).where(Invoice.company_id == company_id)),
         }
         name = company.company_name

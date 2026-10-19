@@ -210,7 +210,7 @@ class ImportService:
             raise RowError("Client is missing")
         customer = self.customers_by_name.get(customer_name.casefold())
         if customer is None:  # new client, created with the deal
-            customer = Customer(company_id=self.company_id, name=customer_name, created_by=self.user.id)
+            customer = Customer(company_id=self.company_id, name=customer_name, created_by=self.user.id, is_prospect=True)
             self.db.add(customer)
             await self.db.flush()
             self.customers_by_name[customer_name.casefold()] = customer
@@ -219,6 +219,8 @@ class ImportService:
         if owner_email and owner is None:
             raise RowError(f"No one on your team has the email {owner_email}")
         stage = _stage(row.get("stage"))
+        if stage == DealStage.WON:
+            customer.is_prospect = False
         fields = {
             "value": _money(row.get("value"), "Value") or Decimal("0"),
             "stage": stage,
@@ -280,7 +282,7 @@ async def export_csv(db: AsyncSession, entity: str) -> str:
 
     if entity == "customers":
         rows(["name", "email", "phone", "billing_address", "tax_number", "notes", "active", "created_at"],
-             await db.scalars(select(Customer).order_by(Customer.name)),
+             await db.scalars(select(Customer).where(Customer.is_prospect.is_(False)).order_by(Customer.name)),
              lambda c: [c.name, c.email, c.phone, c.billing_address, c.tax_number, c.notes, c.is_active, c.created_at])
     elif entity == "contacts":
         rows(["customer", "first_name", "last_name", "email", "phone", "job_title", "primary"],

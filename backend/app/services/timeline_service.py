@@ -204,13 +204,13 @@ class SearchService:
         run = lambda stmt: self.db.execute(stmt.limit(per_kind))  # noqa: E731
         hits: list[SearchHit] = []
 
-        for c in (await run(select(Customer).where(or_(Customer.name.ilike(like), Customer.email.ilike(like))).order_by(Customer.name))).scalars():
+        for c in (await run(select(Customer).where(Customer.is_prospect.is_(False), or_(Customer.name.ilike(like), Customer.email.ilike(like))).order_by(Customer.name))).scalars():
             hits.append(SearchHit(kind="customer", id=c.id, title=c.name, subtitle=c.email, target_id=c.id))
 
         contacts = await run(
             select(Contact, Customer.name)
             .join(Customer, Customer.id == Contact.customer_id)
-            .where(or_(Contact.first_name.ilike(like), Contact.last_name.ilike(like), Contact.email.ilike(like)))
+            .where(Customer.is_prospect.is_(False), or_(Contact.first_name.ilike(like), Contact.last_name.ilike(like), Contact.email.ilike(like)))
         )
         for contact, company in contacts.all():
             name = " ".join(filter(None, [contact.first_name, contact.last_name]))

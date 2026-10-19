@@ -21,6 +21,8 @@ class Customer(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     delivery_address: Mapped[str | None] = mapped_column(Text, nullable=True)
     tax_number: Mapped[str | None] = mapped_column(String(100), nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Prospect accounts retain pipeline history without entering Customers.
+    is_prospect: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false", index=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     # Values for admin-defined fields (app/models/custom_field.py), by key.
     custom_fields: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)

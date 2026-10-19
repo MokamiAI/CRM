@@ -47,6 +47,7 @@ class CustomerUpdate(BaseModel):
 
 
 class CustomerOut(BaseModel):
+    is_prospect: bool = False
     model_config = ConfigDict(from_attributes=True)
 
     id: uuid.UUID

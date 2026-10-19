@@ -12,6 +12,10 @@ export function useCompany() {
   return useQuery({ queryKey: ["company"], queryFn: () => get("/company"), staleTime: 5 * 60_000 });
 }
 
+export function usePipelineAccounts(options = {}) {
+  return useQuery({ queryKey: ["pipeline-accounts"], queryFn: () => get("/pipeline/accounts", { limit: LIST_LIMIT }), ...options });
+}
+
 export function useCustomers(params = {}) {
   return useQuery({
     queryKey: ["customers", params],
@@ -88,7 +92,7 @@ export function useLineTemplates() {
 // Invoices and quotes only carry customer_id; lists resolve names through
 // this map (one cached customers query shared by every screen).
 export function useCustomerMap() {
-  const { data } = useCustomers();
+  const { data } = usePipelineAccounts();
   return useMemo(() => new Map((data ?? []).map((c) => [c.id, c])), [data]);
 }
 

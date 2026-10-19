@@ -20,7 +20,7 @@ class CustomerRepository:
         search: str | None = None,
         is_active: bool | None = None,
     ) -> list[Customer]:
-        stmt = select(Customer)
+        stmt = select(Customer).where(Customer.is_prospect.is_(False))
         if search:
             pattern = f"%{search}%"
             stmt = stmt.where(or_(Customer.name.ilike(pattern), Customer.email.ilike(pattern)))

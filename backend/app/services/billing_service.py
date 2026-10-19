@@ -134,7 +134,7 @@ class BillingService:
         count = lambda q: self.db.scalar(select(func.count()).select_from(q.subquery()))  # noqa: E731
         return {
             "users": await count(select(User.id).where(User.is_active.is_(True))),
-            "customers": await count(select(Customer.id).where(Customer.is_active.is_(True))),
+            "customers": await count(select(Customer.id).where(Customer.is_active.is_(True), Customer.is_prospect.is_(False))),
             "invoices_this_month": await count(select(Invoice.id).where(Invoice.created_at >= month_start)),
         }
 
