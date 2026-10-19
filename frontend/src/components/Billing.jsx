@@ -314,7 +314,7 @@ export default function BillingSettings() {
                 {t(`billing.state.${billing.state}`)}
               </span>
             </div>
-            <p className="mt-1 text-sm text-zinc-600">{stateLine(billing, t)}</p>
+            <p className="mt-1 text-sm text-zinc-600">{billing.manual_invoices_enabled && billing.state === "trial_ended" ? "Your trial has ended. Pay your subscription invoice by bank transfer to continue." : stateLine(billing, t)}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {billing.has_card && ["active", "past_due"].includes(billing.state) && (
@@ -356,6 +356,11 @@ export default function BillingSettings() {
       </section>
 
       {/* ---- Choose a plan ---- */}
+      {billing.manual_invoices_enabled && !billing.payments_enabled && <section className="card space-y-2 p-4 sm:p-6">
+        <h2 className="text-base font-semibold text-zinc-900">Bank-transfer payment</h2>
+        <p className="text-sm text-zinc-600">When your trial ends, we will email your subscription invoice with bank details. Use the invoice number as your payment reference and send proof of payment to the billing email on the invoice. Your plan starts after YGT confirms payment.</p>
+      </section>}
+      {(!billing.manual_invoices_enabled || billing.payments_enabled) && (
       <section ref={choosePlan} className="scroll-mt-6 space-y-4">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -408,6 +413,7 @@ export default function BillingSettings() {
           {t("billing.securedBy")}
         </p>
       </section>
+      )}
 
       {/* ---- YGT's invoices: one per payment, ready to view and print ---- */}
       {invoices?.length > 0 && (
@@ -419,7 +425,7 @@ export default function BillingSettings() {
               <li key={inv.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-2.5">
                 <span className="w-32 font-medium text-zinc-900">{inv.number}</span>
                 <span className="text-zinc-600">{formatDate(inv.issued_at)}</span>
-                <span className="min-w-0 flex-1 truncate text-zinc-700">
+                <span className="min-w-[10rem] flex-1 text-zinc-700">
                   {t(`billing.planName.${inv.plan}`)} · {t(`billing.${inv.interval}`)}
                   {inv.seats > 1 ? ` · ${t("billing.peopleCount", { count: inv.seats })}` : ""}
                   <span className="block truncate text-xs text-zinc-400">{t("billing.paymentRef", { ref: inv.payment_reference, defaultValue: "Payment reference: {{ref}}" })}</span>
