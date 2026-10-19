@@ -12,7 +12,7 @@ const name='Prospect Browser Check '+Date.now();
 await page.type('#deal-form input',name+' opportunity');await page.type('#deal-form input[role=combobox]',name);await page.keyboard.press('Tab');
 const fields=await page.$$('#deal-form fieldset input:not([type=radio]):not([type=checkbox])');
 await fields[0].type('Lerato Dube');await fields[1].type('lerato@example.com');await fields[2].type('082 555 0101');
-await page.click('#deal-form input[type=checkbox]');
+assert.equal(await page.$eval('#deal-form input[type=checkbox]', e => e.checked), false);
 await page.click('button[form=deal-form]');await page.waitForFunction(()=>!document.querySelector('#deal-form'),{timeout:15000});
 const accounts=await api('/pipeline/accounts');const prospect=accounts.find(c=>c.name===name);assert.equal(prospect.is_prospect,true);
 assert.ok(!(await api('/customers?limit=200')).some(c=>c.id===prospect.id));

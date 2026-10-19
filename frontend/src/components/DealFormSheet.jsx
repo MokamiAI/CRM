@@ -29,7 +29,7 @@ const blank = (customerId) => ({
   value: "",
   expected_close_date: "",
   industry: "",
-  mcem_enabled: true,
+  mcem_enabled: false,
 });
 
 /** Create a deal (deal = null), optionally pre-linked to a customer, or edit one. */
@@ -267,7 +267,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
             </div>
           </fieldset>
         )}
-        {!deal && <div className="space-y-1"><label className="flex min-h-11 items-center gap-2 text-sm text-zinc-800"><input type="checkbox" checked={form.mcem_enabled} onChange={e => setForm(p => ({ ...p, mcem_enabled: e.target.checked, ...(e.target.checked ? { stage: "lead" } : {}) }))} />Use the advanced pipeline (customer milestones)</label><p className="text-xs text-zinc-500">Start in Listen and Consult. Confirm customer evidence before advancing; delivery and value reviews continue after Won.</p></div>}
+        {!deal && <div className="space-y-1"><label className="flex min-h-11 items-center gap-2 text-sm font-bold text-zinc-900"><input type="checkbox" checked={form.mcem_enabled} onChange={e => setForm(p => ({ ...p, mcem_enabled: e.target.checked, ...(e.target.checked ? { stage: "lead" } : {}) }))} />Use the advanced pipeline (customer milestones)</label><p className="text-xs text-zinc-500">Start in Listen and Consult. Confirm customer evidence before advancing; delivery and value reviews continue after Won.</p></div>}
         <fieldset>
           <legend className="mb-1.5 block text-sm font-medium text-zinc-700">{t("priority.label")}</legend>
           <div className="grid grid-cols-3 gap-2">
