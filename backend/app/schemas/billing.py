@@ -35,6 +35,7 @@ class Limits(BaseModel):
 
 
 class BillingOut(BaseModel):
+    manual_invoices_enabled: bool = False
     plan: str  # what the company can use right now
     state: str  # trialing | active | past_due | cancelled | trial_ended | lapsed | free
     subscribed_plan: str | None  # what they pay for (may differ from plan once lapsed)
@@ -86,6 +87,7 @@ class PaymentOut(BaseModel):
 
 
 class SubscriptionInvoiceOut(BaseModel):
+    is_paid: bool = True
     model_config = ConfigDict(from_attributes=True)
 
     id: uuid.UUID

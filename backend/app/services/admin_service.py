@@ -156,6 +156,11 @@ class AdminService:
                 "billing_email": sub.billing_email if sub else None,
                 "paystack_customer_code": sub.paystack_customer_code if sub else None,
             },
+            "subscription_invoices": [
+                {"id": i.id, "number": i.number, "amount_cents": i.amount_cents, "is_paid": i.is_paid,
+                 "manual": i.trial_subscription_id is not None, "issued_at": i.issued_at}
+                for i in await self.db.scalars(select(SubscriptionInvoice).where(SubscriptionInvoice.company_id == company_id).order_by(SubscriptionInvoice.issued_at.desc()))
+            ],
             "payments": [
                 {
                     "id": p.id,
@@ -234,6 +239,8 @@ class AdminService:
         payment = await self.db.get(BillingPayment, payment_id)
         if payment is None:
             raise NotFoundError("Payment not found", "PAYMENT_NOT_FOUND")
+        if payment.reference.startswith("manual:"):
+            raise AppError("Bank-transfer refunds must be processed through your bank", "MANUAL_REFUND_REQUIRED")
         already = await self.db.scalar(
             select(func.coalesce(func.sum(BillingRefund.amount_cents), 0)).where(BillingRefund.payment_id == payment_id, BillingRefund.status != "failed")
         )

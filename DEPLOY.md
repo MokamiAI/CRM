@@ -141,3 +141,21 @@ company › Delete company. Type its name to confirm. Their Paystack
 subscription is cancelled first; everything they stored is erased; the
 activity log keeps who deleted it and when. Export anything they asked for
 first (Settings › Import & export, signed in as them, or ask them to).
+
+
+## Subscription invoices without Paystack
+
+Set YGT's legal name, registration number, billing address, email and bank
+account details in the YGT admin site's invoice details form. Then set
+`MANUAL_TRIAL_INVOICES_ENABLED=true` in the server environment and recreate
+backend and celery_worker. The hourly scheduler invoices expired trials,
+using their selected plan/interval and actual active users (not trial seat
+allowances). Future/extended trials and paid accounts are skipped.
+
+One unpaid invoice is issued per trial and appears under Settings > Billing.
+The company's admins and billing email receive the invoice and bank details;
+failed delivery stays pending for the next run. The plan remains read-only
+until the platform admin confirms the full bank payment on the tenant page.
+The subscription period starts on confirmation. Already-paid invoices retain
+their original payment workflow. Leave the setting false until payment and
+legal details are complete. No email is sent merely by deploying this code.

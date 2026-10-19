@@ -59,9 +59,19 @@ class SubscriptionInvoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
 
     __tablename__ = "subscription_invoices"
 
+    # An expired trial can issue an unpaid invoice before a payment exists.
+    trial_subscription_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("subscriptions.id", ondelete="SET NULL"), nullable=True, unique=True
+    )
+    emailed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    @property
+    def is_paid(self) -> bool:
+        return self.payment_id is not None
+
     number: Mapped[str] = mapped_column(String(30), nullable=False, unique=True)
-    payment_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), ForeignKey("billing_payments.id", ondelete="CASCADE"), nullable=False, unique=True
+    payment_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("billing_payments.id", ondelete="CASCADE"), nullable=True, unique=True
     )
     payment_reference: Mapped[str] = mapped_column(String(100), nullable=False)
     issued_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)

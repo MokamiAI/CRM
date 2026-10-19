@@ -10,6 +10,7 @@ celery_app = Celery(
     # without Redis uses REDIS_URL=memory:// (jobs accepted, not delivered).
     backend=settings.REDIS_URL if settings.REDIS_URL.startswith("redis") else None,
     include=[
+        "app.tasks.billing_tasks",
         "app.tasks.discovery_tasks",
         "app.tasks.email_tasks",
         "app.tasks.invoice_tasks",
@@ -36,6 +37,10 @@ celery_app.conf.update(
 )
 
 celery_app.conf.beat_schedule = {
+    "expired-trial-invoices": {
+        "task": "app.tasks.billing_tasks.invoice_expired_trials_task",
+        "schedule": crontab(minute=5),
+    },
     # Monday morning: new potential leads, and one email per admin about them.
     "weekly-discovery": {
         "task": "app.tasks.discovery_tasks.weekly_discovery_task",

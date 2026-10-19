@@ -89,6 +89,8 @@ class Settings(BaseSettings):
     FRONTEND_URL: str = "http://localhost:5173"
     # New companies try the Grow plan free for this many days.
     TRIAL_DAYS: int = 14
+    # Opt in after YGT invoice and bank details have been configured.
+    MANUAL_TRIAL_INVOICES_ENABLED: bool = False
 
     # ---- YGT's own team (the admin site) ----
     # Comma-separated emails of people who may open /admin. They sign in

@@ -7,8 +7,9 @@
 <table>
   <tr><td>Number</td><td><strong>{{ invoice.number }}</strong></td></tr>
   <tr><td>Date</td><td>{{ invoice.issued_at.strftime("%d %b %Y") }}</td></tr>
-  <tr><td>Period</td><td>{{ invoice.period_start.strftime("%d %b %Y") }} – {{ invoice.period_end.strftime("%d %b %Y") }}</td></tr>
-  <tr><td>Status</td><td><strong>Paid</strong></td></tr>
+  {% if invoice.is_paid %}<tr><td>Period</td><td>{{ invoice.period_start.strftime("%d %b %Y") }} – {{ invoice.period_end.strftime("%d %b %Y") }}</td></tr>{% else %}<tr><td>Service</td><td>{{ invoice.interval }} subscription; starts when payment is confirmed</td></tr>{% endif %}
+  <tr><td>Status</td><td><strong>{{ "Paid" if invoice.is_paid else "Unpaid" }}</strong></td></tr>
+  {% if not invoice.is_paid %}<tr><td>Due</td><td>On receipt</td></tr>{% endif %}
 </table>
 {% endblock %}
 {% block body %}
@@ -20,13 +21,18 @@
     <tr><td class="muted">VAT (15%)</td><td class="num">{{ money(doc.tax_total) }}</td></tr>
     {% endif %}
     <tr><td>Total</td><td class="num">{{ money(doc.total) }}</td></tr>
-    <tr><td class="muted">Paid</td><td class="num">− {{ money(doc.total) }}</td></tr>
-    <tr class="grand"><td>Amount due</td><td class="num">{{ money(0) }}</td></tr>
+    {% if invoice.is_paid %}<tr><td class="muted">Paid</td><td class="num">− {{ money(doc.total) }}</td></tr>{% endif %}
+    <tr class="grand"><td>Amount due</td><td class="num">{{ money(0 if invoice.is_paid else doc.total) }}</td></tr>
   </table>
 </div>
 <div class="terms">
   <p class="label">Payment</p>
-  <p>Paid in full by card through Paystack on {{ invoice.issued_at.strftime("%d %b %Y") }}. Payment reference: <strong>{{ invoice.payment_reference }}</strong>.</p>
+  {% if invoice.is_paid %}<p>Paid in full. Reference: <strong>{{ invoice.payment_reference }}</strong>.</p>
+  {% else %}
+  <p>Please pay by bank transfer. Use <strong>{{ invoice.payment_reference }}</strong> as your payment reference.</p>
+  <p>{{ t.bank_name }}<br>Account holder: {{ t.account_holder }}<br>Account number: {{ t.account_number }}<br>Branch code: {{ t.branch_code }}{% if t.account_type %}<br>Account type: {{ t.account_type }}{% endif %}</p>
+  <p>Send proof of payment to {{ company.sender_email }}. Your subscription starts after payment is confirmed.</p>
+  {% endif %}
   {% if not vat_vendor %}<p class="muted" style="margin-top:6px;">{{ company.company_name }} is not registered for VAT, so no VAT is charged.</p>{% endif %}
 </div>
 {% endblock %}

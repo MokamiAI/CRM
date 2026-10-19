@@ -125,6 +125,11 @@ export function AdminOverview() {
 }
 
 const YGT_FIELDS = [
+  ["bank_name", "Bank name", ""],
+  ["account_holder", "Account holder", ""],
+  ["account_number", "Account number", ""],
+  ["branch_code", "Branch code", ""],
+  ["account_type", "Account type", ""],
   ["legal_name", "Legal name", "YGT (Pty) Ltd"],
   ["registration_number", "Registration number", "2026/123456/07"],
   ["vat_number", "VAT number (leave empty until registered)", ""],
@@ -263,6 +268,11 @@ export function AdminTenant() {
     },
     onError: (error) => toast.error(errorMessage(error)),
   });
+  const confirmPayment = useMutation({
+    mutationFn: invoiceId => apiClient.post(`/admin/subscription-invoices/${invoiceId}/confirm-payment`),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["admin"] }); toast.success("Payment recorded and subscription activated"); },
+    onError: error => toast.error(errorMessage(error)),
+  });
   function suspend() {
     const reason = window.prompt("Why are you suspending this company? (They'll see that their account is suspended and to contact support.)");
     if (reason && reason.trim().length >= 3) act.mutate({ path: "suspend", body: { reason }, message: "Suspended" });
@@ -347,6 +357,14 @@ export function AdminTenant() {
                 <dt className="text-zinc-500">VAT number</dt>
                 <dd>{t.tax_number ?? "—"}</dd>
               </dl>
+              {t.subscription_invoices?.some(i => i.manual && !i.is_paid) && <div className="mt-5 space-y-2">
+                <h3 className="text-sm font-semibold text-zinc-900">Awaiting bank payment</h3>
+                <p className="text-xs text-zinc-600">Confirm only after the full amount has arrived in your bank account.</p>
+                {t.subscription_invoices.filter(i => i.manual && !i.is_paid).map(i => <div key={i.id} className="flex flex-wrap items-center justify-between gap-2 py-2 text-sm">
+                  <span>{i.number} - {rands(i.amount_cents)}</span>
+                  <Button variant="secondary" disabled={confirmPayment.isPending} onClick={() => confirmPayment.mutate(i.id)}>Confirm bank payment received</Button>
+                </div>)}
+              </div>}
               <h3 className="mt-5 text-sm font-semibold text-zinc-900">Payments</h3>
               {t.payments.length === 0 ? (
                 <p className="mt-2 text-sm text-zinc-500">No payments yet.</p>
@@ -357,10 +375,10 @@ export function AdminTenant() {
                       <span>
                         {p.invoice_number && <span className="mr-1.5 font-medium text-zinc-900">{p.invoice_number}</span>}
                         {formatDate(p.paid_at)} · {PLAN[p.plan]} {p.interval} · <span className="font-medium tabular-nums">{rands(p.amount_cents)}</span>
-                        <span className="block text-xs text-zinc-400">Paystack ref {p.reference}</span>
+                        <span className="block text-xs text-zinc-400">Payment ref {p.reference}</span>
                         {p.refunded_cents > 0 && <span className="ml-1.5 text-xs text-rose-700">({rands(p.refunded_cents)} refunded)</span>}
                       </span>
-                      {p.refunded_cents < p.amount_cents && (
+                      {!p.reference.startsWith("manual:") && p.refunded_cents < p.amount_cents && (
                         <button type="button" onClick={() => setRefundOf(p)} className="text-sm font-medium text-rose-600 hover:text-rose-700">
                           Refund…
                         </button>

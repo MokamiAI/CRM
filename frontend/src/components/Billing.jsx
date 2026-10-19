@@ -365,7 +365,7 @@ export default function BillingSettings() {
           <IntervalToggle value={interval} onChange={setInterval} />
         </div>
         {!billing.payments_enabled && (
-          <p className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900 ring-1 ring-inset ring-amber-200/70">{t("billing.notConfigured")}</p>
+          <p className="rounded-xl bg-amber-50 p-3 text-sm text-amber-900 ring-1 ring-inset ring-amber-200/70">{billing.manual_invoices_enabled ? "When your trial ends, we will email your subscription invoice with bank-transfer details. Use the invoice number as your reference. Your plan starts after YGT confirms payment." : t("billing.notConfigured")}</p>
         )}
         <div className="grid gap-4 md:grid-cols-3">
           {paidPlans.map((plan) => {
@@ -422,10 +422,10 @@ export default function BillingSettings() {
                 <span className="min-w-0 flex-1 truncate text-zinc-700">
                   {t(`billing.planName.${inv.plan}`)} · {t(`billing.${inv.interval}`)}
                   {inv.seats > 1 ? ` · ${t("billing.peopleCount", { count: inv.seats })}` : ""}
-                  <span className="block truncate text-xs text-zinc-400">{t("billing.paystackRef", { ref: inv.payment_reference })}</span>
+                  <span className="block truncate text-xs text-zinc-400">{t("billing.paymentRef", { ref: inv.payment_reference, defaultValue: "Payment reference: {{ref}}" })}</span>
                 </span>
                 <span className="font-medium tabular-nums text-zinc-900">{formatMoney(inv.amount_cents / 100)}</span>
-                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-200/70">{t("status.paid")}</span>
+                <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset ${inv.is_paid ? "bg-emerald-50 text-emerald-700 ring-emerald-200/70" : "bg-amber-50 text-amber-800 ring-amber-200/70"}`}>{inv.is_paid ? t("status.paid") : t("status.unpaid", { defaultValue: "Unpaid" })}</span>
                 <button type="button" className="btn btn-secondary !h-8 !text-xs" onClick={() => setViewing(inv)}>
                   {t("documents.view")}
                 </button>

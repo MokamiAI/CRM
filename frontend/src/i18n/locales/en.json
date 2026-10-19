@@ -301,7 +301,7 @@
       "cta": "Contact us"
     },
     "invoices": "Invoices",
-    "invoicesHint": "One from YGT for every payment, emailed to you when you pay.",
+    "invoicesHint": "Your subscription invoices, ready to view, print or save as PDF.",
     "paystackRef": "Paystack reference {{ref}}",
     "teamFrom": "Save {{percent}}% per seat from {{count}} seats",
     "teamPrice": "Team price: you save {{percent}}%",

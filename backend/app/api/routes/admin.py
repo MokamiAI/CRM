@@ -38,6 +38,11 @@ from app.schemas.platform import TicketTemplate
 from app.models.billing import Subscription
 
 class YgtDetails(BaseModel):
+    bank_name: str | None = Field(default=None, max_length=80)
+    account_holder: str | None = Field(default=None, max_length=120)
+    account_number: str | None = Field(default=None, max_length=40)
+    branch_code: str | None = Field(default=None, max_length=20)
+    account_type: str | None = Field(default=None, max_length=40)
     legal_name: str = Field(min_length=1, max_length=200)
     address: str | None = Field(default=None, max_length=500)
     registration_number: str | None = Field(default=None, max_length=60)
@@ -339,3 +344,9 @@ async def booking_settings(db: AsyncSession = Depends(get_db)):
 @router.put("/booking-settings", response_model=Availability)
 async def save_booking_settings(data: Availability, db: AsyncSession = Depends(get_db)):
     return await BookingService(db).save_availability(data)
+
+
+@router.post("/subscription-invoices/{invoice_id}/confirm-payment")
+async def confirm_manual_payment(invoice_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
+    from app.services.manual_billing import confirm_payment
+    return await confirm_payment(db, invoice_id)

@@ -40,6 +40,11 @@ DEFAULT_DETAILS = {
     "email": None,
     "phone": None,
     "website": "yougt.co.za",
+    "bank_name": None,
+    "account_holder": None,
+    "account_number": None,
+    "branch_code": None,
+    "account_type": None,
 }
 
 
@@ -142,7 +147,9 @@ def render_html(invoice: SubscriptionInvoice) -> str:
     template = DocumentTemplate(
         invoice_title="Tax invoice" if vat_vendor else "Invoice",
         registration_number=s.get("registration_number"), phone=s.get("phone"), website=s.get("website"),
-        payment_reference=None, accent="#2563eb",
+        bank_name=s.get("bank_name"), account_holder=s.get("account_holder"),
+        account_number=s.get("account_number"), branch_code=s.get("branch_code"), account_type=s.get("account_type"),
+        payment_reference=invoice.payment_reference, accent="#2563eb",
     )
     b = invoice.buyer or {}
     customer = SimpleNamespace(name=b.get("name"), billing_address=b.get("address"), email=None, phone=None, tax_number=b.get("vat_number"))

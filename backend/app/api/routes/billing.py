@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, require_role
 from app.core.database import CommitBeforeResponseRoute
+from app.core.config import settings
 from app.core.plans import PLANS, TEAM_DISCOUNT_PERCENT, TEAM_SEATS, Plan
 from app.models.enums import UserRole
 from app.models.user import User
@@ -56,6 +57,7 @@ async def billing_out(service: BillingService) -> BillingOut:
     sub = await service.subscription()
     current = effective(sub)
     return BillingOut(
+        manual_invoices_enabled=settings.MANUAL_TRIAL_INVOICES_ENABLED,
         plan=current.plan.key,
         state=current.state,
         subscribed_plan=sub.plan if sub.status in ("active", "past_due", "cancelled") else None,
@@ -113,7 +115,7 @@ async def payments(db: AsyncSession = Depends(get_db)):
 
 @router.get("/invoices", response_model=list[SubscriptionInvoiceOut], dependencies=[_admin])
 async def invoices(db: AsyncSession = Depends(get_db)):
-    """YGT's invoices to this company, newest first (one per payment)."""
+    """YGT's paid and unpaid invoices to this company, newest first."""
     rows = await db.scalars(select(SubscriptionInvoice).order_by(SubscriptionInvoice.issued_at.desc()).limit(60))
     return list(rows.all())
 
