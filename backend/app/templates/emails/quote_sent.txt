@@ -18,6 +18,7 @@ Total:       {{ money(quote.total) }}
 
 {% if t and t.quote_terms %}{{ t.quote_terms }}
 
-{% endif %}Reply to this email to accept the quote or to ask any questions.
+{% endif %}Accept this quote: {{ acceptance_url }}
+Open the link and confirm your acceptance, or reply with any questions.
 
 {{ sign_off("Kind regards") }}

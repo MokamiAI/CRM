@@ -39,7 +39,7 @@ class NotificationService:
     app.services.email_service.send_email, normally from a Celery task in
     app/tasks/email_tasks.py.
 
-    compose_* methods return None when the customer has no email address,
+    compose_* methods return None when the contact person has no email address,
     which is a normal state for a customer record rather than an error."""
 
     def __init__(self, db: AsyncSession):
@@ -89,12 +89,12 @@ class NotificationService:
             raise NotFoundError("Invoice not found", "INVOICE_NOT_FOUND")
         self._adopt(invoice)
         customer = await self.customers.get_by_id(invoice.customer_id)
-        if customer is None or not customer.email:
+        if customer is None or not customer.recipient_email:
             return None
         company = await self.company_settings.get_current()
         email = render_email(
             "invoice_sent",
-            to=customer.email,
+            to=customer.recipient_email,
             subject=f"Invoice {invoice.invoice_number} from {company.company_name}",
             customer=customer,
             invoice=invoice,
@@ -109,15 +109,20 @@ class NotificationService:
             raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
         self._adopt(quote)
         customer = await self.customers.get_by_id(quote.customer_id)
-        if customer is None or not customer.email:
+        if customer is None:
+            return None
+        from app.services.quote_acceptance import quote_recipient, acceptance_url
+        recipient = await quote_recipient(self.db, quote, customer)
+        if not recipient:
             return None
         company = await self.company_settings.get_current()
         email = render_email(
             "quote_sent",
-            to=customer.email,
+            to=recipient,
             subject=f"Quote {quote.quote_number} from {company.company_name}",
             customer=customer,
             quote=quote,
+            acceptance_url=acceptance_url(quote),
             **self._base_context(company),
         )
         return await self._attach(email, DocumentService(self.db).quote_html(quote.id), f"Quote {quote.quote_number}")
@@ -151,12 +156,12 @@ class NotificationService:
         if invoice is None:
             raise NotFoundError("Invoice not found", "INVOICE_NOT_FOUND")
         customer = await self.customers.get_by_id(invoice.customer_id)
-        if customer is None or not customer.email:
+        if customer is None or not customer.recipient_email:
             return None
         company = await self.company_settings.get_current()
         email = render_email(
             "payment_receipt",
-            to=customer.email,
+            to=customer.recipient_email,
             subject=f"Payment received for invoice {invoice.invoice_number}",
             customer=customer,
             invoice=invoice,
@@ -178,7 +183,7 @@ class NotificationService:
         if invoice.status not in REMINDABLE:
             return None
         customer = await self.customers.get_by_id(invoice.customer_id)
-        if customer is None or not customer.email:
+        if customer is None or not customer.recipient_email:
             return None
         company = await self.company_settings.get_current()
         days_past_due = (company_today(company.default_timezone) - invoice.due_date).days
@@ -190,7 +195,7 @@ class NotificationService:
             subject = f"Reminder: invoice {invoice.invoice_number} is due soon"
         email = render_email(
             "invoice_reminder",
-            to=customer.email,
+            to=customer.recipient_email,
             subject=subject,
             customer=customer,
             invoice=invoice,
@@ -215,12 +220,12 @@ class NotificationService:
         if customer is None:
             raise NotFoundError("Customer not found", "CUSTOMER_NOT_FOUND")
         self._adopt(customer)
-        if not customer.email:
+        if not customer.recipient_email:
             return None
         _, company, template, statement = await DocumentService(self.db).statement(customer_id, start, end)
         email = render_email(
             "statement",
-            to=customer.email,
+            to=customer.recipient_email,
             subject=f"{template.statement_title} from {company.company_name}: {start:%d %b %Y} to {end:%d %b %Y}",
             customer=customer,
             statement=statement,

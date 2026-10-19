@@ -103,10 +103,10 @@ async def customer_statement_document(
 async def send_customer_statement(
     customer_id: uuid.UUID, data: StatementSend, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)
 ):
-    """Emails the statement to the client's email address."""
+    """Emails the statement to the contact person's email address."""
     _period(data.start, data.end)
     customer = await CustomerService(db).get_customer(customer_id)
-    if not customer.email:
-        raise AppError("This client has no email address", "CUSTOMER_NO_EMAIL")
+    if not customer.recipient_email:
+        raise AppError("Contact person's email not found. Add an email to their contact details.", "CUSTOMER_NO_EMAIL")
     await commit_and_enqueue(db, send_statement_email_task, str(customer_id), data.start.isoformat(), data.end.isoformat())
-    return {"sent_to": customer.email}
+    return {"sent_to": customer.recipient_email}

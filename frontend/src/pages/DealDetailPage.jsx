@@ -169,7 +169,7 @@ export default function DealDetailPage() {
       />
 
       <QuickActions
-        email={contact?.email ?? customer?.email}
+        email={contact?.email ?? customer?.recipient_email}
         phone={contact?.phone ?? customer?.phone}
         canWrite={canWrite}
         onCompose={({ mode, type }) => {

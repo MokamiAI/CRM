@@ -220,7 +220,7 @@ class CampaignService:
         customers = await segments.audience(await segments.rules_for(campaign.segment_id))
         seen: set[str] = set()
         for customer in customers:
-            address = customer.email.strip().lower()
+            address = customer.recipient_email.strip().lower()
             if address in seen:
                 continue
             seen.add(address)
@@ -228,7 +228,7 @@ class CampaignService:
                 CampaignRecipient(
                     campaign_id=campaign.id,
                     customer_id=customer.id,
-                    email=customer.email.strip(),
+                    email=customer.recipient_email.strip(),
                     token=secrets.token_urlsafe(24),
                     status="queued",
                 )

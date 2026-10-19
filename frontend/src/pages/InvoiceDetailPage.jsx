@@ -69,7 +69,7 @@ export default function InvoiceDetailPage() {
       refresh();
       close();
       toast.success(t("invoice.sent"), {
-        description: notify && customer?.email ? t("invoice.emailing", { email: customer.email }) : t("invoice.sentNoEmail"),
+        description: notify && customer?.recipient_email ? t("invoice.emailing", { email: customer.recipient_email }) : t("invoice.sentNoEmail"),
       });
     },
     onError,
@@ -80,14 +80,14 @@ export default function InvoiceDetailPage() {
     onSuccess: () => {
       refresh();
       close();
-      toast.success(t("invoice.reminderSent"), { description: customer?.email });
+      toast.success(t("invoice.reminderSent"), { description: customer?.recipient_email });
     },
     onError,
   });
 
   const resend = useMutation({
     mutationFn: () => apiClient.post(`/invoices/${id}/resend`),
-    onSuccess: () => toast.success(t("invoice.resent"), { description: customer?.email }),
+    onSuccess: () => toast.success(t("invoice.resent"), { description: customer?.recipient_email }),
     onError,
   });
 
@@ -136,7 +136,7 @@ export default function InvoiceDetailPage() {
   if (isError) return <ErrorState onRetry={refetch} />;
 
   const balance = Number(invoice.total) - Number(invoice.amount_paid);
-  const hasEmail = Boolean(customer?.email);
+  const hasEmail = Boolean(customer?.recipient_email);
 
   return (
     <div className="space-y-6">
@@ -287,7 +287,7 @@ export default function InvoiceDetailPage() {
         }
       >
         <p className="text-sm text-zinc-600">
-          {t("invoice.remindBody", { email: customer?.email, amount: formatMoney(balance), number: invoice.invoice_number })}
+          {t("invoice.remindBody", { email: customer?.recipient_email, amount: formatMoney(balance), number: invoice.invoice_number })}
         </p>
       </Sheet>
 
@@ -320,7 +320,7 @@ export default function InvoiceDetailPage() {
           <span className="text-sm">
             <span className="block font-medium text-zinc-900">{t("invoice.emailToCustomer")}</span>
             <span className="text-zinc-500">
-              {hasEmail ? customer.email : t("invoice.noEmail")}
+              {hasEmail ? customer.recipient_email : t("invoice.noEmail")}
             </span>
           </span>
         </label>
@@ -331,7 +331,7 @@ export default function InvoiceDetailPage() {
         onClose={close}
         invoice={invoice}
         balance={balance}
-        customerEmail={customer?.email}
+        customerEmail={customer?.recipient_email}
         onRecorded={refresh}
       />
 

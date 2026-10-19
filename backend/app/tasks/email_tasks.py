@@ -42,7 +42,7 @@ def _deliver(compose: _Composer, description: str) -> bool:
 
     config, email = run_async(_load)
     if email is None:
-        logger.info("Skipping %s email: customer has no email address", description)
+        logger.info("Skipping %s email: contact person has no email address", description)
         return False
     try:
         send_email(config, email)

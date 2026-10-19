@@ -67,6 +67,8 @@ export default function CustomerFormSheet({ open, onClose, customer, onSaved, in
 
   const refresh = () => {
     queryClient.invalidateQueries({ queryKey: ["customers"] });
+    queryClient.invalidateQueries({ queryKey: ["pipeline-accounts"] });
+    queryClient.invalidateQueries({ queryKey: ["quote"] });
     queryClient.invalidateQueries({ queryKey: ["contacts"] });
     if (customer) queryClient.invalidateQueries({ queryKey: ["customer", customer.id] });
   };

@@ -117,7 +117,7 @@ export default function CustomerDetailPage() {
 
         <div className="mt-5">
           <QuickActions
-            email={customer.email}
+            email={customer.recipient_email}
             phone={customer.phone}
             canWrite={canWrite}
             onCompose={({ mode, type }) => {
@@ -346,6 +346,9 @@ function ContactSheet({ open, onClose, customerId, contact }) {
   }
   const done = (message) => {
     queryClient.invalidateQueries({ queryKey: ["contacts", customerId] });
+    for (const key of [["customer", customerId], ["customers"], ["pipeline-accounts"], ["quote"]]) {
+      queryClient.invalidateQueries({ queryKey: key });
+    }
     toast.success(message);
     onClose();
   };

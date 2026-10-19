@@ -59,6 +59,8 @@ class QuoteUpdate(BaseModel):
 class QuoteOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
+    recipient_email: str | None = None
+
     id: uuid.UUID
     quote_number: str
     customer_id: uuid.UUID

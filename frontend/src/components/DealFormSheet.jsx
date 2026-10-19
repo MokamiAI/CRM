@@ -137,6 +137,8 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
     onSuccess: (saved) => {
       queryClient.invalidateQueries({ queryKey: ["deals"] });
       queryClient.invalidateQueries({ queryKey: ["customers"] });
+    queryClient.invalidateQueries({ queryKey: ["pipeline-accounts"] });
+    queryClient.invalidateQueries({ queryKey: ["quote"] });
       queryClient.invalidateQueries({ queryKey: ["reports"] });
       queryClient.invalidateQueries({ queryKey: ["deal", saved.id] });
       queryClient.invalidateQueries({ queryKey: ["timeline"] });

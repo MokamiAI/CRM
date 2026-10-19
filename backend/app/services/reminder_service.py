@@ -88,7 +88,7 @@ class ReminderService:
         rows = await self.db.execute(
             select(Invoice.id, Invoice.due_date)
             .join(Customer, Customer.id == Invoice.customer_id)
-            .where(Invoice.status.in_(REMINDABLE), Customer.email.is_not(None), Customer.email != "")
+            .where(Invoice.status.in_(REMINDABLE), Customer.recipient_email.is_not(None), Customer.recipient_email != "")
         )
         claimed: list[ClaimedReminder] = []
         for invoice_id, due_date in rows.all():
@@ -111,8 +111,8 @@ class ReminderService:
                 "INVOICE_NOT_REMINDABLE",
             )
         customer = await self.db.get(Customer, invoice.customer_id)
-        if customer is None or not customer.email:
-            raise ConflictError("This customer has no email address", "CUSTOMER_NO_EMAIL")
+        if customer is None or not customer.recipient_email:
+            raise ConflictError("Contact person's email not found. Add an email to their contact details.", "CUSTOMER_NO_EMAIL")
         # Manual reminders are never deduplicated against each other or the
         # schedule: the timestamp makes each one its own reminder_type.
         key = f"manual:{datetime.now(timezone.utc).isoformat(timespec='seconds')}"

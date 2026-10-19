@@ -134,6 +134,7 @@ class TestRendering:
             subject="s",
             customer=SimpleNamespace(name="Jane", tax_number=None),
             quote=quote,
+            acceptance_url="https://example.test/accept/signed-link",
             **_context(_company()),
         )
         assert "Acme Ltd" in email.html and "Acme Ltd" in email.text

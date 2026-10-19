@@ -36,6 +36,37 @@ router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/public", tags
 _PIXEL = base64.b64decode("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7")
 
 
+@router.get("/quotes/accept/{token}", response_class=HTMLResponse, include_in_schema=False)
+async def quote_acceptance_page(token: str, db: AsyncSession = Depends(get_db)):
+    from app.services.quote_acceptance import linked_quote
+    quote = await linked_quote(db, token)
+    response = _page("Accept quote", f'<h1>Accept quote {escape(quote.quote_number)}?</h1>'
+                     '<p>Confirm that you accept this quote.</p>'
+                     '<form method="post"><button type="submit">Confirm acceptance</button></form>')
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    return response
+
+
+@router.post("/quotes/accept/{token}", response_class=HTMLResponse, include_in_schema=False)
+async def accept_customer_quote(token: str, db: AsyncSession = Depends(get_db)):
+    from app.services.quote_acceptance import linked_quote
+    from app.services.quote_service import QuoteService
+    from app.services.reminder_service import company_today
+    from app.repositories.company_settings_repository import CompanySettingsRepository
+    from app.models.enums import QuoteStatus
+    from app.core.exceptions import ConflictError
+    quote = await linked_quote(db, token)
+    company = await CompanySettingsRepository(db).get_current()
+    if quote.status == QuoteStatus.SENT and quote.expiry_date and quote.expiry_date < company_today(company.default_timezone):
+        raise ConflictError("This quote has expired. Please request an updated quote", "QUOTE_EXPIRED")
+    await QuoteService(db).accept(quote.id, accepted_by=quote.created_by)
+    response = _page("Quote accepted", '<h1>Quote accepted</h1><p>Thank you. Your acceptance has been recorded.</p>')
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    return response
+
+
 def _page(title: str, body: str) -> HTMLResponse:
     return HTMLResponse(
         f"""<!doctype html><html lang="en"><head><meta charset="utf-8">

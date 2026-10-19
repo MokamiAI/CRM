@@ -12,6 +12,7 @@ from app.core.exceptions import AppError, NotFoundError
 from app.core.tenancy import set_tenant
 from app.models.company_settings import CompanySettings
 from app.models.customer import Customer
+from app.services.contact_service import account_email_matches
 from app.models.messaging import Conversation, Message, TeamChannel, TeamMessage
 from app.models.user import User
 from app.repositories.company_settings_repository import CompanySettingsRepository
@@ -59,7 +60,7 @@ def inbox_address(token: str) -> str:
 
 class CustomerNoEmailError(AppError):
     def __init__(self):
-        super().__init__("This customer has no email address", "CUSTOMER_NO_EMAIL")
+        super().__init__("Contact person's email not found. Add an email to their contact details.", "CUSTOMER_NO_EMAIL")
 
 
 class CustomerNoPhoneError(AppError):
@@ -190,7 +191,7 @@ class MessagingService:
         if customer is None:
             raise NotFoundError("Customer not found", "CUSTOMER_NOT_FOUND")
         if data.channel == "email":
-            to_email = data.to_email or customer.email
+            to_email = data.to_email or customer.recipient_email
             if not to_email:
                 raise CustomerNoEmailError()
             conversation = await self.new_conversation(
@@ -305,7 +306,7 @@ class MessagingService:
                 return None
             set_tenant(self.db, company.id)
             customer = await self.db.scalar(
-                select(Customer).where(func.lower(Customer.email) == inbound.sender.lower()).limit(1)
+                select(Customer).where(account_email_matches(inbound.sender)).limit(1)
             )
             conversation = await self.new_conversation(
                 channel="email",

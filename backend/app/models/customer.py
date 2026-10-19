@@ -1,13 +1,14 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, String, Text
+from sqlalchemy import Boolean, DateTime, ForeignKey, String, Text, func, select
 from sqlalchemy.dialects.postgresql import JSONB, UUID
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, column_property
 
 from app.core.database import Base
 from app.core.tenancy import TenantMixin
 from app.models.base import TimestampMixin, UUIDPKMixin
+from app.models.crm import Contact
 
 
 class Customer(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
@@ -36,3 +37,15 @@ class Customer(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
 
     quotes: Mapped[list["Quote"]] = relationship(back_populates="customer")
     invoices: Mapped[list["Invoice"]] = relationship(back_populates="customer")
+
+# One recipient rule for prospects and clients, including list responses.
+# Primary person first; legacy company-only records remain reachable.
+Customer.recipient_email = column_property(func.coalesce(
+    select(func.trim(Contact.email)).where(
+        Contact.customer_id == Customer.id,
+        Contact.company_id == Customer.company_id,
+        func.nullif(func.trim(Contact.email), "").is_not(None),
+    ).order_by(Contact.is_primary.desc(), Contact.created_at, Contact.id)
+    .correlate_except(Contact).limit(1).scalar_subquery(),
+    func.nullif(func.trim(Customer.email), ""),
+), expire_on_flush=False)

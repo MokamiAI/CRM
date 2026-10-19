@@ -20,6 +20,7 @@
 {{ line_items(quote, money) }}
 {% if quote.notes %}<p style="white-space:pre-line;">{{ quote.notes }}</p>{% endif %}
 {{ terms(t.quote_terms if t else None) }}
-<p>Reply to this email to accept the quote or to ask any questions.</p>
+<p><a href="{{ acceptance_url }}" style="display:inline-block;background:{{ accent }};color:#fff;padding:14px 24px;border-radius:6px;text-decoration:none;font-weight:bold;">Accepted</a></p>
+<p>Click Accepted to review and confirm your acceptance, or reply with any questions.</p>
 {{ sign_off("Kind regards") }}
 {% endblock %}

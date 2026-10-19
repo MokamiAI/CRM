@@ -1,12 +1,25 @@
 import uuid
 
-from sqlalchemy import select, update
+from sqlalchemy import exists, func, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import NotFoundError
 from app.models.crm import Contact
 from app.models.customer import Customer
 from app.schemas.crm import ContactCreate, ContactUpdate
+
+
+def account_email_matches(address: str):
+    """Match incoming mail to an account through any of its contact people."""
+    normalized = address.strip().lower()
+    return or_(
+        func.lower(Customer.email) == normalized,
+        exists().where(
+            Contact.customer_id == Customer.id,
+            Contact.company_id == Customer.company_id,
+            func.lower(func.trim(Contact.email)) == normalized,
+        ),
+    )
 
 
 class ContactService:

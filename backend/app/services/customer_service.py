@@ -36,6 +36,7 @@ class CustomerService:
         customer = await self.customers.create(customer)
         if data.contact:
             await self._save_contact_person(customer, data.contact)
+        await self.db.refresh(customer, ["recipient_email"])
         return customer
 
     async def _save_contact_person(self, customer: Customer, person: ContactPerson) -> None:
@@ -88,9 +89,13 @@ class CustomerService:
             customer.marketing_opt_out_at = datetime.now(timezone.utc) if changes["marketing_opt_out"] else None
         for field, value in changes.items():
             setattr(customer, field, value)
-        return await self.customers.save(customer)
+        await self.customers.save(customer)
+        await self.db.refresh(customer, ["recipient_email"])
+        return customer
 
     async def deactivate_customer(self, customer_id: uuid.UUID) -> Customer:
         customer = await self.get_customer(customer_id)
         customer.is_active = False
-        return await self.customers.save(customer)
+        await self.customers.save(customer)
+        await self.db.refresh(customer, ["recipient_email"])
+        return customer

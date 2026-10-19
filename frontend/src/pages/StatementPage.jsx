@@ -75,14 +75,14 @@ export default function StatementPage() {
               {t("documents.print")}
             </Button>
             {canSend && (
-              <Button onClick={() => send.mutate()} disabled={!data || !customer?.email || send.isPending}>
+              <Button onClick={() => send.mutate()} disabled={!data || !customer?.recipient_email || send.isPending}>
                 {send.isPending ? t("common.sending") : t("statement.email")}
               </Button>
             )}
           </>
         }
       />
-      {customer && !customer.email && canSend && <p className="-mt-2 text-sm text-zinc-500">{t("statement.noEmail")}</p>}
+      {customer && !customer.recipient_email && canSend && <p className="-mt-2 text-sm text-zinc-500">{t("statement.noEmail")}</p>}
 
       <section className="card space-y-3 p-4">
         <FilterChips value={preset} onChange={setPreset} options={PRESETS.map((p) => ({ value: p, label: t(`statement.presets.${p}`) }))} />

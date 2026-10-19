@@ -10,7 +10,7 @@ import {
   useChannels,
   useConversation,
   useConversations,
-  useCustomers,
+  usePipelineAccounts,
   useInboxAddress,
   useTeam,
   useTeamMap,
@@ -431,7 +431,7 @@ export function NewConversationSheet({ open, onClose, customerId }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [, setParams] = useSearchParams();
-  const { data: customers = [] } = useCustomers({ is_active: true });
+  const { data: customers = [] } = usePipelineAccounts();
   const { data: available = { email: true } } = useAvailableChannels();
   const channels = ["email", "whatsapp", "sms"].filter((c) => available[c]);
   const [form, setForm] = useState({ customer_id: "", channel: "email", subject: "", body: "" });
@@ -442,7 +442,7 @@ export function NewConversationSheet({ open, onClose, customerId }) {
   }
   const customer = customers.find((c) => c.id === form.customer_id);
   const isEmail = form.channel === "email";
-  const reachable = customer && (isEmail ? customer.email : customer.phone);
+  const reachable = customer && (isEmail ? customer.recipient_email : customer.phone);
   const set = (field) => (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   const start = useMutation({
@@ -515,7 +515,7 @@ export function NewConversationSheet({ open, onClose, customerId }) {
         {customer && (
           <p className={`-mt-2 text-xs ${reachable ? "text-zinc-500" : "text-rose-600"}`}>
             {reachable
-              ? t("messages.toAddress", { email: isEmail ? customer.email : customer.phone })
+              ? t("messages.toAddress", { email: isEmail ? customer.recipient_email : customer.phone })
               : t(isEmail ? "messages.noEmail" : "messages.noPhone")}
           </p>
         )}

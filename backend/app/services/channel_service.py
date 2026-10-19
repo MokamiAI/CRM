@@ -16,6 +16,7 @@ from app.core.crypto import decrypt_json, encrypt_json
 from app.core.exceptions import AppError
 from app.core.tenancy import set_tenant
 from app.models.customer import Customer
+from app.services.contact_service import account_email_matches
 from app.models.messaging import CONNECTION_KINDS, ChannelConnection, Conversation, Message
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.services import channel_providers as providers
@@ -215,7 +216,7 @@ class ChannelService:
                 conversation = await self.db.scalar(select(Conversation).where(Conversation.token == token.group(1)))
             if conversation is None:
                 customer = (
-                    await self.db.scalars(select(Customer).where(Customer.email.ilike(mail.sender)).limit(1))
+                    await self.db.scalars(select(Customer).where(account_email_matches(mail.sender)).limit(1))
                 ).first()
                 if customer is None and only_known:
                     continue

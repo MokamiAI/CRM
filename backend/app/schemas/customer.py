@@ -47,6 +47,7 @@ class CustomerUpdate(BaseModel):
 
 
 class CustomerOut(BaseModel):
+    recipient_email: str | None = None
     is_prospect: bool = False
     model_config = ConfigDict(from_attributes=True)
 

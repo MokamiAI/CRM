@@ -73,6 +73,9 @@ class QuoteService:
         quote = await self.quotes.get_by_id(quote_id)
         if quote is None:
             raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
+        from app.services.quote_acceptance import quote_recipient
+        customer = await self.customers.get_by_id(quote.customer_id)
+        quote.recipient_email = await quote_recipient(self.db, quote, customer) if customer else None
         return quote
 
     async def update_quote(self, quote_id: uuid.UUID, data: QuoteUpdate) -> Quote:
@@ -152,6 +155,15 @@ class QuoteService:
                 )
             quote.status = QuoteStatus.ACCEPTED
             await self.quotes.save(quote)
+        if quote.deal_id:
+            from app.models.enums import DealStage
+            from app.schemas.crm import DealUpdate
+            from app.services.deal_service import DealService
+            deal = await self.db.get(Deal, quote.deal_id)
+            if deal and deal.stage != DealStage.WON:
+                await DealService(self.db).update_deal(
+                    deal.id, DealUpdate(stage=DealStage.WON), actor_id=accepted_by
+                )
         try:
             await BillingService(self.db).check_room("invoices_this_month")
         except PlanLimitError:

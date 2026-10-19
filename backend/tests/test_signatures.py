@@ -29,6 +29,7 @@ def _quote_email(company):
     )
     return render_email(
         "quote_sent", to="jane@customer.test", subject="Quote", customer=SimpleNamespace(name="Jane", tax_number=None), quote=quote,
+        acceptance_url="https://example.test/accept/signed-link",
         **NotificationService(db=None)._base_context(company),
     )
 

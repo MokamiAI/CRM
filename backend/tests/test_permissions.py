@@ -21,6 +21,7 @@ PUBLIC = {
     "/api/v1/public/contact",
     "/api/v1/public/inbound/email",
     "/api/v1/public/m/u/{token}",
+    "/api/v1/public/quotes/accept/{token}",  # purpose-limited signed quote acceptance token
     "/api/v1/public/paystack/webhook",
 }
 # Any signed-in person, viewers too: their own profile, asking YGT for help,

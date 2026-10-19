@@ -238,6 +238,7 @@ export function QuoteDetailPage() {
 
   const { data: quote, isLoading, isError, refetch } = useQuote(id);
   const customer = useCustomerMap().get(quote?.customer_id);
+  const recipientEmail = quote?.recipient_email || customer?.recipient_email;
   const team = useTeamMap();
   const [sheet, setSheet] = useState(null);
   // A row's pencil on a sent quote arrives as ?edit=1: ask once.
@@ -251,6 +252,10 @@ export function QuoteDetailPage() {
 
   const queryClient = useQueryClient();
   const refresh = () => {
+    queryClient.invalidateQueries({ queryKey: ["deals"] });
+    queryClient.invalidateQueries({ queryKey: ["pipeline-accounts"] });
+    queryClient.invalidateQueries({ queryKey: ["customers"] });
+    queryClient.invalidateQueries({ queryKey: ["deal-quotes"] });
     queryClient.invalidateQueries({ queryKey: ["quote", id] });
     queryClient.invalidateQueries({ queryKey: ["quotes"] });
   };
@@ -262,7 +267,7 @@ export function QuoteDetailPage() {
       refresh();
       close();
       toast.success(t("quote.sent"), {
-        description: notify && customer?.email ? t("invoice.emailing", { email: customer.email }) : t("invoice.sentNoEmail"),
+        description: notify && recipientEmail ? t("invoice.emailing", { email: recipientEmail }) : t("invoice.sentNoEmail"),
       });
     },
     onError,
@@ -270,7 +275,7 @@ export function QuoteDetailPage() {
 
   const resend = useMutation({
     mutationFn: () => apiClient.post(`/quotes/${id}/resend`),
-    onSuccess: () => toast.success(t("quote.resent"), { description: customer?.email }),
+    onSuccess: () => toast.success(t("quote.resent"), { description: recipientEmail }),
     onError,
   });
 
@@ -326,7 +331,7 @@ export function QuoteDetailPage() {
   if (isLoading) return <ListSkeleton rows={4} />;
   if (isError) return <ErrorState onRetry={refetch} />;
 
-  const hasEmail = Boolean(customer?.email);
+  const hasEmail = Boolean(recipientEmail);
 
   return (
     <div className="space-y-6">
@@ -473,7 +478,7 @@ export function QuoteDetailPage() {
           <span className="text-sm">
             <span className="block font-medium text-zinc-900">{t("invoice.emailToCustomer")}</span>
             <span className="text-zinc-500">
-              {hasEmail ? customer.email : t("invoice.noEmail")}
+              {hasEmail ? recipientEmail : t("invoice.noEmail")}
             </span>
           </span>
         </label>
