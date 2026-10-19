@@ -765,6 +765,7 @@
     "wonOn": "Won on {{date}}"
   },
   "dealForm": {
+    "contactLoadError": "Contact details could not load. Close this form and try again.",
     "chooseCustomer": "Choose a customer…",
     "contact": "Contact person",
     "create": "Create deal",

@@ -30,7 +30,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const { config, response } = error;
-    if (response?.status === 401 && !config._retried && !config.url.startsWith("/auth/")) {
+    if (response?.status === 401 && !config._retried && !/^\/auth\/(login|register|refresh|logout|invite)(?:[/?]|$)/.test(config.url)) {
       config._retried = true;
       try {
         refreshPromise ??= refreshAccessToken().finally(() => {
@@ -39,7 +39,11 @@ apiClient.interceptors.response.use(
         const newToken = await refreshPromise;
         config.headers.Authorization = `Bearer ${newToken}`;
         return apiClient(config);
-      } catch {
+      } catch (refreshError) {
+        // Temporary connectivity or server failures must not end a session.
+        if (![401, 403].includes(refreshError.response?.status)) {
+          return Promise.reject(refreshError);
+        }
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         window.location.assign("/login");

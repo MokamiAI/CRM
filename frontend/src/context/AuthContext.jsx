@@ -38,8 +38,8 @@ export function AuthProvider({ children }) {
         i18n.changeLanguage(data.language);
       })
       .catch(() => {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
+        // The API client clears credentials only when refresh is rejected.
+        // Keep them through temporary network failures.
       })
       .finally(() => setIsLoading(false));
   }, []);

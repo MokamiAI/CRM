@@ -38,8 +38,9 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
   const queryClient = useQueryClient();
   const [form, setForm] = useState(blank(customerId));
   const [custom, setCustom] = useState({});
+  const [person, setPerson] = useState(null);
   const { data: customers = [] } = useCustomers({ is_active: true });
-  const { data: contacts = [] } = useContacts(form.customer_id || null);
+  const { data: contacts = [], isLoading: contactsLoading, isError: contactsError } = useContacts(form.customer_id || null);
   const { data: team = [] } = useTeam();
   // A customer chosen up front (from a customer's page): show its name.
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
   if (open !== lastOpen) {
     setLastOpen(open);
     if (open) {
+      setPerson(null);
       setCustom(toFormValues(deal?.custom_fields));
       setForm(
         deal
@@ -75,6 +77,22 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
     }
   }
 
+  // Edit the deal's person directly; new deals start with the customer's
+  // primary person, if one exists. Refetches must not overwrite typing.
+  useEffect(() => {
+    if (!open || person || contactsLoading || contactsError) return;
+    const contact = form.customer_id
+      ? (deal?.contact_id ? contacts.find(c => c.id === deal.contact_id) : contacts.find(c => c.is_primary) || contacts[0])
+      : null;
+    setPerson({
+      id: contact?.id || null,
+      name: [contact?.first_name, contact?.last_name].filter(Boolean).join(" "),
+      email: contact?.email || "",
+      phone: contact?.phone || "",
+      job_title: contact?.job_title || "",
+    });
+  }, [open, person, contactsLoading, contactsError, contacts, form.customer_id, deal?.contact_id]);
+
   const save = useMutation({
     mutationFn: async () => {
       // A new name typed in: add the customer first, then the deal.
@@ -86,9 +104,25 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
         queryClient.invalidateQueries({ queryKey: ["customers"] });
         toast.success(t("party.added.customer", { name: made.name }));
       }
+      let contactId = person?.id || null;
+      if (person?.name.trim()) {
+        const [first_name, ...last] = person.name.trim().split(/\s+/);
+        const details = {
+          first_name, last_name: last.join(" ") || null,
+          email: person.email.trim() || null,
+          phone: person.phone.trim() || null,
+          job_title: person.job_title.trim() || null,
+        };
+        const { data: savedPerson } = contactId
+          ? await apiClient.patch(`/contacts/${contactId}`, details)
+          : await apiClient.post(`/customers/${customerIdToUse}/contacts`, details);
+        contactId = savedPerson.id;
+        setPerson(prev => ({ ...prev, id: contactId }));
+        queryClient.invalidateQueries({ queryKey: ["contacts"] });
+      }
       const payload = {
         title: form.title,
-        contact_id: form.contact_id || null,
+        contact_id: contactId,
         owner_id: form.owner_id || null,
         value: form.value || "0",
         expected_close_date: form.expected_close_date || null,
@@ -131,7 +165,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
           <Button variant="secondary" onClick={onClose}>
             {t("common.cancel")}
           </Button>
-          <button type="submit" form="deal-form" className="btn btn-primary" disabled={save.isPending}>
+          <button type="submit" form="deal-form" className="btn btn-primary" disabled={save.isPending || contactsLoading || contactsError || !person}>
             {save.isPending ? t("common.saving") : deal ? t("common.save") : t("dealForm.create")}
           </button>
         </>
@@ -153,15 +187,16 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
             <PartyCombobox
               parties={customers}
               value={{ id: form.customer_id || null, name: form.customer_name }}
-              onChange={({ id, name }) =>
+              onChange={({ id, name }) => {
+                if (id !== (form.customer_id || null)) setPerson(null);
                 setForm((prev) => ({
                   ...prev,
                   customer_id: id ?? "",
                   customer_name: name,
                   contact_id: id === (prev.customer_id || null) ? prev.contact_id : "",
                   industry: prev.industry || (id ? industryFromCustomer(customers.find((c) => c.id === id)) : ""),
-                }))
-              }
+                }));
+              }}
               kind="customer"
               required
               disabled={Boolean(customerId)}
@@ -169,17 +204,29 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
             />
           </Field>
         )}
-        <Field label={t("dealForm.contact")}>
-          <select className="input" value={form.contact_id} onChange={set("contact_id")} disabled={!form.customer_id}>
-            <option value="">{t(contacts.length ? "dealForm.noOne" : "dealForm.noContacts")}</option>
-            {contacts.map((c) => (
-              <option key={c.id} value={c.id}>
-                {[c.first_name, c.last_name].filter(Boolean).join(" ")}
-                {c.job_title ? ` · ${c.job_title}` : ""}
-              </option>
-            ))}
-          </select>
-        </Field>
+        <fieldset className="space-y-3" disabled={contactsLoading || contactsError || !person}>
+          <legend className="mb-1.5 block text-sm font-medium text-zinc-700">{t("dealForm.contact")}</legend>
+          {contactsError && <p role="alert" className="text-sm text-red-700">{t("dealForm.contactLoadError")}</p>}
+          <Field label={t("customerForm.contactName")}>
+            <input className="input" autoComplete="name" maxLength={241}
+              required={Boolean(person?.id || person?.email || person?.phone || person?.job_title)}
+              value={person?.name || ""} onChange={e => setPerson(p => ({ ...p, name: e.target.value }))} />
+          </Field>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <Field label={t("login.email")}>
+              <input className="input" type="email" autoComplete="email" maxLength={255} value={person?.email || ""}
+                onChange={e => setPerson(p => ({ ...p, email: e.target.value }))} />
+            </Field>
+            <Field label={t("customerForm.phone")}>
+              <input className="input" type="tel" autoComplete="tel" maxLength={50} value={person?.phone || ""}
+                onChange={e => setPerson(p => ({ ...p, phone: e.target.value }))} />
+            </Field>
+          </div>
+          <Field label={t("contact.jobTitle")}>
+            <input className="input" autoComplete="organization-title" maxLength={120} value={person?.job_title || ""}
+              onChange={e => setPerson(p => ({ ...p, job_title: e.target.value }))} />
+          </Field>
+        </fieldset>
         <div className="grid grid-cols-2 gap-3">
           <Field label={t("dealForm.value", { currency: CURRENCY })}>
             <input className="input tabular-nums" inputMode="decimal" pattern="\d+(\.\d{1,2})?" value={form.value} onChange={set("value")} placeholder="0" />
