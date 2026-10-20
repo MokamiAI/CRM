@@ -105,6 +105,8 @@ class SlotDay(BaseModel):
 
 
 class SlotsOut(BaseModel):
+    host_name: str = "Johannes"
+    host_email: str = "johannes@yougt.co.za"
     timezone: str
     slot_minutes: int
     days: list[SlotDay]

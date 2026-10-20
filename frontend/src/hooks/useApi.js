@@ -132,11 +132,15 @@ export function useDealQuotes(id) {
 }
 
 export function useActivities(params = {}, options = {}) {
-  return useQuery({ queryKey: ["activities", params], queryFn: () => get("/activities", params), ...options });
+  return useQuery({ queryKey: ["activities", params], queryFn: () => get("/activities", params), refetchInterval: 30000, ...options });
 }
 
 export function useActivityCounts() {
   return useQuery({ queryKey: ["activities", "counts"], queryFn: () => get("/activities/counts") });
+}
+
+export function useActivity(id) {
+  return useQuery({ queryKey: ["activity", id], queryFn: () => get(`/activities/${id}`), enabled: Boolean(id), refetchInterval: 15000 });
 }
 
 export function useTimeline(kind, id) {

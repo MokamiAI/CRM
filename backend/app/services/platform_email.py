@@ -47,6 +47,7 @@ def compose(
     calendar: str | None = None,
     calendar_method: str = "REQUEST",
     from_name: str | None = None,
+    signature: str | None = None,
 ) -> OutgoingEmail:
     email = render_email(
         "platform_message",
@@ -56,6 +57,7 @@ def compose(
         paragraphs=paragraphs,
         details=details or [],
         quote=quote,
+        signature=signature,
         button_label=button[0] if button else None,
         button_url=button[1] if button else None,
         # People can't reply to YGT's own emails; say where help is.

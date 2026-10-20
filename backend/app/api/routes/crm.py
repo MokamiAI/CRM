@@ -22,6 +22,8 @@ from app.models.user import User
 from app.schemas.customer import CustomerCreate, CustomerOut
 from app.services.customer_service import CustomerService
 from app.schemas.crm import (
+    ChecklistItemCreate,
+    ChecklistItemUpdate,
     AttachmentOut,
     TaskUpdateCreate,
     TaskUpdateOut,
@@ -201,6 +203,27 @@ async def update_activity(
     activity_id: uuid.UUID, data: ActivityUpdate, db: AsyncSession = Depends(get_db), current_user: User = Depends(_can_write)
 ):
     return await ActivityService(db).update_activity(activity_id, data, current_user)
+
+
+@router.get("/activities/{activity_id}", response_model=ActivityOut)
+async def get_activity(activity_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    """Open a linked activity even when it has left the current queue filter."""
+    return await ActivityService(db).get_activity(activity_id)
+
+
+@router.post("/activities/{activity_id}/checklist", response_model=ActivityOut, status_code=201)
+async def add_checklist_item(activity_id: uuid.UUID, data: ChecklistItemCreate, db: AsyncSession = Depends(get_db), user: User = Depends(_can_write)):
+    return await ActivityService(db).change_checklist(activity_id, user, title=data.title)
+
+
+@router.patch("/activities/{activity_id}/checklist/{item_id}", response_model=ActivityOut)
+async def update_checklist_item(activity_id: uuid.UUID, item_id: uuid.UUID, data: ChecklistItemUpdate, db: AsyncSession = Depends(get_db), user: User = Depends(_can_write)):
+    return await ActivityService(db).change_checklist(activity_id, user, item_id=item_id, title=data.title, done=data.done)
+
+
+@router.delete("/activities/{activity_id}/checklist/{item_id}", response_model=ActivityOut)
+async def remove_checklist_item(activity_id: uuid.UUID, item_id: uuid.UUID, db: AsyncSession = Depends(get_db), user: User = Depends(_can_write)):
+    return await ActivityService(db).change_checklist(activity_id, user, item_id=item_id, remove=True)
 
 
 @router.get("/activities/{activity_id}/updates", response_model=list[TaskUpdateOut])

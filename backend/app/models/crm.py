@@ -89,6 +89,18 @@ class Activity(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # A task's progress, kept in step with `done`: todo, in_progress,
     # blocked, done. The assignee reports it with a note (TaskUpdate).
     status: Mapped[str] = mapped_column(String(20), nullable=False, default="todo", server_default="todo")
+    checklist_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    checklist: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
+    assignee_ids: Mapped[list] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
+    daily_reminders: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
+    deadline_reminders: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
+
+    @property
+    def completion_percentage(self) -> int | None:
+        if not self.checklist_enabled:
+            return None
+        items = self.checklist or []
+        return int(100 * sum(bool(item.get("done")) for item in items) / len(items) + 0.5) if items else 0
     customer_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("customers.id", ondelete="CASCADE"), nullable=True, index=True
     )

@@ -1,3 +1,6 @@
+import MeetingFields from "./MeetingFields";
+import { meetingLabel } from "./MeetingCard";
+import { activityWorkspace } from "../utils/activityWorkspace";
 import { useEffect, useRef, useState } from "react";
 import { StatusChip } from "./TaskSheet";
 import { Link } from "react-router-dom";
@@ -5,7 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import apiClient from "../services/apiClient";
-import { useTeam, useTeamMap } from "../hooks/useApi";
+import { useCompany, useTeam, useTeamMap } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import Sheet from "./Sheet";
 import { Button, Field } from "./ui";
@@ -279,6 +282,8 @@ export function PencilIcon(props) {
 
 export function ActivityRow({ activity, context, onToggle, onOpen }) {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const canWrite = user?.role !== "viewer";
   const [optimisticDone, setOptimisticDone] = useState(null);
   const [leaving, setLeaving] = useState(false);
   const done = optimisticDone ?? activity.done;
@@ -303,6 +308,7 @@ export function ActivityRow({ activity, context, onToggle, onOpen }) {
             type="button"
             role="checkbox"
             aria-checked={done}
+            disabled={!canWrite || optimisticDone !== null || (activity.checklist_enabled && activity.checklist?.length > 0)}
             aria-label={t(done ? "activity.markUndone" : "activity.markDone", { subject: activity.subject })}
             onClick={handleToggle}
             className={`pressable mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors duration-150 ${
@@ -322,6 +328,7 @@ export function ActivityRow({ activity, context, onToggle, onOpen }) {
               ) : (
                 activity.subject
               )}
+              {activity.meeting && <span className={`text-xs ${activity.meeting.status === "declined" ? "text-red-700" : "text-blue-700"}`}>{meetingLabel(activity.meeting.status, t)}</span>}
               {!done && (activity.status === "in_progress" || activity.status === "blocked") && <StatusChip status={activity.status} />}
             </p>
             <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-zinc-500">
@@ -331,8 +338,21 @@ export function ActivityRow({ activity, context, onToggle, onOpen }) {
               </span>
               {!done && <span className={DUE_STYLES[state]}>{dueLabel(activity.due_date, activity.due_time)}</span>}
               {context}
+              {activity.assignee_ids?.length > 0 && <span>{t("task.assigneeCount", { defaultValue: "{{count}} assignees", count: activity.assignee_ids.length + (activity.owner_id ? 1 : 0) })}</span>}
+              {activityWorkspace(activity) && (
+                <Link to={activityWorkspace(activity)} className="font-semibold text-blue-600 hover:underline">
+                  {t("activity.viewWorkspace", "View workspace")}
+                </Link>
+              )}
             </p>
             {activity.note && <p className="mt-1 whitespace-pre-line text-sm text-zinc-600">{activity.note}</p>}
+            {activity.checklist_enabled && <p className="mt-1 text-xs font-medium text-emerald-700">{t("task.percentComplete", { defaultValue: "{{percent}}% complete", percent: activity.completion_percentage ?? 0 })}</p>}
+
+            {!activityWorkspace(activity) && !done && canWrite && !(activity.checklist_enabled && activity.checklist?.length > 0) && (
+              <button type="button" className="mt-2 text-xs font-semibold text-blue-600 hover:underline disabled:opacity-50" disabled={optimisticDone !== null} onClick={handleToggle}>
+                {t("activity.markStandaloneDone", "Mark as done")}
+              </button>
+            )}
           </div>
           {onOpen && (
             <button
@@ -357,7 +377,7 @@ export function useToggleActivity() {
     mutationFn: (activity) => apiClient.patch(`/activities/${activity.id}`, { done: !activity.done }).then((r) => r.data),
     onSuccess: (updated) => {
       const refresh = () => {
-        for (const key of ["activities", "deals", "deal", "timeline", "mcem", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
+        for (const key of ["activity", "activities", "deals", "deal", "timeline", "mcem", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
       };
       refresh();
       if (updated.done) {
@@ -385,12 +405,16 @@ export function useToggleActivity() {
 export function ComposerSheet({ open, onClose, mode, customerId, dealId, initialType = "call", activity }) {
   const { t } = useTranslation();
   const { data: team = [] } = useTeam();
+  const { data: company } = useCompany();
   const queryClient = useQueryClient();
   const [type, setType] = useState("call");
   const [subject, setSubject] = useState("");
   const [dueDate, setDueDate] = useState(todayISO());
   const [dueTime, setDueTime] = useState("");
   const [ownerId, setOwnerId] = useState("");
+  const [assigneeIds, setAssigneeIds] = useState([]);
+  const [checklistEnabled, setChecklistEnabled] = useState(false);
+  const [meetingDraft, setMeetingDraft] = useState({ attendee_name: "", attendee_email: "", duration_minutes: 30, location: "", send_invitation: true });
   const [body, setBody] = useState("");
   const [note, setNote] = useState("");
   const [files, setFiles] = useState([]);
@@ -407,6 +431,9 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
       setDueDate(activity?.due_date ?? todayISO());
       setDueTime(activity?.due_time?.slice(0, 5) ?? "");
       setOwnerId(activity?.owner_id ?? "");
+      setAssigneeIds(activity?.assignee_ids ?? []);
+      setChecklistEnabled(activity?.checklist_enabled ?? false);
+      setMeetingDraft({ attendee_name: activity?.meeting?.attendee_name ?? "", attendee_email: activity?.meeting?.attendee_email ?? "", duration_minutes: activity?.meeting ? Math.round((new Date(activity.meeting.ends_at)-new Date(activity.meeting.starts_at))/60000) : 30, location: activity?.meeting?.location ?? "", send_invitation: true });
       setFiles([]);
     }
   }
@@ -416,7 +443,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
       mode === "note"
         ? apiClient.post("/notes", { body, customer_id: dealId ? null : customerId, deal_id: dealId ?? null })
         : editing
-          ? apiClient.patch(`/activities/${activity.id}`, { type, subject, note: note || null, due_date: dueDate, due_time: dueTime || null, ...(ownerId && { owner_id: ownerId }) })
+          ? apiClient.patch(`/activities/${activity.id}`, { ...(type === "meeting" && { meeting: meetingDraft }), type, subject, note: note || null, due_date: dueDate, due_time: dueTime || null, assignee_ids: assigneeIds, checklist_enabled: checklistEnabled, ...(ownerId && { owner_id: ownerId }) })
           : apiClient.post("/activities", {
               type,
               subject,
@@ -426,11 +453,14 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
               customer_id: dealId ? null : customerId,
               deal_id: dealId ?? null,
               owner_id: ownerId || null,
+              ...(type === "meeting" && { meeting: meetingDraft }),
+              assignee_ids: assigneeIds,
+              checklist_enabled: checklistEnabled,
             }),
     onSuccess: async (res) => {
       // Files chosen before the activity existed go up now.
       if (mode !== "note" && !editing && files.length && res?.data?.id) await uploadPending(res.data.id, files);
-      for (const key of ["activities", "timeline", "deals", "deal", "attachments", "mcem", "mcem-sources", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
+      for (const key of ["activity", "activities", "timeline", "deals", "deal", "attachments", "meeting-calendar", "meeting-contact", "mcem", "mcem-sources", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
       toast.success(t(mode === "note" ? "composer.noteAdded" : editing ? "edit.activitySaved" : "composer.scheduled"));
       onClose();
     },
@@ -472,6 +502,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
                   type="button"
                   role="radio"
                   aria-checked={type === option.value}
+                  disabled={Boolean(activity?.meeting) && option.value !== "meeting"}
                   onClick={() => setType(option.value)}
                   className={`pressable inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium ring-1 ring-inset ${
                     type === option.value ? "bg-zinc-900 text-white ring-zinc-900" : "bg-white text-zinc-600 ring-zinc-200 hover:bg-zinc-50"
@@ -489,19 +520,35 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
               <Field label={t("composer.due")}>
                 <input className="input" type="date" required value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
               </Field>
-              <Field label={t("composer.time")}>
-                <input className="input" type="time" value={dueTime} onChange={(e) => setDueTime(e.target.value)} />
+              <Field label={type === "meeting" ? t("meeting.startTime", "Meeting time") : t("composer.time")}>
+                <input className="input" type="time" required={type === "meeting"} value={dueTime} onChange={(e) => setDueTime(e.target.value)} />
               </Field>
             </div>
+            {type === "meeting" && <MeetingFields enabled={open} value={meetingDraft} onChange={setMeetingDraft}
+              dealId={activity?.deal_id ?? dealId} customerId={activity?.customer_id ?? customerId} contactId={activity?.contact_id}
+              timezone={company?.default_timezone} />}
             <Field label={t("edit.details")}>
               <textarea className="input" rows={2} value={note} onChange={(e) => setNote(e.target.value)} />
             </Field>
             <Attachments activityId={editing ? activity.id : null} pending={files} onPending={setFiles} />
+            <label className="flex items-center gap-2 text-sm text-zinc-700">
+              <input type="checkbox" className="h-4 w-4 rounded" checked={checklistEnabled} onChange={(e) => setChecklistEnabled(e.target.checked)} />
+              {t("task.useChecklist", "Use a checklist of subtasks")}
+            </label>
+            {team.length > 1 && <fieldset className="space-y-2">
+              <legend className="mb-1 text-sm font-medium text-zinc-700">{t("task.additionalAssignees", "Additional assignees")}</legend>
+              <div className="grid gap-2 sm:grid-cols-2">{team.filter((person) => person.id !== ownerId && person.can_receive_tasks !== false).map((person) => (
+                <label key={person.id} className="flex items-center gap-2 text-sm text-zinc-700">
+                  <input type="checkbox" className="h-4 w-4 rounded" checked={assigneeIds.includes(person.id)} disabled={Boolean(activity?.meeting)} onChange={(e) => setAssigneeIds((ids) => e.target.checked ? [...ids, person.id] : ids.filter((id) => id !== person.id))} />
+                  {person.full_name}
+                </label>
+              ))}</div>
+            </fieldset>}
             {team.length > 1 && (
               <Field label={t("composer.assignedTo")}>
-                <select className="input" value={ownerId} onChange={(e) => setOwnerId(e.target.value)}>
+                <select className="input" value={ownerId} disabled={Boolean(activity?.meeting)} onChange={(e) => setOwnerId(e.target.value)}>
                   <option value="">{t("composer.me")}</option>
-                  {team.map((u) => (
+                  {team.filter((u) => u.can_receive_tasks !== false).map((u) => (
                     <option key={u.id} value={u.id}>
                       {u.full_name}
                     </option>
@@ -519,6 +566,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
 // ---------- Timeline ----------
 
 const KIND_ICON = {
+  activity_update: "task",
   mcem: "task",
   note: "note",
   activity: "task",
@@ -532,6 +580,7 @@ const KIND_ICON = {
 };
 
 const KIND_TINT = {
+  activity_update: "bg-blue-50 text-blue-700 ring-blue-200/70",
   mcem: "bg-indigo-50 text-indigo-700 ring-indigo-200/70",
   note: "bg-amber-50 text-amber-700 ring-amber-200/70",
   activity: "bg-emerald-50 text-emerald-700 ring-emerald-200/70",
@@ -546,6 +595,7 @@ const KIND_TINT = {
 
 function linkFor(item) {
   if (item.kind === "invoice" || item.kind === "payment" || item.kind === "reminder") return `/invoices/${item.ref_id}`;
+  if (item.kind === "activity" || item.kind === "activity_update") return `/activities?task=${item.ref_id}`;
   if (item.kind === "quote") return `/quotes/${item.ref_id}`;
   if (item.kind === "deal_created" || item.kind === "deal_closed" || item.kind === "mcem") return `/deals/${item.ref_id}`;
   if (item.kind === "message") return `/messages?c=${item.ref_id}`;
@@ -582,6 +632,8 @@ function describe(item) {
   switch (item.kind) {
     case "note":
       return { title: t("timeline.note"), detail: item.detail };
+    case "activity_update":
+      return { title: t("timeline.activityUpdate", { subject: p.subject, status: p.status ? t(`task.status.${p.status}`) : t("task.note") }), detail: item.detail };
     case "activity":
       return { title: t("timeline.activityDone", { type: t(`activityType.${p.type}`), subject: p.subject }), detail: item.detail };
     case "deal_created":

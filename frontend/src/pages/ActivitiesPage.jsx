@@ -1,6 +1,7 @@
+import MeetingCalendar from "../components/MeetingCalendar";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { useActivities, useActivityCounts, useCustomerMap, useDeals, useTeamMap } from "../hooks/useApi";
+import { useActivities, useActivity, useActivityCounts, useCustomerMap, useDeals, useTeamMap } from "../hooks/useApi";
 import TaskSheet from "../components/TaskSheet";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
@@ -36,6 +37,7 @@ export default function ActivitiesPage() {
   const params = { scope, ...(who === "mine" && { mine: true }), ...(who === "handed" && { handed_out: true }) };
   const team = useTeamMap();
   const [openTask, setOpenTask] = useState(null);
+  const [showCalendar, setShowCalendar] = useState(false);
   const { data: activities = [], isLoading, isError, refetch } = useActivities(params);
   const customers = useCustomerMap();
   const { data: deals = [] } = useDeals({ status: "all" });
@@ -46,12 +48,12 @@ export default function ActivitiesPage() {
   const [creating, setCreating] = useState(() => canWrite && searchParams.get("new") === "1");
   // A notification links here as ?task=<id>: open that task's panel.
   const linked = searchParams.get("task");
-  const { data: everything = [] } = useActivities(linked ? { scope: "all" } : { scope: "none-yet" }, { enabled: Boolean(linked) });
+  const { data: linkedActivity } = useActivity(linked);
   useEffect(() => {
     if (!linked) return;
-    const found = activities.find((a) => a.id === linked) ?? everything.find((a) => a.id === linked);
+    const found = activities.find((a) => a.id === linked) ?? linkedActivity;
     if (found) setOpenTask(found);
-  }, [linked, activities, everything]);
+  }, [linked, activities, linkedActivity]);
   const closeTask = () => {
     setOpenTask(null);
     if (searchParams.get("task")) setSearchParams({}, { replace: true });
@@ -73,6 +75,7 @@ export default function ActivitiesPage() {
         subtitle={t("activities.subtitle")}
         actions={
           <>
+            <Button variant="secondary" onClick={() => setShowCalendar((show) => !show)}>{t(showCalendar ? "meeting.hideCalendar" : "meeting.showCalendar", showCalendar ? "Hide calendar" : "My calendar")}</Button>
             <Link to="/support?tab=sessions" className="btn btn-secondary">
               {t("sessions.bookCta")}
             </Link>
@@ -84,6 +87,7 @@ export default function ActivitiesPage() {
           </>
         }
       />
+      {showCalendar && <MeetingCalendar />}
       <div className="md:flex md:items-start md:justify-between md:gap-3">
         <FilterChips options={options} value={scope} onChange={setScope} />
         <FilterChips

@@ -1,3 +1,4 @@
+import TaskSheet from "../components/TaskSheet";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -78,6 +79,7 @@ export default function DealDetailPage() {
   const toggle = useToggleActivity();
   const customRows = useCustomFieldRows("deal", deal?.custom_fields);
 
+  const [openTask, setOpenTask] = useState(null);
   const [sheet, setSheet] = useState(null); // edit | activity | note | lost | delete
   const [lostReason, setLostReason] = useState("");
   const [composeType, setComposeType] = useState("call");
@@ -259,7 +261,7 @@ export default function DealDetailPage() {
             {open.length ? (
               <ul className="divide-y divide-zinc-100">
                 {open.map((a) => (
-                  <ActivityRow key={a.id} activity={a} onToggle={toggle.mutate} />
+                  <ActivityRow key={a.id} activity={a} onToggle={toggle.mutate} onOpen={setOpenTask} />
                 ))}
               </ul>
             ) : (
@@ -314,6 +316,7 @@ export default function DealDetailPage() {
       </div>
 
       <DealFormSheet open={sheet === "edit"} onClose={close} deal={deal} />
+      <TaskSheet activity={openTask && (activities.find((a) => a.id === openTask.id) ?? openTask)} open={Boolean(openTask)} onClose={() => setOpenTask(null)} />
       <ComposerSheet open={sheet === "activity"} onClose={close} mode="activity" dealId={id} initialType={composeType} />
       <ComposerSheet open={sheet === "note"} onClose={close} mode="note" dealId={id} />
       <Sheet

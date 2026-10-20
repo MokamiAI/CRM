@@ -34,6 +34,9 @@ export default function EditDocumentPage({ kind }) {
     onSuccess: (saved) => {
       queryClient.invalidateQueries({ queryKey: [k.cacheKey, id] });
       queryClient.invalidateQueries({ queryKey: [k.path] });
+      if (kind === "quote") {
+        for (const key of ["deal", "deals", "deal-quotes", "timeline", "reports", "mcem", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
+      }
       toast.success(t("edit.saved", { number: saved[k.number] }));
       navigate(back, { replace: true });
     },

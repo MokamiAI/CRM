@@ -5,7 +5,7 @@ from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import NotFoundError
-from app.models.crm import Activity, Contact, Deal, Note
+from app.models.crm import Activity, Contact, Deal, Note, TaskUpdate
 from app.models.customer import Customer
 from app.models.enums import DealStage
 from app.models.invoice import Invoice
@@ -95,11 +95,24 @@ class TimelineService:
         events = await self._all(select(McemEvent).where(McemEvent.deal_id.in_(deal_ids)).order_by(McemEvent.created_at.desc()).limit(_LIMIT))
         return [TimelineItem(kind="mcem", at=e.created_at, title="Customer progress: " + e.kind.replace("_", " "), detail=(f"{e.detail.get('from')} to {e.detail.get('to')}" if e.kind == "stage_changed" else e.detail.get("message") or e.detail.get("reason") or e.detail.get("key")), ref_id=e.deal_id, event_id=e.id, actor_id=e.actor_id) for e in events]
 
+    async def _activity_updates(self, condition):
+        rows = await self.db.execute(
+            select(TaskUpdate, Activity.subject).join(Activity, Activity.id == TaskUpdate.activity_id)
+            .where(condition).order_by(TaskUpdate.created_at.desc()).limit(_LIMIT)
+        )
+        return [TimelineItem(
+            kind="activity_update", at=update.created_at,
+            title=f"Activity update: {subject}" + (f" ({update.status.replace('_', ' ')})" if update.status else ""),
+            detail=update.note, ref_id=update.activity_id, event_id=update.id,
+            actor_id=update.author_id, params={"subject": subject, "status": update.status or ""},
+        ) for update, subject in rows.tuples()]
+
     async def customer_timeline(self, customer_id: uuid.UUID) -> list[TimelineItem]:
         if await self.db.get(Customer, customer_id) is None:
             raise NotFoundError("Customer not found", "CUSTOMER_NOT_FOUND")
 
         items: list[TimelineItem] = []
+        items += await self._activity_updates(Activity.customer_id == customer_id)
         items += [_note_item(n) for n in await self._all(select(Note).where(Note.customer_id == customer_id))]
         items += [
             _activity_item(a)
@@ -179,6 +192,7 @@ class TimelineService:
         if deal is None:
             raise NotFoundError("Deal not found", "DEAL_NOT_FOUND")
         items = _deal_items(deal)
+        items += await self._activity_updates(Activity.deal_id == deal_id)
         items += await self._mcem([deal.id])
         items += [_note_item(n) for n in await self._all(select(Note).where(Note.deal_id == deal_id))]
         items += [

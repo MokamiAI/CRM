@@ -62,7 +62,20 @@ class QuoteService:
             created_by=created_by_id,
             items=items,
         )
-        return await self.quotes.create(quote)
+        quote = await self.quotes.create(quote)
+        await self._sync_deal_value(quote)
+        return quote
+
+    async def _sync_deal_value(self, quote: Quote) -> None:
+        """A priced quote is the current commercial value of its opportunity.
+        Alternative quotes are not added together; the latest price saved wins.
+        Lock the deal so concurrent quote edits finish with one consistent value.
+        """
+        if quote.deal_id is not None:
+            deal = await self.db.scalar(select(Deal).where(Deal.id == quote.deal_id).with_for_update())
+            if deal is not None:
+                deal.value = quote.total
+                await self.db.flush()
 
     async def list_quotes(self, offset=0, limit=50, customer_id=None, status=None) -> list[Quote]:
         return await self.quotes.list_all(
@@ -104,6 +117,7 @@ class QuoteService:
             quote.subtotal = subtotal
             quote.tax_total = tax_total
             quote.total = total
+            await self._sync_deal_value(quote)
         return await self.quotes.save(quote)
 
     async def transition_status(self, quote_id: uuid.UUID, new_status: QuoteStatus) -> Quote:

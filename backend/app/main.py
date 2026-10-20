@@ -8,6 +8,8 @@ from app.api.routes import (
     channels,
     company_settings,
     crm,
+    meetings,
+    meeting_public,
     custom_fields,
     customers,
     data,
@@ -90,6 +92,8 @@ app.include_router(payments.router, prefix=settings.API_V1_PREFIX)
 app.include_router(company_settings.router, prefix=settings.API_V1_PREFIX)
 app.include_router(company_settings.profile_router, prefix=settings.API_V1_PREFIX)
 app.include_router(crm.router, prefix=settings.API_V1_PREFIX)
+app.include_router(meetings.router, prefix=settings.API_V1_PREFIX)
+app.include_router(meeting_public.router, prefix=settings.API_V1_PREFIX)
 app.include_router(mcem.router, prefix=settings.API_V1_PREFIX)
 app.include_router(reports.router, prefix=settings.API_V1_PREFIX)
 app.include_router(custom_fields.router, prefix=settings.API_V1_PREFIX)

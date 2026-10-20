@@ -199,6 +199,7 @@ export function NewQuotePage() {
     onSuccess: (quote) => {
       queryClient.invalidateQueries({ queryKey: ["quotes"] });
       queryClient.invalidateQueries({ queryKey: ["deal-quotes"] });
+      for (const key of ["deal", "deals", "timeline", "reports"]) queryClient.invalidateQueries({ queryKey: [key] });
       toast.success(t("invoices.draftCreated", { number: quote.quote_number }));
       navigate(`/quotes/${quote.id}`, { replace: true });
     },
