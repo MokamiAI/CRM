@@ -1,3 +1,4 @@
+import TaskSheet from "../components/TaskSheet";
 import { KpiCard } from "../components/dashboard";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -49,6 +50,7 @@ export default function CustomerDetailPage() {
   const toggle = useToggleActivity();
   const customRows = useCustomFieldRows("customer", customer?.custom_fields);
 
+  const [openTask, setOpenTask] = useState(null);
   const [sheet, setSheet] = useState(null); // edit | deal | message | activity | note | contact
   const [editingContact, setEditingContact] = useState(null);
   const [composeType, setComposeType] = useState("call");
@@ -230,7 +232,7 @@ export default function CustomerDetailPage() {
             {openActivities.length ? (
               <ul className="divide-y divide-zinc-100">
                 {openActivities.map((a) => (
-                  <ActivityRow key={a.id} activity={a} onToggle={toggle.mutate} />
+                  <ActivityRow key={a.id} activity={a} onToggle={toggle.mutate} onOpen={setOpenTask} />
                 ))}
               </ul>
             ) : (
@@ -304,6 +306,7 @@ export default function CustomerDetailPage() {
       <CustomerFormSheet open={sheet === "edit"} onClose={close} customer={customer} />
       <DealFormSheet open={sheet === "deal"} onClose={close} deal={null} customerId={id} />
       <NewConversationSheet open={sheet === "message"} onClose={close} customerId={id} />
+      <TaskSheet activity={openTask && (activities.find((a) => a.id === openTask.id) ?? openTask)} open={Boolean(openTask)} onClose={() => setOpenTask(null)} />
       <ComposerSheet open={sheet === "activity"} onClose={close} mode="activity" customerId={id} initialType={composeType} />
       <ComposerSheet open={sheet === "note"} onClose={close} mode="note" customerId={id} />
       <ContactSheet open={sheet === "contact"} onClose={close} customerId={id} contact={editingContact} />

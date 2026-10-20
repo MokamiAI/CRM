@@ -21,6 +21,7 @@ PUBLIC = {
     "/api/v1/public/contact",
     "/api/v1/public/inbound/email",
     "/api/v1/public/m/u/{token}",
+    "/api/v1/public/meetings/{token}",  # signed, revision-specific attendee response
     "/api/v1/public/quotes/accept/{token}",  # purpose-limited signed quote acceptance token
     "/api/v1/public/paystack/webhook",
 }

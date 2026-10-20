@@ -125,14 +125,16 @@ async def test_a_reminder_a_minute_before_and_only_once(api):
         set_system(db)
         await db.execute(update(Activity).where(Activity.subject == "Send the quote").values(created_at=datetime.combine(today, time(7, 0), SAST)))
         await db.commit()
-    # 14:28: nothing yet. 14:29 (a minute before): Call Thabo, plus the all-day one (after 08:00).
-    assert await remind_company(company, datetime.combine(today, time(14, 28), SAST)) == 1  # the all-day task
+    # 14:28: one daily digest for the date-only task. 14:29: the call notice.
+    assert await remind_company(company, datetime.combine(today, time(14, 28), SAST)) == 1  # daily task digest
     assert await remind_company(company, datetime.combine(today, time(14, 29), SAST)) == 1  # Call Thabo
     # Again a minute later: no repeats.
     assert await remind_company(company, datetime.combine(today, time(14, 30), SAST)) == 0
     bell = await _bell(api, h)
     subjects = [n["params"]["subject"] for n in bell["items"] if n["kind"] == "activity_due"]
-    assert sorted(subjects) == ["Call Thabo", "Send the quote"]
+    assert sorted(subjects) == ["Call Thabo"]
+    digest = [n for n in bell["items"] if n["kind"] == "task_digest"]
+    assert len(digest) == 1 and "Send the quote" in digest[0]["body"]
     call = next(n for n in bell["items"] if n["params"]["subject"] == "Call Thabo")
     assert call["params"]["time"] == "14:30" and call["title"] == "Due at 14:30: Call Thabo"
 

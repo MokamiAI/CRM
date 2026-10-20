@@ -6,6 +6,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 from app.models.enums import INDUSTRIES, ActivityType, DealStage
+from app.schemas.meeting import MeetingDraft, MeetingOut
 
 # ---------- Contacts ----------
 
@@ -118,6 +119,7 @@ class DealOut(BaseModel):
 
 
 class ActivityCreate(BaseModel):
+    meeting: MeetingDraft | None = None
     type: ActivityType = ActivityType.TASK
     subject: str = Field(min_length=1, max_length=255)
     note: str | None = None
@@ -127,9 +129,14 @@ class ActivityCreate(BaseModel):
     deal_id: uuid.UUID | None = None
     contact_id: uuid.UUID | None = None
     owner_id: uuid.UUID | None = None
+    assignee_ids: list[uuid.UUID] = Field(default_factory=list, max_length=50)
+    checklist_enabled: bool = False
+    daily_reminders: bool = True
+    deadline_reminders: bool = True
 
 
 class ActivityUpdate(BaseModel):
+    meeting: MeetingDraft | None = None
     type: ActivityType | None = None
     subject: str | None = Field(default=None, min_length=1, max_length=255)
     note: str | None = None
@@ -137,6 +144,19 @@ class ActivityUpdate(BaseModel):
     due_time: time | None = None
     done: bool | None = None
     owner_id: uuid.UUID | None = None
+    assignee_ids: list[uuid.UUID] | None = Field(default=None, max_length=50)
+    checklist_enabled: bool | None = None
+    daily_reminders: bool | None = None
+    deadline_reminders: bool | None = None
+
+
+class ChecklistItemCreate(BaseModel):
+    title: str = Field(min_length=1, max_length=255)
+
+
+class ChecklistItemUpdate(BaseModel):
+    done: bool | None = None
+    title: str | None = Field(default=None, min_length=1, max_length=255)
 
 
 TaskStatus = Literal["todo", "in_progress", "blocked", "done"]
@@ -161,6 +181,7 @@ class TaskUpdateOut(BaseModel):
 
 
 class ActivityOut(BaseModel):
+    meeting: MeetingOut | None = None
     model_config = ConfigDict(from_attributes=True)
 
     id: uuid.UUID
@@ -172,6 +193,12 @@ class ActivityOut(BaseModel):
     done: bool
     done_at: datetime | None
     status: str = "todo"
+    checklist_enabled: bool = False
+    checklist: list[dict] = []
+    completion_percentage: int | None = None
+    assignee_ids: list[uuid.UUID] = []
+    daily_reminders: bool = True
+    deadline_reminders: bool = True
     customer_id: uuid.UUID | None
     deal_id: uuid.UUID | None
     contact_id: uuid.UUID | None
@@ -215,6 +242,7 @@ class NoteOut(BaseModel):
 # ---------- Timeline & search ----------
 
 TimelineKind = Literal[
+    "activity_update",
     "note",
     "activity",
     "deal_created",
@@ -255,7 +283,9 @@ class SearchHit(BaseModel):
 
 
 class UserBrief(BaseModel):
-    """Who can own deals and activities: name only, for pickers."""
+    """Who can own deals and activities: name and assignment eligibility."""
+
+    can_receive_tasks: bool = True
 
     model_config = ConfigDict(from_attributes=True)
 

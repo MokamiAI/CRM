@@ -28,6 +28,9 @@
         {% if button_url %}
         <p style="margin:18px 0 8px;"><a href="{{ button_url }}" style="display:inline-block;background:#18181b;color:#ffffff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 18px;border-radius:8px;">{{ button_label }}</a></p>
         {% endif %}
+        {% if signature is defined and signature %}
+        <p style="margin:20px 0 12px;font-size:14px;line-height:1.6;">{% for line in signature.splitlines() %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+        {% endif %}
       </td></tr>
       <tr><td style="padding:16px 28px 22px;font-size:12px;color:#a1a1aa;border-top:1px solid #f4f4f5;">
         {{ footer or "YGT · You Got This" }}

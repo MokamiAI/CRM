@@ -306,6 +306,9 @@ function Sessions() {
         <div>
           <h2 className="text-base font-semibold text-zinc-900">{t("sessions.title")}</h2>
           <p className="mt-0.5 text-sm text-zinc-500">{t("sessions.intro")}</p>
+          {slots?.host_name && (
+            <p className="mt-2 text-sm text-zinc-700">{t("sessions.host", { name: slots.host_name })} | <a className="font-medium text-indigo-600 hover:underline" href={`mailto:${slots.host_email}`}>{slots.host_email}</a></p>
+          )}
         </div>
         {isLoading ? (
           <ListSkeleton rows={2} />

@@ -16,5 +16,8 @@
 {{ button_label }}: {{ button_url }}
 {% endif %}
 
+{% if signature is defined and signature %}
+{{ signature }}
+{% endif %}
 --
 {{ footer or "YGT · You Got This" }}

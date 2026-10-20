@@ -30,6 +30,26 @@ _RETRY_OPTIONS = {
 _Composer = Callable[[NotificationService], Awaitable[OutgoingEmail | None]]
 
 
+@celery_app.task(name="app.tasks.email_tasks.send_meeting_email_task", **_RETRY_OPTIONS)
+def send_meeting_email_task(company_id: str, payload: dict) -> bool:
+    """An immutable invite snapshot, sent through its own company's mailbox."""
+    from app.core.tenancy import set_tenant
+    from app.services.email_settings import resolve_email_config
+    from app.repositories.company_settings_repository import CompanySettingsRepository
+
+    async def load():
+        async with AsyncSessionLocal() as session:
+            set_tenant(session, uuid.UUID(company_id))
+            return resolve_email_config(await CompanySettingsRepository(session).get_current())
+
+    try:
+        send_email(run_async(load), OutgoingEmail(**payload))
+    except EmailNotConfiguredError:
+        logger.warning("Meeting email could not be sent: company mailbox is not configured")
+        return False
+    return True
+
+
 def _deliver(compose: _Composer, description: str) -> bool:
     async def _load() -> tuple[EffectiveEmailConfig, OutgoingEmail | None]:
         async with AsyncSessionLocal() as session:

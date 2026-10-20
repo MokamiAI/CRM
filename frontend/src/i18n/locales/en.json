@@ -158,7 +158,10 @@
   "activity": {
     "done": "Done",
     "markDone": "Mark “{{subject}}” as done",
-    "markUndone": "Mark “{{subject}}” as not done"
+    "markUndone": "Mark “{{subject}}” as not done",
+    "viewWorkspace": "View workspace",
+    "standalone": "Standalone activity - no linked workspace",
+    "markStandaloneDone": "Mark as done"
   },
   "activityType": {
     "call": "Call",
@@ -1757,14 +1760,14 @@
   },
   "sessions": {
     "book": "Book this time",
-    "bookCta": "Book a session",
+    "bookCta": "Book a call with Johannes",
     "booked": "Session booked",
     "bookedHint": "A calendar invite is on its way to your email.",
     "cancel": "Cancel this session",
     "cancelled": "Session cancelled",
     "chooseFirst": "Choose a time.",
     "chosen": "{{when}}",
-    "intro": "Pick a time for a video call with our team: onboarding, training, or help with a problem.",
+    "intro": "Speak directly with Johannes, founder of YGT. Choose a time for onboarding, training, or help with your business.",
     "inviteNote": "Booking sends a calendar invite to you and to our team, with the meeting link.",
     "noSlots": "There are no open times right now. Log a ticket and we'll find a time with you.",
     "noneUpcoming": "Nothing booked yet.",
@@ -1773,7 +1776,7 @@
     "orTicket": "Prefer to write? Log a ticket",
     "pickDay": "Day",
     "pickTime": "Time ({{tz}}, {{minutes}} minutes)",
-    "title": "Book a session with YGT",
+    "title": "Book a call with Johannes",
     "topic": "What it's about",
     "topics": {
       "billing": "Billing",
@@ -1782,7 +1785,8 @@
       "support": "Help with a problem",
       "training": "Training my team"
     },
-    "upcoming": "Your sessions"
+    "upcoming": "Your sessions",
+    "host": "Hosted by {{name}}, founder of YGT"
   },
   "settings": {
     "company": {
@@ -2082,7 +2086,8 @@
     "showMore_one": "Show {{count}} more",
     "showMore_other": "Show {{count}} more",
     "total": "Total {{amount}}",
-    "value": "Value {{amount}}"
+    "value": "Value {{amount}}",
+    "activityUpdate": "{{subject}} - {{status}}"
   },
   "tour": {
     "back": "Back",

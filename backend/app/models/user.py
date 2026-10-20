@@ -40,6 +40,10 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     invite_accepted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     @property
+    def can_receive_tasks(self) -> bool:
+        return self.is_active and self.role != UserRole.VIEWER
+
+    @property
     def invite_pending(self) -> bool:
         return self.invited_at is not None and self.invite_accepted_at is None
 

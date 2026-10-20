@@ -81,7 +81,8 @@ class BookingService:
     async def slots(self) -> SlotsOut:
         rules = await self.availability()
         days = free_slots(rules, await self._taken(), _now()) if rules.enabled else []
-        return SlotsOut(timezone=rules.timezone, slot_minutes=rules.slot_minutes, days=days)
+        return SlotsOut(timezone=rules.timezone, slot_minutes=rules.slot_minutes, days=days,
+                        host_name=settings.BOOKING_HOST_NAME, host_email=settings.BOOKING_CALENDAR_EMAIL or "johannes@yougt.co.za")
 
     async def mine(self) -> list[SessionBooking]:
         return list(await self.db.scalars(select(SessionBooking).order_by(SessionBooking.starts_at.desc()).limit(50)))
@@ -127,8 +128,10 @@ class BookingService:
         return booking
 
     async def _send_invites(self, booking: SessionBooking, rules: Availability, method: str, by_team: bool = False) -> None:
-        team = settings.BOOKING_CALENDAR_EMAIL or settings.SUPPORT_EMAIL
-        organizer = platform_email.public_support_email() or team
+        team = settings.BOOKING_CALENDAR_EMAIL or "johannes@yougt.co.za"
+        host = settings.BOOKING_HOST_NAME
+        signature = f"Kind regards,\n{host}\nFounder | YGT - You Got This\n{team}\nhttps://yougt.co.za"
+        organizer = team
         if not organizer:
             return
         company = await self.db.get(CompanySettings, booking.company_id)
@@ -136,7 +139,7 @@ class BookingService:
         topic = TOPICS.get(booking.topic, booking.topic)
         local = booking.starts_at.astimezone(ZoneInfo(rules.timezone))
         when = f"{local:%A %d %B %Y, %H:%M} ({rules.timezone})"
-        summary = f"YGT session: {topic} with {company_name}"
+        summary = f"YGT session with {host}: {topic} with {company_name}"
         description = f"{topic} session with {booking.attendee_name} ({company_name}).\n" + (f"Notes: {booking.notes}\n" if booking.notes else "") + (
             f"Join: {rules.meeting_link}" if rules.meeting_link else ""
         )
@@ -147,7 +150,7 @@ class BookingService:
             summary=summary,
             description=description,
             organizer=organizer,
-            attendees=[(booking.attendee_name, booking.attendee_email)] + ([("YGT", team)] if team else []),
+            attendees=[(booking.attendee_name, booking.attendee_email)] + ([(host, team)] if team else []),
             method=method,
             sequence=booking.sequence,
             location=rules.meeting_link,
@@ -160,11 +163,13 @@ class BookingService:
                 subject=f"{'Cancelled' if cancelled else 'Booked'}: {summary}",
                 title="Your session is cancelled" if cancelled else "Your session is booked",
                 paragraphs=[f"Hi {booking.attendee_name.split(' ')[0]},"]
-                + (["This session has been cancelled" + (" by YGT's team." if by_team else ".") + " You can book another time in the app."] if cancelled else ["Your session with YGT's team is booked. The invite is attached: add it to your calendar."]),
+                + (["This session has been cancelled" + (" by YGT's team." if by_team else ".") + " You can book another time in the app."] if cancelled else [f"Your call with {host}, founder of YGT, is booked. The invite is attached: add it to your calendar."]),
                 details=details,
                 button=("Book another time" if cancelled else "See your bookings", platform_email.app_link("/support?tab=sessions")),
                 calendar=ics,
                 calendar_method=method,
+                signature=signature,
+                reply_to=team,
             )
         ]
         if team:

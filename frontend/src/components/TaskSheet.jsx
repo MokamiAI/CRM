@@ -1,17 +1,21 @@
+import MeetingCard from "./MeetingCard";
 // A task (any activity) with its progress: who it's for and from, a status
 // (to do, in progress, blocked, done) and the notes people left on it.
 // Reporting back tells whoever assigned it (backend add_update).
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
-import { useTeamMap } from "../hooks/useApi";
+import { useActivity, useTeamMap } from "../hooks/useApi";
 import { errorMessage, formatShortDate } from "../utils/format";
 import Attachments from "./Attachments";
 import Sheet from "./Sheet";
 import { Avatar } from "./ui";
+import { activityWorkspace } from "../utils/activityWorkspace";
+import TaskChecklist, { refreshTask } from "./TaskChecklist";
 
 export const TASK_STATUSES = ["todo", "in_progress", "blocked", "done"];
 
@@ -38,14 +42,22 @@ export function StatusChip({ status = "todo", className = "" }) {
   );
 }
 
-export default function TaskSheet({ activity, open, onClose }) {
+export default function TaskSheet({ activity: initialActivity, open, onClose }) {
   const { t } = useTranslation();
   const { user } = useAuth();
   const team = useTeamMap();
   const queryClient = useQueryClient();
+  const { data: freshActivity } = useActivity(open ? initialActivity?.id : null);
+  const activity = freshActivity ?? initialActivity;
   const canWrite = user?.role !== "viewer";
   const [status, setStatus] = useState(null);
   const [note, setNote] = useState("");
+  useEffect(() => { setStatus(null); setNote(""); }, [initialActivity?.id, open]);
+  const settings = useMutation({
+    mutationFn: (body) => apiClient.patch(`/activities/${activity.id}`, body).then((r) => r.data),
+    onSuccess: (updated) => refreshTask(queryClient, updated),
+    onError: (error) => toast.error(errorMessage(error)),
+  });
   const { data: updates = [] } = useQuery({
     queryKey: ["task-updates", activity?.id],
     queryFn: () => apiClient.get(`/activities/${activity.id}/updates`).then((r) => r.data),
@@ -61,7 +73,7 @@ export default function TaskSheet({ activity, open, onClose }) {
         ...(note.trim() && { note: note.trim() }),
       }),
     onSuccess: () => {
-      for (const key of ["activities", "task-updates", "deals", "deal", "timeline", "notifications", "mcem", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
+      for (const key of ["activity", "activities", "task-updates", "deals", "deal", "timeline", "notifications", "mcem", "mcem-report"]) queryClient.invalidateQueries({ queryKey: [key] });
       toast.success(t("task.sent"));
       setStatus(null);
       setNote("");
@@ -92,6 +104,13 @@ export default function TaskSheet({ activity, open, onClose }) {
       }
     >
       <div className="space-y-5">
+        {activityWorkspace(activity) ? (
+          <Link to={activityWorkspace(activity)} onClick={onClose} className="btn btn-secondary">
+            {t("activity.viewWorkspace", "View workspace")}
+          </Link>
+        ) : (
+          <p className="text-sm text-zinc-500">{t("activity.standalone", "Standalone activity — no linked workspace")}</p>
+        )}
         <dl className="grid grid-cols-2 gap-3 text-sm">
           <div>
             <dt className="text-xs text-zinc-500">{t("task.assignedTo")}</dt>
@@ -117,7 +136,37 @@ export default function TaskSheet({ activity, open, onClose }) {
         </dl>
         {activity.note && <p className="whitespace-pre-line rounded-lg bg-zinc-50 px-3 py-2 text-sm text-zinc-700">{activity.note}</p>}
 
+        {activity.meeting && <MeetingCard activity={activity} canWrite={canWrite} />}
+
         <Attachments activityId={activity.id} canWrite={canWrite} />
+
+        <TaskChecklist key={activity.id} activity={activity} canWrite={canWrite} />
+
+        <section className="space-y-3">
+          <h3 className="text-sm font-semibold text-zinc-900">{t("task.shared", "Owner and assignees")}</h3>
+          <p className="text-xs text-zinc-500">{t("task.sharedHelp", "The owner stays accountable. Additional assignees can update this task and receive its reminders.")}</p>
+          <label className="block text-sm text-zinc-700">{t("task.owner", "Owner")}
+            <select className="input mt-1" value={activity.owner_id ?? ""} disabled={!canWrite || settings.isPending || Boolean(activity.meeting)} onChange={(e) => settings.mutate({ owner_id: e.target.value })}>
+              {[...team.values()].filter((person) => person.can_receive_tasks !== false).map((person) => <option key={person.id} value={person.id}>{person.full_name}</option>)}
+            </select>
+          </label>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {[...team.values()].filter((person) => person.id !== activity.owner_id && person.can_receive_tasks !== false).map((person) => (
+              <label key={person.id} className="flex items-center gap-2 text-sm text-zinc-700">
+                <input type="checkbox" className="h-4 w-4 rounded" checked={(activity.assignee_ids ?? []).includes(person.id)} disabled={!canWrite || settings.isPending || Boolean(activity.meeting)}
+                  onChange={(e) => settings.mutate({ assignee_ids: e.target.checked ? [...(activity.assignee_ids ?? []), person.id] : (activity.assignee_ids ?? []).filter((id) => id !== person.id) })} />
+                {person.full_name}
+              </label>
+            ))}
+          </div>
+        </section>
+
+        {activity.type === "task" && <fieldset className="space-y-2" disabled={!canWrite || settings.isPending || Boolean(activity.meeting)}>
+          <legend className="mb-2 text-sm font-semibold text-zinc-900">{t("task.reminders", "Reminders")}</legend>
+          <label className="flex items-start gap-2 text-sm text-zinc-700"><input className="mt-1 h-4 w-4 rounded" type="checkbox" checked={activity.daily_reminders} onChange={(e) => settings.mutate({ daily_reminders: e.target.checked })} />{t("task.dailyReminder", "Daily reminder, grouped with your other unfinished tasks")}</label>
+          <label className="flex items-start gap-2 text-sm text-zinc-700"><input className="mt-1 h-4 w-4 rounded" type="checkbox" checked={activity.deadline_reminders} onChange={(e) => settings.mutate({ deadline_reminders: e.target.checked })} />{t("task.deadlineReminder", "Deadline reminder: two hours before the due time")}</label>
+          {!activity.due_time && <p className="text-xs text-zinc-500">{t("task.noDueTime", "Add a due time using Edit for the two-hour reminder. Date-only tasks receive date-based reminders.")}</p>}
+        </fieldset>}
 
         {canWrite && (
           <fieldset>
@@ -126,11 +175,11 @@ export default function TaskSheet({ activity, open, onClose }) {
               {TASK_STATUSES.map((s) => (
                 <label
                   key={s}
-                  className={`flex min-h-11 cursor-pointer items-center justify-center rounded-lg px-2 text-center text-sm font-medium ring-1 ring-inset transition-colors duration-150 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-500 ${
+                  className={`flex min-h-11 cursor-pointer items-center justify-center rounded-lg px-2 text-center text-sm font-medium ring-1 ring-inset transition-colors duration-150 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-500 has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50 ${
                     chosen === s ? SELECTED[s] : "bg-white text-zinc-700 ring-zinc-200 hover:bg-zinc-50"
                   }`}
                 >
-                  <input type="radio" name="task-status" value={s} checked={chosen === s} onChange={() => setStatus(s)} className="sr-only" />
+                  <input type="radio" disabled={activity.checklist_enabled && activity.checklist?.length > 0 && ((s === "done" && activity.completion_percentage < 100) || (s !== "done" && activity.completion_percentage === 100))} name="task-status" value={s} checked={chosen === s} onChange={() => setStatus(s)} className="sr-only" />
                   {t(`task.status.${s}`)}
                 </label>
               ))}

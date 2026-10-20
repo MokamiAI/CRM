@@ -111,7 +111,8 @@ class Settings(BaseSettings):
     NOMINATIM_URL: str = "https://nominatim.openstreetmap.org/search"
     # The calendar address that session bookings are sent to as invites
     # (e.g. your Google Calendar Gmail address). Defaults to SUPPORT_EMAIL.
-    BOOKING_CALENDAR_EMAIL: str | None = None
+    BOOKING_CALENDAR_EMAIL: str | None = "johannes@yougt.co.za"
+    BOOKING_HOST_NAME: str = "Johannes"
 
     # ---- Rate limiting ----
     # memory: per server process (fine for one server); redis: shared
