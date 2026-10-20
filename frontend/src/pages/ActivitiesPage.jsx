@@ -76,9 +76,6 @@ export default function ActivitiesPage() {
         actions={
           <>
             <Button variant="secondary" onClick={() => setShowCalendar((show) => !show)}>{t(showCalendar ? "meeting.hideCalendar" : "meeting.showCalendar", showCalendar ? "Hide calendar" : "My calendar")}</Button>
-            <Link to="/support?tab=sessions" className="btn btn-secondary">
-              {t("sessions.bookCta")}
-            </Link>
             {canWrite && (
               <Button onClick={() => setCreating(true)}>
                 <PlusIcon className="h-4 w-4" /> {t("activities.new")}
