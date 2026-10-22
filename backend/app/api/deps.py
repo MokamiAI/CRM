@@ -6,6 +6,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
+from app.core.activity_access import set_activity_actor
 from app.core.database import get_db
 from app.core.exceptions import PermissionDeniedError, UnauthorizedError
 from app.core.tenancy import set_system, set_tenant
@@ -56,6 +57,7 @@ async def get_current_user(
     if user is None or not user.is_active:
         raise UnauthorizedError("Account is no longer active")
     set_tenant(db, user.company_id)
+    set_activity_actor(db, user)
     # For the activity and error logs (app/core/middleware.py).
     request.state.user_id = str(user.id)
     request.state.company_id = str(user.company_id)

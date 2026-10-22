@@ -14,6 +14,7 @@ from sqlalchemy import func, or_, select
 
 from app.api.email_dispatch import commit_and_enqueue_each
 from app.core.config import settings
+from app.core.activity_access import CHECK_AVAILABILITY
 from app.core.exceptions import ConflictError, NotFoundError, PermissionDeniedError, UnauthorizedError
 from app.core.security import decode_token
 from app.core.tenancy import current_company_id, set_tenant
@@ -120,7 +121,8 @@ class MeetingService:
         await self._locks(activity, email, organizer_id)
         people = {str(organizer_id), str(activity.owner_id), *(activity.assignee_ids or [])}
         rows = (await self.db.execute(select(Meeting, Activity).join(Activity, Activity.id == Meeting.activity_id)
-                                     .where(Meeting.status.in_(BUSY), Meeting.activity_id != activity.id))).all()
+                                     .where(Meeting.status.in_(BUSY), Meeting.activity_id != activity.id)
+                                     .execution_options(**{CHECK_AVAILABILITY: True}))).all()
         for other, parent in rows:
             same_people = bool(people & {str(other.organizer_id), str(parent.owner_id), *(parent.assignee_ids or [])})
             if not same_people and other.attendee_email.lower() != email.lower():
@@ -132,7 +134,7 @@ class MeetingService:
         zone = (await self.company()).default_timezone
         legacy = (await self.db.scalars(select(Activity).where(Activity.type == ActivityType.MEETING,
                   Activity.id != activity.id, Activity.done.is_(False), Activity.due_time.is_not(None),
-                  ~Activity.id.in_(select(Meeting.activity_id))))).all()
+                  ~Activity.id.in_(select(Meeting.activity_id))).execution_options(**{CHECK_AVAILABILITY: True}))).all()
         for parent in legacy:
             if not (people & {str(parent.owner_id), *(parent.assignee_ids or [])}):
                 continue
@@ -320,6 +322,8 @@ class MeetingService:
         return meeting
 
     async def calendar(self, start, end, user, mine=True):
+        if not mine and user.role not in (UserRole.ADMIN, UserRole.MANAGER):
+            raise PermissionDeniedError("Only admins and managers can view everyone's calendar")
         if end <= start or (end - start).days > 93:
             raise ConflictError("Choose a calendar range of up to 93 days", "CALENDAR_RANGE_INVALID")
         company = await self.company()

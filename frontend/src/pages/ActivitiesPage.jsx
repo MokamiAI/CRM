@@ -31,6 +31,7 @@ export default function ActivitiesPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const canWrite = user?.role !== "viewer";
+  const canSeeEveryone = ["admin", "manager"].includes(user?.role);
   const { data: counts } = useActivityCounts();
   const [scope, setScope] = useState(() => (counts?.overdue ? "overdue" : "today"));
   const [who, setWho] = useState("mine");
@@ -91,7 +92,7 @@ export default function ActivitiesPage() {
           options={[
             { value: "mine", label: t("activities.mine") },
             { value: "handed", label: t("activities.handedOut") },
-            { value: "all", label: t("activities.everyone") },
+            ...(canSeeEveryone ? [{ value: "all", label: t("activities.everyone") }] : []),
           ]}
           value={who}
           onChange={setWho}

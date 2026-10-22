@@ -6,11 +6,14 @@ import apiClient from "../services/apiClient";
 import { useCompany } from "../hooks/useApi";
 import { todayISO } from "../utils/format";
 import { meetingLabel } from "./MeetingCard";
+import { useAuth } from "../context/AuthContext";
 
 const addDays = (day, count) => { const date = new Date(day + "T00:00:00Z"); date.setUTCDate(date.getUTCDate() + count); return date.toISOString().slice(0, 10); };
 
 export default function MeetingCalendar() {
   const { t, i18n } = useTranslation();
+  const { user } = useAuth();
+  const canSeeEveryone = ["admin", "manager"].includes(user?.role);
   const { data: company } = useCompany();
   const timezone = company?.default_timezone || "Africa/Johannesburg";
   const [start, setStart] = useState(todayISO());
@@ -28,7 +31,7 @@ export default function MeetingCalendar() {
           <button type="button" className="btn btn-secondary" onClick={() => setStart(addDays(start, 7))}>{t("meeting.next", "Next week")}</button>
         </div>
       </div>
-      <label className="flex items-center gap-2 text-sm text-zinc-700"><input type="checkbox" className="h-4 w-4 rounded" checked={!mine} onChange={(e) => setMine(!e.target.checked)} />{t("meeting.wholeWorkspace", "Show the whole workspace")}</label>
+      {canSeeEveryone && <label className="flex items-center gap-2 text-sm text-zinc-700"><input type="checkbox" className="h-4 w-4 rounded" checked={!mine} onChange={(e) => setMine(!e.target.checked)} />{t("meeting.wholeWorkspace", "Show the whole workspace")}</label>}
       <p className="text-xs leading-relaxed text-zinc-600">{t("meeting.calendarHelp", "Invitations and proposed times hold space in YGT. Accepted meetings are confirmed. Events in other calendar apps are not checked.")}</p>
       {events.isError ? <p role="alert" className="text-sm text-red-700">{t("meeting.calendarError", "Could not load the calendar.")} <button className="underline" type="button" onClick={() => events.refetch()}>{t("common.retry", "Try again")}</button></p> : events.isLoading ? <p className="text-sm text-zinc-500">{t("common.loading", "Loading...")}</p> : (
         <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-7">
