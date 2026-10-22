@@ -86,6 +86,21 @@ class SubscriptionInvoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     buyer: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
 
 
+class SubscriberLink(TimestampMixin, Base):
+    """Which prospect and deal in YGT's own workspace stand for a company
+    that signed up to YGT, and the subscription state last copied onto that
+    deal (services/subscriber_pipeline.py). Platform-wide, not per company.
+    The deal only moves when the state changes, so a stage someone sets by
+    hand stays put until the subscription itself moves on."""
+
+    __tablename__ = "subscriber_links"
+
+    company_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("company_settings.id", ondelete="CASCADE"), primary_key=True)
+    customer_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("customers.id", ondelete="SET NULL"), nullable=True)
+    deal_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("deals.id", ondelete="SET NULL"), nullable=True)
+    state: Mapped[str] = mapped_column(String(20), nullable=False)
+
+
 class PaystackPlan(UUIDPKMixin, TimestampMixin, Base):
     """Plans created in YGT's Paystack account, one per plan, interval and
     number of users (Paystack plans have a fixed amount). Platform-wide,

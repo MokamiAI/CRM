@@ -1,7 +1,7 @@
 # Every model module is imported here so Base.metadata is fully populated
 # before Alembic autogenerate/upgrade runs (see alembic/env.py, which does
 # `from app.models import *`).
-from app.models.billing import BillingPayment, PaystackPlan, Subscription, SubscriptionInvoice
+from app.models.billing import BillingPayment, PaystackPlan, SubscriberLink, Subscription, SubscriptionInvoice
 from app.models.company_settings import CompanySettings
 from app.models.crm import Activity, ActivityAttachment, Contact, Deal, Note, TaskUpdate
 from app.models.meeting import Meeting
@@ -55,6 +55,7 @@ __all__ = [
     "SubscriptionInvoice",
     "Contact",
     "PaystackPlan",
+    "SubscriberLink",
     "Subscription",
     "Deal",
     "Note",

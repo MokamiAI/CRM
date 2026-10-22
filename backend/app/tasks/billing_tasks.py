@@ -9,6 +9,7 @@ from app.core.config import settings
 from app.core.database import AsyncSessionLocal
 from app.core.tenancy import set_system
 from app.models.billing import Subscription, SubscriptionInvoice
+from app.services import subscriber_pipeline
 from app.services.manual_billing import issue_trial_invoice, invoice_email
 from app.services.subscription_invoices import recipients, render_html
 from app.services.document_service import pdf_attachment
@@ -76,3 +77,17 @@ async def deliver_invoice(invoice_id, now=None):
 @celery_app.task(name="app.tasks.billing_tasks.invoice_expired_trials_task")
 def invoice_expired_trials_task():
     return run_async(invoice_expired_trials)
+
+
+async def sync_subscriber_pipeline():
+    async with AsyncSessionLocal() as db:
+        changes = await subscriber_pipeline.sync(db)
+        await db.commit()
+    for change in changes:
+        logger.info("YGT pipeline: %s %s -> %s", change.action, change.company, change.stage.value)
+    return len(changes)
+
+
+@celery_app.task(name="app.tasks.billing_tasks.sync_subscriber_pipeline_task")
+def sync_subscriber_pipeline_task():
+    return run_async(sync_subscriber_pipeline)
