@@ -214,6 +214,16 @@
       "users_other": "Up to {{count}} people",
       "seats": "One seat per person; add or remove seats any time"
     },
+    "payBy": {
+      "titleTrial": "Your free trial has ended",
+      "titlePayment": "Your payment didn't go through",
+      "daysLeft_one": "Pay within {{count}} day (by {{date}}) to keep using YGT.",
+      "daysLeft_other": "Pay within {{count}} days (by {{date}}) to keep using YGT.",
+      "today": "Pay today to keep using YGT.",
+      "after": "After that it becomes view-only: nothing is lost, but you can't add, edit or send until you pay.",
+      "payNow": "Pay now",
+      "askAdmin": "Ask your admin to pay."
+    },
     "locked": {
       "askAdmin": "Ask your admin to choose a plan.",
       "body": "Everything you've added is safe and you can still view it. Choose a plan to add, edit and send again.",
@@ -267,6 +277,8 @@
       "pastDueLine": "Paystack couldn't charge your card. It will try again; update your card to keep your plan.",
       "past_due": "Payment failed",
       "trialEndedLine": "Your free trial has ended. Your data is safe; choose a plan to keep working.",
+      "trial_grace": "Payment due",
+      "trialGraceLine": "Your free trial has ended. Choose a plan by {{date}} to keep working.",
       "trial_ended": "Trial ended",
       "trialing": "Free trial",
       "trialingLine_one": "{{count}} day left in your free trial, until {{date}}.",

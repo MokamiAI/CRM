@@ -60,6 +60,7 @@ async def billing_out(service: BillingService) -> BillingOut:
         manual_invoices_enabled=settings.MANUAL_TRIAL_INVOICES_ENABLED,
         plan=current.plan.key,
         state=current.state,
+        pay_by=current.pay_by,
         subscribed_plan=sub.plan if sub.status in ("active", "past_due", "cancelled") else None,
         interval=sub.interval,
         seats=sub.seats,

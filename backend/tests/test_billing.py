@@ -16,8 +16,10 @@ def sub(**kwargs) -> Subscription:
 def test_trial_is_grow_until_it_ends():
     trial = sub(plan="grow", status="trialing", seats=TRIAL_USERS, trial_ends_at=NOW + timedelta(days=1))
     assert (effective(trial, NOW).plan.key, effective(trial, NOW).users) == ("grow", TRIAL_USERS)
-    # No free plan: once the trial ends the company is read-only.
-    ended = effective(trial, NOW + timedelta(days=2))
+    # No free plan: once the trial ends there are a few days to pay, then the company is read-only.
+    grace = effective(trial, NOW + timedelta(days=2))
+    assert (grace.plan.key, grace.state, grace.locked) == ("grow", "trial_grace", False)
+    ended = effective(trial, NOW + timedelta(days=1 + GRACE_DAYS + 1))
     assert (ended.plan.key, ended.state, ended.locked) == ("none", "trial_ended", True)
 
 

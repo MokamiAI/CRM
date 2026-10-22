@@ -38,7 +38,9 @@ class PlanLimitError(AppError):
 class Effective:
     plan: Plan
     users: int | None  # how many active people may sign in; None: no limit
-    state: str  # trialing | active | past_due | cancelled | trial_ended | lapsed
+    state: str  # trialing | trial_grace | active | past_due | cancelled | trial_ended | lapsed
+    # Unpaid but still working: the moment it becomes read-only unless they pay.
+    pay_by: datetime | None = None
 
     @property
     def locked(self) -> bool:
@@ -51,18 +53,25 @@ def _now() -> datetime:
 
 def effective(sub: Subscription, now: datetime | None = None) -> Effective:
     now = now or _now()
+    grace = timedelta(days=GRACE_DAYS)
     if sub.status == "trialing":
+        plan = PLANS.get(sub.plan, PLANS[TRIAL_PLAN])
         if sub.trial_ends_at and sub.trial_ends_at > now:
-            plan = PLANS.get(sub.plan, PLANS[TRIAL_PLAN])
             return Effective(plan, trial_users(plan), "trialing")
+        # Ended unpaid: a few days to pay with everything still working, then read-only.
+        if sub.trial_ends_at and sub.trial_ends_at + grace > now:
+            return Effective(plan, trial_users(plan), "trial_grace", pay_by=sub.trial_ends_at + grace)
         return Effective(LOCKED, None, "trial_ended")
     if sub.status in ("active", "past_due", "cancelled") and sub.plan in PLANS:
         plan = PLANS[sub.plan]
         # Cancelled: paid up to the end of the period. Active/past due: a few
         # extra days while Paystack retries the card.
-        grace = timedelta(0) if sub.status == "cancelled" else timedelta(days=GRACE_DAYS)
-        if sub.current_period_end and sub.current_period_end + grace > now:
+        if sub.status == "cancelled":
+            grace = timedelta(0)
+        if sub.current_period_end and sub.current_period_end > now:
             return Effective(plan, plan.user_limit(sub.seats), sub.status)
+        if sub.current_period_end and sub.current_period_end + grace > now:
+            return Effective(plan, plan.user_limit(sub.seats), sub.status, pay_by=sub.current_period_end + grace)
         return Effective(LOCKED, None, "lapsed")
     return Effective(LOCKED, None, "trial_ended")
 

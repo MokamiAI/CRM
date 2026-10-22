@@ -16,6 +16,7 @@ const rands = (cents) => formatMoney((cents || 0) / 100);
 const PLAN = { hustle: "Hustle", grow: "Grow", scale: "Scale", none: "No plan" };
 const STATE_TONE = {
   trialing: "bg-indigo-50 text-indigo-700",
+  trial_grace: "bg-rose-50 text-rose-700",
   active: "bg-emerald-50 text-emerald-700",
   past_due: "bg-rose-50 text-rose-700",
   cancelled: "bg-amber-50 text-amber-800",

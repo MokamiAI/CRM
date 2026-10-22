@@ -83,8 +83,13 @@ async def sync_subscriber_pipeline():
     async with AsyncSessionLocal() as db:
         changes = await subscriber_pipeline.sync(db)
         await db.commit()
+    from app.tasks.email_tasks import send_invoice_email_task
+
     for change in changes:
-        logger.info("YGT pipeline: %s %s -> %s", change.action, change.company, change.stage.value)
+        logger.info("YGT pipeline: %s %s -> %s %s", change.action, change.company, change.stage.value, change.detail)
+        if change.email_invoice_id is not None:
+            # A new sign-up's R0.00 trial invoice; saved above, so it can go now.
+            send_invoice_email_task.delay(str(change.email_invoice_id))
     return len(changes)
 
 

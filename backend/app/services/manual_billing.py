@@ -100,4 +100,10 @@ async def confirm_payment(db, invoice_id, now=None):
     sub.current_period_end = period_end(now, invoice.interval)
     invoice.period_start, invoice.period_end = now, sub.current_period_end
     await db.flush()
+    # The same "paid, thank you" email a card payment gets.
+    from app.services import platform_email
+    from app.services.subscription_invoices import email_for, recipients
+
+    to = await recipients(db, invoice.company_id, sub.billing_email)
+    await platform_email.queue(db, *(email_for(invoice, address, paid_on=now) for address in to))
     return {"confirmed": True, "invoice_number": invoice.number}

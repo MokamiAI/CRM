@@ -158,7 +158,7 @@ def render_html(invoice: SubscriptionInvoice) -> str:
     return render("subscription_invoice", company, template, doc=doc, customer=customer, invoice=invoice, vat_vendor=vat_vendor)
 
 
-def email_for(invoice: SubscriptionInvoice, to: str):
+def email_for(invoice: SubscriptionInvoice, to: str, paid_on: datetime | None = None):
     from app.services import platform_email
 
     total = f"R {Decimal(invoice.amount_cents) / 100:,.2f}".replace(",", " ")
@@ -175,7 +175,7 @@ def email_for(invoice: SubscriptionInvoice, to: str):
             ("Plan", plan_label(invoice)),
             ("Amount paid", total),
             ("Payment reference", invoice.payment_reference),
-            ("Paid on", invoice.issued_at.strftime("%d %b %Y")),
+            ("Paid on", (paid_on or invoice.issued_at).strftime("%d %b %Y")),
         ],
         button=("View invoice", platform_email.app_link("/settings?tab=billing")),
     )

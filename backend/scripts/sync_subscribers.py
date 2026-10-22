@@ -26,10 +26,15 @@ async def main(apply: bool) -> None:
         print(f"YGT workspace: {ygt.company_name} (deals owned by {admin.email})\n")
         changes = await subscriber_pipeline.sync(db, apply=apply)
         for c in changes:
-            print(f"  {c.action:4}  {c.company}: {c.state} -> {c.stage.value}, {c.plan} x{c.seats}, R{c.value:,.2f}/month"
-                  + (f", closes {c.close}" if c.close else ""))
+            print(f"  {c.action:9} {c.company}: {c.state} -> {c.stage.value}, {c.plan} x{c.seats}, R{c.value:,.2f}/month"
+                  + (f", closes {c.close}" if c.close else "") + (f" ({c.detail})" if c.detail else ""))
         if apply:
             await db.commit()
+            from app.tasks.email_tasks import send_invoice_email_task
+
+            for c in changes:
+                if c.email_invoice_id is not None:
+                    send_invoice_email_task.delay(str(c.email_invoice_id))
             print(f"\nDone: {len(changes)} updated.")
         else:
             print(f"\nDry run: {len(changes)} to update. Run again with --apply to do it.")

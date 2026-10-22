@@ -99,6 +99,12 @@ class SubscriberLink(TimestampMixin, Base):
     customer_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("customers.id", ondelete="SET NULL"), nullable=True)
     deal_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("deals.id", ondelete="SET NULL"), nullable=True)
     state: Mapped[str] = mapped_column(String(20), nullable=False)
+    # The quote accepted at sign-up and the R0.00 trial invoice (both kept at
+    # the seats in use until they pay), and the monthly invoice once they do.
+    quote_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("quotes.id", ondelete="SET NULL"), nullable=True)
+    trial_invoice_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("invoices.id", ondelete="SET NULL"), nullable=True)
+    recurring_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("recurring_invoices.id", ondelete="SET NULL"), nullable=True)
+    seats: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
 class PaystackPlan(UUIDPKMixin, TimestampMixin, Base):

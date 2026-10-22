@@ -187,6 +187,7 @@ function Meter({ label, used, limit }) {
 
 const STATE_TONE = {
   trialing: "bg-indigo-50 text-indigo-700 ring-indigo-200/70",
+  trial_grace: "bg-rose-50 text-rose-700 ring-rose-200/70",
   active: "bg-emerald-50 text-emerald-700 ring-emerald-200/70",
   past_due: "bg-rose-50 text-rose-700 ring-rose-200/70",
   cancelled: "bg-amber-50 text-amber-700 ring-amber-200/70",
@@ -197,6 +198,8 @@ function stateLine(billing, t) {
   switch (billing.state) {
     case "trialing":
       return t("billing.state.trialingLine", { count: daysLeft(billing.trial_ends_at), date: formatDate(billing.trial_ends_at) });
+    case "trial_grace":
+      return t("billing.state.trialGraceLine", { date: formatDate(billing.pay_by) });
     case "active":
       return t("billing.state.activeLine", { date: formatDate(billing.current_period_end) });
     case "past_due":
@@ -518,6 +521,7 @@ export function LockedBanner() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { data: billing } = useBilling();
+  if (billing?.pay_by) return <PayByBanner billing={billing} admin={user?.role === "admin"} />;
   if (!billing || !["trial_ended", "lapsed"].includes(billing.state)) return null;
   return (
     <div className="mb-5 flex flex-wrap items-center gap-3 rounded-xl bg-amber-50 px-4 py-3 ring-1 ring-inset ring-amber-200/70" role="status">
@@ -531,6 +535,32 @@ export function LockedBanner() {
         </Link>
       ) : (
         <span className="text-sm text-amber-900/80">{t("billing.locked.askAdmin")}</span>
+      )}
+    </div>
+  );
+}
+
+/** Unpaid, but still working for a few days: how long until YGT becomes
+ *  view-only, and the way to pay. */
+function PayByBanner({ billing, admin }) {
+  const { t } = useTranslation();
+  const days = daysLeft(billing.pay_by);
+  return (
+    <div className="mb-5 flex flex-wrap items-center gap-3 rounded-xl bg-rose-50 px-4 py-3 ring-1 ring-inset ring-rose-200/80" role="alert">
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold text-rose-950">
+          {t(billing.state === "trial_grace" ? "billing.payBy.titleTrial" : "billing.payBy.titlePayment")}
+        </p>
+        <p className="text-sm text-rose-900/85">
+          {days > 0 ? t("billing.payBy.daysLeft", { count: days, date: formatDate(billing.pay_by) }) : t("billing.payBy.today")} {t("billing.payBy.after")}
+        </p>
+      </div>
+      {admin ? (
+        <Link to="/settings?tab=billing" className="btn btn-primary !h-9 !text-sm">
+          {t(billing.state === "trial_grace" ? "billing.choosePlan" : "billing.payBy.payNow")}
+        </Link>
+      ) : (
+        <span className="text-sm text-rose-900/85">{t("billing.payBy.askAdmin")}</span>
       )}
     </div>
   );
