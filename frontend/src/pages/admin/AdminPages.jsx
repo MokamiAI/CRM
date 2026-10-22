@@ -277,8 +277,13 @@ export function AdminTenant() {
     const reason = window.prompt("Why are you suspending this company? (They'll see that their account is suspended and to contact support.)");
     if (reason && reason.trim().length >= 3) act.mutate({ path: "suspend", body: { reason }, message: "Suspended" });
   }
-  function extend() {
-    const days = Number(window.prompt("Extend the free trial by how many days?", "7"));
+  function extend(paying) {
+    const days = Number(window.prompt(
+      paying
+        ? "Put this company on a free trial for how many days? Their paid plan stops now (a card subscription is cancelled in Paystack); they choose a plan again when the trial ends."
+        : "Extend the free trial by how many days?",
+      "7",
+    ));
     if (days > 0) act.mutate({ path: "extend-trial", body: { days }, message: `Trial extended by ${days} days` });
   }
 
@@ -302,8 +307,12 @@ export function AdminTenant() {
                     Suspend
                   </Button>
                 )}
-                {!["active", "past_due"].includes(t.state) && (
-                  <Button variant="secondary" onClick={extend}>
+                {["active", "past_due"].includes(t.state) ? (
+                  <Button variant="secondary" onClick={() => extend(true)}>
+                    Put on trial
+                  </Button>
+                ) : (
+                  <Button variant="secondary" onClick={() => extend(false)}>
                     Extend trial
                   </Button>
                 )}

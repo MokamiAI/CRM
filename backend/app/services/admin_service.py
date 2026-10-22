@@ -223,12 +223,24 @@ class AdminService:
         await self.db.flush()
 
     async def extend_trial(self, company_id: uuid.UUID, days: int) -> None:
+        """Adds days to a trial, or puts a paying company on one (counted from
+        today). A card subscription is stopped first, so they aren't charged
+        during the trial; they pick a plan again when it ends."""
         sub = await self.db.scalar(select(Subscription).where(Subscription.company_id == company_id))
         if sub is None:
             raise NotFoundError("This company has no subscription", "SUBSCRIPTION_NOT_FOUND")
-        if sub.status in ("active", "past_due"):
-            raise AppError("This company is on a paid plan; there's no trial to extend", "NOT_ON_TRIAL")
-        start = max(sub.trial_ends_at or _now(), _now())
+        paying = sub.status in ("active", "past_due")
+        if paying and sub.paystack_subscription_code and sub.paystack_email_token:
+            try:
+                await paystack.disable(sub.paystack_subscription_code, sub.paystack_email_token)
+            except Exception as exc:
+                raise AppError("Couldn't stop their Paystack subscription, so they're still on their paid plan. Cancel it in the Paystack dashboard, then try again.", "PAYSTACK_CANCEL_FAILED") from exc
+        if paying:
+            # Forgotten, so Paystack's "subscription stopped" webhook for it
+            # can't mark the trial cancelled.
+            sub.paystack_subscription_code = None
+            sub.paystack_email_token = None
+        start = _now() if paying else max(sub.trial_ends_at or _now(), _now())
         sub.status = "trialing"
         if sub.plan not in ("hustle", "grow", "scale"):
             sub.plan = "grow"
