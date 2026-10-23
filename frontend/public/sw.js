@@ -12,8 +12,8 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title || "YGT", {
       body: data.body || "",
-      icon: "/icon-192.png",
-      badge: "/icon-72.png",
+      icon: "/icon-192.png?v=3",
+      badge: "/icon-72.png?v=3",
       tag: data.tag,
       data: { url: data.url || "/" },
     })
