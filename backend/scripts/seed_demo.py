@@ -8,7 +8,13 @@ accepted into a draft invoice, rejected), invoices (draft, sent, part-paid,
 paid, overdue), activities, a supplier and purchase order, and a support
 ticket. Nothing is emailed: every send uses notify=false.
 
-Refuses to run unless both the API and the database are on this machine.
+Refuses to run unless both the API and the database are on this machine,
+except for a demonstration account on the live site, asked for explicitly:
+
+    YGT_DEMO_LIVE=yes YGT_DEMO_EMAIL=... YGT_DEMO_PASSWORD=... YGT_DEMO_COMPANY="..."     YGT_DEMO_BANK=fnb YGT_API=http://localhost:8000/api/v1 python scripts/seed_demo.py
+
+There it skips the support ticket (it would reach YGT's real help desk),
+confirms the email and gives the account a 90-day Scale trial.
 """
 import asyncio
 import os
@@ -21,16 +27,25 @@ import httpx
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from sqlalchemy import update  # noqa: E402
+from sqlalchemy import select, update  # noqa: E402
 
 from app.core.config import settings  # noqa: E402
 from app.core.database import AsyncSessionLocal, engine  # noqa: E402
 from app.core.tenancy import set_system  # noqa: E402
+from app.models.billing import Subscription  # noqa: E402
 from app.models.crm import Deal  # noqa: E402
 from app.models.user import User  # noqa: E402
 
 API = os.environ.get("YGT_API", "http://127.0.0.1:8000/api/v1")
-EMAIL, PASSWORD = "demo.admin@example.com", "DemoPass-2026"
+LIVE = os.environ.get("YGT_DEMO_LIVE") == "yes"
+EMAIL = os.environ.get("YGT_DEMO_EMAIL", "demo.admin@example.com")
+PASSWORD = os.environ.get("YGT_DEMO_PASSWORD", "DemoPass-2026")
+COMPANY = os.environ.get("YGT_DEMO_COMPANY", "Demo Catering Co")
+BANKS = {
+    "standard": {"bank_name": "Standard Bank", "account_number": "071234567", "branch_name": "Cape Town City", "branch_code": "051001", "swift_code": "SBZAZAJJ"},
+    "fnb": {"bank_name": "First National Bank (FNB)", "account_number": "62812345678", "branch_name": "Cape Town", "branch_code": "250655", "swift_code": "FIRNZAJJ"},
+}
+BANK = BANKS[os.environ.get("YGT_DEMO_BANK", "standard")]
 LOCAL = ("localhost", "127.0.0.1", "::1")
 today = date.today()
 
@@ -46,12 +61,14 @@ def check(res: httpx.Response) -> dict:
 
 
 def main() -> None:
+    if LIVE and (EMAIL.endswith("@example.com") or PASSWORD == "DemoPass-2026"):
+        sys.exit("On the live site, set YGT_DEMO_EMAIL and a new YGT_DEMO_PASSWORD.")
     for name, url in (("YGT_API", API), ("DATABASE_URL", settings.DATABASE_URL)):
-        if urlsplit(url).hostname not in LOCAL:
+        if urlsplit(url).hostname not in LOCAL and not (LIVE and name == "DATABASE_URL"):
             sys.exit(f"Refusing: {name} is not on this machine ({urlsplit(url).hostname}). This script is for local testing only.")
 
     c = httpx.Client(base_url=API, timeout=60)
-    res = c.post("/auth/register", json={"company_name": "Demo Catering Co", "full_name": "Thandi Mokoena", "email": EMAIL, "password": PASSWORD, "plan": "scale", "business_address": "18 Bree Street, Cape Town City Centre, 8001"})
+    res = c.post("/auth/register", json={"company_name": COMPANY, "full_name": "Thandi Mokoena", "email": EMAIL, "password": PASSWORD, "plan": "scale", "business_address": "18 Bree Street, Cape Town City Centre, 8001"})
     if res.status_code == 409:
         sys.exit(f"{EMAIL} already exists: the demo company is already seeded. Drop and recreate ygt_dev to start over.")
     c.headers["Authorization"] = f"Bearer {check(res)['access_token']}"
@@ -60,8 +77,7 @@ def main() -> None:
     check(c.patch("/settings", json={"address": "18 Bree Street\nCape Town City Centre\n8001", "tax_number": "4870123456", "vat_registered": True, "annual_revenue_goal": "1200000", "financial_year_start_month": 3}))
     check(c.put("/settings/documents", json={
         "registration_number": "2021/456789/07", "phone": "021 555 0100", "website": "www.democatering.example.com",
-        "bank_name": "Standard Bank", "account_holder": "Demo Catering Co", "account_number": "071234567", "account_type": "Business Current Account",
-        "branch_name": "Cape Town City", "branch_code": "051001", "swift_code": "SBZAZAJJ",
+        "account_holder": COMPANY, "account_type": "Business Current Account", **BANK,
         "payment_reference": "Please use the invoice number as your payment reference.",
     }))
 
@@ -149,7 +165,8 @@ def main() -> None:
     unanswered = check(c.post("/quotes", json={"customer_id": hall["id"], "issue_date": d(-20), "expiry_date": d(10), "reference": "Heritage Day lunch", "items": [{"description": "Catering per guest", "quantity": "150", "unit_price": "240", "tax_rate": "15"}]}))
     check(c.post(f"/quotes/{unanswered['id']}/send", params={"notify": "false"}))
 
-    check(c.post("/support/tickets", json={"subject": "How do I add my banking details?", "category": "question", "body": "Where do I put our bank account so it shows on invoices?"}))
+    if not LIVE:
+        check(c.post("/support/tickets", json={"subject": "How do I add my banking details?", "category": "question", "body": "Where do I put our bank account so it shows on invoices?"}))
 
     # Confirm the demo admin's email, so the YGT admin pages work locally too
     # (PLATFORM_ADMIN_EMAILS in .env.local lists demo.admin@example.com).
@@ -157,6 +174,10 @@ def main() -> None:
         async with AsyncSessionLocal() as db:
             set_system(db)
             await db.execute(update(User).where(User.email == EMAIL).values(email_verified_at=date.today()))
+            if LIVE:  # long enough for any demonstration
+                company_id = await db.scalar(select(User.company_id).where(User.email == EMAIL))
+                await db.execute(update(Subscription).where(Subscription.company_id == company_id)
+                                 .values(plan="scale", status="trialing", trial_ends_at=datetime.now(timezone.utc) + timedelta(days=90)))
             lost_on = datetime.now(timezone.utc) - timedelta(days=80)
             await db.execute(update(Deal).where(Deal.id == uuid.UUID(deal_ids["Office year-end"])).values(closed_at=lost_on))
             await db.commit()
@@ -170,7 +191,7 @@ def main() -> None:
     print("Discovery area:", "found" if res.status_code == 200 else f"not set ({res.status_code}); own records only")
     run = c.post("/discovery/run")
     print("Discovery leads:", run.json().get("found") if run.status_code == 200 else f"run failed ({run.status_code})")
-    print(f"Seeded Demo Catering Co. Sign in at http://localhost:4173/login as {EMAIL} / {PASSWORD}")
+    print(f"Seeded {COMPANY}. Sign in as {EMAIL}" + ("" if LIVE else f" / {PASSWORD} at http://localhost:4173/login"))
 
 
 if __name__ == "__main__":
