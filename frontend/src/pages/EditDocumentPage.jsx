@@ -49,7 +49,7 @@ export default function EditDocumentPage({ kind }) {
   const header = <PageHeader eyebrow={<BackLink to={back}>{doc[k.number]}</BackLink>} title={t("edit.title", { number: doc[k.number] })} subtitle={t("edit.subtitle")} />;
   if (doc.status !== "draft") {
     return (
-      <div className="max-w-3xl">
+      <div className="max-w-5xl">
         {header}
         <div className="card p-5 text-sm text-slate-600">
           <p>{t("edit.notDraft")}</p>
@@ -62,7 +62,7 @@ export default function EditDocumentPage({ kind }) {
   }
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       {header}
       <DocumentEditor
         kind={kind}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -318,7 +318,8 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
               </thead>
               <tbody>
                 {items.map((item, index) => (
-                  <tr key={item.key} className="border-b border-zinc-100 align-top last:border-0">
+                  <Fragment key={item.key}>
+                  <tr className="align-top">
                     <td className="py-2.5 pt-[18px] text-xs tabular-nums text-zinc-400">{index + 1}</td>
                     <td className="py-2">
                       <input
@@ -330,7 +331,6 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
                         value={item.description}
                         onChange={(e) => describe(item.key, e.target.value)}
                       />
-                      <LineDetails item={item} onChange={(details) => updateItem(item.key, { details })} />
                     </td>
                     <td className="py-2 pl-2">
                       <input className="input text-right tabular-nums" aria-label={t("editor.qty")} required {...NUMBER} value={item.quantity} onChange={(e) => updateItem(item.key, { quantity: e.target.value })} />
@@ -357,6 +357,14 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
                       )}
                     </td>
                   </tr>
+                  <tr className="border-b border-zinc-100 last:border-0">
+                    <td />
+                    <td colSpan={5} className="pb-3">
+                      <LineDetails item={item} onChange={(details) => updateItem(item.key, { details })} />
+                    </td>
+                    <td />
+                  </tr>
+                  </Fragment>
                 ))}
               </tbody>
             </table>
@@ -432,7 +440,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
       {/* Totals + submit: pinned above the tab bar on phones so the total is
           always in view while editing items; inline on larger screens. */}
       <div className="fixed inset-x-0 bottom-[var(--tabbar-height)] z-10 border-t border-zinc-200/80 bg-white/90 px-4 py-3 backdrop-blur-md md:static md:rounded-xl md:border md:bg-white md:px-5 md:py-4 md:shadow-card md:backdrop-blur-none">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
           <div className="text-sm">
             <p className="text-xs text-zinc-500">
               {t("document.totalExcl")} {formatMoney(totals.subtotal)} · {t("document.vat")} {formatMoney(totals.tax)}
@@ -559,13 +567,22 @@ function SavedItems({ onLoad, currentItems, canSave }) {
 }
 
 /** A line's description, under its item: specs, model, what's included.
- *  Optional; printed under the item on the quote, invoice or order. */
+ *  Optional; printed under the item on the quote, invoice or order. Spans
+ *  the line, starts at two lines and grows as it's written. */
 function LineDetails({ item, onChange }) {
   const { t } = useTranslation();
+  const box = useRef(null);
+  useLayoutEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight + 2, 320)}px`;
+  }, [item.details]);
   return (
     <textarea
-      className="input mt-1.5 min-h-0 resize-y py-2 text-sm leading-snug"
-      rows={item.details ? Math.min(6, item.details.split("\n").length + 1) : 1}
+      ref={box}
+      className="input mt-2 min-h-[4.25rem] resize-y py-2.5 text-sm leading-relaxed"
+      rows={2}
       maxLength={5000}
       aria-label={t("editor.detailsLabel")}
       placeholder={t("editor.detailsPlaceholder")}

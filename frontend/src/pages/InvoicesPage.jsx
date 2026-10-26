@@ -119,7 +119,7 @@ export function NewInvoicePage() {
   });
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <PageHeader eyebrow={<BackLink to="/invoices">{t("nav.invoices")}</BackLink>} title={t("dashboard.newInvoice")} subtitle={t("invoices.draftNote")} />
       <DocumentEditor
         dateField="due_date"

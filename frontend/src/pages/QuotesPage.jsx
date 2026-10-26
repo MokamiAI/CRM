@@ -211,7 +211,7 @@ export function NewQuotePage() {
   });
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <PageHeader eyebrow={<BackLink to="/quotes">{t("nav.quotes")}</BackLink>} title={t("quotes.new")} subtitle={t("invoices.draftNote")} />
       <DocumentEditor
         kind="quote"

@@ -229,7 +229,7 @@ export function NewPurchaseOrderPage() {
     onError: (error) => toast.error(errorMessage(error)),
   });
   return (
-    <div className="max-w-4xl">
+    <div className="max-w-5xl">
       <PageHeader eyebrow={<BackLink to="/purchase-orders">{t("nav.purchaseOrders")}</BackLink>} title={t("purchases.new")} subtitle={t("invoices.draftNote")} />
       {/* Delivers to your own address unless changed (e.g. a site or venue). */}
       {company ? (
