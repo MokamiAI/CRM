@@ -26,7 +26,7 @@
   <tbody>
     {% for item in doc.items %}
     <tr>
-      <td>{{ lines_of(item.description) }}</td>
+      <td{% if item.details is defined and item.details %} class="has-details"{% endif %}><span class="item-name">{{ lines_of(item.description) }}</span>{% if item.details is defined and item.details %}<span class="item-details">{{ lines_of(item.details) }}</span>{% endif %}</td>
       <td class="num">{{ quantity(item.quantity) }}</td>
       <td class="num">{{ money(item.unit_price) }}</td>
       <td class="num">{{ quantity(item.tax_rate) }}%</td>

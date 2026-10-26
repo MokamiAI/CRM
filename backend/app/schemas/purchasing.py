@@ -57,6 +57,7 @@ class PurchaseOrderItemOut(BaseModel):
     id: uuid.UUID
     product_id: uuid.UUID | None
     description: str
+    details: str | None = None
     quantity: Decimal
     unit_price: Decimal
     tax_rate: Decimal
@@ -108,6 +109,7 @@ class PurchaseOrderOut(BaseModel):
 class LineTemplateItem(BaseModel):
     product_id: uuid.UUID | None = None
     description: str = Field(min_length=1, max_length=2000)
+    details: str | None = Field(default=None, max_length=5000)
     quantity: Decimal = Field(default=Decimal("1"), gt=0)
     unit_price: Decimal = Field(ge=0)
     tax_rate: Decimal = Field(default=Decimal("0"), ge=0, le=100)

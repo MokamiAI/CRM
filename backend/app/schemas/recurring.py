@@ -43,6 +43,7 @@ class RecurringInvoiceUpdate(BaseModel):
 class RecurringItemOut(BaseModel):
     product_id: uuid.UUID | None = None
     description: str
+    details: str | None = None
     quantity: Decimal
     unit_price: Decimal
     tax_rate: Decimal

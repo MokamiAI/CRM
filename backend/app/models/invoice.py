@@ -82,7 +82,8 @@ class InvoiceItem(TenantMixin, UUIDPKMixin, Base):
     product_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("products.id", ondelete="SET NULL"), nullable=True
     )
-    description: Mapped[str] = mapped_column(Text, nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)  # the item: what it is
+    details: Mapped[str | None] = mapped_column(Text, nullable=True)  # its description, printed under it
     quantity: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=1)
     unit_price: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     tax_rate: Mapped[float] = mapped_column(Numeric(5, 2), nullable=False, default=0)

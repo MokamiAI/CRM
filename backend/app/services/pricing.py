@@ -41,6 +41,7 @@ def build_line_items(
             model_cls(
                 product_id=item.product_id,
                 description=item.description,
+                details=(getattr(item, "details", None) or "").strip() or None,
                 quantity=item.quantity,
                 unit_price=item.unit_price,
                 tax_rate=item.tax_rate,

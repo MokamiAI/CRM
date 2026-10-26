@@ -9,7 +9,7 @@
   </tr>
   {% for item in document.items %}
   <tr>
-    <td style="padding:8px 0;border-bottom:1px solid #f3f4f6;">{{ item.description }}</td>
+    <td style="padding:8px 0;border-bottom:1px solid #f3f4f6;">{{ item.description }}{% if item.details is defined and item.details %}<br><span style="color:#6b7280;font-size:13px;">{{ item.details }}</span>{% endif %}</td>
     <td align="right" style="padding:8px 0 8px 12px;border-bottom:1px solid #f3f4f6;">{{ quantity(item.quantity) }}</td>
     <td align="right" style="padding:8px 0 8px 12px;border-bottom:1px solid #f3f4f6;white-space:nowrap;">{{ money(item.unit_price) }}</td>
     <td align="right" style="padding:8px 0 8px 12px;border-bottom:1px solid #f3f4f6;white-space:nowrap;">{{ money(item.line_total) }}</td>
@@ -33,7 +33,7 @@
 {% macro text_line_items(document, money) %}
 {% set vat = "VAT" if "vat" in ((t.tax_label if t is defined and t else "VAT")|lower) else "Tax" %}
 {% for item in document.items %}
-- {{ item.description }}: {{ quantity(item.quantity) }} x {{ money(item.unit_price) }} = {{ money(item.line_total) }}
+- {{ item.description }}{% if item.details is defined and item.details %} ({{ item.details }}){% endif %}: {{ quantity(item.quantity) }} x {{ money(item.unit_price) }} = {{ money(item.line_total) }}
 {% endfor %}
 
 Total excl. {{ vat }}: {{ money(document.subtotal) }}

@@ -963,6 +963,8 @@
     "referencePlaceholder": "e.g. Rosebank office",
     "itemColumn": "Item",
     "itemPlaceholder": "Type an item, or pick a product",
+    "detailsLabel": "Description",
+    "detailsPlaceholder": "Description (optional): model, specs, what's included",
     "amount": "Amount",
     "removeLine": "Remove line {{n}}",
     "loadSaved": "Load saved items",

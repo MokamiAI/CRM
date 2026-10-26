@@ -173,7 +173,7 @@ class InvoiceService:
                 po_number=invoice.po_number,
                 reference=invoice.reference,
                 items=[
-                    InvoiceItemCreate(product_id=i.product_id, description=i.description, quantity=i.quantity, unit_price=i.unit_price, tax_rate=i.tax_rate)
+                    InvoiceItemCreate(product_id=i.product_id, description=i.description, details=i.details, quantity=i.quantity, unit_price=i.unit_price, tax_rate=i.tax_rate)
                     for i in items
                 ],
             ),

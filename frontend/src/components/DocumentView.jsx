@@ -12,7 +12,8 @@ export function LineItems({ document }) {
         {document.items.map((item) => (
           <li key={item.id} className="flex items-start justify-between gap-4 px-5 py-4">
             <div className="min-w-0">
-              <p className="text-zinc-900">{item.description}</p>
+              <p className={item.details ? "font-medium text-zinc-900" : "text-zinc-900"}>{item.description}</p>
+              {item.details && <p className="mt-0.5 whitespace-pre-line text-sm text-zinc-600">{item.details}</p>}
               <p className="text-sm tabular-nums text-zinc-500">
                 {formatQuantity(item.quantity)} × {formatMoney(item.unit_price)}
                 {Number(item.tax_rate) > 0 && ` · ${t("document.taxRate", { rate: Number(item.tax_rate) })}`}

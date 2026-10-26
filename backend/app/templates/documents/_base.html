@@ -35,6 +35,10 @@
   table.items th { text-align: left; font-size: 8pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 8px 8px; }
   table.items td { padding: 9px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
   table.items th.num, table.items td.num { text-align: right; }
+  /* A line's item, and its description underneath (when it has one). */
+  table.items .item-name { display: block; }
+  table.items .item-details { display: block; margin-top: 3px; color: var(--muted); font-size: 8.5pt; line-height: 1.45; }
+  table.items td.has-details .item-name { font-weight: 600; }
   .totals { display: flex; justify-content: flex-end; margin-top: 14px; }
   .totals table { border-collapse: collapse; min-width: 64mm; font-size: 10pt; }
   .totals td { padding: 4px 8px; }

@@ -9,7 +9,8 @@ from app.models.enums import QuoteStatus
 
 class QuoteItemCreate(BaseModel):
     product_id: uuid.UUID | None = None
-    description: str = Field(min_length=1)
+    description: str = Field(min_length=1)  # the item
+    details: str | None = Field(default=None, max_length=5000)  # its description
     quantity: Decimal = Field(default=Decimal("1"), gt=0)
     unit_price: Decimal = Field(ge=0)
     tax_rate: Decimal = Field(default=Decimal("0"), ge=0, le=100)
@@ -21,6 +22,7 @@ class QuoteItemOut(BaseModel):
     id: uuid.UUID
     product_id: uuid.UUID | None
     description: str
+    details: str | None = None
     quantity: Decimal
     unit_price: Decimal
     tax_rate: Decimal

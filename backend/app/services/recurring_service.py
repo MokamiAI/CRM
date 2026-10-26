@@ -68,6 +68,7 @@ def _stored_items(items: list[InvoiceItemCreate]) -> list[dict]:
         {
             "product_id": str(i.product_id) if i.product_id else None,
             "description": i.description,
+            "details": i.details,
             "quantity": str(i.quantity),
             "unit_price": str(i.unit_price),
             "tax_rate": str(i.tax_rate),

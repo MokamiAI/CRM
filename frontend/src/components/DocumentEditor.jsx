@@ -37,7 +37,7 @@ let nextKey = 1;
 // New lines start at 15% VAT, or 0% on sales documents of a company not
 // registered for VAT (see DocumentEditor's `vatRate`).
 let defaultVat = "15";
-const blankItem = () => ({ key: nextKey++, product_id: null, description: "", quantity: "1", unit_price: "", tax_rate: defaultVat });
+const blankItem = () => ({ key: nextKey++, product_id: null, description: "", details: "", quantity: "1", unit_price: "", tax_rate: defaultVat });
 const isBlank = (item) => !item.description.trim() && !item.unit_price;
 
 /** True on screens wide enough for the line-items table. */
@@ -111,6 +111,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
           key: nextKey++,
           product_id: item.product_id ?? null,
           description: item.description,
+          details: item.details ?? "",
           quantity: String(Number(item.quantity)),
           unit_price: String(Number(item.unit_price)),
           tax_rate: String(Number(item.tax_rate)),
@@ -124,13 +125,21 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
     setItems((prev) => prev.map((item) => (item.key === key ? { ...item, ...patch } : item)));
   }
 
-  // Typing (or picking) a product's name fills in its price and tax.
+  // Typing (or picking) a product's name fills in its price, tax and
+  // description (unless a description was already written for this line).
   function describe(key, description) {
     const product = products.find((p) => p.name.toLowerCase() === description.trim().toLowerCase());
+    const current = items.find((item) => item.key === key);
     updateItem(
       key,
       product
-        ? { description: product.name, product_id: product.id, unit_price: String(Number(product.unit_price)), tax_rate: String(Number(product.tax_rate)) }
+        ? {
+            description: product.name,
+            product_id: product.id,
+            unit_price: String(Number(product.unit_price)),
+            tax_rate: String(Number(product.tax_rate)),
+            details: current?.details?.trim() ? current.details : product.description ?? "",
+          }
         : { description, product_id: null }
     );
   }
@@ -140,6 +149,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
       key: nextKey++,
       product_id: item.product_id ?? null,
       description: item.description,
+      details: item.details ?? "",
       quantity: String(Number(item.quantity)),
       unit_price: String(Number(item.unit_price)),
       tax_rate: String(Number(item.tax_rate)),
@@ -148,9 +158,10 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   }
 
   function payloadItems() {
-    return items.map(({ product_id, description, quantity, unit_price, tax_rate }) => ({
+    return items.map(({ product_id, description, details, quantity, unit_price, tax_rate }) => ({
       product_id,
       description,
+      details: details.trim() || null,
       quantity,
       unit_price: unit_price || "0",
       tax_rate: tax_rate || "0",
@@ -188,7 +199,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
         const name = item.description.trim();
         if (made.has(name.toLowerCase())) continue;
         try {
-          const { data } = await apiClient.post("/products", { name, unit_price: item.unit_price, tax_rate: item.tax_rate || "0" });
+          const { data } = await apiClient.post("/products", { name, description: item.details.trim() || null, unit_price: item.unit_price, tax_rate: item.tax_rate || "0" });
           made.set(name.toLowerCase(), data.id);
         } catch {
           /* e.g. a viewer, or a name clash: the document still saves */
@@ -209,9 +220,10 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
       reference: reference.trim() || null,
       ...(quote && { title: title.trim(), description: description.trim() }),
       ...(purchase && { delivery_address: deliveryAddress.trim() || null }),
-      items: lines.map(({ product_id, description, quantity, unit_price, tax_rate }) => ({
+      items: lines.map(({ product_id, description, details, quantity, unit_price, tax_rate }) => ({
         product_id,
         description,
+        details: details.trim() || null,
         quantity,
         unit_price: unit_price || "0",
         tax_rate: tax_rate || "0",
@@ -318,6 +330,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
                         value={item.description}
                         onChange={(e) => describe(item.key, e.target.value)}
                       />
+                      <LineDetails item={item} onChange={(details) => updateItem(item.key, { details })} />
                     </td>
                     <td className="py-2 pl-2">
                       <input className="input text-right tabular-nums" aria-label={t("editor.qty")} required {...NUMBER} value={item.quantity} onChange={(e) => updateItem(item.key, { quantity: e.target.value })} />
@@ -365,6 +378,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
                   value={item.description}
                   onChange={(e) => describe(item.key, e.target.value)}
                 />
+                <LineDetails item={item} onChange={(details) => updateItem(item.key, { details })} />
                 <div className="mt-2 grid grid-cols-3 gap-2">
                   <Field label={t("editor.qty")}>
                     <input className="input tabular-nums" required {...NUMBER} value={item.quantity} onChange={(e) => updateItem(item.key, { quantity: e.target.value })} />
@@ -541,5 +555,22 @@ function SavedItems({ onLoad, currentItems, canSave }) {
         </div>
       )}
     </div>
+  );
+}
+
+/** A line's description, under its item: specs, model, what's included.
+ *  Optional; printed under the item on the quote, invoice or order. */
+function LineDetails({ item, onChange }) {
+  const { t } = useTranslation();
+  return (
+    <textarea
+      className="input mt-1.5 min-h-0 resize-y py-2 text-sm leading-snug"
+      rows={item.details ? Math.min(6, item.details.split("\n").length + 1) : 1}
+      maxLength={5000}
+      aria-label={t("editor.detailsLabel")}
+      placeholder={t("editor.detailsPlaceholder")}
+      value={item.details}
+      onChange={(e) => onChange(e.target.value)}
+    />
   );
 }
