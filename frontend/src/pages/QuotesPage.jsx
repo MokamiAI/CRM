@@ -26,6 +26,7 @@ import {
   StatusBadge,
 } from "../components/ui";
 import { errorMessage, formatDate, formatMoney, formatMoneyWhole, formatShortDate, todayISO } from "../utils/format";
+import ImportExportButtons from "../components/ImportExport";
 
 const STATUS_FILTERS = [
   { value: "", key: "common.all" },
@@ -63,11 +64,14 @@ export function QuotesPage() {
         title={t("nav.quotes")}
         subtitle={data ? t(status ? "quotes.count" : "quotes.countTotal", { count: data.length }) : undefined}
         actions={
-          user?.role !== "viewer" && (
-            <ButtonLink to="/quotes/new">
-              <PlusIcon className="h-4 w-4" /> {t("quotes.new")}
-            </ButtonLink>
-          )
+          <>
+            <ImportExportButtons entity="quotes" />
+            {user?.role !== "viewer" && (
+              <ButtonLink to="/quotes/new">
+                <PlusIcon className="h-4 w-4" /> {t("quotes.new")}
+              </ButtonLink>
+            )}
+          </>
         }
       />
       <StatStrip>

@@ -13,6 +13,7 @@ import { McemReport } from "../components/McemProgress";
 import { ComposerSheet, JourneyBar, NextActivityBadge, PRIORITY_RANK, PriorityBadge, RowEditButton, STAGES, dueState, industryLabel, journeyPercent } from "../components/crm";
 import { Avatar, Button, ErrorState, Field, FilterChips, PageHeader, PlusIcon, Tooltip } from "../components/ui";
 import { errorMessage, formatMoney, formatMoneyFit, formatShortDate } from "../utils/format";
+import ImportExportButtons from "../components/ImportExport";
 
 // Pipedrive's ordering: what needs attention floats to the top of each
 // column. Overdue, then due today, then deals with nothing planned (going
@@ -169,6 +170,7 @@ export default function DealsPage() {
               value={format}
               onChange={changeFormat}
             />
+            <ImportExportButtons entity="deals" />
             {canWrite && (
               <Button onClick={() => setCreating("lead")}>
                 <PlusIcon className="h-4 w-4" /> {t("dashboard.newDeal")}

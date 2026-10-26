@@ -20,6 +20,7 @@ import {
 } from "../components/ui";
 import { errorMessage, formatMoney } from "../utils/format";
 import { onSpecial } from "../utils/products";
+import ImportExportButtons from "../components/ImportExport";
 
 const EMPTY = { name: "", sku: "", description: "", unit_price: "", tax_rate: "15", image_url: "", special_price: "", special_until: "" };
 
@@ -110,11 +111,14 @@ export default function ProductsPage() {
         title={t("products.title")}
         subtitle={t("products.subtitle")}
         actions={
-          canWrite && (
-            <Button onClick={() => openEditor(null)}>
-              <PlusIcon className="h-4 w-4" /> {t("products.new")}
-            </Button>
-          )
+          <>
+            <ImportExportButtons entity="products" />
+            {canWrite && (
+              <Button onClick={() => openEditor(null)}>
+                <PlusIcon className="h-4 w-4" /> {t("products.new")}
+              </Button>
+            )}
+          </>
         }
       />
       <div className="md:flex md:items-start md:gap-3">

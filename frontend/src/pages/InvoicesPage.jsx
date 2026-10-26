@@ -21,6 +21,7 @@ import {
   PlusIcon,
 } from "../components/ui";
 import { errorMessage, formatMoneyWhole } from "../utils/format";
+import ImportExportButtons from "../components/ImportExport";
 
 const STATUS_FILTERS = [
   { value: "", key: "common.all" },
@@ -51,6 +52,7 @@ export function InvoicesPage() {
         subtitle={data ? t(status ? "invoices.count" : "invoices.countTotal", { count: data.length }) : undefined}
         actions={
           <>
+            <ImportExportButtons entity="invoices" />
             <ButtonLink variant="secondary" to="/invoices/aging">
               {t("aging.link")}
             </ButtonLink>

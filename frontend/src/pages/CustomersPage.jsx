@@ -20,6 +20,7 @@ import {
   StatusBadge,
 } from "../components/ui";
 import { formatDate, formatMoney, formatMoneyCompact, formatMoneyWhole } from "../utils/format";
+import ImportExportButtons from "../components/ImportExport";
 
 const ACTIVE_FILTERS = [
   { value: "true", key: "status.active" },
@@ -66,11 +67,14 @@ export default function CustomersPage() {
         title={t("nav.customers")}
         subtitle={t("customers.subtitle")}
         actions={
-          canWrite && (
-            <Button onClick={() => setCreating(true)}>
-              <PlusIcon className="h-4 w-4" /> {t("customerForm.newTitle")}
-            </Button>
-          )
+          <>
+            <ImportExportButtons entity="customers" />
+            {canWrite && (
+              <Button onClick={() => setCreating(true)}>
+                <PlusIcon className="h-4 w-4" /> {t("customerForm.newTitle")}
+              </Button>
+            )}
+          </>
         }
       />
       {summary && (

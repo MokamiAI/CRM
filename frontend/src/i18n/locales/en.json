@@ -2621,6 +2621,13 @@
     },
     "goToActivities": "Go to activities"
   },
+  "importExport": {
+    "import": "Import",
+    "export": "Export",
+    "exporting": "Exporting…",
+    "exported": "{{what}} downloaded as a spreadsheet (CSV, opens in Excel).",
+    "importTitle": "Import {{what}}"
+  },
   "getApp": {
     "installLabel": "Install YGT",
     "alertsLabel": "Turn on alerts",

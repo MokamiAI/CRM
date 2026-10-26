@@ -58,19 +58,28 @@ function guessMapping(entity, headers) {
   return mapping;
 }
 
-function downloadCsv(name, text) {
+export function downloadCsv(name, text) {
   const url = URL.createObjectURL(new Blob([text], { type: "text/csv;charset=utf-8" }));
   const a = Object.assign(document.createElement("a"), { href: url, download: name });
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-/** Settings > Import & export. */
+/** Settings > Import & export: everything, with a choice of what to import. */
 export default function DataSettings() {
+  return <DataPanel />;
+}
+
+/** Importing one kind of record, for the Import button on its own page. */
+export function ImportPanel({ entity }) {
+  return <DataPanel fixed={entity} />;
+}
+
+function DataPanel({ fixed }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const fileInput = useRef(null);
-  const [entity, setEntity] = useState("customers");
+  const [entity, setEntity] = useState(fixed ?? "customers");
   const [file, setFile] = useState(null); // { name, headers, rows }
   const [mapping, setMapping] = useState({});
   const [update, setUpdate] = useState(false);
@@ -132,14 +141,14 @@ export default function DataSettings() {
 
   return (
     <div className="space-y-5">
-      <section className="card space-y-5 p-4 sm:p-6">
+      <section className={fixed ? "space-y-5" : "card space-y-5 p-4 sm:p-6"}>
         <div>
-          <h2 className="text-base font-semibold text-zinc-900">{t("data.importTitle")}</h2>
+          {!fixed && <h2 className="text-base font-semibold text-zinc-900">{t("data.importTitle")}</h2>}
           <p className="mt-0.5 text-sm text-zinc-500">{t("data.importIntro")}</p>
         </div>
 
         <div className="flex flex-wrap items-end gap-3">
-          <label className="block">
+          {!fixed && <label className="block">
             <span className="label">{t("data.what")}</span>
             <select
               className="input"
@@ -156,7 +165,7 @@ export default function DataSettings() {
                 </option>
               ))}
             </select>
-          </label>
+          </label>}
           <input ref={fileInput} type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => readFile(e.target.files?.[0])} />
           <Button onClick={() => fileInput.current?.click()}>{file ? t("data.otherFile") : t("data.chooseFile")}</Button>
           <button type="button" onClick={template} className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
@@ -265,7 +274,7 @@ export default function DataSettings() {
         )}
       </section>
 
-      <section className="card p-4 sm:p-6">
+      {!fixed && <section className="card p-4 sm:p-6">
         <h2 className="text-base font-semibold text-zinc-900">{t("data.exportTitle")}</h2>
         <p className="mt-0.5 text-sm text-zinc-500">{t("data.exportIntro")}</p>
         <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -275,7 +284,7 @@ export default function DataSettings() {
             </Button>
           ))}
         </div>
-      </section>
+      </section>}
     </div>
   );
 }
