@@ -14,6 +14,7 @@ import TeamManager from "../components/TeamManager";
 import { ConnectionCard, MAIL_PRESETS } from "../components/ChannelSettings";
 import { ErrorState, FilterChips, ListSkeleton, PageHeader } from "../components/ui";
 import { errorMessage } from "../utils/format";
+import DeleteAccount from "../components/DeleteAccount";
 
 const EMPTY_FORM = {
   company_name: "",
@@ -510,6 +511,7 @@ export default function SettingsPage() {
       {tab === "billing" && <BillingSettings />}
       {tab === "documents" && <DocumentTemplateSettings />}
       {tab === "data" && <DataSettings />}
+      {tab === "general" && <DeleteAccount />}
     </div>
   );
 }

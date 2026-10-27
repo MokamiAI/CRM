@@ -39,6 +39,28 @@ def monthly_cents(sub: Subscription) -> int:
     return round(price / 12) if sub.interval == "annually" else price
 
 
+async def erase_company(db, company: CompanySettings) -> dict:
+    """Erases a company and everything it holds: every table cascades from
+    company_settings. A card subscription is stopped first, and if Paystack
+    can't be reached nothing is deleted. Returns what was there."""
+    company_id = company.id
+    sub = await db.scalar(select(Subscription).where(Subscription.company_id == company_id))
+    if sub and sub.status in ("active", "past_due") and sub.paystack_subscription_code and sub.paystack_email_token:
+        try:
+            await paystack.disable(sub.paystack_subscription_code, sub.paystack_email_token)
+        except Exception as exc:
+            # Never leave a card being charged for a company that no longer exists.
+            raise AppError("Couldn't stop the Paystack subscription, so nothing was deleted. Cancel it in the Paystack dashboard, then try again.", "PAYSTACK_CANCEL_FAILED") from exc
+    counts = {
+        "people": await db.scalar(select(func.count()).select_from(User).where(User.company_id == company_id)),
+        "customers": await db.scalar(select(func.count()).select_from(Customer).where(Customer.company_id == company_id, Customer.is_prospect.is_(False))),
+        "invoices": await db.scalar(select(func.count()).select_from(Invoice).where(Invoice.company_id == company_id)),
+    }
+    await db.execute(sa_delete(CompanySettings).where(CompanySettings.id == company_id))
+    await db.flush()
+    return counts
+
+
 class AdminService:
     def __init__(self, db: AsyncSession):
         self.db = db
@@ -198,21 +220,8 @@ class AdminService:
             raise AppError("Type the company's name exactly as shown to confirm.", "COMPANY_NAME_MISMATCH")
         if admin.company_id == company_id:
             raise AppError("You can't delete the company your own YGT admin account belongs to.", "CANNOT_DELETE_OWN_COMPANY")
-        sub = await self.db.scalar(select(Subscription).where(Subscription.company_id == company_id))
-        if sub and sub.status in ("active", "past_due") and sub.paystack_subscription_code and sub.paystack_email_token:
-            try:
-                await paystack.disable(sub.paystack_subscription_code, sub.paystack_email_token)
-            except Exception as exc:
-                # Never leave a card being charged for a company that no longer exists.
-                raise AppError("Couldn't stop their Paystack subscription, so nothing was deleted. Cancel it in the Paystack dashboard, then try again.", "PAYSTACK_CANCEL_FAILED") from exc
-        counts = {
-            "people": await self.db.scalar(select(func.count()).select_from(User).where(User.company_id == company_id)),
-            "customers": await self.db.scalar(select(func.count()).select_from(Customer).where(Customer.company_id == company_id, Customer.is_prospect.is_(False))),
-            "invoices": await self.db.scalar(select(func.count()).select_from(Invoice).where(Invoice.company_id == company_id)),
-        }
         name = company.company_name
-        await self.db.execute(sa_delete(CompanySettings).where(CompanySettings.id == company_id))
-        await self.db.flush()
+        counts = await erase_company(self.db, company)
         logger.warning("Company %s (%s) deleted by %s: %s", name, company_id, admin.email, counts)
         return {"deleted": name, **counts}
 

@@ -17,6 +17,7 @@ from app.services.password_service import PasswordService
 from app.services.invite_service import InviteService
 from app.services.verification_service import VerificationService, verify_by
 from app.services.email_service import clean_signature
+from app.services.account_deletion import delete_own_account, is_last_admin
 
 router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/auth", tags=["auth"])
 
@@ -137,3 +138,19 @@ async def forgot_password(data: ForgotPassword, db: AsyncSession = Depends(get_d
 @router.post("/reset-password", status_code=status.HTTP_204_NO_CONTENT)
 async def reset_password(data: ResetPassword, db: AsyncSession = Depends(get_db)):
     await PasswordService(db).reset(data.token, data.password)
+
+
+class DeleteAccountIn(BaseModel):
+    password: str = Field(min_length=1, max_length=200)
+    company_name: str | None = Field(default=None, max_length=255)
+
+
+@router.get("/delete-account")
+async def delete_account_check(db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """What deleting would remove: just this account, or the whole company."""
+    return {"whole_company": await is_last_admin(db, current_user), "allowed": not current_user.is_platform_admin}
+
+
+@router.post("/delete-account")
+async def delete_account(data: DeleteAccountIn, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+    return {"deleted": await delete_own_account(db, current_user, data.password, data.company_name)}

@@ -92,6 +92,7 @@ export default function App() {
       <Route path="/terms" element={<LegalPage kind="terms" />} />
       <Route path="/privacy" element={<LegalPage kind="privacy" />} />
       <Route path="/refunds" element={<LegalPage kind="refunds" />} />
+      <Route path="/delete-account" element={<LegalPage kind="deleteAccount" />} />
       {/* YGT's own admin site; AdminLayout lets only platform admins in. */}
       <Route
         path="/admin"

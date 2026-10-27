@@ -1357,6 +1357,7 @@
     "englishOnly": "This page is available in English.",
     "privacy": "Privacy",
     "refunds": "Refund policy",
+    "deleteAccount": "Delete your account",
     "terms": "Terms",
     "updated": "Last updated {{date}}"
   },
@@ -2694,6 +2695,21 @@
         "cta": "Leave a review"
       }
     }
+  },
+  "deleteAccount": {
+    "title": "Delete my account",
+    "introAccount": "Remove your account from {{company}}. The company and its records stay; your name, email and password are erased.",
+    "introCompany": "You're the only admin of {{company}}, so deleting your account deletes the company and everything in it.",
+    "start": "Delete my account",
+    "warnAccount": "You'll be signed out and can't sign in again. This can't be undone.",
+    "warnCompany": "This permanently deletes {{company}}: every customer, deal, quote, invoice and file, and your team's accounts. Any card subscription is cancelled. This can't be undone.",
+    "typeName": "Type {{company}} to confirm",
+    "password": "Your password",
+    "confirmAccount": "Delete my account",
+    "confirmCompany": "Delete my account and the company",
+    "deleting": "Deleting…",
+    "doneAccount": "Your account has been deleted.",
+    "doneCompany": "Your account and company have been deleted."
   },
   "importExport": {
     "import": "Import",

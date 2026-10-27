@@ -30,6 +30,7 @@ PUBLIC = {
 ANY_SIGNED_IN = {
     "/api/v1/auth/me",
     "/api/v1/auth/verify-email/resend",
+    "/api/v1/auth/delete-account",  # anyone can delete their own account (app stores require it)
     # Their own bell and their own phones/computers (viewers get reminders too).
     "/api/v1/notifications/read",
     "/api/v1/notifications/push",

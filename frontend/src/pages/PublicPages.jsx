@@ -400,6 +400,33 @@ function Section({ title, children }) {
 }
 
 const LEGAL_PAGES = {
+  deleteAccount: {
+    titleKey: "legal.deleteAccount",
+    body: () => (
+      <>
+        <p>You can delete your YGT account yourself, at any time, from the app or the website:</p>
+        <ol className="mt-3 list-decimal space-y-1 pl-5">
+          <li>Sign in to YGT.</li>
+          <li>Open <strong>My profile</strong> (your name, top right) or, for admins, <strong>Settings</strong>.</li>
+          <li>Choose <strong>Delete my account</strong>, enter your password and confirm.</li>
+        </ol>
+        <Section title="What is deleted">
+          <p>
+            If you are the only admin of your company, the company and everything in it is deleted permanently: customers, deals, quotes, invoices,
+            files and every team member's account. Any card subscription is cancelled first. If others still run the company, only your own account is
+            removed: your name, email address and password are erased and you can no longer sign in.
+          </p>
+          <p className="mt-2">Payment records may be kept for as long as the law requires (for example for tax), and nothing else.</p>
+        </Section>
+        <Section title="Can't sign in?">
+          <p>
+            Email {LEGAL.email ? <a href={`mailto:${LEGAL.email}?subject=Delete%20my%20YGT%20account`} className="font-medium text-indigo-600">{LEGAL.email}</a> : "us"} from the
+            address you signed up with and ask us to delete your account. We'll confirm it's you and delete it within 7 days.
+          </p>
+        </Section>
+      </>
+    ),
+  },
   terms: {
     titleKey: "legal.terms",
     body: () => (

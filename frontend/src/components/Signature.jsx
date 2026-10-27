@@ -6,6 +6,7 @@ import { useCompany } from "../hooks/useApi";
 import { errorMessage } from "../utils/format";
 import Sheet from "./Sheet";
 import { Avatar, Button, Field } from "./ui";
+import DeleteAccount from "./DeleteAccount";
 
 const MAX = 1000;
 
@@ -137,6 +138,9 @@ export function ProfileSheet({ open, onClose }) {
           />
         </div>
       </form>
+      <div className="mt-8">
+        <DeleteAccount bare />
+      </div>
     </Sheet>
   );
 }
