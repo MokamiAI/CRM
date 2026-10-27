@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">CRM Invoicing</string>
     <string name="title_activity_main">CRM Invoicing</string>
-    <string name="package_name">com.mokamiai.crm</string>
-    <string name="custom_url_scheme">com.mokamiai.crm</string>
+    <string name="package_name">za.co.yougt.app</string>
+    <string name="custom_url_scheme">za.co.yougt.app</string>
 </resources>
