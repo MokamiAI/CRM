@@ -48,8 +48,11 @@ export default function HomeSavings() {
     <section className="py-12" aria-labelledby="home-savings">
       <div className="reveal grid gap-8 overflow-hidden rounded-3xl bg-zinc-50 p-6 ring-1 ring-inset ring-zinc-200/70 sm:p-10 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-6">
         <div>
-          <h2 id="home-savings" className="text-3xl font-semibold tracking-tight text-zinc-900">{t("home.savings.title")}</h2>
-          <p className="mt-2 text-zinc-600">{t("home.savings.intro")}</p>
+          <p className="text-sm font-semibold text-indigo-600">{t("home.savings.title")}</p>
+          <h2 id="home-savings" className="mt-2 text-3xl font-semibold tracking-tight text-zinc-900">
+            {t("home.savings.question", { hours: Number.isInteger(hours) ? hours : hours.toFixed(1) })}
+          </h2>
+          <p className="mt-2 text-zinc-600">{t("home.savings.explain")}</p>
           <div className="mt-8 space-y-7">
             <Slider label={t("home.savings.docs")} value={docs} display={docs} onChange={setDocs} min={5} max={300} step={5} />
             <Slider label={t("home.savings.rate")} value={rate} display={rand(rate)} onChange={setRate} min={100} max={1500} step={50} />

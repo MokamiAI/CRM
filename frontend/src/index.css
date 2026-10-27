@@ -1036,7 +1036,7 @@ textarea.input:focus {
   .scene-bob {
     animation: none;
   }
-  .scene-clutter {
+  .scene[data-phase="sorted"] .scene-clutter {
     display: none;
   }
   .people-photo {

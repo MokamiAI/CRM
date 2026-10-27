@@ -154,7 +154,7 @@ function IntroLayer({ t, onClosed }) {
       </div>
       <YouGotThis ref={words} className="relative text-[clamp(2.75rem,11vw,7.5rem)] leading-none" delay={150} onDone={finished} />
       <div className={`relative transition-opacity duration-300 ${closing ? "opacity-0" : "opacity-100"}`}>
-        <p className="intro-tagline mt-6 text-base font-medium text-slate-600 sm:text-lg">{t("home.hero.title")}</p>
+        <p className="intro-tagline mt-6 text-base font-medium text-slate-600 sm:text-lg">{t("home.hero.headline")}</p>
       </div>
       <button
         type="button"

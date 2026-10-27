@@ -280,7 +280,7 @@ function EnterpriseCard() {
           </li>
         ))}
       </ul>
-      <Link to="/contact" className="btn btn-secondary mt-5 w-full">
+      <Link to="/contact" className="btn btn-secondary mt-5 w-full [@media(pointer:coarse)]:!h-11">
         {t("billing.enterprise.cta")}
       </Link>
     </div>
@@ -288,7 +288,7 @@ function EnterpriseCard() {
 }
 
 /** Plans and prices. Signed out: start a free trial. Admins: go to Billing. */
-export function Pricing() {
+export function Pricing({ title, intro, children }) {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { data: plans, isError, refetch, isFetching } = usePlans();
@@ -297,7 +297,7 @@ export function Pricing() {
   const cta = (plan) => {
     if (!user) {
       return (
-        <Link to={`/register?plan=${plan.key}`} className={`btn ${plan.key === "grow" ? "btn-primary" : "btn-secondary"} w-full`}>
+        <Link to={`/register?plan=${plan.key}`} className={`btn ${plan.key === "grow" ? "btn-primary" : "btn-secondary"} w-full [@media(pointer:coarse)]:!h-11`}>
           {t("about.pricing.startTrial")}
         </Link>
       );
@@ -316,9 +316,10 @@ export function Pricing() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 id="about-pricing" className="text-2xl font-semibold tracking-tight text-zinc-900">
-            {t("about.pricing.title")}
+            {title ?? t("about.pricing.title")}
           </h2>
-          <p className="mt-1 max-w-xl text-sm text-zinc-600">{t("about.pricing.intro", { days: 14 })}</p>
+          <p className="mt-1 max-w-xl text-sm text-zinc-600">{intro ?? t("about.pricing.intro", { days: 14 })}</p>
+          {children}
         </div>
         {plans && <IntervalToggle value={interval} onChange={setInterval} />}
       </div>

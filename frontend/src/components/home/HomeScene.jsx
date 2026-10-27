@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BrandMark } from "../Brand";
+import { APP_NAME, BrandMark } from "../Brand";
 import { EASE_OUT, prefersReducedMotion } from "../../utils/motion";
 
 /*
@@ -14,6 +14,9 @@ import { EASE_OUT, prefersReducedMotion } from "../../utils/motion";
  * transform/opacity, set on each element directly; the window and its
  * rows are CSS transitions keyed on data-phase. Reduced motion shows the
  * finished screen, still. The loop pauses while the scene is off screen.
+ *
+ * "Before / With YGT" names the two states as they play; picking one
+ * stops the loop there, so a visitor can compare at their own pace.
  */
 
 const MESS_MS = 4200;
@@ -27,7 +30,7 @@ const CLUTTER = [
   { key: "note", place: "right-[4%] top-[5%] w-[34%] sm:w-[28%]", tilt: 6 },
   { key: "sheet", place: "left-[4%] top-[47%] w-[60%] sm:w-[44%]", tilt: 3 },
   { key: "email", place: "right-[3%] top-[38%] w-[48%] sm:w-[42%]", tilt: -4 },
-  { key: "receipt", place: "left-[38%] bottom-[5%] w-[30%] sm:w-[24%]", tilt: -7 },
+  { key: "receipt", place: "left-[38%] bottom-[19%] w-[30%] sm:w-[24%]", tilt: -7 },
 ];
 
 const ROWS = [
@@ -110,6 +113,7 @@ export default function HomeScene() {
   const [reduce] = useState(prefersReducedMotion);
   const [phase, setPhase] = useState(reduce ? "sorted" : "mess");
   const [onScreen, setOnScreen] = useState(true);
+  const [picked, setPicked] = useState(false);
   const [saved, setSaved] = useState(reduce ? SAVED_MINUTES : 0);
 
   // Only loop while someone can see it.
@@ -122,10 +126,10 @@ export default function HomeScene() {
   }, []);
 
   useEffect(() => {
-    if (reduce || !onScreen) return undefined;
+    if (reduce || !onScreen || picked) return undefined;
     const timer = setTimeout(() => setPhase((p) => (p === "mess" ? "sorted" : "mess")), phase === "mess" ? MESS_MS : SORTED_MS);
     return () => clearTimeout(timer);
-  }, [phase, onScreen, reduce]);
+  }, [phase, onScreen, reduce, picked]);
 
   // The clutter: lands on the desk, then flies into the window.
   useLayoutEffect(() => {
@@ -186,8 +190,8 @@ export default function HomeScene() {
       ref={rootRef}
       data-phase={phase}
       className="scene relative h-full w-full overflow-hidden bg-gradient-to-br from-[#eef0ff] via-[#f6f4ff] to-[#e8f6ff]"
-      aria-hidden="true"
     >
+      <div aria-hidden="true">
       <div
         className="absolute inset-0 opacity-50"
         style={{ backgroundImage: "radial-gradient(rgb(99 102 241 / 0.18) 1px, transparent 1px)", backgroundSize: "18px 18px" }}
@@ -204,7 +208,7 @@ export default function HomeScene() {
       ))}
 
       {/* One screen, everything in it done. */}
-      <div className="absolute inset-0 z-20 flex items-center justify-center px-4">
+      <div className="absolute inset-0 z-20 flex items-center justify-center px-4 pb-20">
         <div ref={windowRef} className="scene-window w-full max-w-[21rem] rounded-2xl bg-white p-4 shadow-[0_24px_60px_-20px_rgb(49_46_129/0.45)] ring-1 ring-zinc-900/5">
           <div className="flex items-center gap-2">
             <BrandMark size="sm" />
@@ -232,6 +236,32 @@ export default function HomeScene() {
             </span>
           </div>
         </div>
+      </div>
+      </div>
+
+      {/* Before and after, named. */}
+      <div className="absolute inset-x-3 bottom-3 z-30 flex flex-col items-center gap-1.5">
+        <div role="group" aria-label={t("home.scene.toggle")} className="inline-flex rounded-full bg-white/85 p-1 shadow-sm ring-1 ring-zinc-900/10 backdrop-blur">
+          {["mess", "sorted"].map((p) => (
+            <button
+              key={p}
+              type="button"
+              aria-pressed={phase === p}
+              onClick={() => {
+                setPicked(true);
+                setPhase(p);
+              }}
+              className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-medium transition-colors duration-200 [@media(pointer:coarse)]:min-h-11 ${
+                phase === p ? (p === "sorted" ? "bg-indigo-600 text-white" : "bg-zinc-900 text-white") : "text-zinc-600 hover:text-zinc-900"
+              }`}
+            >
+              {t(p === "mess" ? "home.scene.before" : "home.scene.with", { name: APP_NAME })}
+            </button>
+          ))}
+        </div>
+        <p className="max-w-[22rem] rounded-full bg-white/70 px-3 py-0.5 text-center text-[12px] leading-snug text-zinc-600 backdrop-blur" aria-live={picked ? "polite" : "off"}>
+          {t(phase === "mess" ? "home.scene.beforeNote" : "home.scene.withNote")}
+        </p>
       </div>
     </div>
   );

@@ -10,8 +10,9 @@ import { FEATURES, FeatureIcon, Pricing } from "./AboutPage";
 import { PublicFooter } from "./PublicPages";
 import { INTRO_CLASS, INTRO_DONE, StartupIntro } from "../components/Startup";
 
-const STEPS = ["setup", "sell", "grow"];
-const POINTS = ["noCard", "trial", "cancel", "languages"];
+const STEPS = ["setup", "manage", "track"];
+const POINTS = ["noCard", "trial", "cancel"];
+const PROBLEMS = ["leads", "quotes", "paid", "scattered"];
 const FAQS = ["card", "vat", "import", "phone", "data", "help"];
 
 /** Marks each .reveal inside `root` with data-visible as it scrolls into
@@ -54,7 +55,7 @@ export default function HomePage() {
   useReveal(page);
   const start = (
     <Link to="/register" className="btn btn-primary !h-11 !px-5 !text-[15px]">
-      {t("home.hero.cta")}
+      {t("home.hero.ctaTrial")}
     </Link>
   );
 
@@ -95,35 +96,40 @@ export default function HomePage() {
           <div className="min-w-0">
             <p className="hero-rise text-sm font-semibold text-indigo-600">{t("home.hero.eyebrow")}</p>
             <h1 style={{ "--i": 1 }} className="hero-rise mt-3 text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl lg:text-[3.4rem] lg:leading-[1.05]">
-              {t("home.hero.title")}
+              {t("home.hero.headline")}
             </h1>
-            <p style={{ "--i": 2 }} className="hero-rise mt-5 max-w-xl text-lg leading-relaxed text-zinc-600">{t("home.hero.body", { name: APP_NAME })}</p>
+            {/* Longer copy than the headline: a size down, so the headline keeps its size. */}
+            <div style={{ "--i": 2 }} className="hero-rise mt-5 max-w-[36rem] space-y-3 text-base leading-relaxed text-zinc-600 sm:text-[17px]">
+              <p>{t("home.hero.lead")}</p>
+              <p className="text-zinc-800">{t("home.hero.lead2", { name: APP_NAME })}</p>
+            </div>
             <div style={{ "--i": 3 }} className="hero-rise mt-7 flex flex-wrap items-center gap-3">
               {start}
-              <a href="#pricing" className="btn btn-secondary !h-11 !px-5 !text-[15px]">
-                {t("home.hero.secondary")}
+              <a href="#how" className="btn btn-secondary !h-11 !px-5 !text-[15px]">
+                {t("home.hero.howLink", { name: APP_NAME })}
               </a>
             </div>
             <ul style={{ "--i": 4 }} className="hero-rise mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-zinc-600">
               {POINTS.map((k) => (
                 <li key={k} className="flex items-center gap-1.5">
-                  <svg viewBox="0 0 16 16" className="h-4 w-4 text-emerald-600" fill="currentColor" aria-hidden="true">
-                    <path d="M12.7 4.3a1 1 0 0 1 0 1.4l-5.5 5.5a1 1 0 0 1-1.4 0L3.3 8.7a1 1 0 1 1 1.4-1.4l1.8 1.8 4.8-4.8a1 1 0 0 1 1.4 0Z" />
-                  </svg>
+                  <Check />
                   {t(`home.points.${k}`)}
                 </li>
               ))}
             </ul>
+            <p style={{ "--i": 5 }} className="hero-rise mt-5 text-[15px] font-semibold text-zinc-900">{t("home.hero.tagline")}</p>
           </div>
-          <div className="hero-stage h-[25rem] min-w-0 overflow-hidden rounded-3xl shadow-pop ring-1 ring-zinc-900/5 sm:h-[28rem]">
+          <div className="hero-stage h-[28rem] min-w-0 overflow-hidden rounded-3xl shadow-pop ring-1 ring-zinc-900/5 sm:h-[30rem]">
             <HomeScene />
           </div>
         </section>
 
+        <Problems />
+
         <HomePeople />
 
         {/* How it works: a real sequence, so numbered. */}
-        <section className="py-12" aria-labelledby="home-how">
+        <section id="how" className="scroll-mt-6 py-12" aria-labelledby="home-how">
           <h2 id="home-how" className="reveal text-3xl font-semibold tracking-tight text-zinc-900">{t("home.how.title")}</h2>
           <p className="reveal mt-2 max-w-2xl text-zinc-600">{t("home.how.intro")}</p>
           <ol className="reveal relative mt-8 grid gap-4 md:grid-cols-3" data-group="">
@@ -132,8 +138,8 @@ export default function HomePage() {
             {STEPS.map((k, i) => (
               <li key={k} data-stagger="" style={{ "--i": i }} className="how-step relative flex flex-col gap-2 rounded-2xl bg-zinc-50 p-5 ring-1 ring-inset ring-zinc-200/70">
                 <span style={{ "--i": i }} className="how-num relative z-[2] flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">{i + 1}</span>
-                <h3 className="mt-1 font-semibold text-zinc-900">{t(`home.how.${k}.title`)}</h3>
-                <p className="text-sm leading-relaxed text-zinc-600">{t(`home.how.${k}.body`)}</p>
+                <h3 className="mt-1 font-semibold text-zinc-900">{t(`home.how.steps.${k}.title`)}</h3>
+                <p className="text-sm leading-relaxed text-zinc-600">{t(`home.how.steps.${k}.body`)}</p>
               </li>
             ))}
           </ol>
@@ -142,13 +148,13 @@ export default function HomePage() {
         <HomeSavings />
 
         <section id="features" className="scroll-mt-6 py-12" aria-labelledby="home-features">
-          <h2 id="home-features" className="reveal text-3xl font-semibold tracking-tight text-zinc-900">{t("home.features.title")}</h2>
+          <h2 id="home-features" className="reveal text-3xl font-semibold tracking-tight text-zinc-900">{t("home.features.headline")}</h2>
           <p className="reveal mt-2 max-w-2xl text-zinc-600">{t("home.features.intro")}</p>
           <div className="reveal mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-group="">
             {FEATURES.map((key, i) => (
               <div key={key} data-stagger="" style={{ "--i": i }} className="card p-5">
                 <FeatureIcon name={key} />
-                <h3 className="mt-3 font-semibold text-zinc-900">{t(`about.features.${key}.title`)}</h3>
+                <h3 className="mt-3 font-semibold text-zinc-900">{t(`home.features.cards.${key}`)}</h3>
                 <p className="mt-1 text-sm leading-relaxed text-zinc-600">{t(`about.features.${key}.body`)}</p>
               </div>
             ))}
@@ -156,7 +162,16 @@ export default function HomePage() {
         </section>
 
         <div id="pricing" className="reveal scroll-mt-6">
-          <Pricing />
+          <Pricing title={t("home.pricing.title")} intro={t("home.pricing.intro")}>
+            <ul className="mt-4 flex flex-wrap gap-2 text-sm">
+              {[t("home.pricing.trial", { days: 14 }), t("home.pricing.noCard"), t("home.pricing.yearly")].map((point) => (
+                <li key={point} className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 font-medium text-emerald-800 ring-1 ring-inset ring-emerald-600/15">
+                  <Check />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </Pricing>
         </div>
 
         <Faq />
@@ -169,11 +184,11 @@ export default function HomePage() {
             aria-hidden="true"
           />
           <p className="brand-text text-3xl font-semibold tracking-tight sm:text-4xl">{APP_FULL_NAME}.</p>
-          <h2 className="mx-auto mt-3 max-w-xl text-xl font-semibold text-white">{t("home.final.title")}</h2>
-          <p className="mx-auto mt-2 max-w-xl text-zinc-400">{t("home.final.body")}</p>
+          <h2 className="mx-auto mt-3 max-w-xl text-xl font-semibold text-white">{t("home.final.headline")}</h2>
+          <p className="mx-auto mt-2 max-w-xl text-zinc-400">{t("home.final.lead")}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link to="/register" className="btn !h-11 !px-5 !text-[15px] bg-white text-zinc-900 hover:bg-zinc-100">
-              {t("home.hero.cta")}
+              {t("home.hero.ctaTrial")}
             </Link>
             <Link to="/contact" className="btn !h-11 !px-5 !text-[15px] bg-white/10 text-white hover:bg-white/15">
               {t("home.final.talk")}
@@ -186,6 +201,44 @@ export default function HomePage() {
         <PublicFooter />
       </div>
     </div>
+  );
+}
+
+function Check() {
+  return (
+    <svg viewBox="0 0 16 16" className="h-4 w-4 shrink-0 text-emerald-600" fill="currentColor" aria-hidden="true">
+      <path d="M12.7 4.3a1 1 0 0 1 0 1.4l-5.5 5.5a1 1 0 0 1-1.4 0L3.3 8.7a1 1 0 1 1 1.4-1.4l1.8 1.8 4.8-4.8a1 1 0 0 1 1.4 0Z" />
+    </svg>
+  );
+}
+
+/** "Sound familiar?": the everyday mess, each paired with what YGT does about it. */
+function Problems() {
+  const { t } = useTranslation();
+  return (
+    <section className="py-12" aria-labelledby="home-problems">
+      <h2 id="home-problems" className="reveal text-3xl font-semibold tracking-tight text-zinc-900">{t("home.problems.title")}</h2>
+      <p className="reveal mt-2 max-w-2xl text-zinc-600">{t("home.problems.intro")}</p>
+      <ul className="reveal mt-8 grid gap-4 md:grid-cols-2" data-group="">
+        {PROBLEMS.map((k, i) => (
+          <li key={k} data-stagger="" style={{ "--i": i }} className="card flex flex-col overflow-hidden">
+            <div className="flex-1 p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-rose-600">{t("home.problems.problem")}</p>
+              <p className="mt-1.5 font-medium leading-snug text-zinc-900">{t(`home.problems.${k}.problem`)}</p>
+            </div>
+            <div className="flex gap-2.5 border-t border-zinc-100 bg-zinc-50/70 p-5">
+              <span className="mt-0.5">
+                <Check />
+              </span>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">{t("home.problems.fix", { name: APP_NAME })}</p>
+                <p className="mt-1 text-sm leading-relaxed text-zinc-700">{t(`home.problems.${k}.fix`)}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 

@@ -65,8 +65,8 @@ export default function HomePeople() {
   return (
     <section ref={rootRef} className="py-14" aria-labelledby="home-people">
       <div className="reveal max-w-2xl">
-        <h2 id="home-people" className="text-3xl font-semibold tracking-tight text-zinc-900">{t("home.people.title")}</h2>
-        <p className="mt-2 text-zinc-600">{t("home.people.intro", { name: APP_NAME })}</p>
+        <h2 id="home-people" className="text-3xl font-semibold tracking-tight text-zinc-900">{t("home.people.headline")}</h2>
+        <p className="mt-2 text-zinc-600">{t("home.people.lead", { name: APP_NAME })}</p>
       </div>
 
       <div className="reveal mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center">
@@ -114,6 +114,7 @@ export default function HomePeople() {
         </div>
 
         {/* Pick one. The active one shows how long until the next. */}
+        <div className="min-w-0">
         <ul ref={listRef} className="relative flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
           {PEOPLE.map((p, i) => {
             const on = i === active;
@@ -137,6 +138,12 @@ export default function HomePeople() {
             );
           })}
         </ul>
+        {/* What YGT does for the business picked. */}
+        <div key={person.key} className="people-label mt-4 rounded-2xl bg-indigo-50/70 p-4 ring-1 ring-inset ring-indigo-100 lg:ml-1">
+          <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{t("home.people.helps", { name: APP_NAME })}</p>
+          <p className="mt-1 text-sm leading-relaxed text-zinc-700">{t(`home.people.${person.key}.help`)}</p>
+        </div>
+        </div>
       </div>
     </section>
   );

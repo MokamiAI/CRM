@@ -2204,7 +2204,13 @@
       "title": "Dream big. We'll handle the admin.",
       "body": "{{name}} keeps your customers, deals, quotes and invoices in one place, and chases payments for you. More time for the work you love.",
       "cta": "Start your free trial",
-      "secondary": "See pricing"
+      "secondary": "See pricing",
+      "headline": "Run your business. Not after your business.",
+      "lead": "Customers in WhatsApp, quotes in Word, invoices in Excel. Things slip through the cracks.",
+      "lead2": "{{name}} brings everything together. Manage customers, track deals, create quotes, send invoices and stay on top of your business, all from one simple platform.",
+      "ctaTrial": "Start your 14-day free trial",
+      "howLink": "See how {{name}} works",
+      "tagline": "One platform. Less admin. More business."
     },
     "points": {
       "noCard": "No card needed",
@@ -2226,11 +2232,34 @@
       "grow": {
         "title": "Follow up and grow",
         "body": "Track every deal, message customers on WhatsApp and email, and see what's working."
+      },
+      "steps": {
+        "setup": {
+          "title": "Set up your business",
+          "body": "Add your business details and bring your customers into one place."
+        },
+        "manage": {
+          "title": "Start managing your work",
+          "body": "Create quotes, track deals, send invoices and organise your activities."
+        },
+        "track": {
+          "title": "Stay on top of everything",
+          "body": "Follow up with customers, monitor payments and keep your business moving."
+        }
       }
     },
     "features": {
       "title": "Everything your sales team needs",
-      "intro": "One system instead of five, built for SMMEs, professional services and organisations."
+      "intro": "One system instead of five, built for SMMEs, professional services and organisations.",
+      "headline": "Everything your business needs to stay organised",
+      "cards": {
+        "sales": "Never lose sight of an opportunity",
+        "billing": "From quote to payment, simplified",
+        "messages": "Keep customer conversations connected",
+        "marketing": "Stay connected with your customers",
+        "languages": "Work in the language that suits you",
+        "companies": "One platform that grows with you"
+      }
     },
     "faq": {
       "title": "Questions people ask",
@@ -2262,7 +2291,9 @@
     "final": {
       "title": "You've got this. We've got the admin.",
       "body": "Start your 14-day free trial today. No card needed.",
-      "talk": "Talk to us"
+      "talk": "Talk to us",
+      "headline": "Big plans deserve less admin.",
+      "lead": "Your customers, sales, quotes and invoices, finally working together."
     },
     "scene": {
       "whatsapp": "Hi! Can I get a quote for 40 cupcakes for Saturday?",
@@ -2283,7 +2314,12 @@
       "saved": "Time saved this week",
       "whatsappFrom": "Naledi",
       "sheet": "invoices_FINAL_v3.xlsx",
-      "savedValue": "{{hours}} h {{minutes}} min"
+      "savedValue": "{{hours}} h {{minutes}} min",
+      "toggle": "Before and after",
+      "before": "Before {{name}}",
+      "with": "With {{name}}",
+      "beforeNote": "Scattered information, missed follow-ups and manual admin.",
+      "withNote": "One organised view of customers, deals, quotes, invoices and tasks."
     },
     "people": {
       "title": "Built for SMMEs that quote, invoice and grow",
@@ -2293,45 +2329,54 @@
         "alt": "A caterer grilling food for an order",
         "a": "Quote accepted: wedding for 120 guests, R 38 400",
         "b": "50% deposit received: R 19 200",
-        "c": "Order sent to supplier: PO-0031"
+        "c": "Order sent to supplier: PO-0031",
+        "help": "Quote per head, take a deposit when the client accepts, and order from suppliers from the same job."
       },
       "construction": {
         "label": "Construction and building",
         "alt": "A contractor on a building site",
         "a": "Quote sent: bathroom renovation, R 46 500",
         "b": "Progress invoice paid: R 15 000",
-        "c": "Site visit Thursday 07:30"
+        "c": "Site visit Thursday 07:30",
+        "help": "Quote the job, invoice in stages as the work progresses, and keep every site visit on the calendar."
       },
       "cleaning": {
         "label": "Cleaning services",
         "alt": "A cleaner mopping a bright room",
         "a": "Monthly cleaning contract accepted: R 6 800",
         "b": "Invoices sent to 9 clients",
-        "c": "Reminder sent: 1 invoice overdue"
+        "c": "Reminder sent: 1 invoice overdue",
+        "help": "Put monthly contracts on recurring invoices and let reminders follow up on late payers."
       },
       "it": {
         "label": "IT and web development",
         "alt": "A young developer holding his laptop",
         "a": "Quote sent: new website, R 22 000",
         "b": "Monthly hosting invoices sent",
-        "c": "Deal won: booking app for a client"
+        "c": "Deal won: booking app for a client",
+        "help": "Track projects from first quote to signed deal, and bill hosting and support every month automatically."
       },
       "accounting": {
         "label": "Accounting and bookkeeping",
         "alt": "A bookkeeper smiling at her laptop",
         "a": "Monthly fees invoiced to 14 clients",
         "b": "Statements sent in one click",
-        "c": "Follow-up: VAT return due Friday"
+        "c": "Follow-up: VAT return due Friday",
+        "help": "Invoice monthly fees to every client at once, send statements, and never miss a deadline follow-up."
       },
       "events": {
         "label": "Events and décor",
         "alt": "A table dressed with flowers for an event",
         "a": "Quote accepted: year-end function décor, R 27 000",
         "b": "Deposit received: R 13 500",
-        "c": "Order sent to the florist: PO-0044"
+        "c": "Order sent to the florist: PO-0044",
+        "help": "Quote the décor, take the deposit, and send orders to florists and suppliers without retyping anything."
       },
       "pause": "Pause",
-      "play": "Play"
+      "play": "Play",
+      "headline": "Built for businesses like yours",
+      "lead": "Whether you're running a catering company, managing construction projects, offering professional services or growing a technology business, {{name}} keeps your customers, sales and everyday operations organised.",
+      "helps": "How {{name}} helps"
     },
     "savings": {
       "title": "Time back. Money back.",
@@ -2341,7 +2386,38 @@
       "hours": "Hours back every month",
       "money": "Worth every month",
       "year": "That's about {{days}} working days back every year.",
-      "note": "An estimate, not a promise. It assumes about {{minutes}} minutes saved on each quote or invoice you no longer type up, send and chase yourself."
+      "note": "An estimate, not a promise. It assumes about {{minutes}} minutes saved on each quote or invoice you no longer type up, send and chase yourself.",
+      "question": "What could you do with {{hours}} extra hours every month?",
+      "explain": "Every quote, invoice and follow-up takes time. See how much time you could save by simplifying your everyday admin, then move the sliders to match your business."
+    },
+    "problems": {
+      "title": "Sound familiar?",
+      "intro": "Most small businesses run on WhatsApp, notebooks and spreadsheets. It works, until the business grows.",
+      "problem": "The problem",
+      "fix": "With {{name}}",
+      "leads": {
+        "problem": "Enquiries get lost in WhatsApp. A client asks for a price and nobody follows up.",
+        "fix": "Every enquiry becomes a customer and a deal on your pipeline, with a reminder to follow up."
+      },
+      "quotes": {
+        "problem": "Quotes take an evening to type up, and each one looks different.",
+        "fix": "Pick your products and send a professional quote with your logo and VAT details in minutes."
+      },
+      "paid": {
+        "problem": "“Has this been paid?” You're checking the bank and old emails.",
+        "fix": "Accepted quotes become tax invoices, payment reminders go out for you, and you can see who owes you."
+      },
+      "scattered": {
+        "problem": "Five spreadsheets and three versions of the truth.",
+        "fix": "One place for the whole team, on any phone or computer. Bring your customers in from Excel."
+      }
+    },
+    "pricing": {
+      "title": "Simple pricing for every stage of your business",
+      "intro": "Start with what you need today and move to a bigger plan as your business grows.",
+      "trial": "Every plan starts with a {{days}}-day free trial",
+      "noCard": "No card needed",
+      "yearly": "Pay yearly and get 2 months free"
     }
   },
   "aging": {
