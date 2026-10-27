@@ -94,3 +94,23 @@ async def test_preview_is_not_tracked(monkeypatch):
     email = await service.compose(campaign, "me@example.com", "Me", token=None)
     assert email.subject == "N"  # falls back to the campaign name
     assert ".gif" not in email.html
+
+
+@pytest.mark.asyncio
+async def test_name_in_the_subject_and_preview_text_is_each_recipients(monkeypatch):
+    company = SimpleNamespace(company_name="Z", address=None, tax_number=None, logo_url=None, default_currency="ZAR")
+
+    class _Repo:
+        def __init__(self, db):
+            pass
+
+        async def get_for(self, company_id):
+            return company
+
+    monkeypatch.setattr(campaign_service, "CompanySettingsRepository", _Repo)
+    service = CampaignService(db=None)
+    campaign = SimpleNamespace(company_id="c1", name="Offer", subject="{name}, 20% off until Friday", preheader="Just for you, {name}",
+                               body="Hi {name},", product_ids=[], cta_text=None, cta_url=None)
+    email = await service.compose(campaign, "thandi@example.com", "Thandi", token="tok")
+    assert email.subject == "Thandi, 20% off until Friday"
+    assert "Just for you, Thandi" in email.html and "{name}" not in email.html

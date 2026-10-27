@@ -168,8 +168,9 @@ class CampaignService:
         email = render_email(
             "campaign",
             to=to,
-            subject=campaign.subject or campaign.name,
-            preheader=campaign.preheader,
+            # "{name}" works in the subject and preview text too, like the message.
+            subject=(campaign.subject or campaign.name).replace("{name}", name),
+            preheader=campaign.preheader.replace("{name}", name) if campaign.preheader else None,
             paragraphs=_paragraphs(campaign.body, name),
             products=[_featured(p, today) for p in await self._products(campaign.product_ids)],
             cta_text=campaign.cta_text,

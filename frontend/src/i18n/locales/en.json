@@ -2621,6 +2621,80 @@
     },
     "goToActivities": "Go to activities"
   },
+  "campaignTemplates": {
+    "title": "What do you want to do?",
+    "hint": "Pick one to start with a ready-written email. Change anything in [square brackets], then make it your own.",
+    "replaceTitle": "Replace what you've written?",
+    "replaceBody": "The \"{{label}}\" template replaces your subject, preview text, message and button text.",
+    "replace": "Use the template",
+    "used": "Template added: fill in the parts in [square brackets].",
+    "items": {
+      "promotion": {
+        "label": "Promote a special offer",
+        "name": "Special offer: [month]",
+        "subject": "{name}, [20%] off [product or service] until [date]",
+        "preheader": "A special offer for our customers, for a limited time.",
+        "body": "Hi {name},\n\nFor a limited time we're offering [20% off / a free extra] on [product or service].\n\n[One or two lines on why it's worth it: what it saves them or what they get.]\n\nThe offer runs until [date], so don't miss it.\n\nThanks for choosing {company}.",
+        "cta": "Claim the offer"
+      },
+      "launch": {
+        "label": "Launch something new",
+        "name": "New: [product or service]",
+        "subject": "Introducing [product or service] from {company}",
+        "preheader": "Something new we think you'll like.",
+        "body": "Hi {name},\n\nWe're excited to introduce [product or service].\n\n[What it is and the problem it solves, in two or three lines.]\n\nAs one of our customers, you're among the first to hear about it. [Optional: an introductory price or offer.]\n\nReply to this email if you'd like to know more.",
+        "cta": "Find out more"
+      },
+      "newsletter": {
+        "label": "Send a monthly update",
+        "name": "[Month] update",
+        "subject": "What's new at {company} this [month]",
+        "preheader": "News, tips and what's coming up.",
+        "body": "Hi {name},\n\nHere's what's been happening at {company}:\n\n[Highlight 1: news, a finished project or a milestone]\n[Highlight 2: a tip or something useful for your customers]\n[Highlight 3: what's coming up next]\n\nThank you for your support. We're always a reply away.",
+        "cta": "See what's new"
+      },
+      "event": {
+        "label": "Invite people to an event",
+        "name": "Invite: [event name]",
+        "subject": "You're invited: [event name] on [date]",
+        "preheader": "Join us on [date] at [place].",
+        "body": "Hi {name},\n\nWe'd love you to join us for [event name].\n\nWhen: [day, date and time]\nWhere: [venue and address / online link]\n\n[What happens there and why it's worth coming.]\n\nPlease let us know by [RSVP date] if you can make it.",
+        "cta": "Reserve my place"
+      },
+      "winback": {
+        "label": "Win back quiet customers",
+        "name": "We miss you",
+        "subject": "{name}, it's been a while: here's [10%] off your next order",
+        "preheader": "We'd love to help you again.",
+        "body": "Hi {name},\n\nIt's been a while since we last worked together, and we'd love to help you again.\n\n[What's new or improved since then.]\n\nAs a thank-you for coming back, here's [10% off / a free extra] on your next order until [date].\n\nJust reply to this email and we'll take it from there.",
+        "cta": "Book again"
+      },
+      "thanks": {
+        "label": "Thank your customers",
+        "name": "Thank you",
+        "subject": "Thank you, {name}",
+        "preheader": "A quick note of thanks from all of us.",
+        "body": "Hi {name},\n\nWe just wanted to say thank you for choosing {company}. Customers like you make what we do possible.\n\n[Optional: something you achieved together this year, or what you're working on to serve them better.]\n\nIf there's ever anything we can do for you, we're a reply away.",
+        "cta": ""
+      },
+      "festive": {
+        "label": "Send season's greetings",
+        "name": "Season's greetings [year]",
+        "subject": "Season's greetings from {company}",
+        "preheader": "Our holiday hours, and our thanks for this year.",
+        "body": "Hi {name},\n\nAs the year comes to an end, all of us at {company} want to thank you for your support.\n\nOur holiday hours: we close on [date] and open again on [date]. [For urgent help, contact ...]\n\nWe wish you and your family a restful holiday and a great year ahead.",
+        "cta": ""
+      },
+      "review": {
+        "label": "Ask for a review or referral",
+        "name": "Review request",
+        "subject": "{name}, could you spare a minute for us?",
+        "preheader": "Your feedback helps other people find us.",
+        "body": "Hi {name},\n\nWe hope you're happy with [the product or service you got from us].\n\nWould you take a minute to leave us a review? It helps other businesses find us.\n\n[Optional: know someone who could use our help? Refer them and you'll both get [a thank-you].]\n\nThank you, it means a lot.",
+        "cta": "Leave a review"
+      }
+    }
+  },
   "importExport": {
     "import": "Import",
     "export": "Export",

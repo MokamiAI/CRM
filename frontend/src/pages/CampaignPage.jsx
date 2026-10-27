@@ -9,6 +9,7 @@ import { useAudience, useCampaign, useCampaignRecipients, useProducts, useSegmen
 import { BackLink } from "../components/DocumentView";
 import Sheet from "../components/Sheet";
 import { AudienceCount, AudienceSheet } from "../components/marketing";
+import CampaignTemplates from "../components/CampaignTemplates";
 import { Button, ErrorState, Field, ListSkeleton, StatusBadge } from "../components/ui";
 import { errorMessage, formatDateTime, formatMoney } from "../utils/format";
 import { onSpecial } from "../utils/products";
@@ -113,6 +114,12 @@ function Editor({ campaign }) {
   const set = (field) => (event) => {
     setForm((prev) => ({ ...prev, [field]: event.target.value }));
     setDirty(true);
+  };
+  // A template fills the message; the name only if it hasn't been given one.
+  const applyTemplate = (filled) => {
+    setForm((prev) => ({ ...prev, ...filled, name: prev.name.trim() ? prev.name : filled.name }));
+    setDirty(true);
+    toast.success(t("campaignTemplates.used"));
   };
   const toggleProduct = (productId) => {
     setForm((prev) => {
@@ -241,6 +248,8 @@ function Editor({ campaign }) {
             </Field>
             <AudienceCount audience={audience} loading={audienceLoading} />
           </section>
+
+          {campaign.status === "draft" && <CampaignTemplates form={form} onUse={applyTemplate} />}
 
           <section className="card space-y-4 p-4 sm:p-5">
             <Field label={t("marketing.field.subject")}>
