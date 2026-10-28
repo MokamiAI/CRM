@@ -2711,5 +2711,11 @@
     "tooBig": "{{name}} e kgolo go feta 10 MB",
     "added_one": "Difaele tše {{count}} di kgomareditšwe",
     "added_other": "Difaele tše {{count}} di kgomareditšwe"
+  },
+  "markSent": {
+    "button": "Swaya bjalo ka e rometšwe",
+    "title": "Swaya {{number}} bjalo ka e rometšwe?",
+    "quote": "Šomiša se ge o šetše o file moreki kotheišene ka bowena, mohlala ka WhatsApp, ka sefahlego goba ka imeile ya gago. Ga go selo seo se romelwago ka imeile. Ka morago o ka e swaya bjalo ka e amogetšwe goba e gannwe.",
+    "invoice": "Šomiša se ge o šetše o file moreki infoisi ka bowena, mohlala ka WhatsApp, ka sefahlego goba ka imeile ya gago. Ga go selo seo se romelwago ka imeile bjale. Ge dikgopotšo tša tefelo tša go itiragalela di bulegile, di tla romelwa go moreki ge tefelo e swanetše."
   }
 }

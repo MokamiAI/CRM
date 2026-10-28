@@ -266,13 +266,14 @@ export function QuoteDetailPage() {
   };
   const onError = (error) => toast.error(errorMessage(error));
 
+  // email: false is "Mark as sent", for a quote that went out some other way.
   const send = useMutation({
-    mutationFn: () => apiClient.post(`/quotes/${id}/send`, null, { params: { notify } }),
-    onSuccess: () => {
+    mutationFn: (email) => apiClient.post(`/quotes/${id}/send`, null, { params: { notify: email } }),
+    onSuccess: (_, email) => {
       refresh();
       close();
       toast.success(t("quote.sent"), {
-        description: notify && recipientEmail ? t("invoice.emailing", { email: recipientEmail }) : t("invoice.sentNoEmail"),
+        description: email && recipientEmail ? t("invoice.emailing", { email: recipientEmail }) : t("invoice.sentNoEmail"),
       });
     },
     onError,
@@ -363,6 +364,9 @@ export function QuoteDetailPage() {
                   <ButtonLink variant="secondary" to={`/quotes/${id}/edit`}>
                     {t("common.edit")}
                   </ButtonLink>
+                  <Button variant="secondary" onClick={() => setSheet("markSent")}>
+                    {t("markSent.button")}
+                  </Button>
                   <Button onClick={() => setSheet("send")}>{t("quote.send")}</Button>
                 </>
               )}
@@ -455,6 +459,24 @@ export function QuoteDetailPage() {
       </Sheet>
 
       <Sheet
+        open={sheet === "markSent"}
+        onClose={close}
+        title={t("markSent.title", { number: quote.quote_number })}
+        footer={
+          <>
+            <Button variant="secondary" onClick={close}>
+              {t("common.cancel")}
+            </Button>
+            <Button disabled={send.isPending} onClick={() => send.mutate(false)}>
+              {t("markSent.button")}
+            </Button>
+          </>
+        }
+      >
+        <p className="text-sm text-zinc-600">{t("markSent.quote")}</p>
+      </Sheet>
+
+      <Sheet
         open={sheet === "send"}
         onClose={close}
         title={t("invoice.sendTitle", { number: quote.quote_number })}
@@ -463,7 +485,7 @@ export function QuoteDetailPage() {
             <Button variant="secondary" onClick={close}>
               {t("common.cancel")}
             </Button>
-            <Button disabled={send.isPending} onClick={() => send.mutate()}>
+            <Button disabled={send.isPending} onClick={() => send.mutate(notify)}>
               {send.isPending ? t("common.sending") : t("common.send")}
             </Button>
           </>

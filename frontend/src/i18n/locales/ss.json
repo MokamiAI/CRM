@@ -2711,5 +2711,11 @@
     "tooBig": "I-{{name}} inkhulu kwendlula 10 MB",
     "added_one": "Kunamatsiselwe emafayela langu-{{count}}",
     "added_other": "Kunamatsiselwe emafayela langu-{{count}}"
+  },
+  "markSent": {
+    "button": "Maka njengalokutfunyelwe",
+    "title": "Maka {{number}} njengalokutfunyelwe?",
+    "quote": "Sebentisa loku nangabe sewunikete likhasimende sicalo ngekwakho, sibonelo ku-WhatsApp, buso nebuso nobe nge-imeyili yakho. Kute lokutfunyelwa nge-imeyili. Ngemuva kwaloko ungasimaka njengalesemukelwe nobe lesaliwe.",
+    "invoice": "Sebentisa loku nangabe sewunikete likhasimende i-invoyisi ngekwakho, sibonelo ku-WhatsApp, buso nebuso nobe nge-imeyili yakho. Kute lokutfunyelwa nge-imeyili nyalo. Nangabe tikhumbuto tekukhokha letitentakalelako tivuliwe, titawutfunyelwa kulikhasimende nangabe inkhokhelo seyifanele."
   }
 }

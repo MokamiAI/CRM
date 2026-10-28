@@ -2711,5 +2711,11 @@
     "tooBig": "{{name}} yi kulu ku tlula 10 MB",
     "added_one": "Tifayili ta {{count}} ti namarhetiwile",
     "added_other": "Tifayili ta {{count}} ti namarhetiwile"
+  },
+  "markSent": {
+    "button": "Fungha tani hi leyi rhumeriweke",
+    "title": "Fungha {{number}} tani hi leyi rhumeriweke?",
+    "quote": "Tirhisa leswi loko u se u nyike muxavi khotexini hi wexe, xikombiso hi WhatsApp, hi xikandza kumbe hi imeyili ya wena. A ku na nchumu lowu rhumeriwaka hi imeyili. Endzhaku u nga yi fungha tani hi leyi amukeriweke kumbe leyi aleriweke.",
+    "invoice": "Tirhisa leswi loko u se u nyike muxavi invhoyisi hi wexe, xikombiso hi WhatsApp, hi xikandza kumbe hi imeyili ya wena. A ku na nchumu lowu rhumeriwaka hi imeyili sweswi. Loko swotsundzuxo swa ku hakela leswi tiendlekelaka swi pfuriwile, swi ta rhumeriwa eka muxavi loko ku hakela ku fanele."
   }
 }

@@ -2711,5 +2711,11 @@
     "tooBig": "{{name}} i khulwane u fhira 10 MB",
     "added_one": "Faela dza {{count}} dzo nambatedzwa",
     "added_other": "Faela dza {{count}} dzo nambatedzwa"
+  },
+  "markSent": {
+    "button": "Swayani sa yo rumelwaho",
+    "title": "Swayani {{number}} sa yo rumelwaho?",
+    "quote": "Shumisani hezwi musi no no ṋea murengi khotheshini nga noṱhe, tsumbo nga WhatsApp, nga u ṱangana nae kana nga imeiḽi yaṋu. A hu na tshithu tshi rumelwaho nga imeiḽi. Nga murahu ni nga i swaya sa yo ṱanganedzwaho kana yo hanwaho.",
+    "invoice": "Shumisani hezwi musi no no ṋea murengi invoisi nga noṱhe, tsumbo nga WhatsApp, nga u ṱangana nae kana nga imeiḽi yaṋu. A hu na tshithu tshi rumelwaho nga imeiḽi zwino. Arali zwiitisa-u-humbula zwa mbadelo zwi ḓiitaho zwo vulwa, zwi ḓo rumelwa kha murengi musi mbadelo i tshi fanela."
   }
 }

@@ -2711,5 +2711,11 @@
     "tooBig": "I-{{name}} ikhulu ukudlula i-10 MB",
     "added_one": "Kunamathiselwe amafayela ali-{{count}}",
     "added_other": "Kunamathiselwe amafayela ali-{{count}}"
+  },
+  "markSent": {
+    "button": "Tshwaya njengethunyelweko",
+    "title": "Tshwaya {{number}} njengethunyelweko?",
+    "quote": "Sebenzisa lokhu nawusele unikele ikhasimende isilinganiso ngokwakho, isibonelo ku-WhatsApp, ubuso nobuso namkha nge-imeyili yakho. Akukho okuthunyelwa nge-imeyili. Ngemva kwalokho ungasitshwaya njengesamukelweko namkha esalelweko.",
+    "invoice": "Sebenzisa lokhu nawusele unikele ikhasimende i-invoyisi ngokwakho, isibonelo ku-WhatsApp, ubuso nobuso namkha nge-imeyili yakho. Akukho okuthunyelwa nge-imeyili nje. Nange iinkhumbuzo zokubhadela ezizenzakalelako zivuliwe, zizokuthunyelwa ekhasimendeni nange imbhadelo ifanele."
   }
 }

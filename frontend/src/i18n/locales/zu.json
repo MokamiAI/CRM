@@ -2711,5 +2711,11 @@
     "tooBig": "I-{{name}} inkulu kuno-10 MB",
     "added_one": "Kunamathiselwe amafayela angu-{{count}}",
     "added_other": "Kunamathiselwe amafayela angu-{{count}}"
+  },
+  "markSent": {
+    "button": "Maka njengokuthunyelwe",
+    "title": "Maka u-{{number}} njengokuthunyelwe?",
+    "quote": "Sebenzisa lokhu uma usunikeze ikhasimende isilinganiso ngokwakho, isibonelo ku-WhatsApp, ubuso nobuso noma nge-imeyili yakho. Akukho okuthunyelwa nge-imeyili. Ngemuva kwalokho ungasimaka njengesamukelwe noma esenqatshiwe.",
+    "invoice": "Sebenzisa lokhu uma usunikeze ikhasimende i-invoyisi ngokwakho, isibonelo ku-WhatsApp, ubuso nobuso noma nge-imeyili yakho. Akukho okuthunyelwa nge-imeyili manje. Uma izikhumbuzo zokukhokha ezizenzakalelayo zivuliwe, zizothunyelwa ekhasimendeni uma inkokhelo isifanele."
   }
 }

@@ -2851,5 +2851,11 @@
     "added_one": "{{count}} file attached",
     "added_other": "{{count}} files attached",
     "tooBig": "{{name}} is larger than 10 MB"
+  },
+  "markSent": {
+    "button": "Mark as sent",
+    "title": "Mark {{number}} as sent?",
+    "quote": "Use this when you've already given the quote to the customer yourself, for example on WhatsApp, in person or from your own email. Nothing is emailed. You can then mark it accepted or declined.",
+    "invoice": "Use this when you've already given the invoice to the customer yourself, for example on WhatsApp, in person or from your own email. Nothing is emailed now. If automatic payment reminders are on, they will still go to the customer when payment is due."
   }
 }

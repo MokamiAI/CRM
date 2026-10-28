@@ -63,13 +63,14 @@ export default function InvoiceDetailPage() {
   const onError = (error) => toast.error(errorMessage(error));
 
   const [notify, setNotify] = useState(true);
+  // email: false is "Mark as sent", for an invoice that went out some other way.
   const send = useMutation({
-    mutationFn: () => apiClient.post(`/invoices/${id}/send`, null, { params: { notify } }),
-    onSuccess: () => {
+    mutationFn: (email) => apiClient.post(`/invoices/${id}/send`, null, { params: { notify: email } }),
+    onSuccess: (_, email) => {
       refresh();
       close();
       toast.success(t("invoice.sent"), {
-        description: notify && customer?.recipient_email ? t("invoice.emailing", { email: customer.recipient_email }) : t("invoice.sentNoEmail"),
+        description: email && customer?.recipient_email ? t("invoice.emailing", { email: customer.recipient_email }) : t("invoice.sentNoEmail"),
       });
     },
     onError,
@@ -186,7 +187,14 @@ export default function InvoiceDetailPage() {
                 </Button>
               )}
               {PAYABLE.includes(invoice.status) && <Button onClick={() => setSheet("pay")}>{t("invoice.recordPayment")}</Button>}
-              {invoice.status === "draft" && <Button onClick={() => setSheet("send")}>{t("invoice.send")}</Button>}
+              {invoice.status === "draft" && (
+                <>
+                  <Button variant="secondary" onClick={() => setSheet("markSent")}>
+                    {t("markSent.button")}
+                  </Button>
+                  <Button onClick={() => setSheet("send")}>{t("invoice.send")}</Button>
+                </>
+              )}
             </>
             )}
           </>
@@ -292,6 +300,24 @@ export default function InvoiceDetailPage() {
       </Sheet>
 
       <Sheet
+        open={sheet === "markSent"}
+        onClose={close}
+        title={t("markSent.title", { number: invoice.invoice_number })}
+        footer={
+          <>
+            <Button variant="secondary" onClick={close}>
+              {t("common.cancel")}
+            </Button>
+            <Button disabled={send.isPending} onClick={() => send.mutate(false)}>
+              {t("markSent.button")}
+            </Button>
+          </>
+        }
+      >
+        <p className="text-sm text-zinc-600">{t("markSent.invoice")}</p>
+      </Sheet>
+
+      <Sheet
         open={sheet === "send"}
         onClose={close}
         title={t("invoice.sendTitle", { number: invoice.invoice_number })}
@@ -300,7 +326,7 @@ export default function InvoiceDetailPage() {
             <Button variant="secondary" onClick={close}>
               {t("common.cancel")}
             </Button>
-            <Button disabled={send.isPending} onClick={() => send.mutate()}>
+            <Button disabled={send.isPending} onClick={() => send.mutate(notify)}>
               {send.isPending ? t("common.sending") : t("common.send")}
             </Button>
           </>

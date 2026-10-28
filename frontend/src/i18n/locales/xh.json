@@ -2711,5 +2711,11 @@
     "tooBig": "I-{{name}} inkulu kune-10 MB",
     "added_one": "Kuncanyathiselwe iifayile ezi-{{count}}",
     "added_other": "Kuncanyathiselwe iifayile ezi-{{count}}"
+  },
+  "markSent": {
+    "button": "Phawula njengethunyelweyo",
+    "title": "Phawula u-{{number}} njengethunyelweyo?",
+    "quote": "Sebenzisa oku xa sele umnike umthengi ikowuti ngokwakho, umzekelo kuWhatsApp, ubuso ngobuso okanye nge-imeyile yakho. Akukho nto ithunyelwa nge-imeyile. Emva koko ungayiphawula njengeyamkelweyo okanye eyaliweyo.",
+    "invoice": "Sebenzisa oku xa sele umnike umthengi i-invoyisi ngokwakho, umzekelo kuWhatsApp, ubuso ngobuso okanye nge-imeyile yakho. Akukho nto ithunyelwa nge-imeyile ngoku. Ukuba izikhumbuzi zokuhlawula ezizenzekelayo zivuliwe, ziya kuthunyelwa kumthengi xa intlawulo ifanele."
   }
 }

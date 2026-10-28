@@ -2711,5 +2711,11 @@
     "tooBig": "{{name}} is groter as 10 MB",
     "added_one": "{{count}} lêer(s) aangeheg",
     "added_other": "{{count}} lêer(s) aangeheg"
+  },
+  "markSent": {
+    "button": "Merk as gestuur",
+    "title": "Merk {{number}} as gestuur?",
+    "quote": "Gebruik dit wanneer jy die kwotasie reeds self aan die kliënt gegee het, byvoorbeeld op WhatsApp, persoonlik of uit jou eie e-pos. Niks word ge-e-pos nie. Jy kan dit daarna as aanvaar of afgekeur merk.",
+    "invoice": "Gebruik dit wanneer jy die faktuur reeds self aan die kliënt gegee het, byvoorbeeld op WhatsApp, persoonlik of uit jou eie e-pos. Niks word nou ge-e-pos nie. As outomatiese betalingsherinnerings aan is, gaan hulle steeds na die kliënt wanneer betaling verskuldig is."
   }
 }

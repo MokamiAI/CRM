@@ -2711,5 +2711,11 @@
     "tooBig": "{{name}} e kgolo go feta 10 MB",
     "added_one": "Difaele di le {{count}} di kgomareditswe",
     "added_other": "Difaele di le {{count}} di kgomareditswe"
+  },
+  "markSent": {
+    "button": "Tshwaya jaaka e romilwe",
+    "title": "Tshwaya {{number}} jaaka e romilwe?",
+    "quote": "Dirisa se fa o setse o file moreki kotheišene ka bowena, sekai ka WhatsApp, ka sefatlhego kgotsa ka imeile ya gago. Ga go sepe se se romelwang ka imeile. Morago o ka e tshwaya jaaka e amogetswe kgotsa e ganetswe.",
+    "invoice": "Dirisa se fa o setse o file moreki invoice ka bowena, sekai ka WhatsApp, ka sefatlhego kgotsa ka imeile ya gago. Ga go sepe se se romelwang ka imeile jaanong. Fa dikgopotso tsa tuelo tse di itiragalelang di butswe, di tla romelwa go moreki fa tuelo e tshwanetse."
   }
 }
