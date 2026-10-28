@@ -2181,11 +2181,12 @@
       "cta": "Begin jou gratis proeftydperk",
       "secondary": "Sien pryse",
       "headline": "Bestuur jou besigheid. Moenie agter jou besigheid aanhardloop nie.",
-      "lead": "Kliënte op WhatsApp, kwotasies in Word, fakture in Excel. Dinge glip deur die krake.",
       "lead2": "{{name}} bring alles bymekaar. Bestuur kliënte, volg transaksies, skep kwotasies, stuur fakture en bly bo-op jou besigheid, alles op een eenvoudige platform.",
       "ctaTrial": "Begin jou gratis proeftydperk van 14 dae",
       "howLink": "Sien hoe {{name}} werk",
-      "tagline": "Een platform. Minder admin. Meer besigheid."
+      "tagline": "Een platform. Minder admin. Meer besigheid.",
+      "leadTeam": "Verkope op een plek, kwotasies op 'n ander, fakture iewers anders. Of julle nou een of vyftig is, dinge glip deur die krake.",
+      "audience": "Gemaak vir eenpersoonsondernemings, groeiende spanne en gevestigde maatskappye."
     },
     "points": {
       "noCard": "Geen kaart nodig nie",

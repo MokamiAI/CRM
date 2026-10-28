@@ -2181,11 +2181,12 @@
       "cta": "Qala ulingo lwakho lwasimahla",
       "secondary": "Bona amaxabiso",
       "headline": "Lawula ishishini lakho. Musa ukulileqa.",
-      "lead": "Abathengi kuWhatsApp, iikowuti kuWord, ii-invoyisi kuExcel. Izinto ziyalahleka.",
       "lead2": "{{name}} idibanisa yonke into. Lawula abathengi, landela izivumelwano, yenza iikowuti, thumela ii-invoyisi kwaye uhlale uphezu kweshishini lakho, konke kwiqonga elinye elilula.",
       "ctaTrial": "Qala ulingo lwakho lwasimahla lweentsuku ezili-14",
       "howLink": "Bona indlela {{name}} esebenza ngayo",
-      "tagline": "Iqonga elinye. Ulawulo oluncinci. Ishishini elingakumbi."
+      "tagline": "Iqonga elinye. Ulawulo oluncinci. Ishishini elingakumbi.",
+      "leadTeam": "Intengiso kwenye indawo, iikowuti kwenye, ii-invoyisi kwenye kwakhona. Nokuba niliqela lomntu omnye okanye abangama-50, izinto ziyalahleka.",
+      "audience": "Yenzelwe abarhwebi abasebenza bodwa, amaqela akhulayo neenkampani ezisele zimisekile."
     },
     "points": {
       "noCard": "Akufuneki khadi",

@@ -5,8 +5,7 @@ import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
 import LanguagePicker from "../components/LanguagePicker";
 import HomeScene from "../components/home/HomeScene";
 import HomePeople from "../components/home/HomePeople";
-import HomeSavings from "../components/home/HomeSavings";
-import { FEATURES, FeatureIcon, Pricing } from "./AboutPage";
+import HomeSavings from "../components/home/HomeSavings";import { FEATURES, FeatureIcon, Pricing } from "./AboutPage";
 import { PublicFooter } from "./PublicPages";
 import { INTRO_CLASS, INTRO_DONE, StartupIntro } from "../components/Startup";
 
@@ -100,7 +99,7 @@ export default function HomePage() {
             </h1>
             {/* Longer copy than the headline: a size down, so the headline keeps its size. */}
             <div style={{ "--i": 2 }} className="hero-rise mt-5 max-w-[36rem] space-y-3 text-base leading-relaxed text-zinc-600 sm:text-[17px]">
-              <p>{t("home.hero.lead")}</p>
+              <p>{t("home.hero.leadTeam")}</p>
               <p className="text-zinc-800">{t("home.hero.lead2", { name: APP_NAME })}</p>
             </div>
             <div style={{ "--i": 3 }} className="hero-rise mt-7 flex flex-wrap items-center gap-3">
@@ -117,6 +116,7 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
+            <p style={{ "--i": 5 }} className="hero-rise mt-3 text-sm text-zinc-600">{t("home.hero.audience")}</p>
             <p style={{ "--i": 5 }} className="hero-rise mt-5 text-[15px] font-semibold text-zinc-900">{t("home.hero.tagline")}</p>
           </div>
           <div className="hero-stage h-[28rem] min-w-0 overflow-hidden rounded-3xl shadow-pop ring-1 ring-zinc-900/5 sm:h-[30rem]">

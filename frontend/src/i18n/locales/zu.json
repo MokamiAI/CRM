@@ -2181,11 +2181,12 @@
       "cta": "Qala ukuzama kwakho mahhala",
       "secondary": "Bona amanani",
       "headline": "Phatha ibhizinisi lakho. Ungalijahi.",
-      "lead": "Amakhasimende ku-WhatsApp, izilinganiso ku-Word, ama-invoyisi ku-Excel. Izinto ziyalahleka.",
       "lead2": "{{name}} ihlanganisa konke. Phatha amakhasimende, landelela izivumelwano, dala izilinganiso, thumela ama-invoyisi futhi uhlale uphezu kwebhizinisi lakho, konke endaweni eyodwa elula.",
       "ctaTrial": "Qala ukuzama mahhala kwezinsuku ezingu-14",
       "howLink": "Bona ukuthi {{name}} isebenza kanjani",
-      "tagline": "Indawo eyodwa. Ukuphatha okuncane. Ibhizinisi elengeziwe."
+      "tagline": "Indawo eyodwa. Ukuphatha okuncane. Ibhizinisi elengeziwe.",
+      "leadTeam": "Ukuthengisa kwenye indawo, izilinganiso kwenye, ama-invoyisi kwenye futhi. Noma ngabe niyithimba lomuntu oyedwa noma abangu-50, izinto ziyalahleka.",
+      "audience": "Kwenzelwe abahwebi abasebenza bodwa, amathimba akhulayo nezinkampani ezisunguliwe."
     },
     "points": {
       "noCard": "Alidingeki ikhadi",

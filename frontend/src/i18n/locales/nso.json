@@ -2181,11 +2181,12 @@
       "cta": "Thoma teko ya gago ya mahala",
       "secondary": "Bona ditheko",
       "headline": "Laola kgwebo ya gago. O se e kitimele.",
-      "lead": "Bareki go WhatsApp, dikotheišene go Word, diinvoice go Excel. Dilo di a lahlega.",
       "lead2": "{{name}} e kopanya tšohle. Laola bareki, latela ditumelelano, dira dikotheišene, romela diinvoice gomme o dule o laola kgwebo ya gago, tšohle sethaleng se tee se bonolo.",
       "ctaTrial": "Thoma teko ya gago ya mahala ya matšatši a 14",
       "howLink": "Bona ka moo {{name}} e šomago ka gona",
-      "tagline": "Sethala se tee. Taolo e nyenyane. Kgwebo e ntši."
+      "tagline": "Sethala se tee. Taolo e nyenyane. Kgwebo e ntši.",
+      "leadTeam": "Thekišo lefelong le lengwe, dikotheišene go le lengwe, diinvoice kua gongwe. Le ge le le motho o tee goba ba 50, dilo di a lahlega.",
+      "audience": "E diretšwe bagwebi ba go šoma ba nnoši, dihlopha tše di golago le dikhamphani tše di šetšego di hlomilwe."
     },
     "points": {
       "noCard": "Ga go hlokege karata",

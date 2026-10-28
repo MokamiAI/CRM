@@ -2181,11 +2181,12 @@
       "cta": "Cala kuvivinya kwakho mahhala",
       "secondary": "Bona emanani",
       "headline": "Phatsa libhizinisi lakho. Ungalijahi.",
-      "lead": "Emakhasimende ku-WhatsApp, ticalo ku-Word, ema-invoyisi ku-Excel. Tintfo tiyalahleka.",
       "lead2": "{{name}} ihlanganisa konkhe. Phatsa emakhasimende, landzelela tivumelwano, yenta ticalo, tfumela ema-invoyisi futsi uhlale uphetse libhizinisi lakho, konkhe endzaweni yinye lelula.",
       "ctaTrial": "Cala kuvivinya kwakho mahhala kwemalanga langu-14",
       "howLink": "Bona kutsi {{name}} isebenta njani",
-      "tagline": "Indzawo yinye. Kuphatsa lokuncane. Libhizinisi lelinyenti."
+      "tagline": "Indzawo yinye. Kuphatsa lokuncane. Libhizinisi lelinyenti.",
+      "leadTeam": "Kutsengisa endzaweni yinye, ticalo kulenye, ema-invoyisi kulenye futsi. Noma ngabe nilicembu lemuntfu munye nobe labangu-50, tintfo tiyalahleka.",
+      "audience": "Kwentelwe bahwebi labasebenta bodvwana, emacembu lakhulako netinkampani lesetisungulwe."
     },
     "points": {
       "noCard": "Alidzingeki likhadi",

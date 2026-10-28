@@ -2181,11 +2181,12 @@
       "cta": "Qala teko ya hao ya mahala",
       "secondary": "Bona ditheko",
       "headline": "Laola kgwebo ya hao. O se ke wa e lelekisa.",
-      "lead": "Bareki ho WhatsApp, dikotheishene ho Word, di-invoice ho Excel. Dintho di a lahleha.",
       "lead2": "{{name}} e kopanya tsohle. Laola bareki, latela ditumellano, etsa dikotheishene, romela di-invoice mme o dule o laola kgwebo ya hao, tsohle sethaleng se le seng se bonolo.",
       "ctaTrial": "Qala teko ya hao ya mahala ya matsatsi a 14",
       "howLink": "Bona kamoo {{name}} e sebetsang kateng",
-      "tagline": "Sethala se le seng. Tsamaiso e nyane. Kgwebo e ngata."
+      "tagline": "Sethala se le seng. Tsamaiso e nyane. Kgwebo e ngata.",
+      "leadTeam": "Thekiso sebakeng se seng, dikotheishene ho se seng, di-invoice kae kae. Le ha le le motho a le mong kapa ba 50, dintho di a lahleha.",
+      "audience": "E etseditswe bahwebi ba sebetsang ba le bang, dihlopha tse holang le dikhampani tse seng di thehilwe."
     },
     "points": {
       "noCard": "Ha ho hlokehe karete",

@@ -2181,11 +2181,12 @@
       "cta": "Sungula ndzingeto wa wena wa mahala",
       "secondary": "Vona mintsengo",
       "headline": "Fambisa bindzu ra wena. U nga ri hlongorisi.",
-      "lead": "Vaxavi eka WhatsApp, tikhotexini eka Word, tiinvhoyisi eka Excel. Swilo swa lahleka.",
       "lead2": "{{name}} yi hlanganisa hinkwaswo. Fambisa vaxavi, landzelela swivumelwano, endla tikhotexini, rhumela tiinvhoyisi naswona u tshama u lawula bindzu ra wena, hinkwaswo eka xitulu xin'we xo olova.",
       "ctaTrial": "Sungula ndzingeto wa wena wa mahala wa masiku ya 14",
       "howLink": "Vona ndlela leyi {{name}} yi tirhaka ha yona",
-      "tagline": "Xitulu xin'we. Vulawuri byitsongo. Bindzu ro tala."
+      "tagline": "Xitulu xin'we. Vulawuri byitsongo. Bindzu ro tala.",
+      "leadTeam": "Ku xavisa endhawini yin'wana, tikhotexini eka yin'wana, tiinvhoyisi kun'wana. Hambiloko mi ri munhu un'we kumbe 50, swilo swa lahleka.",
+      "audience": "Yi endleriwe vaxavisi lava tirhaka va ri voxe, mintlawa leyi kulaka na tikhamphani leti seke ti simekiwa."
     },
     "points": {
       "noCard": "A ku laveki khadi",

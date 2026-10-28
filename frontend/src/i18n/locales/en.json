@@ -2206,11 +2206,12 @@
       "cta": "Start your free trial",
       "secondary": "See pricing",
       "headline": "Run your business. Not after your business.",
-      "lead": "Customers in WhatsApp, quotes in Word, invoices in Excel. Things slip through the cracks.",
       "lead2": "{{name}} brings everything together. Manage customers, track deals, create quotes, send invoices and stay on top of your business, all from one simple platform.",
       "ctaTrial": "Start your 14-day free trial",
       "howLink": "See how {{name}} works",
-      "tagline": "One platform. Less admin. More business."
+      "tagline": "One platform. Less admin. More business.",
+      "leadTeam": "Sales in one place, quotes in another, invoices somewhere else. Whether you're a team of one or fifty, things slip through the cracks.",
+      "audience": "Made for sole traders, growing teams and established companies."
     },
     "points": {
       "noCard": "No card needed",

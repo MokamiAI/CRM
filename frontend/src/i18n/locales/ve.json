@@ -2181,11 +2181,12 @@
       "cta": "Thomani u lingedza haṋu mahala",
       "secondary": "Vhonani mitengo",
       "headline": "Langani bindu ḽaṋu. Ni songo laulwa nalo.",
-      "lead": "Vharengi kha WhatsApp, khotheshini kha Word, dziinvoisi kha Excel. Zwithu zwi a xela.",
       "lead2": "{{name}} i ṱanganya zwoṱhe. Langani vharengi, tevhelani thendelano, itani khotheshini, rumelani dziinvoisi ni dzule ni tshi langa bindu ḽaṋu, zwoṱhe kha tshiimiswa tshithihi tshi leluwaho.",
       "ctaTrial": "Thomani u lingedza haṋu mahala ha maḓuvha a 14",
       "howLink": "Vhonani nḓila ine {{name}} ya shuma ngayo",
-      "tagline": "Tshiimiswa tshithihi. Ndaulo ṱhukhu. Bindu ḽinzhi."
+      "tagline": "Tshiimiswa tshithihi. Ndaulo ṱhukhu. Bindu ḽinzhi.",
+      "leadTeam": "Thengiso fhethu huṅwe, khotheshini huṅwe, dziinvoisi huṅwe hafhu. Hu sa londwi uri ni muthu muthihi kana ni vhathu vha 50, zwithu zwi a xela.",
+      "audience": "Yo itelwa vhabindudzi vhane vha shuma vha vhoṱhe, zwigwada zwine zwa khou aluwa na khamphani dzo no thomiwaho."
     },
     "points": {
       "noCard": "A hu ṱoḓei garaṱa",
