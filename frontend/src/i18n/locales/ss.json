@@ -2179,7 +2179,13 @@
       "title": "Phupha lokukhulu. Tsine sitawunakekela kuphatsa.",
       "body": "{{name}} igcina emakhasimende akho, tivumelwano, ticalo nema-invoyisi endzaweni yinye, futsi ikulandzelela tinkhokhelo. Sikhatsi lesinyenti semsebenti lowutsandzako.",
       "cta": "Cala kuvivinya kwakho mahhala",
-      "secondary": "Bona emanani"
+      "secondary": "Bona emanani",
+      "headline": "Phatsa libhizinisi lakho. Ungalijahi.",
+      "lead": "Emakhasimende ku-WhatsApp, ticalo ku-Word, ema-invoyisi ku-Excel. Tintfo tiyalahleka.",
+      "lead2": "{{name}} ihlanganisa konkhe. Phatsa emakhasimende, landzelela tivumelwano, yenta ticalo, tfumela ema-invoyisi futsi uhlale uphetse libhizinisi lakho, konkhe endzaweni yinye lelula.",
+      "ctaTrial": "Cala kuvivinya kwakho mahhala kwemalanga langu-14",
+      "howLink": "Bona kutsi {{name}} isebenta njani",
+      "tagline": "Indzawo yinye. Kuphatsa lokuncane. Libhizinisi lelinyenti."
     },
     "points": {
       "noCard": "Alidzingeki likhadi",
@@ -2201,11 +2207,34 @@
       "grow": {
         "title": "Landzelela ukhule",
         "body": "Landzelela sivumelwano ngasinye, tfumela imilayeto kumakhasimende nge-WhatsApp ne-imeyili, bese ubona lokusebentako."
+      },
+      "steps": {
+        "setup": {
+          "title": "Hlela libhizinisi lakho",
+          "body": "Faka imininingwane yelibhizinisi lakho futsi uhlanganise emakhasimende akho endzaweni yinye."
+        },
+        "manage": {
+          "title": "Cala kuphatsa umsebenti wakho",
+          "body": "Yenta ticalo, landzelela tivumelwano, tfumela ema-invoyisi futsi uhlele imisebenti yakho."
+        },
+        "track": {
+          "title": "Hlala uphetse konkhe",
+          "body": "Landzelela emakhasimende, bheka tinkhokhelo futsi ugcine libhizinisi lakho lichubeka."
+        }
       }
     },
     "features": {
       "title": "Konkhe lokudzingwa licembu lakho lekutsengisa",
-      "intro": "Luhlelo lunye esikhundleni setinhlanu, lolwakhelwe ema-SMME, tinsita tebungcweti netinhlangano."
+      "intro": "Luhlelo lunye esikhundleni setinhlanu, lolwakhelwe ema-SMME, tinsita tebungcweti netinhlangano.",
+      "headline": "Konkhe lokudzingwa libhizinisi lakho kute lihlale lihlelekile",
+      "cards": {
+        "sales": "Ungaphutselwa litfuba",
+        "billing": "Kusukela ecalweni kuya enkhokhelweni, kwentiwe kwaba lula",
+        "messages": "Gcina tingcoco temakhasimende tihlangene",
+        "marketing": "Hlala uhlangene nemakhasimende akho",
+        "languages": "Sebenta ngelulwimi lolukufanele",
+        "companies": "Indzawo yinye lekhula nawe"
+      }
     },
     "faq": {
       "title": "Imibuto bantfu labayibutako",
@@ -2237,7 +2266,9 @@
     "final": {
       "title": "Uyakhona. Tsine sinakekela kuphatsa.",
       "body": "Cala lamuhla kuvivinya kwakho mahhala kwemalanga langu-14. Alidzingeki likhadi.",
-      "talk": "Khuluma natsi"
+      "talk": "Khuluma natsi",
+      "headline": "Tinhlelo letinkhulu tifanelwe kuphatsa lokuncane.",
+      "lead": "Emakhasimende akho, kutsengisa, ticalo nema-invoyisi, ekugcineni kusebenta ndzawonye."
     },
     "scene": {
       "whatsapp": "Sawubona! Ngingatfola intsengo yemakhekhe lamancane la-40 ngaMgcibelo?",
@@ -2258,7 +2289,12 @@
       "saved": "Sikhatsi lesongiwe kuleli viki",
       "whatsappFrom": "Naledi",
       "sheet": "invoices_FINAL_v3.xlsx",
-      "savedValue": "{{hours}} h {{minutes}} min"
+      "savedValue": "{{hours}} h {{minutes}} min",
+      "toggle": "Ngaphambili nangemuva",
+      "before": "Ngaphambi kwe-{{name}}",
+      "with": "Nge-{{name}}",
+      "beforeNote": "Imininingwane lesakatekile, kulandzelela lokuphutsiwe nekuphatsa ngesandla.",
+      "withNote": "Kubuka kunye lokuhlelekile kwemakhasimende, tivumelwano, ticalo, ema-invoyisi nemisebenti."
     },
     "people": {
       "title": "Lwakhelwe ema-SMME lakhipha tintsengo, ema-invoyisi futsi akhula",
@@ -2268,45 +2304,54 @@
         "alt": "Umphekeli wemicimbi owosa kudla kwe-oda",
         "a": "Intsengo yemukelwe: umshado wetivakashi leti-120, R 38 400",
         "b": "Idiphozithi ye-50% itfoliwe: R 19 200",
-        "c": "I-oda litfunyelwe kumhlinzeki: PO-0031"
+        "c": "I-oda litfunyelwe kumhlinzeki: PO-0031",
+        "help": "Yenta sicalo ngemuntfu ngamunye, tsatsa idiphozithi nangabe likhasimende livuma, futsi u-ode kubahlinzeki usuka emsebentini lofanako."
       },
       "construction": {
         "label": "Kwakha",
         "alt": "Usonkontileka endzaweni yekwakha",
         "a": "Intsengo itfunyelwe: kulungiswa kwekamelo lekugezela, R 46 500",
         "b": "I-invoyisi yenchubekela embili ikhokhiwe: R 15 000",
-        "c": "Kuvakashela sitsi ngaLesine 07:30"
+        "c": "Kuvakashela sitsi ngaLesine 07:30",
+        "help": "Yenta sicalo semsebenti, tfumela ema-invoyisi ngetigaba njengobe umsebenti uchubeka, futsi ugcine konkhe kuvakashela isayithi ekhalendeni."
       },
       "cleaning": {
         "label": "Tinsita tekuhlanza",
         "alt": "Umhlanti uhlanta phasi ekamelweni lelikhanyako",
         "a": "Inkontileka yekuhlanza yenyanga yemukelwe: R 6 800",
         "b": "Ema-invoyisi atfunyelwe kumakhasimende la-9",
-        "c": "Sikhumbuto sitfunyelwe: i-invoyisi le-1 isemuva"
+        "c": "Sikhumbuto sitfunyelwe: i-invoyisi le-1 isemuva",
+        "help": "Faka tinkontileka tenyanga nenyanga kuma-invoyisi laphindvwako futsi uvumele tikhumbuto tilandzelele labakhokha sekwephuzile."
       },
       "it": {
         "label": "I-IT nekwakhiwa kwemawebhusayithi",
         "alt": "Unjiniyela lomusha lophetse ilaptop yakhe",
         "a": "Intsengo itfunyelwe: iwebhusayithi lensha, R 22 000",
         "b": "Ema-invoyisi enyanga ekusingatsa atfunyelwe",
-        "c": "Sivumelwano siwiniwe: luhlelo lwekubhukha lwelikhasimende"
+        "c": "Sivumelwano siwiniwe: luhlelo lwekubhukha lwelikhasimende",
+        "help": "Landzelela emaphrojekthi kusukela esicalweni sekucala kuya esivumelwaneni lesisayiniwe, futsi ukhokhise i-hosting nelusito nyanga nenyanga ngekutentakalela."
       },
       "accounting": {
         "label": "Kubalwa kwetimali nekugcinwa kwemabhuku",
         "alt": "Umgcini-mabhuku lomomotsekako ngaseLaptop yakhe",
         "a": "Timali tenyanga tifakwe ku-invoyisi temakhasimende la-14",
         "b": "Titatimende titfunyelwe ngekuchofoza kanye",
-        "c": "Kulandzelela: imbuyiselo ye-VAT ingaLesihlanu"
+        "c": "Kulandzelela: imbuyiselo ye-VAT ingaLesihlanu",
+        "help": "Tfumela ema-invoyisi etinkhokhelo tenyanga kuwo onkhe emakhasimende ngesikhatsi sinye, tfumela titatimende, futsi ungaphutselwa lilanga lekugcina."
       },
       "events": {
         "label": "Imicimbi nekuhlobisa",
         "alt": "Litafula lelihlobiswe ngetimbali temcimbi",
         "a": "Intsengo yemukelwe: kuhlobisa umcimbi wekuphela kwemnyaka, R 27 000",
         "b": "Idiphozithi itfoliwe: R 13 500",
-        "c": "I-oda litfunyelwe kumtsengisi wetimbali: PO-0044"
+        "c": "I-oda litfunyelwe kumtsengisi wetimbali: PO-0044",
+        "help": "Yenta sicalo semhlobiso, tsatsa idiphozithi, futsi utfumele ema-oda kubatsengisi betimbali nebahlinzeki ngaphandle kwekuphindze uthayiphe lutfo."
       },
       "pause": "Misa kwesikhashana",
-      "play": "Dlala"
+      "play": "Dlala",
+      "headline": "Lwakhelwe emabhizinisi lafana nelakho",
+      "lead": "Noma ngabe uchuba inkampani yekupheka, uphatsa emaphrojekthi ekwakha, unikela ngetinsita tebungcweti nobe ukhulisa libhizinisi lebuchwepheshe, {{name}} igcina emakhasimende akho, kutsengisa nemisebenti yemalanga onkhe ihlelekile.",
+      "helps": "Indlela {{name}} lesita ngayo"
     },
     "savings": {
       "title": "Sikhatsi siyabuya. Imali iyabuya.",
@@ -2316,7 +2361,38 @@
       "hours": "Emahora labuyako onkhe tinyanga",
       "money": "Livelu onkhe tinyanga",
       "year": "Loko cishe kutinsuku tekusebenta leti-{{days}} letibuyako onkhe ngemnyaka.",
-      "note": "Loku kulinganisa, akusiso setsembiso. Kucabanga kutsi wonga cishe imizuzu leli-{{minutes}} entsengweni ngayinye nobe ku-invoyisi longasadzingi kuyithayipha, kuyitfumela nekuyilandzelela wena."
+      "note": "Loku kulinganisa, akusiso setsembiso. Kucabanga kutsi wonga cishe imizuzu leli-{{minutes}} entsengweni ngayinye nobe ku-invoyisi longasadzingi kuyithayipha, kuyitfumela nekuyilandzelela wena.",
+      "question": "Bewungentani ngemahora langu-{{hours}} lengetiwe nyanga nenyanga?",
+      "explain": "Sicalo ngasinye, i-invoyisi nekulandzelela kutsatsa sikhatsi. Bona kutsi ungonga sikhatsi lesingakanani ngekwenta kuphatsa kwemalanga onkhe kube lula, bese uhambisa emaslayida kute afane nelibhizinisi lakho."
+    },
+    "problems": {
+      "title": "Kuyatiwa yini loku?",
+      "intro": "Emabhizinisi lamanyenti lamancane asebentisa i-WhatsApp, emabhuku ekubhala nema-spreadsheet. Kuyasebenta, kuze kube libhizinisi liyakhula.",
+      "problem": "Inkinga",
+      "fix": "Nge-{{name}}",
+      "leads": {
+        "problem": "Imibuto iyalahleka ku-WhatsApp. Likhasimende libuta inani kodvwa kute lolandzelelako.",
+        "fix": "Umbuto ngamunye uba likhasimende nesivumelwano ku-pipeline yakho, nesikhumbuto sekulandzelela."
+      },
+      "quotes": {
+        "problem": "Ticalo titsatsa busuku bonkhe kutithayipha, futsi ngasinye sibukeka sehlukile.",
+        "fix": "Khetsa imikhicito yakho bese utfumela sicalo lesisezingeni lelisetulu nelogo yakho nemininingwane ye-VAT ngemizuzu."
+      },
+      "paid": {
+        "problem": "“Kukhokhiwe yini loku?” Uhlola libhange nema-imeyili lamadzala.",
+        "fix": "Ticalo letemukelwe tiba ema-invoyisi entsela, tikhumbuto tekukhokha titfunyelwa esikhundleni sakho, futsi ungabona kutsi ngubani lokweletako."
+      },
+      "scattered": {
+        "problem": "Ema-spreadsheet lasihlanu netinguculo letintsatfu teliciniso.",
+        "fix": "Indzawo yinye yelicembu lonkhe, kunoma nguyiphi ifoni nobe ikhompyutha. Letsa emakhasimende akho usuka ku-Excel."
+      }
+    },
+    "pricing": {
+      "title": "Emanani lalula esigabeni ngasinye selibhizinisi lakho",
+      "intro": "Cala ngaloko lokudzingako lamuhla bese udlulela ehlelweni lelikhulu njengobe libhizinisi lakho likhula.",
+      "trial": "Lihlelo ngalinye licala ngekuvivinya mahhala kwemalanga langu-{{days}}",
+      "yearly": "Khokha ngemnyaka utfole tinyanga leti-2 mahhala",
+      "noCard": "Alidzingeki likhadi"
     }
   },
   "aging": {

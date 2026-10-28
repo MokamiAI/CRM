@@ -2179,7 +2179,13 @@
       "title": "Droom groot. Ons hanteer die admin.",
       "body": "{{name}} hou jou kliënte, transaksies, kwotasies en fakture op een plek, en jaag betalings vir jou agterna. Meer tyd vir die werk waarvoor jy lief is.",
       "cta": "Begin jou gratis proeftydperk",
-      "secondary": "Sien pryse"
+      "secondary": "Sien pryse",
+      "headline": "Bestuur jou besigheid. Moenie agter jou besigheid aanhardloop nie.",
+      "lead": "Kliënte op WhatsApp, kwotasies in Word, fakture in Excel. Dinge glip deur die krake.",
+      "lead2": "{{name}} bring alles bymekaar. Bestuur kliënte, volg transaksies, skep kwotasies, stuur fakture en bly bo-op jou besigheid, alles op een eenvoudige platform.",
+      "ctaTrial": "Begin jou gratis proeftydperk van 14 dae",
+      "howLink": "Sien hoe {{name}} werk",
+      "tagline": "Een platform. Minder admin. Meer besigheid."
     },
     "points": {
       "noCard": "Geen kaart nodig nie",
@@ -2201,11 +2207,34 @@
       "grow": {
         "title": "Volg op en groei",
         "body": "Volg elke transaksie, stuur boodskappe aan kliënte op WhatsApp en e-pos, en sien wat werk."
+      },
+      "steps": {
+        "setup": {
+          "title": "Stel jou besigheid op",
+          "body": "Voeg jou besigheidsbesonderhede by en bring jou kliënte op een plek bymekaar."
+        },
+        "manage": {
+          "title": "Begin jou werk bestuur",
+          "body": "Skep kwotasies, volg transaksies, stuur fakture en organiseer jou aktiwiteite."
+        },
+        "track": {
+          "title": "Bly bo-op alles",
+          "body": "Volg op by kliënte, hou betalings dop en hou jou besigheid aan die gang."
+        }
       }
     },
     "features": {
       "title": "Alles wat jou verkoopspan nodig het",
-      "intro": "Een stelsel in plaas van vyf, gebou vir KMMOs, professionele dienste en organisasies."
+      "intro": "Een stelsel in plaas van vyf, gebou vir KMMOs, professionele dienste en organisasies.",
+      "headline": "Alles wat jou besigheid nodig het om georganiseerd te bly",
+      "cards": {
+        "sales": "Moet nooit 'n geleentheid uit die oog verloor nie",
+        "billing": "Van kwotasie tot betaling, vereenvoudig",
+        "messages": "Hou kliëntgesprekke gekoppel",
+        "marketing": "Bly in kontak met jou kliënte",
+        "languages": "Werk in die taal wat jou pas",
+        "companies": "Een platform wat saam met jou groei"
+      }
     },
     "faq": {
       "title": "Vrae wat mense vra",
@@ -2237,7 +2266,9 @@
     "final": {
       "title": "Jy kan dit doen. Ons doen die admin.",
       "body": "Begin vandag jou gratis proeftydperk van 14 dae. Geen kaart nodig nie.",
-      "talk": "Praat met ons"
+      "talk": "Praat met ons",
+      "headline": "Groot planne verdien minder admin.",
+      "lead": "Jou kliënte, verkope, kwotasies en fakture wat uiteindelik saamwerk."
     },
     "scene": {
       "whatsapp": "Hallo! Kan ek 'n kwotasie kry vir 40 kolwyntjies vir Saterdag?",
@@ -2258,7 +2289,12 @@
       "saved": "Tyd bespaar hierdie week",
       "whatsappFrom": "Naledi",
       "sheet": "invoices_FINAL_v3.xlsx",
-      "savedValue": "{{hours}} h {{minutes}} min"
+      "savedValue": "{{hours}} h {{minutes}} min",
+      "toggle": "Voor en ná",
+      "before": "Voor {{name}}",
+      "with": "Met {{name}}",
+      "beforeNote": "Verspreide inligting, gemiste opvolgings en handwerk-admin.",
+      "withNote": "Een georganiseerde oorsig van kliënte, transaksies, kwotasies, fakture en take."
     },
     "people": {
       "title": "Gebou vir KMMOs wat kwoteer, faktureer en groei",
@@ -2268,45 +2304,54 @@
         "alt": "'n Spysenier wat kos vir 'n bestelling braai",
         "a": "Kwotasie aanvaar: troue vir 120 gaste, R 38 400",
         "b": "50% deposito ontvang: R 19 200",
-        "c": "Bestelling aan verskaffer gestuur: PO-0031"
+        "c": "Bestelling aan verskaffer gestuur: PO-0031",
+        "help": "Kwoteer per persoon, neem 'n deposito wanneer die kliënt aanvaar, en bestel by verskaffers vanuit dieselfde werk."
       },
       "construction": {
         "label": "Konstruksie en bou",
         "alt": "'n Kontrakteur op 'n bouterrein",
         "a": "Kwotasie gestuur: badkameropknapping, R 46 500",
         "b": "Vorderingsfaktuur betaal: R 15 000",
-        "c": "Terreinbesoek Donderdag 07:30"
+        "c": "Terreinbesoek Donderdag 07:30",
+        "help": "Kwoteer die werk, faktureer in fases soos die werk vorder, en hou elke terreinbesoek op die kalender."
       },
       "cleaning": {
         "label": "Skoonmaakdienste",
         "alt": "'n Skoonmaker wat 'n helder kamer mop",
         "a": "Maandelikse skoonmaakkontrak aanvaar: R 6 800",
         "b": "Fakture aan 9 kliënte gestuur",
-        "c": "Herinnering gestuur: 1 faktuur agterstallig"
+        "c": "Herinnering gestuur: 1 faktuur agterstallig",
+        "help": "Sit maandelikse kontrakte op herhalende fakture en laat herinnerings laat betalers opvolg."
       },
       "it": {
         "label": "IT en webontwikkeling",
         "alt": "'n Jong ontwikkelaar met sy skootrekenaar",
         "a": "Kwotasie gestuur: nuwe webwerf, R 22 000",
         "b": "Maandelikse hostingfakture gestuur",
-        "c": "Transaksie gewen: besprekingstoep vir 'n kliënt"
+        "c": "Transaksie gewen: besprekingstoep vir 'n kliënt",
+        "help": "Volg projekte van die eerste kwotasie tot die getekende transaksie, en faktureer hosting en ondersteuning elke maand outomaties."
       },
       "accounting": {
         "label": "Rekeningkunde en boekhouding",
         "alt": "'n Boekhouer wat by haar skootrekenaar glimlag",
         "a": "Maandelikse fooie aan 14 kliënte gefaktureer",
         "b": "State met een klik gestuur",
-        "c": "Opvolg: BTW-opgawe Vrydag verskuldig"
+        "c": "Opvolg: BTW-opgawe Vrydag verskuldig",
+        "help": "Faktureer maandelikse fooie aan al jou kliënte gelyk, stuur state, en mis nooit 'n sperdatum-opvolging nie."
       },
       "events": {
         "label": "Geleenthede en dekor",
         "alt": "'n Tafel met blomme vir 'n geleentheid gedek",
         "a": "Kwotasie aanvaar: jaareindfunksie-dekor, R 27 000",
         "b": "Deposito ontvang: R 13 500",
-        "c": "Bestelling aan die bloemis gestuur: PO-0044"
+        "c": "Bestelling aan die bloemis gestuur: PO-0044",
+        "help": "Kwoteer die versierings, neem die deposito, en stuur bestellings aan bloemiste en verskaffers sonder om iets oor te tik."
       },
       "pause": "Pouseer",
-      "play": "Speel"
+      "play": "Speel",
+      "headline": "Gebou vir besighede soos joune",
+      "lead": "Of jy nou 'n spysenieringsmaatskappy bedryf, konstruksieprojekte bestuur, professionele dienste lewer of 'n tegnologiebesigheid laat groei, {{name}} hou jou kliënte, verkope en daaglikse bedrywighede georganiseerd.",
+      "helps": "Hoe {{name}} help"
     },
     "savings": {
       "title": "Tyd terug. Geld terug.",
@@ -2316,7 +2361,38 @@
       "hours": "Ure terug elke maand",
       "money": "Werd elke maand",
       "year": "Dis omtrent {{days}} werksdae terug elke jaar.",
-      "note": "'n Skatting, nie 'n belofte nie. Dit neem aan dat jy omtrent {{minutes}} minute spaar op elke kwotasie of faktuur wat jy nie meer self hoef uit te tik, te stuur en agterna te jaag nie."
+      "note": "'n Skatting, nie 'n belofte nie. Dit neem aan dat jy omtrent {{minutes}} minute spaar op elke kwotasie of faktuur wat jy nie meer self hoef uit te tik, te stuur en agterna te jaag nie.",
+      "question": "Wat sou jy doen met {{hours}} ekstra ure elke maand?",
+      "explain": "Elke kwotasie, faktuur en opvolg neem tyd. Sien hoeveel tyd jy kan spaar deur jou daaglikse admin te vereenvoudig, en skuif dan die skuiwers om by jou besigheid te pas."
+    },
+    "problems": {
+      "title": "Klink dit bekend?",
+      "intro": "Die meeste klein besighede werk met WhatsApp, notaboeke en sigblaaie. Dit werk, totdat die besigheid groei.",
+      "problem": "Die probleem",
+      "fix": "Met {{name}}",
+      "leads": {
+        "problem": "Navrae raak verlore op WhatsApp. 'n Kliënt vra 'n prys en niemand volg op nie.",
+        "fix": "Elke navraag word 'n kliënt en 'n transaksie in jou pyplyn, met 'n herinnering om op te volg."
+      },
+      "quotes": {
+        "problem": "Dit neem 'n hele aand om kwotasies uit te tik, en elkeen lyk anders.",
+        "fix": "Kies jou produkte en stuur binne minute 'n professionele kwotasie met jou logo en BTW-besonderhede."
+      },
+      "paid": {
+        "problem": "“Is dit al betaal?” Jy kyk na die bank en ou e-posse.",
+        "fix": "Aanvaarde kwotasies word belastingfakture, betalingsherinnerings gaan vir jou uit, en jy kan sien wie jou skuld."
+      },
+      "scattered": {
+        "problem": "Vyf sigblaaie en drie weergawes van die waarheid.",
+        "fix": "Een plek vir die hele span, op enige foon of rekenaar. Bring jou kliënte uit Excel in."
+      }
+    },
+    "pricing": {
+      "title": "Eenvoudige pryse vir elke fase van jou besigheid",
+      "intro": "Begin met wat jy vandag nodig het en skuif na 'n groter plan soos jou besigheid groei.",
+      "trial": "Elke plan begin met 'n gratis proeftydperk van {{days}} dae",
+      "yearly": "Betaal jaarliks en kry 2 maande gratis",
+      "noCard": "Geen kaart nodig nie"
     }
   },
   "aging": {

@@ -2179,7 +2179,13 @@
       "title": "Phupha ngokukhulu. Thina siza kujongana nolawulo.",
       "body": "{{name}} igcina abathengi bakho, izivumelwano, iikowuti kunye nee-invoyisi kwindawo enye, kwaye ikulandelela iintlawulo. Ixesha elingakumbi lomsebenzi owuthandayo.",
       "cta": "Qala ulingo lwakho lwasimahla",
-      "secondary": "Bona amaxabiso"
+      "secondary": "Bona amaxabiso",
+      "headline": "Lawula ishishini lakho. Musa ukulileqa.",
+      "lead": "Abathengi kuWhatsApp, iikowuti kuWord, ii-invoyisi kuExcel. Izinto ziyalahleka.",
+      "lead2": "{{name}} idibanisa yonke into. Lawula abathengi, landela izivumelwano, yenza iikowuti, thumela ii-invoyisi kwaye uhlale uphezu kweshishini lakho, konke kwiqonga elinye elilula.",
+      "ctaTrial": "Qala ulingo lwakho lwasimahla lweentsuku ezili-14",
+      "howLink": "Bona indlela {{name}} esebenza ngayo",
+      "tagline": "Iqonga elinye. Ulawulo oluncinci. Ishishini elingakumbi."
     },
     "points": {
       "noCard": "Akufuneki khadi",
@@ -2201,11 +2207,34 @@
       "grow": {
         "title": "Landela kwaye ukhule",
         "body": "Landela idili ngalinye, thumela imiyalezo kubathengi nge-WhatsApp ne-imeyile, uze ubone okusebenzayo."
+      },
+      "steps": {
+        "setup": {
+          "title": "Seta ishishini lakho",
+          "body": "Faka iinkcukacha zeshishini lakho kwaye uzise abathengi bakho kwindawo enye."
+        },
+        "manage": {
+          "title": "Qala ukulawula umsebenzi wakho",
+          "body": "Yenza iikowuti, landela izivumelwano, thumela ii-invoyisi kwaye ulungelelanise imisebenzi yakho."
+        },
+        "track": {
+          "title": "Hlala uphezu kwayo yonke into",
+          "body": "Landela abathengi, beka iliso kwiintlawulo kwaye ugcine ishishini lakho lihamba."
+        }
       }
     },
     "features": {
       "title": "Yonke into efunwa liqela lakho lokuthengisa",
-      "intro": "Inkqubo enye endaweni yezintlanu, eyakhelwe ii-SMME, iinkonzo zobuchwephesha nemibutho."
+      "intro": "Inkqubo enye endaweni yezintlanu, eyakhelwe ii-SMME, iinkonzo zobuchwephesha nemibutho.",
+      "headline": "Yonke into efunwa lishishini lakho ukuze lihlale licwangcisiwe",
+      "cards": {
+        "sales": "Ungaze uphoswe lithuba",
+        "billing": "Ukusuka kwikowuti ukuya kwintlawulo, kwenziwe lula",
+        "messages": "Gcina iincoko zabathengi zinxibelelene",
+        "marketing": "Hlala unxibelelana nabathengi bakho",
+        "languages": "Sebenza ngolwimi olukulungeleyo",
+        "companies": "Iqonga elinye elikhula nawe"
+      }
     },
     "faq": {
       "title": "Imibuzo ebuzwa ngabantu",
@@ -2237,7 +2266,9 @@
     "final": {
       "title": "Unako. Thina sijongana nolawulo.",
       "body": "Qala namhlanje ulingo lwakho lwasimahla lweentsuku ezili-14. Akufuneki khadi.",
-      "talk": "Thetha nathi"
+      "talk": "Thetha nathi",
+      "headline": "Izicwangciso ezinkulu zifanelwe lulawulo oluncinci.",
+      "lead": "Abathengi bakho, intengiso, iikowuti nee-invoyisi, ekugqibeleni zisebenza kunye."
     },
     "scene": {
       "whatsapp": "Molo! Ndingafumana ikowuti yeekeyiki ezincinci ezingama-40 ngoMgqibelo?",
@@ -2258,7 +2289,12 @@
       "saved": "Ixesha eligciniweyo kule veki",
       "whatsappFrom": "Naledi",
       "sheet": "invoices_FINAL_v3.xlsx",
-      "savedValue": "{{hours}} h {{minutes}} min"
+      "savedValue": "{{hours}} h {{minutes}} min",
+      "toggle": "Ngaphambili nasemva",
+      "before": "Phambi kwe-{{name}}",
+      "with": "Ne-{{name}}",
+      "beforeNote": "Ulwazi oluchithachithekileyo, ukulandela okuphosiweyo nolawulo olwenziwa ngesandla.",
+      "withNote": "Imbono enye ecwangcisiweyo yabathengi, izivumelwano, iikowuti, ii-invoyisi nemisebenzi."
     },
     "people": {
       "title": "Yakhelwe ii-SMME ezenza iikowuti, ii-invoyisi kwaye zikhula",
@@ -2268,45 +2304,54 @@
         "alt": "Umpheki wemisitho owosa ukutya kweodolo",
         "a": "Ikowuti yamkelwe: umtshato weendwendwe ezili-120, R 38 400",
         "b": "Idiphozithi ye-50% ifunyenwe: R 19 200",
-        "c": "I-odolo ithunyelwe kumthengisi: PO-0031"
+        "c": "I-odolo ithunyelwe kumthengisi: PO-0031",
+        "help": "Yenza ikowuti ngomntu ngamnye, thatha idiphozithi xa umthengi evuma, kwaye u-odole kubaboneleli ukusuka kumsebenzi omnye."
       },
       "construction": {
         "label": "Ulwakhiwo",
         "alt": "Ikontraktha kwindawo yokwakha",
         "a": "Ikowuti ithunyelwe: ukulungiswa kwegumbi lokuhlambela, R 46 500",
         "b": "I-invoyisi yenkqubela ihlawulwe: R 15 000",
-        "c": "Ukutyelela isiza ngoLwesine 07:30"
+        "c": "Ukutyelela isiza ngoLwesine 07:30",
+        "help": "Yenza ikowuti yomsebenzi, thumela ii-invoyisi ngamanqanaba njengoko umsebenzi uqhubeka, kwaye ugcine lonke utyelelo lwesiza kwikhalenda."
       },
       "cleaning": {
         "label": "Iinkonzo zococeko",
         "alt": "Umcoci osula umgangatho kwigumbi elikhanyayo",
         "a": "Ikontraka yococeko yenyanga yamkelwe: R 6 800",
         "b": "Ii-invoyisi zithunyelwe kubathengi abali-9",
-        "c": "Isikhumbuzo sithunyelwe: i-invoyisi e-1 isemva"
+        "c": "Isikhumbuzo sithunyelwe: i-invoyisi e-1 isemva",
+        "help": "Beka iikontraka zenyanga kwii-invoyisi eziphindaphindwayo kwaye uvumele izikhumbuzi zilandele abo bahlawula emva kwexesha."
       },
       "it": {
         "label": "I-IT nophuhliso lwewebhu",
         "alt": "Umphuhlisi oselula ophethe ilaptop yakhe",
         "a": "Ikowuti ithunyelwe: iwebhusayithi entsha, R 22 000",
         "b": "Ii-invoyisi zokubamba zenyanga zithunyelwe",
-        "c": "Isivumelwano siphumelele: iapp yokubhukisha yomthengi"
+        "c": "Isivumelwano siphumelele: iapp yokubhukisha yomthengi",
+        "help": "Landela iiprojekthi ukusuka kwikowuti yokuqala ukuya kwisivumelwano esisayiniweyo, kwaye uhlawulise i-hosting nenkxaso inyanga nganye ngokuzenzekelayo."
       },
       "accounting": {
         "label": "Ubalo-mali nokugcinwa kweencwadi",
         "alt": "Umgcini-ncwadi oncumayo ekhompyutheni yakhe",
         "a": "Iintlawulo zenyanga zifakwe kwi-invoyisi zabathengi abali-14",
         "b": "Iingxelo zithunyelwe ngokucofa kanye",
-        "c": "Ukulandelela: ingxelo ye-VAT ifuneka ngoLwesihlanu"
+        "c": "Ukulandelela: ingxelo ye-VAT ifuneka ngoLwesihlanu",
+        "help": "Thumela ii-invoyisi zemirhumo yenyanga kubo bonke abathengi ngaxeshanye, thumela iingxelo zeakhawunti, kwaye ungaze uphoswe ngumhla wokugqibela."
       },
       "events": {
         "label": "Imisitho nokuhombisa",
         "alt": "Itafile ehonjiswe ngeentyatyambo zomsitho",
         "a": "Ikowuti yamkelwe: ukuhombisa umsitho wokuphela konyaka, R 27 000",
         "b": "Idiphozithi ifunyenwe: R 13 500",
-        "c": "I-odolo ithunyelwe kumthengisi weentyatyambo: PO-0044"
+        "c": "I-odolo ithunyelwe kumthengisi weentyatyambo: PO-0044",
+        "help": "Yenza ikowuti yokuhombisa, thatha idiphozithi, kwaye uthumele ii-odolo kubathengisi beentyatyambo nababoneleli ngaphandle kokuphinda uchwetheze nantoni na."
       },
       "pause": "Nqumamisa",
-      "play": "Dlala"
+      "play": "Dlala",
+      "headline": "Yakhelwe amashishini afana nelakho",
+      "lead": "Nokuba uqhuba inkampani yokupheka, ulawula iiprojekthi zokwakha, unikezela ngeenkonzo zobuchwephesha okanye ukhulisa ishishini lobuchwepheshe, {{name}} igcina abathengi bakho, intengiso nemisebenzi yemihla ngemihla icwangcisiwe.",
+      "helps": "Indlela {{name}} encedisa ngayo"
     },
     "savings": {
       "title": "Ixesha liyabuya. Imali iyabuya.",
@@ -2316,7 +2361,38 @@
       "hours": "Iiyure ezibuyayo qho ngenyanga",
       "money": "Ixabiso qho ngenyanga",
       "year": "Oko kumalunga neentsuku zokusebenza ezi-{{days}} ezibuyayo qho ngonyaka.",
-      "note": "Olu luqikelelo, asisosithembiso. Kucingelwa ukuba ugcina malunga nemizuzu eli-{{minutes}} kwikowuti nganye okanye kwi-invoyisi ongasafuni ukuyichwetheza, ukuyithumela nokuyilandelela ngokwakho."
+      "note": "Olu luqikelelo, asisosithembiso. Kucingelwa ukuba ugcina malunga nemizuzu eli-{{minutes}} kwikowuti nganye okanye kwi-invoyisi ongasafuni ukuyichwetheza, ukuyithumela nokuyilandelela ngokwakho.",
+      "question": "Ungenza ntoni ngeeyure ezongezelelweyo ezili-{{hours}} inyanga nganye?",
+      "explain": "Ikowuti nganye, i-invoyisi nokulandela kuthatha ixesha. Bona ukuba ungagcina ixesha elingakanani ngokwenza ulawulo lwemihla ngemihla lube lula, uze ushenxise izilayidi zihambelane neshishini lakho."
+    },
+    "problems": {
+      "title": "Ingathi uyayazi le nto?",
+      "intro": "Uninzi lwamashishini amancinci lusebenzisa iWhatsApp, iincwadi zokubhala neespredshiti. Kuyasebenza, de ishishini likhule.",
+      "problem": "Ingxaki",
+      "fix": "Ne-{{name}}",
+      "leads": {
+        "problem": "Imibuzo ilahleka kuWhatsApp. Umthengi ubuza ixabiso kodwa akukho mntu ulandelelayo.",
+        "fix": "Umbuzo ngamnye uba ngumthengi nesivumelwano kwipayiplayini yakho, nesikhumbuzi sokulandela."
+      },
+      "quotes": {
+        "problem": "Iikowuti zithatha ubusuku bonke ukuzichwetheza, kwaye nganye ikhangeleka yahlukile.",
+        "fix": "Khetha iimveliso zakho uze uthumele ikowuti ekumgangatho ophezulu enelogo yakho neenkcukacha ze-VAT ngemizuzu embalwa."
+      },
+      "paid": {
+        "problem": "“Ingaba oku kuhlawuliwe?” Ukhangela ibhanki nee-imeyile ezindala.",
+        "fix": "Iikowuti ezamkelweyo ziba zii-invoyisi zerhafu, izikhumbuzi zokuhlawula zithunyelwa endaweni yakho, kwaye ungabona ukuba ngubani okutyalayo."
+      },
+      "scattered": {
+        "problem": "Iispredshiti ezintlanu neenguqulelo ezintathu zenyaniso.",
+        "fix": "Indawo enye yeqela lonke, kuyo nayiphi na ifowuni okanye ikhompyutha. Zisa abathengi bakho besuka kuExcel."
+      }
+    },
+    "pricing": {
+      "title": "Amaxabiso alula kwinqanaba ngalinye leshishini lakho",
+      "intro": "Qala ngento oyidingayo namhlanje uze udlulele kwisicwangciso esikhulu njengoko ishishini lakho likhula.",
+      "trial": "Isicwangciso ngasinye siqala ngolingo lwasimahla lweentsuku ezili-{{days}}",
+      "yearly": "Hlawula ngonyaka ufumane iinyanga ezi-2 simahla",
+      "noCard": "Akufuneki khadi"
     }
   },
   "aging": {

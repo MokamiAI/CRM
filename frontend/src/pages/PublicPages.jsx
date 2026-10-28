@@ -16,7 +16,7 @@ import { queueWelcome } from "../components/Startup";
 export const LEGAL = {
   company: COMPANY_NAME,
   registration: "K2026/825202/07",
-  address: "A remote-first company based in South Africa",
+  address: "1929 Vuka Section, Oukasie, Brits, 0250, South Africa",
   email: "johannes@yougt.co.za",
   informationOfficer: "Mokami Johannes",
   updated: "11 October 2026",

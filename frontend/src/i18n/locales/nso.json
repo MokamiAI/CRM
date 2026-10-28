@@ -2179,7 +2179,13 @@
       "title": "Lora o le mogolo. Re tla hlokomela mošomo wa taolo.",
       "body": "{{name}} e boloka bareki ba gago, ditumelelano, dikotheišene le diinvoice lefelong le tee, gomme e go latišetša ditefelo. Nako ye ntši ya mošomo wo o o ratago.",
       "cta": "Thoma teko ya gago ya mahala",
-      "secondary": "Bona ditheko"
+      "secondary": "Bona ditheko",
+      "headline": "Laola kgwebo ya gago. O se e kitimele.",
+      "lead": "Bareki go WhatsApp, dikotheišene go Word, diinvoice go Excel. Dilo di a lahlega.",
+      "lead2": "{{name}} e kopanya tšohle. Laola bareki, latela ditumelelano, dira dikotheišene, romela diinvoice gomme o dule o laola kgwebo ya gago, tšohle sethaleng se tee se bonolo.",
+      "ctaTrial": "Thoma teko ya gago ya mahala ya matšatši a 14",
+      "howLink": "Bona ka moo {{name}} e šomago ka gona",
+      "tagline": "Sethala se tee. Taolo e nyenyane. Kgwebo e ntši."
     },
     "points": {
       "noCard": "Ga go hlokege karata",
@@ -2201,11 +2207,34 @@
       "grow": {
         "title": "Latela o gole",
         "body": "Latela tumelelano ye nngwe le ye nngwe, romela melaetša go bareki ka WhatsApp le imeile, gomme o bone seo se šomago."
+      },
+      "steps": {
+        "setup": {
+          "title": "Beakanya kgwebo ya gago",
+          "body": "Tsenya dintlha tša kgwebo ya gago gomme o kopanye bareki ba gago lefelong le tee."
+        },
+        "manage": {
+          "title": "Thoma go laola mošomo wa gago",
+          "body": "Dira dikotheišene, latela ditumelelano, romela diinvoice gomme o rulaganye mešomo ya gago."
+        },
+        "track": {
+          "title": "Dula o laola tšohle",
+          "body": "Latelela bareki, hlokomela ditefelo gomme o boloke kgwebo ya gago e tšwela pele."
+        }
       }
     },
     "features": {
       "title": "Sohle seo sehlopha sa gago sa thekišo se se hlokago",
-      "intro": "Tshepedišo e tee legatong la tše hlano, e agetšwe di-SMME, ditirelo tša seprofešenale le mekgatlo."
+      "intro": "Tshepedišo e tee legatong la tše hlano, e agetšwe di-SMME, ditirelo tša seprofešenale le mekgatlo.",
+      "headline": "Sohle seo kgwebo ya gago e se hlokago go dula e rulagane",
+      "cards": {
+        "sales": "Le ka mohla o se lahlegelwe ke sebaka",
+        "billing": "Go tloga go kotheišene go ya go tefelo, go nolofaditšwe",
+        "messages": "Boloka dipoledišano tša bareki di kopane",
+        "marketing": "Dula o kgokagane le bareki ba gago",
+        "languages": "Šoma ka leleme leo le go swanelago",
+        "companies": "Sethala se tee seo se golago le wena"
+      }
     },
     "faq": {
       "title": "Dipotšišo tšeo batho ba di botšišago",
@@ -2237,7 +2266,9 @@
     "final": {
       "title": "O kgona. Rena re hlokomela tša taolo.",
       "body": "Thoma lehono teko ya gago ya mahala ya matšatši a 14. Ga go hlokege karata.",
-      "talk": "Bolela le rena"
+      "talk": "Bolela le rena",
+      "headline": "Maano a magolo a swanetše taolo e nyenyane.",
+      "lead": "Bareki ba gago, thekišo, dikotheišene le diinvoice, mafelelong di šoma mmogo."
     },
     "scene": {
       "whatsapp": "Dumela! Nka hwetša theko ya dikuku tše nnyane tše 40 tša Mokibelo?",
@@ -2258,7 +2289,12 @@
       "saved": "Nako ye e bolokilwego beke ye",
       "whatsappFrom": "Naledi",
       "sheet": "invoices_FINAL_v3.xlsx",
-      "savedValue": "{{hours}} h {{minutes}} min"
+      "savedValue": "{{hours}} h {{minutes}} min",
+      "toggle": "Pele le ka morago",
+      "before": "Pele ga {{name}}",
+      "with": "Ka {{name}}",
+      "beforeNote": "Tshedimošo ye e phatlaletšego, go latelela mo go fetilwego le taolo ya ka diatla.",
+      "withNote": "Pono e tee ye e rulaganego ya bareki, ditumelelano, dikotheišene, diinvoice le mešomo."
     },
     "people": {
       "title": "E agetšwe di-SMME tše di dirago ditheko, diinfoisi le go gola",
@@ -2268,45 +2304,54 @@
         "alt": "Moapei wa meletlo a gadika dijo tša odara",
         "a": "Theko e amogetšwe: lenyalo la baeng ba 120, R 38 400",
         "b": "Depositi ya 50% e amogetšwe: R 19 200",
-        "c": "Odara e romeletšwe mofepedi: PO-0031"
+        "c": "Odara e romeletšwe mofepedi: PO-0031",
+        "help": "Dira kotheišene go ya ka motho, tšea tipositi ge moreki a amogela, gomme o odare go bafepedi go tšwa mošomong wona woo."
       },
       "construction": {
         "label": "Kago",
         "alt": "Rakontraka lefelong la kago",
         "a": "Theko e romilwe: mpshafatšo ya phapoši ya go hlapela, R 46 500",
         "b": "Infoisi ya tšwelopele e lefšwe: R 15 000",
-        "c": "Go etela lefelo Labone 07:30"
+        "c": "Go etela lefelo Labone 07:30",
+        "help": "Dira kotheišene ya mošomo, romela diinvoice ka magato ge mošomo o tšwela pele, gomme o boloke ketelo ye nngwe le ye nngwe ya saete khalendareng."
       },
       "cleaning": {
         "label": "Ditirelo tša go hlwekiša",
         "alt": "Mohlwekiši a hlatswa lebato phapošing ye e phadimago",
         "a": "Kontraka ya go hlwekiša ya kgwedi e amogetšwe: R 6 800",
         "b": "Diinfoisi di romeletšwe bareki ba 9",
-        "c": "Kgopotšo e romilwe: infoisi e 1 e fetile nako"
+        "c": "Kgopotšo e romilwe: infoisi e 1 e fetile nako",
+        "help": "Bea dikonteraka tša kgwedi le kgwedi go diinvoice tše di boelelwago gomme o dumelele dikgopotšo di latele bao ba lefago morago ga nako."
       },
       "it": {
         "label": "IT le tlhabollo ya diwebsaete",
         "alt": "Mohlami yo mofsa a swere laptop ya gagwe",
         "a": "Theko e romilwe: websaete ye mpsha, R 22 000",
         "b": "Diinfoisi tša kgwedi tša go swara websaete di romilwe",
-        "c": "Tumelelano e fentšwe: app ya go puka ya moreki"
+        "c": "Tumelelano e fentšwe: app ya go puka ya moreki",
+        "help": "Latela diprojeke go tloga go kotheišene ya mathomo go fihla go tumelelano ye e saennwego, gomme o lefiše hosting le thekgo kgwedi le kgwedi ka go itiragalela."
       },
       "accounting": {
         "label": "Tšhomišo ya ditšhelete le go swara dipuku",
         "alt": "Moswaradipuku a myemyela kgauswi le laptop ya gagwe",
         "a": "Ditefelo tša kgwedi di ngwaletšwe bareki ba 14",
         "b": "Dipego di romilwe ka go kgotla gatee",
-        "c": "Go latelela: pego ya VAT e swanetše ka Labohlano"
+        "c": "Go latelela: pego ya VAT e swanetše ka Labohlano",
+        "help": "Romela diinvoice tša ditefelo tša kgwedi go bareki ka moka ka nako e tee, romela distatemente, gomme le ka mohla o se fetwe ke letšatši la mafelelo."
       },
       "events": {
         "label": "Meletlo le kgabišo",
         "alt": "Tafola ye e kgabišitšwego ka matšoba a molete",
         "a": "Theko e amogetšwe: kgabišo ya molete wa mafelelo a ngwaga, R 27 000",
         "b": "Depositi e amogetšwe: R 13 500",
-        "c": "Odara e romeletšwe morekiši wa matšoba: PO-0044"
+        "c": "Odara e romeletšwe morekiši wa matšoba: PO-0044",
+        "help": "Dira kotheišene ya mekgabišo, tšea tipositi, gomme o romele diodara go barekiši ba matšoba le bafepedi ntle le go thaepa selo gape."
       },
       "pause": "Emiša",
-      "play": "Bapala"
+      "play": "Bapala",
+      "headline": "E agetšwe dikgwebo tše di swanago le ya gago",
+      "lead": "Go sa šetšwe ge o sepediša khamphani ya go apea, o laola diprojeke tša kago, o fa ditirelo tša seprofešenale goba o godiša kgwebo ya theknolotši, {{name}} e boloka bareki ba gago, thekišo le mešomo ya letšatši le letšatši e rulagane.",
+      "helps": "Ka moo {{name}} e thušago ka gona"
     },
     "savings": {
       "title": "Nako e a boa. Tšhelete e a boa.",
@@ -2316,7 +2361,38 @@
       "hours": "Diiri tše di boago kgwedi le kgwedi",
       "money": "Boleng kgwedi le kgwedi",
       "year": "Seo ke matšatši a mošomo a ka bago {{days}} ao a boago ngwaga le ngwaga.",
-      "note": "Ye ke kakanyo, ga se tshepišo. E akanya gore o boloka metsotso e ka bago {{minutes}} thekong goba infoising ye nngwe le ye nngwe yeo o sa hlwego o swanetše go e thaepa, go e romela le go e latelela ka bowena."
+      "note": "Ye ke kakanyo, ga se tshepišo. E akanya gore o boloka metsotso e ka bago {{minutes}} thekong goba infoising ye nngwe le ye nngwe yeo o sa hlwego o swanetše go e thaepa, go e romela le go e latelela ka bowena.",
+      "question": "O be o ka dira eng ka diiri tše {{hours}} tša tlaleletšo kgwedi le kgwedi?",
+      "explain": "Kotheišene ye nngwe le ye nngwe, infoisi le go latelela di tšea nako. Bona gore o ka boloka nako ye kae ka go nolofatša taolo ya gago ya letšatši le letšatši, ke moka o šuthiše ditšhutiši go swana le kgwebo ya gago."
+    },
+    "problems": {
+      "title": "Na se a tsebega?",
+      "intro": "Dikgwebo tše dintši tše nnyane di šoma ka WhatsApp, dipuku tša go ngwala le dispredšite. Go a šoma, go fihlela kgwebo e gola.",
+      "problem": "Bothata",
+      "fix": "Ka {{name}}",
+      "leads": {
+        "problem": "Dipotšišo di lahlega go WhatsApp. Moreki o botšiša theko gomme ga go yo a latelelago.",
+        "fix": "Potšišo ye nngwe le ye nngwe e fetoga moreki le tumelelano phaepleineng ya gago, ka kgopotšo ya go latelela."
+      },
+      "quotes": {
+        "problem": "Dikotheišene di tšea bošego ka moka go di thaepa, gomme ye nngwe le ye nngwe e bonagala e fapane.",
+        "fix": "Kgetha ditšweletšwa tša gago gomme o romele kotheišene ya maemo a godimo ka logo ya gago le dintlha tša VAT ka metsotso."
+      },
+      "paid": {
+        "problem": "“Na se se lefilwe?” O lekola panka le di-imeile tša kgale.",
+        "fix": "Dikotheišene tše di amogetšwego di fetoga diinvoice tša motšhelo, dikgopotšo tša tefelo di romelwa legatong la gago, gomme o kgona go bona gore ke mang yo a go kolotago."
+      },
+      "scattered": {
+        "problem": "Dispredšite tše hlano le diphetolelo tše tharo tša therešo.",
+        "fix": "Lefelo le tee la sehlopha ka moka, mogaleng goba khomphutheng efe goba efe. Tliša bareki ba gago go tšwa go Excel."
+      }
+    },
+    "pricing": {
+      "title": "Ditheko tše bonolo legatong le lengwe le le lengwe la kgwebo ya gago",
+      "intro": "Thoma ka seo o se hlokago lehono gomme o fetele go leano le legolo ge kgwebo ya gago e gola.",
+      "trial": "Leano le lengwe le le lengwe le thoma ka teko ya mahala ya matšatši a {{days}}",
+      "yearly": "Lefa ka ngwaga gomme o hwetše dikgwedi tše 2 mahala",
+      "noCard": "Ga go hlokege karata"
     }
   },
   "aging": {

@@ -2179,7 +2179,13 @@
       "title": "Lora ka ho hoholo. Re tla hlokomela tsamaiso.",
       "body": "{{name}} e boloka bareki ba hao, ditumellano, dikotheishene le di-invoice sebakeng se le seng, mme e o latedisetsa ditefo. Nako e ngata ya mosebetsi oo o o ratang.",
       "cta": "Qala teko ya hao ya mahala",
-      "secondary": "Bona ditheko"
+      "secondary": "Bona ditheko",
+      "headline": "Laola kgwebo ya hao. O se ke wa e lelekisa.",
+      "lead": "Bareki ho WhatsApp, dikotheishene ho Word, di-invoice ho Excel. Dintho di a lahleha.",
+      "lead2": "{{name}} e kopanya tsohle. Laola bareki, latela ditumellano, etsa dikotheishene, romela di-invoice mme o dule o laola kgwebo ya hao, tsohle sethaleng se le seng se bonolo.",
+      "ctaTrial": "Qala teko ya hao ya mahala ya matsatsi a 14",
+      "howLink": "Bona kamoo {{name}} e sebetsang kateng",
+      "tagline": "Sethala se le seng. Tsamaiso e nyane. Kgwebo e ngata."
     },
     "points": {
       "noCard": "Ha ho hlokehe karete",
@@ -2201,11 +2207,34 @@
       "grow": {
         "title": "Latela o hole",
         "body": "Latela tumellano ka nngwe, romela melaetsa ho bareki ka WhatsApp le imeile, mme o bone se sebetsang."
+      },
+      "steps": {
+        "setup": {
+          "title": "Hlophisa kgwebo ya hao",
+          "body": "Kenya dintlha tsa kgwebo ya hao mme o kopanye bareki ba hao sebakeng se le seng."
+        },
+        "manage": {
+          "title": "Qala ho laola mosebetsi wa hao",
+          "body": "Etsa dikotheishene, latela ditumellano, romela di-invoice mme o hlophise mesebetsi ya hao."
+        },
+        "track": {
+          "title": "Dula o laola tsohle",
+          "body": "Latela bareki, hlokomela ditefo mme o boloke kgwebo ya hao e tswela pele."
+        }
       }
     },
     "features": {
       "title": "Tsohle tseo sehlopha sa hao sa thekiso se di hlokang",
-      "intro": "Sistimi e le nngwe sebakeng sa tse hlano, e etseditsweng di-SMME, ditshebeletso tsa porofeshenale le mekgatlo."
+      "intro": "Sistimi e le nngwe sebakeng sa tse hlano, e etseditsweng di-SMME, ditshebeletso tsa porofeshenale le mekgatlo.",
+      "headline": "Tsohle tseo kgwebo ya hao e di hlokang ho dula e hlophisehile",
+      "cards": {
+        "sales": "Le ka mohla o se ke wa lahlehelwa ke monyetla",
+        "billing": "Ho tloha kotheishene ho isa tefong, ho nolofaditswe",
+        "messages": "Boloka dipuisano tsa bareki di hokahane",
+        "marketing": "Dula o hokahane le bareki ba hao",
+        "languages": "Sebetsa ka puo e o tshwanelang",
+        "companies": "Sethala se le seng se holang le wena"
+      }
     },
     "faq": {
       "title": "Dipotso tseo batho ba di botsang",
@@ -2237,7 +2266,9 @@
     "final": {
       "title": "O kgona. Rona re hlokomela tsamaiso.",
       "body": "Qala kajeno teko ya hao ya mahala ya matsatsi a 14. Ha ho hlokehe karete.",
-      "talk": "Bua le rona"
+      "talk": "Bua le rona",
+      "headline": "Merero e meholo e tshwanelwa ke tsamaiso e nyane.",
+      "lead": "Bareki ba hao, thekiso, dikotheishene le di-invoice, qetellong di sebetsa mmoho."
     },
     "scene": {
       "whatsapp": "Dumela! Nka fumana theko ya dikuku tse nyane tse 40 bakeng sa Moqebelo?",
@@ -2258,7 +2289,12 @@
       "saved": "Nako e bolokilweng bekeng ena",
       "whatsappFrom": "Naledi",
       "sheet": "invoices_FINAL_v3.xlsx",
-      "savedValue": "{{hours}} h {{minutes}} min"
+      "savedValue": "{{hours}} h {{minutes}} min",
+      "toggle": "Pele le kamora",
+      "before": "Pele ho {{name}}",
+      "with": "Ka {{name}}",
+      "beforeNote": "Tlhahisoleseding e hasaneng, ho latela ho fetilweng le tsamaiso ya matsoho.",
+      "withNote": "Pono e le nngwe e hlophisehileng ya bareki, ditumellano, dikotheishene, di-invoice le mesebetsi."
     },
     "people": {
       "title": "E etseditswe di-SMME tse etsang ditheko, diinvoice le ho hola",
@@ -2268,45 +2304,54 @@
         "alt": "Moapehi wa mekete a besa dijo tsa odara",
         "a": "Theko e amohetswe: lenyalo la baeti ba 120, R 38 400",
         "b": "Depositi ya 50% e amohetswe: R 19 200",
-        "c": "Odara e rometswe ho mofani: PO-0031"
+        "c": "Odara e rometswe ho mofani: PO-0031",
+        "help": "Etsa kotheishene ka motho ka mong, nka depositi ha moreki a amohela, mme o odare ho bafepedi ho tswa mosebetsing o le mong."
       },
       "construction": {
         "label": "Kaho",
         "alt": "Rakontraka sebakeng sa kaho",
         "a": "Theko e rometswe: ntjhafatso ya kamore ya ho hlapela, R 46 500",
         "b": "Invoice ya tswelopele e lefuwe: R 15 000",
-        "c": "Ketelo ya sebaka Labone 07:30"
+        "c": "Ketelo ya sebaka Labone 07:30",
+        "help": "Etsa kotheishene ya mosebetsi, romela di-invoice ka mekgahlelo ha mosebetsi o ntse o tswela pele, mme o boloke ketelo e nngwe le e nngwe ya saete khalendareng."
       },
       "cleaning": {
         "label": "Ditshebeletso tsa ho hlwekisa",
         "alt": "Mohlwekisi a hlatswa fatshe ka kamoreng e kganyang",
         "a": "Konteraka ya kgwedi ya ho hlwekisa e amohetswe: R 6 800",
         "b": "Diinvoice di rometswe ho bareki ba 9",
-        "c": "Kgopotso e rometswe: invoice e le 1 e fetile nako"
+        "c": "Kgopotso e rometswe: invoice e le 1 e fetile nako",
+        "help": "Kenya dikonteraka tsa kgwedi le kgwedi ho di-invoice tse iphetang mme o dumelle dikgopotso di latele ba lefang ka mora nako."
       },
       "it": {
         "label": "IT le ntshetsopele ya diwebsaete",
         "alt": "Moqapi e motjha a tshwere laptop ya hae",
         "a": "Theko e rometswe: websaete e ntjha, R 22 000",
         "b": "Diinvoice tsa kgwedi tsa ho tshwara websaete di rometswe",
-        "c": "Tumellano e hapilwe: app ya ho buka ya moreki"
+        "c": "Tumellano e hapilwe: app ya ho buka ya moreki",
+        "help": "Latela diprojeke ho tloha kotheishene ya pele ho isa tumellanong e saennweng, mme o lefise hosting le tshehetso kgwedi le kgwedi ka boiketsetso."
       },
       "accounting": {
         "label": "Akhaonteng le ho boloka dibuka",
         "alt": "Mobolokadibuka a bososela pela laptop ya hae",
         "a": "Ditefo tsa kgwedi di ngolletswe bareki ba 14",
         "b": "Dipolelo di rometswe ka ho tobetsa hang",
-        "c": "Ho latedisa: tlaleho ya VAT e lokela ka Labohlano"
+        "c": "Ho latedisa: tlaleho ya VAT e lokela ka Labohlano",
+        "help": "Romela di-invoice tsa ditefello tsa kgwedi ho bareki bohle ka nako e le nngwe, romela distatemente, mme le ka mohla o se ke wa fetwa ke letsatsi la ho qetela."
       },
       "events": {
         "label": "Mekete le mekgabiso",
         "alt": "Tafole e kgabisitsweng ka dipalesa bakeng sa mokete",
         "a": "Theko e amohetswe: mekgabiso ya mokete wa qetello ya selemo, R 27 000",
         "b": "Depositi e amohetswe: R 13 500",
-        "c": "Odara e rometswe ho morekisi wa dipalesa: PO-0044"
+        "c": "Odara e rometswe ho morekisi wa dipalesa: PO-0044",
+        "help": "Etsa kotheishene ya mekgabiso, nka depositi, mme o romele diodara ho barekisi ba dipalesa le bafepedi ntle le ho thaepa letho hape."
       },
       "pause": "Emisa",
-      "play": "Bapala"
+      "play": "Bapala",
+      "headline": "E etseditswe dikgwebo tse kang ya hao",
+      "lead": "Ho sa tsotellehe hore na o tsamaisa khampani ya ho pheha, o laola diprojeke tsa kaho, o fana ka ditshebeletso tsa porofeshenale kapa o hodisa kgwebo ya theknoloji, {{name}} e boloka bareki ba hao, thekiso le mesebetsi ya letsatsi le letsatsi e hlophisehile.",
+      "helps": "Kamoo {{name}} e thusang kateng"
     },
     "savings": {
       "title": "Nako e a kgutla. Tjhelete e a kgutla.",
@@ -2316,7 +2361,38 @@
       "hours": "Dihora tse kgutlang kgwedi le kgwedi",
       "money": "Boleng kgwedi le kgwedi",
       "year": "Hoo ke matsatsi a mosebetsi a ka bang {{days}} a kgutlang selemo le selemo.",
-      "note": "Ena ke kakanyo, hase tshepiso. E nka hore o boloka metsotso e ka bang {{minutes}} thekong kapa invoice ka nngwe eo o sa hlokeng ho e thaepa, ho e romela le ho e latedisa ka bowena."
+      "note": "Ena ke kakanyo, hase tshepiso. E nka hore o boloka metsotso e ka bang {{minutes}} thekong kapa invoice ka nngwe eo o sa hlokeng ho e thaepa, ho e romela le ho e latedisa ka bowena.",
+      "question": "O ne o ka etsa eng ka dihora tse {{hours}} tse eketsehileng kgwedi le kgwedi?",
+      "explain": "Kotheishene ka nngwe, invoice le ho latela di nka nako. Bona hore na o ka boloka nako e kae ka ho nolofatsa tsamaiso ya hao ya letsatsi le letsatsi, ebe o tsamaisa ditshutshumetsi ho tshwana le kgwebo ya hao."
+    },
+    "problems": {
+      "title": "Na ho a tsebahala?",
+      "intro": "Dikgwebo tse ngata tse nyane di sebetsa ka WhatsApp, dibuka tsa ho ngola le dispredshiti. Ho a sebetsa, ho fihlela kgwebo e hola.",
+      "problem": "Bothata",
+      "fix": "Ka {{name}}",
+      "leads": {
+        "problem": "Dipotso di lahleha ho WhatsApp. Moreki o botsa theko mme ha ho ya latelang.",
+        "fix": "Potso e nngwe le e nngwe e fetoha moreki le tumellano phaepleineng ya hao, ka kgopotso ya ho latela."
+      },
+      "quotes": {
+        "problem": "Dikotheishene di nka bosiu bohle ho di thaepa, mme e nngwe le e nngwe e shebahala e fapane.",
+        "fix": "Kgetha dihlahiswa tsa hao mme o romele kotheishene ya boemo bo hodimo ka logo ya hao le dintlha tsa VAT ka metsotso."
+      },
+      "paid": {
+        "problem": "“Na sena se lefilwe?” O hlahloba banka le di-imeile tsa kgale.",
+        "fix": "Dikotheishene tse amohetsweng di fetoha di-invoice tsa lekgetho, dikgopotso tsa tefo di o romellwa, mme o ka bona hore na ke mang ya o kolotang."
+      },
+      "scattered": {
+        "problem": "Dispredshiti tse hlano le diphetolelo tse tharo tsa nnete.",
+        "fix": "Sebaka se le seng sa sehlopha sohle, mohaleng kapa khomphuteng efe kapa efe. Tlisa bareki ba hao ho tswa ho Excel."
+      }
+    },
+    "pricing": {
+      "title": "Ditheko tse bonolo bakeng sa mohato o mong le o mong wa kgwebo ya hao",
+      "intro": "Qala ka seo o se hlokang kajeno mme o fetele moralong o moholo ha kgwebo ya hao e hola.",
+      "trial": "Moralo o mong le o mong o qala ka teko ya mahala ya matsatsi a {{days}}",
+      "yearly": "Lefa ka selemo mme o fumane dikgwedi tse 2 mahala",
+      "noCard": "Ha ho hlokehe karete"
     }
   },
   "aging": {
