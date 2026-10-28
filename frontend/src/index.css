@@ -1076,21 +1076,16 @@ textarea.input:focus {
     clip-path: inset(0 0 0 0);
   }
 }
-/* Chart lines draw left to right (pathLength="1"); the shading follows. */
-[data-intro] .intro-draw {
-  stroke-dasharray: 1;
-  animation: intro-draw 800ms var(--ease-out) 250ms both;
+/* Chart bars grow up from the baseline, month by month. */
+[data-intro] .intro-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: intro-bar 600ms var(--ease-out) calc(250ms + var(--i, 0) * 50ms) both;
 }
-@keyframes intro-draw {
+@keyframes intro-bar {
   from {
-    stroke-dashoffset: 1;
+    transform: scaleY(0);
   }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-[data-intro] .intro-area {
-  animation: fade-in 400ms var(--ease-out) 650ms both;
 }
 @media (prefers-reduced-motion: reduce) {
   /* Nothing moves: the cards fade, everything else is just there. */
@@ -1098,8 +1093,7 @@ textarea.input:focus {
     animation: fade-in 200ms ease both;
   }
   [data-intro] .intro-fill,
-  [data-intro] .intro-draw,
-  [data-intro] .intro-area {
+  [data-intro] .intro-bar {
     animation: none;
   }
 }

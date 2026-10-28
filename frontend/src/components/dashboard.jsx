@@ -384,8 +384,15 @@ function niceMax(v) {
   return [1, 2, 2.5, 5, 10].map((m) => m * p).find((m) => m >= v);
 }
 
-/** Invoiced vs collected per month, one shared rand axis. Crosshair and
- *  tooltip on hover or keyboard; a table for screen readers. */
+/** A bar with rounded top corners, from the baseline up to `top`. */
+function barPath(x0, w, top, base) {
+  const r = Math.min(3, w / 2, base - top);
+  return `M${x0},${base} V${top + r} Q${x0},${top} ${x0 + r},${top} H${x0 + w - r} Q${x0 + w},${top} ${x0 + w},${top + r} V${base} Z`;
+}
+
+/** Invoiced vs collected per month: paired bars on one shared rand axis, so
+ *  equal months stay readable and empty months stay empty. Tooltip on hover
+ *  or keyboard; a table for screen readers. */
 export function RevenueChart({ months }) {
   const { t, i18n } = useTranslation();
   const id = useId();
@@ -401,21 +408,23 @@ export function RevenueChart({ months }) {
     return () => ro.disconnect();
   }, []);
   const H = W < 420 ? 190 : 230;
-  const pad = { l: 48, r: W < 420 ? 58 : 66, t: 12, b: 26 };
+  const pad = { l: 48, r: 8, t: 12, b: 26 };
   const max = niceMax(Math.max(...months.flatMap((m) => [m.invoiced, m.collected])));
-  const x = (i) => pad.l + (months.length === 1 ? 0 : (i / (months.length - 1)) * (W - pad.l - pad.r));
+  // One band per month; its two bars sit side by side in the middle.
+  const band = (W - pad.l - pad.r) / months.length;
+  const x = (i) => pad.l + band * (i + 0.5);
+  const barW = Math.max(4, Math.min(22, (band * 0.62) / 2));
+  const gap = Math.min(3, barW / 4);
   const y = (v) => pad.t + (1 - v / max) * (H - pad.t - pad.b);
   const ticks = [0, 0.25, 0.5, 0.75, 1].map((f) => f * max);
   const label = (iso, long) => new Date(`${iso}T00:00:00`).toLocaleDateString(i18n.language, { month: long ? "long" : "short", ...(long ? { year: "numeric" } : {}) });
   const compact = (v) => (v >= 1e6 ? `R${(v / 1e6).toFixed(1)}m` : v >= 1e3 ? `R${Math.round(v / 1e3)}k` : `R${Math.round(v)}`);
-  const path = (key) => months.map((m, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(m[key]).toFixed(1)}`).join(" ");
-  const area = `${path("invoiced")} L${x(months.length - 1)},${y(0)} L${x(0)},${y(0)} Z`;
-  const every = Math.max(1, Math.ceil(months.length / Math.max(2, Math.floor((W - pad.l - pad.r) / 56))));
+  const every = Math.max(1, Math.ceil(months.length / Math.max(2, Math.floor((W - pad.l - pad.r) / 40))));
   const h = hover != null ? months[hover] : null;
 
   const pick = (clientX, rect) => {
     const px = ((clientX - rect.left) / rect.width) * W;
-    const i = Math.round(((px - pad.l) / (W - pad.l - pad.r)) * (months.length - 1));
+    const i = Math.floor((px - pad.l) / band);
     setHover(Math.min(months.length - 1, Math.max(0, i)));
   };
 
@@ -424,7 +433,7 @@ export function RevenueChart({ months }) {
       <div className="mb-3 flex flex-wrap items-center gap-4 text-xs text-slate-600">
         {SERIES.map((s) => (
           <span key={s.key} className="inline-flex items-center gap-1.5">
-            <span className="h-[3px] w-4 rounded-full" style={{ background: s.color }} aria-hidden="true" />
+            <span className="h-2.5 w-2.5 rounded-[3px]" style={{ background: s.color }} aria-hidden="true" />
             {t(`dashboard.revenue.${s.key}`)}
           </span>
         ))}
@@ -437,6 +446,8 @@ export function RevenueChart({ months }) {
         role="img"
         aria-labelledby={`${id}-sum`}
         tabIndex={0}
+        // A click shouldn't focus it (and draw the keyboard ring); Tab still does.
+        onPointerDown={(e) => e.preventDefault()}
         onPointerMove={(e) => pick(e.clientX, e.currentTarget.getBoundingClientRect())}
         onPointerLeave={() => setHover(null)}
         onKeyDown={(e) => {
@@ -461,35 +472,21 @@ export function RevenueChart({ months }) {
             </text>
           ) : null
         )}
-        <defs>
-          <linearGradient id={`${id}-fill`} x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#2563EB" stopOpacity="0.14" />
-            <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path className="intro-area" d={area} fill={`url(#${id}-fill)`} />
-        {SERIES.map((s) => (
-          <path key={s.key} className="intro-draw" pathLength="1" d={path(s.key)} fill="none" stroke={s.color} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
-        ))}
-        {/* Direct labels at the line ends: identity never by colour alone. */}
-        {SERIES.map((s) => {
-          const last = months.at(-1)[s.key];
-          const other = months.at(-1)[s.key === "invoiced" ? "collected" : "invoiced"];
-          const nudge = Math.abs(y(last) - y(other)) < 14 ? (last >= other ? -7 : 7) : 0;
-          return (
-            <text key={s.key} x={x(months.length - 1) + 8} y={y(last) + 4 + nudge} className="fill-slate-600 text-[11px] font-medium">
-              {t(`dashboard.revenue.${s.key}`)}
-            </text>
-          );
-        })}
-        {h && (
-          <g>
-            <line x1={x(hover)} x2={x(hover)} y1={pad.t} y2={y(0)} stroke="#94A3B8" strokeDasharray="3 3" />
-            {SERIES.map((s) => (
-              <circle key={s.key} cx={x(hover)} cy={y(h[s.key])} r="4.5" fill={s.color} stroke="#fff" strokeWidth="2" />
-            ))}
-          </g>
+        {h && <rect x={pad.l + band * hover + 2} y={pad.t} width={band - 4} height={y(0) - pad.t} rx="6" fill="#F1F5F9" />}
+        {months.map((m, i) =>
+          SERIES.map((s, j) =>
+            m[s.key] > 0 ? (
+              <path
+                key={`${m.month}-${s.key}`}
+                className="intro-bar"
+                style={{ "--i": i }}
+                d={barPath(j ? x(i) + gap / 2 : x(i) - gap / 2 - barW, barW, y(m[s.key]), y(0))}
+                fill={s.color}
+              />
+            ) : null
+          )
         )}
+        <line x1={pad.l} x2={W - pad.r} y1={y(0)} y2={y(0)} stroke="#CBD5E1" />
       </svg>
       {h && (
         <div
