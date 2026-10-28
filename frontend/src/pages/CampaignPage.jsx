@@ -56,7 +56,7 @@ function Preview({ id, version }) {
     placeholderData: (previous) => previous,
   });
   return (
-    <div className="card overflow-hidden">
+    <div className="card min-w-0 overflow-hidden">
       <div className="border-b border-zinc-100 px-4 py-2.5 text-xs text-zinc-500">
         <span className="font-medium text-zinc-700">{t("marketing.preview")}</span>
         {data && <span> · {data.subject}</span>}
@@ -226,7 +226,8 @@ function Editor({ campaign }) {
       {!canSend && canWrite && <p className="rounded-lg bg-amber-50 px-4 py-2.5 text-sm text-amber-800">{t("marketing.managerSends")}</p>}
 
       <div className="grid items-start gap-6 lg:grid-cols-2">
-        <fieldset disabled={!canWrite} className="space-y-5">
+        {/* min-w-0: a fieldset won't shrink below its content by default, and would slide under the preview. */}
+        <fieldset disabled={!canWrite} className="min-w-0 space-y-5">
           <section className="card space-y-4 p-4 sm:p-5">
             <Field label={t("marketing.field.name")} hint={t("marketing.field.nameHint")}>
               <input className="input" maxLength={150} value={form.name} onChange={set("name")} placeholder={untitled} autoFocus={!form.name} />
@@ -308,7 +309,7 @@ function Editor({ campaign }) {
           </section>
         </fieldset>
 
-        <div className="lg:sticky lg:top-6">
+        <div className="min-w-0 lg:sticky lg:top-6">
           <Preview id={campaign.id} version={savedVersion} />
         </div>
       </div>

@@ -34,9 +34,10 @@
           <td style="padding:22px 32px;background:{{ accent }};color:{{ ink }};font-size:13px;line-height:1.6;">
             <div style="font-size:16px;font-weight:bold;margin-bottom:4px;">{{ company.company_name }}</div>
             {% if company.address %}<div style="white-space:pre-line;opacity:.92;">{{ company.address }}</div>{% endif %}
+            {# Each item stays whole; the gaps end in a plain space so a narrow screen wraps between items. #}
             <div style="margin-top:8px;">
-              {% if tt and tt.phone %}<span style="white-space:nowrap;">&#9742;&nbsp;{{ tt.phone }}</span>&nbsp;&nbsp;&nbsp;{% endif %}
-              {% if company.sender_email is defined and company.sender_email %}<a href="mailto:{{ company.sender_email }}" style="color:{{ ink }};text-decoration:underline;white-space:nowrap;">&#9993;&nbsp;{{ company.sender_email }}</a>&nbsp;&nbsp;&nbsp;{% endif %}
+              {% if tt and tt.phone %}<span style="white-space:nowrap;">&#9742;&nbsp;{{ tt.phone }}</span>&nbsp;&nbsp; {% endif %}
+              {% if company.sender_email is defined and company.sender_email %}<a href="mailto:{{ company.sender_email }}" style="color:{{ ink }};text-decoration:underline;white-space:nowrap;">&#9993;&nbsp;{{ company.sender_email }}</a>&nbsp;&nbsp; {% endif %}
               {% if tt and tt.website %}<a href="{{ tt.website if '://' in tt.website else 'https://' ~ tt.website }}" style="color:{{ ink }};text-decoration:underline;white-space:nowrap;">&#127760;&nbsp;{{ tt.website }}</a>{% endif %}
             </div>
             {% if company.tax_number and (company.vat_registered is not defined or company.vat_registered) %}<div style="margin-top:6px;opacity:.9;">{{ tt.tax_label if tt else "VAT number" }}: {{ company.tax_number }}</div>{% endif %}
