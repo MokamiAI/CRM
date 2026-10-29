@@ -218,6 +218,11 @@ export function useCampaignRecipients(id, enabled) {
   return useQuery({ queryKey: ["campaign", id, "recipients"], queryFn: () => get(`/marketing/campaigns/${id}/recipients`), enabled });
 }
 
+/** Prospects, with whether each has agreed to marketing (POPIA s69). */
+export function useProspects() {
+  return useQuery({ queryKey: ["prospects"], queryFn: () => get("/marketing/prospects") });
+}
+
 export function useSegments() {
   return useQuery({ queryKey: ["segments"], queryFn: () => get("/marketing/segments") });
 }

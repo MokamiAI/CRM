@@ -1360,9 +1360,9 @@
     "audienceNameHint": "sib. Labangakatsengi etinyangeni leti-3",
     "audienceUpdated": "Balaleli bavuseletiwe",
     "audiences": "Balaleli",
-    "audiencesIntro": "Emacembu lagciniwe ebatsengi longatfumela kuwo imikhankaso. Tinombolo tiyaphila futsi tifaka kuphela batsengi labangatfola kukhangisa.",
+    "audiencesIntro": "Emaciniso lagciniwe ebatsengi lokutfunyelwa kuwo imikhankaso. Tinombolo tiyavuselelwa futsi tifaka kuphela batsengi, nebatsengi labangaba khona labavumile, labangatfola kumaketha.",
     "campaigns": "Imikhankaso",
-    "consentNote": "Kufakwa kuphela batsengi labasebentako labane-imeyili labangakatikhiphi. I-imeyili ngayinye inesichumanisi sekutikhipha, njengobe i-POPIA idzinga.",
+    "consentNote": "Kufakwa kuphela batsengi labasebentako, nebatsengi labangaba khona labavumile kutfola kumaketha, labanelikheli le-imeyili futsi labangakatikhiphi. I-imeyili ngayinye inesihlanganisi sekutikhipha, njengoba i-POPIA idzinga.",
     "deleteBody": "Umkhankaso utawususwa. Loku akukhoni kubuyiswa.",
     "deleteTitle": "Sula loku lokusalungiswa?",
     "deleted": "Umkhankaso usuliwe",
@@ -3084,5 +3084,48 @@
       "sentBody": "Sitawutsintsana nawe ku-{{email}} ngekhatsi kwelilanga linye lekusebenta.",
       "privacy": "Inchubomgomo yebumfihlo"
     }
+  },
+  "prospects": {
+    "tab": "Batsengi labangaba khona",
+    "add": "Engeta umtsengi longaba khona",
+    "added": "Umtsengi longaba khona ungetiwe",
+    "name": "Libito noma libito lebhizinisi",
+    "addNote": "Batsengi labangaba khona abayitfoli imikhankaso yakho baze bavume kuva kuwe.",
+    "lawNote": "Umtsetfo waseNingizimu Afrika (i-POPIA) ukuvumela kutsi utfumele kumaketha kubatsengi labangaba khona kuphela nasebavumile. Maka \"Uvumile kumaketha\" nangabe umuntfu atsi yebo, noma utfumele simemo sasikhatsi sinye kute ubabute. Bonkhe labavumako bajoyina tilaleli temikhankaso yakho.",
+    "empty": "Kute batsengi labangaba khona okwanyalo",
+    "emptyHint": "Engeta bantfu nemabhizinisi lofuna kuwazuza. Batsengi labangaba khona labavela epayipini yakho nase-Discovery nabo bavela lapha.",
+    "status": {
+      "agreed": "Uvumile kumaketha",
+      "invited": "Simemo sitfunyelwe",
+      "declined": "Utsite cha",
+      "notAsked": "Akakabutwa"
+    },
+    "agreedOn": "Uvume nga-{{date}}: {{source}}",
+    "invitedOn": "Simemo sitfunyelwe nga-{{date}}. Silindze imphendvulo yabo.",
+    "declinedHint": "Batsite cha noma batikhiphile, ngako ngeke batfole ema-imeyili ekumaketha.",
+    "notAskedHint": "Ngeke batfole imikhankaso baze bavume.",
+    "noEmail": "Kute likheli le-imeyili okwanyalo.",
+    "withdraw": "Hoxisa imvume",
+    "invite": "Tfumela simemo sasikhatsi sinye",
+    "markAgreed": "Uvumile kumaketha",
+    "agreeIntro": "Bhala kutsi {{name}} uvume njani kuva kuwe. Kucacise: bufakazi bakho nangabe umuntfu abuta.",
+    "howAgreed": "Bavume njani",
+    "howAgreedHint": "Sibonelo: utsite yebo ngelucingo nga-29 Imphala.",
+    "sources": {
+      "phone": "Utsite yebo ngelucingo",
+      "inPerson": "Utsite yebo ebusweni",
+      "form": "Umake yebo efomini",
+      "email": "Utsite yebo nge-imeyili"
+    },
+    "agreedSaved": "{{name}} nyalo angatfola imikhankaso yakho.",
+    "inviteSubject": "I-{{company}} ingatsandza kuhlala ixhumana nawe",
+    "inviteMessage": "Sawubona {name},\n\nNgikubhalela ngivela ku-{{company}}. Singatsandza kwabelana nawe ngetindzaba letisitako, emacebiso netipho ngetikhatsi letitsite.\n\nUngatsandza kuva kitsi? Cindzetela \"Yes, keep me posted\" ngentasi. Nangabe kungenjalo, kute inkinga nhlobo.",
+    "inviteOnce": "Ungabuta {{email}} kanye kuphela. Imphendvulo yabo ibhalwa ngekutentekela nabacindzetela Yebo noma Cha.",
+    "subject": "Sihloko",
+    "message": "Umlayeto",
+    "messageHint": "Sebentisa {name} egameni labo lekucala. Buta kutsi bangatsandza yini kuva kuwe, ugcine tipho kuze batsi yebo.",
+    "inviteAdds": "Sengeta inkinobho letsi \"Yes, keep me posted\", sihlanganisi lesitsi \"No thanks\" nemugca lotsi \"We won't email you again unless you say yes.\"",
+    "sendInvite": "Tfumela simemo",
+    "invited": "Simemo sitfunyelwe ku-{{email}}"
   }
 }

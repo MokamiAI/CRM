@@ -1360,9 +1360,9 @@
     "audienceNameHint": "tsumbo. Vha songo renga miṅwedzi ya 3",
     "audienceUpdated": "Vhathetshelesi vho khwiniswa",
     "audiences": "Vhathetshelesi",
-    "audiencesIntro": "Zwigwada zwo vhulungwaho zwa vharengi zwine na nga rumela mafulo khazwo. Zwivhalo zwi a tshila nahone zwi katela fhedzi vharengi vhane vha nga ṱanganedza ndivhadzo.",
+    "audiencesIntro": "Zwigwada zwo vhulungwaho zwa vharengi zwine ha rumelwa mafulo khazwo. Mbalo dzi a vusuluswa nahone dzi dzhenisa fhedzi vharengi, na vharengi vhane vha nga vha hone vho tendelaho, vhane vha nga ṱanganedza u rengiselwa.",
     "campaigns": "Mafulo",
-    "consentNote": "Hu katelwa fhedzi vharengi vha shumaho vha re na imeiḽi vha songo ḓibvisa. Imeiḽi iṅwe na iṅwe i na vhukwamani ha u ḓibvisa, sa zwine POPIA ya ṱoḓa.",
+    "consentNote": "Hu dzheniswa fhedzi vharengi vha shumaho, na vharengi vhane vha nga vha hone vho tendelaho u rengiselwa, vha re na ḓiresi ya imeiḽi nahone vha sa athu u ḓibvisa. Imeiḽi iṅwe na iṅwe i na vhukwamani ha u ḓibvisa, sa zwine POPIA ya ṱoḓa.",
     "deleteBody": "Fulo ḽi ḓo bviswa. Izwi a zwi nga vhuyiswi.",
     "deleteTitle": "Phumula itshi tshiṅwalwa tsha u thoma?",
     "deleted": "Fulo ḽo phumulwa",
@@ -3084,5 +3084,48 @@
       "sentBody": "Ri ḓo kwamana naṋu kha {{email}} nga ngomu ha ḓuvha ḽithihi ḽa mushumo.",
       "privacy": "Mbekanyamaitele ya tshiphiri"
     }
+  },
+  "prospects": {
+    "tab": "Vharengi vhane vha nga vha hone",
+    "add": "Engedzani murengi ane a nga vha hone",
+    "added": "Murengi ane a nga vha hone o engedzwa",
+    "name": "Dzina kana dzina ḽa bindu",
+    "addNote": "Vharengi vhane vha nga vha hone a vha wani mafulo aṋu u swika vha tshi tenda u pfa u bva kha inwi.",
+    "lawNote": "Mulayo wa Afrika Tshipembe (POPIA) u ni tendela u rumela u rengisa kha vharengi vhane vha nga vha hone fhedzi musi vho no tenda. Swayani \"O tenda u rengiselwa\" musi muthu a tshi ri ee, kana ni rumele vhurangi ha luthihi u vha vhudzisa. Vhoṱhe vhane vha tenda vha dzhena kha vhathetshelesi vha mafulo aṋu.",
+    "empty": "A hu na vharengi vhane vha nga vha hone zwino",
+    "emptyHint": "Engedzani vhathu na mabindu ane na ṱoḓa u a wana. Vharengi vhane vha nga vha hone vha bvaho kha phaiphi yaṋu na kha Discovery na vhone vha bvelela hafha.",
+    "status": {
+      "agreed": "O tenda u rengiselwa",
+      "invited": "Vhurangi ho rumelwa",
+      "declined": "O ri hai",
+      "notAsked": "A vha athu vhudziswa"
+    },
+    "agreedOn": "O tenda nga {{date}}: {{source}}",
+    "invitedOn": "Vhurangi ho rumelwa nga {{date}}. Ri khou lindela phindulo yavho.",
+    "declinedHint": "Vho ri hai kana vho ḓibvisa, ngauralo a vha nga wani dzi-imeiḽi dza u rengisa.",
+    "notAskedHint": "A vha nga wani mafulo u swika vha tshi tenda.",
+    "noEmail": "A hu na ḓiresi ya imeiḽi zwino.",
+    "withdraw": "Humisani thendelo",
+    "invite": "Rumelani vhurangi ha luthihi",
+    "markAgreed": "O tenda u rengiselwa",
+    "agreeIntro": "Ṅwalani nḓila ine {{name}} a tenda ngayo u pfa u bva kha inwi. Ṱalutshedzani zwavhuḓi: ndi vhuṱanzi haṋu arali muthu a tshi vhudzisa.",
+    "howAgreed": "Nḓila ye vha tenda ngayo",
+    "howAgreedHint": "Tsumbo: o ri ee nga founu nga ḽa 29 Ṱhafamuhwe.",
+    "sources": {
+      "phone": "O ri ee nga founu",
+      "inPerson": "O ri ee zwiṱangani",
+      "form": "O swaya ee kha fomo",
+      "email": "O ri ee nga imeiḽi"
+    },
+    "agreedSaved": "{{name}} zwino a nga wana mafulo aṋu.",
+    "inviteSubject": "{{company}} i ṱoḓa u dzula i tshi kwamana na inwi",
+    "inviteMessage": "Ndaa {name},\n\nNdi ni ṅwalela ndi tshi bva kha {{company}}. Ri nga takalela u kovhekana na inwi mafhungo a thusaho, nyeletshedzo na zwiṋetshedzo tshifhinga tshiṅwe na tshiṅwe.\n\nNi nga takalela u pfa u bva kha riṋe? Kwamani \"Yes, keep me posted\" afho fhasi. Arali zwi si zwone, a hu na thaidzo na luthihi.",
+    "inviteOnce": "Ni nga vhudzisa {{email}} luthihi fhedzi. Phindulo yavho i ṅwaliwa nga yoṱhe musi vha tshi kwama Ee kana Hai.",
+    "subject": "Ṱhoho",
+    "message": "Mulaedza",
+    "messageHint": "Shumisani {name} kha dzina ḽavho ḽa u thoma. Vhudzisani arali vha nga takalela u pfa u bva kha inwi, ni vhulunge zwiṋetshedzo u swika vha tshi ri ee.",
+    "inviteAdds": "Ri engedza bathini ya \"Yes, keep me posted\", vhukwamani ha \"No thanks\" na mutevhe wa \"We won't email you again unless you say yes.\"",
+    "sendInvite": "Rumelani vhurangi",
+    "invited": "Vhurangi ho rumelwa kha {{email}}"
   }
 }

@@ -18,12 +18,16 @@ from app.schemas.marketing import (
     CampaignOut,
     CampaignSchedule,
     CampaignStats,
+    ConsentIn,
+    InviteIn,
     PreviewOut,
     RecipientOut,
     SegmentIn,
     SegmentOut,
 )
 from app.services.campaign_service import CampaignService
+from app.schemas.customer import CustomerOut
+from app.services.prospect_service import ProspectService
 from app.services.email_service import send_email
 from app.services.email_settings import resolve_email_config
 from app.services.segment_service import SegmentService
@@ -162,3 +166,22 @@ async def unschedule_campaign(campaign_id: uuid.UUID, db: AsyncSession = Depends
 async def campaign_recipients(campaign_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
     rows = await CampaignService(db).recipients(campaign_id)
     return [RecipientOut.model_validate(r).model_copy(update={"customer_name": name}) for r, name in rows]
+
+
+# ---------- Prospects and consent (POPIA s69) ----------
+
+
+@router.get("/prospects", response_model=list[CustomerOut], dependencies=_marketing)
+async def list_prospects(search: str | None = None, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    return await ProspectService(db).list_prospects(search)
+
+
+@router.put("/prospects/{prospect_id}/consent", response_model=CustomerOut, dependencies=_marketing)
+async def set_consent(prospect_id: uuid.UUID, data: ConsentIn, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)):
+    return await ProspectService(db).set_consent(prospect_id, data.agreed, data.source)
+
+
+@router.post("/prospects/{prospect_id}/invite", response_model=CustomerOut, dependencies=_marketing)
+async def invite_prospect(prospect_id: uuid.UUID, data: InviteIn, db: AsyncSession = Depends(get_db), _: User = Depends(_can_write)):
+    """The one-time email asking whether they'd like to hear from you."""
+    return await ProspectService(db).invite(prospect_id, data.subject, data.message)

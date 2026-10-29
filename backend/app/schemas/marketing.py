@@ -132,3 +132,17 @@ class FeaturedProduct(BaseModel):
     price: Decimal
     special_price: Decimal | None
     special_until: date | None
+
+
+class ConsentIn(BaseModel):
+    """A prospect's agreement to marketing: how they agreed is required."""
+
+    agreed: bool
+    source: str | None = Field(default=None, max_length=200)
+
+
+class InviteIn(BaseModel):
+    """The one-time personal email asking a prospect whether they'd like to hear from you."""
+
+    subject: str = Field(default="", max_length=200)
+    message: str = Field(min_length=10, max_length=5000)

@@ -63,5 +63,8 @@ class CustomerOut(BaseModel):
     custom_fields: dict[str, Any] = {}
     marketing_opt_out: bool = False
     marketing_opt_out_at: datetime | None = None
+    marketing_consent_at: datetime | None = None
+    marketing_consent_source: str | None = None
+    consent_invited_at: datetime | None = None
     created_at: datetime
     updated_at: datetime

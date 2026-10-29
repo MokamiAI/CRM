@@ -7,6 +7,7 @@ import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
 import { useAudience, useCampaigns, useSegments } from "../hooks/useApi";
 import { AudienceSheet, useRuleText } from "../components/marketing";
+import MarketingProspects from "../components/MarketingProspects";
 import { PlanNotice } from "../components/Billing";
 import { Button, EmptyState, ErrorState, FilterChips, ListSkeleton, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
 import { errorMessage, formatDateTime } from "../utils/format";
@@ -27,6 +28,7 @@ export default function MarketingPage() {
   const canWrite = user?.role !== "viewer";
   const [tab, setTab] = useState("campaigns");
   const [audienceSheet, setAudienceSheet] = useState(null); // null | "new" | segment
+  const [addingProspect, setAddingProspect] = useState(false);
 
   const create = useMutation({
     mutationFn: () => apiClient.post("/marketing/campaigns", { name: t("marketing.untitled") }).then((r) => r.data),
@@ -48,6 +50,10 @@ export default function MarketingPage() {
             <Button onClick={() => create.mutate()} disabled={create.isPending}>
               <PlusIcon className="h-4 w-4" /> {t("marketing.newCampaign")}
             </Button>
+          ) : tab === "prospects" ? (
+            <Button onClick={() => setAddingProspect(true)}>
+              <PlusIcon className="h-4 w-4" /> {t("prospects.add")}
+            </Button>
           ) : (
             <Button onClick={() => setAudienceSheet("new")}>
               <PlusIcon className="h-4 w-4" /> {t("marketing.newAudience")}
@@ -62,10 +68,13 @@ export default function MarketingPage() {
         options={[
           { value: "campaigns", label: t("marketing.campaigns") },
           { value: "audiences", label: t("marketing.audiences") },
+          { value: "prospects", label: t("prospects.tab") },
         ]}
       />
       {tab === "campaigns" ? (
         <Campaigns onCreate={canWrite ? () => create.mutate() : null} />
+      ) : tab === "prospects" ? (
+        <MarketingProspects adding={addingProspect} onAdded={(what) => setAddingProspect(what === "open")} />
       ) : (
         <Audiences onEdit={canWrite ? setAudienceSheet : null} />
       )}

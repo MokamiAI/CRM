@@ -1383,9 +1383,9 @@
     "audienceNameHint": "e.g. Haven't bought in 3 months",
     "audienceUpdated": "Audience updated",
     "audiences": "Audiences",
-    "audiencesIntro": "Saved groups of customers to send campaigns to. Counts are live and only include customers who can receive marketing.",
+    "audiencesIntro": "Saved groups of customers to send campaigns to. Counts are live and only include customers, and prospects who've agreed, who can receive marketing.",
     "campaigns": "Campaigns",
-    "consentNote": "Only active customers with an email address who haven't unsubscribed are included. Every email has an unsubscribe link, as POPIA requires.",
+    "consentNote": "Only active customers, and prospects who've agreed to marketing, with an email address and who haven't unsubscribed are included. Every email has an unsubscribe link, as POPIA requires.",
     "deleteBody": "The campaign will be removed. This can't be undone.",
     "deleteTitle": "Delete this draft?",
     "deleted": "Campaign deleted",
@@ -3240,5 +3240,48 @@
       "sentBody": "We'll be in touch at {{email}} within one working day.",
       "privacy": "Privacy policy"
     }
+  },
+  "prospects": {
+    "tab": "Prospects",
+    "add": "Add prospect",
+    "added": "Prospect added",
+    "name": "Name or business name",
+    "addNote": "Prospects don't get your campaigns until they've agreed to hear from you.",
+    "lawNote": "South African law (POPIA) only lets you send marketing to prospects once they've agreed to it. Tick \"Agreed to marketing\" when someone says yes, or send the one-time invite to ask them. Everyone who agrees joins your campaign audiences.",
+    "empty": "No prospects yet",
+    "emptyHint": "Add the people and businesses you'd like to win. Prospects from your pipeline and Discovery show here too.",
+    "status": {
+      "agreed": "Agreed to marketing",
+      "invited": "Invite sent",
+      "declined": "Said no",
+      "notAsked": "Not asked yet"
+    },
+    "agreedOn": "Agreed on {{date}}: {{source}}",
+    "invitedOn": "Invite sent on {{date}}. Waiting for their answer.",
+    "declinedHint": "They said no or unsubscribed, so they won't get marketing emails.",
+    "notAskedHint": "They won't get campaigns until they agree.",
+    "noEmail": "No email address yet.",
+    "withdraw": "Withdraw agreement",
+    "invite": "Send one-time invite",
+    "markAgreed": "Agreed to marketing",
+    "agreeIntro": "Record how {{name}} agreed to hear from you. Keep it specific: it's your proof if anyone asks.",
+    "howAgreed": "How they agreed",
+    "howAgreedHint": "For example: said yes by phone on 29 October.",
+    "sources": {
+      "phone": "Said yes by phone",
+      "inPerson": "Said yes in person",
+      "form": "Ticked yes on a form",
+      "email": "Said yes by email"
+    },
+    "agreedSaved": "{{name}} can now get your campaigns.",
+    "inviteSubject": "{{company}} would like to keep in touch",
+    "inviteMessage": "Hi {name},\n\nI'm reaching out from {{company}}. We'd love to share useful news, tips and offers with you now and then.\n\nWould you like to hear from us? Tap \"Yes, keep me posted\" below. If not, that's no problem at all.",
+    "inviteOnce": "You can only ask {{email}} once. Their answer is recorded automatically when they tap Yes or No.",
+    "subject": "Subject",
+    "message": "Message",
+    "messageHint": "Use {name} for their first name. Ask whether they'd like to hear from you, and save the offers for after they say yes.",
+    "inviteAdds": "We add a \"Yes, keep me posted\" button, a \"No thanks\" link and the line \"We won't email you again unless you say yes.\"",
+    "sendInvite": "Send invite",
+    "invited": "Invite sent to {{email}}"
   }
 }

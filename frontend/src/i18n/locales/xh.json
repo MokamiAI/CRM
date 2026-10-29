@@ -1360,9 +1360,9 @@
     "audienceNameHint": "umz. Abangathenganga kwiinyanga ezi-3",
     "audienceUpdated": "Abaphulaphuli bahlaziyiwe",
     "audiences": "Abaphulaphuli",
-    "audiencesIntro": "Amaqela agciniweyo abathengi onokuthumela kuwo amaphulo. Amanani asebenza ngoku kwaye aquka kuphela abathengi abanokufumana intengiso.",
+    "audiencesIntro": "Amaqela agciniweyo abathengi okuthunyelwa kuwo amaphulo. Amanani ahlaziywa ngoko nangoko kwaye abandakanya kuphela abathengi, nabathengi abanokubakho abavumileyo, abanokufumana intengiso.",
     "campaigns": "Amaphulo",
-    "consentNote": "Kuqukwa kuphela abathengi abasebenzayo abane-imeyile abangazirhoxisanga. I-imeyile nganye inonxibelelwano lokuzirhoxisa, njengoko i-POPIA ifuna.",
+    "consentNote": "Kubandakanywa kuphela abathengi abasebenzayo, nabathengi abanokubakho abavumileyo ukufumana intengiso, abanedilesi ye-imeyile kwaye abangazikhuphanga. I-imeyile nganye inekhonkco lokuzikhupha, njengoko i-POPIA ifuna.",
     "deleteBody": "Iphulo liya kususwa. Oku akunakubuyiselwa.",
     "deleteTitle": "Cima le drafti?",
     "deleted": "Iphulo licinyiwe",
@@ -3084,5 +3084,48 @@
       "sentBody": "Siza kuqhagamshelana nawe kwi-{{email}} kwisithuba somhla omnye wokusebenza.",
       "privacy": "Umgaqo-nkqubo wabucala"
     }
+  },
+  "prospects": {
+    "tab": "Abathengi abanokubakho",
+    "add": "Yongeza umthengi onokubakho",
+    "added": "Umthengi onokubakho wongeziwe",
+    "name": "Igama okanye igama leshishini",
+    "addNote": "Abathengi abanokubakho abawafumani amaphulo akho de bavume ukuva kuwe.",
+    "lawNote": "Umthetho woMzantsi Afrika (i-POPIA) ukuvumela ukuba uthumele intengiso kubathengi abanokubakho kuphela emva kokuba bevumile. Phawula \"Uvumile intengiso\" xa umntu esithi ewe, okanye uthumele isimemo sexesha elinye ukuze ubabuze. Bonke abavumayo bajoyina abaphulaphuli bamaphulo akho.",
+    "empty": "Akukabikho bathengi banokubakho",
+    "emptyHint": "Yongeza abantu namashishini ofuna ukuwafumana. Abathengi abanokubakho abavela kumbhobho wakho nakwi-Discovery nabo bavela apha.",
+    "status": {
+      "agreed": "Uvumile intengiso",
+      "invited": "Isimemo sithunyelwe",
+      "declined": "Uthe hayi",
+      "notAsked": "Akakabuzwa"
+    },
+    "agreedOn": "Uvume ngo-{{date}}: {{source}}",
+    "invitedOn": "Isimemo sithunyelwe ngo-{{date}}. Silinde impendulo yabo.",
+    "declinedHint": "Bathe hayi okanye bazikhuphile, ngoko abazukufumana ii-imeyile zentengiso.",
+    "notAskedHint": "Abazukufumana mphulo de bavume.",
+    "noEmail": "Akukabikho dilesi ye-imeyile.",
+    "withdraw": "Rhoxisa imvume",
+    "invite": "Thumela isimemo sexesha elinye",
+    "markAgreed": "Uvumile intengiso",
+    "agreeIntro": "Bhala indlela u-{{name}} avume ngayo ukuva kuwe. Yicacise: bubungqina bakho ukuba umntu uyabuza.",
+    "howAgreed": "Bavume njani",
+    "howAgreedHint": "Umzekelo: uthe ewe ngefowuni nge-29 kaOktobha.",
+    "sources": {
+      "phone": "Uthe ewe ngefowuni",
+      "inPerson": "Uthe ewe ebusweni",
+      "form": "Uphawule ewe kwifomu",
+      "email": "Uthe ewe nge-imeyile"
+    },
+    "agreedSaved": "U-{{name}} ngoku angafumana amaphulo akho.",
+    "inviteSubject": "I-{{company}} ingathanda ukuhlala inxibelelana nawe",
+    "inviteMessage": "Molo {name},\n\nNdikubhalela ndivela kwi-{{company}}. Singathanda ukwabelana nawe ngeendaba eziluncedo, iingcebiso nezibonelelo ngamaxesha athile.\n\nUngathanda ukuva kuthi? Cofa \"Yes, keep me posted\" ngezantsi. Ukuba akunjalo, akukho ngxaki konke konke.",
+    "inviteOnce": "Ungabuza u-{{email}} kube kanye kuphela. Impendulo yabo ibhalwa ngokuzenzekelayo xa becofa Ewe okanye Hayi.",
+    "subject": "Isihloko",
+    "message": "Umyalezo",
+    "messageHint": "Sebenzisa u-{name} kwigama labo lokuqala. Buza ukuba bangathanda na ukuva kuwe, uze ugcine izibonelelo de bathi ewe.",
+    "inviteAdds": "Songeza iqhosha elithi \"Yes, keep me posted\", ikhonkco elithi \"No thanks\" nomgca othi \"We won't email you again unless you say yes.\"",
+    "sendInvite": "Thumela isimemo",
+    "invited": "Isimemo sithunyelwe ku-{{email}}"
   }
 }

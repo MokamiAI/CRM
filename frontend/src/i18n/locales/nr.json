@@ -1360,9 +1360,9 @@
     "audienceNameHint": "isib. Abangakathengi eenyangeni ezi-3",
     "audienceUpdated": "Abalaleli bavuselelwe",
     "audiences": "Abalaleli",
-    "audiencesIntro": "Amaqembu abulungiweko wamakhasimende ongathumela kiwo imikhankaso. Iinomboro ziyaphila begodu zifaka kwaphela amakhasimende angathola ukurhwebisa.",
+    "audiencesIntro": "Iinqhema ezibulungiweko zamakhasimende okuthunyelwa kizo amatjhugulo. Iinomboro zivuselelwa begodu zifaka kwaphela amakhasimende, namakhasimende angaba khona avumileko, angathola ukuthengisa.",
     "campaigns": "Imikhankaso",
-    "consentNote": "Kufakwa kwaphela amakhasimende asebenzako ane-imeyili angakazikhiphi. I-imeyili ngayinye inesitjhumanisi sokuzikhipha, njengombana i-POPIA itlhoga.",
+    "consentNote": "Kufakwa kwaphela amakhasimende asebenzako, namakhasimende angaba khona avumileko ukuthola ukuthengisa, anekheli le-imeyili begodu angakazikhiphi. I-imeyili ngayinye inesihlanganisi sokuzikhipha, njengombana i-POPIA itlhoga.",
     "deleteBody": "Umkhankaso uzokususwa. Lokhu akukghoni ukubuyiswa.",
     "deleteTitle": "Susa okusalungiswa lokhu?",
     "deleted": "Umkhankaso ususiwe",
@@ -3084,5 +3084,48 @@
       "sentBody": "Sizakuthintana nawe ku-{{email}} ngaphakathi kwelanga linye lokusebenza.",
       "privacy": "Umthethomgomo wefihlo"
     }
+  },
+  "prospects": {
+    "tab": "Amakhasimende angaba khona",
+    "add": "Engeza ikhasimende elingaba khona",
+    "added": "Ikhasimende elingaba khona lengeziwe",
+    "name": "Ibizo namkha ibizo lebhizinisi",
+    "addNote": "Amakhasimende angaba khona awawatholi amatjhugulo wakho bekube avuma ukuzwa kuwe.",
+    "lawNote": "Umthetho weSewula Afrika (i-POPIA) ukuvumela bona uthumele ukuthengisa emakhasimendeni angaba khona kwaphela nange sele avumile. Maka \"Uvumile ukuthengisa\" nange umuntu athi iye, namkha uthumele isimemo sesikhathi sinye bona ubabuze. Boke abavumako bajoyina abalaleli bamatjhugulo wakho.",
+    "empty": "Awekho amakhasimende angaba khona okwanje",
+    "emptyHint": "Engeza abantu namabhizinisi ofuna ukuwazuza. Amakhasimende angaba khona avela ephayiphini lakho naku-Discovery nawo avela lapha.",
+    "status": {
+      "agreed": "Uvumile ukuthengisa",
+      "invited": "Isimemo sithunyelwe",
+      "declined": "Uthe awa",
+      "notAsked": "Akakabuzwa"
+    },
+    "agreedOn": "Uvume ngo-{{date}}: {{source}}",
+    "invitedOn": "Isimemo sithunyelwe ngo-{{date}}. Silindele ipendulo yabo.",
+    "declinedHint": "Bathe awa namkha bazikhiphile, ngalokho angekhe bathole ama-imeyili wokuthengisa.",
+    "notAskedHint": "Angekhe bathole amatjhugulo bekube bayavuma.",
+    "noEmail": "Alikho ikheli le-imeyili okwanje.",
+    "withdraw": "Hoxisa imvumo",
+    "invite": "Thumela isimemo sesikhathi sinye",
+    "markAgreed": "Uvumile ukuthengisa",
+    "agreeIntro": "Tlola bona u-{{name}} uvume njani ukuzwa kuwe. Kucacise: bufakazi bakho nange umuntu abuza.",
+    "howAgreed": "Bavume njani",
+    "howAgreedHint": "Isibonelo: uthe iye ngefowuni ngo-29 kuSewula.",
+    "sources": {
+      "phone": "Uthe iye ngefowuni",
+      "inPerson": "Uthe iye ubuso nobuso",
+      "form": "Umake iye efomini",
+      "email": "Uthe iye nge-imeyili"
+    },
+    "agreedSaved": "U-{{name}} nje angathola amatjhugulo wakho.",
+    "inviteSubject": "I-{{company}} ingathanda ukuhlala ithintana nawe",
+    "inviteMessage": "Lotjhani {name},\n\nNgikutlolela ngivela ku-{{company}}. Singathanda ukwabelana nawe ngeendaba ezisizako, amaphuzu neenzuzo ngesikhathi esithileko.\n\nUngathanda ukuzwa kithi? Thinta \"Yes, keep me posted\" ngaphasi. Nange kungasinjalo, akunankinga namanje.",
+    "inviteOnce": "Ungabuza u-{{email}} kanye kwaphela. Ipendulo yabo itlolwa ngokuzenzakalela nange bathinta Iye namkha Awa.",
+    "subject": "Isihloko",
+    "message": "Umlayezo",
+    "messageHint": "Sebenzisa u-{name} ebizweni labo lokuthoma. Buza bona bangathanda ukuzwa kuwe, ubulunge iinzuzo bekube bathi iye.",
+    "inviteAdds": "Sengeza ikinobho ethi \"Yes, keep me posted\", isihlanganisi esithi \"No thanks\" nomugqa othi \"We won't email you again unless you say yes.\"",
+    "sendInvite": "Thumela isimemo",
+    "invited": "Isimemo sithunyelwe ku-{{email}}"
   }
 }

@@ -1360,9 +1360,9 @@
     "audienceNameHint": "mohl. Ha ba so reke dikgweding tse 3",
     "audienceUpdated": "Bamamedi ba ntjhafaditswe",
     "audiences": "Bamamedi",
-    "audiencesIntro": "Dihlopha tse bolokilweng tsa bareki tseo o ka romelang matsholo ho tsona. Dipalo di a phela mme di kenyelletsa feela bareki ba ka amohelang papatso.",
+    "audiencesIntro": "Dihlopha tse bolokilweng tsa bareki tseo ho romelwang matsholo ho tsona. Dipalo di a ntjhafatswa mme di kenyelletsa feela bareki, le bareki ba ka bang teng ba dumetseng, ba ka amohelang papatso.",
     "campaigns": "Matsholo",
-    "consentNote": "Ho kenyelletswa feela bareki ba sebetsang ba nang le imeile ba sa itlosang. Imeile e nngwe le e nngwe e na le kgokahano ya ho itlosa, jwalo ka ha POPIA e batla.",
+    "consentNote": "Ho kenyelletswa feela bareki ba sebetsang, le bareki ba ka bang teng ba dumetseng papatso, ba nang le aterese ya imeile mme ba sa ikgula. Imeile ka nngwe e na le sehokelo sa ho ikgula, jwalo ka ha POPIA e hloka.",
     "deleteBody": "Letsholo le tla tloswa. Sena se ke ke sa kgutliswa.",
     "deleteTitle": "Hlakola moralo ona?",
     "deleted": "Letsholo le hlakotswe",
@@ -3084,5 +3084,48 @@
       "sentBody": "Re tla ikopanya le wena ho {{email}} nakong ya letsatsi le le leng la mosebetsi.",
       "privacy": "Leano la boinotshi"
     }
+  },
+  "prospects": {
+    "tab": "Bareki ba ka bang teng",
+    "add": "Eketsa moreki ya ka bang teng",
+    "added": "Moreki ya ka bang teng o eketsitswe",
+    "name": "Lebitso kapa lebitso la kgwebo",
+    "addNote": "Bareki ba ka bang teng ha ba fumane matsholo a hao ho fihlela ba dumela ho utlwa ho wena.",
+    "lawNote": "Molao wa Afrika Borwa (POPIA) o o dumella ho romela papatso ho bareki ba ka bang teng feela ha ba se ba dumetse. Tshwaya \"O dumetse papatso\" ha motho a re e, kapa o romele memo ya hang ho ba botsa. Bohle ba dumelang ba kena ho bamamedi ba matsholo a hao.",
+    "empty": "Ha ho bareki ba ka bang teng hajwale",
+    "emptyHint": "Eketsa batho le dikgwebo tseo o batlang ho di fumana. Bareki ba ka bang teng ba tswang phaepeng ya hao le ho Discovery le bona ba hlaha mona.",
+    "status": {
+      "agreed": "O dumetse papatso",
+      "invited": "Memo e romeletswe",
+      "declined": "O itse tjhe",
+      "notAsked": "Ha a eso botswe"
+    },
+    "agreedOn": "O dumetse ka {{date}}: {{source}}",
+    "invitedOn": "Memo e romeletswe ka {{date}}. Re emetse karabo ya bona.",
+    "declinedHint": "Ba itse tjhe kapa ba ikgutse, kahoo ba ke ke ba fumana diimeile tsa papatso.",
+    "notAskedHint": "Ba ke ke ba fumana matsholo ho fihlela ba dumela.",
+    "noEmail": "Ha ho aterese ya imeile hajwale.",
+    "withdraw": "Hula tumello",
+    "invite": "Romela memo ya hang",
+    "markAgreed": "O dumetse papatso",
+    "agreeIntro": "Ngola kamoo {{name}} a dumetseng ho utlwa ho wena kateng. Hlakisa: ke bopaki ba hao ha motho a botsa.",
+    "howAgreed": "Kamoo ba dumetseng kateng",
+    "howAgreedHint": "Mohlala: o itse e mohala ka la 29 Mphalane.",
+    "sources": {
+      "phone": "O itse e mohala",
+      "inPerson": "O itse e ka sebele",
+      "form": "O tshwaile e foromong",
+      "email": "O itse e ka imeile"
+    },
+    "agreedSaved": "{{name}} jwale a ka fumana matsholo a hao.",
+    "inviteSubject": "{{company}} e rata ho lula e ikopanya le wena",
+    "inviteMessage": "Dumela {name},\n\nKe o ngolla ke tswa ho {{company}}. Re ka rata ho arolelana le wena ditaba tse thusang, malebela le dinyehelo nako le nako.\n\nNa o ka rata ho utlwa ho rona? Tobetsa \"Yes, keep me posted\" ka tlase. Haeba ho se jwalo, ha ho bothata ho hang.",
+    "inviteOnce": "O ka botsa {{email}} hang feela. Karabo ya bona e ngolwa ka boyona ha ba tobetsa E kapa Tjhe.",
+    "subject": "Sehlooho",
+    "message": "Molaetsa",
+    "messageHint": "Sebedisa {name} bakeng sa lebitso la bona la pele. Botsa hore na ba ka rata ho utlwa ho wena, mme o boloke dinyehelo ho fihlela ba re e.",
+    "inviteAdds": "Re eketsa konopo ya \"Yes, keep me posted\", sehokelo sa \"No thanks\" le mola wa \"We won't email you again unless you say yes.\"",
+    "sendInvite": "Romela memo",
+    "invited": "Memo e romeletswe ho {{email}}"
   }
 }

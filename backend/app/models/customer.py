@@ -31,6 +31,13 @@ class Customer(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # until they opt out; every campaign email carries an unsubscribe link.
     marketing_opt_out: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     marketing_opt_out_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # Prospects aren't customers yet, so s69 needs their agreement first:
+    # when and how they agreed, the one invite asking them, and the code
+    # their yes/no link carries.
+    marketing_consent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    marketing_consent_source: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    consent_invited_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    consent_token: Mapped[str | None] = mapped_column(String(64), nullable=True, unique=True, index=True)
     created_by: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True
     )

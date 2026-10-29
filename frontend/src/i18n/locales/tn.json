@@ -1360,9 +1360,9 @@
     "audienceNameHint": "sk. Ga ba a reka mo dikgweding di le 3",
     "audienceUpdated": "Bareetsi ba ntšhafaditswe",
     "audiences": "Bareetsi",
-    "audiencesIntro": "Ditlhopha tse di bolokilweng tsa bareki tse o ka romelang matsholo kwa go tsone. Dipalo di a tshela mme di akaretsa fela bareki ba ba ka amogelang papatso.",
+    "audiencesIntro": "Ditlhopha tse di bolokilweng tsa bareki tse go romelwang matsholo kwa go tsone. Dipalo di a ntšhwafadiwa mme di akaretsa fela bareki, le bareki ba ba ka nnang teng ba ba dumetseng, ba ba ka amogelang papatso.",
     "campaigns": "Matsholo",
-    "consentNote": "Go akaretswa fela bareki ba ba dirang ba ba nang le imeile ba ba sa itlosang. Imeile nngwe le nngwe e na le kgolagano ya go itlosa, jaaka POPIA e batla.",
+    "consentNote": "Go akarediwa fela bareki ba ba dirang, le bareki ba ba ka nnang teng ba ba dumetseng papatso, ba ba nang le aterese ya imeile mme ba sa ikgogela morago. Imeile nngwe le nngwe e na le kgolagano ya go ikgogela morago, jaaka POPIA e tlhoka.",
     "deleteBody": "Letsholo le tla tlosiwa. Se ga se kake sa busediwa.",
     "deleteTitle": "Phimola thalosetso e?",
     "deleted": "Letsholo le phimotswe",
@@ -3084,5 +3084,48 @@
       "sentBody": "Re tla ikgolaganya le wena mo {{email}} mo letsatsing le le lengwe la tiro.",
       "privacy": "Pholisi ya sephiri"
     }
+  },
+  "prospects": {
+    "tab": "Bareki ba ba ka nnang teng",
+    "add": "Oketsa moreki yo o ka nnang teng",
+    "added": "Moreki yo o ka nnang teng o okeditswe",
+    "name": "Leina kgotsa leina la kgwebo",
+    "addNote": "Bareki ba ba ka nnang teng ga ba amogele matsholo a gago go fitlha ba dumela go utlwa mo go wena.",
+    "lawNote": "Molao wa Aforika Borwa (POPIA) o go letla go romela papatso kwa bareking ba ba ka nnang teng fela fa ba setse ba dumetse. Tshwaya \"O dumetse papatso\" fa motho a re ee, kgotsa o romele taletso ya gangwe go ba botsa. Botlhe ba ba dumelang ba tsena mo bareetsing ba matsholo a gago.",
+    "empty": "Ga go na bareki ba ba ka nnang teng jaanong",
+    "emptyHint": "Oketsa batho le dikgwebo tse o batlang go di bona. Bareki ba ba ka nnang teng go tswa mo phaepeng ya gago le mo Discovery le bone ba bonala fano.",
+    "status": {
+      "agreed": "O dumetse papatso",
+      "invited": "Taletso e romilwe",
+      "declined": "O rile nnyaa",
+      "notAsked": "Ga a ise a bodiwe"
+    },
+    "agreedOn": "O dumetse ka {{date}}: {{source}}",
+    "invitedOn": "Taletso e romilwe ka {{date}}. Re emetse karabo ya bone.",
+    "declinedHint": "Ba rile nnyaa kgotsa ba ikgogetse morago, ka jalo ga ba kitla ba amogela diimeile tsa papatso.",
+    "notAskedHint": "Ga ba kitla ba amogela matsholo go fitlha ba dumela.",
+    "noEmail": "Ga go na aterese ya imeile jaanong.",
+    "withdraw": "Gogela tetlelelo morago",
+    "invite": "Romela taletso ya gangwe",
+    "markAgreed": "O dumetse papatso",
+    "agreeIntro": "Kwala ka fa {{name}} a dumetseng go utlwa mo go wena ka teng. Tlhalosa sentle: ke bosupi jwa gago fa mongwe a botsa.",
+    "howAgreed": "Ka fa ba dumetseng ka teng",
+    "howAgreedHint": "Sekai: o rile ee ka mogala ka la 29 Diphalane.",
+    "sources": {
+      "phone": "O rile ee ka mogala",
+      "inPerson": "O rile ee ka namana",
+      "form": "O tshwaile ee mo foromong",
+      "email": "O rile ee ka imeile"
+    },
+    "agreedSaved": "{{name}} jaanong o ka amogela matsholo a gago.",
+    "inviteSubject": "{{company}} e rata go nna e ikgolaganya le wena",
+    "inviteMessage": "Dumela {name},\n\nKe go kwalela ke tswa kwa {{company}}. Re ka rata go abelana le wena dikgang tse di mosola, dikgakololo le dikabelo ka nako tse dingwe.\n\nA o ka rata go utlwa mo go rona? Tobetsa \"Yes, keep me posted\" fa tlase. Fa go se jalo, ga go na bothata gotlhelele.",
+    "inviteOnce": "O ka botsa {{email}} gangwe fela. Karabo ya bone e kwalwa ka boyone fa ba tobetsa Ee kgotsa Nnyaa.",
+    "subject": "Setlhogo",
+    "message": "Molaetsa",
+    "messageHint": "Dirisa {name} go nna leina la bone la ntlha. Botsa gore a ba ka rata go utlwa mo go wena, mme o boloke dikabelo go fitlha ba re ee.",
+    "inviteAdds": "Re oketsa konopo ya \"Yes, keep me posted\", kgolagano ya \"No thanks\" le mola wa \"We won't email you again unless you say yes.\"",
+    "sendInvite": "Romela taletso",
+    "invited": "Taletso e romeletswe {{email}}"
   }
 }

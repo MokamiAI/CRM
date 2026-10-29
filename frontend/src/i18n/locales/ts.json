@@ -1360,9 +1360,9 @@
     "audienceNameHint": "xik. A va xavanga eka tin'hweti ta 3",
     "audienceUpdated": "Vayingiseri va pfuxetiwile",
     "audiences": "Vayingiseri",
-    "audiencesIntro": "Mintlawa leyi hlayisiweke ya vaxavi leyi u nga rhumelaka matsima eka yona. Tinhlayo ti hanya naswona ti katsa ntsena vaxavi lava nga amukelaka ku tivisa.",
+    "audiencesIntro": "Mintlawa leyi hlayisiweke ya vaxavi leyi ku rhumeriwaka matsima eka yona. Tinhlayo ti pfuxetiwa hi ku hatlisa naswona ti katsa ntsena vaxavi, na vaxavi lava nga vaka kona lava pfumeleke, lava nga amukelaka ku xaviseriwa.",
     "campaigns": "Matsima",
-    "consentNote": "Ku katsiwa ntsena vaxavi lava tirhaka lava nga ni imeyili lava nga tisusangiki. Imeyili yin'wana ni yin'wana yi na vuhlanganisi byo tisusa, hilaha POPIA yi lavaka hakona.",
+    "consentNote": "Ku katsiwa ntsena vaxavi lava tirhaka, na vaxavi lava nga vaka kona lava pfumeleke ku xaviseriwa, lava nga na adirese ya imeyili naswona va nga tisusangiki. Imeyili yin'wana na yin'wana yi na xihlanganisi xo tisusa, hilaha POPIA yi lavaka hakona.",
     "deleteBody": "Tsima ri ta susiwa. Leswi a swi nge tlheriseriwi.",
     "deleteTitle": "Sula xikandziyiso lexi?",
     "deleted": "Tsima ri suriwile",
@@ -3084,5 +3084,48 @@
       "sentBody": "Hi ta tihlanganisa na wena eka {{email}} endzeni ka siku rin'we ra ntirho.",
       "privacy": "Pholisi ya vuhlayiseki bya vuxokoxoko"
     }
+  },
+  "prospects": {
+    "tab": "Vaxavi lava nga vaka kona",
+    "add": "Engetela muxavi loyi a nga vaka kona",
+    "added": "Muxavi loyi a nga vaka kona u engeteriwile",
+    "name": "Vito kumbe vito ra bindzu",
+    "addNote": "Vaxavi lava nga vaka kona a va kumi matsima ya wena ku fikela va pfumela ku twa ku suka eka wena.",
+    "lawNote": "Nawu wa Afrika Dzonga (POPIA) wu ku pfumelela ku rhumela ku xavisa eka vaxavi lava nga vaka kona ntsena loko va pfumerile. Funga \"U pfumerile ku xaviseriwa\" loko munhu a ku ina, kumbe u rhumela xirhambo xa kan'we ku va vutisa. Hinkwavo lava pfumelaka va nghena eka vayingiseri va matsima ya wena.",
+    "empty": "A ku na vaxavi lava nga vaka kona sweswi",
+    "emptyHint": "Engetela vanhu na mabindzu lawa u lavaka ku ma kuma. Vaxavi lava nga vaka kona ku suka eka phayiphi ya wena na Discovery na vona va humelela laha.",
+    "status": {
+      "agreed": "U pfumerile ku xaviseriwa",
+      "invited": "Xirhambo xi rhumeriwile",
+      "declined": "U te e-e",
+      "notAsked": "A nga si vutisiwa"
+    },
+    "agreedOn": "U pfumerile hi {{date}}: {{source}}",
+    "invitedOn": "Xirhambo xi rhumeriwile hi {{date}}. Hi rindzele nhlamulo ya vona.",
+    "declinedHint": "Va te e-e kumbe va tisusile, kutani a va nge kumi tiimeyili ta ku xavisa.",
+    "notAskedHint": "A va nge kumi matsima ku fikela va pfumela.",
+    "noEmail": "A ku na adirese ya imeyili sweswi.",
+    "withdraw": "Teka mpfumelelo endzhaku",
+    "invite": "Rhumela xirhambo xa kan'we",
+    "markAgreed": "U pfumerile ku xaviseriwa",
+    "agreeIntro": "Tsala ndlela leyi {{name}} a pfumeleke ha yona ku twa ku suka eka wena. Swi hlamusele kahle: i vumbhoni bya wena loko munhu a vutisa.",
+    "howAgreed": "Ndlela leyi va pfumeleke ha yona",
+    "howAgreedHint": "Xikombiso: u te ina hi riqingho hi 29 Huhlangwana.",
+    "sources": {
+      "phone": "U te ina hi riqingho",
+      "inPerson": "U te ina hi mahlo",
+      "form": "U fungile ina eka fomo",
+      "email": "U te ina hi imeyili"
+    },
+    "agreedSaved": "{{name}} sweswi a nga kuma matsima ya wena.",
+    "inviteSubject": "{{company}} yi lava ku tshama yi ri karhi yi tihlanganisa na wena",
+    "inviteMessage": "Avuxeni {name},\n\nNdzi ku tsalela ndzi suka eka {{company}}. Hi nga tsakela ku avelana na wena mahungu lama pfunaka, swiletelo na swinyiko nkarhi na nkarhi.\n\nXana u nga tsakela ku twa ku suka eka hina? Tsikeleta \"Yes, keep me posted\" laha hansi. Loko swi nga ri tano, a ku na xiphiqo nikatsongo.",
+    "inviteOnce": "U nga vutisa {{email}} kan'we ntsena. Nhlamulo ya vona yi tsariwa hi yoxe loko va tsikeleta Ina kumbe E-e.",
+    "subject": "Nhloko-mhaka",
+    "message": "Rungula",
+    "messageHint": "Tirhisa {name} eka vito ra vona ro sungula. Vutisa loko va nga tsakela ku twa ku suka eka wena, u hlayisa swinyiko ku fikela va ku ina.",
+    "inviteAdds": "Hi engetela buthoni ya \"Yes, keep me posted\", xihlanganisi xa \"No thanks\" na ntila wa \"We won't email you again unless you say yes.\"",
+    "sendInvite": "Rhumela xirhambo",
+    "invited": "Xirhambo xi rhumeriwile eka {{email}}"
   }
 }

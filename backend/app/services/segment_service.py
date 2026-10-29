@@ -1,7 +1,7 @@
 import uuid
 from datetime import date, datetime, timedelta, timezone
 
-from sqlalchemy import Select, and_, exists, func, not_, select
+from sqlalchemy import Select, and_, exists, func, not_, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import NotFoundError
@@ -51,10 +51,11 @@ def _condition(rule: dict):
 
 def audience_query(rules: list[dict]) -> Select:
     """Customers who can be emailed marketing and match every rule: active,
-    with an email address, and not opted out."""
+    with an email address, and not opted out. Prospects only once they've
+    agreed to marketing (POPIA s69)."""
     return select(Customer).where(
         Customer.is_active.is_(True),
-        Customer.is_prospect.is_(False),
+        or_(Customer.is_prospect.is_(False), Customer.marketing_consent_at.is_not(None)),
         Customer.recipient_email.is_not(None),
         Customer.recipient_email != "",
         Customer.marketing_opt_out.is_(False),

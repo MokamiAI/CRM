@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_db
 from app.core.config import settings
 from app.core.database import CommitBeforeResponseRoute
-from app.core.exceptions import UnauthorizedError
+from app.core.exceptions import NotFoundError, UnauthorizedError
 from app.core.tenancy import set_system
 from app.api.routes.billing import plan_out
 from app.core.plans import PLANS
@@ -28,6 +28,7 @@ from app.schemas.platform import ContactCreate
 from app.services import platform_email
 from app.services.billing_service import BillingService
 from app.services.campaign_service import CampaignService
+from app.services.prospect_service import ProspectService
 from app.services.channel_service import ChannelService, webhook_url
 from app.services.messaging_service import MessagingService
 
@@ -110,6 +111,37 @@ async def unsubscribe(token: str, db: AsyncSession = Depends(get_db)):
         "Unsubscribed",
         f"<h1>You're unsubscribed</h1><p>{escape(company)} won't send you marketing emails any more.</p>",
     )
+
+
+# ---------- A prospect's answer to a one-time invite ----------
+
+
+@router.get("/m/c/{token}", response_class=HTMLResponse, include_in_schema=False)
+async def consent_page(token: str):
+    # Buttons, not links: mail scanners open links, and that must never
+    # count as anyone's answer.
+    t = escape(token)
+    return _page(
+        "Keep in touch?",
+        f"""<h1>Would you like to hear from us?</h1>
+<p>Now and then: news, tips and offers. You can unsubscribe from any email.</p>
+<form method="post" action="{t}/yes" style="display:inline"><button type="submit">Yes, keep me posted</button></form>
+<form method="post" action="{t}/no" style="display:inline;margin-left:8px"><button type="submit" style="background:#e5e7eb;color:#1f2937">No thanks</button></form>""",
+    )
+
+
+@router.post("/m/c/{token}/{answer}", response_class=HTMLResponse, include_in_schema=False)
+async def consent_reply(token: str, answer: str, db: AsyncSession = Depends(get_db)):
+    # "no" is also the one-click unsubscribe target (List-Unsubscribe-Post).
+    if answer not in ("yes", "no"):
+        raise NotFoundError("Not found", "NOT_FOUND")
+    set_system(db)
+    found, company = await ProspectService(db).reply(token, answer == "yes")
+    if not found:
+        return _page("Keep in touch?", "<h1>Link not recognised</h1><p>This link is no longer valid.</p>")
+    if answer == "yes":
+        return _page("Thank you", f"<h1>Thank you</h1><p>{escape(company)} will keep you posted. You can unsubscribe from any email.</p>")
+    return _page("No problem", f"<h1>No problem</h1><p>{escape(company)} won't send you marketing emails.</p>")
 
 
 @router.post("/inbound/email", include_in_schema=False)

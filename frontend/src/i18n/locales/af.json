@@ -1360,9 +1360,9 @@
     "audienceNameHint": "bv. Het in 3 maande niks gekoop nie",
     "audienceUpdated": "Gehoor bygewerk",
     "audiences": "Gehore",
-    "audiencesIntro": "Gestoorde groepe kliënte om veldtogte na te stuur. Getalle is lewendig en sluit net kliënte in wat bemarking kan ontvang.",
+    "audiencesIntro": "Gestoorde groepe kliënte om veldtogte aan te stuur. Getalle is lewendig en sluit net kliënte, en moontlike kliënte wat ingestem het, in wat bemarking kan ontvang.",
     "campaigns": "Veldtogte",
-    "consentNote": "Net aktiewe kliënte met 'n e-posadres wat nie uitgeteken het nie, word ingesluit. Elke e-pos het 'n uitteken-skakel, soos POPIA vereis.",
+    "consentNote": "Net aktiewe kliënte, en moontlike kliënte wat tot bemarking ingestem het, met 'n e-posadres en wat nie uitgeteken het nie, word ingesluit. Elke e-pos het 'n uitteken-skakel, soos POPIA vereis.",
     "deleteBody": "Die veldtog sal verwyder word. Dit kan nie ontdoen word nie.",
     "deleteTitle": "Skrap hierdie konsep?",
     "deleted": "Veldtog geskrap",
@@ -3084,5 +3084,48 @@
       "sentBody": "Ons kontak jou binne een werksdag by {{email}}.",
       "privacy": "Privaatheidsbeleid"
     }
+  },
+  "prospects": {
+    "tab": "Moontlike kliënte",
+    "add": "Voeg moontlike kliënt by",
+    "added": "Moontlike kliënt bygevoeg",
+    "name": "Naam of besigheidsnaam",
+    "addNote": "Moontlike kliënte kry nie jou veldtogte voordat hulle ingestem het om van jou te hoor nie.",
+    "lawNote": "Suid-Afrikaanse wet (POPIA) laat jou net toe om bemarking aan moontlike kliënte te stuur nadat hulle daartoe ingestem het. Merk \"Het tot bemarking ingestem\" wanneer iemand ja sê, of stuur die eenmalige uitnodiging om hulle te vra. Almal wat instem, sluit by jou veldtog-gehore aan.",
+    "empty": "Nog geen moontlike kliënte nie",
+    "emptyHint": "Voeg die mense en besighede by wat jy wil wen. Moontlike kliënte uit jou pyplyn en Ontdekking verskyn ook hier.",
+    "status": {
+      "agreed": "Het tot bemarking ingestem",
+      "invited": "Uitnodiging gestuur",
+      "declined": "Het nee gesê",
+      "notAsked": "Nog nie gevra nie"
+    },
+    "agreedOn": "Ingestem op {{date}}: {{source}}",
+    "invitedOn": "Uitnodiging gestuur op {{date}}. Wag vir hul antwoord.",
+    "declinedHint": "Hulle het nee gesê of uitgeteken, so hulle kry nie bemarkings-e-posse nie.",
+    "notAskedHint": "Hulle kry nie veldtogte voordat hulle instem nie.",
+    "noEmail": "Nog geen e-posadres nie.",
+    "withdraw": "Trek instemming terug",
+    "invite": "Stuur eenmalige uitnodiging",
+    "markAgreed": "Het tot bemarking ingestem",
+    "agreeIntro": "Teken aan hoe {{name}} ingestem het om van jou te hoor. Wees spesifiek: dit is jou bewys as iemand vra.",
+    "howAgreed": "Hoe hulle ingestem het",
+    "howAgreedHint": "Byvoorbeeld: het op 29 Oktober oor die foon ja gesê.",
+    "sources": {
+      "phone": "Het oor die foon ja gesê",
+      "inPerson": "Het persoonlik ja gesê",
+      "form": "Het ja op 'n vorm gemerk",
+      "email": "Het per e-pos ja gesê"
+    },
+    "agreedSaved": "{{name}} kan nou jou veldtogte kry.",
+    "inviteSubject": "{{company}} wil graag in voeling bly",
+    "inviteMessage": "Hallo {name},\n\nEk skryf namens {{company}}. Ons wil graag nou en dan nuttige nuus, wenke en aanbiedinge met jou deel.\n\nWil jy van ons hoor? Tik \"Yes, keep me posted\" hieronder. Indien nie, is dit glad nie 'n probleem nie.",
+    "inviteOnce": "Jy kan {{email}} net een keer vra. Hul antwoord word outomaties aangeteken wanneer hulle Ja of Nee tik.",
+    "subject": "Onderwerp",
+    "message": "Boodskap",
+    "messageHint": "Gebruik {name} vir hul voornaam. Vra of hulle van jou wil hoor, en hou die aanbiedinge vir nadat hulle ja gesê het.",
+    "inviteAdds": "Ons voeg 'n \"Yes, keep me posted\"-knoppie, 'n \"No thanks\"-skakel en die sin \"We won't email you again unless you say yes.\" by.",
+    "sendInvite": "Stuur uitnodiging",
+    "invited": "Uitnodiging gestuur aan {{email}}"
   }
 }
