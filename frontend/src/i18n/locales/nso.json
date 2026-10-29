@@ -174,14 +174,14 @@
       "trial_other": "Go šetše matšatši a {{count}} nakong ya gago ya go leka Grow mahala."
     },
     "cancel": "Khansela leano",
-    "cancelConfirm": "O khansela leano la gago? O le swara go fihla ka {{date}}, ke moka o ya go Free. Ga go selo se se phumolwago.",
+    "cancelConfirm": "O khansela leano la gago? Le ka se mpshafatšwe. O swara tšohle go fihla mafelelong a nako ye o e lefetšego ka {{date}}; ka morago ga moo lefelo la gago la go šoma le balwa fela go fihlela o kgetha leano gape. Ga go selo se se phumolwago.",
     "cancelYes": "Ee, khansela",
     "cancelled": "Leano le khansetšwe. Le dula le šoma go fihla ka {{date}}.",
     "changePlan": "Fetola leano",
     "checkoutFailed": "Ga e a kgona go bula Paystack. Hle leka gape.",
     "choose": "Kgetha {{plan}}",
     "choosePlan": "Kgetha leano",
-    "choosePlanHint": "Lefa ka polokego ka karata ka Paystack. Fetola goba o khansele neng le neng.",
+    "choosePlanHint": "Lefa ka polokego ka karata ka Paystack. Fetola goba o khansele neng le neng: leano le le khansetšwego le šoma go fihla mafelelong a nako ye o e lefetšego.",
     "confirmFailed": "Ga e a kgona go hlahloba tefelo ga bjale. Mpshafatša ka morago ga motsotso.",
     "current": "Leano la gago la bjale",
     "features": {
@@ -254,7 +254,7 @@
       "active": "Le a šoma",
       "activeLine": "Le mpshafatšwa ka {{date}}.",
       "cancelled": "Le khansetšwe",
-      "cancelledLine": "Le khansetšwe. Leano la gago le dula le šoma go fihla ka {{date}}, ke moka o ya go Free.",
+      "cancelledLine": "Le khansetšwe. Leano la gago le dula le šoma go fihla mafelelong a nako ye o e lefetšego ka {{date}}, ke moka lefelo la gago la go šoma le a balwa fela. Ga go selo se se phumolwago.",
       "free": "Mahala",
       "freeLine": "O lenaneong la Free.",
       "lapsed": "Ga se la lefelwa",
@@ -2727,11 +2727,11 @@
     "intro": {
       "eyebrow": "Tekolo ya kgwebo ya mahala",
       "title": "Kgwebo ya gago e rulagantšwe gakaakang ka nnete?",
-      "lead": "Dipotšišo tše 10 tša ka pela mabapi le ka fao o dirago dilo ka gona lehono. Re tla go bontšha moo nako le tšhelete di tšwelago gona, le ka fao {{name}} e ka thušago ka gona.",
+      "lead": "Dipotšišo tše 10 tša ka pela mabapi le ka fao o dirago dilo ka gona lehono. Hwetša seo se diegišago kgwebo ya gago, moo o ka bolokago nako gona, le ka fao o ka nolofatšago tšhomo ya gago ya letšatši le letšatši.",
       "get": {
         "score": "Dintlha tša tshepedišo ya kgwebo ya gago",
         "gaps": "Dikgoba tša gago tše tharo tše kgolo",
-        "time": "Diiri le diranta tše o ka di bušetšago"
+        "time": "Nako yeo o ka e bolokago"
       },
       "start": "Thoma tekolo",
       "meta": "Dipotšišo tše {{count}} · Ga go ngwadišo"
@@ -2802,13 +2802,13 @@
       },
       "slip": {
         "topic": "Mothalo wa thekišo",
-        "title": "Ke gakae moreki yo a ka bago gona a homolago pele o mo latela?",
+        "title": "Ke gakae o lebalago goba o diegago go latela moreki yo a ka bago gona?",
         "hint": "Bota nnete, ga go yo a lebeletšego.",
         "options": {
-          "rarely": "E ka ba gore ga go direge",
+          "rarely": "Ga se gantši",
           "some": "Ga mmalwa ka kgwedi",
-          "often": "Gantši, beke le beke",
-          "unsure": "Ka nnete ga ke tsebe"
+          "often": "E ka ba beke le beke",
+          "unsure": "Ga ke kgonthišiše"
         }
       },
       "tasks": {
@@ -2838,8 +2838,9 @@
       "volume": {
         "topic": "Ditekanyetšo le di-invoice",
         "title": "O romela ditekanyetšo le di-invoice tše kae ka kgwedi?",
-        "hint": "Kakanyo e lokile. Goga selaete.",
-        "label": "Ditekanyetšo le di-invoice ka kgwedi"
+        "hint": "Dipalo tša kakanyo di lokile, gomme 0 le yona e lokile.",
+        "quotes": "Ditekanyetšo ka kgwedi",
+        "invoices": "Di-invoice ka kgwedi"
       },
       "payments": {
         "topic": "Go lefelwa",
@@ -2856,7 +2857,7 @@
         "topic": "Seo o se hlokago",
         "title": "Ke dife go tše o ka di šomišago ruri?",
         "options": {
-          "basics": "Tša motheo fela: bareki, ditekanyetšo le di-invoice",
+          "basics": "Taolo ya bareki, ditekanyetšo le di-invoice",
           "whatsapp": "Dikgopotšo tša WhatsApp le SMS",
           "marketing": "Matšolo a imeile le mangwalo a ditaba",
           "recurring": "Di-invoice tšeo di boelelwago kgwedi le kgwedi",
@@ -2864,7 +2865,8 @@
           "chat": "Go boledišana le sehlopha sa ka",
           "leads": "Thušo ya go hwetša bareki ba bafsa",
           "priority": "Thekgo ya ka pela le ya pele"
-        }
+        },
+        "hint": "Kgetha fela seo o ka se šomišago ruri: leano leo re le šišinyago le ithekgile ka sona."
       },
       "tools": {
         "topic": "Palo ya mafelelo",
@@ -2878,7 +2880,14 @@
         "more": "Se tee godimo",
         "others": "O diriša se sengwe gape? App ya panka, tshepedišo ya peeletšo, nomoro ya bobedi ya WhatsApp? E oketše ka +.",
         "extra_one": "Gotee le se {{count}} seo o se okeditšego.",
-        "extra_other": "Gotee le tše {{count}} tšeo o di okeditšego."
+        "extra_other": "Gotee le tše {{count}} tšeo o di okeditšego.",
+        "connect": "Na didirišwa tše di šoma mmogo, goba o kopiša tshedimošo magareng ga tšona?",
+        "connectOptions": {
+          "auto": "Tshedimošo ye ntši e sepela magareng ga tšona ka bo yona",
+          "some": "Tše dingwe di kopantšwe, eupša ke sa kopiša dilo",
+          "manual": "Ke kopiša tshedimošo ka diatla magareng ga tše ntši",
+          "unsure": "Ga ke kgonthišiše"
+        }
       }
     },
     "working": {
@@ -2956,7 +2965,7 @@
     "report": {
       "outOf": "go tše 100",
       "scoreName": "Dintlha tša tshepedišo ya kgwebo",
-      "scoreNote": "Se se lekanya ka fao ditshepedišo tšeo re botšišitšego ka tšona di beakantšwego ka gona, e sego ka fao kgwebo ya gago e šomago gabotse ka gona.",
+      "scoreNote": "Se se lekanya ka fao ditshepedišo tšeo re botšišitšego ka tšona di beakantšwego ka gona, e sego ka fao kgwebo ya gago e šomago gabotse ka gona. Kgwebo ya gago e ka no ba e dira gabotse: dintlha di bontšha fela moo ditshepedišo tša letšatši le letšatši di ka bago bonolo gona.",
       "band": {
         "attention": {
           "label": "E nyaka tlhokomelo",
@@ -2983,7 +2992,11 @@
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "O diriša sedirišwa se {{count}}",
       "toolsTitle_other": "O diriša didirišwa tše {{count}}",
-      "toolsCost": "Tše {{loose}} go tšona ke didirišwa tše di sa kopanago tša go swana le pampiri, dipoledišano, di-spreadsheet goba di-app tše dingwe. Sedirišwa se sengwe le se sengwe se se sa kopanago ka godimo ga {{ok}} se ra go kopiša go gontši le dilo tše di welago magareng: go tlošwa dintlha tše {{points}}. Ditshepedišo tša go swana le CRM goba app ya di-invoice ga di go bale gampe.",
+      "toolsCost": {
+        "some": "Tše {{loose}} go tšona ke didirišwa tše di kopantšwego ka seripa fela, ka gona dilo tše dingwe di sa kopišwa ka diatla: go tlošwa dintlha tše {{points}}. Ditshepedišo tša go swana le CRM goba app ya di-invoice ga di go bale gampe.",
+        "manual": "Tše {{loose}} go tšona ke didirišwa tšeo o kopišago tshedimošo magareng ga tšona ka diatla, ka gona dilo di wela magareng: go tlošwa dintlha tše {{points}}. Ditshepedišo tša go swana le CRM goba app ya di-invoice ga di go bale gampe.",
+        "unsure": "Tše {{loose}} go tšona ke didirišwa tše di sa kopanago, gomme ga o kgonthišiše gore ke eng se se kopišwago magareng ga tšona, ka gona dilo di ka wela magareng: go tlošwa dintlha tše {{points}}. Ditshepedišo tša go swana le CRM goba app ya di-invoice ga di go bale gampe."
+      },
       "toolsFine": "Ye ke palo ye e laolegago. Go e boloka bjalo go a hola.",
       "gapsTitle_one": "Sekgoba sa gago se segolo",
       "gapsTitle_other": "Dikgoba tša gago tše {{count}} tše kgolo",
@@ -2994,17 +3007,23 @@
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
       "howTitle": "Re šomile se bjang",
-      "how": "Ke tekanyetšo, e sego tshepišo, ye e theilwego dikarabong tša gago fela. Tekanyetšo goba invoice ye nngwe le ye nngwe e tšea metsotso ye 8 go ya go ye 25 go ya ka moo e dirwago gona, ge e bapetšwa le metsotso ye {{ygt}} go ya go ye {{lowYgt}} ka {{name}}. Go latela tefelo ya morago ga nako ka diatla go tšea metsotso ye e ka bago {{chase}}. Sedirišwa se sengwe le se sengwe se se sa kopanago ka godimo ga tše pedi se ja diiri tše e ka bago {{switching}} ka kgwedi motho yo mongwe le yo mongwe go kopišeng; go lebelela dilo go balwa ka thoko, ka gona ga go na motsotso wo o balwago gabedi. Nako ya go lebelela e gola le palo ya batho ba ba dirago taolo, eupša ka go nanya go feta sehlopha. Bokagodimo bja mokgoba bo tšea gore o fetišetša tše ka moka go {{name}}; bokatlase bo tšea e ka ba seripa, ka metsotso ye {{lowYgt}} tokumente ye nngwe le ye nngwe. Sedirišwa se sengwe le se sengwe se se sa kopanago ka godimo ga {{ok}} se ja dintlha tše 2, gomme dintlha di thoma go 0 go ya go 100.",
-      "trialTitle": "Tswalela dikgoba tše lefelong le tee",
-      "trialBody": "Leka tšohle mahala matšatši a {{days}}. Ga go hlokege karata, gomme o ka tliša bareki ba gago go tšwa go Excel.",
+      "how": "Ke tekanyetšo, e sego tshepišo, ye e theilwego dikarabong tša gago fela. Tekanyetšo goba invoice ye nngwe le ye nngwe e tšea metsotso ye 8 go ya go ye 25 go ya ka moo e dirwago gona, ge e bapetšwa le metsotso ye {{ygt}} go ya go ye {{lowYgt}} ka {{name}}. Go latela invoice ya morago ga nako ka diatla go tšea metsotso ye e ka bago {{chase}}. Go kopiša magareng ga didirišwa tše di sa kopanago go ja go fihla go diiri tše {{switching}} ka kgwedi motho yo mongwe le yo mongwe sedirišweng se sengwe le se sengwe ka godimo ga tše pedi, ka tlase ge didirišwa tša gago di kopantšwe ka seripa gomme ga go je selo ge di šoma mmogo; go kopiša mo gongwe go sala le ka {{name}}. Go lebelela dilo go balwa ka thoko, ka gona ga go na motsotso wo o balwago gabedi. Nako ya go lebelela e gola le palo ya batho ba ba dirago taolo, eupša ka go nanya go feta sehlopha. Bokagodimo bja mokgoba ke nako ya gago bjale go tlošwa nako ye e akanywago ka {{name}}; bokatlase bo tšea gore o fetišetša e ka ba seripa, ka metsotso ye {{lowYgt}} tokumente ye nngwe le ye nngwe. Sedirišwa se sengwe le se sengwe se se sa kopanago ka godimo ga {{ok}} se ja go fihla go dintlha tše 2, gomme dintlha di thoma go 0 go ya go 100.",
+      "trialTitle": "O ikemišeditše go nolofatša go sepediša kgwebo ya gago?",
+      "trialBody": "O bone moo ditshepedišo tša gago di ka kaonafalago gona. Leka {{name}} mahala matšatši a {{days}} gomme o bee dilo ka moka lefelong le tee. Ga go nyakege karata, o ka khansela neng goba neng.",
       "again": "Dira gape",
       "now": "Bjale",
-      "withYgt": "Ka {{name}}",
+      "withYgt": "Go akanywa ka {{name}}",
       "range": "{{low}}–{{high}}",
       "freed": "Nako yeo o ka e lokollago",
       "perMonth": "ka kgwedi",
       "worth": "Nako yeo e ka ba ya boleng bja",
-      "worthNote": "Ka boleng bja gago bja iri. Se ke boleng bja nako ye e lokolotšwego, e sego letseno la tlaleletšo le le kgonthišitšwego goba tšhelete ye e bolokilwego. Dipoelo tša gago di ithekgile ka gore o fetišetša tšhomo ye kae ya gago."
+      "worthNote": "Ka boleng bja gago bja iri. Se ke boleng bja nako ye e lokolotšwego, e sego letseno la tlaleletšo le le kgonthišitšwego goba tšhelete ye e bolokilwego. Dipoelo tša gago di ithekgile ka gore o fetišetša tšhomo ye kae ya gago.",
+      "sumAreas": "Mafapha a mahlano",
+      "sumTools": "Phetošo ya didirišwa",
+      "sumScore": "Dintlha tša gago",
+      "toolsConnected": "O boletše gore didirišwa tša gago di šoma mmogo, ka gona palo ya didirišwa ga e go je dintlha.",
+      "rangeHigh": "Diiri tše {{hours}} ge o fetišetša tše ka moka go {{name}}.",
+      "rangeLow": "Diiri tše {{hours}} ge o fetišetša e ka ba seripa, gomme tekanyetšo goba invoice ye nngwe le ye nngwe e sa tšea metsotso ye {{minutes}}."
     },
     "roadmap": {
       "title_one": "Kgato ya gago ye e latelago",
@@ -3029,7 +3048,8 @@
         "title": "Hloma tlwaelo ya dikgopotšo",
         "body": "Lebelela beke le beke gore ke mang yo a go kolotago gomme o romele dikgopotšo ka lenaneo le le sa fetogego, gore go latela go se ithekge ka go gopola."
       },
-      "footer": "Ga o swanelwe ke go lokiša tšohle ka nako e tee. Thoma ka kgato ya 1."
+      "footer": "Ga o swanelwe ke go lokiša tšohle ka nako e tee. Thoma ka kgato ya 1.",
+      "link": "Bona ka fao {{name}} e thušago ka gona"
     },
     "plan": {
       "eyebrow": "Leano le le šišinywago",
@@ -3050,7 +3070,10 @@
         "discovery": "Bareki ba bafsa bao ba ka bago gona ba hwetšwa beke le beke",
         "priority_support": "Thekgo ya pele"
       },
-      "compare": "Bapetša maano ka moka"
+      "compare": "Bapetša maano ka moka",
+      "teamFit": "E swanela sehlopha sa gago",
+      "featureFit": "E swanela seo o se hlokago",
+      "included": "Leanong le lengwe le le lengwe"
     },
     "talk": {
       "title": "O nyaka gore re go hlalosetše dipoelo?",
@@ -3058,7 +3081,8 @@
       "consent": "Ee, {{name}} e ka ikgokaganya le nna mabapi le dipoelo tša ka.",
       "send": "Ntlhalosetše",
       "sentTitle": "Re a leboga, re hweditše dipoelo tša gago",
-      "sentBody": "Re tla ikgokaganya le wena go {{email}} ka gare ga letšatši le tee la mošomo."
+      "sentBody": "Re tla ikgokaganya le wena go {{email}} ka gare ga letšatši le tee la mošomo.",
+      "privacy": "Pholisi ya sephiri"
     }
   }
 }

@@ -174,14 +174,14 @@
       "trial_other": "Ho setse matsatsi a {{count}} nakong ya hao ya ho leka Grow mahala."
     },
     "cancel": "Hlakola moralo",
-    "cancelConfirm": "O hlakola moralo wa hao? O o boloka ho fihlela ka {{date}}, ebe o ya ho Free. Ha ho letho le hlakolwang.",
+    "cancelConfirm": "O hlakola moralo wa hao? O ke ke wa nchafatswa. O boloka tsohle ho fihlela qetellong ya nako eo o e lefetseng ka {{date}}; kamora moo sebaka sa hao sa mosebetsi se a balwa feela ho fihlela o kgetha moralo hape. Ha ho letho le hlakolwang.",
     "cancelYes": "E, hlakola",
     "cancelled": "Moralo o hlakotswe. O dula o sebetsa ho fihlela ka {{date}}.",
     "changePlan": "Fetola moralo",
     "checkoutFailed": "Ha e a kgona ho bula Paystack. Ka kopo leka hape.",
     "choose": "Kgetha {{plan}}",
     "choosePlan": "Kgetha moralo",
-    "choosePlanHint": "Lefa ka polokeho ka karete ka Paystack. Fetola kapa o hlakole neng kapa neng.",
+    "choosePlanHint": "Lefa ka polokeho ka karete ka Paystack. Fetola kapa o hlakole neng kapa neng: moralo o hlakotsweng o sebetsa ho fihlela qetellong ya nako eo o e lefetseng.",
     "confirmFailed": "Ha e a kgona ho hlahloba tefo hajwale. Ntjhafatsa kamora motsotso.",
     "current": "Moralo wa hao wa jwale",
     "features": {
@@ -254,7 +254,7 @@
       "active": "O a sebetsa",
       "activeLine": "O ntjhafatswa ka {{date}}.",
       "cancelled": "O hlakotswe",
-      "cancelledLine": "O hlakotswe. Moralo wa hao o dula o sebetsa ho fihlela ka {{date}}, ebe o ya ho Free.",
+      "cancelledLine": "O hlakotswe. Moralo wa hao o dula o sebetsa ho fihlela qetellong ya nako eo o e lefetseng ka {{date}}, ebe sebaka sa hao sa mosebetsi se a balwa feela. Ha ho letho le hlakolwang.",
       "free": "Mahala",
       "freeLine": "O moralong wa Free.",
       "lapsed": "Ha o a lefuwa",
@@ -2727,11 +2727,11 @@
     "intro": {
       "eyebrow": "Tlhahlobo ya kgwebo ya mahala",
       "title": "Kgwebo ya hao e hlophisehile hakae ka nnete?",
-      "lead": "Dipotso tse 10 tse potlakileng mabapi le kamoo o etsang dintho kateng kajeno. Re tla o bontsha moo nako le tjhelete di tswang teng, le kamoo {{name}} e ka thusang kateng.",
+      "lead": "Dipotso tse 10 tse potlakileng mabapi le kamoo o etsang dintho kateng kajeno. Fumana se diehisang kgwebo ya hao, moo o ka bolokang nako teng, le kamoo o ka nolofatsang mosebetsi wa hao wa letsatsi le letsatsi.",
       "get": {
         "score": "Dintlha tsa tshebetso ya kgwebo ya hao",
         "gaps": "Dikgeo tsa hao tse tharo tse kgolo",
-        "time": "Dihora le diranta tseo o ka di kgutlisang"
+        "time": "Nako eo o ka e bolokang"
       },
       "start": "Qala tlhahlobo",
       "meta": "Dipotso tse {{count}} · Ha ho ngodiso"
@@ -2802,13 +2802,13 @@
       },
       "slip": {
         "topic": "Mola wa thekiso",
-        "title": "Ke hangata hakae moreki ya ka bang teng a kgutsang pele o mo latela?",
+        "title": "Ke hangata hakae o lebalang kapa o diehang ho latela moreki ya ka bang teng?",
         "hint": "Bua nnete, ha ho ya shebileng.",
         "options": {
-          "rarely": "Ho batla ho sa etsahale",
-          "some": "Makgetlo a mmalwa ka kgwedi",
-          "often": "Hangata, beke le beke",
-          "unsure": "Ka nnete ha ke tsebe"
+          "rarely": "Ha se hangata",
+          "some": "Hanyane ka kgwedi",
+          "often": "E ka ba beke le beke",
+          "unsure": "Ha ke na bonnete"
         }
       },
       "tasks": {
@@ -2838,8 +2838,9 @@
       "volume": {
         "topic": "Dikotatsheno le di-invoice",
         "title": "O romela dikotatsheno le di-invoice tse kae ka kgwedi?",
-        "hint": "Kakanyo e lokile. Hula selaete.",
-        "label": "Dikotatsheno le di-invoice ka kgwedi"
+        "hint": "Dipalo tsa kgakanyo di lokile, mme 0 le yona e lokile.",
+        "quotes": "Dikotatsheno ka kgwedi",
+        "invoices": "Di-invoice ka kgwedi"
       },
       "payments": {
         "topic": "Ho lefuwa",
@@ -2856,7 +2857,7 @@
         "topic": "Seo o se hlokang",
         "title": "Ke dife ho tsena tseo o ka di sebedisang hantle?",
         "options": {
-          "basics": "Tsa motheo feela: bareki, dikotatsheno le di-invoice",
+          "basics": "Tsamaiso ya bareki, dikotatsheno le di-invoice",
           "whatsapp": "Dikgopotso tsa WhatsApp le SMS",
           "marketing": "Matsholo a imeile le mangolo a ditaba",
           "recurring": "Di-invoice tse pheta-phetwang kgwedi le kgwedi",
@@ -2864,7 +2865,8 @@
           "chat": "Ho qoqa le sehlopha sa ka",
           "leads": "Thuso ya ho fumana bareki ba batjha",
           "priority": "Tshehetso e potlakileng le ya pele"
-        }
+        },
+        "hint": "Kgetha feela seo o ka se sebedisang hantle: moralo oo re o kgothaletsang o itshetlehile ka sona."
       },
       "tools": {
         "topic": "Palo ya ho qetela",
@@ -2878,7 +2880,14 @@
         "more": "Se le seng hodimo",
         "others": "O sebedisa ho hong hape? App ya banka, sistimi ya ho buka, nomoro ya bobedi ya WhatsApp? E eketse ka +.",
         "extra_one": "Hammoho le se {{count}} seo o se eketsitseng.",
-        "extra_other": "Hammoho le tse {{count}} tseo o di eketsitseng."
+        "extra_other": "Hammoho le tse {{count}} tseo o di eketsitseng.",
+        "connect": "Na disebediswa tsena di sebetsa mmoho, kapa o kopitsa tlhahisoleseding pakeng tsa tsona?",
+        "connectOptions": {
+          "auto": "Tlhahisoleseding e ngata e tsamaya pakeng tsa tsona ka boyona",
+          "some": "Tse ding di hokahantswe, empa ke ntse ke kopitsa dintho",
+          "manual": "Ke kopitsa tlhahisoleseding ka matsoho pakeng tsa tse ngata",
+          "unsure": "Ha ke na bonnete"
+        }
       }
     },
     "working": {
@@ -2956,7 +2965,7 @@
     "report": {
       "outOf": "ho tse 100",
       "scoreName": "Dintlha tsa tshebetso ya kgwebo",
-      "scoreNote": "Sena se lekanya hore na ditshebetso tseo re botsitseng ka tsona di hlophisitswe hakae, eseng hore na kgwebo ya hao e sebetsa hantle hakae.",
+      "scoreNote": "Sena se lekanya hore na ditshebetso tseo re botsitseng ka tsona di hlophisitswe hakae, eseng hore na kgwebo ya hao e sebetsa hantle hakae. Kgwebo ya hao e ka nna ya etsa hantle: dintlha di bontsha feela moo ditshebetso tsa letsatsi le letsatsi di ka bang bonolo teng.",
       "band": {
         "attention": {
           "label": "E hloka tlhokomelo",
@@ -2983,7 +2992,11 @@
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "O sebedisa sesebediswa se {{count}}",
       "toolsTitle_other": "O sebedisa disebediswa tse {{count}}",
-      "toolsCost": "Tse {{loose}} ho tsona ke disebediswa tse sa hokahanang tse kang pampiri, dipuisano, di-spreadsheet kapa di-app tse ding. Sesebediswa ka seng se sa hokahanang kamora {{ok}} se bolela ho kopitsa ho hongata le dintho tse wela pakeng: ho tloswa dintlha tse {{points}}. Ditsamaiso tse kang CRM kapa app ya di-invoice ha di o bale hampe.",
+      "toolsCost": {
+        "some": "Tse {{loose}} ho tsona ke disebediswa tse hokahantsweng karolo feela, kahoo dintho tse ding di ntse di kopitswa ka matsoho: ho tloswa dintlha tse {{points}}. Ditsamaiso tse kang CRM kapa app ya di-invoice ha di o bale hampe.",
+        "manual": "Tse {{loose}} ho tsona ke disebediswa tseo o kopitsang tlhahisoleseding pakeng tsa tsona ka matsoho, kahoo dintho di wela pakeng: ho tloswa dintlha tse {{points}}. Ditsamaiso tse kang CRM kapa app ya di-invoice ha di o bale hampe.",
+        "unsure": "Tse {{loose}} ho tsona ke disebediswa tse sa hokahanang, mme ha o na bonnete hore na ho kopitswa eng pakeng tsa tsona, kahoo dintho di ka wela pakeng: ho tloswa dintlha tse {{points}}. Ditsamaiso tse kang CRM kapa app ya di-invoice ha di o bale hampe."
+      },
       "toolsFine": "Ena ke palo e laolehang. Ho e boloka jwalo ho a thusa.",
       "gapsTitle_one": "Lekgeo la hao le leholo",
       "gapsTitle_other": "Dikgeo tsa hao tse {{count}} tse kgolo",
@@ -2994,17 +3007,23 @@
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
       "howTitle": "Re sebeditse sena jwang",
-      "how": "Ke kgakanyo, eseng tshepiso, e thehilweng dikarabong tsa hao feela. Kotatsheno kapa invoice ka nngwe e nka metsotso e 8 ho isa ho e 25 ho ya ka moo e etswang teng, ha e bapiswa le metsotso e {{ygt}} ho isa ho e {{lowYgt}} ka {{name}}. Ho latela tefo ya kamora nako ka matsoho ho nka metsotso e ka bang {{chase}}. Sesebediswa ka seng se sa hokahanang kamora tse pedi se ja dihora tse ka bang {{switching}} ka kgwedi motho ka mong ho kopitseng; ho sheba dintho ho balwa ka thoko, kahoo ha ho motsotso o balwang habedi. Nako ya ho sheba e hola le palo ya batho ba etsang tsamaiso, empa butle ho feta sehlopha. Bokahodimo ba mofuta bo nka hore o fetisetsa tsena tsohle ho {{name}}; bokatlase bo nka e ka ba halofo, ka metsotso e {{lowYgt}} tokomane ka nngwe. Sesebediswa ka seng se sa hokahanang kamora {{ok}} se ja dintlha tse 2, mme dintlha di qala ho 0 ho isa ho 100.",
-      "trialTitle": "Kwala dikgeo tsena sebakeng se le seng",
-      "trialBody": "Leka tsohle mahala matsatsi a {{days}}. Ha ho hlokahale karete, mme o ka tlisa bareki ba hao ho tswa ho Excel.",
+      "how": "Ke kgakanyo, eseng tshepiso, e thehilweng dikarabong tsa hao feela. Kotatsheno kapa invoice ka nngwe e nka metsotso e 8 ho isa ho e 25 ho ya ka moo e etswang teng, ha e bapiswa le metsotso e {{ygt}} ho isa ho e {{lowYgt}} ka {{name}}. Ho latela invoice ya kamora nako ka matsoho ho nka metsotso e ka bang {{chase}}. Ho kopitsa pakeng tsa disebediswa tse sa hokahanang ho ja ho fihla ho dihora tse {{switching}} ka kgwedi motho ka mong sesebedisweng ka seng kamora tse pedi, ka tlase ha disebediswa tsa hao di hokahantswe karolo mme ha ho je letho ha di sebetsa mmoho; ho kopitsa ho hong ho sala le ka {{name}}. Ho sheba dintho ho balwa ka thoko, kahoo ha ho motsotso o balwang habedi. Nako ya ho sheba e hola le palo ya batho ba etsang tsamaiso, empa butle ho feta sehlopha. Bokahodimo ba mofuta ke nako ya hao jwale ho tloswa nako e hakantsweng ka {{name}}; bokatlase bo nka hore o fetisetsa e ka ba halofo, ka metsotso e {{lowYgt}} tokomane ka nngwe. Sesebediswa ka seng se sa hokahanang kamora {{ok}} se ja ho fihla ho dintlha tse 2, mme dintlha di qala ho 0 ho isa ho 100.",
+      "trialTitle": "O se o loketse ho nolofatsa ho tsamaisa kgwebo ya hao?",
+      "trialBody": "O bone moo ditshebetso tsa hao di ka ntlafalang teng. Leka {{name}} mahala matsatsi a {{days}} mme o behe ntho tsohle sebakeng se le seng. Ha ho hlokehe karete, o ka hlakola neng kapa neng.",
       "again": "Etsa hape",
       "now": "Jwale",
-      "withYgt": "Ka {{name}}",
+      "withYgt": "Ho hakanngwa ka {{name}}",
       "range": "{{low}}–{{high}}",
       "freed": "Nako eo o ka e lokollang",
       "perMonth": "ka kgwedi",
       "worth": "Nako eo e ka ba ya bohlokwa ba",
-      "worthNote": "Ka boleng ba hao ba hora. Sena ke boleng ba nako e lokolotsweng, eseng letseno le eketsehileng le netefaditsweng kapa tjhelete e bolokilweng. Diphetho tsa hao di itshetlehile ka hore na o fetisetsa mosebetsi o kae wa hao."
+      "worthNote": "Ka boleng ba hao ba hora. Sena ke boleng ba nako e lokolotsweng, eseng letseno le eketsehileng le netefaditsweng kapa tjhelete e bolokilweng. Diphetho tsa hao di itshetlehile ka hore na o fetisetsa mosebetsi o kae wa hao.",
+      "sumAreas": "Dibaka tse hlano",
+      "sumTools": "Phetoho ya disebediswa",
+      "sumScore": "Dintlha tsa hao",
+      "toolsConnected": "O itse disebediswa tsa hao di sebetsa mmoho, kahoo palo ya disebediswa ha e o je dintlha.",
+      "rangeHigh": "Dihora tse {{hours}} ha o fetisetsa tsena tsohle ho {{name}}.",
+      "rangeLow": "Dihora tse {{hours}} ha o fetisetsa e ka ba halofo, mme kotatsheno kapa invoice ka nngwe e ntse e nka metsotso e {{minutes}}."
     },
     "roadmap": {
       "title_one": "Mohato wa hao o latelang",
@@ -3029,7 +3048,8 @@
         "title": "Theha mokgwa wa dikgopotso",
         "body": "Sheba beke le beke hore na ke mang ya o kolotang mme o romele dikgopotso ka lenaneo le sa fetoheng, hore ho latela ho se itshetlehe ka ho hopola."
       },
-      "footer": "Ha o tlameha ho lokisa tsohle ka nako e le nngwe. Qala ka mohato wa 1."
+      "footer": "Ha o tlameha ho lokisa tsohle ka nako e le nngwe. Qala ka mohato wa 1.",
+      "link": "Bona kamoo {{name}} e thusang kateng"
     },
     "plan": {
       "eyebrow": "Moralo o kgothaletswang",
@@ -3050,7 +3070,10 @@
         "discovery": "Bareki ba batjha ba ka bang teng ba fumanwang beke le beke",
         "priority_support": "Tshehetso ya pele"
       },
-      "compare": "Bapisa merero yohle"
+      "compare": "Bapisa merero yohle",
+      "teamFit": "E lekana sehlopha sa hao",
+      "featureFit": "E lekana seo o se hlokang",
+      "included": "Morerong o mong le o mong"
     },
     "talk": {
       "title": "O batla hore re o hlalosetse diphetho?",
@@ -3058,7 +3081,8 @@
       "consent": "E, {{name}} e ka ikopanya le nna mabapi le diphetho tsa ka.",
       "send": "Ntlhalosetse",
       "sentTitle": "Re a leboha, re fumane diphetho tsa hao",
-      "sentBody": "Re tla ikopanya le wena ho {{email}} nakong ya letsatsi le le leng la mosebetsi."
+      "sentBody": "Re tla ikopanya le wena ho {{email}} nakong ya letsatsi le le leng la mosebetsi.",
+      "privacy": "Leano la boinotshi"
     }
   }
 }

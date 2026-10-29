@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 import { APP_FULL_NAME, APP_NAME, BrandMark, COMPANY_NAME } from "../components/Brand";
 import LanguagePicker from "../components/LanguagePicker";
 import { IntervalToggle, PlanCard } from "../components/Billing";
-import { ContactForm } from "./PublicPages";
+import { ContactForm, PublicNav } from "./PublicPages";
 import { usePlans } from "../hooks/useApi";
 import { LANGUAGES } from "../i18n/languages";
 import pkg from "../../package.json";
@@ -44,6 +44,29 @@ export function FeatureIcon({ name }) {
 export default function AboutPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
+  // A link to one part of the page (the prices, or a feature from the
+  // check-up's roadmap): the router doesn't follow #hashes itself, so scroll
+  // there, and mark a feature for a moment. The prices render once the plans
+  // load, hence the second try.
+  const { hash } = useLocation();
+  const [marked, setMarked] = useState(null);
+  useEffect(() => {
+    if (!hash) return undefined;
+    const id = hash.slice(1);
+    const go = () => {
+      const el = document.getElementById(id);
+      if (!el) return false;
+      el.scrollIntoView({ block: id.startsWith("feature-") ? "center" : "start" });
+      return true;
+    };
+    const retry = go() ? null : setTimeout(go, 600);
+    if (id.startsWith("feature-")) setMarked(id);
+    const unmark = setTimeout(() => setMarked(null), 2400);
+    return () => {
+      clearTimeout(retry);
+      clearTimeout(unmark);
+    };
+  }, [hash]);
 
   return (
     <div className="min-h-[100dvh] bg-white">
@@ -52,12 +75,13 @@ export default function AboutPage() {
         <span className="aurora-blob right-[-6rem] top-[2rem] h-80 w-80 bg-sky-300" />
       </div>
       <div className="safe-top relative mx-auto max-w-4xl px-6">
-        <header className="flex items-center gap-2.5 py-6">
+        <header className="flex flex-wrap items-center gap-x-2.5 py-6">
           {/* Home for people signed in; the sign-in page for everyone else. */}
           <Link to="/" className="flex min-h-10 items-center gap-2.5 rounded-lg [@media(pointer:coarse)]:min-h-11">
             <BrandMark size="sm" />
             <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
           </Link>
+          <PublicNav />
           <div className="ml-auto flex items-center gap-3">
             <LanguagePicker />
             <Link to={user ? "/" : "/login"} className="btn btn-secondary !h-9 !text-sm [@media(pointer:coarse)]:!h-11">
@@ -150,7 +174,7 @@ export default function AboutPage() {
 
         <section id="about-features" className="scroll-mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label={t("about.featuresTitle")}>
           {FEATURES.map((key, i) => (
-            <div key={key} className="card stagger-rise p-5" style={{ "--i": i }}>
+            <div key={key} id={`feature-${key}`} className={`card stagger-rise scroll-mt-6 p-5 transition-shadow duration-500 ${marked === `feature-${key}` ? "ring-2 ring-indigo-500" : ""}`} style={{ "--i": i }}>
               <FeatureIcon name={key} />
               <h2 className="mt-3 font-semibold text-zinc-900">{t(`about.features.${key}.title`)}</h2>
               <p className="mt-1 text-sm leading-relaxed text-zinc-600">{t(`about.features.${key}.body`)}</p>

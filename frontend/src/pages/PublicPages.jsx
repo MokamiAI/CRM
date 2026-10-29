@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
 import { announceVerified, useAuth } from "../context/AuthContext";
@@ -19,7 +19,7 @@ export const LEGAL = {
   address: "1929 Vuka Section, Oukasie, Brits, 0250, South Africa",
   email: "johannes@yougt.co.za",
   informationOfficer: "Mokami Johannes",
-  updated: "11 October 2026",
+  updated: "29 October 2026",
 };
 const missing = (value) => value || "[to be added]";
 
@@ -31,11 +31,12 @@ export function PublicShell({ children, narrow = false }) {
   return (
     <div className="min-h-[100dvh] bg-white">
       <div className={`safe-top mx-auto px-6 ${narrow ? "max-w-3xl" : "max-w-4xl"}`}>
-        <header className="flex items-center gap-2.5 py-6">
+        <header className="flex flex-wrap items-center gap-x-2.5 py-6">
           <Link to="/" className="flex items-center gap-2.5 rounded-lg">
             <BrandMark size="sm" />
             <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
           </Link>
+          <PublicNav />
           <div className="ml-auto flex items-center gap-3">
             <LanguagePicker />
             <Link to={user ? "/" : "/login"} className="btn btn-secondary !h-9 !text-sm">
@@ -47,6 +48,43 @@ export function PublicShell({ children, narrow = false }) {
         <PublicFooter />
       </div>
     </div>
+  );
+}
+
+/** The public pages' tabs: home, the check-up, prices, about and contact.
+    Beside the logo on wide screens; its own scrolling row under it on phones. */
+export function PublicNav() {
+  const { t } = useTranslation();
+  const { pathname, hash } = useLocation();
+  const links = [
+    ["/", t("nav.home")],
+    ["/assessment", t("home.nav.checkup")],
+    ["/about#about-pricing", t("home.nav.pricing")],
+    ["/about", t("about.link")],
+    ["/contact", t("contact.link")],
+  ];
+  const isCurrent = (to) => {
+    const [path, part] = to.split("#");
+    return path === pathname && (part ? hash === `#${part}` : !hash);
+  };
+  return (
+    <nav aria-label={t("home.nav.label")} className="order-last -mx-6 mt-4 w-[calc(100%+3rem)] overflow-x-auto px-6 lg:order-none lg:mx-0 lg:ml-6 lg:mt-0 lg:w-auto lg:overflow-visible lg:px-0">
+      <ul className="flex gap-1 whitespace-nowrap text-sm">
+        {links.map(([to, label]) => (
+          <li key={to}>
+            <Link
+              to={to}
+              aria-current={isCurrent(to) ? "page" : undefined}
+              className={`inline-flex min-h-9 items-center rounded-lg px-2.5 font-medium [@media(pointer:coarse)]:min-h-11 ${
+                isCurrent(to) ? "bg-indigo-50 text-indigo-700" : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
+              }`}
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
 
@@ -451,7 +489,14 @@ const LEGAL_PAGES = {
           </p>
         </Section>
         <Section title="3. Cancelling">
-          <p>You can cancel at any time in Settings &gt; Billing. Your plan stays active until the end of the period you've paid for. Refunds are covered in our Refund policy.</p>
+          <p>
+            You can cancel at any time in Settings &gt; Billing. Cancelling stops the next renewal; it doesn't end your plan straight away. Your subscription keeps
+            running, with everything working, until the end of the billing period you've already paid for (the month, or the year on a yearly plan).
+          </p>
+          <p>
+            After that, your workspace becomes read-only: you can still sign in, see and export your information, but you can't add, change or send anything until
+            you choose a plan again. Nothing is deleted. Refunds are covered in our Refund policy.
+          </p>
         </Section>
         <Section title="4. Your information">
           <p>
@@ -541,6 +586,12 @@ const LEGAL_PAGES = {
     titleKey: "legal.refunds",
     body: () => (
       <>
+        <Section title="Cancelling your subscription">
+          <p>
+            You can cancel at any time in Settings &gt; Billing. When you cancel, your subscription runs until the end of the billing period you've paid for and then
+            isn't renewed. You keep full use of YGT until that date; after it, your workspace becomes read-only and nothing is deleted.
+          </p>
+        </Section>
         <Section title="Free trial">
           <p>Every new organisation gets 14 days free. We don't ask for a card, so nothing is charged during the trial.</p>
         </Section>

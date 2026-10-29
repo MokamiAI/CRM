@@ -174,14 +174,14 @@
       "trial_other": "Ho sala maḓuvha a {{count}} kha tshifhinga tshaṋu tsha u lingedza Grow mahala."
     },
     "cancel": "Khanselani pulane",
-    "cancelConfirm": "Ni khansela pulane yaṋu? Ni ḓo i vha nayo u swika nga {{date}}, nga murahu ni ya kha Free. A hu na tshithu tshi phumulwaho.",
+    "cancelConfirm": "Ni khansela pulane yaṋu? A i nga vusuluswi. Ni ḓo vha na zwoṱhe u swika magumoni a tshifhinga tshe na tshi badela nga {{date}}; nga murahu ha zwenezwo fhethu haṋu ha mushumo hu ḓo vha ha u vhala fhedzi u swika ni tshi nanga pulane hafhu. A hu na tshithu tshi phumulwaho.",
     "cancelYes": "Ee, khanselani",
     "cancelled": "Pulane yo khanselwa. I dzula i tshi shuma u swika nga {{date}}.",
     "changePlan": "Shandukisani pulane",
     "checkoutFailed": "A yo ngo kona u vula Paystack. Ri humbela ni lingedze hafhu.",
     "choose": "Nangani {{plan}}",
     "choosePlan": "Nangani pulane",
-    "choosePlanHint": "Badelani nga tsireledzo nga garaṱa nga Paystack. Shandukisani kana ni khansele tshifhinga tshiṅwe na tshiṅwe.",
+    "choosePlanHint": "Badelani nga tsireledzo nga garaṱa nga Paystack. Shandukisani kana ni khansele tshifhinga tshiṅwe na tshiṅwe: pulane yo khanselwaho i shuma u swika magumoni a tshifhinga tshe na tshi badela.",
     "confirmFailed": "A yo ngo kona u sedzulusa mbadelo zwino. Vusuludzani nga murahu ha minithi.",
     "current": "Pulane yaṋu ya zwino",
     "features": {
@@ -254,7 +254,7 @@
       "active": "I a shuma",
       "activeLine": "I vusuludzwa nga {{date}}.",
       "cancelled": "Yo khanselwa",
-      "cancelledLine": "Yo khanselwa. Pulane yaṋu i dzula i tshi shuma u swika nga {{date}}, nga murahu ni ya kha Free.",
+      "cancelledLine": "Yo khanselwa. Pulane yaṋu i dzula i tshi shuma u swika magumoni a tshifhinga tshe na tshi badela nga {{date}}, nga murahu fhethu haṋu ha mushumo hu vha ha u vhala fhedzi. A hu na tshithu tshi phumulwaho.",
       "free": "Mahala",
       "freeLine": "Ni kha pulane ya Free.",
       "lapsed": "A yo ngo badelwa",
@@ -2727,11 +2727,11 @@
     "intro": {
       "eyebrow": "Ndingo ya bindu ya mahala",
       "title": "Bindu ḽaṋu ḽo dzudzanyea u swika ngafhi zwa vhukuma?",
-      "lead": "Mbudziso dza 10 dza u ṱavhanya nga ha nḓila ine na ita ngayo zwithu ṋamusi. Ri ḓo ni sumbedza hune tshifhinga na tshelede zwa bva hone, na nḓila ine {{name}} ya nga thusa ngayo.",
+      "lead": "Mbudziso dza 10 dza u ṱavhanya nga ha nḓila ine na ita ngayo zwithu ṋamusi. Wanani zwine zwa lenga bindu ḽaṋu, hune na nga vhulunga tshifhinga hone, na nḓila ya u leludza mushumo waṋu wa ḓuvha ḽiṅwe na ḽiṅwe.",
       "get": {
         "score": "Mbalo ya mashumele a bindu ḽaṋu",
         "gaps": "Zwikhala zwaṋu zwiraru zwihulwane",
-        "time": "Awara na zwiranda zwine na nga zwi vhuedzedza"
+        "time": "Tshifhinga tshine na nga tshi vhulunga"
       },
       "start": "Thomani ndingo",
       "meta": "Mbudziso dza {{count}} · A hu na u ḓiṅwalisa"
@@ -2802,13 +2802,13 @@
       },
       "slip": {
         "topic": "Mutevhe wa u rengisa",
-        "title": "Zwi itea kangana uri murengi ane a nga vha hone a dzike ni sa athu u mu tevhela?",
+        "title": "Ni hangwa kana ni lenga kangana u tevhela murengi ane a nga vha hone?",
         "hint": "Ambani ngoho, a hu na ane a khou sedza.",
         "options": {
-          "rarely": "Zwi tou nga a zwi itei",
-          "some": "Lunzhi lwa ṱhukhu nga ṅwedzi",
-          "often": "Kanzhi, vhege iṅwe na iṅwe",
-          "unsure": "Zwa vhukuma a thi ḓivhi"
+          "rarely": "Zwi a konḓa",
+          "some": "Luvhili kana luraru nga ṅwedzi",
+          "often": "Hu ṱoḓa u vha vhege iṅwe na iṅwe",
+          "unsure": "A thi na vhungoho"
         }
       },
       "tasks": {
@@ -2838,8 +2838,9 @@
       "volume": {
         "topic": "Zwiṱangadzamitengo na dzi-invoice",
         "title": "Ni rumela zwiṱangadzamitengo na dzi-invoice zwingana nga ṅwedzi?",
-        "hint": "U humbulela zwo luga. Kokodzani slaidi.",
-        "label": "Zwiṱangadzamitengo na dzi-invoice nga ṅwedzi"
+        "hint": "Mbalo dza khakhathedzelo dzi a tea, na 0 i a tea.",
+        "quotes": "Zwiṱangadzamitengo nga ṅwedzi",
+        "invoices": "Dzi-invoice nga ṅwedzi"
       },
       "payments": {
         "topic": "U badelwa",
@@ -2856,7 +2857,7 @@
         "topic": "Zwine na zwi ṱoḓa",
         "title": "Ndi zwifhio kha hezwi zwine na nga zwi shumisa vhukuma?",
         "options": {
-          "basics": "Zwa mutheo fhedzi: vharengi, zwiṱangadzamitengo na dzi-invoice",
+          "basics": "Ndaulo ya vharengi, zwiṱangadzamitengo na dzi-invoice",
           "whatsapp": "Zwihumbudzi zwa WhatsApp na SMS",
           "marketing": "Mafulo a imeiḽi na maṅwalo a mafhungo",
           "recurring": "Dzi-invoice dzine dza dovhololwa ṅwedzi muṅwe na muṅwe",
@@ -2864,7 +2865,8 @@
           "chat": "U amba na tshigwada tshanga",
           "leads": "Thuso ya u wana vharengi vhaswa",
           "priority": "Thikhedzo ya u ṱavhanya na ya u thoma"
-        }
+        },
+        "hint": "Nangani fhedzi zwine na nga zwi shumisa vhukuma: pulane ine ra i themendela i ḓitika ngazwo."
       },
       "tools": {
         "topic": "U vhala ha u fhedza",
@@ -2878,7 +2880,14 @@
         "more": "Tshithihi nṱha",
         "others": "Ni shumisa zwiṅwe hafhu? App ya bannga, sisiṱeme ya u bukha, nomboro ya vhuvhili ya WhatsApp? Zwi engedzeni nga +.",
         "extra_one": "Khathihi na tshi {{count}} tshe na tshi engedza.",
-        "extra_other": "Khathihi na zwa {{count}} zwe na zwi engedza."
+        "extra_other": "Khathihi na zwa {{count}} zwe na zwi engedza.",
+        "connect": "Naa zwishumiswa izwi zwi shuma zwothe, kana ni kopa mafhungo vhukati hazwo?",
+        "connectOptions": {
+          "auto": "Mafhungo manzhi a tshimbila vhukati hazwo nga zwoṱhe",
+          "some": "Zwiṅwe zwo ṱanganywa, fhedzi ndi kha ḓi kopa zwithu",
+          "manual": "Ndi kopa mafhungo nga zwanḓa vhukati ha zwinzhi",
+          "unsure": "A thi na vhungoho"
+        }
       }
     },
     "working": {
@@ -2956,7 +2965,7 @@
     "report": {
       "outOf": "kha 100",
       "scoreName": "Mbalo ya mashumele a bindu",
-      "scoreNote": "Hezwi zwi ela uri maitele e ra vhudzisa nga hao o dzudzanywa hani, hu si uri bindu ḽaṋu ḽi khou shuma zwavhuḓi hani.",
+      "scoreNote": "Hezwi zwi ela uri maitele e ra vhudzisa nga hao o dzudzanywa hani, hu si uri bindu ḽaṋu ḽi khou shuma zwavhuḓi hani. Bindu ḽaṋu ḽi nga vha ḽi tshi khou ita zwavhuḓi: mbalo i sumbedza fhedzi hune maitele a ḓuvha ḽiṅwe na ḽiṅwe a nga leluwa hone.",
       "band": {
         "attention": {
           "label": "Zwi ṱoḓa u londwa",
@@ -2983,7 +2992,11 @@
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "Ni shumisa tshishumiswa tshi {{count}}",
       "toolsTitle_other": "Ni shumisa zwishumiswa zwa {{count}}",
-      "toolsCost": "Zwa {{loose}} kha zwenezwo ndi zwishumiswa zwi sa ṱanganywaho zwi ngaho bammbiri, nyambedzano, dzi-spreadsheet kana dziṅwe app. Tshishumiswa tshiṅwe na tshiṅwe tshi sa ṱanganywaho nga murahu ha {{ok}} tshi amba u kopa hunzhi na zwithu zwi wela vhukati: hu bviswa mbalo dza {{points}}. Sisiṱeme dzi ngaho CRM kana app ya dzi-invoice a dzi ni vhalelwi zwi si zwavhuḓi.",
+      "toolsCost": {
+        "some": "Zwa {{loose}} kha zwenezwo ndi zwishumiswa zwo ṱanganywaho nga tshipiḓa fhedzi, ngauralo zwiṅwe zwithu zwi kha ḓi kopiwa nga zwanḓa: hu bviswa mbalo dza {{points}}. Sisiṱeme dzi ngaho CRM kana app ya dzi-invoice a dzi ni vhalelwi zwi si zwavhuḓi.",
+        "manual": "Zwa {{loose}} kha zwenezwo ndi zwishumiswa zwine na kopa mafhungo vhukati hazwo nga zwanḓa, ngauralo zwithu zwi wela vhukati: hu bviswa mbalo dza {{points}}. Sisiṱeme dzi ngaho CRM kana app ya dzi-invoice a dzi ni vhalelwi zwi si zwavhuḓi.",
+        "unsure": "Zwa {{loose}} kha zwenezwo ndi zwishumiswa zwi sa ṱanganywaho, nahone a ni na vhungoho uri hu kopiwa mini vhukati hazwo, ngauralo zwithu zwi nga wela vhukati: hu bviswa mbalo dza {{points}}. Sisiṱeme dzi ngaho CRM kana app ya dzi-invoice a dzi ni vhalelwi zwi si zwavhuḓi."
+      },
       "toolsFine": "Iyi ndi mbalo i langeaho. U i vhulunga zwenezwo zwi a thusa.",
       "gapsTitle_one": "Tshikhala tshaṋu tshihulwane",
       "gapsTitle_other": "Zwikhala zwaṋu zwihulwane zwa {{count}}",
@@ -2994,17 +3007,23 @@
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
       "howTitle": "Ro shuma hezwi hani",
-      "how": "Ndi khakhathedzelo, hu si fulufhedziso, yo ḓisendekaho kha phindulo dzaṋu fhedzi. Tshiṱangadzamitengo tshiṅwe na tshiṅwe kana invoice zwi dzhia minetse ya 8 u swika kha 25 zwi tshi ya nga hune zwa itwa hone, musi zwi tshi vhambedzwa na minetse ya {{ygt}} u swika kha {{lowYgt}} nga {{name}}. U tevhela mbadelo ya nga murahu ha tshifhinga nga zwanḓa zwi dzhia minetse i ṱoḓaho u vha {{chase}}. Tshishumiswa tshiṅwe na tshiṅwe tshi sa ṱanganywaho nga murahu ha zwivhili tshi ḽa awara dzi ṱoḓaho u vha {{switching}} nga ṅwedzi muthu muṅwe na muṅwe kha u kopa; u sedza zwithu zwi vhalwa nga u fhambana, ngauralo a hu na minetse i vhalwaho luvhili. Tshifhinga tsha u sedza tshi aluwa na tshivhalo tsha vhathu vhane vha ita ndaulo, fhedzi nga u ongolowa u fhira tshigwada. Nṱha ha mutevhe zwi humbula uri ni pfukisela zwoṱhe hezwi kha {{name}}; fhasi zwi humbula hafu, nga minetse ya {{lowYgt}} ḽiṅwalwa ḽiṅwe na ḽiṅwe. Tshishumiswa tshiṅwe na tshiṅwe tshi sa ṱanganywaho nga murahu ha {{ok}} tshi ḽa mbalo dza 2, nahone mbalo dzi thoma kha 0 u swika kha 100.",
-      "trialTitle": "Valani zwikhala izwi fhethu huthihi",
-      "trialBody": "Lingedzani zwoṱhe mahala maḓuvha a {{days}}. A hu ṱoḓei garaṱa, nahone ni nga ḓisa vharengi vhaṋu u bva kha Excel.",
+      "how": "Ndi khakhathedzelo, hu si fulufhedziso, yo ḓisendekaho kha phindulo dzaṋu fhedzi. Tshiṱangadzamitengo tshiṅwe na tshiṅwe kana invoice zwi dzhia minetse ya 8 u swika kha 25 zwi tshi ya nga hune zwa itwa hone, musi zwi tshi vhambedzwa na minetse ya {{ygt}} u swika kha {{lowYgt}} nga {{name}}. U tevhela invoice ya nga murahu ha tshifhinga nga zwanḓa zwi dzhia minetse i ṱoḓaho u vha {{chase}}. U kopa vhukati ha zwishumiswa zwi sa ṱanganywaho zwi ḽa u swika kha awara dza {{switching}} nga ṅwedzi muthu muṅwe na muṅwe kha tshishumiswa tshiṅwe na tshiṅwe nga murahu ha zwivhili, zwi si gathi arali zwishumiswa zwaṋu zwo ṱanganywa nga tshipiḓa nahone a zwi ḽi tshithu arali zwi tshi shuma zwothe; u kopa huṅwe hu sala na nga {{name}}. U sedza zwithu zwi vhalwa nga u fhambana, ngauralo a hu na minetse i vhalwaho luvhili. Tshifhinga tsha u sedza tshi aluwa na tshivhalo tsha vhathu vhane vha ita ndaulo, fhedzi nga u ongolowa u fhira tshigwada. Nṱha ha mutevhe ndi tshifhinga tshaṋu zwino hu tshi bviswa tshifhinga tsho khakhathedzelwaho nga {{name}}; fhasi zwi humbula uri ni pfukisela hafu, nga minetse ya {{lowYgt}} ḽiṅwalwa ḽiṅwe na ḽiṅwe. Tshishumiswa tshiṅwe na tshiṅwe tshi sa ṱanganywaho nga murahu ha {{ok}} tshi ḽa u swika kha mbalo dza 2, nahone mbalo dzi thoma kha 0 u swika kha 100.",
+      "trialTitle": "No ḓilugisela u leludza u tshimbidza bindu ḽaṋu?",
+      "trialBody": "No vhona hune maitele aṋu a nga khwinifhala hone. Lingani {{name}} mahala maḓuvha a {{days}} ni vhee zwoṱhe fhethu huthihi. A hu ṱoḓei garaṱa, ni nga khansela tshifhinga tshiṅwe na tshiṅwe.",
       "again": "Itani hafhu",
       "now": "Zwino",
-      "withYgt": "Nga {{name}}",
+      "withYgt": "Nga khakhathedzelo na {{name}}",
       "range": "{{low}}–{{high}}",
       "freed": "Tshifhinga tshine na nga tshi vhofholola",
       "perMonth": "nga ṅwedzi",
       "worth": "Tshenetsho tshifhinga tshi nga vha na ndeme ya",
-      "worthNote": "Nga ndeme yaṋu ya awara. Iyi ndi ndeme ya tshifhinga tsho vhofhololwaho, hu si mbuelo ya u engedza yo khwaṱhisedzwaho kana tshelede yo vhulungwaho. Mvelelo dzaṋu dzi ḓitika nga uri ni pfukisela mushumo muhulu hani waṋu."
+      "worthNote": "Nga ndeme yaṋu ya awara. Iyi ndi ndeme ya tshifhinga tsho vhofhololwaho, hu si mbuelo ya u engedza yo khwaṱhisedzwaho kana tshelede yo vhulungwaho. Mvelelo dzaṋu dzi ḓitika nga uri ni pfukisela mushumo muhulu hani waṋu.",
+      "sumAreas": "Masia maṱanu",
+      "sumTools": "U lulamiswa ha zwishumiswa",
+      "sumScore": "Mbalo yaṋu",
+      "toolsConnected": "No ri zwishumiswa zwaṋu zwi shuma zwothe, ngauralo tshivhalo tsha zwishumiswa a tshi ni ḽi mbalo.",
+      "rangeHigh": "Awara dza {{hours}} arali na pfukisela zwoṱhe hezwi kha {{name}}.",
+      "rangeLow": "Awara dza {{hours}} arali na pfukisela hafu, nahone tshiṱangadzamitengo tshiṅwe na tshiṅwe kana invoice zwi kha ḓi dzhia minetse ya {{minutes}}."
     },
     "roadmap": {
       "title_one": "Ḽiga ḽaṋu ḽi tevhelaho",
@@ -3029,7 +3048,8 @@
         "title": "Thomani mukhwa wa zwihumbudzi",
         "body": "Sedzani vhege iṅwe na iṅwe uri ndi nnyi ane a ni kolota ni rumele zwihumbudzi nga shedulu i sa shanduki, uri u tevhela hu si ḓitike nga u humbula."
       },
-      "footer": "A ni tou fanela u lugisa zwoṱhe nga tshifhinga tshithihi. Thomani nga ḽiga ḽa 1."
+      "footer": "A ni tou fanela u lugisa zwoṱhe nga tshifhinga tshithihi. Thomani nga ḽiga ḽa 1.",
+      "link": "Vhonani nḓila ine {{name}} ya thusa ngayo"
     },
     "plan": {
       "eyebrow": "Pulane i themendelwaho",
@@ -3050,7 +3070,10 @@
         "discovery": "Vharengi vhaswa vhane vha nga vha hone vha wanala vhege iṅwe na iṅwe",
         "priority_support": "Thikhedzo ya u thoma"
       },
-      "compare": "Vhambedzani pulane dzoṱhe"
+      "compare": "Vhambedzani pulane dzoṱhe",
+      "teamFit": "I tea tshigwada tshaṋu",
+      "featureFit": "I tea zwine na zwi ṱoḓa",
+      "included": "Kha pulane iṅwe na iṅwe"
     },
     "talk": {
       "title": "Ni ṱoḓa uri ri ni ṱalutshedze mvelelo?",
@@ -3058,7 +3081,8 @@
       "consent": "Ee, {{name}} i nga kwamana na nṋe nga ha mvelelo dzanga.",
       "send": "Nṱalutshedzeni",
       "sentTitle": "Ri a livhuwa, ro wana mvelelo dzaṋu",
-      "sentBody": "Ri ḓo kwamana naṋu kha {{email}} nga ngomu ha ḓuvha ḽithihi ḽa mushumo."
+      "sentBody": "Ri ḓo kwamana naṋu kha {{email}} nga ngomu ha ḓuvha ḽithihi ḽa mushumo.",
+      "privacy": "Mbekanyamaitele ya tshiphiri"
     }
   }
 }

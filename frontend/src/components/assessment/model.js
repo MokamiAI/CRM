@@ -8,7 +8,7 @@
  */
 import { PEOPLE } from "../home/HomePeople";
 
-export const MODEL_VERSION = 2;
+export const MODEL_VERSION = 3;
 
 export const QUESTIONS = [
   // Business type and the people who'd use YGT, on one card.
@@ -18,10 +18,12 @@ export const QUESTIONS = [
   { key: "slip", kind: "single", options: ["rarely", "some", "often", "unsure"] },
   { key: "tasks", kind: "multi", options: ["memory", "paper", "whatsapp", "calendar", "excel", "taskApp"] },
   { key: "documents", kind: "multi", options: ["word", "excel", "whatsapp", "paper", "accounting", "invoicing"] },
-  { key: "volume", kind: "range", min: 5, max: 300, step: 5, initial: 30 },
+  // Quotes and invoices counted apart: chasing payment only follows invoices.
+  { key: "volume", kind: "volumes", fields: ["quotes", "invoices"], min: 0, max: 200, step: 5 },
   { key: "payments", kind: "single", options: ["rarely", "manual", "remember", "automatic"] },
   { key: "needs", kind: "multi", options: ["basics", "whatsapp", "marketing", "recurring", "owing", "chat", "leads", "priority"] },
-  { key: "tools", kind: "count", min: 1, max: 20 },
+  // How many tools, and whether they work together or are copied between.
+  { key: "tools", kind: "count", min: 1, max: 20, connect: ["auto", "some", "manual", "unsure"] },
 ];
 
 // The answers that name a tool (an app, a book, a chat, or memory). The
@@ -52,6 +54,9 @@ const QUALITY = {
 };
 export const AREAS = ["customers", "pipeline", "tasks", "documents", "payments"];
 export const AREA_MAX = 20;
+// Areas that describe the same kind of work. The gaps take the worst of
+// each kind first, so the report doesn't show two versions of one problem.
+const KINDS = { customers: "records", pipeline: "followUp", tasks: "followUp", documents: "money", payments: "money" };
 
 // Team answers count the people who handle customers, quotes, invoices or
 // follow-ups (the ones who'd use YGT), not the whole headcount. The factor
@@ -63,6 +68,10 @@ const TEAM = {
   team: { seats: 6, factor: 2.6 },
   large: { seats: 12, factor: 3.8 },
 };
+
+// How much of the copying between tools is done by hand: tools that work
+// together cost nothing, tools copied between by hand cost the most.
+const COPYING = { auto: 0, some: 0.5, manual: 1, unsure: 0.5 };
 
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 const mean = (list) => list.reduce((a, b) => a + b, 0) / list.length;
@@ -91,18 +100,18 @@ const PIPELINE_HOURS = { memory: 3, whatsapp: 2.5, excel: 1.5, crm: 0.25 };
 const TASK_HOURS = { memory: 2.5, paper: 2, whatsapp: 2, calendar: 1.25, excel: 1.5, taskApp: 0.25 };
 // The same lookups in YGT, per person.
 const YGT_LOOKUP_HOURS = 0.25;
-// Of the documents, the share that are invoices, the share of those paid
-// late, and the minutes each chase takes by hand (or just to check, with
-// YGT's reminders doing the chasing).
-const INVOICE_SHARE = 0.6;
+// Of the invoices, the share paid late, and the minutes each chase takes
+// by hand (or just to check, with YGT's reminders doing the chasing).
 const LATE_SHARE = { rarely: 0.05, manual: 0.3, remember: 0.3, automatic: 0.05 };
 const CHASE_MINUTES = 12;
 const YGT_CHASE_MINUTES = 3;
-// Copying between loose tools, per tool past two, per person. Only this
-// line counts switching: the lookups above are the searching itself, so
-// the same minute isn't counted twice.
+// Copying between loose tools, per tool past two, per person, when it's
+// all done by hand. Only this line counts switching: the lookups above are
+// the searching itself, so the same minute isn't counted twice. Some
+// copying stays with YGT (a bank app, a supplier's portal).
 const SWITCH_HOURS = 0.5;
-// Loose tools past this many cost points.
+const YGT_COPY_SHARE = 0.25;
+// Loose tools past this many cost points, if they're copied between.
 const TOOLS_OK = 3;
 // The cautious end of the range: you move about half your admin into YGT,
 // and each quote or invoice takes 10 minutes rather than 5.
@@ -112,18 +121,19 @@ const LOW_YGT_MINUTES = 10;
 export const ASSUMPTIONS = { DOC_MINUTES, YGT_MINUTES, LOW_YGT_MINUTES, CHASE_MINUTES, SWITCH_HOURS, TOOLS_OK, LOW_SHARE };
 
 /** What each part of the admin takes now, and with YGT, in hours a month. */
-function timeSheet(answers, team, volume, loose, ygtMinutes) {
+function timeSheet(answers, team, docsCount, invoices, loose, ygtMinutes) {
   const docs = answers.documents?.length ? answers.documents : ["excel"];
   const crmOnly = answers.customers?.length === 1 && answers.customers[0] === "crm";
-  const late = volume * INVOICE_SHARE * (LATE_SHARE[answers.payments] ?? 0.3);
+  const late = invoices * (LATE_SHARE[answers.payments] ?? 0.3);
   const lookup = YGT_LOOKUP_HOURS * team.factor;
+  const copying = Math.max(0, loose - 2) * SWITCH_HOURS * team.factor * (COPYING[answers.connect] ?? 0.5);
   return {
-    documents: { now: (volume * mean(docs.map((d) => DOC_MINUTES[d]))) / 60, ygt: (volume * ygtMinutes) / 60 },
+    documents: { now: (docsCount * mean(docs.map((d) => DOC_MINUTES[d]))) / 60, ygt: (docsCount * ygtMinutes) / 60 },
     customers: { now: (crmOnly ? YGT_LOOKUP_HOURS : CUSTOMER_HOURS) * team.factor, ygt: lookup },
     pipeline: { now: (PIPELINE_HOURS[answers.enquiries] ?? 2) * team.factor, ygt: lookup },
     tasks: { now: (answers.tasks?.length ? mean(answers.tasks.map((v) => TASK_HOURS[v])) : 2) * team.factor, ygt: lookup },
     payments: { now: (late * CHASE_MINUTES) / 60, ygt: (late * YGT_CHASE_MINUTES) / 60 },
-    switching: { now: Math.max(0, loose - 2) * SWITCH_HOURS * team.factor, ygt: 0 },
+    switching: { now: copying, ygt: copying * YGT_COPY_SHARE },
   };
 }
 
@@ -152,9 +162,19 @@ export function recommendPlan(plans, needs = [], seats = 1) {
   return { ...best, wanted: wanted.filter((f) => best.plan.features?.includes(f)) };
 }
 
+/** The weakest areas, worst first, one of each kind before a second of any;
+    anything nearly full marks isn't a gap. */
+function pickGaps(areas) {
+  const weak = AREAS.filter((a) => areas[a] < AREA_MAX * 0.85).sort((a, b) => areas[a] - areas[b]);
+  const seen = new Set();
+  const first = weak.filter((a) => !seen.has(KINDS[a]) && seen.add(KINDS[a]));
+  return [...first, ...weak.filter((a) => !first.includes(a))].slice(0, 3);
+}
+
 export function assess(answers) {
   const team = TEAM[answers.team] ?? TEAM.solo;
-  const volume = answers.volume ?? 30;
+  const quotes = answers.quotes ?? 0;
+  const invoices = answers.invoices ?? 0;
   const detected = toolsUsed(answers);
   // Never fewer than the answers already named: the count can only add.
   const tools = Math.max(answers.tools ?? 0, detected.length, 1);
@@ -168,33 +188,35 @@ export function assess(answers) {
     documents: areaScore(answers.documents, QUALITY.documents),
     payments: QUALITY.payments[answers.payments] ?? 0,
   };
-  const toolPenalty = Math.min(12, Math.max(0, loose - TOOLS_OK) * 2);
-  const score = clamp(Math.round(AREAS.reduce((sum, a) => sum + areas[a], 0) - toolPenalty), 0, 100);
+  const areaTotal = AREAS.reduce((sum, a) => sum + areas[a], 0);
+  // Loose tools past TOOLS_OK cost 2 points each when copied between by
+  // hand, 1 when partly connected, none when they work together.
+  const toolPenalty = Math.min(12, Math.round(Math.max(0, loose - TOOLS_OK) * 2 * (COPYING[answers.connect] ?? 0.5)));
+  const score = clamp(areaTotal - toolPenalty, 0, 100);
 
-  const sheet = timeSheet(answers, team, volume, loose, YGT_MINUTES);
-  const total = (key) => Object.values(sheet).reduce((sum, line) => sum + line[key], 0);
-  const high = Math.max(1, Math.round(saved(sheet)));
-  const low = Math.max(1, Math.min(high, Math.round(saved(timeSheet(answers, team, volume, loose, LOW_YGT_MINUTES), LOW_SHARE))));
-
-  // The weakest areas, worst first; anything nearly full marks isn't a gap.
-  const gaps = AREAS.filter((a) => areas[a] < AREA_MAX * 0.85)
-    .sort((a, b) => areas[a] - areas[b])
-    .slice(0, 3);
+  const sheet = timeSheet(answers, team, quotes + invoices, invoices, loose, YGT_MINUTES);
+  const hoursNow = Math.round(Object.values(sheet).reduce((sum, line) => sum + line.now, 0));
+  const hoursYgt = Math.round(Object.values(sheet).reduce((sum, line) => sum + line.ygt, 0));
+  // The top of the range is exactly now minus with YGT, as shown.
+  const high = Math.max(1, hoursNow - hoursYgt);
+  const low = Math.max(1, Math.min(high, Math.round(saved(timeSheet(answers, team, quotes + invoices, invoices, loose, LOW_YGT_MINUTES), LOW_SHARE))));
 
   return {
     areas,
+    areaTotal,
     score,
     toolPenalty,
     tools,
     loose,
     detected,
     sheet,
-    hoursNow: Math.round(total("now")),
-    hoursYgt: Math.round(total("ygt")),
+    hoursNow,
+    hoursYgt,
     hours: { low, high },
-    gaps,
+    gaps: pickGaps(areas),
     team,
-    volume,
+    quotes,
+    invoices,
   };
 }
 

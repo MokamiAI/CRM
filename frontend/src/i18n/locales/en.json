@@ -179,14 +179,14 @@
       "trial_other": "{{count}} days left in your free trial of Grow."
     },
     "cancel": "Cancel plan",
-    "cancelConfirm": "Cancel your plan? You keep it until {{date}}, then move to Free. Nothing is deleted.",
+    "cancelConfirm": "Cancel your plan? It won't renew. You keep everything until the end of your paid period on {{date}}; after that your workspace is read-only until you choose a plan again. Nothing is deleted.",
     "cancelYes": "Yes, cancel",
     "cancelled": "Plan cancelled. It stays on until {{date}}.",
     "changePlan": "Change plan",
     "checkoutFailed": "Couldn't open Paystack. Please try again.",
     "choose": "Choose {{plan}}",
     "choosePlan": "Choose a plan",
-    "choosePlanHint": "Pay securely by card through Paystack. Change or cancel any time.",
+    "choosePlanHint": "Pay securely by card through Paystack. Change or cancel any time: a cancelled plan runs until the end of the period you've paid for.",
     "confirmFailed": "Couldn't check the payment yet. Refresh in a minute.",
     "current": "Your current plan",
     "features": {
@@ -269,7 +269,7 @@
       "active": "Active",
       "activeLine": "Renews on {{date}}.",
       "cancelled": "Cancelled",
-      "cancelledLine": "Cancelled. Your plan stays on until {{date}}, then you move to Free.",
+      "cancelledLine": "Cancelled. Your plan stays on until the end of your paid period on {{date}}, then your workspace becomes read-only. Nothing is deleted.",
       "free": "Free",
       "freeLine": "You're on the Free plan.",
       "lapsed": "Not paid",
@@ -2883,11 +2883,11 @@
     "intro": {
       "eyebrow": "Free business check-up",
       "title": "How organised is your business, really?",
-      "lead": "10 quick questions about how you run things today. We'll show you where time and money slip away, and how {{name}} can help.",
+      "lead": "10 quick questions about how you run things today. Discover what's slowing your business down, where you could save time, and how to simplify your daily operations.",
       "get": {
         "score": "Your business operations score",
         "gaps": "Your three biggest gaps",
-        "time": "Hours and rands you could win back"
+        "time": "Your potential time savings"
       },
       "start": "Start the check-up",
       "meta": "{{count}} questions · No sign-up"
@@ -2958,13 +2958,13 @@
       },
       "slip": {
         "topic": "Pipeline",
-        "title": "How often does a potential customer go quiet before you get to follow up?",
+        "title": "How often do you forget or delay following up with a potential customer?",
         "hint": "Be honest, nobody's watching.",
         "options": {
           "rarely": "Hardly ever",
           "some": "A few times a month",
-          "often": "Often, every week",
-          "unsure": "I honestly don't know"
+          "often": "Almost every week",
+          "unsure": "I'm not sure"
         }
       },
       "tasks": {
@@ -2994,8 +2994,9 @@
       "volume": {
         "topic": "Quotes and invoices",
         "title": "How many quotes and invoices do you send a month?",
-        "hint": "Roughly is fine. Drag the slider.",
-        "label": "Quotes and invoices a month"
+        "hint": "Rough numbers are fine, and 0 is fine too.",
+        "quotes": "Quotes a month",
+        "invoices": "Invoices a month"
       },
       "payments": {
         "topic": "Getting paid",
@@ -3012,7 +3013,7 @@
         "topic": "What you need",
         "title": "Which of these would you actually use?",
         "options": {
-          "basics": "Just the basics: customers, quotes and invoices",
+          "basics": "Customer management, quotes and invoices",
           "whatsapp": "WhatsApp and SMS reminders",
           "marketing": "Email campaigns and newsletters",
           "recurring": "Invoices that repeat every month",
@@ -3020,7 +3021,8 @@
           "chat": "Chat with my team",
           "leads": "Help finding new customers",
           "priority": "Fast, priority support"
-        }
+        },
+        "hint": "Pick only what you'd really use: the plan we suggest depends on it."
       },
       "tools": {
         "topic": "The final count",
@@ -3034,7 +3036,14 @@
         "more": "One more",
         "others": "Use anything else too? A bank app, a booking system, a second WhatsApp number? Add it with +.",
         "extra_one": "Plus {{count}} more that you added.",
-        "extra_other": "Plus {{count}} more that you added."
+        "extra_other": "Plus {{count}} more that you added.",
+        "connect": "Do these tools work together, or do you copy information between them?",
+        "connectOptions": {
+          "auto": "Most information moves between them automatically",
+          "some": "Some are connected, but I still copy things across",
+          "manual": "I copy information between most of them by hand",
+          "unsure": "I'm not sure"
+        }
       }
     },
     "working": {
@@ -3112,7 +3121,7 @@
     "report": {
       "outOf": "out of 100",
       "scoreName": "Business operations score",
-      "scoreNote": "This measures how organised the processes we asked about are, not how well your business is doing.",
+      "scoreNote": "This measures how organised the processes we asked about are, not how well your business is doing. Your business may be doing well: the score just shows where daily processes could be easier.",
       "band": {
         "attention": {
           "label": "Needs attention",
@@ -3139,7 +3148,11 @@
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "You juggle {{count}} tool",
       "toolsTitle_other": "You juggle {{count}} tools",
-      "toolsCost": "{{loose}} of them are loose tools such as paper, chats, spreadsheets or other apps. Every loose tool past {{ok}} means more copying and things falling between them: {{points}} points off. Systems like a CRM or an invoicing app don't count against you.",
+      "toolsCost": {
+        "some": "{{loose}} of them are loose tools that are only partly connected, so some things still get copied across by hand: {{points}} points off. Systems like a CRM or an invoicing app don't count against you.",
+        "manual": "{{loose}} of them are loose tools you copy information between by hand, so things fall through the gaps: {{points}} points off. Systems like a CRM or an invoicing app don't count against you.",
+        "unsure": "{{loose}} of them are loose tools, and you're not sure what's copied between them, so things can fall through the gaps: {{points}} points off. Systems like a CRM or an invoicing app don't count against you."
+      },
       "toolsFine": "That's a manageable number. Keeping it there pays off.",
       "gapsTitle_one": "Your biggest gap",
       "gapsTitle_other": "Your {{count}} biggest gaps",
@@ -3150,17 +3163,23 @@
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
       "howTitle": "How we worked this out",
-      "how": "An estimate, not a promise, based only on your answers. Each quote or invoice takes 8 to 25 minutes depending on where it's made, against {{ygt}} to {{lowYgt}} minutes with {{name}}. Chasing a late payment by hand takes about {{chase}} minutes. Every loose tool past two costs about {{switching}} hours a month per person in copying; looking things up is counted separately, so no minute is counted twice. Lookup time grows with the number of people handling admin, but more slowly than the team. The top of the range assumes you move all of this into {{name}}; the bottom assumes about half, at {{lowYgt}} minutes a document. Every loose tool past {{ok}} costs 2 points, and the score runs from 0 to 100.",
-      "trialTitle": "Close these gaps in one place",
-      "trialBody": "Try everything free for {{days}} days. No card needed, and you can bring your customers in from Excel.",
+      "how": "An estimate, not a promise, based only on your answers. Each quote or invoice takes 8 to 25 minutes depending on where it's made, against {{ygt}} to {{lowYgt}} minutes with {{name}}. Chasing a late invoice by hand takes about {{chase}} minutes. Copying between loose tools costs up to {{switching}} hours a month per person for every tool past two, less if your tools are partly connected and nothing if they work together; some copying stays with {{name}} too. Looking things up is counted separately, so no minute is counted twice. Lookup time grows with the number of people handling admin, but more slowly than the team. The top of the range is your time now minus the time estimated with {{name}}; the bottom assumes you move about half, at {{lowYgt}} minutes a document. Every loose tool past {{ok}} costs up to 2 points, and the score runs from 0 to 100.",
+      "trialTitle": "Ready to make running your business easier?",
+      "trialBody": "You've seen where your processes could improve. Try {{name}} free for {{days}} days and put everything in one place. No card needed, cancel any time.",
       "again": "Take it again",
       "now": "Now",
-      "withYgt": "With {{name}}",
+      "withYgt": "Estimated with {{name}}",
       "range": "{{low}}–{{high}}",
       "freed": "Time you could free up",
       "perMonth": "a month",
       "worth": "That time could be worth",
-      "worthNote": "At your hourly value. This is the value of time freed up, not guaranteed extra income or cash savings. Your results depend on how much of your work you move across."
+      "worthNote": "At your hourly value. This is the value of time freed up, not guaranteed extra income or cash savings. Your results depend on how much of your work you move across.",
+      "sumAreas": "Five areas",
+      "sumTools": "Tool adjustment",
+      "sumScore": "Your score",
+      "toolsConnected": "You said your tools work together, so the number of tools doesn't cost you points.",
+      "rangeHigh": "{{hours}} h if you move all of this into {{name}}.",
+      "rangeLow": "{{hours}} h if you move about half of it, and each quote or invoice still takes {{minutes}} minutes."
     },
     "roadmap": {
       "title_one": "Your next step",
@@ -3185,7 +3204,8 @@
         "title": "Set up a reminder routine",
         "body": "Check who owes you every week and send reminders on a fixed schedule, so chasing doesn't depend on remembering."
       },
-      "footer": "You don't have to fix everything at once. Start with step 1."
+      "footer": "You don't have to fix everything at once. Start with step 1.",
+      "link": "See how {{name}} helps"
     },
     "plan": {
       "eyebrow": "Recommended plan",
@@ -3206,7 +3226,10 @@
         "discovery": "New potential leads found for you every week",
         "priority_support": "Priority support"
       },
-      "compare": "Compare all plans"
+      "compare": "Compare all plans",
+      "teamFit": "Team fit",
+      "featureFit": "Feature fit",
+      "included": "In every plan"
     },
     "talk": {
       "title": "Want us to talk you through it?",
@@ -3214,7 +3237,8 @@
       "consent": "Yes, {{name}} may contact me about my results.",
       "send": "Talk me through it",
       "sentTitle": "Thanks, we've got your results",
-      "sentBody": "We'll be in touch at {{email}} within one working day."
+      "sentBody": "We'll be in touch at {{email}} within one working day.",
+      "privacy": "Privacy policy"
     }
   }
 }

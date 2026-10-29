@@ -123,17 +123,25 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
   // The tool count starts from what the earlier answers already named.
   useEffect(() => {
     if (q.kind === "count" && (value == null || value < detected.length)) onAnswer(q.key, Math.max(1, detected.length));
-    if (q.kind === "range" && value == null) onAnswer(q.key, q.initial);
   }, [q, value, detected.length, onAnswer]);
 
   const next = () => (last ? onDone() : onStep(step + 1));
   const described = answers.industry !== "other" || answers.industryDetail?.trim().length >= 2;
-  const ready = q.kind === "profile" ? answers.industry != null && described && answers.team != null :q.kind === "multi" ? value?.length > 0 : value != null;
+  const ready =
+    q.kind === "profile"
+      ? answers.industry != null && described && answers.team != null
+      : q.kind === "multi"
+        ? value?.length > 0
+        : q.kind === "volumes"
+          ? true
+          : q.kind === "count"
+            ? value != null && answers.connect != null
+            : value != null;
 
   function pick(option) {
     if (q.kind === "multi") {
-      const list = (value ?? []).filter((v) => v !== EXCLUSIVE && option !== EXCLUSIVE);
-      onAnswer(q.key, value?.includes(option) ? list.filter((v) => v !== option) : [...list, option]);
+      const list = value ?? [];
+      onAnswer(q.key, list.includes(option) ? list.filter((v) => v !== option) : [...list, option]);
       return;
     }
     onAnswer(q.key, option);
@@ -166,17 +174,21 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
         <h1 id="checkup-q" className="mt-1.5 text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
           {t(`assessment.q.${q.key}.title`)}
         </h1>
-        <p className="mt-1.5 text-zinc-600">{t(q.kind === "multi" ? "assessment.pickAll" : `assessment.q.${q.key}.hint`, { defaultValue: "" })}</p>
+        <p className="mt-1.5 text-zinc-600">{t(`assessment.q.${q.key}.hint`, { defaultValue: q.kind === "multi" ? t("assessment.pickAll") : "" })}</p>
 
         <div className="mt-6">
           {q.kind === "profile" ? (
             <Profile q={q} answers={answers} onAnswer={onAnswer} />
           ) : q.kind === "single" || q.kind === "multi" ? (
             <Options q={q} value={value} onPick={pick} />
-          ) : q.kind === "range" ? (
-            <Volume q={q} value={value ?? q.initial} onChange={(v) => onAnswer(q.key, v)} />
+          ) : q.kind === "volumes" ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              {q.fields.map((field) => (
+                <Volume key={field} q={q} field={field} value={answers[field] ?? 0} onChange={(v) => onAnswer(field, v)} />
+              ))}
+            </div>
           ) : (
-            <ToolCount q={q} value={value ?? 1} detected={detected} onChange={(v) => onAnswer(q.key, v)} />
+            <ToolCount q={q} value={value ?? 1} detected={detected} connect={answers.connect} onChange={(v) => onAnswer(q.key, v)} onConnect={(v) => onAnswer("connect", v)} />
           )}
         </div>
 
@@ -194,9 +206,6 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
     </section>
   );
 }
-
-// "Just the basics" can't be picked alongside a feature.
-const EXCLUSIVE = "basics";
 
 /** Business type (photo cards) and the people who'd use YGT, on one card. */
 function Profile({ q, answers, onAnswer }) {
@@ -240,7 +249,11 @@ function Options({ q, value, onPick }) {
   const multi = q.kind === "multi";
   const photo = (key) => PEOPLE.find((p) => p.key === key)?.photo;
   const label = (option) =>
-    q.key === "industry" ? (option === "other" ? t("assessment.q.profile.other") : t(`home.people.${option}.label`)) : t(`assessment.q.${q.key}.options.${option}`);
+    q.key === "industry"
+      ? option === "other"
+        ? t("assessment.q.profile.other")
+        : t(`home.people.${option}.label`)
+      : t(`assessment.q.${q.key}.${q.labels ?? "options"}.${option}`);
   return (
     <div className={`grid gap-2.5 ${q.key === "industry" ? "grid-cols-2 sm:grid-cols-4" : "sm:grid-cols-2"}`}>
       {q.options.map((option) => {
@@ -286,14 +299,15 @@ function Options({ q, value, onPick }) {
   );
 }
 
-function Volume({ q, value, onChange }) {
+/** One count, starting at 0 so nobody accepts a number we suggested. */
+function Volume({ q, field, value, onChange }) {
   const { t } = useTranslation();
   const id = useId();
   return (
     <div className="rounded-2xl bg-zinc-50 p-5 ring-1 ring-inset ring-zinc-200/70">
       <div className="flex items-baseline justify-between gap-3">
         <label htmlFor={id} className="text-sm font-medium text-zinc-700">
-          {t("assessment.q.volume.label")}
+          {t(`assessment.q.volume.${field}`)}
         </label>
         <span className="text-3xl font-semibold tabular-nums text-zinc-900">{value}</span>
       </div>
@@ -316,7 +330,7 @@ function Volume({ q, value, onChange }) {
   );
 }
 
-function ToolCount({ q, value, detected, onChange }) {
+function ToolCount({ q, value, detected, connect, onChange, onConnect }) {
   const { t } = useTranslation();
   // The answers already named these, so the count can't go below them.
   const min = Math.max(q.min, detected.length);
@@ -351,6 +365,13 @@ function ToolCount({ q, value, detected, onChange }) {
       <p className="mt-3 text-center text-sm text-zinc-500">
         {extra > 0 ? t("assessment.q.tools.extra", { count: extra }) : t("assessment.q.tools.others")}
       </p>
+      {/* More tools aren't a problem by themselves; copying between them by hand is. */}
+      <div className="mt-8 border-t border-zinc-100 pt-6">
+        <p className="font-medium text-zinc-900">{t("assessment.q.tools.connect")}</p>
+        <div className="mt-3">
+          <Options q={{ key: "tools", kind: "single", options: q.connect, labels: "connectOptions" }} value={connect} onPick={onConnect} />
+        </div>
+      </div>
     </div>
   );
 }
@@ -366,7 +387,7 @@ function Analysing({ answers, onDone }) {
     t("assessment.working.tools", { count: result.tools }),
     t("assessment.working.customers"),
     t("assessment.working.followUps"),
-    t("assessment.working.documents", { count: result.volume }),
+    t("assessment.working.documents", { count: result.quotes + result.invoices }),
     t("assessment.working.payments"),
     t("assessment.working.report"),
   ];
@@ -455,7 +476,11 @@ function ScoreRing({ score }) {
   );
 }
 
-const hoursText = (t, h) => t("assessment.report.hours", { count: Math.round(h * 2) / 2 });
+// The feature on the About page that each roadmap step leads to.
+const FEATURE_FOR = { customers: "sales", pipeline: "sales", tasks: "sales", documents: "billing", payments: "billing" };
+
+// To the half hour, but never down to 0 for time that is still spent.
+const hoursText = (t, h) => t("assessment.report.hours", { count: h > 0 ? Math.max(0.5, Math.round(h * 2) / 2) : 0 });
 
 function Report({ answers, onRestart }) {
   const { t, i18n } = useTranslation();
@@ -522,14 +547,31 @@ function Report({ answers, onRestart }) {
             );
           })}
         </ul>
-        <div className={`mt-6 flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:items-center ${result.toolPenalty ? "bg-amber-50" : "bg-emerald-50"}`}>
+        {/* How the five areas become the score, so the sum can be checked. */}
+        <dl className="mt-6 grid grid-cols-3 gap-2 rounded-2xl bg-zinc-50 p-3 text-center text-sm ring-1 ring-inset ring-zinc-200/70">
+          <div>
+            <dt className="text-zinc-500">{t("assessment.report.sumAreas")}</dt>
+            <dd className="mt-0.5 font-semibold tabular-nums text-zinc-900">{result.areaTotal}/100</dd>
+          </div>
+          <div>
+            <dt className="text-zinc-500">{t("assessment.report.sumTools")}</dt>
+            <dd className="mt-0.5 font-semibold tabular-nums text-zinc-900">{result.toolPenalty ? `−${result.toolPenalty}` : "0"}</dd>
+          </div>
+          <div>
+            <dt className="text-zinc-500">{t("assessment.report.sumScore")}</dt>
+            <dd className="mt-0.5 font-semibold tabular-nums text-zinc-900">{result.score}/100</dd>
+          </div>
+        </dl>
+        <div className={`mt-4 flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:items-center ${result.toolPenalty ? "bg-amber-50" : "bg-emerald-50"}`}>
           <p className="text-4xl font-semibold tabular-nums tracking-tight text-zinc-900">{result.tools}</p>
           <div className="text-sm">
             <p className="font-semibold text-zinc-900">{t("assessment.report.toolsTitle", { count: result.tools })}</p>
             <p className="mt-0.5 text-zinc-700">
               {result.toolPenalty
-                ? t("assessment.report.toolsCost", { loose: result.loose, points: result.toolPenalty, ok: ASSUMPTIONS.TOOLS_OK })
-                : t("assessment.report.toolsFine")}
+                ? t(`assessment.report.toolsCost.${answers.connect ?? "unsure"}`, { loose: result.loose, points: result.toolPenalty, ok: ASSUMPTIONS.TOOLS_OK })
+                : answers.connect === "auto"
+                  ? t("assessment.report.toolsConnected")
+                  : t("assessment.report.toolsFine")}
             </p>
           </div>
         </div>
@@ -567,6 +609,9 @@ function Report({ answers, onRestart }) {
                 <div className="min-w-0">
                   <p className="font-medium text-zinc-900">{t(`assessment.roadmap.${area}.title`)}</p>
                   <p className="mt-1 text-sm leading-relaxed text-zinc-600">{t(`assessment.roadmap.${area}.body`)}</p>
+                  <Link to={`/about#feature-${FEATURE_FOR[area]}`} className="mt-1.5 inline-block text-sm font-medium text-indigo-700 hover:text-indigo-900">
+                    {t("assessment.roadmap.link", { name: APP_NAME })} →
+                  </Link>
                 </div>
               </li>
             ))}
@@ -628,7 +673,14 @@ function Report({ answers, onRestart }) {
           </p>
           <p className="mt-5 text-sm text-zinc-400">{t("assessment.report.worth")}</p>
           <p className="savings-money mt-1 text-3xl font-semibold tabular-nums tracking-tight sm:text-4xl">{range(result.hours.low * rate, result.hours.high * rate, rand)}</p>
-          <p className="mt-2 text-xs leading-relaxed text-zinc-400">{t("assessment.report.worthNote")}</p>
+          {/* Where each end of the range comes from. */}
+          <ul className="mt-4 space-y-1 border-t border-white/10 pt-3 text-xs leading-relaxed text-zinc-300">
+            <li>{t("assessment.report.rangeHigh", { hours: result.hours.high, name: APP_NAME })}</li>
+            {result.hours.low !== result.hours.high && (
+              <li>{t("assessment.report.rangeLow", { hours: result.hours.low, minutes: ASSUMPTIONS.LOW_YGT_MINUTES })}</li>
+            )}
+          </ul>
+          <p className="mt-3 text-xs leading-relaxed text-zinc-400">{t("assessment.report.worthNote")}</p>
         </div>
         <details className="text-xs text-zinc-500 lg:col-span-2">
           <summary className="cursor-pointer font-medium text-zinc-600">{t("assessment.report.howTitle")}</summary>
@@ -653,23 +705,35 @@ function Report({ answers, onRestart }) {
           <p className="mt-1 text-zinc-600">
             {t(pick.plan.per_user ? "assessment.plan.priceSeats" : "assessment.plan.priceFlat", { count: result.team.seats, price: rand(pick.cost) })}
           </p>
-          <ul className="mt-4 space-y-2 text-sm text-zinc-700">
-            <li className="flex gap-2">
-              <Tick />
-              {t(pick.plan.per_user ? "assessment.plan.whySeats" : "assessment.plan.whyFlat", { count: result.team.seats, max: pick.plan.max_users })}
-            </li>
-            {pick.wanted.map((feature) => (
-              <li key={feature} className="flex gap-2">
+          {/* Why: the team, the features they picked, then what every plan has. */}
+          <dl className="mt-4 space-y-3 text-sm text-zinc-700">
+            <div>
+              <dt className="font-semibold text-zinc-900">{t("assessment.plan.teamFit")}</dt>
+              <dd className="mt-1 flex gap-2">
                 <Tick />
-                {t(`assessment.plan.features.${feature}`)}
-              </li>
-            ))}
-            <li className="flex gap-2">
-              <Tick />
-              {t("assessment.plan.whyAll")}
-            </li>
-          </ul>
-          <Link to="/about" className="mt-4 inline-block text-sm font-medium text-indigo-700 hover:text-indigo-900">
+                {t(pick.plan.per_user ? "assessment.plan.whySeats" : "assessment.plan.whyFlat", { count: result.team.seats, max: pick.plan.max_users })}
+              </dd>
+            </div>
+            {pick.wanted.length > 0 && (
+              <div>
+                <dt className="font-semibold text-zinc-900">{t("assessment.plan.featureFit")}</dt>
+                {pick.wanted.map((feature) => (
+                  <dd key={feature} className="mt-1 flex gap-2">
+                    <Tick />
+                    {t(`assessment.plan.features.${feature}`)}
+                  </dd>
+                ))}
+              </div>
+            )}
+            <div>
+              <dt className="font-semibold text-zinc-900">{t("assessment.plan.included")}</dt>
+              <dd className="mt-1 flex gap-2">
+                <Tick />
+                {t("assessment.plan.whyAll")}
+              </dd>
+            </div>
+          </dl>
+          <Link to="/about#about-pricing" className="mt-4 inline-block text-sm font-medium text-indigo-700 hover:text-indigo-900">
             {t("assessment.plan.compare")}
           </Link>
         </section>
@@ -679,7 +743,7 @@ function Report({ answers, onRestart }) {
       <section className="checkup-in grid gap-6 lg:grid-cols-2" style={{ animationDelay: "420ms" }}>
         <div className="flex min-w-0 flex-col justify-center rounded-3xl bg-indigo-600 p-6 text-white sm:p-8">
           <h2 className="text-2xl font-semibold tracking-tight">{t("assessment.report.trialTitle")}</h2>
-          <p className="mt-2 text-indigo-100">{t("assessment.report.trialBody", { days: 14 })}</p>
+          <p className="mt-2 text-indigo-100">{t("assessment.report.trialBody", { days: 14, name: APP_NAME })}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/register" className="btn !h-auto min-h-11 !whitespace-normal !px-5 py-2 text-center bg-white text-indigo-700 hover:bg-indigo-50">
               {t("home.hero.ctaTrial")}
@@ -718,8 +782,8 @@ function Walkthrough({ answers, result, plan }) {
     // Written in English for YGT's team, whatever language the page is in.
     const message = [
       `Free business check-up (rules v${MODEL_VERSION}): operations score ${result.score}/100`,
-      `Industry: ${answers.industry}${answers.industryDetail?.trim() ? ` (${answers.industryDetail.trim()})` : ""}. People handling admin: ${answers.team}. Quotes and invoices a month: ${result.volume}.`,
-      `Tools (${result.tools}): ${result.detected.join(", ")}`,
+      `Industry: ${answers.industry}${answers.industryDetail?.trim() ? ` (${answers.industryDetail.trim()})` : ""}. People handling admin: ${answers.team}. A month: ${result.quotes} quotes, ${result.invoices} invoices.`,
+      `Tools (${result.tools}, ${answers.connect ?? "not said"}): ${result.detected.join(", ")}`,
       `Areas: ${AREAS.map((a) => `${a} ${result.areas[a]}/${AREA_MAX}`).join(", ")}`,
       `Biggest gaps: ${result.gaps.join(", ") || "none"}`,
       `Wants: ${answers.needs?.join(", ") || "not said"}`,
@@ -763,7 +827,12 @@ function Walkthrough({ answers, result, plan }) {
       <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} className="hidden" aria-hidden="true" />
       <label className="mt-4 flex items-start gap-2.5 text-sm text-zinc-600">
         <input type="checkbox" required className="mt-0.5 h-4 w-4 shrink-0 rounded border-zinc-300 text-indigo-600" />
-        <span>{t("assessment.talk.consent", { name: APP_NAME })}</span>
+        <span>
+          {t("assessment.talk.consent", { name: APP_NAME })}{" "}
+          <Link to="/privacy" target="_blank" className="font-medium text-indigo-700 underline-offset-2 hover:underline">
+            {t("assessment.talk.privacy")}
+          </Link>
+        </span>
       </label>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <FormError>{error}</FormError>

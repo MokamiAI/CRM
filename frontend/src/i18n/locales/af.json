@@ -174,14 +174,14 @@
       "trial_other": "{{count}} dae oor van jou gratis proeftydperk van Grow."
     },
     "cancel": "Kanselleer plan",
-    "cancelConfirm": "Kanselleer jou plan? Jy hou dit tot {{date}}, dan skuif jy na Free. Niks word geskrap nie.",
+    "cancelConfirm": "Kanselleer jou plan? Dit sal nie hernu nie. Jy hou alles tot die einde van jou betaalde tydperk op {{date}}; daarna is jou werkruimte slegs-lees totdat jy weer 'n plan kies. Niks word geskrap nie.",
     "cancelYes": "Ja, kanselleer",
     "cancelled": "Plan gekanselleer. Dit bly aan tot {{date}}.",
     "changePlan": "Verander plan",
     "checkoutFailed": "Kon nie Paystack oopmaak nie. Probeer asseblief weer.",
     "choose": "Kies {{plan}}",
     "choosePlan": "Kies 'n plan",
-    "choosePlanHint": "Betaal veilig per kaart deur Paystack. Verander of kanselleer enige tyd.",
+    "choosePlanHint": "Betaal veilig per kaart deur Paystack. Verander of kanselleer enige tyd: 'n gekanselleerde plan loop tot die einde van die tydperk waarvoor jy betaal het.",
     "confirmFailed": "Kon nog nie die betaling nagaan nie. Herlaai oor 'n minuut.",
     "current": "Jou huidige plan",
     "features": {
@@ -254,7 +254,7 @@
       "active": "Aktief",
       "activeLine": "Hernu op {{date}}.",
       "cancelled": "Gekanselleer",
-      "cancelledLine": "Gekanselleer. Jou plan bly aan tot {{date}}, dan skuif jy na Free.",
+      "cancelledLine": "Gekanselleer. Jou plan bly aan tot die einde van jou betaalde tydperk op {{date}}, dan word jou werkruimte slegs-lees. Niks word geskrap nie.",
       "free": "Gratis",
       "freeLine": "Jy is op die Free-plan.",
       "lapsed": "Nie betaal nie",
@@ -2727,11 +2727,11 @@
     "intro": {
       "eyebrow": "Gratis besigheidstoets",
       "title": "Hoe georganiseerd is jou besigheid regtig?",
-      "lead": "10 vinnige vrae oor hoe jy vandag dinge doen. Ons wys jou waar tyd en geld wegglip, en hoe {{name}} kan help.",
+      "lead": "10 vinnige vrae oor hoe jy vandag dinge doen. Vind uit wat jou besigheid vertraag, waar jy tyd kan spaar en hoe om jou daaglikse werk eenvoudiger te maak.",
       "get": {
         "score": "Jou besigheid se bedryfstelling",
         "gaps": "Jou drie grootste gapings",
-        "time": "Ure en rande wat jy kan terugwen"
+        "time": "Jou moontlike tydbesparing"
       },
       "start": "Begin die toets",
       "meta": "{{count}} vrae · Geen registrasie"
@@ -2802,13 +2802,13 @@
       },
       "slip": {
         "topic": "Pyplyn",
-        "title": "Hoe gereeld raak 'n moontlike kliënt stil voordat jy kan opvolg?",
+        "title": "Hoe gereeld vergeet of vertraag jy om 'n moontlike kliënt op te volg?",
         "hint": "Wees eerlik, niemand kyk nie.",
         "options": {
-          "rarely": "Amper nooit",
+          "rarely": "Byna nooit",
           "some": "'n Paar keer per maand",
-          "often": "Gereeld, elke week",
-          "unsure": "Ek weet eerlikwaar nie"
+          "often": "Byna elke week",
+          "unsure": "Ek is nie seker nie"
         }
       },
       "tasks": {
@@ -2838,8 +2838,9 @@
       "volume": {
         "topic": "Kwotasies en fakture",
         "title": "Hoeveel kwotasies en fakture stuur jy per maand?",
-        "hint": "Ongeveer is goed genoeg. Sleep die skuifbalk.",
-        "label": "Kwotasies en fakture per maand"
+        "hint": "Rowwe getalle is goed, en 0 is ook goed.",
+        "quotes": "Kwotasies per maand",
+        "invoices": "Fakture per maand"
       },
       "payments": {
         "topic": "Betaal word",
@@ -2856,7 +2857,7 @@
         "topic": "Wat jy nodig het",
         "title": "Watter van hierdie sou jy regtig gebruik?",
         "options": {
-          "basics": "Net die basiese: kliënte, kwotasies en fakture",
+          "basics": "Kliëntebestuur, kwotasies en fakture",
           "whatsapp": "WhatsApp- en SMS-herinneringe",
           "marketing": "E-posveldtogte en nuusbriewe",
           "recurring": "Fakture wat elke maand herhaal",
@@ -2864,7 +2865,8 @@
           "chat": "Klets met my span",
           "leads": "Hulp om nuwe kliënte te vind",
           "priority": "Vinnige, voorkeur-ondersteuning"
-        }
+        },
+        "hint": "Kies net wat jy regtig sou gebruik: die plan wat ons voorstel, hang daarvan af."
       },
       "tools": {
         "topic": "Die finale telling",
@@ -2878,7 +2880,14 @@
         "more": "Een meer",
         "others": "Gebruik jy nog iets? 'n Banktoep, 'n besprekingstelsel, 'n tweede WhatsApp-nommer? Voeg dit by met +.",
         "extra_one": "Plus {{count}} meer wat jy bygevoeg het.",
-        "extra_other": "Plus {{count}} meer wat jy bygevoeg het."
+        "extra_other": "Plus {{count}} meer wat jy bygevoeg het.",
+        "connect": "Werk hierdie hulpmiddels saam, of kopieer jy inligting tussen hulle?",
+        "connectOptions": {
+          "auto": "Die meeste inligting beweeg outomaties tussen hulle",
+          "some": "Party is gekoppel, maar ek kopieer nog dinge oor",
+          "manual": "Ek kopieer inligting met die hand tussen die meeste",
+          "unsure": "Ek is nie seker nie"
+        }
       }
     },
     "working": {
@@ -2956,7 +2965,7 @@
     "report": {
       "outOf": "uit 100",
       "scoreName": "Bedryfstelling van jou besigheid",
-      "scoreNote": "Dit meet hoe georganiseerd die prosesse is waaroor ons gevra het, nie hoe goed jou besigheid vaar nie.",
+      "scoreNote": "Dit meet hoe georganiseerd die prosesse is waaroor ons gevra het, nie hoe goed jou besigheid vaar nie. Jou besigheid kan goed doen: die telling wys net waar daaglikse prosesse makliker kan wees.",
       "band": {
         "attention": {
           "label": "Het aandag nodig",
@@ -2983,7 +2992,11 @@
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "Jy jongleer {{count}} hulpmiddel",
       "toolsTitle_other": "Jy jongleer {{count}} hulpmiddels",
-      "toolsCost": "{{loose}} daarvan is los hulpmiddels soos papier, kletse, sigblaaie of ander toeps. Elke los hulpmiddel ná {{ok}} beteken meer oorkopieer en dinge wat tussenin val: {{points}} punte af. Stelsels soos 'n CRM of 'n faktuurtoep tel nie teen jou nie.",
+      "toolsCost": {
+        "some": "{{loose}} daarvan is los hulpmiddels wat net deels gekoppel is, so party dinge word nog met die hand oorgekopieer: {{points}} punte af. Stelsels soos 'n CRM of 'n faktuurtoep tel nie teen jou nie.",
+        "manual": "{{loose}} daarvan is los hulpmiddels waartussen jy inligting met die hand kopieer, so dinge val tussenin: {{points}} punte af. Stelsels soos 'n CRM of 'n faktuurtoep tel nie teen jou nie.",
+        "unsure": "{{loose}} daarvan is los hulpmiddels, en jy is nie seker wat tussen hulle gekopieer word nie, so dinge kan tussenin val: {{points}} punte af. Stelsels soos 'n CRM of 'n faktuurtoep tel nie teen jou nie."
+      },
       "toolsFine": "Dit is 'n hanteerbare getal. Dit loon om dit so te hou.",
       "gapsTitle_one": "Jou grootste gaping",
       "gapsTitle_other": "Jou {{count}} grootste gapings",
@@ -2994,17 +3007,23 @@
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
       "howTitle": "Hoe ons dit uitgewerk het",
-      "how": "'n Skatting, nie 'n belofte nie, net op grond van jou antwoorde. Elke kwotasie of faktuur vat 8 tot 25 minute, afhangend van waar dit gemaak word, teenoor {{ygt}} tot {{lowYgt}} minute met {{name}}. Om 'n laat betaling met die hand agterna te jaag, vat omtrent {{chase}} minute. Elke los hulpmiddel ná twee kos omtrent {{switching}} uur per maand per persoon aan oorkopieer; dinge opsoek word apart getel, so geen minuut word twee keer getel nie. Opsoektyd groei met die aantal mense wat administrasie doen, maar stadiger as die span. Die bopunt van die reeks neem aan jy skuif alles na {{name}}; die onderpunt neem omtrent die helfte aan, teen {{lowYgt}} minute per dokument. Elke los hulpmiddel ná {{ok}} kos 2 punte, en die telling loop van 0 tot 100.",
-      "trialTitle": "Maak hierdie gapings op een plek toe",
-      "trialBody": "Probeer alles {{days}} dae lank gratis. Geen kaart nodig nie, en jy kan jou kliënte uit Excel inbring.",
+      "how": "'n Skatting, nie 'n belofte nie, net op grond van jou antwoorde. Elke kwotasie of faktuur vat 8 tot 25 minute, afhangend van waar dit gemaak word, teenoor {{ygt}} tot {{lowYgt}} minute met {{name}}. Om 'n laat faktuur met die hand agterna te jaag, vat omtrent {{chase}} minute. Oorkopieer tussen los hulpmiddels kos tot {{switching}} uur per maand per persoon vir elke hulpmiddel ná twee, minder as jou hulpmiddels deels gekoppel is en niks as hulle saamwerk nie; party oorkopieer bly ook met {{name}}. Dinge opsoek word apart getel, so geen minuut word twee keer getel nie. Opsoektyd groei met die aantal mense wat administrasie doen, maar stadiger as die span. Die bopunt van die reeks is jou tyd nou minus die tyd geskat met {{name}}; die onderpunt neem aan jy skuif omtrent die helfte, teen {{lowYgt}} minute per dokument. Elke los hulpmiddel ná {{ok}} kos tot 2 punte, en die telling loop van 0 tot 100.",
+      "trialTitle": "Gereed om jou besigheid makliker te bestuur?",
+      "trialBody": "Jy het gesien waar jou prosesse kan verbeter. Probeer {{name}} {{days}} dae gratis en sit alles op een plek. Geen kaart nodig nie, kanselleer enige tyd.",
       "again": "Doen dit weer",
       "now": "Nou",
-      "withYgt": "Met {{name}}",
+      "withYgt": "Geskat met {{name}}",
       "range": "{{low}}–{{high}}",
       "freed": "Tyd wat jy kan vrymaak",
       "perMonth": "per maand",
       "worth": "Daardie tyd kan werd wees",
-      "worthNote": "Teen jou uurwaarde. Dit is die waarde van tyd wat vrykom, nie gewaarborgde ekstra inkomste of kontantbesparings nie. Jou resultate hang af van hoeveel van jou werk jy oorskuif."
+      "worthNote": "Teen jou uurwaarde. Dit is die waarde van tyd wat vrykom, nie gewaarborgde ekstra inkomste of kontantbesparings nie. Jou resultate hang af van hoeveel van jou werk jy oorskuif.",
+      "sumAreas": "Vyf areas",
+      "sumTools": "Hulpmiddel-aanpassing",
+      "sumScore": "Jou telling",
+      "toolsConnected": "Jy het gesê jou hulpmiddels werk saam, so die aantal hulpmiddels kos jou nie punte nie.",
+      "rangeHigh": "{{hours}} h as jy alles na {{name}} skuif.",
+      "rangeLow": "{{hours}} h as jy omtrent die helfte skuif, en elke kwotasie of faktuur nog {{minutes}} minute vat."
     },
     "roadmap": {
       "title_one": "Jou volgende stap",
@@ -3029,7 +3048,8 @@
         "title": "Stel 'n herinneringsroetine op",
         "body": "Kyk elke week wie jou skuld en stuur herinneringe op 'n vaste skedule, sodat agternajaag nie van onthou afhang nie."
       },
-      "footer": "Jy hoef nie alles gelyk reg te maak nie. Begin met stap 1."
+      "footer": "Jy hoef nie alles gelyk reg te maak nie. Begin met stap 1.",
+      "link": "Sien hoe {{name}} help"
     },
     "plan": {
       "eyebrow": "Aanbevole plan",
@@ -3050,7 +3070,10 @@
         "discovery": "Nuwe moontlike kliënte wat elke week vir jou gevind word",
         "priority_support": "Voorkeur-ondersteuning"
       },
-      "compare": "Vergelyk al die planne"
+      "compare": "Vergelyk al die planne",
+      "teamFit": "Pas by jou span",
+      "featureFit": "Pas by wat jy nodig het",
+      "included": "In elke plan"
     },
     "talk": {
       "title": "Wil jy hê ons moet jou daardeur lei?",
@@ -3058,7 +3081,8 @@
       "consent": "Ja, {{name}} mag my oor my uitslae kontak.",
       "send": "Lei my daardeur",
       "sentTitle": "Dankie, ons het jou uitslae",
-      "sentBody": "Ons kontak jou binne een werksdag by {{email}}."
+      "sentBody": "Ons kontak jou binne een werksdag by {{email}}.",
+      "privacy": "Privaatheidsbeleid"
     }
   }
 }
