@@ -36,6 +36,11 @@ function writeSession(key, value) {
   }
 }
 
+/** A public page was opened first: the home page skips its intro this visit. */
+export function markArrived() {
+  writeSession(INTRO_KEY, "1");
+}
+
 /** Call after a successful sign-in: the app greets the person once. */
 export function queueWelcome() {
   writeSession(WELCOME_KEY, "1");

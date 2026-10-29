@@ -9,7 +9,7 @@ import GlowField from "../components/GlowField";
 import { AuthShell, FormError, SwitchLink } from "./LoginPage";
 import { Field } from "../components/ui";
 import { errorMessage } from "../utils/format";
-import { queueWelcome } from "../components/Startup";
+import { markArrived, queueWelcome } from "../components/Startup";
 
 // Your business details for the legal pages. Fill these in before going
 // live (Paystack checks them when it reviews your account).
@@ -27,6 +27,7 @@ const missing = (value) => value || "[to be added]";
 export function PublicShell({ children, narrow = false }) {
   const { t } = useTranslation();
   const { user } = useAuth();
+  useEffect(markArrived, []);
   return (
     <div className="min-h-[100dvh] bg-white">
       <div className={`safe-top mx-auto px-6 ${narrow ? "max-w-3xl" : "max-w-4xl"}`}>

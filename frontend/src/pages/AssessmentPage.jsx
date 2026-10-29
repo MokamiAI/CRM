@@ -9,12 +9,13 @@ import { errorMessage } from "../utils/format";
 import { PublicShell } from "./PublicPages";
 import { FormError } from "./LoginPage";
 import { PEOPLE } from "../components/home/HomePeople";
-import { AREA_MAX, AREAS, ASSUMPTIONS, QUESTIONS, assess, band, planCost, toolsUsed } from "../components/assessment/model";
+import { AREA_MAX, AREAS, ASSUMPTIONS, MODEL_VERSION, QUESTIONS, assess, band, recommendPlan, toolsUsed } from "../components/assessment/model";
 
 /*
- * The free business check-up: ten quick questions, a short "working it
- * out" moment, then a report with a score, the biggest gaps, the hours
- * YGT could give back and what that's worth against the plan's price.
+ * The free business check-up: ten quick questions, a brief "working it
+ * out" moment, then a report with an operations score, the biggest gaps,
+ * a three-step roadmap, the hours YGT could give back (as a range) and the
+ * plan that fits the team and the features they asked for.
  * Progress is kept for the tab (sessionStorage), so a refresh doesn't
  * lose it.
  */
@@ -121,17 +122,18 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
 
   // The tool count starts from what the earlier answers already named.
   useEffect(() => {
-    if (q.kind === "count" && value == null) onAnswer(q.key, Math.max(1, detected.length));
+    if (q.kind === "count" && (value == null || value < detected.length)) onAnswer(q.key, Math.max(1, detected.length));
     if (q.kind === "range" && value == null) onAnswer(q.key, q.initial);
   }, [q, value, detected.length, onAnswer]);
 
   const next = () => (last ? onDone() : onStep(step + 1));
-  const ready = q.kind === "multi" ? value?.length > 0 : value != null;
+  const described = answers.industry !== "other" || answers.industryDetail?.trim().length >= 2;
+  const ready = q.kind === "profile" ? answers.industry != null && described && answers.team != null :q.kind === "multi" ? value?.length > 0 : value != null;
 
   function pick(option) {
     if (q.kind === "multi") {
-      const list = value ?? [];
-      onAnswer(q.key, list.includes(option) ? list.filter((v) => v !== option) : [...list, option]);
+      const list = (value ?? []).filter((v) => v !== EXCLUSIVE && option !== EXCLUSIVE);
+      onAnswer(q.key, value?.includes(option) ? list.filter((v) => v !== option) : [...list, option]);
       return;
     }
     onAnswer(q.key, option);
@@ -167,7 +169,9 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
         <p className="mt-1.5 text-zinc-600">{t(q.kind === "multi" ? "assessment.pickAll" : `assessment.q.${q.key}.hint`, { defaultValue: "" })}</p>
 
         <div className="mt-6">
-          {q.kind === "single" || q.kind === "multi" ? (
+          {q.kind === "profile" ? (
+            <Profile q={q} answers={answers} onAnswer={onAnswer} />
+          ) : q.kind === "single" || q.kind === "multi" ? (
             <Options q={q} value={value} onPick={pick} />
           ) : q.kind === "range" ? (
             <Volume q={q} value={value ?? q.initial} onChange={(v) => onAnswer(q.key, v)} />
@@ -191,11 +195,52 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
   );
 }
 
+// "Just the basics" can't be picked alongside a feature.
+const EXCLUSIVE = "basics";
+
+/** Business type (photo cards) and the people who'd use YGT, on one card. */
+function Profile({ q, answers, onAnswer }) {
+  const { t } = useTranslation();
+  const detailId = useId();
+  const other = answers.industry === "other";
+  return (
+    <div className="space-y-6">
+      <Options q={{ key: "industry", kind: "single", options: q.industry }} value={answers.industry} onPick={(v) => onAnswer("industry", v)} />
+      {/* In their own words: required for "Something else", optional otherwise. */}
+      {answers.industry != null && (
+        <div className="checkup-in">
+          <label htmlFor={detailId} className="font-medium text-zinc-900">
+            {t(other ? "assessment.q.profile.describeOther" : "assessment.q.profile.describe")}
+          </label>
+          <input
+            id={detailId}
+            className="input mt-2"
+            maxLength={120}
+            required={other}
+            autoFocus={other}
+            placeholder={t("assessment.q.profile.describePlaceholder")}
+            value={answers.industryDetail ?? ""}
+            onChange={(e) => onAnswer("industryDetail", e.target.value)}
+          />
+        </div>
+      )}
+      <div>
+        <p className="font-medium text-zinc-900">{t("assessment.q.profile.team")}</p>
+        <p className="mt-0.5 text-sm text-zinc-500">{t("assessment.q.profile.teamHint")}</p>
+        <div className="mt-3">
+          <Options q={{ key: "team", kind: "single", options: q.team }} value={answers.team} onPick={(v) => onAnswer("team", v)} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Options({ q, value, onPick }) {
   const { t } = useTranslation();
   const multi = q.kind === "multi";
   const photo = (key) => PEOPLE.find((p) => p.key === key)?.photo;
-  const label = (option) => (q.key === "industry" && option !== "other" ? t(`home.people.${option}.label`) : t(`assessment.q.${q.key}.options.${option}`));
+  const label = (option) =>
+    q.key === "industry" ? (option === "other" ? t("assessment.q.profile.other") : t(`home.people.${option}.label`)) : t(`assessment.q.${q.key}.options.${option}`);
   return (
     <div className={`grid gap-2.5 ${q.key === "industry" ? "grid-cols-2 sm:grid-cols-4" : "sm:grid-cols-2"}`}>
       {q.options.map((option) => {
@@ -273,6 +318,8 @@ function Volume({ q, value, onChange }) {
 
 function ToolCount({ q, value, detected, onChange }) {
   const { t } = useTranslation();
+  // The answers already named these, so the count can't go below them.
+  const min = Math.max(q.min, detected.length);
   const extra = value - detected.length;
   return (
     <div>
@@ -287,7 +334,7 @@ function ToolCount({ q, value, detected, onChange }) {
         </div>
       </div>
       <div className="mt-6 flex items-center justify-center gap-5">
-        <button type="button" className="btn btn-secondary !h-12 !w-12 !p-0 text-xl" onClick={() => onChange(Math.max(q.min, value - 1))} disabled={value <= q.min} aria-label={t("assessment.q.tools.less")}>
+        <button type="button" className="btn btn-secondary !h-12 !w-12 !p-0 text-xl" onClick={() => onChange(Math.max(min, value - 1))} disabled={value <= min} aria-label={t("assessment.q.tools.less")}>
           −
         </button>
         <div className="min-w-24 text-center">
@@ -310,7 +357,8 @@ function ToolCount({ q, value, detected, onChange }) {
 
 // ---------------------------------------------------------------- analysing
 
-/** A short, honest "working it out": each line is a real step of the sum. */
+/** A brief, honest "working it out" (under a second): each line is a real
+    step of the sum. The sum itself is instant; this just shows its steps. */
 function Analysing({ answers, onDone }) {
   const { t } = useTranslation();
   const result = useMemo(() => assess(answers), [answers]);
@@ -325,10 +373,10 @@ function Analysing({ answers, onDone }) {
   const [shown, setShown] = useState(reducedMotion() ? lines.length : 1);
   useEffect(() => {
     if (shown >= lines.length) {
-      const done = setTimeout(onDone, reducedMotion() ? 300 : 650);
+      const done = setTimeout(onDone, reducedMotion() ? 200 : 300);
       return () => clearTimeout(done);
     }
-    const tick = setTimeout(() => setShown((n) => n + 1), 520);
+    const tick = setTimeout(() => setShown((n) => n + 1), 110);
     return () => clearTimeout(tick);
   }, [shown, lines.length, onDone]);
 
@@ -364,9 +412,10 @@ function Analysing({ answers, onDone }) {
 // ---------------------------------------------------------------- report
 
 const BAND_STYLE = {
-  weak: { ring: "#f43f5e", text: "text-rose-600", bg: "bg-rose-50" },
-  middle: { ring: "#f59e0b", text: "text-amber-600", bg: "bg-amber-50" },
-  strong: { ring: "#10b981", text: "text-emerald-600", bg: "bg-emerald-50" },
+  attention: { ring: "#f43f5e", text: "text-rose-600" },
+  progress: { ring: "#f59e0b", text: "text-amber-600" },
+  organised: { ring: "#10b981", text: "text-emerald-600" },
+  high: { ring: "#059669", text: "text-emerald-700" },
 };
 
 function useCountUp(target, ms = 1100) {
@@ -406,6 +455,8 @@ function ScoreRing({ score }) {
   );
 }
 
+const hoursText = (t, h) => t("assessment.report.hours", { count: Math.round(h * 2) / 2 });
+
 function Report({ answers, onRestart }) {
   const { t, i18n } = useTranslation();
   const result = useMemo(() => assess(answers), [answers]);
@@ -414,10 +465,7 @@ function Report({ answers, onRestart }) {
   const rateId = useId();
   const level = band(result.score);
   const style = BAND_STYLE[level];
-  const plan = plans?.find((p) => p.key === result.team.plan);
-  const cost = planCost(plan, result.team.seats);
-  const money = result.totalHours * rate;
-  const times = cost ? Math.floor(money / cost) : 0;
+  const pick = useMemo(() => recommendPlan(plans, answers.needs, result.team.seats), [plans, answers.needs, result.team.seats]);
   const listOf = (list = []) => {
     const names = list.map((tool) => t(`assessment.toolsInline.${tool}`));
     try {
@@ -433,20 +481,27 @@ function Report({ answers, onRestart }) {
       : area === "payments"
         ? t(`assessment.gaps.payments.problem.${answers.payments}`)
         : t(`assessment.gaps.${area}.problem`, { tools: listOf(answers[area]) });
+  const gain = ([, line]) => line.now - line.ygt;
+  const lines = Object.entries(result.sheet)
+    .filter((entry) => gain(entry) >= 0.5)
+    .sort((a, b) => gain(b) - gain(a));
+  const range = (low, high, fmt) => (low === high ? fmt(high) : t("assessment.report.range", { low: fmt(low), high: fmt(high) }));
 
   return (
     <div className="space-y-6">
-      {/* The score and what it means. */}
+      {/* The score and what it means: how organised these processes are, not how good the business is. */}
       <section className="checkup-in card flex flex-col items-center gap-6 p-6 text-center sm:flex-row sm:p-8 sm:text-left">
         <ScoreRing score={result.score} />
         <div className="min-w-0">
-          <p className={`text-sm font-semibold ${style.text}`}>{t(`assessment.report.band.${level}.label`)}</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">{t("assessment.report.scoreName")}</p>
+          <p className={`mt-1 text-sm font-semibold ${style.text}`}>{t(`assessment.report.band.${level}.label`)}</p>
           <h1 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">{t(`assessment.report.band.${level}.title`)}</h1>
           <p className="mt-2 text-zinc-600">{t(`assessment.report.band.${level}.body`, { name: APP_NAME })}</p>
+          <p className="mt-2 text-xs text-zinc-500">{t("assessment.report.scoreNote")}</p>
         </div>
       </section>
 
-      {/* Each area, out of 20, and what juggling tools cost. */}
+      {/* Each area, out of 20, and what loose tools cost. */}
       <section className="checkup-in card p-6 sm:p-8" style={{ animationDelay: "120ms" }} aria-labelledby="checkup-areas">
         <h2 id="checkup-areas" className="text-lg font-semibold text-zinc-900">{t("assessment.report.areasTitle")}</h2>
         <ul className="mt-5 space-y-4">
@@ -473,7 +528,7 @@ function Report({ answers, onRestart }) {
             <p className="font-semibold text-zinc-900">{t("assessment.report.toolsTitle", { count: result.tools })}</p>
             <p className="mt-0.5 text-zinc-700">
               {result.toolPenalty
-                ? t("assessment.report.toolsCost", { points: result.toolPenalty, ok: ASSUMPTIONS.TOOLS_OK })
+                ? t("assessment.report.toolsCost", { loose: result.loose, points: result.toolPenalty, ok: ASSUMPTIONS.TOOLS_OK })
                 : t("assessment.report.toolsFine")}
             </p>
           </div>
@@ -487,34 +542,62 @@ function Report({ answers, onRestart }) {
         </h2>
         <ul className="mt-3 grid gap-4 md:grid-cols-3">
           {result.gaps.map((area, i) => (
-              <li key={area} className="card flex flex-col overflow-hidden">
-                <div className="flex-1 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-rose-600">{t("assessment.report.gap", { n: i + 1 })}</p>
-                  <p className="mt-1.5 font-medium leading-snug text-zinc-900">{problem(area)}</p>
-                </div>
-                <div className="border-t border-zinc-100 bg-zinc-50/70 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">{t("assessment.report.fix", { name: APP_NAME })}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-zinc-700">{t(`assessment.gaps.${area}.fix`)}</p>
-                </div>
-              </li>
+            <li key={area} className="card flex flex-col overflow-hidden">
+              <div className="flex-1 p-5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-rose-600">{t("assessment.report.gap", { n: i + 1 })}</p>
+                <p className="mt-1.5 font-medium leading-snug text-zinc-900">{problem(area)}</p>
+              </div>
+              <div className="border-t border-zinc-100 bg-zinc-50/70 p-5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">{t("assessment.report.fix", { name: APP_NAME })}</p>
+                <p className="mt-1 text-sm leading-relaxed text-zinc-700">{t(`assessment.gaps.${area}.fix`)}</p>
+              </div>
+            </li>
           ))}
         </ul>
       </section>
 
-      {/* Time and money back, against what YGT costs. */}
+      {/* A short plan they can follow, whether or not they sign up. */}
+      {result.gaps.length > 0 && (
+        <section className="checkup-in card p-6 sm:p-8" style={{ animationDelay: "270ms" }} aria-labelledby="checkup-roadmap">
+          <h2 id="checkup-roadmap" className="text-lg font-semibold text-zinc-900">{t("assessment.roadmap.title", { count: result.gaps.length })}</h2>
+          <ol className="mt-4 grid gap-4 md:grid-cols-3">
+            {result.gaps.map((area, i) => (
+              <li key={area} className="flex gap-3">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">{i + 1}</span>
+                <div className="min-w-0">
+                  <p className="font-medium text-zinc-900">{t(`assessment.roadmap.${area}.title`)}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-zinc-600">{t(`assessment.roadmap.${area}.body`)}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-5 text-sm font-medium text-indigo-700">{t("assessment.roadmap.footer")}</p>
+        </section>
+      )}
+
+      {/* Admin time now and with YGT, as a range, and what that time could be worth. */}
       <section className="checkup-in grid gap-6 overflow-hidden rounded-3xl bg-zinc-50 p-6 ring-1 ring-inset ring-zinc-200/70 sm:p-8 lg:grid-cols-2" style={{ animationDelay: "320ms" }} aria-labelledby="checkup-roi">
-        <div>
+        <div className="min-w-0">
           <h2 id="checkup-roi" className="text-lg font-semibold text-zinc-900">{t("assessment.report.roiTitle")}</h2>
+          <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
+            <div className="rounded-2xl bg-white p-3 ring-1 ring-inset ring-zinc-200/70">
+              <dt className="text-zinc-500">{t("assessment.report.now")}</dt>
+              <dd className="mt-0.5 text-xl font-semibold tabular-nums text-zinc-900">{hoursText(t, result.hoursNow)}</dd>
+            </div>
+            <div className="rounded-2xl bg-white p-3 ring-1 ring-inset ring-zinc-200/70">
+              <dt className="text-zinc-500">{t("assessment.report.withYgt", { name: APP_NAME })}</dt>
+              <dd className="mt-0.5 text-xl font-semibold tabular-nums text-zinc-900">{hoursText(t, result.hoursYgt)}</dd>
+            </div>
+          </dl>
           <ul className="mt-4 space-y-2 text-sm">
-            {Object.entries(result.hours)
-              .filter(([, h]) => h >= 0.5)
-              .sort((a, b) => b[1] - a[1])
-              .map(([key, h]) => (
-                <li key={key} className="flex justify-between gap-3 border-b border-zinc-200/70 pb-2">
-                  <span className="text-zinc-700">{t(`assessment.hours.${key}`)}</span>
-                  <span className="shrink-0 whitespace-nowrap font-medium tabular-nums text-zinc-900">{t("assessment.report.hours", { count: Math.round(h * 2) / 2 })}</span>
-                </li>
-              ))}
+            {lines.map(([key, line]) => (
+              <li key={key} className="flex justify-between gap-3 border-b border-zinc-200/70 pb-2">
+                <span className="min-w-0 text-zinc-700">{t(`assessment.hours.${key}`)}</span>
+                <span className="shrink-0 whitespace-nowrap tabular-nums text-zinc-500">
+                  {hoursText(t, line.now)} → <span className="font-medium text-zinc-900">{hoursText(t, line.ygt)}</span>
+                </span>
+              </li>
+            ))}
           </ul>
           <div className="mt-6">
             <div className="flex items-baseline justify-between gap-3">
@@ -536,43 +619,60 @@ function Report({ answers, onRestart }) {
             />
           </div>
         </div>
-        <div className="flex flex-col justify-center rounded-2xl bg-zinc-950 p-6 text-white sm:p-8">
-          <p className="text-sm text-zinc-400">{t("home.savings.hours")}</p>
-          <p className="mt-1 text-5xl font-semibold tabular-nums tracking-tight">
-            {result.totalHours}
-            <span className="ml-2 text-2xl font-medium text-zinc-400">h</span>
+        <div className="flex min-w-0 flex-col justify-center rounded-2xl bg-zinc-950 p-6 text-white sm:p-8">
+          <p className="text-sm text-zinc-400">{t("assessment.report.freed")}</p>
+          <p className="mt-1 text-4xl font-semibold tabular-nums tracking-tight sm:text-5xl">
+            {range(result.hours.low, result.hours.high, (n) => n)}
+            <span className="ml-2 text-xl font-medium text-zinc-400">{t("assessment.report.perMonth")}</span>
           </p>
-          <p className="mt-5 text-sm text-zinc-400">{t("home.savings.money")}</p>
-          <p className="savings-money mt-1 text-4xl font-semibold tabular-nums tracking-tight">{rand(money)}</p>
-          <div className="mt-5 border-t border-white/10 pt-4 text-sm text-zinc-300">
-            {plan && cost ? (
-              <>
-                <p>
-                  {t(plan.per_user ? "assessment.report.planSeats" : "assessment.report.planFlat", {
-                    plan: plan.name,
-                    seats: result.team.seats,
-                    price: rand(cost),
-                  })}
-                </p>
-                {times >= 2 && <p className="mt-1 font-semibold text-white">{t("assessment.report.times", { count: times })}</p>}
-              </>
-            ) : (
-              <p>{t("home.savings.year", { days: Math.round((result.totalHours * 12) / 8) })}</p>
-            )}
-          </div>
+          <p className="mt-5 text-sm text-zinc-400">{t("assessment.report.worth")}</p>
+          <p className="savings-money mt-1 text-3xl font-semibold tabular-nums tracking-tight sm:text-4xl">{range(result.hours.low * rate, result.hours.high * rate, rand)}</p>
+          <p className="mt-2 text-xs leading-relaxed text-zinc-400">{t("assessment.report.worthNote")}</p>
         </div>
         <details className="text-xs text-zinc-500 lg:col-span-2">
           <summary className="cursor-pointer font-medium text-zinc-600">{t("assessment.report.howTitle")}</summary>
           <p className="mt-2 leading-relaxed">
             {t("assessment.report.how", {
               ygt: ASSUMPTIONS.YGT_MINUTES,
+              lowYgt: ASSUMPTIONS.LOW_YGT_MINUTES,
               chase: ASSUMPTIONS.CHASE_MINUTES,
               switching: ASSUMPTIONS.SWITCH_HOURS,
               ok: ASSUMPTIONS.TOOLS_OK,
+              name: APP_NAME,
             })}
           </p>
         </details>
       </section>
+
+      {/* The plan that fits: room for the team, and every feature they asked for. */}
+      {pick && (
+        <section className="checkup-in card p-6 sm:p-8" style={{ animationDelay: "370ms" }} aria-labelledby="checkup-plan">
+          <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">{t("assessment.plan.eyebrow")}</p>
+          <h2 id="checkup-plan" className="mt-1 text-2xl font-semibold tracking-tight text-zinc-900">{t("assessment.plan.title", { plan: pick.plan.name })}</h2>
+          <p className="mt-1 text-zinc-600">
+            {t(pick.plan.per_user ? "assessment.plan.priceSeats" : "assessment.plan.priceFlat", { count: result.team.seats, price: rand(pick.cost) })}
+          </p>
+          <ul className="mt-4 space-y-2 text-sm text-zinc-700">
+            <li className="flex gap-2">
+              <Tick />
+              {t(pick.plan.per_user ? "assessment.plan.whySeats" : "assessment.plan.whyFlat", { count: result.team.seats, max: pick.plan.max_users })}
+            </li>
+            {pick.wanted.map((feature) => (
+              <li key={feature} className="flex gap-2">
+                <Tick />
+                {t(`assessment.plan.features.${feature}`)}
+              </li>
+            ))}
+            <li className="flex gap-2">
+              <Tick />
+              {t("assessment.plan.whyAll")}
+            </li>
+          </ul>
+          <Link to="/about" className="mt-4 inline-block text-sm font-medium text-indigo-700 hover:text-indigo-900">
+            {t("assessment.plan.compare")}
+          </Link>
+        </section>
+      )}
 
       {/* The way in, and a person to talk it through with. */}
       <section className="checkup-in grid gap-6 lg:grid-cols-2" style={{ animationDelay: "420ms" }}>
@@ -588,14 +688,22 @@ function Report({ answers, onRestart }) {
             </button>
           </div>
         </div>
-        <Walkthrough answers={answers} result={result} />
+        <Walkthrough answers={answers} result={result} plan={pick?.plan} />
       </section>
     </div>
   );
 }
 
+function Tick() {
+  return (
+    <svg viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" fill="currentColor" aria-hidden="true">
+      <path d="M12.7 4.3a1 1 0 0 1 0 1.4l-5.5 5.5a1 1 0 0 1-1.4 0L3.3 8.7a1 1 0 1 1 1.4-1.4l1.8 1.8 4.8-4.8a1 1 0 0 1 1.4 0Z" />
+    </svg>
+  );
+}
+
 /** "Talk me through it": goes to YGT like the contact form, with the result. */
-function Walkthrough({ answers, result }) {
+function Walkthrough({ answers, result, plan }) {
   const { t } = useTranslation();
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", website: "" });
   const [state, setState] = useState("idle");
@@ -608,12 +716,13 @@ function Walkthrough({ answers, result }) {
     setState("sending");
     // Written in English for YGT's team, whatever language the page is in.
     const message = [
-      `Free business check-up: ${result.score}/100`,
-      `Industry: ${answers.industry}. Team: ${answers.team}. Quotes and invoices a month: ${result.volume}.`,
+      `Free business check-up (rules v${MODEL_VERSION}): operations score ${result.score}/100`,
+      `Industry: ${answers.industry}${answers.industryDetail?.trim() ? ` (${answers.industryDetail.trim()})` : ""}. People handling admin: ${answers.team}. Quotes and invoices a month: ${result.volume}.`,
       `Tools (${result.tools}): ${result.detected.join(", ")}`,
       `Areas: ${AREAS.map((a) => `${a} ${result.areas[a]}/${AREA_MAX}`).join(", ")}`,
       `Biggest gaps: ${result.gaps.join(", ") || "none"}`,
-      `Estimated time back: ${result.totalHours} h a month. Recommended plan: ${result.team.plan}.`,
+      `Wants: ${answers.needs?.join(", ") || "not said"}`,
+      `Estimated time freed: ${result.hours.low}-${result.hours.high} h a month. Recommended plan: ${plan?.name ?? "unknown"}.`,
     ].join("\n");
     try {
       await apiClient.post("/public/contact", { ...form, topic: "sales", message });

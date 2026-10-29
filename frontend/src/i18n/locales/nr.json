@@ -2360,9 +2360,9 @@
       "intro": "Hambisa ama-slider afane nebhizinisi lakho.",
       "docs": "Iintengo nama-invoyisi ngenyanga",
       "rate": "Ihora lesikhathi sakho lilingana namalini",
-      "hours": "Amahora abuyako qobe nyanga",
-      "money": "Ubunengi qobe nyanga",
-      "year": "Lokho kuziinsuku zokusebenza ezipheze zibe {{days}} ezibuyako qobe mnyaka.",
+      "hours": "Amahora ongawakhulula qobe nyanga",
+      "money": "Kungaba bunengi qobe nyanga",
+      "year": "Lokho kungaba ziinsuku zokusebenza ezili-{{days}} ngomnyaka.",
       "note": "Lokhu kulinganisela, akusiso isithembiso. Kucabanga bona wonga imizuzu epheze ibe {{minutes}} entengweni ngayinye namkha ku-invoyisi ongasatlhogi ukuyitlolela, ukuyithumela nokuyilandelela wena.",
       "question": "Bewungenzani ngamahora ali-{{hours}} angezelelweko nyanga nenyanga?",
       "explain": "Isilinganiso ngasinye, i-invoyisi nokulandela kuthatha isikhathi. Bona bona ungonga isikhathi esingangani ngokwenza ukuphatha kwamalanga woke kube lula, bese uhambisa amaslayida bona afane nebhizinisi lakho."
@@ -2397,15 +2397,8 @@
       "noCard": "Alitlhogeki ikarada"
     },
     "checkup": {
-      "free": "Simahla",
-      "pill": "Hlola ibhizinisi lakho emizuzwini emi-2",
-      "eyebrow": "Ukuhlolwa kwebhizinisi simahla",
-      "title": "Umsebenzi wamaphepha ukubiza malini ngamambala?",
-      "lead": "Phendula imibuzo elitjhumi erhabako malungana nokuthi uphatha njani amakhasimende, imibuzo yamakhasimende, imisebenzi, iinlinganiso neenkhokhelo. Fumana amaphuzu, iinkhala zakho ezintathu ezikulu kanye namahora ongawabuyisa qobe nyanga.",
       "cta": "Thoma ukuhlolwa simahla",
-      "meta": "Pheze imizuzu emi-2 · Akutlhogeki ubhalise",
-      "sample": "Isibonelo sombiko",
-      "sampleTools": "Amathulusi ali-7: WhatsApp, Excel, Word, iphepha, ikumbulo nokhunye"
+      "meta": "Akutlhogeki ubhalise"
     }
   },
   "aging": {
@@ -2736,12 +2729,12 @@
       "title": "Ibhizinisi lakho lihlelekile kangangani ngamambala?",
       "lead": "Imibuzo elitjhumi erhabako malungana nokuthi wenza njani izinto namhlanje. Sizakutjengisa lapho isikhathi nemali kuphuma khona, nokuthi {{name}} ingasiza njani.",
       "get": {
-        "score": "Amaphuzu wakho kwali-100",
+        "score": "Amaphuzu wokusebenza kwebhizinisi lakho",
         "gaps": "Iinkhala zakho ezintathu ezikulu",
         "time": "Amahora namarandi ongawabuyisa"
       },
       "start": "Thoma ukuhlolwa",
-      "meta": "Imibuzo eli-{{count}} · Pheze imizuzu emi-2 · Akutlhogeki ubhalise"
+      "meta": "Imibuzo eli-{{count}} · Akutlhogeki ubhalise"
     },
     "progress": "Umbuzo {{n}} kweli-{{total}}",
     "spotted_one": "Ithulusi eli-{{count}} litholakele",
@@ -2765,18 +2758,18 @@
       "invoicing": "I-app yama-invoyisi"
     },
     "q": {
-      "industry": {
+      "profile": {
         "topic": "Ibhizinisi lakho",
-        "title": "Uqhuba ihlobo bani lebhizinisi?",
-        "hint": "Khetha eliseduze khulu.",
-        "options": {
-          "other": "Okhunye"
-        }
+        "title": "Sitjele ngebhizinisi lakho",
+        "hint": "Khetha uhlobo oluseduze, bese ukhetha bona ngubani owenza umsebenzi wokuphatha.",
+        "describe": "Wenzani ngqo? (akukateleleki)",
+        "describeOther": "Libhizinisi lamuphi umhlobo?",
+        "describePlaceholder": "Isibonelo: ukuhlwengisa amahhovisi wezikolo neenkliniki",
+        "team": "Bangaki abantu abasebenzelana namakhasimende, iinlinganiso, ama-invoyisi namkha ukulandelela?",
+        "teamHint": "Nawe uzibale. Laba babantu abangasebenzisa i-YGT.",
+        "other": "Okhunye"
       },
       "team": {
-        "topic": "Isiqhema sakho",
-        "title": "Bangaki abantu abasebenza ebhizinisini?",
-        "hint": "Nawe uzibale.",
         "options": {
           "solo": "Ngimi ngedwa",
           "small": "Abantu aba-2 ukuya ku-3",
@@ -2786,7 +2779,7 @@
       },
       "customers": {
         "topic": "Amakhasimende",
-        "title": "Imininingwana yamakhasimende wakho igcinwa kuphi?",
+        "title": "Nawutlhoga inomboro namkha umlando wekhasimende, uqala kuphi?",
         "options": {
           "phone": "Abathintana nabo efonini",
           "whatsapp": "Iinkulumo ze-WhatsApp",
@@ -2809,7 +2802,7 @@
       },
       "slip": {
         "topic": "Umgqa wokuthengisa",
-        "title": "Kangaki umbuzo wekhasimende namkha ukulandelela kuphunyuka?",
+        "title": "Kwenzeka kangangani bona ikhasimende elingaba khona lithule ungakalilandeleli?",
         "hint": "Yiba qotho, akekho oqalako.",
         "options": {
           "rarely": "Pheze akwenzeki",
@@ -2850,13 +2843,27 @@
       },
       "payments": {
         "topic": "Ukubhadelwa",
-        "title": "Kwenzekani nekhasimende libhadela sekudlule isikhathi?",
+        "title": "Kwenzekani ngokujayelekileko nange ikhasimende lingakayibhadeli i-invoyisi?",
         "hint": "Khetha okuseduze khulu.",
         "options": {
           "rarely": "Amakhasimende wethu pheze akhenge abhadele sekudlule isikhathi",
           "manual": "Ngiyabafonela namkha ngibathumelela i-WhatsApp mina",
           "remember": "Ngiyabalandela nengikhumbulako",
           "automatic": "Iinkhumbuzo zithunyelwa ngokuzenzakalela"
+        }
+      },
+      "needs": {
+        "topic": "Okutlhogako",
+        "title": "Ngikuphi kilokhu ongakusebenzisa ngamambala?",
+        "options": {
+          "basics": "Okusisekelo kwaphela: amakhasimende, iinlinganiso nama-invoyisi",
+          "whatsapp": "Iinkhumbuzo ze-WhatsApp ne-SMS",
+          "marketing": "Amatjhugulo we-imeyili namaphephandaba",
+          "recurring": "Ama-invoyisi aphindwako qobe nyanga",
+          "owing": "Umbiko wokuthi ngubani okukweletako",
+          "chat": "Ukukhuluma nesiqhema sami",
+          "leads": "Isizo lokufumana amakhasimende amatjha",
+          "priority": "Ukusekelwa okurhabako nokuphambili"
         }
       },
       "tools": {
@@ -2908,11 +2915,11 @@
     },
     "hours": {
       "documents": "Ukutlola iinlinganiso nama-invoyisi",
-      "customers": "Ukufuna imininingwana yamakhasimende",
+      "customers": "Ukuqala imininingwana yamakhasimende",
       "pipeline": "Ukufumana bona imibuzo ikuphi",
       "tasks": "Ukulandelela imisebenzi",
       "payments": "Ukulandela iinkhokhelo ezidlule isikhathi",
-      "switching": "Ukutjhentjha hlangana namathulusi"
+      "switching": "Ukukopisha hlangana namathulusi"
     },
     "gaps": {
       "customers": {
@@ -2948,46 +2955,102 @@
     },
     "report": {
       "outOf": "kwali-100",
+      "scoreName": "Amaphuzu wokusebenza kwebhizinisi",
+      "scoreNote": "Lokhu kulinganisa bona iinkqubo esibuze ngazo zihlelekile kangangani, ingasi bona ibhizinisi lakho lenza kuhle kangangani.",
       "band": {
-        "weak": {
-          "label": "Ugijima ngemva kwebhizinisi lakho",
-          "title": "Ibhizinisi lakho liyakuqhuba, akusuwe oliqhubako",
-          "body": "Imininingwana eqakathekileko isezindaweni ezinengi khulu, begodu isikhathi siyaphuma qobe veke. Iindaba ezimnandi: lezi ziinkhala okulula khulu ukuzivala, begodu {{name}} yakhelwe lokhu kanye."
+        "attention": {
+          "label": "Kutlhoga ukutjhejwa",
+          "title": "Umsebenzi omnengi wokuphatha welanga nelanga usaxhomekeke ekukhumbuleni nemsebenzini wezandla",
+          "body": "Ngokwemiphendulo yakho, iinkqubo ezinengi zelanga nelanga zixhomekeke ekulandeleleni ngesandla namathulusini ahlukeneko. Lezi ziinkhala ezilula khulu ukuzivala, begodu i-{{name}} yakhelwe lokhu kwamambala."
         },
-        "middle": {
-          "label": "Usendleleni",
-          "title": "Unesisekelo, kodwana izinto zisaphunyuka",
-          "body": "Ezinye iingcenye zebhizinisi lakho zikhamba kuhle, ezinye zithembele ekumbulweni nemsebenzini wezandla. Ukuzihlanganisa ku-{{name}} kungabuyisa isikhathi samambala qobe nyanga."
+        "progress": {
+          "label": "Uyathuthuka",
+          "title": "Unezisekelo, kodwana ezinye izinto zisaphunyuka",
+          "body": "Ezinye iinkqubo zikhamba kuhle, ezinye zixhomekeke ekukhumbuleni nemsebenzini wezandla. Ukuzihlanganisa ku-{{name}} kungakhulula isikhathi samambala qobe nyanga."
         },
-        "strong": {
-          "label": "Ulawula koke",
+        "organised": {
+          "label": "Uhlelekile kuhle",
           "title": "Uhlelekile kuhle. Nje kwenze kube lula",
-          "body": "Sele unemikghwa emihle. {{name}} ingabeka koke endaweni yinye, bona isiqhema sakho sisebenzise isikhathi esincani khulu emsebenzini wamaphepha."
+          "body": "Sele unemikghwa emihle. I-{{name}} ingabeka iingcenye ezisele endaweni yinye, bona ukuphatha kuthathe isikhathi esincani nakarisi."
+        },
+        "high": {
+          "label": "Uhlelekile khulu",
+          "title": "Iinkqubo zakho zisesimeni esihle khulu",
+          "body": "Akutlhogeki bona utjhugulule msinyana indlela osebenza ngayo. Nawufuna koke kube ndawonye, i-{{name}} isengasiza, kodwana sele wenza kuhle."
         }
       },
       "areasTitle": "Amaphuzu wakho ngengcenye",
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "Usebenzisa ithulusi eli-{{count}}",
       "toolsTitle_other": "Usebenzisa amathulusi ali-{{count}}",
-      "toolsCost": "Ithulusi ngalinye elingaphezu kwa-{{ok}} litjho ukukopisha okunengi, ukutjhentjha nezinto eziwela hlangana nawo. Kukulahlekisele amaphuzu ali-{{points}}.",
+      "toolsCost": "Ali-{{loose}} kiwo mathulusi angakahlanganiswa njengephepha, iinkulumo, ama-spreadsheet namkha ezinye ii-app. Ithulusi ngalinye elingakahlanganiswa ngemva kwa-{{ok}} litjho ukukopisha okwengezelelekileko nezinto eziwela hlangana: kususwa amaphuzu ali-{{points}}. Amahlelo afana ne-CRM namkha i-app yama-invoyisi akakubaleli kumbi.",
       "toolsFine": "Leli linani elilawulekako. Ukuligcina linjalo kuyasiza.",
       "gapsTitle_one": "Ikhala lakho elikhulu",
       "gapsTitle_other": "Iinkhala zakho ezikulu ezili-{{count}}",
       "noGaps": "Azikho iinkhala ezikulu ezitholakeleko. Wenze kuhle.",
       "gap": "Ikhala {{n}}",
       "fix": "Indlela {{name}} elilungisa ngayo",
-      "roiTitle": "Lapho isikhathi sakho siya khona qobe nyanga",
+      "roiTitle": "Isikhathi sakho sokuphatha qobe nyanga",
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
-      "planFlat": "I-{{plan}} ibiza {{price}} ngenyanga ebhizinisini lakho loke.",
-      "planSeats": "I-{{plan}} yabantu abali-{{seats}} ibiza pheze {{price}} ngenyanga.",
-      "times_one": "Lokho pheze kuphindwe ka-{{count}} kunalokho ekubiza khona.",
-      "times_other": "Lokho pheze kuphindwe ka-{{count}} kunalokho ekubiza khona.",
       "howTitle": "Sikubale njani lokhu",
-      "how": "Lokhu kulinganisela, akusisithembiso, kusekelwe eempendulweni zakho kwaphela. Ilinganiso namkha i-invoyisi ngayinye ithatha imizuzu esi-8 ukuya ku-25 kuya ngokuthi yenziwaphi, nayimadaniswa nemizuzu engaba li-{{ygt}} nge-YGT. Ukulandela ikhokhelo edlule isikhathi kuthatha pheze imizuzu eli-{{chase}}. Ithulusi ngalinye elingaphezu kwamabili lidla pheze amahora ali-{{switching}} ngenyanga ngomuntu ngamunye ekutjhentjheni nekukopisheni, begodu ithulusi ngalinye elingaphezu kwa-{{ok}} lidla amaphuzu ama-2. Isikhathi sokufuna imininingwana yamakhasimende, imibuzo nemisebenzi siyakhula ngobukhulu besiqhema sakho.",
+      "how": "Kulinganisela, ingasi isithembiso, okusekelwe emiphendulweni yakho kwaphela. Isilinganiso ngasinye namkha i-invoyisi kuthatha imizuzu ema-8 ukuya kema-25 kuya ngokuthi kwenziwa kuphi, nakumadaniswa nemizuzu eli-{{ygt}} ukuya kweli-{{lowYgt}} nge-{{name}}. Ukulandela ikhokhelo edlule isikhathi ngesandla kuthatha imizuzu engaba li-{{chase}}. Ithulusi ngalinye elingakahlanganiswa ngemva kwamabili lidla amahora angaba li-{{switching}} ngenyanga umuntu ngamunye ekukopisheni; ukuqala izinto kubalwa ngokwehlukileko, ngalokho akukho umzuzu obalwa kabili. Isikhathi sokuqala sikhula nenani labantu abenza ukuphatha, kodwana kancani kunesiqhema. Iphezulu lobubanzi licabanga bona udlulisela koke lokhu ku-{{name}}; iphasi licabanga ingcenye, ngemizuzu eli-{{lowYgt}} umtlolo ngamunye. Ithulusi ngalinye elingakahlanganiswa ngemva kwa-{{ok}} lidla amaphuzu ama-2, begodu amaphuzu athoma ku-0 ukuya ku-100.",
       "trialTitle": "Vala iinkhala lezi endaweni yinye",
       "trialBody": "Linga koke simahla amalanga ali-{{days}}. Akutlhogeki ikarada, begodu ungaletha amakhasimende wakho usuka ku-Excel.",
-      "again": "Phinda ukuhlolwa"
+      "again": "Phinda ukuhlolwa",
+      "now": "Nje",
+      "withYgt": "Nge-{{name}}",
+      "range": "{{low}}–{{high}}",
+      "freed": "Isikhathi ongasikhulula",
+      "perMonth": "ngenyanga",
+      "worth": "Isikhathi leso singaba nobukhulu obu",
+      "worthNote": "Ngenani lakho lehora. Leli linani lesikhathi esikhululiweko, ingasi umrholo owengezelelekileko oqinisekisiweko namkha imali ebulungiweko. Imiphumela yakho ixhomekeke ekutheni udlulisela umsebenzi wakho omnengi kangangani."
+    },
+    "roadmap": {
+      "title_one": "Igadango lakho elilandelako",
+      "title_other": "Ihlelo lakho lokuthuthukisa leengadango ezili-{{count}}",
+      "customers": {
+        "title": "Beka amakhasimende wakho endaweni yinye",
+        "body": "Letha zoke iinomboro, ii-imeyili nomlando erhelweni linye woke umuntu angafuna kilo, esikhundleni samafowuni, iinkulumo neencwadi zokutlola."
+      },
+      "pipeline": {
+        "title": "Tlola phasi yoke imibuzo",
+        "body": "Nikela umbuzo ngamunye isigaba negadango elilandelako ngelanga efika ngalo, bona kungabi khona othulako ungaboni."
+      },
+      "tasks": {
+        "title": "Nikela koke ukulandelela ilanga nomnikazi",
+        "body": "Susa imisebenzi ekukhumbuleni neenkulumweni uyifake erhelweni linye elinamalanga wokuphela neenkhumbuzo."
+      },
+      "documents": {
+        "title": "Yenza iinlinganiso zifane",
+        "body": "Sebenzisa imikhiqizo, amanani nemininingwana yamakhasimende ebulungiweko, bona isilinganiso ngasinye sibonakale ngendlela efanako begodu sibe yi-invoyisi ngaphandle kokutlola kabutjha."
+      },
+      "payments": {
+        "title": "Misa umkghwa weenkhumbuzo",
+        "body": "Qala qobe veke bona ngubani okukweletako bese uthumela iinkhumbuzo ngehlelo elingatjhuguluki, bona ukulandela kungaxhomekeki ekukhumbuleni."
+      },
+      "footer": "Akutlhogeki bona ulungise koke ngesikhathi sinye. Thoma ngegadango 1."
+    },
+    "plan": {
+      "eyebrow": "Ihlelo elinconyweko",
+      "title": "Sincoma i-{{plan}} ebhizinisini lakho",
+      "priceFlat": "{{price}} ngenyanga ebhizinisini lakho loke.",
+      "priceSeats_one": "{{price}} ngenyanga yomuntu o-{{count}}.",
+      "priceSeats_other": "Pheze ku-{{price}} ngenyanga yabantu abali-{{count}}.",
+      "whyFlat": "Inani linye labantu abafika ku-{{max}}, elaneleko esiqhemeni sakho.",
+      "whySeats_one": "Kubhadelwa ngomuntu ngamunye, ngalokho ubhadelela wena kwaphela.",
+      "whySeats_other": "Kubhadelwa ngomuntu ngamunye, kubantu abali-{{count}} abangakusebenzisa, begodu kutjiphile ngesihlalo ngasinye eenqhemeni.",
+      "whyAll": "Iinlinganiso, ama-invoyisi, iinkhumbuzo zeenkhokhelo, iinkundla ozenzela zona nazo zoke iilimi ezili-11 kuza nehlelo ngalinye.",
+      "features": {
+        "whatsapp_sms": "Iinkhumbuzo ze-WhatsApp ne-SMS",
+        "marketing": "Amatjhugulo we-imeyili namaphephandaba",
+        "recurring_invoices": "Ama-invoyisi aphindwako",
+        "reports": "Umbiko othi \"Ngubani okukweletako\"",
+        "team_chat": "Ikulumo yesiqhema",
+        "discovery": "Amakhasimende amatjha angaba khona afunyanwa qobe veke",
+        "priority_support": "Ukusekelwa okuphambili"
+      },
+      "compare": "Madanisa woke amahlelo"
     },
     "talk": {
       "title": "Ufuna sikuhlathululele imiphumela?",

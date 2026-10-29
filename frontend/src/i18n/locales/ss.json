@@ -2360,9 +2360,9 @@
       "intro": "Hambisa ema-slider afanane nebhizinisi lakho.",
       "docs": "Tintsengo nema-invoyisi ngenyanga",
       "rate": "Lihora lesikhatsi sakho libita malini",
-      "hours": "Emahora labuyako onkhe tinyanga",
-      "money": "Livelu onkhe tinyanga",
-      "year": "Loko cishe kutinsuku tekusebenta leti-{{days}} letibuyako onkhe ngemnyaka.",
+      "hours": "Emahora longawakhulula onkhe tinyanga",
+      "money": "Kungaba livelu onkhe tinyanga",
+      "year": "Loko kungaba tinsuku tekusebenta leti-{{days}} ngemnyaka.",
       "note": "Loku kulinganisa, akusiso setsembiso. Kucabanga kutsi wonga cishe imizuzu leli-{{minutes}} entsengweni ngayinye nobe ku-invoyisi longasadzingi kuyithayipha, kuyitfumela nekuyilandzelela wena.",
       "question": "Bewungentani ngemahora langu-{{hours}} lengetiwe nyanga nenyanga?",
       "explain": "Sicalo ngasinye, i-invoyisi nekulandzelela kutsatsa sikhatsi. Bona kutsi ungonga sikhatsi lesingakanani ngekwenta kuphatsa kwemalanga onkhe kube lula, bese uhambisa emaslayida kute afane nelibhizinisi lakho."
@@ -2397,15 +2397,8 @@
       "noCard": "Alidzingeki likhadi"
     },
     "checkup": {
-      "free": "Mahhala",
-      "pill": "Hlola libhizinisi lakho emaminitsini la-2",
-      "eyebrow": "Kuhlolwa kwelibhizinisi mahhala",
-      "title": "Umsebenti wemaphepha ukubita malini ngempela?",
-      "lead": "Phendvula imibuto lelishumi lesheshako mayelana nekutsi uphatsa njani batsengi, imibuto yebatsengi, imisebenti, emakhotheshini nekukhokha. Tfola emaphuzu, tikhala takho letintsatfu letinkhulu kanye nemahora longawabuyisa onkhe tinyanga.",
       "cta": "Cala kuhlolwa mahhala",
-      "meta": "Cishe emaminitsi la-2 · Akudzingeki ubhalise",
-      "sample": "Sibonelo sembiko",
-      "sampleTools": "Emathuluzi la-7: WhatsApp, Excel, Word, liphepha, inkhumbulo nalokunye"
+      "meta": "Akudzingeki ubhalise"
     }
   },
   "aging": {
@@ -2736,12 +2729,12 @@
       "title": "Libhizinisi lakho lihleleke kangakanani ngempela?",
       "lead": "Imibuto lelishumi lesheshako mayelana nekutsi wenta njani tintfo lamuhla. Sitakukhombisa lapho sikhatsi nemali kuphuma khona, nekutsi {{name}} ingasita njani.",
       "get": {
-        "score": "Emaphuzu akho kulayi-100",
+        "score": "Emaphuzu ekusebenta kwebhizinisi lakho",
         "gaps": "Tikhala takho letintsatfu letinkhulu",
         "time": "Emahora nemarandi longawabuyisa"
       },
       "start": "Cala kuhlolwa",
-      "meta": "Imibuto lengu-{{count}} · Cishe emaminitsi la-2 · Akudzingeki ubhalise"
+      "meta": "Imibuto lengu-{{count}} · Akudzingeki ubhalise"
     },
     "progress": "Umbuto {{n}} kulengu-{{total}}",
     "spotted_one": "Lithuluzi lelingu-{{count}} litfoliwe",
@@ -2765,18 +2758,18 @@
       "invoicing": "I-app yema-invoyisi"
     },
     "q": {
-      "industry": {
-        "topic": "Libhizinisi lakho",
-        "title": "Uchuba luhlobo luni lwelibhizinisi?",
-        "hint": "Khetsa leliseduze kakhulu.",
-        "options": {
-          "other": "Lokunye"
-        }
+      "profile": {
+        "topic": "Ibhizinisi lakho",
+        "title": "Sitjele ngebhizinisi lakho",
+        "hint": "Khetsa luhlobo loluseduze, bese ukhetsa kutsi ngubani lowenta umsebenti wekuphatsa.",
+        "describe": "Wentani ngco? (akusiko kuphoceleleka)",
+        "describeOther": "Luhlobo luni lwebhizinisi?",
+        "describePlaceholder": "Sibonelo: kuhlanta emahhovisi etikolo nemitfolamphilo",
+        "team": "Bangaki bantfu labasebentelana nebatsengi, emakhotheshini, ema-invoyisi noma kulandzelela?",
+        "teamHint": "Nawe tibale. Laba ngibo bantfu labangasebentisa i-YGT.",
+        "other": "Lokunye"
       },
       "team": {
-        "topic": "Licembu lakho",
-        "title": "Bangaki bantfu labasebenta ebhizinisini?",
-        "hint": "Nawe tibale.",
         "options": {
           "solo": "Ngimi ngedvwa",
           "small": "Bantfu labangu-2 kuya ku-3",
@@ -2786,7 +2779,7 @@
       },
       "customers": {
         "topic": "Batsengi",
-        "title": "Imininingwane yebatsengi bakho igcinwa kuphi?",
+        "title": "Nawudzinga inombolo noma umlandvo wemtsengi, ubuka kuphi?",
         "options": {
           "phone": "Labo lotsintsana nabo efonini",
           "whatsapp": "Tingcoco te-WhatsApp",
@@ -2809,7 +2802,7 @@
       },
       "slip": {
         "topic": "Umgca wekutsengisa",
-        "title": "Kukangaki umbuto wemtsengi nome kulandzelela kuphunyuka?",
+        "title": "Kwenteka kangakanani kutsi umtsengi longaba khona atfule ungakamlandzeleli?",
         "hint": "Yiba ngulocotfo, akekho lobukako.",
         "options": {
           "rarely": "Cishe akwenteki",
@@ -2850,13 +2843,27 @@
       },
       "payments": {
         "topic": "Kukhokhelwa",
-        "title": "Kwentekani nangabe umtsengi akhokha sekwephuzile?",
+        "title": "Kwentekani ngalokuvamile nangabe umtsengi angakayikhokhi i-invoyisi?",
         "hint": "Khetsa lokuseduze kakhulu.",
         "options": {
           "rarely": "Batsengi betfu cishe abakaze bakhokhe sekwephuzile",
           "manual": "Ngiyabashayela nome ngibatfumelela i-WhatsApp mine",
           "remember": "Ngiyabalandzela nangikhumbula",
           "automatic": "Tikhumbuto titfunyelwa ngekutentekela"
+        }
+      },
+      "needs": {
+        "topic": "Loko lokudzingako",
+        "title": "Ngukuphi kuloku longakusebentisa ngempela?",
+        "options": {
+          "basics": "Lokusisekelo kuphela: batsengi, emakhotheshini nema-invoyisi",
+          "whatsapp": "Tikhumbuto te-WhatsApp ne-SMS",
+          "marketing": "Imikhankaso ye-imeyili nemaphephandzaba",
+          "recurring": "Ema-invoyisi laphindvwako onkhe tinyanga",
+          "owing": "Umbiko wekutsi ngubani lokukweletako",
+          "chat": "Kucoca neliviyo lami",
+          "leads": "Lusito lwekutfola batsengi labasha",
+          "priority": "Kusekelwa lokusheshako nalokuhamba embili"
         }
       },
       "tools": {
@@ -2908,11 +2915,11 @@
     },
     "hours": {
       "documents": "Kubhala emakhotheshini nema-invoyisi",
-      "customers": "Kufuna imininingwane yebatsengi",
+      "customers": "Kubuka imininingwane yebatsengi",
       "pipeline": "Kutfola kutsi imibuto ikuphi",
       "tasks": "Kulandzelela imisebenti",
       "payments": "Kulandzela kukhokha lokwephuzile",
-      "switching": "Kushintja emkhatsini wemathuluzi"
+      "switching": "Kukopisha emkhatsini wemathuluzi"
     },
     "gaps": {
       "customers": {
@@ -2948,46 +2955,102 @@
     },
     "report": {
       "outOf": "kulayi-100",
+      "scoreName": "Emaphuzu ekusebenta kwebhizinisi",
+      "scoreNote": "Loku kukala kutsi tinchubo lesibute ngato tihleleke kangakanani, hhayi kutsi ibhizinisi lakho lenta kahle kangakanani.",
       "band": {
-        "weak": {
-          "label": "Ugijima emuva kwelibhizinisi lakho",
-          "title": "Libhizinisi lakho liyakuchuba, akusiwe lolichubako",
-          "body": "Imininingwane lebalulekile isetindzaweni letinyenti kakhulu, futsi sikhatsi siyaphuma onkhe emaviki. Tindzaba letinhle: leti tikhala lokulula kakhulu kutivala, futsi {{name}} yakhelwe loku kanye."
+        "attention": {
+          "label": "Kudzinga kunakwa",
+          "title": "Umsebenti lomnyenti wekuphatsa welilanga nelilanga usencike enkhumbulweni nasemsebentini wetandla",
+          "body": "Ngekwetimphendvulo takho, tinchubo letinyenti telilanga nelilanga tincike ekulandzeleleni ngesandla nasemathuluzini lehlukene. Leti tikhala lekulula kakhulu kutivala, futsi i-{{name}} yakhelwe loku kanye."
         },
-        "middle": {
-          "label": "Usendleleni",
-          "title": "Unetisekelo, kodvwa tintfo tisaphunyuka",
-          "body": "Letinye tincenye telibhizinisi lakho tihamba kahle, letinye tincike enkhumbulweni nemsebentini wetandla. Kutihlanganisa ku-{{name}} kungabuyisa sikhatsi sangempela onkhe tinyanga."
+        "progress": {
+          "label": "Uyatfutfuka",
+          "title": "Unetisekelo, kodvwa letinye tintfo tisaphunyuka",
+          "body": "Letinye tinchubo tihamba kahle, letinye tincike enkhumbulweni nasemsebentini wetandla. Kutihlanganisa ku-{{name}} kungakhulula sikhatsi sangempela onkhe tinyanga."
         },
-        "strong": {
-          "label": "Ulawula konkhe",
+        "organised": {
+          "label": "Uhleleke kahle",
           "title": "Uhleleke kahle. Nyalo kwente kube lula",
-          "body": "Sewunemikhuba lemihle. {{name}} ingabeka konkhe endzaweni yinye, kute licembu lakho lichite sikhatsi lesincane nakakhulu emsebentini wemaphepha."
+          "body": "Sewunemikhuba lemihle. I-{{name}} ingabeka tincenye letisele endzaweni yinye, kuze kuphatsa kutsatse sikhatsi lesincane nakakhulu."
+        },
+        "high": {
+          "label": "Uhleleke kakhulu",
+          "title": "Tinchubo takho tisesimeni lesihle kakhulu",
+          "body": "Akudzingeki kutsi ushintje masinyane indlela lowusebenta ngayo. Nangabe ufuna konkhe kube ndzawonye, i-{{name}} isengasita, kodvwa sewuvele wenta kahle."
         }
       },
       "areasTitle": "Emaphuzu akho ngencenye",
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "Usebentisa lithuluzi lelingu-{{count}}",
       "toolsTitle_other": "Usebentisa emathuluzi langu-{{count}}",
-      "toolsCost": "Lithuluzi ngalinye leliphetsa ku-{{ok}} lisho kukopisha lokwengetiwe, kushintja netintfo letiwela emkhatsini wawo. Kukulahlekisele emaphuzu langu-{{points}}.",
+      "toolsCost": "Langu-{{loose}} kuwo ngemathuluzi langakahlanganiswa lanjengephepha, tingcoco, ema-spreadsheet noma letinye ti-app. Lithuluzi ngalinye lelingakahlanganiswa ngemuva kwa-{{ok}} lisho kukopisha lokwengetiwe netintfo letiwela emkhatsini: kususwa emaphuzu langu-{{points}}. Tinhlelo letinjenge-CRM noma i-app yema-invoyisi atikubaleli kabi.",
       "toolsFine": "Leli linani lelilawulekako. Kuligcina linjalo kuyasita.",
       "gapsTitle_one": "Sikhala sakho lesikhulu",
       "gapsTitle_other": "Tikhala takho letinkhulu letingu-{{count}}",
       "noGaps": "Kute tikhala letinkhulu letitfolakele. Wente kahle.",
       "gap": "Sikhala {{n}}",
       "fix": "Indlela {{name}} lesilungisa ngayo",
-      "roiTitle": "Lapho sikhatsi sakho siya khona onkhe tinyanga",
+      "roiTitle": "Sikhatsi sakho sekuphatsa onkhe tinyanga",
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
-      "planFlat": "I-{{plan}} ibita {{price}} ngenyanga ebhizinisini lakho lonkhe.",
-      "planSeats": "I-{{plan}} yebantfu labangu-{{seats}} ibita cishe {{price}} ngenyanga.",
-      "times_one": "Loko cishe kuphindvwe ka-{{count}} kunalokubitwa ngiyo.",
-      "times_other": "Loko cishe kuphindvwe ka-{{count}} kunalokubitwa ngiyo.",
       "howTitle": "Sikubale njani loku",
-      "how": "Loku kulinganisela, akusiso setsembiso, kusekelwe etimphendvulweni takho kuphela. Likhotheshini nome i-invoyisi ngayinye itsatsa emaminitsi langu-8 kuya ku-25 kuya ngekutsi yentiwaphi, uma kucatsaniswa nemaminitsi langaba ngu-{{ygt}} nge-YGT. Kulandzela kukhokha lokwephuzile kutsatsa cishe emaminitsi langu-{{chase}}. Lithuluzi ngalinye leliphetsa lamabili lidla cishe emahora langu-{{switching}} ngenyanga ngamunye umuntfu ekushintjeni nasekukopisheni, futsi lithuluzi ngalinye leliphetsa ku-{{ok}} lidla emaphuzu la-2. Sikhatsi sekufuna imininingwane yebatsengi, imibuto nemisebenti siyakhula ngebukhulu belicembu lakho.",
+      "how": "Kulinganisa, hhayi sitsembiso, lokusekelwe etimphendvulweni takho kuphela. Ikhotheshini ngayinye noma i-invoyisi itsatsa imizuzu lengu-8 kuya ku-25 kuye ngekutsi yentiwa kuphi, uma kucatsaniswa nemizuzu lengu-{{ygt}} kuya ku-{{lowYgt}} nge-{{name}}. Kulandzela kukhokha lokwephuzile ngesandla kutsatsa cishe imizuzu lengu-{{chase}}. Lithuluzi ngalinye lelingakahlanganiswa ngemuva kwamabili lidla cishe emahora langu-{{switching}} ngenyanga umuntfu ngamunye ekukopisheni; kubuka tintfo kubalwa ngalokwehlukile, ngako akukho umzuzu lobalwa kabili. Sikhatsi sekubuka sikhula nelinani lebantfu labenta kuphatsa, kodvwa kancane kunaliviyo. Lokuphetulu kwebubanti kucabanga kutsi udlulisa konkhe loku ku-{{name}}; lokuphansi kucabanga cishe incenye, ngemizuzu lengu-{{lowYgt}} umculu ngamunye. Lithuluzi ngalinye lelingakahlanganiswa ngemuva kwa-{{ok}} lidla emaphuzu la-2, futsi emaphuzu asuka ku-0 kuya ku-100.",
       "trialTitle": "Vala leti tikhala endzaweni yinye",
       "trialBody": "Zama konkhe mahhala emalanga langu-{{days}}. Kute likhadi lelidzingekako, futsi ungangenisa batsengi bakho usuka ku-Excel.",
-      "again": "Phindza kuhlolwa"
+      "again": "Phindza kuhlolwa",
+      "now": "Nyalo",
+      "withYgt": "Nge-{{name}}",
+      "range": "{{low}}–{{high}}",
+      "freed": "Sikhatsi longasikhulula",
+      "perMonth": "ngenyanga",
+      "worth": "Leso sikhatsi singaba nelinani le",
+      "worthNote": "Ngelinani lakho lelihora. Leli linani lesikhatsi lesikhululiwe, hhayi imali leyengetiwe leciniselekile noma imali lowongayonga. Imiphumela yakho incike ekutsini umsebenti wakho lomnyenti kangakanani lowudlulisako."
+    },
+    "roadmap": {
+      "title_one": "Sinyatselo sakho lesilandzelako",
+      "title_other": "Luhlelo lwakho lwekutfutfukisa lwetinyatselo letingu-{{count}}",
+      "customers": {
+        "title": "Beka batsengi bakho endzaweni yinye",
+        "body": "Letsa tonkhe tinombolo, ema-imeyili nemlandvo eluhlwini lunye wonkhe umuntfu langaseshamo, esikhundleni semafoni, tingcoco netincwadzi tekubhala."
+      },
+      "pipeline": {
+        "title": "Bhala phansi yonkhe imibuto",
+        "body": "Nika umbuto ngamunye sigaba nesinyatselo lesilandzelako ngelilanga lofika ngalo, kuze kungabi khona lotfulako ungaboni."
+      },
+      "tasks": {
+        "title": "Nika konkhe kulandzelela lilanga nemnikati",
+        "body": "Susa imisebenti enkhumbulweni nasetingcocweni, uyifake eluhlwini lunye lolunemalanga ekugcina netikhumbuto."
+      },
+      "documents": {
+        "title": "Yenta emakhotheshini afane",
+        "body": "Sebentisa imikhicito, emanani nemininingwane yebatsengi lelondvolotiwe, kuze ikhotheshini ngayinye ibukeke ngendlela lefanako futsi ibe yi-invoyisi ngaphandle kwekubhala kabusha."
+      },
+      "payments": {
+        "title": "Misa umkhuba wetikhumbuto",
+        "body": "Buka onkhe emaviki kutsi ngubani lokukweletako bese utfumela tikhumbuto ngeluhlelo lolungagucuki, kuze kulandzela kungencikanga ekukhumbuleni."
+      },
+      "footer": "Akudzingeki ulungise konkhe ngesikhatsi sinye. Cala ngesinyatselo 1."
+    },
+    "plan": {
+      "eyebrow": "Luhlelo lolunconywako",
+      "title": "Sincoma i-{{plan}} ebhizinisini lakho",
+      "priceFlat": "{{price}} ngenyanga ebhizinisini lakho lonkhe.",
+      "priceSeats_one": "{{price}} ngenyanga yemuntfu lo-{{count}}.",
+      "priceSeats_other": "Cishe {{price}} ngenyanga yebantfu labangu-{{count}}.",
+      "whyFlat": "Linani linye lebantfu labafika ku-{{max}}, lelanele liviyo lakho.",
+      "whySeats_one": "Kukhokhwa ngemuntfu ngamunye, ngako ukhokhela wena kuphela.",
+      "whySeats_other": "Kukhokhwa ngemuntfu ngamunye, kubantfu labangu-{{count}} labangakusebentisa, futsi kushibhile ngesihlalo ngasinye emaviyweni.",
+      "whyAll": "Emakhotheshini, ema-invoyisi, tikhumbuto tekukhokha, tinkhundla lotentela tona nato tonkhe tilimi letingu-11 kuta nayo yonkhe luhlelo.",
+      "features": {
+        "whatsapp_sms": "Tikhumbuto te-WhatsApp ne-SMS",
+        "marketing": "Imikhankaso ye-imeyili nemaphephandzaba",
+        "recurring_invoices": "Ema-invoyisi laphindvwako",
+        "reports": "Umbiko lotsi \"Ngubani lokukweletako\"",
+        "team_chat": "Ingcoco yeliviyo",
+        "discovery": "Batsengi labasha labangaba khona batfolwa onkhe emaviki",
+        "priority_support": "Kusekelwa lokuhamba embili"
+      },
+      "compare": "Catsanisa tonkhe tinhlelo"
     },
     "talk": {
       "title": "Ufuna sikuchazele imiphumela?",

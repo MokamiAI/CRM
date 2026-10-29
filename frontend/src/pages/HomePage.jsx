@@ -77,9 +77,8 @@ export default function HomePage() {
             <a href="#features" className="hover:text-zinc-900">{t("home.nav.features")}</a>
             <a href="#pricing" className="hover:text-zinc-900">{t("home.nav.pricing")}</a>
             <a href="#faq" className="hover:text-zinc-900">{t("home.nav.faq")}</a>
-            <Link to="/assessment" className="flex items-center gap-1.5 font-medium text-indigo-700 hover:text-indigo-900">
+            <Link to="/assessment" className="font-medium text-indigo-700 hover:text-indigo-900">
               {t("home.nav.checkup")}
-              <span className="rounded-full bg-indigo-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-indigo-700 ring-1 ring-inset ring-indigo-600/15">{t("home.checkup.free")}</span>
             </Link>
             <Link to="/about" className="hover:text-zinc-900">{t("about.link")}</Link>
           </nav>
@@ -98,15 +97,6 @@ export default function HomePage() {
         {/* What it is, for whom, and the way in. */}
         <section className="grid items-center gap-10 py-10 sm:py-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
           <div className="min-w-0">
-            {/* The free check-up, first thing a visitor can tap (the menu hides it on phones). */}
-            <Link
-              to="/assessment"
-              className="hero-rise mb-5 inline-flex min-h-9 max-w-full items-center gap-2 rounded-full bg-white/80 py-1 pl-1 pr-3 text-sm text-zinc-700 shadow-sm ring-1 ring-inset ring-zinc-200 backdrop-blur hover:ring-indigo-300 [@media(pointer:coarse)]:min-h-11"
-            >
-              <span className="rounded-full bg-indigo-600 px-2 py-0.5 text-xs font-semibold text-white">{t("home.checkup.free")}</span>
-              <span className="truncate">{t("home.checkup.pill")}</span>
-              <span aria-hidden="true" className="text-indigo-600">→</span>
-            </Link>
             <p className="hero-rise text-sm font-semibold text-indigo-600">{t("home.hero.eyebrow")}</p>
             <h1 style={{ "--i": 1 }} className="hero-rise mt-3 text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl lg:text-[3.4rem] lg:leading-[1.05]">
               {t("home.hero.headline")}
@@ -116,11 +106,12 @@ export default function HomePage() {
               <p>{t("home.hero.leadTeam")}</p>
               <p className="text-zinc-800">{t("home.hero.lead2", { name: APP_NAME })}</p>
             </div>
+            {/* Ready to try it, or not yet: the check-up is the step before a trial (and the way in on phones, where the menu hides). */}
             <div style={{ "--i": 3 }} className="hero-rise mt-7 flex flex-wrap items-center gap-3">
               {start}
-              <a href="#how" className="btn btn-secondary !h-11 !px-5 !text-[15px]">
-                {t("home.hero.howLink", { name: APP_NAME })}
-              </a>
+              <Link to="/assessment" className="btn btn-secondary !h-11 !px-5 !text-[15px]">
+                {t("home.checkup.cta")}
+              </Link>
             </div>
             <ul style={{ "--i": 4 }} className="hero-rise mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-zinc-600">
               {POINTS.map((k) => (
@@ -139,8 +130,6 @@ export default function HomePage() {
         </section>
 
         <Problems />
-
-        <CheckupTeaser />
 
         <HomePeople />
 
@@ -254,57 +243,6 @@ function Problems() {
           </li>
         ))}
       </ul>
-    </section>
-  );
-}
-
-/** The way into the free check-up: what it asks, and a taste of the report. */
-function CheckupTeaser() {
-  const { t } = useTranslation();
-  const bars = [["customers", 14], ["pipeline", 6], ["tasks", 9], ["documents", 11], ["payments", 9]];
-  return (
-    <section className="reveal py-12" aria-labelledby="home-checkup">
-      <div className="relative isolate grid items-center gap-8 overflow-hidden rounded-3xl bg-zinc-950 p-6 sm:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-        <span
-          className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full opacity-30 blur-3xl"
-          style={{ background: "conic-gradient(from 0deg, #6366f1, #a855f7, #38bdf8, #6366f1)" }}
-          aria-hidden="true"
-        />
-        <div className="min-w-0">
-          <p className="text-sm font-semibold text-indigo-300">{t("home.checkup.eyebrow")}</p>
-          <h2 id="home-checkup" className="mt-2 text-3xl font-semibold tracking-tight text-white">{t("home.checkup.title")}</h2>
-          <p className="mt-3 text-zinc-300">{t("home.checkup.lead")}</p>
-          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-            <Link to="/assessment" className="btn !h-11 !px-5 !text-[15px] bg-white text-zinc-900 hover:bg-zinc-100">
-              {t("home.checkup.cta")}
-            </Link>
-            <span className="text-sm text-zinc-400">{t("home.checkup.meta")}</span>
-          </div>
-        </div>
-        {/* A sample report, so people see what they'll get. */}
-        <div className="min-w-0 rounded-2xl bg-white p-5 shadow-pop" aria-hidden="true">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-zinc-900">{t("home.checkup.sample")}</p>
-            <p className="text-2xl font-semibold tabular-nums text-amber-600">
-              49<span className="text-sm font-medium text-zinc-400">/100</span>
-            </p>
-          </div>
-          <ul className="mt-4 space-y-2.5">
-            {bars.map(([area, value]) => (
-              <li key={area}>
-                <div className="flex justify-between text-xs text-zinc-600">
-                  <span>{t(`assessment.areas.${area}`)}</span>
-                  <span className="tabular-nums">{value}/20</span>
-                </div>
-                <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-zinc-100">
-                  <div className={`h-full rounded-full ${value >= 14 ? "bg-emerald-500" : value >= 8 ? "bg-amber-500" : "bg-rose-500"}`} style={{ width: `${(value / 20) * 100}%` }} />
-                </div>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 rounded-xl bg-amber-50 px-3 py-2 text-xs text-amber-900">{t("home.checkup.sampleTools")}</p>
-        </div>
-      </div>
     </section>
   );
 }

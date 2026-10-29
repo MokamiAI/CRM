@@ -2360,9 +2360,9 @@
       "intro": "Skuif die skuifbalke om by jou besigheid te pas.",
       "docs": "Kwotasies en fakture per maand",
       "rate": "Wat 'n uur van jou tyd werd is",
-      "hours": "Ure terug elke maand",
-      "money": "Werd elke maand",
-      "year": "Dis omtrent {{days}} werksdae terug elke jaar.",
+      "hours": "Ure wat jy elke maand kan vrymaak",
+      "money": "Kan elke maand werd wees",
+      "year": "Dit kan omtrent {{days}} werksdae per jaar wees.",
       "note": "'n Skatting, nie 'n belofte nie. Dit neem aan dat jy omtrent {{minutes}} minute spaar op elke kwotasie of faktuur wat jy nie meer self hoef uit te tik, te stuur en agterna te jaag nie.",
       "question": "Wat sou jy doen met {{hours}} ekstra ure elke maand?",
       "explain": "Elke kwotasie, faktuur en opvolg neem tyd. Sien hoeveel tyd jy kan spaar deur jou daaglikse admin te vereenvoudig, en skuif dan die skuiwers om by jou besigheid te pas."
@@ -2397,15 +2397,8 @@
       "noCard": "Geen kaart nodig nie"
     },
     "checkup": {
-      "free": "Gratis",
-      "pill": "Doen die 2-minuut-besigheidstoets",
-      "eyebrow": "Gratis besigheidstoets",
-      "title": "Hoeveel kos administrasie jou regtig?",
-      "lead": "Beantwoord 10 vinnige vrae oor hoe jy kliënte, navrae, take, kwotasies en betalings hanteer. Kry 'n telling, jou drie grootste gapings en die ure wat jy elke maand kan terugwen.",
       "cta": "Begin die gratis toets",
-      "meta": "Omtrent 2 minute · Geen registrasie",
-      "sample": "Voorbeeldverslag",
-      "sampleTools": "7 hulpmiddels gejongleer: WhatsApp, Excel, Word, papier, geheue en meer"
+      "meta": "Geen registrasie"
     }
   },
   "aging": {
@@ -2736,12 +2729,12 @@
       "title": "Hoe georganiseerd is jou besigheid regtig?",
       "lead": "10 vinnige vrae oor hoe jy vandag dinge doen. Ons wys jou waar tyd en geld wegglip, en hoe {{name}} kan help.",
       "get": {
-        "score": "Jou telling uit 100",
+        "score": "Jou besigheid se bedryfstelling",
         "gaps": "Jou drie grootste gapings",
         "time": "Ure en rande wat jy kan terugwen"
       },
       "start": "Begin die toets",
-      "meta": "{{count}} vrae · Omtrent 2 minute · Geen registrasie"
+      "meta": "{{count}} vrae · Geen registrasie"
     },
     "progress": "Vraag {{n}} van {{total}}",
     "spotted_one": "{{count}} hulpmiddel raakgesien",
@@ -2765,18 +2758,18 @@
       "invoicing": "'n Faktuurtoep"
     },
     "q": {
-      "industry": {
+      "profile": {
         "topic": "Jou besigheid",
-        "title": "Watter soort besigheid bedryf jy?",
-        "hint": "Kies die naaste een.",
-        "options": {
-          "other": "Iets anders"
-        }
+        "title": "Vertel ons van jou besigheid",
+        "hint": "Kies die naaste soort, en dan wie die administrasie doen.",
+        "describe": "Wat presies doen jy? (opsioneel)",
+        "describeOther": "Watter soort besigheid is dit?",
+        "describePlaceholder": "Byvoorbeeld: kantoorskoonmaak vir skole en klinieke",
+        "team": "Hoeveel mense hanteer kliënte, kwotasies, fakture of opvolgwerk?",
+        "teamHint": "Tel jouself ook. Dit is die mense wat YGT sou gebruik.",
+        "other": "Iets anders"
       },
       "team": {
-        "topic": "Jou span",
-        "title": "Hoeveel mense werk in die besigheid?",
-        "hint": "Tel jouself ook.",
         "options": {
           "solo": "Net ek",
           "small": "2 tot 3 mense",
@@ -2786,7 +2779,7 @@
       },
       "customers": {
         "topic": "Kliënte",
-        "title": "Waar is jou kliënte se besonderhede?",
+        "title": "Waar soek jy as jy 'n kliënt se nommer of geskiedenis nodig het?",
         "options": {
           "phone": "Foonkontakte",
           "whatsapp": "WhatsApp-geselsies",
@@ -2809,7 +2802,7 @@
       },
       "slip": {
         "topic": "Pyplyn",
-        "title": "Hoe gereeld glip 'n navraag of opvolg deur die mase?",
+        "title": "Hoe gereeld raak 'n moontlike kliënt stil voordat jy kan opvolg?",
         "hint": "Wees eerlik, niemand kyk nie.",
         "options": {
           "rarely": "Amper nooit",
@@ -2850,13 +2843,27 @@
       },
       "payments": {
         "topic": "Betaal word",
-        "title": "Wat gebeur wanneer 'n kliënt laat betaal?",
+        "title": "Wat gebeur gewoonlik as 'n kliënt nie 'n faktuur betaal het nie?",
         "hint": "Kies die naaste een.",
         "options": {
           "rarely": "Ons kliënte betaal amper nooit laat nie",
           "manual": "Ek bel of WhatsApp hulle self",
           "remember": "Ek jaag dit agterna wanneer ek onthou",
           "automatic": "Herinneringe gaan outomaties uit"
+        }
+      },
+      "needs": {
+        "topic": "Wat jy nodig het",
+        "title": "Watter van hierdie sou jy regtig gebruik?",
+        "options": {
+          "basics": "Net die basiese: kliënte, kwotasies en fakture",
+          "whatsapp": "WhatsApp- en SMS-herinneringe",
+          "marketing": "E-posveldtogte en nuusbriewe",
+          "recurring": "Fakture wat elke maand herhaal",
+          "owing": "'n Verslag van wie jou skuld",
+          "chat": "Klets met my span",
+          "leads": "Hulp om nuwe kliënte te vind",
+          "priority": "Vinnige, voorkeur-ondersteuning"
         }
       },
       "tools": {
@@ -2908,11 +2915,11 @@
     },
     "hours": {
       "documents": "Kwotasies en fakture uittik",
-      "customers": "Kliëntebesonderhede soek",
+      "customers": "Kliëntebesonderhede opsoek",
       "pipeline": "Uitwerk waar navrae staan",
       "tasks": "Take dophou",
       "payments": "Laat betalings agterna jaag",
-      "switching": "Tussen hulpmiddels wissel"
+      "switching": "Tussen hulpmiddels oorkopieer"
     },
     "gaps": {
       "customers": {
@@ -2948,46 +2955,102 @@
     },
     "report": {
       "outOf": "uit 100",
+      "scoreName": "Bedryfstelling van jou besigheid",
+      "scoreNote": "Dit meet hoe georganiseerd die prosesse is waaroor ons gevra het, nie hoe goed jou besigheid vaar nie.",
       "band": {
-        "weak": {
-          "label": "Jy hardloop agter jou besigheid aan",
-          "title": "Jou besigheid bestuur jou, nie andersom nie",
-          "body": "Belangrike besonderhede is op te veel plekke, en tyd lek elke week weg. Die goeie nuus: dit is die maklikste gapings om toe te maak, en {{name}} is presies hiervoor gebou."
+        "attention": {
+          "label": "Het aandag nodig",
+          "title": "Baie alledaagse administrasie hang nog van geheue en handwerk af",
+          "body": "Volgens jou antwoorde maak verskeie alledaagse prosesse staat op handmatige opvolging en aparte hulpmiddels. Dit is die maklikste gapings om toe te maak, en {{name}} is presies hiervoor gebou."
         },
-        "middle": {
-          "label": "Op pad",
-          "title": "Jy het die basiese dinge, maar dinge glip nog deur",
-          "body": "Sommige dele van jou besigheid loop goed, ander hang af van geheue en handwerk. As jy hulle in {{name}} saambring, wen jy elke maand regte tyd terug."
+        "progress": {
+          "label": "Maak vordering",
+          "title": "Jy het die basiese, maar party dinge glip nog deur",
+          "body": "Party prosesse werk goed, ander hang af van geheue en handwerk. Om hulle in {{name}} saam te bring, kan elke maand regte tyd vrymaak."
         },
-        "strong": {
-          "label": "In beheer",
+        "organised": {
+          "label": "Goed georganiseer",
           "title": "Jy is goed georganiseer. Maak dit nou moeiteloos",
-          "body": "Jy het reeds goeie gewoontes. {{name}} kan alles op een plek sit, sodat jou span nog minder tyd aan administrasie spandeer."
+          "body": "Jy het reeds goeie gewoontes. {{name}} kan die oorblywende stukke op een plek sit, sodat administrasie nog minder tyd vat."
+        },
+        "high": {
+          "label": "Hoogs georganiseer",
+          "title": "Jou prosesse is in uitstekende toestand",
+          "body": "Jy hoef nie dringend te verander hoe jy werk nie. As jy alles op een plek wil hê, kan {{name}} steeds help, maar jy doen reeds goed."
         }
       },
       "areasTitle": "Jou telling per area",
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "Jy jongleer {{count}} hulpmiddel",
       "toolsTitle_other": "Jy jongleer {{count}} hulpmiddels",
-      "toolsCost": "Elke hulpmiddel bo {{ok}} beteken meer oorskryf, wissel en dinge wat tussen hulle deurval. Dit het jou {{points}} punte gekos.",
+      "toolsCost": "{{loose}} daarvan is los hulpmiddels soos papier, kletse, sigblaaie of ander toeps. Elke los hulpmiddel ná {{ok}} beteken meer oorkopieer en dinge wat tussenin val: {{points}} punte af. Stelsels soos 'n CRM of 'n faktuurtoep tel nie teen jou nie.",
       "toolsFine": "Dit is 'n hanteerbare getal. Dit loon om dit so te hou.",
       "gapsTitle_one": "Jou grootste gaping",
       "gapsTitle_other": "Jou {{count}} grootste gapings",
       "noGaps": "Geen groot gapings gevind nie. Mooi so.",
       "gap": "Gaping {{n}}",
       "fix": "Hoe {{name}} dit regmaak",
-      "roiTitle": "Waarheen jou tyd elke maand gaan",
+      "roiTitle": "Jou administrasietyd elke maand",
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
-      "planFlat": "{{plan}} kos {{price}} per maand vir jou hele besigheid.",
-      "planSeats": "{{plan}} vir {{seats}} mense kos omtrent {{price}} per maand.",
-      "times_one": "Dit is omtrent {{count}} keer wat dit kos.",
-      "times_other": "Dit is omtrent {{count}} keer wat dit kos.",
       "howTitle": "Hoe ons dit uitgewerk het",
-      "how": "'n Skatting, nie 'n belofte nie, net op grond van jou antwoorde. Elke kwotasie of faktuur neem 8 tot 25 minute, afhangende van waar dit gemaak word, teenoor omtrent {{ygt}} met YGT. Om 'n laat betaling agterna te jaag, neem omtrent {{chase}} minute. Elke hulpmiddel bo twee kos omtrent {{switching}} uur per maand per persoon aan wissel en oorskryf, en elke hulpmiddel bo {{ok}} kos 2 punte. Tyd om kliëntebesonderhede, navrae en take te soek, groei saam met die grootte van jou span.",
+      "how": "'n Skatting, nie 'n belofte nie, net op grond van jou antwoorde. Elke kwotasie of faktuur vat 8 tot 25 minute, afhangend van waar dit gemaak word, teenoor {{ygt}} tot {{lowYgt}} minute met {{name}}. Om 'n laat betaling met die hand agterna te jaag, vat omtrent {{chase}} minute. Elke los hulpmiddel ná twee kos omtrent {{switching}} uur per maand per persoon aan oorkopieer; dinge opsoek word apart getel, so geen minuut word twee keer getel nie. Opsoektyd groei met die aantal mense wat administrasie doen, maar stadiger as die span. Die bopunt van die reeks neem aan jy skuif alles na {{name}}; die onderpunt neem omtrent die helfte aan, teen {{lowYgt}} minute per dokument. Elke los hulpmiddel ná {{ok}} kos 2 punte, en die telling loop van 0 tot 100.",
       "trialTitle": "Maak hierdie gapings op een plek toe",
       "trialBody": "Probeer alles {{days}} dae lank gratis. Geen kaart nodig nie, en jy kan jou kliënte uit Excel inbring.",
-      "again": "Doen dit weer"
+      "again": "Doen dit weer",
+      "now": "Nou",
+      "withYgt": "Met {{name}}",
+      "range": "{{low}}–{{high}}",
+      "freed": "Tyd wat jy kan vrymaak",
+      "perMonth": "per maand",
+      "worth": "Daardie tyd kan werd wees",
+      "worthNote": "Teen jou uurwaarde. Dit is die waarde van tyd wat vrykom, nie gewaarborgde ekstra inkomste of kontantbesparings nie. Jou resultate hang af van hoeveel van jou werk jy oorskuif."
+    },
+    "roadmap": {
+      "title_one": "Jou volgende stap",
+      "title_other": "Jou {{count}}-stap-verbeterplan",
+      "customers": {
+        "title": "Sit jou kliënte op een plek",
+        "body": "Bring elke nommer, e-pos en geskiedenis in een lys wat almal kan deursoek, in plaas van fone, kletse en notaboeke."
+      },
+      "pipeline": {
+        "title": "Skryf elke navraag neer",
+        "body": "Gee elke navraag 'n stadium en 'n volgende stap op die dag wat dit inkom, sodat niemand stil raak sonder dat jy dit agterkom nie."
+      },
+      "tasks": {
+        "title": "Gee elke opvolg 'n datum en 'n eienaar",
+        "body": "Skuif take uit geheue en kletse na een lys met sperdatums en herinneringe."
+      },
+      "documents": {
+        "title": "Maak kwotasies eenvormig",
+        "body": "Gebruik gestoorde produkte, pryse en kliëntebesonderhede, sodat elke kwotasie dieselfde lyk en sonder hertik 'n faktuur word."
+      },
+      "payments": {
+        "title": "Stel 'n herinneringsroetine op",
+        "body": "Kyk elke week wie jou skuld en stuur herinneringe op 'n vaste skedule, sodat agternajaag nie van onthou afhang nie."
+      },
+      "footer": "Jy hoef nie alles gelyk reg te maak nie. Begin met stap 1."
+    },
+    "plan": {
+      "eyebrow": "Aanbevole plan",
+      "title": "Ons beveel {{plan}} vir jou besigheid aan",
+      "priceFlat": "{{price}} per maand vir jou hele besigheid.",
+      "priceSeats_one": "{{price}} per maand vir {{count}} persoon.",
+      "priceSeats_other": "Omtrent {{price}} per maand vir {{count}} mense.",
+      "whyFlat": "Een prys vir tot {{max}} mense, genoeg vir jou span.",
+      "whySeats_one": "Per persoon geprys, so jy betaal net vir jouself.",
+      "whySeats_other": "Per persoon geprys, vir die {{count}} mense wat dit sou gebruik, en goedkoper per plek vir spanne.",
+      "whyAll": "Kwotasies, fakture, betalingsherinneringe, pasgemaakte velde en al 11 tale kom met elke plan.",
+      "features": {
+        "whatsapp_sms": "WhatsApp- en SMS-herinneringe",
+        "marketing": "E-posveldtogte en nuusbriewe",
+        "recurring_invoices": "Herhalende fakture",
+        "reports": "Die \"Wie skuld jou\"-verslag",
+        "team_chat": "Spanklets",
+        "discovery": "Nuwe moontlike kliënte wat elke week vir jou gevind word",
+        "priority_support": "Voorkeur-ondersteuning"
+      },
+      "compare": "Vergelyk al die planne"
     },
     "talk": {
       "title": "Wil jy hê ons moet jou daardeur lei?",

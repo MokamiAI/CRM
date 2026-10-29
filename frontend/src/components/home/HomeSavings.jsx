@@ -1,5 +1,6 @@
 import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 /*
  * What YGT gives back, in the visitor's own numbers. The figures follow
@@ -68,6 +69,13 @@ export default function HomeSavings() {
           <p className="mt-6 text-sm text-zinc-400">{t("home.savings.money")}</p>
           <p className="savings-money mt-1 text-4xl font-semibold tracking-tight tabular-nums sm:text-5xl">{rand(money)}</p>
           <p className="mt-6 border-t border-white/10 pt-4 text-sm text-zinc-300">{t("home.savings.year", { days })}</p>
+          {/* A rough number here; the check-up works out theirs. */}
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link to="/assessment" className="btn !h-11 !px-5 bg-white text-zinc-900 hover:bg-zinc-100">
+              {t("home.checkup.cta")}
+            </Link>
+            <span className="text-sm text-zinc-400">{t("home.checkup.meta")}</span>
+          </div>
         </div>
         <p className="text-xs text-zinc-500 lg:col-span-2">{t("home.savings.note", { minutes: MINUTES_PER_DOC })}</p>
       </div>

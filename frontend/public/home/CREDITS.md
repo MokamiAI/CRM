@@ -10,7 +10,7 @@ https://unsplash.com/license
 | construction.webp | https://unsplash.com/photos/tGSscOWeSpI | Mugabi Owen |
 | cleaning.webp | https://unsplash.com/photos/h_cGl2nIzng | Vitaly Gariev |
 | it.webp | https://unsplash.com/photos/2kyMYSkI5ys | Nachristos |
-| accounting.webp | https://unsplash.com/photos/NcpGG8t37Bw | FOTOGRAFÍA EDITORIAL |
+| accounting.webp | https://unsplash.com/photos/QSw9ziS-5j0 | Vitaly Gariev |
 | events.webp | https://unsplash.com/photos/qstSVTp6OrM | Antoine Demare |
 
 The people pictured are not YGT customers; the page gives them no names

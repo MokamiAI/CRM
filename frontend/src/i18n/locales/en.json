@@ -2385,9 +2385,9 @@
       "intro": "Move the sliders to match your business.",
       "docs": "Quotes and invoices a month",
       "rate": "What an hour of your time is worth",
-      "hours": "Hours back every month",
-      "money": "Worth every month",
-      "year": "That's about {{days}} working days back every year.",
+      "hours": "Hours you could free up each month",
+      "money": "Could be worth each month",
+      "year": "That could be about {{days}} working days a year.",
       "note": "An estimate, not a promise. It assumes about {{minutes}} minutes saved on each quote or invoice you no longer type up, send and chase yourself.",
       "question": "What could you do with {{hours}} extra hours every month?",
       "explain": "Every quote, invoice and follow-up takes time. See how much time you could save by simplifying your everyday admin, then move the sliders to match your business."
@@ -2422,15 +2422,8 @@
       "yearly": "Pay yearly and get 2 months free"
     },
     "checkup": {
-      "free": "Free",
-      "pill": "Take the 2-minute business check-up",
-      "eyebrow": "Free business check-up",
-      "title": "How much is admin really costing you?",
-      "lead": "Answer 10 quick questions about how you handle customers, enquiries, tasks, quotes and payments. Get a score, your three biggest gaps and the hours you could win back every month.",
-      "cta": "Start the free check-up",
-      "meta": "About 2 minutes · No sign-up",
-      "sample": "Sample report",
-      "sampleTools": "7 tools juggled: WhatsApp, Excel, Word, paper, memory and more"
+      "cta": "Take the free check-up",
+      "meta": "No sign-up"
     }
   },
   "aging": {
@@ -2892,12 +2885,12 @@
       "title": "How organised is your business, really?",
       "lead": "10 quick questions about how you run things today. We'll show you where time and money slip away, and how {{name}} can help.",
       "get": {
-        "score": "Your score out of 100",
+        "score": "Your business operations score",
         "gaps": "Your three biggest gaps",
         "time": "Hours and rands you could win back"
       },
       "start": "Start the check-up",
-      "meta": "{{count}} questions · About 2 minutes · No sign-up"
+      "meta": "{{count}} questions · No sign-up"
     },
     "progress": "Question {{n}} of {{total}}",
     "spotted_one": "{{count}} tool spotted",
@@ -2921,18 +2914,18 @@
       "invoicing": "An invoicing app"
     },
     "q": {
-      "industry": {
+      "profile": {
         "topic": "Your business",
-        "title": "What kind of business do you run?",
-        "hint": "Pick the closest one.",
-        "options": {
-          "other": "Something else"
-        }
+        "title": "Tell us about your business",
+        "hint": "Pick the closest type, then who handles the admin.",
+        "describe": "What exactly do you do? (optional)",
+        "describeOther": "What kind of business is it?",
+        "describePlaceholder": "For example: office cleaning for schools and clinics",
+        "team": "How many people handle customers, quotes, invoices or follow-ups?",
+        "teamHint": "Count yourself too. These are the people who'd use YGT.",
+        "other": "Something else"
       },
       "team": {
-        "topic": "Your team",
-        "title": "How many people work in the business?",
-        "hint": "Count yourself too.",
         "options": {
           "solo": "Just me",
           "small": "2 to 3 people",
@@ -2942,7 +2935,7 @@
       },
       "customers": {
         "topic": "Customers",
-        "title": "Where do your customers' details live?",
+        "title": "When you need a customer's number or history, where do you look?",
         "options": {
           "phone": "Phone contacts",
           "whatsapp": "WhatsApp chats",
@@ -2965,7 +2958,7 @@
       },
       "slip": {
         "topic": "Pipeline",
-        "title": "How often does an enquiry or follow-up slip through the cracks?",
+        "title": "How often does a potential customer go quiet before you get to follow up?",
         "hint": "Be honest, nobody's watching.",
         "options": {
           "rarely": "Hardly ever",
@@ -3006,13 +2999,27 @@
       },
       "payments": {
         "topic": "Getting paid",
-        "title": "When a customer pays late, what happens?",
+        "title": "What usually happens when a customer hasn't paid an invoice?",
         "hint": "Pick the closest.",
         "options": {
           "rarely": "Our customers hardly ever pay late",
           "manual": "I phone or WhatsApp them myself",
           "remember": "I chase when I remember",
           "automatic": "Reminders go out automatically"
+        }
+      },
+      "needs": {
+        "topic": "What you need",
+        "title": "Which of these would you actually use?",
+        "options": {
+          "basics": "Just the basics: customers, quotes and invoices",
+          "whatsapp": "WhatsApp and SMS reminders",
+          "marketing": "Email campaigns and newsletters",
+          "recurring": "Invoices that repeat every month",
+          "owing": "A report of who owes you",
+          "chat": "Chat with my team",
+          "leads": "Help finding new customers",
+          "priority": "Fast, priority support"
         }
       },
       "tools": {
@@ -3064,11 +3071,11 @@
     },
     "hours": {
       "documents": "Typing up quotes and invoices",
-      "customers": "Looking for customer details",
+      "customers": "Looking up customer details",
       "pipeline": "Working out where enquiries stand",
       "tasks": "Keeping track of tasks",
       "payments": "Chasing late payments",
-      "switching": "Switching between tools"
+      "switching": "Copying between tools"
     },
     "gaps": {
       "customers": {
@@ -3104,46 +3111,102 @@
     },
     "report": {
       "outOf": "out of 100",
+      "scoreName": "Business operations score",
+      "scoreNote": "This measures how organised the processes we asked about are, not how well your business is doing.",
       "band": {
-        "weak": {
-          "label": "Running after your business",
-          "title": "Your business is running you, not the other way round",
-          "body": "Important details live in too many places, and time leaks out every week. The good news: these are the easiest gaps to close, and {{name}} was built for exactly this."
+        "attention": {
+          "label": "Needs attention",
+          "title": "A lot of everyday admin still runs on memory and manual work",
+          "body": "Based on your answers, several everyday processes rely on manual tracking and separate tools. These are the easiest gaps to close, and {{name}} was built for exactly this."
         },
-        "middle": {
-          "label": "Getting there",
-          "title": "You've got the basics, but things still slip",
-          "body": "Some parts of your business run well, others depend on memory and manual work. Bringing them together in {{name}} would win back real time every month."
+        "progress": {
+          "label": "Making progress",
+          "title": "You've got the basics, but some things still slip",
+          "body": "Some processes run well, others depend on memory and manual work. Bringing them together in {{name}} could free up real time every month."
         },
-        "strong": {
-          "label": "In control",
+        "organised": {
+          "label": "Well organised",
           "title": "You're well organised. Now make it effortless",
-          "body": "You already have good habits. {{name}} can put everything in one place, so your team spends even less time on admin."
+          "body": "You already have good habits. {{name}} can put the remaining pieces in one place, so admin takes even less time."
+        },
+        "high": {
+          "label": "Highly organised",
+          "title": "Your processes are in great shape",
+          "body": "You don't urgently need to change how you work. If you'd like everything in one place, {{name}} can still help, but you're already doing well."
         }
       },
       "areasTitle": "Your score by area",
       "points": "{{value}}/{{max}}",
       "toolsTitle_one": "You juggle {{count}} tool",
       "toolsTitle_other": "You juggle {{count}} tools",
-      "toolsCost": "Every tool past {{ok}} means more copying, switching and things falling between them. It cost you {{points}} points.",
+      "toolsCost": "{{loose}} of them are loose tools such as paper, chats, spreadsheets or other apps. Every loose tool past {{ok}} means more copying and things falling between them: {{points}} points off. Systems like a CRM or an invoicing app don't count against you.",
       "toolsFine": "That's a manageable number. Keeping it there pays off.",
       "gapsTitle_one": "Your biggest gap",
       "gapsTitle_other": "Your {{count}} biggest gaps",
       "noGaps": "No big gaps found. Nicely done.",
       "gap": "Gap {{n}}",
       "fix": "How {{name}} fixes it",
-      "roiTitle": "Where your time goes each month",
+      "roiTitle": "Your admin time each month",
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
-      "planFlat": "{{plan}} costs {{price}} a month for your whole business.",
-      "planSeats": "{{plan}} for {{seats}} people costs about {{price}} a month.",
-      "times_one": "That's about {{count}} times what it costs.",
-      "times_other": "That's about {{count}} times what it costs.",
       "howTitle": "How we worked this out",
-      "how": "An estimate, not a promise, based only on your answers. Each quote or invoice takes 8 to 25 minutes depending on where it's made, against about {{ygt}} with YGT. Chasing a late payment takes about {{chase}} minutes. Every tool past two costs about {{switching}} hours a month per person in switching and copying, and every tool past {{ok}} costs 2 points. Time looking for customer details, enquiries and tasks grows with the size of your team.",
+      "how": "An estimate, not a promise, based only on your answers. Each quote or invoice takes 8 to 25 minutes depending on where it's made, against {{ygt}} to {{lowYgt}} minutes with {{name}}. Chasing a late payment by hand takes about {{chase}} minutes. Every loose tool past two costs about {{switching}} hours a month per person in copying; looking things up is counted separately, so no minute is counted twice. Lookup time grows with the number of people handling admin, but more slowly than the team. The top of the range assumes you move all of this into {{name}}; the bottom assumes about half, at {{lowYgt}} minutes a document. Every loose tool past {{ok}} costs 2 points, and the score runs from 0 to 100.",
       "trialTitle": "Close these gaps in one place",
       "trialBody": "Try everything free for {{days}} days. No card needed, and you can bring your customers in from Excel.",
-      "again": "Take it again"
+      "again": "Take it again",
+      "now": "Now",
+      "withYgt": "With {{name}}",
+      "range": "{{low}}–{{high}}",
+      "freed": "Time you could free up",
+      "perMonth": "a month",
+      "worth": "That time could be worth",
+      "worthNote": "At your hourly value. This is the value of time freed up, not guaranteed extra income or cash savings. Your results depend on how much of your work you move across."
+    },
+    "roadmap": {
+      "title_one": "Your next step",
+      "title_other": "Your {{count}}-step improvement plan",
+      "customers": {
+        "title": "Put your customers in one place",
+        "body": "Bring every number, email and history into one list everyone can search, instead of phones, chats and notebooks."
+      },
+      "pipeline": {
+        "title": "Write down every enquiry",
+        "body": "Give each enquiry a stage and a next step the day it arrives, so nobody goes quiet without you noticing."
+      },
+      "tasks": {
+        "title": "Give every follow-up a date and an owner",
+        "body": "Move to-dos out of memory and chats into one list with due dates and reminders."
+      },
+      "documents": {
+        "title": "Make quoting consistent",
+        "body": "Use saved products, prices and customer details, so every quote looks the same and becomes an invoice without retyping."
+      },
+      "payments": {
+        "title": "Set up a reminder routine",
+        "body": "Check who owes you every week and send reminders on a fixed schedule, so chasing doesn't depend on remembering."
+      },
+      "footer": "You don't have to fix everything at once. Start with step 1."
+    },
+    "plan": {
+      "eyebrow": "Recommended plan",
+      "title": "We recommend {{plan}} for your business",
+      "priceFlat": "{{price}} a month for your whole business.",
+      "priceSeats_one": "{{price}} a month for {{count}} person.",
+      "priceSeats_other": "About {{price}} a month for {{count}} people.",
+      "whyFlat": "One price for up to {{max}} people, enough for your team.",
+      "whySeats_one": "Priced per person, so you only pay for yourself.",
+      "whySeats_other": "Priced per person, for the {{count}} people who'd use it, and cheaper per seat for teams.",
+      "whyAll": "Quotes, invoices, payment reminders, custom fields and all 11 languages come with every plan.",
+      "features": {
+        "whatsapp_sms": "WhatsApp and SMS reminders",
+        "marketing": "Email campaigns and newsletters",
+        "recurring_invoices": "Recurring invoices",
+        "reports": "The \"Who owes you\" report",
+        "team_chat": "Team chat",
+        "discovery": "New potential leads found for you every week",
+        "priority_support": "Priority support"
+      },
+      "compare": "Compare all plans"
     },
     "talk": {
       "title": "Want us to talk you through it?",
