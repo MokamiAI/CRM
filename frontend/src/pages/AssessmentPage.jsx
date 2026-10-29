@@ -183,14 +183,19 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
             : null
   );
   const seen = useRef({ step, answered });
+  // The sliders wait until both are set, so quotes can't move on before
+  // invoices get a turn.
+  const touched = useRef(new Set());
   useEffect(() => {
     if (seen.current.step !== step) {
       seen.current = { step, answered };
+      touched.current = new Set();
       return;
     }
     if (seen.current.answered === answered) return;
     seen.current.answered = answered;
-    if (ready) later(q.kind === "count" ? 700 : 1500);
+    const waiting = q.kind === "volumes" && touched.current.size < q.fields.length;
+    if (ready && !waiting) later(q.kind === "count" ? 700 : 1500);
     else cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, answered, ready]);
@@ -242,7 +247,11 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
           ) : q.kind === "volumes" ? (
             <div className="grid gap-4 sm:grid-cols-2">
               {q.fields.map((field) => (
-                <Volume key={field} q={q} field={field} value={answers[field] ?? 0} onChange={(v) => onAnswer(field, v)} />
+                <Volume key={field} q={q} field={field} value={answers[field] ?? 0} onChange={(v) => {
+                    touched.current.add(field);
+                    onAnswer(field, v);
+                  }}
+                />
               ))}
             </div>
           ) : (
