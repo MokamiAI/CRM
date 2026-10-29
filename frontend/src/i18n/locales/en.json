@@ -2197,7 +2197,8 @@
       "features": "Features",
       "pricing": "Pricing",
       "faq": "Questions",
-      "start": "Start free trial"
+      "start": "Start free trial",
+      "checkup": "Free check-up"
     },
     "hero": {
       "eyebrow": "Grow. Manage. Succeed.",
@@ -2419,6 +2420,17 @@
       "trial": "Every plan starts with a {{days}}-day free trial",
       "noCard": "No card needed",
       "yearly": "Pay yearly and get 2 months free"
+    },
+    "checkup": {
+      "free": "Free",
+      "pill": "Take the 2-minute business check-up",
+      "eyebrow": "Free business check-up",
+      "title": "How much is admin really costing you?",
+      "lead": "Answer 10 quick questions about how you handle customers, enquiries, tasks, quotes and payments. Get a score, your three biggest gaps and the hours you could win back every month.",
+      "cta": "Start the free check-up",
+      "meta": "About 2 minutes · No sign-up",
+      "sample": "Sample report",
+      "sampleTools": "7 tools juggled: WhatsApp, Excel, Word, paper, memory and more"
     }
   },
   "aging": {
@@ -2731,6 +2743,22 @@
         "body": "Hi {name},\n\nHere's what's been happening at {company}:\n\n[Highlight 1: news, a finished project or a milestone]\n[Highlight 2: a tip or something useful for your customers]\n[Highlight 3: what's coming up next]\n\nThank you for your support. We're always a reply away.",
         "cta": "See what's new"
       },
+      "about": {
+        "label": "Tell customers more about you",
+        "name": "Get to know {company}",
+        "subject": "{name}, get to know the team behind {company}",
+        "preheader": "Who we are, what we do and how to reach us.",
+        "body": "Hi {name},\n\nWe wanted to take a moment to tell you a bit more about who we are.\n\n[Your story: how and why the business started, in two or three lines.]\n\nWhat we do:\n[Service or product 1]\n[Service or product 2]\n[Service or product 3]\n\nWhat makes us different: [what customers say they like most about working with you].\n\nThe easiest way to reach us is [phone / WhatsApp / email]. We would love to hear from you.",
+        "cta": "Visit our website"
+      },
+      "help": {
+        "label": "Show how you can help",
+        "name": "How we can help: [month]",
+        "subject": "How {company} can help you with [their need]",
+        "preheader": "A few ways we can make things easier for you.",
+        "body": "Hi {name},\n\nMany of our customers come to us for [the main thing you are known for], but there is more we can help with:\n\n[Way 1: the problem and how you solve it]\n[Way 2: the problem and how you solve it]\n[Way 3: the problem and how you solve it]\n\n[A short example: a recent customer and the result they got.]\n\nIf any of this sounds useful, reply to this email and we will tell you more.",
+        "cta": "Talk to us"
+      },
       "event": {
         "label": "Invite people to an event",
         "name": "Invite: [event name]",
@@ -2857,5 +2885,273 @@
     "title": "Mark {{number}} as sent?",
     "quote": "Use this when you've already given the quote to the customer yourself, for example on WhatsApp, in person or from your own email. Nothing is emailed. You can then mark it accepted or declined.",
     "invoice": "Use this when you've already given the invoice to the customer yourself, for example on WhatsApp, in person or from your own email. Nothing is emailed now. If automatic payment reminders are on, they will still go to the customer when payment is due."
+  },
+  "assessment": {
+    "intro": {
+      "eyebrow": "Free business check-up",
+      "title": "How organised is your business, really?",
+      "lead": "10 quick questions about how you run things today. We'll show you where time and money slip away, and how {{name}} can help.",
+      "get": {
+        "score": "Your score out of 100",
+        "gaps": "Your three biggest gaps",
+        "time": "Hours and rands you could win back"
+      },
+      "start": "Start the check-up",
+      "meta": "{{count}} questions · About 2 minutes · No sign-up"
+    },
+    "progress": "Question {{n}} of {{total}}",
+    "spotted_one": "{{count}} tool spotted",
+    "spotted_other": "{{count}} tools spotted",
+    "pickAll": "Pick everything that applies.",
+    "back": "Back",
+    "next": "Next",
+    "finish": "See my results",
+    "tools": {
+      "memory": "Memory",
+      "paper": "Paper or notebook",
+      "whatsapp": "WhatsApp",
+      "phone": "Phone contacts",
+      "email": "Email inbox",
+      "excel": "Excel or Sheets",
+      "word": "Word or Docs",
+      "calendar": "Phone calendar",
+      "accounting": "Accounting app",
+      "crm": "A CRM",
+      "taskApp": "A task app",
+      "invoicing": "An invoicing app"
+    },
+    "q": {
+      "industry": {
+        "topic": "Your business",
+        "title": "What kind of business do you run?",
+        "hint": "Pick the closest one.",
+        "options": {
+          "other": "Something else"
+        }
+      },
+      "team": {
+        "topic": "Your team",
+        "title": "How many people work in the business?",
+        "hint": "Count yourself too.",
+        "options": {
+          "solo": "Just me",
+          "small": "2 to 3 people",
+          "team": "4 to 10 people",
+          "large": "11 or more"
+        }
+      },
+      "customers": {
+        "topic": "Customers",
+        "title": "Where do your customers' details live?",
+        "options": {
+          "phone": "Phone contacts",
+          "whatsapp": "WhatsApp chats",
+          "excel": "Excel or Google Sheets",
+          "paper": "A notebook or paper",
+          "email": "My email inbox",
+          "crm": "A CRM system"
+        }
+      },
+      "enquiries": {
+        "topic": "Pipeline",
+        "title": "When a new enquiry comes in, how do you track it until it becomes a job?",
+        "hint": "Pick the one you rely on most.",
+        "options": {
+          "memory": "I keep it in my head",
+          "whatsapp": "It stays in the WhatsApp chat",
+          "excel": "A spreadsheet or whiteboard",
+          "crm": "A pipeline in a CRM"
+        }
+      },
+      "slip": {
+        "topic": "Pipeline",
+        "title": "How often does an enquiry or follow-up slip through the cracks?",
+        "hint": "Be honest, nobody's watching.",
+        "options": {
+          "rarely": "Hardly ever",
+          "some": "A few times a month",
+          "often": "Often, every week",
+          "unsure": "I honestly don't know"
+        }
+      },
+      "tasks": {
+        "topic": "Tasks",
+        "title": "How do you make sure follow-ups and jobs actually get done?",
+        "options": {
+          "memory": "I remember them",
+          "paper": "Notes or a to-do book",
+          "whatsapp": "WhatsApp reminders or groups",
+          "calendar": "My phone calendar",
+          "excel": "A shared spreadsheet",
+          "taskApp": "A task or project app"
+        }
+      },
+      "documents": {
+        "topic": "Quotes and invoices",
+        "title": "Where do you make your quotes and invoices?",
+        "options": {
+          "word": "Word or Google Docs",
+          "excel": "Excel or Google Sheets",
+          "whatsapp": "I type them in WhatsApp",
+          "paper": "A paper invoice book",
+          "accounting": "An accounting app (Sage, Xero, QuickBooks)",
+          "invoicing": "An invoicing app"
+        }
+      },
+      "volume": {
+        "topic": "Quotes and invoices",
+        "title": "How many quotes and invoices do you send a month?",
+        "hint": "Roughly is fine. Drag the slider.",
+        "label": "Quotes and invoices a month"
+      },
+      "payments": {
+        "topic": "Getting paid",
+        "title": "When a customer pays late, what happens?",
+        "hint": "Pick the closest.",
+        "options": {
+          "rarely": "Our customers hardly ever pay late",
+          "manual": "I phone or WhatsApp them myself",
+          "remember": "I chase when I remember",
+          "automatic": "Reminders go out automatically"
+        }
+      },
+      "tools": {
+        "topic": "The final count",
+        "title": "All in, how many tools do you juggle to run the business?",
+        "hint": "Apps, books, chats and spreadsheets all count.",
+        "counted_one": "From your answers we counted {{count}} tool:",
+        "counted_other": "From your answers we counted {{count}} different tools:",
+        "unit_one": "tool",
+        "unit_other": "tools",
+        "less": "One fewer",
+        "more": "One more",
+        "others": "Use anything else too? A bank app, a booking system, a second WhatsApp number? Add it with +.",
+        "extra_one": "Plus {{count}} more that you added.",
+        "extra_other": "Plus {{count}} more that you added."
+      }
+    },
+    "working": {
+      "title": "Working out your results",
+      "tools_one": "Counting your tools: {{count}} found",
+      "tools_other": "Counting your tools: {{count}} found",
+      "customers": "Checking where customer details live",
+      "followUps": "Checking how enquiries and tasks are followed up",
+      "documents_one": "Timing {{count}} quote or invoice a month",
+      "documents_other": "Timing {{count}} quotes and invoices a month",
+      "payments": "Checking how late payments are chased",
+      "report": "Putting your report together"
+    },
+    "toolsInline": {
+      "memory": "memory",
+      "paper": "paper notes",
+      "whatsapp": "WhatsApp",
+      "phone": "phone contacts",
+      "email": "your email inbox",
+      "excel": "Excel",
+      "word": "Word",
+      "calendar": "your phone calendar",
+      "accounting": "an accounting app",
+      "crm": "a CRM",
+      "taskApp": "a task app",
+      "invoicing": "an invoicing app"
+    },
+    "areas": {
+      "customers": "Customers",
+      "pipeline": "Enquiries and pipeline",
+      "tasks": "Tasks and follow-ups",
+      "documents": "Quotes and invoices",
+      "payments": "Getting paid"
+    },
+    "hours": {
+      "documents": "Typing up quotes and invoices",
+      "customers": "Looking for customer details",
+      "pipeline": "Working out where enquiries stand",
+      "tasks": "Keeping track of tasks",
+      "payments": "Chasing late payments",
+      "switching": "Switching between tools"
+    },
+    "gaps": {
+      "customers": {
+        "problem": "Your customer details are spread across {{tools}}, so finding the right number or history takes time.",
+        "fix": "One customer list with every contact, quote, invoice and conversation, searchable by your whole team."
+      },
+      "pipeline": {
+        "problem": {
+          "memory": "Enquiries live in your head, so when it gets busy, some go cold before anyone follows up.",
+          "whatsapp": "Enquiries stay buried in WhatsApp chats, so it's hard to see what's waiting or what each one is worth.",
+          "excel": "Enquiries sit in a spreadsheet that someone has to keep up to date, and some still slip through.",
+          "crm": "You track enquiries, but some still slip through the cracks before they become jobs."
+        },
+        "fix": "A pipeline that shows every enquiry from first message to won job, with the next step and its value."
+      },
+      "tasks": {
+        "problem": "Follow-ups rely on {{tools}}. When someone is busy or away, things get missed.",
+        "fix": "Tasks with due dates, checklists and reminders, assigned to the right person so nothing depends on memory."
+      },
+      "documents": {
+        "problem": "Quotes and invoices are made in {{tools}}: typed up by hand, numbered by hand, and hard to follow up.",
+        "fix": "Professional quotes in minutes that turn into invoices in one click, with VAT, numbering and your branding done for you."
+      },
+      "payments": {
+        "problem": {
+          "rarely": "Late payments are rare, but nothing is watching for them, so the odd one can sit for months.",
+          "manual": "You chase late payers yourself, one call or message at a time. It costs hours and awkward conversations.",
+          "remember": "Late payers are chased only when you remember, so money you've earned sits outstanding.",
+          "automatic": "Payments are followed up, but it's hard to see at a glance who owes you what."
+        },
+        "fix": "See who owes you at a glance, and let automatic reminders follow up on overdue invoices for you."
+      }
+    },
+    "report": {
+      "outOf": "out of 100",
+      "band": {
+        "weak": {
+          "label": "Running after your business",
+          "title": "Your business is running you, not the other way round",
+          "body": "Important details live in too many places, and time leaks out every week. The good news: these are the easiest gaps to close, and {{name}} was built for exactly this."
+        },
+        "middle": {
+          "label": "Getting there",
+          "title": "You've got the basics, but things still slip",
+          "body": "Some parts of your business run well, others depend on memory and manual work. Bringing them together in {{name}} would win back real time every month."
+        },
+        "strong": {
+          "label": "In control",
+          "title": "You're well organised. Now make it effortless",
+          "body": "You already have good habits. {{name}} can put everything in one place, so your team spends even less time on admin."
+        }
+      },
+      "areasTitle": "Your score by area",
+      "points": "{{value}}/{{max}}",
+      "toolsTitle_one": "You juggle {{count}} tool",
+      "toolsTitle_other": "You juggle {{count}} tools",
+      "toolsCost": "Every tool past {{ok}} means more copying, switching and things falling between them. It cost you {{points}} points.",
+      "toolsFine": "That's a manageable number. Keeping it there pays off.",
+      "gapsTitle_one": "Your biggest gap",
+      "gapsTitle_other": "Your {{count}} biggest gaps",
+      "noGaps": "No big gaps found. Nicely done.",
+      "gap": "Gap {{n}}",
+      "fix": "How {{name}} fixes it",
+      "roiTitle": "Where your time goes each month",
+      "hours_one": "{{count}} h",
+      "hours_other": "{{count}} h",
+      "planFlat": "{{plan}} costs {{price}} a month for your whole business.",
+      "planSeats": "{{plan}} for {{seats}} people costs about {{price}} a month.",
+      "times_one": "That's about {{count}} times what it costs.",
+      "times_other": "That's about {{count}} times what it costs.",
+      "howTitle": "How we worked this out",
+      "how": "An estimate, not a promise, based only on your answers. Each quote or invoice takes 8 to 25 minutes depending on where it's made, against about {{ygt}} with YGT. Chasing a late payment takes about {{chase}} minutes. Every tool past two costs about {{switching}} hours a month per person in switching and copying, and every tool past {{ok}} costs 2 points. Time looking for customer details, enquiries and tasks grows with the size of your team.",
+      "trialTitle": "Close these gaps in one place",
+      "trialBody": "Try everything free for {{days}} days. No card needed, and you can bring your customers in from Excel.",
+      "again": "Take it again"
+    },
+    "talk": {
+      "title": "Want us to talk you through it?",
+      "body": "Leave your details and we'll call you back to go through your results and show you how YGT would work for your business. Free, no obligation.",
+      "consent": "Yes, {{name}} may contact me about my results.",
+      "send": "Talk me through it",
+      "sentTitle": "Thanks, we've got your results",
+      "sentBody": "We'll be in touch at {{email}} within one working day."
+    }
   }
 }

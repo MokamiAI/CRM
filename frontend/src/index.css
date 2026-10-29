@@ -1120,3 +1120,53 @@ textarea.input:focus {
   color: transparent;
   padding-right: 0.04em; /* room for the overhang of the last glyph */
 }
+
+/* ---- Free business check-up (/assessment) ---- */
+.checkup-in {
+  animation: checkup-in 320ms var(--ease-out) both;
+}
+@keyframes checkup-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
+.checkup-bar {
+  transition: width 400ms var(--ease-out);
+}
+.checkup-chip {
+  animation: checkup-chip 260ms var(--ease-out) both;
+}
+@keyframes checkup-chip {
+  from { opacity: 0; transform: scale(0.85); }
+}
+.checkup-option {
+  transition: transform 160ms var(--ease-out), background-color 150ms, box-shadow 150ms;
+}
+.checkup-option:active {
+  transform: scale(0.98);
+}
+.checkup-line {
+  animation: checkup-in 260ms var(--ease-out) both;
+}
+.checkup-spin {
+  animation: checkup-spin 700ms linear infinite;
+}
+@keyframes checkup-spin {
+  to { transform: rotate(360deg); }
+}
+.checkup-pulse {
+  animation: checkup-pulse 1.2s ease-in-out infinite;
+}
+@keyframes checkup-pulse {
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+.checkup-fill {
+  transform-origin: left;
+  animation: checkup-fill 700ms var(--ease-out) both;
+}
+@keyframes checkup-fill {
+  from { transform: scaleX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .checkup-in, .checkup-chip, .checkup-line, .checkup-fill { animation: none; }
+  .checkup-spin, .checkup-pulse { animation-duration: 0s; }
+  .checkup-bar, .checkup-option { transition: none; }
+}

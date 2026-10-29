@@ -53,6 +53,7 @@ export function PublicFooter() {
   const { t } = useTranslation();
   const links = [
     ["/about", t("about.link")],
+    ["/assessment", t("home.nav.checkup")],
     ["/contact", t("contact.link")],
     ["/terms", t("legal.terms")],
     ["/privacy", t("legal.privacy")],

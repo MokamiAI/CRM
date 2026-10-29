@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useCompany } from "../hooks/useApi";
 import { Button } from "./ui";
 
-const KINDS = ["promotion", "launch", "newsletter", "event", "winback", "thanks", "festive", "review"];
+const KINDS = ["promotion", "launch", "newsletter", "about", "help", "event", "winback", "thanks", "festive", "review"];
 
 /** "What do you want to do?": a ready-written campaign for each common
  *  purpose. Picking one fills the subject, preview text, message and button

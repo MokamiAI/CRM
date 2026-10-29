@@ -2172,7 +2172,8 @@
       "features": "Timphawu",
       "pricing": "Emanani",
       "faq": "Imibuto",
-      "start": "Cala kuvivinya mahhala"
+      "start": "Cala kuvivinya mahhala",
+      "checkup": "Kuhlolwa mahhala"
     },
     "hero": {
       "eyebrow": "Khula. Phatsa. Phumelela.",
@@ -2394,6 +2395,17 @@
       "trial": "Lihlelo ngalinye licala ngekuvivinya mahhala kwemalanga langu-{{days}}",
       "yearly": "Khokha ngemnyaka utfole tinyanga leti-2 mahhala",
       "noCard": "Alidzingeki likhadi"
+    },
+    "checkup": {
+      "free": "Mahhala",
+      "pill": "Hlola libhizinisi lakho emaminitsini la-2",
+      "eyebrow": "Kuhlolwa kwelibhizinisi mahhala",
+      "title": "Umsebenti wemaphepha ukubita malini ngempela?",
+      "lead": "Phendvula imibuto lelishumi lesheshako mayelana nekutsi uphatsa njani batsengi, imibuto yebatsengi, imisebenti, emakhotheshini nekukhokha. Tfola emaphuzu, tikhala takho letintsatfu letinkhulu kanye nemahora longawabuyisa onkhe tinyanga.",
+      "cta": "Cala kuhlolwa mahhala",
+      "meta": "Cishe emaminitsi la-2 · Akudzingeki ubhalise",
+      "sample": "Sibonelo sembiko",
+      "sampleTools": "Emathuluzi la-7: WhatsApp, Excel, Word, liphepha, inkhumbulo nalokunye"
     }
   },
   "aging": {
@@ -2717,5 +2729,273 @@
     "title": "Maka {{number}} njengalokutfunyelwe?",
     "quote": "Sebentisa loku nangabe sewunikete likhasimende sicalo ngekwakho, sibonelo ku-WhatsApp, buso nebuso nobe nge-imeyili yakho. Kute lokutfunyelwa nge-imeyili. Ngemuva kwaloko ungasimaka njengalesemukelwe nobe lesaliwe.",
     "invoice": "Sebentisa loku nangabe sewunikete likhasimende i-invoyisi ngekwakho, sibonelo ku-WhatsApp, buso nebuso nobe nge-imeyili yakho. Kute lokutfunyelwa nge-imeyili nyalo. Nangabe tikhumbuto tekukhokha letitentakalelako tivuliwe, titawutfunyelwa kulikhasimende nangabe inkhokhelo seyifanele."
+  },
+  "assessment": {
+    "intro": {
+      "eyebrow": "Kuhlolwa kwelibhizinisi mahhala",
+      "title": "Libhizinisi lakho lihleleke kangakanani ngempela?",
+      "lead": "Imibuto lelishumi lesheshako mayelana nekutsi wenta njani tintfo lamuhla. Sitakukhombisa lapho sikhatsi nemali kuphuma khona, nekutsi {{name}} ingasita njani.",
+      "get": {
+        "score": "Emaphuzu akho kulayi-100",
+        "gaps": "Tikhala takho letintsatfu letinkhulu",
+        "time": "Emahora nemarandi longawabuyisa"
+      },
+      "start": "Cala kuhlolwa",
+      "meta": "Imibuto lengu-{{count}} · Cishe emaminitsi la-2 · Akudzingeki ubhalise"
+    },
+    "progress": "Umbuto {{n}} kulengu-{{total}}",
+    "spotted_one": "Lithuluzi lelingu-{{count}} litfoliwe",
+    "spotted_other": "Emathuluzi langu-{{count}} atfoliwe",
+    "pickAll": "Khetsa konkhe lokusebentako.",
+    "back": "Emuva",
+    "next": "Lokulandzelako",
+    "finish": "Ngikhombise imiphumela",
+    "tools": {
+      "memory": "Inkhumbulo",
+      "paper": "Liphepha nome incwadzi",
+      "whatsapp": "WhatsApp",
+      "phone": "Labo lotsintsana nabo efonini",
+      "email": "Libhokisi le-imeyili",
+      "excel": "Excel nome Sheets",
+      "word": "Word nome Docs",
+      "calendar": "Likhalenda lelucingo",
+      "accounting": "I-app yekubalwa kwetimali",
+      "crm": "I-CRM",
+      "taskApp": "I-app yemisebenti",
+      "invoicing": "I-app yema-invoyisi"
+    },
+    "q": {
+      "industry": {
+        "topic": "Libhizinisi lakho",
+        "title": "Uchuba luhlobo luni lwelibhizinisi?",
+        "hint": "Khetsa leliseduze kakhulu.",
+        "options": {
+          "other": "Lokunye"
+        }
+      },
+      "team": {
+        "topic": "Licembu lakho",
+        "title": "Bangaki bantfu labasebenta ebhizinisini?",
+        "hint": "Nawe tibale.",
+        "options": {
+          "solo": "Ngimi ngedvwa",
+          "small": "Bantfu labangu-2 kuya ku-3",
+          "team": "Bantfu labangu-4 kuya ku-10",
+          "large": "Labangu-11 nome ngetulu"
+        }
+      },
+      "customers": {
+        "topic": "Batsengi",
+        "title": "Imininingwane yebatsengi bakho igcinwa kuphi?",
+        "options": {
+          "phone": "Labo lotsintsana nabo efonini",
+          "whatsapp": "Tingcoco te-WhatsApp",
+          "excel": "Excel nome Google Sheets",
+          "paper": "Incwadzi nome liphepha",
+          "email": "Libhokisi lami le-imeyili",
+          "crm": "Luhlelo lwe-CRM"
+        }
+      },
+      "enquiries": {
+        "topic": "Umgca wekutsengisa",
+        "title": "Nakufika umbuto lomusha wemtsengi, uwulandzelela njani uze ube ngumsebenti?",
+        "hint": "Khetsa lowo lotsembele kuwo kakhulu.",
+        "options": {
+          "memory": "Ngiwugcina ekhanda",
+          "whatsapp": "Uhlala engcocweni ye-WhatsApp",
+          "excel": "Sipredishithi nome libhodi lelimhlophe",
+          "crm": "Umgca wekutsengisa ku-CRM"
+        }
+      },
+      "slip": {
+        "topic": "Umgca wekutsengisa",
+        "title": "Kukangaki umbuto wemtsengi nome kulandzelela kuphunyuka?",
+        "hint": "Yiba ngulocotfo, akekho lobukako.",
+        "options": {
+          "rarely": "Cishe akwenteki",
+          "some": "Tikhatsi letimbalwa ngenyanga",
+          "often": "Kanyenti, onkhe emaviki",
+          "unsure": "Angati ngempela"
+        }
+      },
+      "tasks": {
+        "topic": "Imisebenti",
+        "title": "Uciniseka njani kutsi kulandzelela nemisebenti kwentiwa ngempela?",
+        "options": {
+          "memory": "Ngiyakhumbula",
+          "paper": "Emanothi nome incwadzi yetintfo lokufanele tentiwe",
+          "whatsapp": "Tikhumbuto nome emacembu e-WhatsApp",
+          "calendar": "Likhalenda lelucingo lwami",
+          "excel": "Sipredishithi lesabelwanako",
+          "taskApp": "I-app yemisebenti nome yemaphrojekthi"
+        }
+      },
+      "documents": {
+        "topic": "Emakhotheshini nema-invoyisi",
+        "title": "Uwentaphi emakhotheshini nema-invoyisi akho?",
+        "options": {
+          "word": "Word nome Google Docs",
+          "excel": "Excel nome Google Sheets",
+          "whatsapp": "Ngiwabhala ku-WhatsApp",
+          "paper": "Incwadzi yema-invoyisi yeliphepha",
+          "accounting": "I-app yekubalwa kwetimali (Sage, Xero, QuickBooks)",
+          "invoicing": "I-app yema-invoyisi"
+        }
+      },
+      "volume": {
+        "topic": "Emakhotheshini nema-invoyisi",
+        "title": "Utfumela emakhotheshini nema-invoyisi langakhi ngenyanga?",
+        "hint": "Kulinganisela kulungile. Dvonsa silayidi.",
+        "label": "Emakhotheshini nema-invoyisi ngenyanga"
+      },
+      "payments": {
+        "topic": "Kukhokhelwa",
+        "title": "Kwentekani nangabe umtsengi akhokha sekwephuzile?",
+        "hint": "Khetsa lokuseduze kakhulu.",
+        "options": {
+          "rarely": "Batsengi betfu cishe abakaze bakhokhe sekwephuzile",
+          "manual": "Ngiyabashayela nome ngibatfumelela i-WhatsApp mine",
+          "remember": "Ngiyabalandzela nangikhumbula",
+          "automatic": "Tikhumbuto titfunyelwa ngekutentekela"
+        }
+      },
+      "tools": {
+        "topic": "Kubala kwekugcina",
+        "title": "Nawuhlanganisa konkhe, usebentisa emathuluzi langakhi kuchuba libhizinisi?",
+        "hint": "Ema-app, tincwadzi, tingcoco netipredishithi konkhe kuyabalwa.",
+        "counted_one": "Etimphendvulweni takho sibale lithuluzi lelingu-{{count}}:",
+        "counted_other": "Etimphendvulweni takho sibale emathuluzi lahlukene langu-{{count}}:",
+        "unit_one": "lithuluzi",
+        "unit_other": "emathuluzi",
+        "less": "Linye ngaphansi",
+        "more": "Linye ngetulu",
+        "others": "Usebentisa lokunye futsi? I-app yelibhange, luhlelo lwekubhuka, inombolo yesibili ye-WhatsApp? Kwengete nga-+.",
+        "extra_one": "Kanye nalelingu-{{count}} lelengetwe nguwe.",
+        "extra_other": "Kanye nalangu-{{count}} langetwe nguwe."
+      }
+    },
+    "working": {
+      "title": "Sisebenta imiphumela yakho",
+      "tools_one": "Sibala emathuluzi akho: kutfolwe lelingu-{{count}}",
+      "tools_other": "Sibala emathuluzi akho: kutfolwe langu-{{count}}",
+      "customers": "Sihlola lapho imininingwane yebatsengi igcinwa khona",
+      "followUps": "Sihlola kutsi imibuto nemisebenti kulandzelelwa njani",
+      "documents_one": "Sibala sikhatsi selikhotheshini nome i-invoyisi lengu-{{count}} ngenyanga",
+      "documents_other": "Sibala sikhatsi semakhotheshini nema-invoyisi langu-{{count}} ngenyanga",
+      "payments": "Sihlola kutsi kukhokha lokwephuzile kulandzelwa njani",
+      "report": "Sihlanganisa umbiko wakho"
+    },
+    "toolsInline": {
+      "memory": "inkhumbulo",
+      "paper": "emanothi eliphepha",
+      "whatsapp": "WhatsApp",
+      "phone": "labo lotsintsana nabo efonini",
+      "email": "libhokisi lakho le-imeyili",
+      "excel": "Excel",
+      "word": "Word",
+      "calendar": "likhalenda lelucingo lwakho",
+      "accounting": "i-app yekubalwa kwetimali",
+      "crm": "i-CRM",
+      "taskApp": "i-app yemisebenti",
+      "invoicing": "i-app yema-invoyisi"
+    },
+    "areas": {
+      "customers": "Batsengi",
+      "pipeline": "Imibuto nemgca wekutsengisa",
+      "tasks": "Imisebenti nekulandzelela",
+      "documents": "Emakhotheshini nema-invoyisi",
+      "payments": "Kukhokhelwa"
+    },
+    "hours": {
+      "documents": "Kubhala emakhotheshini nema-invoyisi",
+      "customers": "Kufuna imininingwane yebatsengi",
+      "pipeline": "Kutfola kutsi imibuto ikuphi",
+      "tasks": "Kulandzelela imisebenti",
+      "payments": "Kulandzela kukhokha lokwephuzile",
+      "switching": "Kushintja emkhatsini wemathuluzi"
+    },
+    "gaps": {
+      "customers": {
+        "problem": "Imininingwane yebatsengi bakho isakateke ku-{{tools}}, ngako kutfola inombolo lefanele nome umlandvo kutsatsa sikhatsi.",
+        "fix": "Luhlu lunye lwebatsengi lolunabo bonkhe lotsintsana nabo, emakhotheshini, ema-invoyisi netingcoco, licembu lakho lonkhe lelingasesha kulo."
+      },
+      "pipeline": {
+        "problem": {
+          "memory": "Imibuto yebatsengi ihlala ekhanda lakho, ngako nakumatasatasa, leminye iyabandza ngaphambi kwekutsi kulandzelelwe.",
+          "whatsapp": "Imibuto ingcwatjwe etingcocweni te-WhatsApp, ngako kumatima kubona lokulindzile nome kutsi ngamunye ubaluleke kangakanani.",
+          "excel": "Imibuto isesipredishithini lokufanele umuntfu asibuyeketeze, futsi leminye isaphunyuka.",
+          "crm": "Uyayilandzelela imibuto, kodvwa leminye isaphunyuka ngaphambi kwekutsi ibe yimisebenti."
+        },
+        "fix": "Umgca wekutsengisa lokhombisa wonkhe umbuto kusukela emlayetweni wekucala kuze kube ngumsebenti lowinile, kanye negatsi lelilandzelako nelinani lawo."
+      },
+      "tasks": {
+        "problem": "Kulandzelela kuncike ku-{{tools}}. Nangabe umuntfu amatasatasa nome angekho, tintfo tiyaphutfwa.",
+        "fix": "Imisebenti lenemalanga ekugcina, tinhlu tekuhlola netikhumbuto, leniketwe umuntfu lofanele kute kungabi nalokuncike enkhumbulweni."
+      },
+      "documents": {
+        "problem": "Emakhotheshini nema-invoyisi kwentiwa ku-{{tools}}: kubhalwa ngesandla, kunikwa tinombolo ngesandla, futsi kumatima kukulandzelela.",
+        "fix": "Emakhotheshini lasezingeni lelisetulu ngemaminitsi laphendvuka abe ema-invoyisi ngekuchofota kanye, ne-VAT, tinombolo nelibhendi lakho kwentelwe wena."
+      },
+      "payments": {
+        "problem": {
+          "rarely": "Kukhokha lokwephuzile akuvamile, kodvwa kute lokukubukile, ngako kunye kungahlala tinyanga.",
+          "manual": "Ulandzela labakhokha sekwephuzile wena, lucingo nome umlayeto munye ngesikhatsi. Kudla emahora netingcoco letingakhululeki.",
+          "remember": "Labakhokha sekwephuzile balandzelwa kuphela nawukhumbula, ngako imali loyisebentele isolo ingakhokhwa.",
+          "automatic": "Kukhokha kuyalandzelelwa, kodvwa kumatima kubona masinyane kutsi ngubani lokweledzako malini."
+        },
+        "fix": "Bona masinyane kutsi ngubani lokweledzako, bese uvumela tikhumbuto letitentekelako tilandzelele ema-invoyisi ladlulelwe sikhatsi."
+      }
+    },
+    "report": {
+      "outOf": "kulayi-100",
+      "band": {
+        "weak": {
+          "label": "Ugijima emuva kwelibhizinisi lakho",
+          "title": "Libhizinisi lakho liyakuchuba, akusiwe lolichubako",
+          "body": "Imininingwane lebalulekile isetindzaweni letinyenti kakhulu, futsi sikhatsi siyaphuma onkhe emaviki. Tindzaba letinhle: leti tikhala lokulula kakhulu kutivala, futsi {{name}} yakhelwe loku kanye."
+        },
+        "middle": {
+          "label": "Usendleleni",
+          "title": "Unetisekelo, kodvwa tintfo tisaphunyuka",
+          "body": "Letinye tincenye telibhizinisi lakho tihamba kahle, letinye tincike enkhumbulweni nemsebentini wetandla. Kutihlanganisa ku-{{name}} kungabuyisa sikhatsi sangempela onkhe tinyanga."
+        },
+        "strong": {
+          "label": "Ulawula konkhe",
+          "title": "Uhleleke kahle. Nyalo kwente kube lula",
+          "body": "Sewunemikhuba lemihle. {{name}} ingabeka konkhe endzaweni yinye, kute licembu lakho lichite sikhatsi lesincane nakakhulu emsebentini wemaphepha."
+        }
+      },
+      "areasTitle": "Emaphuzu akho ngencenye",
+      "points": "{{value}}/{{max}}",
+      "toolsTitle_one": "Usebentisa lithuluzi lelingu-{{count}}",
+      "toolsTitle_other": "Usebentisa emathuluzi langu-{{count}}",
+      "toolsCost": "Lithuluzi ngalinye leliphetsa ku-{{ok}} lisho kukopisha lokwengetiwe, kushintja netintfo letiwela emkhatsini wawo. Kukulahlekisele emaphuzu langu-{{points}}.",
+      "toolsFine": "Leli linani lelilawulekako. Kuligcina linjalo kuyasita.",
+      "gapsTitle_one": "Sikhala sakho lesikhulu",
+      "gapsTitle_other": "Tikhala takho letinkhulu letingu-{{count}}",
+      "noGaps": "Kute tikhala letinkhulu letitfolakele. Wente kahle.",
+      "gap": "Sikhala {{n}}",
+      "fix": "Indlela {{name}} lesilungisa ngayo",
+      "roiTitle": "Lapho sikhatsi sakho siya khona onkhe tinyanga",
+      "hours_one": "{{count}} h",
+      "hours_other": "{{count}} h",
+      "planFlat": "I-{{plan}} ibita {{price}} ngenyanga ebhizinisini lakho lonkhe.",
+      "planSeats": "I-{{plan}} yebantfu labangu-{{seats}} ibita cishe {{price}} ngenyanga.",
+      "times_one": "Loko cishe kuphindvwe ka-{{count}} kunalokubitwa ngiyo.",
+      "times_other": "Loko cishe kuphindvwe ka-{{count}} kunalokubitwa ngiyo.",
+      "howTitle": "Sikubale njani loku",
+      "how": "Loku kulinganisela, akusiso setsembiso, kusekelwe etimphendvulweni takho kuphela. Likhotheshini nome i-invoyisi ngayinye itsatsa emaminitsi langu-8 kuya ku-25 kuya ngekutsi yentiwaphi, uma kucatsaniswa nemaminitsi langaba ngu-{{ygt}} nge-YGT. Kulandzela kukhokha lokwephuzile kutsatsa cishe emaminitsi langu-{{chase}}. Lithuluzi ngalinye leliphetsa lamabili lidla cishe emahora langu-{{switching}} ngenyanga ngamunye umuntfu ekushintjeni nasekukopisheni, futsi lithuluzi ngalinye leliphetsa ku-{{ok}} lidla emaphuzu la-2. Sikhatsi sekufuna imininingwane yebatsengi, imibuto nemisebenti siyakhula ngebukhulu belicembu lakho.",
+      "trialTitle": "Vala leti tikhala endzaweni yinye",
+      "trialBody": "Zama konkhe mahhala emalanga langu-{{days}}. Kute likhadi lelidzingekako, futsi ungangenisa batsengi bakho usuka ku-Excel.",
+      "again": "Phindza kuhlolwa"
+    },
+    "talk": {
+      "title": "Ufuna sikuchazele imiphumela?",
+      "body": "Shiya imininingwane yakho sitakushayela kute sendlule emiphumeleni yakho futsi sikukhombise kutsi i-YGT ingasebenta njani ebhizinisini lakho. Mahhala, kute sibopho.",
+      "consent": "Yebo, {{name}} ingatsintsana nami mayelana nemiphumela yami.",
+      "send": "Ngichazele",
+      "sentTitle": "Siyabonga, siyitfolile imiphumela yakho",
+      "sentBody": "Sitawutsintsana nawe ku-{{email}} ngekhatsi kwelilanga linye lekusebenta."
+    }
   }
 }

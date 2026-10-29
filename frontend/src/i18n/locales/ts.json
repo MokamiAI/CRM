@@ -2172,7 +2172,8 @@
       "features": "Swihlawulekisi",
       "pricing": "Mintsengo",
       "faq": "Swivutiso",
-      "start": "Sungula ndzingeto wa mahala"
+      "start": "Sungula ndzingeto wa mahala",
+      "checkup": "Ndzavisiso wa mahala"
     },
     "hero": {
       "eyebrow": "Kula. Fambisa. Humelela.",
@@ -2394,6 +2395,17 @@
       "trial": "Kungu rin'wana na rin'wana ri sungula hi ndzingeto wa mahala wa masiku ya {{days}}",
       "yearly": "Hakela hi lembe u kuma tin'hweti ta 2 mahala",
       "noCard": "A ku laveki khadi"
+    },
+    "checkup": {
+      "free": "Mahala",
+      "pill": "Endla ndzavisiso wa bindzu wa timinete ta 2",
+      "eyebrow": "Ndzavisiso wa bindzu wa mahala",
+      "title": "Ntirho wa maphepha wu ku durhela ku fika kwihi hakunene?",
+      "lead": "Hlamula swivutiso swa 10 swa xihatla mayelana na ndlela leyi u khomaka vaxavi, swivutiso swa vaxavi, mintirho, swiringanyeto na ntsengo ha yona. Kuma tinhlayo, swivandla swa wena swinharhu leswikulu na tiawara leti u nga ti vuyisaka n'hweti na n'hweti.",
+      "cta": "Sungula ndzavisiso wa mahala",
+      "meta": "Kwalomu ka timinete ta 2 · A ku na ku tsarisa",
+      "sample": "Xikombiso xa xiviko",
+      "sampleTools": "Switirhisiwa swa 7: WhatsApp, Excel, Word, phepha, mianakanyo na swin'wana"
     }
   },
   "aging": {
@@ -2717,5 +2729,273 @@
     "title": "Fungha {{number}} tani hi leyi rhumeriweke?",
     "quote": "Tirhisa leswi loko u se u nyike muxavi khotexini hi wexe, xikombiso hi WhatsApp, hi xikandza kumbe hi imeyili ya wena. A ku na nchumu lowu rhumeriwaka hi imeyili. Endzhaku u nga yi fungha tani hi leyi amukeriweke kumbe leyi aleriweke.",
     "invoice": "Tirhisa leswi loko u se u nyike muxavi invhoyisi hi wexe, xikombiso hi WhatsApp, hi xikandza kumbe hi imeyili ya wena. A ku na nchumu lowu rhumeriwaka hi imeyili sweswi. Loko swotsundzuxo swa ku hakela leswi tiendlekelaka swi pfuriwile, swi ta rhumeriwa eka muxavi loko ku hakela ku fanele."
+  },
+  "assessment": {
+    "intro": {
+      "eyebrow": "Ndzavisiso wa bindzu wa mahala",
+      "title": "Bindzu ra wena ri hleleke ku fika kwihi hakunene?",
+      "lead": "Swivutiso swa 10 swa xihatla mayelana na ndlela leyi u endlaka swilo ha yona namuntlha. Hi ta ku komba laha nkarhi na mali swi humaka kona, na ndlela leyi {{name}} yi nga pfunaka ha yona.",
+      "get": {
+        "score": "Tinhlayo ta wena eka 100",
+        "gaps": "Swivandla swa wena swinharhu leswikulu",
+        "time": "Tiawara na tirandi leti u nga ti vuyisaka"
+      },
+      "start": "Sungula ndzavisiso",
+      "meta": "Swivutiso swa {{count}} · Kwalomu ka timinete ta 2 · A ku na ku tsarisa"
+    },
+    "progress": "Xivutiso {{n}} eka {{total}}",
+    "spotted_one": "Xitirhisiwa xa {{count}} xi kumekile",
+    "spotted_other": "Switirhisiwa swa {{count}} swi kumekile",
+    "pickAll": "Hlawula hinkwaswo leswi tirhaka.",
+    "back": "Endzhaku",
+    "next": "Leswi landzelaka",
+    "finish": "Ndzi komba mbuyelo",
+    "tools": {
+      "memory": "Mianakanyo",
+      "paper": "Phepha kumbe buku",
+      "whatsapp": "WhatsApp",
+      "phone": "Vanhu va riqingho",
+      "email": "Bokisi ra imeyili",
+      "excel": "Excel kumbe Sheets",
+      "word": "Word kumbe Docs",
+      "calendar": "Khalendara ya riqingho",
+      "accounting": "App ya tibuku ta mali",
+      "crm": "CRM",
+      "taskApp": "App ya mintirho",
+      "invoicing": "App ya tinhlayo-xikoloto"
+    },
+    "q": {
+      "industry": {
+        "topic": "Bindzu ra wena",
+        "title": "U fambisa muxaka wihi wa bindzu?",
+        "hint": "Hlawula leri nga ekusuhi swinene.",
+        "options": {
+          "other": "Swin'wana"
+        }
+      },
+      "team": {
+        "topic": "Ntlawa wa wena",
+        "title": "Hi vanhu vangani lava tirhaka ebindzwini?",
+        "hint": "Na wena tihlayele.",
+        "options": {
+          "solo": "Hi mina ntsena",
+          "small": "Vanhu va 2 ku ya eka 3",
+          "team": "Vanhu va 4 ku ya eka 10",
+          "large": "Va 11 kumbe ku tlula"
+        }
+      },
+      "customers": {
+        "topic": "Vaxavi",
+        "title": "Vuxokoxoko bya vaxavi va wena byi hlayisiwa kwihi?",
+        "options": {
+          "phone": "Vanhu va riqingho",
+          "whatsapp": "Mimbulavurisano ya WhatsApp",
+          "excel": "Excel kumbe Google Sheets",
+          "paper": "Buku kumbe phepha",
+          "email": "Bokisi ra mina ra imeyili",
+          "crm": "Sisiteme ya CRM"
+        }
+      },
+      "enquiries": {
+        "topic": "Layini ya vuxavisi",
+        "title": "Loko xivutiso lexintshwa xa muxavi xi fika, u xi landzelela njhani kufikela xi va ntirho?",
+        "hint": "Hlawula lexi u titshegeke hi xona swinene.",
+        "options": {
+          "memory": "Ndzi xi hlayisa enhlokweni",
+          "whatsapp": "Xi tshama embulavurisanweni wa WhatsApp",
+          "excel": "Spreadsheet kumbe bodo yo basa",
+          "crm": "Layini ya vuxavisi eka CRM"
+        }
+      },
+      "slip": {
+        "topic": "Layini ya vuxavisi",
+        "title": "Xana xivutiso xa muxavi kumbe ku landzelela swi hundza kangani?",
+        "hint": "Vulavula ntiyiso, a ku na loyi a langutaka.",
+        "options": {
+          "rarely": "Swi le kusuhi ni ku nga humeleli",
+          "some": "Minkarhi yi nga ri yingani hi n'hweti",
+          "often": "Minkarhi yo tala, vhiki na vhiki",
+          "unsure": "Hakunene a ndzi swi tivi"
+        }
+      },
+      "tasks": {
+        "topic": "Mintirho",
+        "title": "U tiyisisa njhani leswaku ku landzelela na mintirho swi endliwa hakunene?",
+        "options": {
+          "memory": "Ndza swi tsundzuka",
+          "paper": "Tinotsi kumbe buku ya swilo leswi faneleke ku endliwa",
+          "whatsapp": "Switsundzuxo kumbe mintlawa ya WhatsApp",
+          "calendar": "Khalendara ya riqingho ra mina",
+          "excel": "Spreadsheet leyi avelaniwaka",
+          "taskApp": "App ya mintirho kumbe ya tiprojeke"
+        }
+      },
+      "documents": {
+        "topic": "Swiringanyeto na tinhlayo-xikoloto",
+        "title": "U endla swiringanyeto na tinhlayo-xikoloto ta wena kwihi?",
+        "options": {
+          "word": "Word kumbe Google Docs",
+          "excel": "Excel kumbe Google Sheets",
+          "whatsapp": "Ndzi swi tsala eka WhatsApp",
+          "paper": "Buku ya tinhlayo-xikoloto ya phepha",
+          "accounting": "App ya tibuku ta mali (Sage, Xero, QuickBooks)",
+          "invoicing": "App ya tinhlayo-xikoloto"
+        }
+      },
+      "volume": {
+        "topic": "Swiringanyeto na tinhlayo-xikoloto",
+        "title": "U rhumela swiringanyeto na tinhlayo-xikoloto tingani hi n'hweti?",
+        "hint": "Ku ringanyeta swi lulamile. Koka slayidi.",
+        "label": "Swiringanyeto na tinhlayo-xikoloto hi n'hweti"
+      },
+      "payments": {
+        "topic": "Ku hakeriwa",
+        "title": "Ku humelela yini loko muxavi a hakela endzhaku ka nkarhi?",
+        "hint": "Hlawula leswi nga ekusuhi swinene.",
+        "options": {
+          "rarely": "Vaxavi va hina a va hakeli endzhaku ka nkarhi",
+          "manual": "Ndza va ringela kumbe ndzi va rhumela WhatsApp hi mina",
+          "remember": "Ndza va landzelela loko ndzi tsundzuka",
+          "automatic": "Switsundzuxo swi rhumeriwa hi swoxe"
+        }
+      },
+      "tools": {
+        "topic": "Ku hlaya ko hetelela",
+        "title": "Loko u hlanganisa hinkwaswo, u tirhisa switirhisiwa swingani ku fambisa bindzu?",
+        "hint": "Ti-app, tibuku, mimbulavurisano na ti-spreadsheet hinkwaswo swa hlayiwa.",
+        "counted_one": "Ku suka eka tinhlamulo ta wena hi hlayile xitirhisiwa xa {{count}}:",
+        "counted_other": "Ku suka eka tinhlamulo ta wena hi hlayile switirhisiwa swo hambana swa {{count}}:",
+        "unit_one": "xitirhisiwa",
+        "unit_other": "switirhisiwa",
+        "less": "Xin'we ehansi",
+        "more": "Xin'we ehenhla",
+        "others": "U tirhisa swin'wana nakambe? App ya bangi, sisiteme yo bukela, nomboro ya vumbirhi ya WhatsApp? Swi engetele hi +.",
+        "extra_one": "Swin'we na xa {{count}} lexi u xi engeteleke.",
+        "extra_other": "Swin'we na swa {{count}} leswi u swi engeteleke."
+      }
+    },
+    "working": {
+      "title": "Hi tirha mbuyelo wa wena",
+      "tools_one": "Hi hlaya switirhisiwa swa wena: ku kumiwe xa {{count}}",
+      "tools_other": "Hi hlaya switirhisiwa swa wena: ku kumiwe swa {{count}}",
+      "customers": "Hi kambela laha vuxokoxoko bya vaxavi byi hlayisiwaka kona",
+      "followUps": "Hi kambela ndlela leyi swivutiso na mintirho swi landzeleriwaka ha yona",
+      "documents_one": "Hi hlaya nkarhi wa xiringanyeto kumbe nhlayo-xikoloto ya {{count}} hi n'hweti",
+      "documents_other": "Hi hlaya nkarhi wa swiringanyeto na tinhlayo-xikoloto ta {{count}} hi n'hweti",
+      "payments": "Hi kambela ndlela leyi ntsengo wa endzhaku ka nkarhi wu landzeleriwaka ha yona",
+      "report": "Hi hlanganisa xiviko xa wena"
+    },
+    "toolsInline": {
+      "memory": "mianakanyo",
+      "paper": "tinotsi ta phepha",
+      "whatsapp": "WhatsApp",
+      "phone": "vanhu va riqingho",
+      "email": "bokisi ra wena ra imeyili",
+      "excel": "Excel",
+      "word": "Word",
+      "calendar": "khalendara ya riqingho ra wena",
+      "accounting": "app ya tibuku ta mali",
+      "crm": "CRM",
+      "taskApp": "app ya mintirho",
+      "invoicing": "app ya tinhlayo-xikoloto"
+    },
+    "areas": {
+      "customers": "Vaxavi",
+      "pipeline": "Swivutiso na layini ya vuxavisi",
+      "tasks": "Mintirho na ku landzelela",
+      "documents": "Swiringanyeto na tinhlayo-xikoloto",
+      "payments": "Ku hakeriwa"
+    },
+    "hours": {
+      "documents": "Ku tsala swiringanyeto na tinhlayo-xikoloto",
+      "customers": "Ku lava vuxokoxoko bya vaxavi",
+      "pipeline": "Ku kuma laha swivutiso swi yimeke kona",
+      "tasks": "Ku landzelela mintirho",
+      "payments": "Ku landzelela ntsengo wa endzhaku ka nkarhi",
+      "switching": "Ku cinca exikarhi ka switirhisiwa"
+    },
+    "gaps": {
+      "customers": {
+        "problem": "Vuxokoxoko bya vaxavi va wena byi hangalakile eka {{tools}}, hikwalaho ku kuma nomboro leyi faneleke kumbe matimu swi teka nkarhi.",
+        "fix": "Nxaxamelo wun'we wa vaxavi lowu nga na vanhu hinkwavo, swiringanyeto, tinhlayo-xikoloto na mimbulavurisano, lowu ntlawa wa wena hinkwawo wu nga lavaka eka wona."
+      },
+      "pipeline": {
+        "problem": {
+          "memory": "Swivutiso swa vaxavi swi tshama enhlokweni ya wena, hikwalaho loko ku khomekile, swin'wana swa titimela ku nga si landzeleriwa.",
+          "whatsapp": "Swivutiso swi lahlekile eka mimbulavurisano ya WhatsApp, hikwalaho swa tika ku vona leswi rindzeleke kumbe nkoka wa xin'wana na xin'wana.",
+          "excel": "Swivutiso swi le ka spreadsheet leyi munhu a faneleke ku yi pfuxeta, naswona swin'wana swa ha hundza.",
+          "crm": "Wa swi landzelela swivutiso, kambe swin'wana swa ha hundza swi nga si va mintirho."
+        },
+        "fix": "Layini ya vuxavisi leyi kombaka xivutiso xin'wana na xin'wana ku sukela eka rungula ro sungula ku fika eka ntirho lowu hluleriweke, na goza leri landzelaka na nkoka wa xona."
+      },
+      "tasks": {
+        "problem": "Ku landzelela ku titshege hi {{tools}}. Loko munhu a khomekile kumbe a nga ri kona, swilo swa hundza.",
+        "fix": "Mintirho leyi nga na masiku yo hetelela, swinxaxamelo swo kambela na switsundzuxo, leyi nyikiweke munhu loyi faneleke leswaku ku nga vi na nchumu lowu titshegeke hi mianakanyo."
+      },
+      "documents": {
+        "problem": "Swiringanyeto na tinhlayo-xikoloto swi endliwa eka {{tools}}: swi tsariwa hi voko, swi nyikiwa tinomboro hi voko, naswona swa tika ku swi landzelela.",
+        "fix": "Swiringanyeto swa xiyimo xa le henhla hi timinete leswi hundzukaka tinhlayo-xikoloto hi ku tsindzhiya kan'we, na VAT, tinomboro na mfungho wa wena swi ku endleriwile."
+      },
+      "payments": {
+        "problem": {
+          "rarely": "Ntsengo wa endzhaku ka nkarhi a wu tolovelekanga, kambe a ku na lexi wu langutaka, hikwalaho wun'wana wu nga tshama tin'hweti.",
+          "manual": "U landzelela lava hakelaka endzhaku ka nkarhi hi wexe, riqingho kumbe rungula rin'we hi nkarhi. Swi dya tiawara na mimbulavurisano yo ka yi nga tsakisi.",
+          "remember": "Lava hakelaka endzhaku ka nkarhi va landzeleriwa ntsena loko u tsundzuka, hikwalaho mali leyi u yi tirheleke yi tshama yi nga hakeriwanga.",
+          "automatic": "Ntsengo wa landzeleriwa, kambe swa tika ku vona hi xihatla leswaku i mani loyi a ku kolotaka mali yo fika kwihi."
+        },
+        "fix": "Vona hi xihatla leswaku i mani loyi a ku kolotaka, kutani u pfumelela switsundzuxo swo tiendlekela swi landzelela tinhlayo-xikoloto leti hundzeriweke hi nkarhi."
+      }
+    },
+    "report": {
+      "outOf": "eka 100",
+      "band": {
+        "weak": {
+          "label": "U tsutsuma endzhaku ka bindzu ra wena",
+          "title": "Bindzu ra wena ra ku fambisa, a hi wena u ri fambisaka",
+          "body": "Vuxokoxoko bya nkoka byi le tindhawini to tala ngopfu, naswona nkarhi wa huma vhiki na vhiki. Mahungu lamanene: leswi i swivandla leswi olovaka ngopfu ku swi pfala, naswona {{name}} yi akeriwe leswi hakunene."
+        },
+        "middle": {
+          "label": "U le ndleleni",
+          "title": "U na masungulo, kambe swilo swa ha hundza",
+          "body": "Swiphemu swin'wana swa bindzu ra wena swi famba kahle, swin'wana swi titshege hi mianakanyo na ntirho wa mavoko. Ku swi hlanganisa eka {{name}} swi nga vuyisa nkarhi wa xiviri n'hweti na n'hweti."
+        },
+        "strong": {
+          "label": "U lawula",
+          "title": "U hleleke kahle. Sweswi swi endle swi olova",
+          "body": "U se u ri na mikhuva leyinene. {{name}} yi nga veka hinkwaswo endhawini yin'we, leswaku ntlawa wa wena wu tirhisa nkarhi wutsongo ku tlula eka ntirho wa maphepha."
+        }
+      },
+      "areasTitle": "Tinhlayo ta wena hi xiphemu",
+      "points": "{{value}}/{{max}}",
+      "toolsTitle_one": "U tirhisa xitirhisiwa xa {{count}}",
+      "toolsTitle_other": "U tirhisa switirhisiwa swa {{count}}",
+      "toolsCost": "Xitirhisiwa xin'wana na xin'wana lexi tlulaka {{ok}} xi vula ku kopa ko tala, ku cinca na swilo leswi welaka exikarhi ka swona. Swi ku lahlekerile tinhlayo ta {{points}}.",
+      "toolsFine": "Leyi i nhlayo leyi lawulekaka. Ku yi hlayisa yi ri tano swa pfuna.",
+      "gapsTitle_one": "Xivandla xa wena lexikulu",
+      "gapsTitle_other": "Swivandla swa wena swa {{count}} leswikulu",
+      "noGaps": "A ku kumekanga swivandla leswikulu. U endlile kahle.",
+      "gap": "Xivandla {{n}}",
+      "fix": "Ndlela leyi {{name}} yi xi lulamisaka ha yona",
+      "roiTitle": "Laha nkarhi wa wena wu yaka kona n'hweti na n'hweti",
+      "hours_one": "{{count}} h",
+      "hours_other": "{{count}} h",
+      "planFlat": "{{plan}} yi durha {{price}} hi n'hweti eka bindzu ra wena hinkwaro.",
+      "planSeats": "{{plan}} ya vanhu va {{seats}} yi durha kwalomu ka {{price}} hi n'hweti.",
+      "times_one": "Sweswo i kwalomu ka minkarhi ya {{count}} ku tlula nxavo wa yona.",
+      "times_other": "Sweswo i kwalomu ka minkarhi ya {{count}} ku tlula nxavo wa yona.",
+      "howTitle": "Hi swi tirhise njhani leswi",
+      "how": "Lexi i xiringanyeto, a hi xitshembiso, xi simekiwe eka tinhlamulo ta wena ntsena. Xiringanyeto kumbe nhlayo-xikoloto yin'wana na yin'wana yi teka timinete ta 8 ku ya eka 25 ku ya hi laha yi endliwaka kona, loko yi pimanisiwa na timinete ta kwalomu ka {{ygt}} hi YGT. Ku landzelela ntsengo wa endzhaku ka nkarhi swi teka kwalomu ka timinete ta {{chase}}. Xitirhisiwa xin'wana na xin'wana lexi tlulaka swimbirhi xi dya kwalomu ka tiawara ta {{switching}} hi n'hweti eka munhu un'wana na un'wana hi ku cinca na ku kopa, naswona xitirhisiwa xin'wana na xin'wana lexi tlulaka {{ok}} xi dya tinhlayo ta 2. Nkarhi wo lava vuxokoxoko bya vaxavi, swivutiso na mintirho wu kula hi vukulu bya ntlawa wa wena.",
+      "trialTitle": "Pfala swivandla leswi endhawini yin'we",
+      "trialBody": "Ringeta hinkwaswo mahala masiku ya {{days}}. A ku laveki karhi, naswona u nga tisa vaxavi va wena ku suka eka Excel.",
+      "again": "Endla nakambe"
+    },
+    "talk": {
+      "title": "Xana u lava leswaku hi ku hlamusela mbuyelo?",
+      "body": "Siya vuxokoxoko bya wena kutani hi ta ku ringela ku famba na wena eka mbuyelo wa wena na ku ku komba ndlela leyi YGT yi nga tirhaka ha yona ebindzwini ra wena. Mahala, a ku na xiboho.",
+      "consent": "Ina, {{name}} yi nga tihlanganisa na mina mayelana na mbuyelo wa mina.",
+      "send": "Ndzi hlamusela",
+      "sentTitle": "Inkomu, hi kumile mbuyelo wa wena",
+      "sentBody": "Hi ta tihlanganisa na wena eka {{email}} endzeni ka siku rin'we ra ntirho."
+    }
   }
 }

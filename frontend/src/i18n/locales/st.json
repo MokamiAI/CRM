@@ -2172,7 +2172,8 @@
       "features": "Dikarolo",
       "pricing": "Ditheko",
       "faq": "Dipotso",
-      "start": "Qala teko ya mahala"
+      "start": "Qala teko ya mahala",
+      "checkup": "Tlhahlobo ya mahala"
     },
     "hero": {
       "eyebrow": "Hola. Laola. Atleha.",
@@ -2394,6 +2395,17 @@
       "trial": "Moralo o mong le o mong o qala ka teko ya mahala ya matsatsi a {{days}}",
       "yearly": "Lefa ka selemo mme o fumane dikgwedi tse 2 mahala",
       "noCard": "Ha ho hlokehe karete"
+    },
+    "checkup": {
+      "free": "Mahala",
+      "pill": "Etsa tlhahlobo ya kgwebo ya metsotso e 2",
+      "eyebrow": "Tlhahlobo ya kgwebo ya mahala",
+      "title": "Mosebetsi wa dipampiri o o lefisa bokae ka nnete?",
+      "lead": "Araba dipotso tse 10 tse potlakileng mabapi le kamoo o tshwarang bareki, dipotso tsa bareki, mesebetsi, dikotatsheno le ditefo kateng. Fumana dintlha, dikgeo tsa hao tse tharo tse kgolo le dihora tseo o ka di kgutlisang kgwedi le kgwedi.",
+      "cta": "Qala tlhahlobo ya mahala",
+      "meta": "Metsotso e ka bang 2 · Ha ho ngodiso",
+      "sample": "Mohlala wa tlaleho",
+      "sampleTools": "Disebediswa tse 7: WhatsApp, Excel, Word, pampiri, mohopolo le tse ding"
     }
   },
   "aging": {
@@ -2717,5 +2729,273 @@
     "title": "Tshwaya {{number}} e rometswe?",
     "quote": "Sebedisa sena ha o se o file moreki kotheishene ka bowena, mohlala ka WhatsApp, ka sefahleho kapa ka imeile ya hao. Ha ho letho le romelwang ka imeile. Kamora moo o ka e tshwaya e amohetswe kapa e hannwe.",
     "invoice": "Sebedisa sena ha o se o file moreki invoice ka bowena, mohlala ka WhatsApp, ka sefahleho kapa ka imeile ya hao. Ha ho letho le romelwang ka imeile hona jwale. Haeba dikgopotso tsa tefo tse iketsahallang di bulehile, di tla romellwa moreki ha tefo e lokela."
+  },
+  "assessment": {
+    "intro": {
+      "eyebrow": "Tlhahlobo ya kgwebo ya mahala",
+      "title": "Kgwebo ya hao e hlophisehile hakae ka nnete?",
+      "lead": "Dipotso tse 10 tse potlakileng mabapi le kamoo o etsang dintho kateng kajeno. Re tla o bontsha moo nako le tjhelete di tswang teng, le kamoo {{name}} e ka thusang kateng.",
+      "get": {
+        "score": "Dintlha tsa hao ho tse 100",
+        "gaps": "Dikgeo tsa hao tse tharo tse kgolo",
+        "time": "Dihora le diranta tseo o ka di kgutlisang"
+      },
+      "start": "Qala tlhahlobo",
+      "meta": "Dipotso tse {{count}} · Metsotso e ka bang 2 · Ha ho ngodiso"
+    },
+    "progress": "Potso {{n}} ho tse {{total}}",
+    "spotted_one": "Sesebediswa se {{count}} se fumanwe",
+    "spotted_other": "Disebediswa tse {{count}} di fumanwe",
+    "pickAll": "Kgetha tsohle tse o amang.",
+    "back": "Morao",
+    "next": "E latelang",
+    "finish": "Mpontshe diphetho",
+    "tools": {
+      "memory": "Mohopolo",
+      "paper": "Pampiri kapa buka",
+      "whatsapp": "WhatsApp",
+      "phone": "Dikgokahano tsa mohala",
+      "email": "Lebokose la imeile",
+      "excel": "Excel kapa Sheets",
+      "word": "Word kapa Docs",
+      "calendar": "Khalendara ya mohala",
+      "accounting": "App ya dibuka tsa ditjhelete",
+      "crm": "CRM",
+      "taskApp": "App ya mesebetsi",
+      "invoicing": "App ya di-invoice"
+    },
+    "q": {
+      "industry": {
+        "topic": "Kgwebo ya hao",
+        "title": "O tsamaisa mofuta ofe wa kgwebo?",
+        "hint": "Kgetha e haufi ka ho fetisisa.",
+        "options": {
+          "other": "Ho hong"
+        }
+      },
+      "team": {
+        "topic": "Sehlopha sa hao",
+        "title": "Ke batho ba bakae ba sebetsang kgwebong?",
+        "hint": "Le wena o ipale.",
+        "options": {
+          "solo": "Ke nna feela",
+          "small": "Batho ba 2 ho isa ho ba 3",
+          "team": "Batho ba 4 ho isa ho ba 10",
+          "large": "Ba 11 kapa ho feta"
+        }
+      },
+      "customers": {
+        "topic": "Bareki",
+        "title": "Dintlha tsa bareki ba hao di bolokwa kae?",
+        "options": {
+          "phone": "Dikgokahano tsa mohala",
+          "whatsapp": "Dipuisano tsa WhatsApp",
+          "excel": "Excel kapa Google Sheets",
+          "paper": "Buka kapa pampiri",
+          "email": "Lebokose la ka la imeile",
+          "crm": "Sistimi ya CRM"
+        }
+      },
+      "enquiries": {
+        "topic": "Mola wa thekiso",
+        "title": "Ha potso e ntjha ya moreki e fihla, o e latela jwang ho fihlela e eba mosebetsi?",
+        "hint": "Kgetha eo o itshetlehileng ka yona haholo.",
+        "options": {
+          "memory": "Ke e boloka hloohong",
+          "whatsapp": "E dula puisanong ya WhatsApp",
+          "excel": "Spreadsheet kapa boto e tshweu",
+          "crm": "Mola wa thekiso ho CRM"
+        }
+      },
+      "slip": {
+        "topic": "Mola wa thekiso",
+        "title": "Ke hangata hakae potso ya moreki kapa tatelo e phonyohang?",
+        "hint": "Bua nnete, ha ho ya shebileng.",
+        "options": {
+          "rarely": "Ho batla ho sa etsahale",
+          "some": "Makgetlo a mmalwa ka kgwedi",
+          "often": "Hangata, beke le beke",
+          "unsure": "Ka nnete ha ke tsebe"
+        }
+      },
+      "tasks": {
+        "topic": "Mesebetsi",
+        "title": "O etsa bonnete jwang hore ditatelo le mesebetsi di etswa ka nnete?",
+        "options": {
+          "memory": "Ke a di hopola",
+          "paper": "Dinoutu kapa buka ya dintho tse lokelang ho etswa",
+          "whatsapp": "Dikgopotso kapa dihlopha tsa WhatsApp",
+          "calendar": "Khalendara ya mohala wa ka",
+          "excel": "Spreadsheet e arolelanwang",
+          "taskApp": "App ya mesebetsi kapa ya diprojeke"
+        }
+      },
+      "documents": {
+        "topic": "Dikotatsheno le di-invoice",
+        "title": "O etsa dikotatsheno le di-invoice tsa hao kae?",
+        "options": {
+          "word": "Word kapa Google Docs",
+          "excel": "Excel kapa Google Sheets",
+          "whatsapp": "Ke di ngola ho WhatsApp",
+          "paper": "Buka ya di-invoice ya pampiri",
+          "accounting": "App ya dibuka tsa ditjhelete (Sage, Xero, QuickBooks)",
+          "invoicing": "App ya di-invoice"
+        }
+      },
+      "volume": {
+        "topic": "Dikotatsheno le di-invoice",
+        "title": "O romela dikotatsheno le di-invoice tse kae ka kgwedi?",
+        "hint": "Kakanyo e lokile. Hula selaete.",
+        "label": "Dikotatsheno le di-invoice ka kgwedi"
+      },
+      "payments": {
+        "topic": "Ho lefuwa",
+        "title": "Ho etsahala eng ha moreki a lefa kamora nako?",
+        "hint": "Kgetha e haufi ka ho fetisisa.",
+        "options": {
+          "rarely": "Bareki ba rona ha ba ka ba lefa kamora nako",
+          "manual": "Ke ba letsetsa kapa ke ba romella WhatsApp ka bonna",
+          "remember": "Ke ba latela ha ke hopola",
+          "automatic": "Dikgopotso di romelwa ka boyona"
+        }
+      },
+      "tools": {
+        "topic": "Palo ya ho qetela",
+        "title": "Ha o kopanya tsohle, o sebedisa disebediswa tse kae ho tsamaisa kgwebo?",
+        "hint": "Di-app, dibuka, dipuisano le di-spreadsheet kaofela di a balwa.",
+        "counted_one": "Ho tswa dikarabong tsa hao re badile sesebediswa se {{count}}:",
+        "counted_other": "Ho tswa dikarabong tsa hao re badile disebediswa tse {{count}} tse fapaneng:",
+        "unit_one": "sesebediswa",
+        "unit_other": "disebediswa",
+        "less": "Se le seng ka tlase",
+        "more": "Se le seng hodimo",
+        "others": "O sebedisa ho hong hape? App ya banka, sistimi ya ho buka, nomoro ya bobedi ya WhatsApp? E eketse ka +.",
+        "extra_one": "Hammoho le se {{count}} seo o se eketsitseng.",
+        "extra_other": "Hammoho le tse {{count}} tseo o di eketsitseng."
+      }
+    },
+    "working": {
+      "title": "Re sebetsa diphetho tsa hao",
+      "tools_one": "Re bala disebediswa tsa hao: ho fumanwe se {{count}}",
+      "tools_other": "Re bala disebediswa tsa hao: ho fumanwe tse {{count}}",
+      "customers": "Re hlahloba moo dintlha tsa bareki di bolokwang teng",
+      "followUps": "Re hlahloba kamoo dipotso le mesebetsi di latelwang kateng",
+      "documents_one": "Re bala nako ya kotatsheno kapa invoice e {{count}} ka kgwedi",
+      "documents_other": "Re bala nako ya dikotatsheno le di-invoice tse {{count}} ka kgwedi",
+      "payments": "Re hlahloba kamoo ditefo tsa kamora nako di latelwang kateng",
+      "report": "Re kopanya tlaleho ya hao"
+    },
+    "toolsInline": {
+      "memory": "mohopolo",
+      "paper": "dinoutu tsa pampiri",
+      "whatsapp": "WhatsApp",
+      "phone": "dikgokahano tsa mohala",
+      "email": "lebokose la hao la imeile",
+      "excel": "Excel",
+      "word": "Word",
+      "calendar": "khalendara ya mohala wa hao",
+      "accounting": "app ya dibuka tsa ditjhelete",
+      "crm": "CRM",
+      "taskApp": "app ya mesebetsi",
+      "invoicing": "app ya di-invoice"
+    },
+    "areas": {
+      "customers": "Bareki",
+      "pipeline": "Dipotso le mola wa thekiso",
+      "tasks": "Mesebetsi le ditatelo",
+      "documents": "Dikotatsheno le di-invoice",
+      "payments": "Ho lefuwa"
+    },
+    "hours": {
+      "documents": "Ho ngola dikotatsheno le di-invoice",
+      "customers": "Ho batla dintlha tsa bareki",
+      "pipeline": "Ho fumana moo dipotso di emeng teng",
+      "tasks": "Ho latela mesebetsi",
+      "payments": "Ho latela ditefo tsa kamora nako",
+      "switching": "Ho fetoha pakeng tsa disebediswa"
+    },
+    "gaps": {
+      "customers": {
+        "problem": "Dintlha tsa bareki ba hao di hasane ho {{tools}}, kahoo ho fumana nomoro e nepahetseng kapa nalane ho nka nako.",
+        "fix": "Lenane le le leng la bareki le nang le dikgokahano tsohle, dikotatsheno, di-invoice le dipuisano, leo sehlopha sa hao kaofela se ka batlang ho lona."
+      },
+      "pipeline": {
+        "problem": {
+          "memory": "Dipotso tsa bareki di dula hloohong ya hao, kahoo ha ho phathahane, tse ding di a fola pele ho latelwa.",
+          "whatsapp": "Dipotso di patehile dipuisanong tsa WhatsApp, kahoo ho thata ho bona tse emetseng kapa hore e nngwe le e nngwe e bohlokwa hakae.",
+          "excel": "Dipotso di ho spreadsheet eo motho a lokelang ho e ntjhafatsa, mme tse ding di ntse di phonyoha.",
+          "crm": "O a di latela dipotso, empa tse ding di ntse di phonyoha pele di eba mesebetsi."
+        },
+        "fix": "Mola wa thekiso o bontshang potso e nngwe le e nngwe ho tloha molaetseng wa pele ho fihla mosebetsing o hapilweng, le mohato o latelang le boleng ba yona."
+      },
+      "tasks": {
+        "problem": "Ditatelo di itshetlehile ka {{tools}}. Ha motho a phathahane kapa a le siyo, dintho di a fetwa.",
+        "fix": "Mesebetsi e nang le matsatsi a ho qetela, manane a ho hlahloba le dikgopotso, e abetsweng motho ya nepahetseng hore ho se be letho le itshetlehileng ka mohopolo."
+      },
+      "documents": {
+        "problem": "Dikotatsheno le di-invoice di etswa ka {{tools}}: di ngolwa ka letsoho, di fuwa dinomoro ka letsoho, mme ho thata ho di latela.",
+        "fix": "Dikotatsheno tsa maemo a hodimo ka metsotso tse fetohang di-invoice ka ho tobetsa hang, ka VAT, dinomoro le letshwao la hao di o etseditswe."
+      },
+      "payments": {
+        "problem": {
+          "rarely": "Ditefo tsa kamora nako ha di tlwaelehe, empa ha ho letho le di shebileng, kahoo e nngwe e ka dula dikgwedi.",
+          "manual": "O latela balefi ba kamora nako ka bowena, mohala kapa molaetsa o le mong ka nako. Ho ja dihora le dipuisano tse sa thabiseng.",
+          "remember": "Balefi ba kamora nako ba latelwa feela ha o hopola, kahoo tjhelete eo o e sebeditseng e dula e sa lefuwa.",
+          "automatic": "Ditefo di a latelwa, empa ho thata ho bona kapele hore na ke mang ya o kolotang bokae."
+        },
+        "fix": "Bona kapele hore na ke mang ya o kolotang, mme o dumelle dikgopotso tse iketsahallang di latele di-invoice tse fetilweng ke nako."
+      }
+    },
+    "report": {
+      "outOf": "ho tse 100",
+      "band": {
+        "weak": {
+          "label": "O matha kamora kgwebo ya hao",
+          "title": "Kgwebo ya hao e a o tsamaisa, ha se wena ya e tsamaisang",
+          "body": "Dintlha tsa bohlokwa di dibakeng tse ngata haholo, mme nako e a tswa beke le beke. Ditaba tse monate: tsena ke dikgeo tse bonolo ka ho fetisisa ho di kwala, mme {{name}} e ahetswe sena hantle."
+        },
+        "middle": {
+          "label": "O tseleng",
+          "title": "O na le motheo, empa dintho di ntse di phonyoha",
+          "body": "Dikarolo tse ding tsa kgwebo ya hao di tsamaya hantle, tse ding di itshetlehile ka mohopolo le mosebetsi wa matsoho. Ho di kopanya ho {{name}} ho ka kgutlisa nako ya nnete kgwedi le kgwedi."
+        },
+        "strong": {
+          "label": "O laola",
+          "title": "O hlophisehile hantle. Jwale e etse hore e be bonolo",
+          "body": "O se o na le mekgwa e metle. {{name}} e ka beha tsohle sebakeng se le seng, hore sehlopha sa hao se sebedise nako e nyane le ho feta mosebetsing wa dipampiri."
+        }
+      },
+      "areasTitle": "Dintlha tsa hao ka karolo",
+      "points": "{{value}}/{{max}}",
+      "toolsTitle_one": "O sebedisa sesebediswa se {{count}}",
+      "toolsTitle_other": "O sebedisa disebediswa tse {{count}}",
+      "toolsCost": "Sesebediswa se seng le se seng ka hodima {{ok}} se bolela ho kopitsa ho hongata, ho fetoha le dintho tse wela pakeng tsa tsona. Ho o lahleheletse dintlha tse {{points}}.",
+      "toolsFine": "Ena ke palo e laolehang. Ho e boloka jwalo ho a thusa.",
+      "gapsTitle_one": "Lekgeo la hao le leholo",
+      "gapsTitle_other": "Dikgeo tsa hao tse {{count}} tse kgolo",
+      "noGaps": "Ha ho dikgeo tse kgolo tse fumanweng. O entse hantle.",
+      "gap": "Lekgeo {{n}}",
+      "fix": "Kamoo {{name}} e le lokisang kateng",
+      "roiTitle": "Moo nako ya hao e yang teng kgwedi le kgwedi",
+      "hours_one": "{{count}} h",
+      "hours_other": "{{count}} h",
+      "planFlat": "{{plan}} e bitsa {{price}} ka kgwedi bakeng sa kgwebo ya hao kaofela.",
+      "planSeats": "{{plan}} bakeng sa batho ba {{seats}} e bitsa ho ka bang {{price}} ka kgwedi.",
+      "times_one": "Seo se ka ba makgetlo a {{count}} ho feta theko ya yona.",
+      "times_other": "Seo se ka ba makgetlo a {{count}} ho feta theko ya yona.",
+      "howTitle": "Re sebeditse sena jwang",
+      "how": "Ena ke kakanyo, ha se tshepiso, e thehilwe feela dikarabong tsa hao. Kotatsheno kapa invoice e nngwe le e nngwe e nka metsotso e 8 ho isa ho e 25 ho ya ka moo e etswang teng, ha e bapiswa le metsotso e ka bang {{ygt}} ka YGT. Ho latela tefo ya kamora nako ho nka metsotso e ka bang {{chase}}. Sesebediswa se seng le se seng ka hodima tse pedi se ja dihora tse ka bang {{switching}} ka kgwedi ho motho e mong le e mong ka ho fetoha le ho kopitsa, mme sesebediswa se seng le se seng ka hodima {{ok}} se ja dintlha tse 2. Nako ya ho batla dintlha tsa bareki, dipotso le mesebetsi e hola le boholo ba sehlopha sa hao.",
+      "trialTitle": "Kwala dikgeo tsena sebakeng se le seng",
+      "trialBody": "Leka tsohle mahala matsatsi a {{days}}. Ha ho hlokahale karete, mme o ka tlisa bareki ba hao ho tswa ho Excel.",
+      "again": "Etsa hape"
+    },
+    "talk": {
+      "title": "O batla hore re o hlalosetse diphetho?",
+      "body": "Siya dintlha tsa hao mme re tla o letsetsa ho tsamaya le wena diphethong tsa hao le ho o bontsha kamoo YGT e ka sebetsang kateng kgwebong ya hao. Mahala, ha ho tlamo.",
+      "consent": "E, {{name}} e ka ikopanya le nna mabapi le diphetho tsa ka.",
+      "send": "Ntlhalosetse",
+      "sentTitle": "Re a leboha, re fumane diphetho tsa hao",
+      "sentBody": "Re tla ikopanya le wena ho {{email}} nakong ya letsatsi le le leng la mosebetsi."
+    }
   }
 }

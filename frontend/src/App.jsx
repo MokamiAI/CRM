@@ -29,6 +29,7 @@ const NewQuotePage = named(quotePages, "NewQuotePage");
 const QuoteDetailPage = named(quotePages, "QuoteDetailPage");
 const QuotesPage = named(quotePages, "QuotesPage");
 const AboutPage = lazy(() => import("./pages/AboutPage"));
+const AssessmentPage = lazy(() => import("./pages/AssessmentPage"));
 const MarketingPage = lazy(() => import("./pages/MarketingPage"));
 const MessagesPage = lazy(() => import("./pages/MessagesPage"));
 const HelpPage = lazy(() => import("./pages/HelpPage"));
@@ -84,6 +85,7 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/assessment" element={<AssessmentPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
