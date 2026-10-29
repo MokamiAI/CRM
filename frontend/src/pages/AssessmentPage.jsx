@@ -623,6 +623,7 @@ function Report({ answers, onRestart }) {
           <p className="text-sm text-zinc-400">{t("assessment.report.freed")}</p>
           <p className="mt-1 text-4xl font-semibold tabular-nums tracking-tight sm:text-5xl">
             {range(result.hours.low, result.hours.high, (n) => n)}
+            <span className="ml-1.5 text-2xl font-medium text-zinc-300">h</span>
             <span className="ml-2 text-xl font-medium text-zinc-400">{t("assessment.report.perMonth")}</span>
           </p>
           <p className="mt-5 text-sm text-zinc-400">{t("assessment.report.worth")}</p>
