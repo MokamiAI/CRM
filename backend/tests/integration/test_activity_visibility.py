@@ -1,29 +1,30 @@
-from datetime import date
-
 import pytest
 
 from .conftest import new_company
 from .test_team_tasks import _member
 from app.core.config import settings
+from app.services.reminder_service import company_today
 
 
 @pytest.mark.asyncio
 async def test_staff_and_viewer_cannot_read_other_peoples_tasks_through_any_route(api):
+    # "Today" as the company sees it (Johannesburg), not the server's UTC date.
+    today = company_today("Africa/Johannesburg").isoformat()
     admin = await new_company(api, "Task privacy")
     staff, staff_id = await _member(api, admin)
     viewer, _ = await _member(api, admin, "viewer")
     prospect = (await api.post("/prospects", headers=admin["headers"], json={"name": "Private tasks prospect"})).json()
     deal = (await api.post("/deals", headers=admin["headers"], json={"title": "Task privacy deal", "customer_id": prospect["id"]})).json()
     private = (await api.post("/activities", headers=admin["headers"], json={
-        "subject": "Admin private task", "due_date": date.today().isoformat(), "deal_id": deal["id"], "checklist_enabled": True,
+        "subject": "Admin private task", "due_date": today, "deal_id": deal["id"], "checklist_enabled": True,
     })).json()
     attachment = await api.post(f"/activities/{private['id']}/attachments", headers=admin["headers"], files={"file": ("private.txt", b"private notes", "text/plain")})
     assert attachment.status_code == 201, attachment.text
     attachment_id = attachment.json()["id"]
     assert (await api.post(f"/activities/{private['id']}/updates", headers=admin["headers"], json={"status": "done", "note": "Private update"})).status_code == 201
-    mine = (await api.post("/activities", headers=admin["headers"], json={"subject": "Assigned to staff", "due_date": date.today().isoformat(), "owner_id": staff_id})).json()
-    shared = (await api.post("/activities", headers=admin["headers"], json={"subject": "Shared with staff", "due_date": date.today().isoformat(), "assignee_ids": [staff_id]})).json()
-    created = (await api.post("/activities", headers=staff, json={"subject": "Created by staff", "due_date": date.today().isoformat(), "owner_id": str(admin["user_id"])})).json()
+    mine = (await api.post("/activities", headers=admin["headers"], json={"subject": "Assigned to staff", "due_date": today, "owner_id": staff_id})).json()
+    shared = (await api.post("/activities", headers=admin["headers"], json={"subject": "Shared with staff", "due_date": today, "assignee_ids": [staff_id]})).json()
+    created = (await api.post("/activities", headers=staff, json={"subject": "Created by staff", "due_date": today, "owner_id": str(admin["user_id"])})).json()
     visible_ids = {mine["id"], shared["id"], created["id"]}
     for query in ["", "?mine=false", f"?deal_id={deal['id']}", f"?customer_id={prospect['id']}"]:
         response = await api.get("/activities" + query, headers=staff)
@@ -50,7 +51,7 @@ async def test_admin_and_manager_keep_everyone_visibility_and_shared_tasks_work(
     admin = await new_company(api, "Manager task overview")
     manager, _ = await _member(api, admin, "manager")
     staff, staff_id = await _member(api, admin)
-    task = (await api.post("/activities", headers=admin["headers"], json={"subject": "Team task", "due_date": date.today().isoformat(), "assignee_ids": [staff_id], "checklist_enabled": True})).json()
+    task = (await api.post("/activities", headers=admin["headers"], json={"subject": "Team task", "due_date": today, "assignee_ids": [staff_id], "checklist_enabled": True})).json()
     for headers in [admin["headers"], manager, staff]:
         assert task["id"] in {row["id"] for row in (await api.get("/activities?mine=false", headers=headers)).json()}
         assert (await api.get(f"/activities/{task['id']}", headers=headers)).status_code == 200

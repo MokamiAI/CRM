@@ -195,7 +195,8 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
     if (seen.current.answered === answered) return;
     seen.current.answered = answered;
     const waiting = q.kind === "volumes" && touched.current.size < q.fields.length;
-    if (ready && !waiting) later(q.kind === "count" ? 700 : 1500);
+    // The last question is theirs to submit, so it never finishes by itself.
+    if (ready && !waiting && !last) later(1500);
     else cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, answered, ready]);
