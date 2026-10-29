@@ -1224,20 +1224,8 @@ textarea.input:focus {
 @keyframes checkup-draw {
   from { stroke-dashoffset: 24; }
 }
-/* The Next button fills while a question waits to move on by itself. */
-.checkup-countdown {
-  position: absolute;
-  inset: 0;
-  background: rgb(255 255 255 / 0.22);
-  transform-origin: left;
-  animation: checkup-countdown var(--ms) linear both;
-}
-@keyframes checkup-countdown {
-  from { transform: scaleX(0); }
-}
 @media (prefers-reduced-motion: reduce) {
   .checkup-in, .checkup-chip, .checkup-line, .checkup-fill { animation: none; }
-  .checkup-countdown { animation: none; transform: none; opacity: 0.6; }
   /* Gentler, not gone: the question still fades, without travelling. */
   .checkup-q-next, .checkup-q-back { animation: checkup-fade 200ms ease both; }
   .checkup-tick, .checkup-bump, .checkup-roll-up, .checkup-roll-down, .checkup-settle, .checkup-draw { animation: none; }

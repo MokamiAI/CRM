@@ -129,33 +129,13 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
     if (q.kind === "count" && (value == null || value < detected.length)) onAnswer(q.key, Math.max(1, detected.length));
   }, [q, value, detected.length, onAnswer]);
 
-  // Every question moves on by itself once it's answered: one answer at
-  // once; several picks, numbers or typing after a pause (the Next button
-  // fills meanwhile, and any change starts it again). A new question clears
-  // the timer, so one started before Back can't jump forward.
+  // One answer moves on by itself; anything else waits for Next. A new
+  // question clears the timer, so a pick just before Back can't jump forward.
   const advance = useRef(null);
-  const nextRef = useRef(null);
-  nextRef.current = () => (last ? onDone() : onStep(step + 1));
-  const [countdown, setCountdown] = useState(null);
-  const later = (ms) => {
-    clearTimeout(advance.current);
-    advance.current = setTimeout(() => nextRef.current(), ms);
-    setCountdown(ms >= 600 ? { ms, id: Date.now() } : null);
-  };
-  const cancel = () => {
-    clearTimeout(advance.current);
-    setCountdown(null);
-  };
-  useEffect(
-    () => () => {
-      clearTimeout(advance.current);
-      setCountdown(null);
-    },
-    [step]
-  );
+  useEffect(() => () => clearTimeout(advance.current), [step]);
   const next = () => {
-    cancel();
-    nextRef.current();
+    clearTimeout(advance.current);
+    last ? onDone() : onStep(step + 1);
   };
   const described = answers.industry !== "other" || answers.industryDetail?.trim().length >= 2;
   const ready =
@@ -169,38 +149,6 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
             ? value != null && answers.connect != null
             : value != null;
 
-  // What the person has answered on this question. A change to it (not
-  // arriving at it, say after Back) starts the move on, once it's complete.
-  const answered = JSON.stringify(
-    q.kind === "profile"
-      ? [answers.industry, answers.industryDetail, answers.team]
-      : q.kind === "volumes"
-        ? [answers.quotes, answers.invoices]
-        : q.kind === "count"
-          ? [value, answers.connect]
-          : q.kind === "multi"
-            ? value
-            : null
-  );
-  const seen = useRef({ step, answered });
-  // The sliders wait until both are set, so quotes can't move on before
-  // invoices get a turn.
-  const touched = useRef(new Set());
-  useEffect(() => {
-    if (seen.current.step !== step) {
-      seen.current = { step, answered };
-      touched.current = new Set();
-      return;
-    }
-    if (seen.current.answered === answered) return;
-    seen.current.answered = answered;
-    const waiting = q.kind === "volumes" && touched.current.size < q.fields.length;
-    // The last question is theirs to submit, so it never finishes by itself.
-    if (ready && !waiting && !last) later(1500);
-    else cancel();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step, answered, ready]);
-
   function pick(option) {
     if (q.kind === "multi") {
       const list = value ?? [];
@@ -209,7 +157,8 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
     }
     onAnswer(q.key, option);
     // One answer moves on by itself, after a beat to see it land.
-    later(reducedMotion() ? 0 : 280);
+    clearTimeout(advance.current);
+    advance.current = setTimeout(next, reducedMotion() ? 0 : 280);
   }
 
   return (
@@ -248,11 +197,7 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
           ) : q.kind === "volumes" ? (
             <div className="grid gap-4 sm:grid-cols-2">
               {q.fields.map((field) => (
-                <Volume key={field} q={q} field={field} value={answers[field] ?? 0} onChange={(v) => {
-                    touched.current.add(field);
-                    onAnswer(field, v);
-                  }}
-                />
+                <Volume key={field} q={q} field={field} value={answers[field] ?? 0} onChange={(v) => onAnswer(field, v)} />
               ))}
             </div>
           ) : (
@@ -265,10 +210,8 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
             {t("assessment.back")}
           </button>
           {(q.kind !== "single" || value != null) && (
-            <button type="button" className="btn btn-primary relative overflow-hidden" onClick={next} disabled={!ready}>
-              {/* Fills while the question waits to move on by itself. */}
-              {countdown && <span key={countdown.id} className="checkup-countdown" style={{ "--ms": `${countdown.ms}ms` }} aria-hidden="true" />}
-              <span className="relative">{last ? t("assessment.finish") : t("assessment.next")}</span>
+            <button type="button" className="btn btn-primary" onClick={next} disabled={!ready}>
+              {last ? t("assessment.finish") : t("assessment.next")}
             </button>
           )}
         </div>
