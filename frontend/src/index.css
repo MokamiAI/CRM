@@ -1128,6 +1128,9 @@ textarea.input:focus {
 @keyframes checkup-in {
   from { opacity: 0; transform: translateY(10px); }
 }
+@keyframes checkup-fade {
+  from { opacity: 0; }
+}
 .checkup-bar {
   transition: width 400ms var(--ease-out);
 }
@@ -1165,8 +1168,67 @@ textarea.input:focus {
 @keyframes checkup-fill {
   from { transform: scaleX(0); }
 }
+/* Questions slide the way you're going: forward from the right, back from the left. */
+.checkup-q-next {
+  animation: checkup-q-next 280ms var(--ease-out) both;
+}
+.checkup-q-back {
+  animation: checkup-q-back 280ms var(--ease-out) both;
+}
+@keyframes checkup-q-next {
+  from { opacity: 0; transform: translateX(24px); }
+}
+@keyframes checkup-q-back {
+  from { opacity: 0; transform: translateX(-24px); }
+}
+/* A tick lands on a picked answer. */
+.checkup-tick {
+  animation: checkup-tick 180ms var(--ease-out) both;
+}
+@keyframes checkup-tick {
+  from { opacity: 0; transform: scale(0.5); }
+}
+/* The tools-spotted count, nudged when a new tool joins. */
+.checkup-bump {
+  display: inline-block;
+  animation: checkup-bump 260ms var(--ease-out) both;
+}
+@keyframes checkup-bump {
+  from { transform: scale(1.18); color: #4f46e5; }
+}
+/* The tool counter rolls the way it moved. */
+.checkup-roll-up {
+  animation: checkup-roll-up 180ms var(--ease-out) both;
+}
+.checkup-roll-down {
+  animation: checkup-roll-down 180ms var(--ease-out) both;
+}
+@keyframes checkup-roll-up {
+  from { opacity: 0; transform: translateY(40%); }
+}
+@keyframes checkup-roll-down {
+  from { opacity: 0; transform: translateY(-40%); }
+}
+/* The score ring settles once its count lands: the report's one flourish. */
+.checkup-settle {
+  animation: checkup-settle 420ms var(--ease-out);
+}
+@keyframes checkup-settle {
+  40% { transform: scale(1.04); }
+}
+/* "We've got your results": the tick draws itself. */
+.checkup-draw {
+  stroke-dasharray: 24;
+  animation: checkup-draw 420ms var(--ease-out) 120ms both;
+}
+@keyframes checkup-draw {
+  from { stroke-dashoffset: 24; }
+}
 @media (prefers-reduced-motion: reduce) {
   .checkup-in, .checkup-chip, .checkup-line, .checkup-fill { animation: none; }
+  /* Gentler, not gone: the question still fades, without travelling. */
+  .checkup-q-next, .checkup-q-back { animation: checkup-fade 200ms ease both; }
+  .checkup-tick, .checkup-bump, .checkup-roll-up, .checkup-roll-down, .checkup-settle, .checkup-draw { animation: none; }
   .checkup-spin, .checkup-pulse { animation-duration: 0s; }
   .checkup-bar, .checkup-option { transition: none; }
 }

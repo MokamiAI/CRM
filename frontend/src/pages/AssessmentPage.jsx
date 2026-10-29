@@ -95,7 +95,7 @@ function Intro({ onStart }) {
       <p className="mx-auto mt-4 max-w-xl text-zinc-300 sm:text-lg">{t("assessment.intro.lead", { name: APP_NAME })}</p>
       <ul className="mx-auto mt-8 grid max-w-2xl gap-3 text-left sm:grid-cols-3">
         {["score", "gaps", "time"].map((k, i) => (
-          <li key={k} className="rounded-2xl bg-white/5 p-4 ring-1 ring-inset ring-white/10">
+          <li key={k} className="checkup-in rounded-2xl bg-white/5 p-4 ring-1 ring-inset ring-white/10" style={{ animationDelay: `${160 + i * 70}ms` }}>
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-500/20 text-sm font-semibold text-indigo-200">{i + 1}</span>
             <p className="mt-2 text-sm font-medium text-white">{t(`assessment.intro.get.${k}`)}</p>
           </li>
@@ -112,6 +112,12 @@ function Intro({ onStart }) {
 // ---------------------------------------------------------------- quiz
 
 function Quiz({ step, answers, onAnswer, onStep, onDone }) {
+  // Which way the last move went, so the next card slides in from that side.
+  const prevStep = useRef(step);
+  const direction = step < prevStep.current ? "back" : "next";
+  useEffect(() => {
+    prevStep.current = step;
+  }, [step]);
   const { t } = useTranslation();
   const q = QUESTIONS[step];
   const value = answers[q.key];
@@ -161,7 +167,9 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
 
       {/* Every tool named so far, collected as the person goes. */}
       <div className="mt-4 flex min-h-8 flex-wrap items-center gap-1.5" aria-live="polite">
-        <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-zinc-400">{t("assessment.spotted", { count: detected.length })}</span>
+        <span key={detected.length} className={`mr-1 text-xs font-semibold uppercase tracking-wide text-zinc-400 ${detected.length ? "checkup-bump" : ""}`}>
+          {t("assessment.spotted", { count: detected.length })}
+        </span>
         {detected.map((tool) => (
           <span key={tool} className="checkup-chip rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-900 ring-1 ring-inset ring-amber-600/20">
             {t(`assessment.tools.${tool}`)}
@@ -169,7 +177,7 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
         ))}
       </div>
 
-      <div key={q.key} className="checkup-in mt-4 rounded-3xl bg-white p-5 shadow-pop ring-1 ring-zinc-900/5 sm:p-8">
+      <div key={q.key} className={`checkup-q-${direction} mt-4 rounded-3xl bg-white p-5 shadow-pop ring-1 ring-zinc-900/5 sm:p-8`}>
         <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">{t(`assessment.q.${q.key}.topic`)}</p>
         <h1 id="checkup-q" className="mt-1.5 text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
           {t(`assessment.q.${q.key}.title`)}
@@ -285,7 +293,7 @@ function Options({ q, value, onPick }) {
                 aria-hidden="true"
               >
                 {on && (
-                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-white" fill="currentColor">
+                  <svg viewBox="0 0 16 16" className="checkup-tick h-3.5 w-3.5 text-white" fill="currentColor">
                     <path d="M12.7 4.3a1 1 0 0 1 0 1.4l-5.5 5.5a1 1 0 0 1-1.4 0L3.3 8.7a1 1 0 1 1 1.4-1.4l1.8 1.8 4.8-4.8a1 1 0 0 1 1.4 0Z" />
                   </svg>
                 )}
@@ -332,6 +340,11 @@ function Volume({ q, field, value, onChange }) {
 
 function ToolCount({ q, value, detected, connect, onChange, onConnect }) {
   const { t } = useTranslation();
+  const [roll, setRoll] = useState(null);
+  const step = (next) => {
+    setRoll(next > value ? "up" : "down");
+    onChange(next);
+  };
   // The answers already named these, so the count can't go below them.
   const min = Math.max(q.min, detected.length);
   const extra = value - detected.length;
@@ -348,17 +361,19 @@ function ToolCount({ q, value, detected, connect, onChange, onConnect }) {
         </div>
       </div>
       <div className="mt-6 flex items-center justify-center gap-5">
-        <button type="button" className="btn btn-secondary !h-12 !w-12 !p-0 text-xl" onClick={() => onChange(Math.max(min, value - 1))} disabled={value <= min} aria-label={t("assessment.q.tools.less")}>
+        <button type="button" className="btn btn-secondary !h-12 !w-12 !p-0 text-xl" onClick={() => step(Math.max(min, value - 1))} disabled={value <= min} aria-label={t("assessment.q.tools.less")}>
           −
         </button>
         <div className="min-w-24 text-center">
-          <p className="text-5xl font-semibold tabular-nums tracking-tight text-zinc-900" aria-live="polite">
-            {value}
-            {value >= q.max ? "+" : ""}
+          <p className="overflow-hidden text-5xl font-semibold tabular-nums tracking-tight text-zinc-900" aria-live="polite">
+            <span key={value} className={`inline-block ${roll ? `checkup-roll-${roll}` : ""}`}>
+              {value}
+              {value >= q.max ? "+" : ""}
+            </span>
           </p>
           <p className="text-sm text-zinc-500">{t("assessment.q.tools.unit", { count: value })}</p>
         </div>
-        <button type="button" className="btn btn-secondary !h-12 !w-12 !p-0 text-xl" onClick={() => onChange(Math.min(q.max, value + 1))} disabled={value >= q.max} aria-label={t("assessment.q.tools.more")}>
+        <button type="button" className="btn btn-secondary !h-12 !w-12 !p-0 text-xl" onClick={() => step(Math.min(q.max, value + 1))} disabled={value >= q.max} aria-label={t("assessment.q.tools.more")}>
           +
         </button>
       </div>
@@ -414,7 +429,7 @@ function Analysing({ answers, onDone }) {
             <li key={line} className="checkup-line flex items-center gap-3 text-[15px]">
               <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${done ? "bg-emerald-500" : "bg-white/10"}`} aria-hidden="true">
                 {done ? (
-                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-white" fill="currentColor">
+                  <svg viewBox="0 0 16 16" className="checkup-tick h-3.5 w-3.5 text-white" fill="currentColor">
                     <path d="M12.7 4.3a1 1 0 0 1 0 1.4l-5.5 5.5a1 1 0 0 1-1.4 0L3.3 8.7a1 1 0 1 1 1.4-1.4l1.8 1.8 4.8-4.8a1 1 0 0 1 1.4 0Z" />
                   </svg>
                 ) : (
@@ -463,7 +478,7 @@ function ScoreRing({ score }) {
   const r = 52;
   const c = 2 * Math.PI * r;
   return (
-    <div className="relative h-40 w-40 shrink-0">
+    <div className={`relative h-40 w-40 shrink-0 ${shown === score && score > 0 ? "checkup-settle" : ""}`}>
       <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90" aria-hidden="true">
         <circle cx="60" cy="60" r={r} fill="none" stroke="#f4f4f5" strokeWidth="10" />
         <circle cx="60" cy="60" r={r} fill="none" stroke={style.ring} strokeWidth="10" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - shown / 100)} />
@@ -510,6 +525,9 @@ function Report({ answers, onRestart }) {
   const lines = Object.entries(result.sheet)
     .filter((entry) => gain(entry) >= 0.5)
     .sort((a, b) => gain(b) - gain(a));
+  // The hours count up with the score: the moment the report lands.
+  const low = useCountUp(result.hours.low, 900);
+  const high = useCountUp(result.hours.high, 900);
   const range = (low, high, fmt) => (low === high ? fmt(high) : t("assessment.report.range", { low: fmt(low), high: fmt(high) }));
 
   return (
@@ -584,7 +602,7 @@ function Report({ answers, onRestart }) {
         </h2>
         <ul className="mt-3 grid gap-4 md:grid-cols-3">
           {result.gaps.map((area, i) => (
-            <li key={area} className="card flex flex-col overflow-hidden">
+            <li key={area} className="checkup-in card flex flex-col overflow-hidden" style={{ animationDelay: `${260 + i * 70}ms` }}>
               <div className="flex-1 p-5">
                 <p className="text-xs font-semibold uppercase tracking-wide text-rose-600">{t("assessment.report.gap", { n: i + 1 })}</p>
                 <p className="mt-1.5 font-medium leading-snug text-zinc-900">{problem(area)}</p>
@@ -667,12 +685,12 @@ function Report({ answers, onRestart }) {
         <div className="flex min-w-0 flex-col justify-center rounded-2xl bg-zinc-950 p-6 text-white sm:p-8">
           <p className="text-sm text-zinc-400">{t("assessment.report.freed")}</p>
           <p className="mt-1 text-4xl font-semibold tabular-nums tracking-tight sm:text-5xl">
-            {range(result.hours.low, result.hours.high, (n) => n)}
+            {range(low, high, (n) => n)}
             <span className="ml-1.5 text-2xl font-medium text-zinc-300">h</span>
             <span className="ml-2 text-xl font-medium text-zinc-400">{t("assessment.report.perMonth")}</span>
           </p>
           <p className="mt-5 text-sm text-zinc-400">{t("assessment.report.worth")}</p>
-          <p className="savings-money mt-1 text-3xl font-semibold tabular-nums tracking-tight sm:text-4xl">{range(result.hours.low * rate, result.hours.high * rate, rand)}</p>
+          <p className="savings-money mt-1 text-3xl font-semibold tabular-nums tracking-tight sm:text-4xl">{range(low * rate, high * rate, rand)}</p>
           {/* Where each end of the range comes from. */}
           <ul className="mt-4 space-y-1 border-t border-white/10 pt-3 text-xs leading-relaxed text-zinc-300">
             <li>{t("assessment.report.rangeHigh", { hours: result.hours.high, name: APP_NAME })}</li>
@@ -800,8 +818,12 @@ function Walkthrough({ answers, result, plan }) {
 
   if (state === "sent") {
     return (
-      <div className="flex min-w-0 flex-col justify-center rounded-3xl bg-emerald-50 p-6 ring-1 ring-inset ring-emerald-200/70 sm:p-8" role="status">
-        <p className="text-lg font-semibold text-emerald-900">{t("assessment.talk.sentTitle")}</p>
+      <div className="checkup-in flex min-w-0 flex-col justify-center rounded-3xl bg-emerald-50 p-6 ring-1 ring-inset ring-emerald-200/70 sm:p-8" role="status">
+        <svg viewBox="0 0 24 24" className="h-10 w-10 text-emerald-600" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10.5" className="opacity-20" />
+          <path d="M7 12.5l3.2 3.2L17 9" className="checkup-draw" />
+        </svg>
+        <p className="mt-3 text-lg font-semibold text-emerald-900">{t("assessment.talk.sentTitle")}</p>
         <p className="mt-1 text-emerald-900/80">{t("assessment.talk.sentBody", { email: form.email })}</p>
       </div>
     );
