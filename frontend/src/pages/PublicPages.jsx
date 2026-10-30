@@ -616,10 +616,16 @@ const LEGAL_PAGES = {
             and security aren't marketing and still come.
           </p>
         </Section>
-        <Section title="4. Cookies and browser storage">
+        <Section title="4. Cookies, browser storage and visit counts">
           <p>
             We don't use advertising or tracking cookies, or analytics that follow you. Your browser stores only what YGT needs to work: that you're signed in,
             your language, and where you were (for example, check-up answers in progress).
+          </p>
+          <p>
+            To know how many people visit our public pages, we count visits without cookies: we record the page, the website or link that brought you (for
+            example a search engine or one of our QR codes), and whether you're on a phone or a computer. To tell visitors apart within a day, we keep a code
+            made from your internet address and browser that changes every day; we don't keep the address itself, and the code can't be used to follow you from
+            one day to the next or to identify you. We keep visit counts for about 13 months.
           </p>
         </Section>
         <Section title="5. Sharing">

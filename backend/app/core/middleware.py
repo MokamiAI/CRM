@@ -138,6 +138,8 @@ _RULES = [
     ("/auth/verify-email/resend", {"POST"}, 10, 3600),
     ("/auth/verify-email", {"POST"}, 30, 3600),
     ("/public/contact", {"POST"}, 5, 3600),
+    # A page view each time someone opens a public page.
+    ("/public/visit", {"POST"}, 300, 3600),
     ("/imports/", {"POST"}, 20, 3600),
 ]
 _GENERAL = (300, 60)

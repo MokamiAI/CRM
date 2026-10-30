@@ -10,6 +10,7 @@ import { BrandMark } from "../components/Brand";
 const NAV = [
   { to: "/admin", label: "Overview", end: true },
   { to: "/admin/tenants", label: "Tenants" },
+  { to: "/admin/visitors", label: "Website visitors" },
   { to: "/admin/tickets", label: "Help desk", badge: "open_tickets" },
   { to: "/admin/contact", label: "Contact requests", badge: "new_contacts" },
   { to: "/admin/bookings", label: "Sessions", badge: "upcoming_bookings" },

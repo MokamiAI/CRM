@@ -1083,3 +1083,114 @@ export function AdminActivity() {
     </>
   );
 }
+
+// ---------------------------------------------------------------- website visitors
+
+const RANGES = [
+  [1, "Today"],
+  [7, "7 days"],
+  [30, "30 days"],
+  [90, "90 days"],
+];
+const DEVICE = { phone: "Phone", computer: "Computer", tablet: "Tablet" };
+
+function Breakdown({ title, rows, empty = "No visits yet." }) {
+  const top = Math.max(1, ...rows.map((r) => r.value));
+  return (
+    <section className="card p-4">
+      <h2 className="text-sm font-semibold text-zinc-900">{title}</h2>
+      {rows.length === 0 ? (
+        <p className="mt-3 text-sm text-zinc-500">{empty}</p>
+      ) : (
+        <ul className="mt-3 space-y-2.5">
+          {rows.map((r) => (
+            <li key={r.label} className="text-sm">
+              <div className="flex justify-between gap-3">
+                <span className="truncate text-zinc-700">{r.label}</span>
+                <span className="font-medium tabular-nums text-zinc-900">{r.value}</span>
+              </div>
+              <div className="mt-1 h-1.5 rounded-full bg-zinc-100">
+                <div className="h-full rounded-full bg-indigo-500" style={{ width: `${(r.value / top) * 100}%` }} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+function VisitorChart({ days }) {
+  const top = Math.max(1, ...days.map((d) => d.visitors));
+  return (
+    <section className="card p-4">
+      <h2 className="text-sm font-semibold text-zinc-900">Visitors per day</h2>
+      <div className="mt-4 flex h-40 items-end gap-[3px]" role="img" aria-label="Visitors per day">
+        {days.map((d) => (
+          <div key={d.day} className="group relative flex h-full flex-1 items-end" title={`${formatDate(d.day)}: ${d.visitors} visitors, ${d.page_views} page views`}>
+            <div className="w-full rounded-t bg-indigo-500 group-hover:bg-indigo-700" style={{ height: d.visitors ? `${Math.max(3, (d.visitors / top) * 100)}%` : "2px", opacity: d.visitors ? 1 : 0.25 }} />
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 flex justify-between text-xs text-zinc-500">
+        <span>{formatDate(days[0].day)}</span>
+        <span>{formatDate(days[days.length - 1].day)}</span>
+      </div>
+    </section>
+  );
+}
+
+export function AdminVisitors() {
+  const [days, setDays] = useState(30);
+  const query = useQuery({ queryKey: ["admin", "visitors", days], queryFn: () => get("/admin/visitors", { days }), refetchInterval: 60_000 });
+  return (
+    <>
+      <Title
+        sub="People who opened the public website, counted without cookies. Signed-in people aren't counted. Emailed to you every night at 22:00."
+        actions={
+          <div className="flex rounded-lg bg-zinc-100 p-0.5" role="group" aria-label="Period">
+            {RANGES.map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setDays(value)}
+                aria-pressed={days === value}
+                className={`rounded-md px-3 py-1.5 text-sm font-medium ${days === value ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-600 hover:text-zinc-900"}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        }
+      >
+        Website visitors
+      </Title>
+      <Loading query={query}>
+        {(r) => (
+          <div className="space-y-5">
+            <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+              {[
+                ["Visitors", r.visitors],
+                ["Page views", r.page_views],
+                ["Started the check-up", r.checkups_started],
+                ["Finished the check-up", r.checkups_finished],
+                ["New sign-ups", r.signups],
+              ].map(([label, value]) => (
+                <div key={label} className="card p-4">
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</p>
+                  <p className="mt-1 text-2xl font-semibold tabular-nums tracking-tight text-zinc-900">{value}</p>
+                </div>
+              ))}
+            </div>
+            {r.by_day.length > 1 && <VisitorChart days={r.by_day} />}
+            <div className="grid gap-3 lg:grid-cols-3">
+              <Breakdown title="Top pages (views)" rows={r.pages.map((p) => ({ label: p.name, value: p.views }))} />
+              <Breakdown title="Where visitors came from" rows={r.sources.map((s) => ({ label: s.source, value: s.visitors }))} />
+              <Breakdown title="Device" rows={r.devices.map((d) => ({ label: DEVICE[d.device] ?? d.device, value: d.visitors }))} />
+            </div>
+          </div>
+        )}
+      </Loading>
+    </>
+  );
+}

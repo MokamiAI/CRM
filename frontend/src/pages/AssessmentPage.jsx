@@ -6,6 +6,7 @@ import { usePlans } from "../hooks/useApi";
 import { APP_NAME } from "../components/Brand";
 import { Field } from "../components/ui";
 import { errorMessage } from "../utils/format";
+import { trackVisit } from "../utils/visits";
 import { PublicShell } from "./PublicPages";
 import { FormError } from "./LoginPage";
 import { PEOPLE } from "../components/home/HomePeople";
@@ -62,7 +63,14 @@ export default function AssessmentPage() {
   return (
     <PublicShell>
       <main className="pb-6 pt-2 sm:pt-6">
-        {stage === "intro" && <Intro onStart={() => setStage("quiz")} />}
+        {stage === "intro" && (
+          <Intro
+            onStart={() => {
+              trackVisit("checkup_start");
+              setStage("quiz");
+            }}
+          />
+        )}
         {stage === "quiz" && (
           <Quiz
             step={step}
@@ -72,7 +80,13 @@ export default function AssessmentPage() {
             onDone={() => setStage("analysing")}
           />
         )}
-        {stage === "analysing" && <Analysing answers={answers} onDone={() => setStage("report")} />}
+        {stage === "analysing" && <Analysing
+            answers={answers}
+            onDone={() => {
+              trackVisit("checkup_done");
+              setStage("report");
+            }}
+          />}
         {stage === "report" && <Report answers={answers} onRestart={restart} />}
       </main>
     </PublicShell>

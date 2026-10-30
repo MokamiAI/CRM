@@ -1,14 +1,16 @@
 """Platform-level records: what YGT's own team works with in the admin site
-(errors, activity, help desk, contact requests, session bookings, refunds).
+(errors, activity, help desk, contact requests, session bookings, refunds,
+website visits).
 
-ErrorLog, AuditEvent, ContactRequest, PlatformSetting and PasswordReset are
+ErrorLog, AuditEvent, ContactRequest, PlatformSetting, PasswordReset and
+SiteVisit are
 not tenant-scoped: they span companies or exist before anyone signs in.
 Tickets, bookings and refunds belong to a company (TenantMixin) so a
 company only ever sees its own; the admin site reads them across companies."""
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Identity, Index, Integer, LargeBinary, String, Text, func, text
+from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Identity, Index, Integer, LargeBinary, String, Text, func, text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, deferred
 
@@ -164,3 +166,22 @@ class BillingRefund(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     status: Mapped[str] = mapped_column(String(20), nullable=False, default="pending")  # pending | processed | failed
     paystack_refund_id: Mapped[str | None] = mapped_column(String(50), nullable=True)
     created_by_email: Mapped[str] = mapped_column(String(255), nullable=False)
+
+
+class SiteVisit(UUIDPKMixin, Base):
+    """One view of a public page, or a step in the free check-up, counted
+    without cookies. `visitor` is a hash of the address and browser with a
+    salt that changes every day: it tells visitors apart within a day, but
+    can't follow anyone from one day to the next, and the address itself
+    isn't kept."""
+
+    __tablename__ = "site_visits"
+    __table_args__ = (Index("ix_site_visits_day_visitor", "day", "visitor"),)
+
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    day: Mapped[date] = mapped_column(Date, nullable=False, index=True)  # in South African time
+    event: Mapped[str] = mapped_column(String(20), nullable=False, default="view")  # view | checkup_start | checkup_done
+    path: Mapped[str] = mapped_column(String(200), nullable=False)
+    source: Mapped[str] = mapped_column(String(40), nullable=False, default="Direct")
+    device: Mapped[str] = mapped_column(String(10), nullable=False, default="computer")  # phone | tablet | computer
+    visitor: Mapped[str] = mapped_column(String(16), nullable=False)

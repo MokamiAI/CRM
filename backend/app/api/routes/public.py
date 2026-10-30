@@ -9,6 +9,7 @@ import uuid
 
 from fastapi import APIRouter, Depends, Header, Request
 from fastapi.responses import HTMLResponse, PlainTextResponse, Response
+from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db
@@ -290,3 +291,23 @@ async def contact_us(data: ContactCreate, request: Request, db: AsyncSession = D
             ),
         )
     return {"ok": True}
+
+
+# ---------- Website visits (counted without cookies; see site_visits) ----------
+
+
+class VisitIn(BaseModel):
+    event: str = Field(default="view", max_length=20)
+    path: str = Field(max_length=300)
+    referrer: str | None = Field(default=None, max_length=500)
+    src: str | None = Field(default=None, max_length=60)
+
+
+@router.post("/visit", status_code=204)
+async def record_visit(data: VisitIn, request: Request, db: AsyncSession = Depends(get_db)):
+    from app.services import site_visits
+
+    set_system(db)
+    await site_visits.record(db, event=data.event, path=data.path, referrer=data.referrer, src=data.src,
+                             user_agent=request.headers.get("user-agent", ""), ip=client_ip(request))
+    return Response(status_code=204)

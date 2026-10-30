@@ -60,6 +60,17 @@ router = APIRouter(
 # ---------- Overview and tenants ----------
 
 
+@router.get("/visitors")
+async def visitors(days: int = Query(default=30, ge=1, le=365), db: AsyncSession = Depends(get_db)):
+    """The website's visitors over the last `days` days, today included."""
+    from datetime import timedelta
+    from app.services import site_visits
+
+    today = site_visits.sa_today()
+    return await site_visits.report(db, today - timedelta(days=days - 1), today)
+
+
+
 @router.get("/overview")
 async def overview(db: AsyncSession = Depends(get_db)):
     return await AdminService(db).overview()

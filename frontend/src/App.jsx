@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getCustomerTerm } from "./i18n";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { VisitTracker } from "./utils/visits";
 
 // Pages people open less often load the first time they're visited, so the
 // everyday screens above reach a phone sooner.
@@ -66,6 +67,7 @@ const AdminTenant = named(adminPages, "AdminTenant");
 const AdminTenants = named(adminPages, "AdminTenants");
 const AdminTicket = named(adminPages, "AdminTicket");
 const AdminTickets = named(adminPages, "AdminTickets");
+const AdminVisitors = named(adminPages, "AdminVisitors");
 
 const WRITERS = ["admin", "manager", "staff"];
 
@@ -81,6 +83,7 @@ export default function App() {
   }, [i18n]);
   return (
     <Suspense fallback={null}>
+    <VisitTracker />
     <Routes key={`${i18n.language}-${term}`}>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
@@ -113,6 +116,7 @@ export default function App() {
         <Route path="bookings" element={<AdminBookings />} />
         <Route path="errors" element={<AdminErrors />} />
         <Route path="activity" element={<AdminActivity />} />
+        <Route path="visitors" element={<AdminVisitors />} />
       </Route>
       <Route
         element={

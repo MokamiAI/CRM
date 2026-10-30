@@ -19,6 +19,7 @@ PUBLIC = {
     "/api/v1/public/channels/{token}/sms",
     "/api/v1/public/channels/{token}/whatsapp",
     "/api/v1/public/contact",
+    "/api/v1/public/visit",  # a public page view: stores only page, source and device, rate-limited
     "/api/v1/public/inbound/email",
     "/api/v1/public/m/u/{token}",
     "/api/v1/public/m/c/{token}/{answer}",  # a prospect answering their one-time invite (random token)

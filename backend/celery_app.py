@@ -20,6 +20,7 @@ celery_app = Celery(
         "app.tasks.platform_tasks",
         "app.tasks.recurring_tasks",
         "app.tasks.reminder_tasks",
+        "app.tasks.visitor_tasks",
     ],
 )
 
@@ -78,6 +79,11 @@ celery_app.conf.beat_schedule = {
     "poll-company-mailboxes": {
         "task": "app.tasks.messaging_tasks.poll_mailboxes_task",
         "schedule": crontab(),  # every minute
+    },
+    # 22:00: the day's website visitors, emailed to YGT's team.
+    "daily-visitor-report": {
+        "task": "app.tasks.visitor_tasks.daily_visitor_report_task",
+        "schedule": crontab(hour=22, minute=0),
     },
     "hourly-invoice-status-refresh": {
         "task": "app.tasks.invoice_tasks.invoice_status_refresh_task",
