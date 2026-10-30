@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import func, select, update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db
@@ -55,10 +56,30 @@ class PushEndpoint(BaseModel):
     endpoint: str = Field(min_length=10, max_length=2000)
 
 
+async def _ask_marketing(db: AsyncSession, user: User) -> None:
+    """Once, for people who signed up before YGT asked: may it send them
+    tips, news and offers (POPIA s69)? In the app only: no email or push,
+    since that would be the marketing they haven't agreed to."""
+    if await db.scalar(select(Notification.id).where(Notification.user_id == user.id, Notification.key == "marketing_consent")):
+        return
+    try:
+        async with db.begin_nested():
+            db.add(Notification(
+                company_id=user.company_id, user_id=user.id, kind="marketing_consent", key="marketing_consent", link="/",
+                title="May YGT send you tips, news and offers?",
+                body="Say yes or no on the notice at the top of YGT. You can change your mind at any time under your profile.",
+            ))
+            await db.flush()
+    except IntegrityError:  # the bell asked at the same moment
+        pass
+
+
 @router.get("", response_model=NotificationList)
 async def list_notifications(db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
     """The latest 40, newest first, and how many are unread."""
-    rows = await db.scalars(select(Notification).where(Notification.user_id == user.id).order_by(Notification.created_at.desc()).limit(40))
+    if user.marketing_opt_in is None and not user.is_platform_admin:
+        await _ask_marketing(db, user)
+    rows =await db.scalars(select(Notification).where(Notification.user_id == user.id).order_by(Notification.created_at.desc()).limit(40))
     unread = await db.scalar(select(func.count()).where(Notification.user_id == user.id, Notification.read_at.is_(None)))
     return NotificationList(unread=unread or 0, items=list(rows.all()))
 

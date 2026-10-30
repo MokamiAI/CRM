@@ -1663,7 +1663,9 @@
     "save": "Boloka",
     "saveFailed": "Ga e a kgona go boloka profaele ya gago.",
     "saved": "Profaele e bolokilwe",
-    "title": "Profaele ya gago"
+    "title": "Profaele ya gago",
+    "marketing": "Nthomelela maele a YGT, ditaba tša ditšweletšwa le dikgothatšo",
+    "marketingHint": "Diimeile ka go hwetša go go oketšegilego go YGT, dikarolo tše mpsha le dikgothatšo. Diimeile ka akhaonte ya gago le tefelo di tla ka mehla."
   },
   "quickAction": {
     "call": "Mogala",
@@ -1742,7 +1744,9 @@
     "protected1": "Kgokagano ye e kgatiilwego: seo o re romelago sona se sepela ka polokego.",
     "protected2": "Phasewete ya gago e bolokwa e hlakantšwe, ka fao ga go yo a ka e balago, le rena.",
     "protected3": "Data ya khamphani ya gago ke sephiri sa sehlopha sa gago gomme e aroganywa le dikgwebo tše dingwe ka moka, go ya ka POPIA.",
-    "privacyLink": "Bala pholisi ya rena ya sephiri"
+    "privacyLink": "Bala pholisi ya rena ya sephiri",
+    "marketing": "Nthomelela maele a YGT, ditaba tša ditšweletšwa le dikgothatšo",
+    "marketingHint": "Ga se gapeletšo. O ka di emiša nako efe goba efe, go tšwa go imeile efe goba efe goba profaeleng ya gago."
   },
   "role": {
     "admin": "Molaodi",
@@ -2673,7 +2677,9 @@
       "blocked": "Ditemošo di thibilwe go YGT sefetleking se. Di dumelele dipeakanyong tša saete.",
       "failed": "Ga se ra kgona go bula ditemošo. Hle leka gape."
     },
-    "goToActivities": "Eya mešomong"
+    "goToActivities": "Eya mešomong",
+    "marketingConsent": "Na YGT e ka go romela maele, ditaba le dikgothatšo?",
+    "marketingConsentBody": "Araba tsebišong ye e lego godimo ga letlakala. O ka fetola monagano nako efe goba efe profaeleng ya gago."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Re oketša konope ya \"Yes, keep me posted\", kgokagano ya \"No thanks\" le mothalo wa \"We won't email you again unless you say yes.\"",
     "sendInvite": "Romela taletšo",
     "invited": "Taletšo e rometšwe go {{email}}"
+  },
+  "consent": {
+    "title": "Na YGT e ka go romela maele, ditaba le dikgothatšo?",
+    "body": "Ka nako ye nngwe: ditsela tša go boloka nako, dikarolo tše mpsha le dikgothatšo tše di kgethegilego. Fela ge o re ee, gomme o ka di emiša nako efe goba efe profaeleng ya gago.",
+    "yes": "Ee, ntsebiše",
+    "no": "Aowa ke a leboga",
+    "savedYes": "Re a leboga! O ka fetola se profaeleng ya gago nako efe goba efe.",
+    "savedNo": "Go lokile. Re ka se go romele diimeile tša papatšo."
   }
 }

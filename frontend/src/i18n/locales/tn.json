@@ -1663,7 +1663,9 @@
     "save": "Boloka",
     "saveFailed": "Ga e a kgona go boloka porofaele ya gago.",
     "saved": "Porofaele e bolokilwe",
-    "title": "Porofaele ya gago"
+    "title": "Porofaele ya gago",
+    "marketing": "Nthomelela dikgakololo tsa YGT, dikgang tsa ditlhagiswa le dikabelo",
+    "marketingHint": "Diimeile ka go bona go le gontsi mo YGT, dikarolo tse dintšhwa le dikabelo. Diimeile ka akhaonto ya gago le dituelo di tla ka metlha."
   },
   "quickAction": {
     "call": "Mogala",
@@ -1742,7 +1744,9 @@
     "protected1": "Kgolagano e e fitlhilweng: se o se re romelang se tsamaya ka polokesego.",
     "protected2": "Lefoko-sephiri la gago le bolokwa le tswakantswe, ka jalo ga go ope yo o ka le balang, le rona.",
     "protected3": "Data ya khampani ya gago ke sephiri sa setlhopha sa gago e bile e kgaogantswe le dikgwebo tse dingwe tsotlhe, go ya ka POPIA.",
-    "privacyLink": "Bala pholisi ya rona ya sephiri"
+    "privacyLink": "Bala pholisi ya rona ya sephiri",
+    "marketing": "Nthomelela dikgakololo tsa YGT, dikgang tsa ditlhagiswa le dikabelo",
+    "marketingHint": "Ga se kgapeletso. O ka di emisa nako nngwe le nngwe, go tswa mo imeileng nngwe le nngwe kgotsa mo profaeleng ya gago."
   },
   "role": {
     "admin": "Motsamaisi",
@@ -2673,7 +2677,9 @@
       "blocked": "Ditlhagiso di thibetswe mo YGT mo sebatling se. Di letlelele mo dithulaganyong tsa saete.",
       "failed": "Ga re a kgona go bula ditlhagiso. Tsweetswee leka gape."
     },
-    "goToActivities": "Ya kwa ditirong"
+    "goToActivities": "Ya kwa ditirong",
+    "marketingConsent": "A YGT e ka go romelela dikgakololo, dikgang le dikabelo?",
+    "marketingConsentBody": "Araba mo kitsisong e e kwa godimo ga tsebe. O ka fetola mogopolo nako nngwe le nngwe mo profaeleng ya gago."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Re oketsa konopo ya \"Yes, keep me posted\", kgolagano ya \"No thanks\" le mola wa \"We won't email you again unless you say yes.\"",
     "sendInvite": "Romela taletso",
     "invited": "Taletso e romeletswe {{email}}"
+  },
+  "consent": {
+    "title": "A YGT e ka go romelela dikgakololo, dikgang le dikabelo?",
+    "body": "Ka dinako dingwe: ditsela tsa go boloka nako, dikarolo tse dintšhwa le dikabelo tse di kgethegileng. Fela fa o re ee, mme o ka di emisa nako nngwe le nngwe mo profaeleng ya gago.",
+    "yes": "Ee, ntitsise",
+    "no": "Nnyaa ke a leboga",
+    "savedYes": "Re a leboga! O ka fetola se mo profaeleng ya gago nako nngwe le nngwe.",
+    "savedNo": "Go siame. Re ka se go romelele diimeile tsa papatso."
   }
 }

@@ -1663,7 +1663,9 @@
     "save": "Stoor",
     "saveFailed": "Kon nie jou profiel stoor nie.",
     "saved": "Profiel gestoor",
-    "title": "Jou profiel"
+    "title": "Jou profiel",
+    "marketing": "Stuur vir my YGT se wenke, produknuus en aanbiedinge",
+    "marketingHint": "E-posse oor hoe om meer uit YGT te kry, nuwe funksies en aanbiedinge. E-posse oor jou rekening en fakturering kom altyd."
   },
   "quickAction": {
     "call": "Oproep",
@@ -1742,7 +1744,9 @@
     "protected1": "Geënkripteerde verbinding: wat jy vir ons stuur, reis veilig.",
     "protected2": "Jou wagwoord word versleutel gestoor, so niemand kan dit lees nie, selfs nie ons nie.",
     "protected3": "Jou maatskappy se data is privaat vir jou span en apart van elke ander besigheid gehou, in lyn met POPIA.",
-    "privacyLink": "Lees ons privaatheidsbeleid"
+    "privacyLink": "Lees ons privaatheidsbeleid",
+    "marketing": "Stuur vir my YGT se wenke, produknuus en aanbiedinge",
+    "marketingHint": "Opsioneel. Jy kan dit enige tyd stop, uit enige e-pos of jou profiel."
   },
   "role": {
     "admin": "Administrateur",
@@ -2673,7 +2677,9 @@
       "blocked": "Waarskuwings is vir YGT in hierdie blaaier geblokkeer. Laat dit toe in die blaaier se werfinstellings.",
       "failed": "Kon nie waarskuwings aanskakel nie. Probeer asseblief weer."
     },
-    "goToActivities": "Gaan na aktiwiteite"
+    "goToActivities": "Gaan na aktiwiteite",
+    "marketingConsent": "Mag YGT vir jou wenke, nuus en aanbiedinge stuur?",
+    "marketingConsentBody": "Antwoord op die kennisgewing bo-aan die bladsy. Jy kan enige tyd in jou profiel van plan verander."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Ons voeg 'n \"Yes, keep me posted\"-knoppie, 'n \"No thanks\"-skakel en die sin \"We won't email you again unless you say yes.\" by.",
     "sendInvite": "Stuur uitnodiging",
     "invited": "Uitnodiging gestuur aan {{email}}"
+  },
+  "consent": {
+    "title": "Mag YGT vir jou wenke, nuus en aanbiedinge stuur?",
+    "body": "So nou en dan: maniere om tyd te spaar, nuwe funksies en spesiale aanbiedinge. Net as jy ja sê, en jy kan dit enige tyd in jou profiel stop.",
+    "yes": "Ja, hou my op hoogte",
+    "no": "Nee dankie",
+    "savedYes": "Dankie! Jy kan dit enige tyd in jou profiel verander.",
+    "savedNo": "Reg so. Ons sal nie vir jou bemarkings-e-posse stuur nie."
   }
 }

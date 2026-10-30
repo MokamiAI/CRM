@@ -36,6 +36,8 @@ class RegisterRequest(BaseModel):
     annual_revenue_goal: Decimal | None = Field(default=None, ge=0, le=Decimal("999999999999"))
     # Where the business is: saved as the company's address (on its documents).
     business_address: str = Field(min_length=10, max_length=500)
+    # Ticked (never by default): YGT may send them tips, news and offers.
+    marketing_opt_in: bool = False
 
     @field_validator("business_address")
     @classmethod

@@ -71,12 +71,14 @@ export function ProfileSheet({ open, onClose }) {
   const { data: company } = useCompany();
   const [name, setName] = useState("");
   const [signature, setSignature] = useState("");
+  const [marketing, setMarketing] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (!open || !user) return;
     setName(user.full_name || "");
     setSignature(user.email_signature || "");
+    setMarketing(Boolean(user.marketing_opt_in));
   }, [open, user]);
 
   const companyName = company?.company_name || "";
@@ -86,7 +88,9 @@ export function ProfileSheet({ open, onClose }) {
     event.preventDefault();
     setSaving(true);
     try {
-      await updateProfile({ full_name: name.trim(), email_signature: signature });
+      // Only a change is recorded as a new answer (with its date).
+      const answer = marketing !== Boolean(user.marketing_opt_in) ? { marketing_opt_in: marketing } : {};
+      await updateProfile({ full_name: name.trim(), email_signature: signature, ...(user.is_platform_admin ? {} : answer) });
       toast.success(t("profile.saved"));
       onClose();
     } catch (error) {
@@ -137,6 +141,15 @@ export function ProfileSheet({ open, onClose }) {
             onStarter={starter}
           />
         </div>
+        {!user?.is_platform_admin && (
+          <label className="flex cursor-pointer items-start gap-3 text-sm text-zinc-700">
+            <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} />
+            <span>
+              <span className="font-medium text-zinc-900">{t("profile.marketing")}</span>
+              <span className="mt-0.5 block text-xs text-zinc-500">{t("profile.marketingHint")}</span>
+            </span>
+          </label>
+        )}
       </form>
       <div className="mt-8">
         <DeleteAccount bare />

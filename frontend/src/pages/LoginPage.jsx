@@ -189,6 +189,8 @@ export function RegisterPage() {
   const [form, setForm] = useState({ company_name: "", business_address: "", full_name: "", email: "", password: "" });
   // Optional: the year's revenue goal, for the dashboard's goal card.
   const [goal, setGoal] = useState("");
+  // YGT's tips, news and offers: never ticked for them (POPIA s69).
+  const [marketing, setMarketing] = useState(false);
   // ?plan=scale from a "Start free trial" button; Grow otherwise.
   const [plan, setPlan] = useState(() => (["hustle", "grow", "scale"].includes(location.search.match(/plan=(\w+)/)?.[1]) ? location.search.match(/plan=(\w+)/)[1] : "grow"));
   // Step 1: who you are; step 2: which plan to try.
@@ -207,7 +209,7 @@ export function RegisterPage() {
     setIsSubmitting(true);
     try {
       const target = Number(String(goal).replace(/[^\d.]/g, ""));
-      await register({ ...form, plan, ...(target > 0 && { annual_revenue_goal: String(target) }) });
+      await register({ ...form, plan, marketing_opt_in: marketing, ...(target > 0 && { annual_revenue_goal: String(target) }) });
       navigate("/", { replace: true });
     } catch (err) {
       const code = err?.response?.data?.error_code;
@@ -294,6 +296,13 @@ export function RegisterPage() {
         ) : (
           <>
             <PlanPicker value={plan} onChange={setPlan} />
+            <label className="flex cursor-pointer items-start gap-3 rounded-xl px-1 py-1 text-sm text-zinc-700">
+              <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} />
+              <span>
+                {t("register.marketing")}
+                <span className="mt-0.5 block text-xs text-zinc-500">{t("register.marketingHint")}</span>
+              </span>
+            </label>
             <DataProtected />
           </>
         )}
@@ -396,7 +405,7 @@ function PlanPicker({ value, onChange }) {
                 <span className="block text-xs text-zinc-500">{t(`billing.tagline.${plan.key}`)}</span>
                 {plan.team_monthly_cents != null && (
                   <span className="block text-xs font-medium text-emerald-700">
-                    {t("billing.teamFrom", { price: formatMoneyWhole(plan.team_monthly_cents / 100), count: plan.team_seats })}
+                    {t("billing.teamFrom", { price: formatMoneyWhole(plan.team_monthly_cents / 100), count: plan.team_seats, percent: plan.team_discount_percent })}
                   </span>
                 )}
               </span>

@@ -38,6 +38,8 @@ class UserOut(BaseModel):
     is_platform_admin: bool = False
     # Invited but hasn't chosen a password yet.
     invite_pending: bool = False
+    # YGT's own marketing: None until they've answered.
+    marketing_opt_in: bool | None = None
     created_at: datetime
 
 
@@ -58,3 +60,7 @@ class ProfileUpdate(BaseModel):
     full_name: str | None = Field(default=None, min_length=1, max_length=255)
     # Empty string clears it.
     email_signature: str | None = Field(default=None, max_length=1000)
+    # YGT's tips, news and offers: yes or no, answered in the app's
+    # one-time question (prompt) or in Settings.
+    marketing_opt_in: bool | None = None
+    marketing_source: Literal["prompt", "settings"] = "settings"

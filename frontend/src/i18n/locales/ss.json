@@ -1663,7 +1663,9 @@
     "save": "Londvolota",
     "saveFailed": "Ayikhonanga kulondvolota iphrofayili yakho.",
     "saved": "Iphrofayili ilondvolotiwe",
-    "title": "Iphrofayili yakho"
+    "title": "Iphrofayili yakho",
+    "marketing": "Ngitfumelele emacebiso e-YGT, tindzaba temikhicito netipho",
+    "marketingHint": "Ema-imeyili mayelana nekutfola lokunyenti ku-YGT, tintfo letinsha netipho. Ema-imeyili mayelana ne-akhawunti yakho nekukhokha ahlala afika."
   },
   "quickAction": {
     "call": "Lucingo",
@@ -1742,7 +1744,9 @@
     "protected1": "Kuchumana lokubetselwe: loko lositfumelako kuhamba ngekuphepha.",
     "protected2": "Liphasiwedi lakho ligcinwa lixutjiwe, ngako kute longalifundza, ngisho natsi.",
     "protected3": "Imininingwane yenkampani yakho iyimfihlo yelicembu lakho futsi yehlukaniswe nawo onkhe lamanye emabhizinisi, ngekuvumelana ne-POPIA.",
-    "privacyLink": "Fundza inchubomgomo yetfu yemfihlo"
+    "privacyLink": "Fundza inchubomgomo yetfu yemfihlo",
+    "marketing": "Ngitfumelele emacebiso e-YGT, tindzaba temikhicito netipho",
+    "marketingHint": "Akusiko kuphoceleleka. Ungakumisa nanoma nini, kunoma nguyiphi i-imeyili nome kuphrofayili yakho."
   },
   "role": {
     "admin": "Umphatsi",
@@ -2673,7 +2677,9 @@
       "blocked": "Teluleko tivinjelwe ku-YGT kulesiphequluli. Tivumele etilungiselelweni tesayithi.",
       "failed": "Akukhonakalanga kuvula teluleko. Sicela uphindze uzame."
     },
-    "goToActivities": "Hamba emisebentini"
+    "goToActivities": "Hamba emisebentini",
+    "marketingConsent": "Ingabe i-YGT ingakutfumelela emacebiso, tindzaba netipho?",
+    "marketingConsentBody": "Phendvula esatisweni lesisetulu ekhasini. Ungashintja umcondvo wakho nanoma nini kuphrofayili yakho."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Sengeta inkinobho letsi \"Yes, keep me posted\", sihlanganisi lesitsi \"No thanks\" nemugca lotsi \"We won't email you again unless you say yes.\"",
     "sendInvite": "Tfumela simemo",
     "invited": "Simemo sitfunyelwe ku-{{email}}"
+  },
+  "consent": {
+    "title": "Ingabe i-YGT ingakutfumelela emacebiso, tindzaba netipho?",
+    "body": "Ngetikhatsi letitsite: tindlela tekonga sikhatsi, tintfo letinsha netipho letikhetsekile. Kuphela nawutsi yebo, futsi ungakumisa nanoma nini kuphrofayili yakho.",
+    "yes": "Yebo, ngitjele",
+    "no": "Cha ngiyabonga",
+    "savedYes": "Siyabonga! Ungakushintja loku kuphrofayili yakho nanoma nini.",
+    "savedNo": "Kulungile. Ngeke sikutfumelele ema-imeyili ekumaketha."
   }
 }

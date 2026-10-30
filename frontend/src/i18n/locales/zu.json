@@ -1663,7 +1663,9 @@
     "save": "Londoloza",
     "saveFailed": "Ayikwazanga ukulondoloza iphrofayela yakho.",
     "saved": "Iphrofayela ilondoloziwe",
-    "title": "Iphrofayela yakho"
+    "title": "Iphrofayela yakho",
+    "marketing": "Ngithumelele amathiphu e-YGT, izindaba zomkhiqizo neminikelo",
+    "marketingHint": "Ama-imeyili mayelana nokuthola okwengeziwe ku-YGT, izici ezintsha neminikelo. Ama-imeyili mayelana ne-akhawunti yakho nokukhokha ahlala efika."
   },
   "quickAction": {
     "call": "Ucingo",
@@ -1742,7 +1744,9 @@
     "protected1": "Uxhumano olubethelwe: okusithumelayo kuhamba ngokuphepha.",
     "protected2": "Iphasiwedi yakho igcinwa ixutshiwe, ngakho akekho ongayifunda, ngisho nathi.",
     "protected3": "Imininingwane yenkampani yakho iyimfihlo yeqembu lakho futhi ihlukaniswe nawo wonke amanye amabhizinisi, ngokuhambisana ne-POPIA.",
-    "privacyLink": "Funda inqubomgomo yethu yobumfihlo"
+    "privacyLink": "Funda inqubomgomo yethu yobumfihlo",
+    "marketing": "Ngithumelele amathiphu e-YGT, izindaba zomkhiqizo neminikelo",
+    "marketingHint": "Akuphoqelekile. Ungakumisa noma nini, kunoma iyiphi i-imeyili noma kuphrofayela yakho."
   },
   "role": {
     "admin": "Umphathi",
@@ -2673,7 +2677,9 @@
       "blocked": "Izexwayiso zivinjiwe ku-YGT kulesi siphequluli. Zivumele kuzilungiselelo zesayithi.",
       "failed": "Akukwazanga ukuvula izexwayiso. Sicela uzame futhi."
     },
-    "goToActivities": "Iya emisebenzini"
+    "goToActivities": "Iya emisebenzini",
+    "marketingConsent": "Ingabe i-YGT ingakuthumelela amathiphu, izindaba neminikelo?",
+    "marketingConsentBody": "Phendula esaziso esiphezulu ekhasini. Ungashintsha umqondo wakho noma nini kuphrofayela yakho."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Sengeza inkinobho ethi \"Yes, keep me posted\", isixhumanisi esithi \"No thanks\" nomugqa othi \"We won't email you again unless you say yes.\"",
     "sendInvite": "Thumela isimemo",
     "invited": "Isimemo sithunyelwe ku-{{email}}"
+  },
+  "consent": {
+    "title": "Ingabe i-YGT ingakuthumelela amathiphu, izindaba neminikelo?",
+    "body": "Ngezikhathi ezithile: izindlela zokonga isikhathi, izici ezintsha neminikelo ekhethekile. Kuphela uma uthi yebo, futhi ungakumisa noma nini kuphrofayela yakho.",
+    "yes": "Yebo, ngazise",
+    "no": "Cha ngiyabonga",
+    "savedYes": "Siyabonga! Ungakushintsha lokhu kuphrofayela yakho noma nini.",
+    "savedNo": "Kulungile. Ngeke sikuthumelele ama-imeyili okumaketha."
   }
 }

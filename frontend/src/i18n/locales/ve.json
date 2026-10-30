@@ -1663,7 +1663,9 @@
     "save": "Vhulungani",
     "saveFailed": "A yo ngo kona u vhulunga phurofaiḽi yaṋu.",
     "saved": "Phurofaiḽi yo vhulungwa",
-    "title": "Phurofaiḽi yaṋu"
+    "title": "Phurofaiḽi yaṋu",
+    "marketing": "Nthumeleni nyeletshedzo dza YGT, mafhungo a zwibveledzwa na zwiṋetshedzo",
+    "marketingHint": "Dziimeiḽi nga ha u wana zwinzhi kha YGT, zwiṱaluli zwiswa na zwiṋetshedzo. Dziimeiḽi nga ha akhaunthu yaṋu na mbadelo dzi ḓa misi yoṱhe."
   },
   "quickAction": {
     "call": "Founu",
@@ -1742,7 +1744,9 @@
     "protected1": "Vhukwamani ho dzumbiwaho: zwine na ri rumela zwi tshimbila nga tsireledzo.",
     "protected2": "Phasiweḓe yaṋu i vhulungwa yo ḓilinganywa, ngauralo a hu na ane a nga i vhala, na riṋe.",
     "protected3": "Data ya khamphani yaṋu ndi tshiphiri tsha tshigwada tshaṋu nahone yo khethululwa na mabindu maṅwe oṱhe, u ya nga POPIA.",
-    "privacyLink": "Vhalani mbekanyamaitele yashu ya tshiphiri"
+    "privacyLink": "Vhalani mbekanyamaitele yashu ya tshiphiri",
+    "marketing": "Nthumeleni nyeletshedzo dza YGT, mafhungo a zwibveledzwa na zwiṋetshedzo",
+    "marketingHint": "A zwi kombetshedzwi. Ni nga zwi imisa tshifhinga tshiṅwe na tshiṅwe, u bva kha imeiḽi iṅwe na iṅwe kana kha phurofaiḽi yaṋu."
   },
   "role": {
     "admin": "Mulanguli",
@@ -2673,7 +2677,9 @@
       "blocked": "Tsevho dzo thivhelwa kha YGT kha burausa iyi. Dzi tendeleni kha zwivhewa zwa saithi.",
       "failed": "A ro ngo kona u vula tsevho. Ri humbela ni lingedze hafhu."
     },
-    "goToActivities": "Iyani kha mishumo"
+    "goToActivities": "Iyani kha mishumo",
+    "marketingConsent": "YGT i nga ni rumela nyeletshedzo, mafhungo na zwiṋetshedzo?",
+    "marketingConsentBody": "Fhindulani kha nḓivhadzo i re nṱha ha siaṱari. Ni nga shandukisa muhumbulo tshifhinga tshiṅwe na tshiṅwe kha phurofaiḽi yaṋu."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Ri engedza bathini ya \"Yes, keep me posted\", vhukwamani ha \"No thanks\" na mutevhe wa \"We won't email you again unless you say yes.\"",
     "sendInvite": "Rumelani vhurangi",
     "invited": "Vhurangi ho rumelwa kha {{email}}"
+  },
+  "consent": {
+    "title": "YGT i nga ni rumela nyeletshedzo, mafhungo na zwiṋetshedzo?",
+    "body": "Tshifhinga tshiṅwe: nḓila dza u vhulunga tshifhinga, zwiṱaluli zwiswa na zwiṋetshedzo zwo khetheaho. Fhedzi arali na ri ee, nahone ni nga zwi imisa tshifhinga tshiṅwe na tshiṅwe kha phurofaiḽi yaṋu.",
+    "yes": "Ee, nḓivhadzeni",
+    "no": "Hai ndo livhuwa",
+    "savedYes": "Ri a livhuwa! Ni nga shandukisa izwi kha phurofaiḽi yaṋu tshifhinga tshiṅwe na tshiṅwe.",
+    "savedNo": "Zwo luga. A ri nga ni rumeli dziimeiḽi dza u rengisa."
   }
 }

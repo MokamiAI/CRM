@@ -1663,7 +1663,9 @@
     "save": "Gcina",
     "saveFailed": "Ayikwazanga ukugcina iprofayile yakho.",
     "saved": "Iprofayile igciniwe",
-    "title": "Iprofayile yakho"
+    "title": "Iprofayile yakho",
+    "marketing": "Ndithumelele iingcebiso ze-YGT, iindaba zemveliso kunye nezibonelelo",
+    "marketingHint": "Ii-imeyile malunga nokufumana okungakumbi kwi-YGT, iimpawu ezintsha nezibonelelo. Ii-imeyile malunga ne-akhawunti yakho nentlawulo zihlala zifika."
   },
   "quickAction": {
     "call": "Ifowuni",
@@ -1742,7 +1744,9 @@
     "protected1": "Unxibelelwano olufihliweyo: oko usithumelayo kuhamba ngokukhuselekileyo.",
     "protected2": "Ipaswedi yakho igcinwa ixutyiwe, ngoko akukho mntu unokuyifunda, nkqu nathi.",
     "protected3": "Iinkcukacha zenkampani yakho ziyimfihlo kwiqela lakho kwaye zahlulwe kuwo onke amanye amashishini, ngokuhambelana ne-POPIA.",
-    "privacyLink": "Funda umgaqo-nkqubo wethu wabucala"
+    "privacyLink": "Funda umgaqo-nkqubo wethu wabucala",
+    "marketing": "Ndithumelele iingcebiso ze-YGT, iindaba zemveliso kunye nezibonelelo",
+    "marketingHint": "Akunyanzelekanga. Unokuyimisa nanini na, kuyo nayiphi na i-imeyile okanye kwiprofayile yakho."
   },
   "role": {
     "admin": "Umlawuli",
@@ -2673,7 +2677,9 @@
       "blocked": "Izilumkiso zithintelwe kwi-YGT kwesi sikhangeli. Zivumele kuseto lwesayithi.",
       "failed": "Akukwazanga ukuvula izilumkiso. Nceda uzame kwakhona."
     },
-    "goToActivities": "Yiya kwimisebenzi"
+    "goToActivities": "Yiya kwimisebenzi",
+    "marketingConsent": "Ingaba i-YGT inokukuthumelela iingcebiso, iindaba nezibonelelo?",
+    "marketingConsentBody": "Phendula kwisaziso esiphezulu ephepheni. Unokutshintsha ingqondo yakho nanini na kwiprofayile yakho."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Songeza iqhosha elithi \"Yes, keep me posted\", ikhonkco elithi \"No thanks\" nomgca othi \"We won't email you again unless you say yes.\"",
     "sendInvite": "Thumela isimemo",
     "invited": "Isimemo sithunyelwe ku-{{email}}"
+  },
+  "consent": {
+    "title": "Ingaba i-YGT inokukuthumelela iingcebiso, iindaba nezibonelelo?",
+    "body": "Ngamaxesha athile: iindlela zokonga ixesha, iimpawu ezintsha nezibonelelo ezikhethekileyo. Kuphela ukuba uthi ewe, kwaye unokuyimisa nanini na kwiprofayile yakho.",
+    "yes": "Ewe, ndazise",
+    "no": "Hayi enkosi",
+    "savedYes": "Enkosi! Unokuyitshintsha le nto kwiprofayile yakho nanini na.",
+    "savedNo": "Kulungile. Asizukukuthumelela ii-imeyile zentengiso."
   }
 }

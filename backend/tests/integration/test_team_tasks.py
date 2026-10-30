@@ -32,7 +32,13 @@ async def _member(api, admin: dict, role: str = "staff") -> tuple[dict, str]:
 async def _bell(api, headers) -> dict:
     res = await api.get("/notifications", headers=headers)
     assert res.status_code == 200, res.text
-    return res.json()
+    # Leaves out YGT's one marketing question (test_user_marketing_consent).
+    bell = res.json()
+    asked = [n for n in bell["items"] if n["kind"] == "marketing_consent"]
+    return {
+        "unread": bell["unread"] - sum(n["read_at"] is None for n in asked),
+        "items": [n for n in bell["items"] if n["kind"] != "marketing_consent"],
+    }
 
 
 @pytest.mark.asyncio

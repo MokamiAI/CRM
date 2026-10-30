@@ -1663,7 +1663,9 @@
     "save": "Boloka",
     "saveFailed": "Ha e a kgona ho boloka profaele ya hao.",
     "saved": "Profaele e bolokilwe",
-    "title": "Profaele ya hao"
+    "title": "Profaele ya hao",
+    "marketing": "Nthomelle malebela a YGT, ditaba tsa dihlahiswa le dinyehelo",
+    "marketingHint": "Diimeile mabapi le ho fumana ho eketsehileng ho YGT, dikarolo tse ntjha le dinyehelo. Diimeile mabapi le akhaonto ya hao le tefo di tla kamehla."
   },
   "quickAction": {
     "call": "Mohala",
@@ -1742,7 +1744,9 @@
     "protected1": "Kgokahano e patilweng: seo o re romelang sona se tsamaya ka polokeho.",
     "protected2": "Phasewete ya hao e bolokwa e kopantswe, ka hona ha ho motho ya ka e balang, esita le rona.",
     "protected3": "Data ya khampani ya hao ke lekunutu la sehlopha sa hao mme e arohantswe le dikgwebo tse ding kaofela, ho latela POPIA.",
-    "privacyLink": "Bala leano la rona la lekunutu"
+    "privacyLink": "Bala leano la rona la lekunutu",
+    "marketing": "Nthomelle malebela a YGT, ditaba tsa dihlahiswa le dinyehelo",
+    "marketingHint": "Ha se tlamo. O ka di emisa neng kapa neng, ho tswa ho imeile efe kapa efe kapa profaeleng ya hao."
   },
   "role": {
     "admin": "Motsamaisi",
@@ -2673,7 +2677,9 @@
       "blocked": "Ditemoso di thibetswe ho YGT sebading sena. Di dumelle disetting tsa saete.",
       "failed": "Ha re a kgona ho bula ditemoso. Ka kopo leka hape."
     },
-    "goToActivities": "Eya mesebetsing"
+    "goToActivities": "Eya mesebetsing",
+    "marketingConsent": "Na YGT e ka o romella malebela, ditaba le dinyehelo?",
+    "marketingConsentBody": "Araba tsebisong e kaholimo ho leqephe. O ka fetola mohopolo neng kapa neng profaeleng ya hao."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Re eketsa konopo ya \"Yes, keep me posted\", sehokelo sa \"No thanks\" le mola wa \"We won't email you again unless you say yes.\"",
     "sendInvite": "Romela memo",
     "invited": "Memo e romeletswe ho {{email}}"
+  },
+  "consent": {
+    "title": "Na YGT e ka o romella malebela, ditaba le dinyehelo?",
+    "body": "Ka nako e nngwe: mekgwa ya ho boloka nako, dikarolo tse ntjha le dinyehelo tse ikgethang. Feela ha o re e, mme o ka di emisa neng kapa neng profaeleng ya hao.",
+    "yes": "E, ntsebise",
+    "no": "Tjhe ke a leboha",
+    "savedYes": "Re a leboha! O ka fetola sena profaeleng ya hao neng kapa neng.",
+    "savedNo": "Ho lokile. Re ke ke ra o romella diimeile tsa papatso."
   }
 }

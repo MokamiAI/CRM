@@ -38,6 +38,11 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # until they open the link and choose their own (accepted).
     invited_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     invite_accepted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # YGT's own marketing (POPIA s69): yes or no, when, and where they said
+    # it (signup | prompt | settings). None: not asked yet, so the app asks.
+    marketing_opt_in: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    marketing_opt_in_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    marketing_opt_in_source: Mapped[str | None] = mapped_column(String(20), nullable=True)
 
     @property
     def can_receive_tasks(self) -> bool:

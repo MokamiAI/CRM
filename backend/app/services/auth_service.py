@@ -69,6 +69,10 @@ class AuthService:
             password_hash=hash_password(data.password),
             full_name=data.full_name.strip(),
             role=UserRole.ADMIN,
+            # Ticked or left empty, it's their answer: not asked again.
+            marketing_opt_in=data.marketing_opt_in,
+            marketing_opt_in_at=datetime.now(timezone.utc),
+            marketing_opt_in_source="signup",
         )
         self.db.add(user)
         await self.db.flush()

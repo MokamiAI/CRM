@@ -2,10 +2,12 @@ from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, Request, status
 from pydantic import BaseModel, Field
+from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db
 from app.core.database import CommitBeforeResponseRoute
+from app.models.notification import Notification
 from app.models.user import User
 from app.schemas.auth import LoginRequest, LogoutRequest, RefreshRequest, RegisterRequest, TokenResponse
 from app.models.company_settings import CompanySettings
@@ -117,6 +119,19 @@ async def update_me(
     """Self-service profile settings (currently the UI language). Admin
     user management stays under /users."""
     changes = data.model_dump(exclude_unset=True)
+    source = changes.pop("marketing_source", "settings")
+    if "marketing_opt_in" in changes:
+        agreed = changes.pop("marketing_opt_in")
+        if agreed is not None:
+            current_user.marketing_opt_in = agreed
+            current_user.marketing_opt_in_at = datetime.now(timezone.utc)
+            current_user.marketing_opt_in_source = source
+            # Answered: the question behind the bell is done with.
+            await db.execute(
+                update(Notification)
+                .where(Notification.user_id == current_user.id, Notification.kind == "marketing_consent", Notification.read_at.is_(None))
+                .values(read_at=current_user.marketing_opt_in_at)
+            )
     if "tour_completed" in changes:
         current_user.tour_completed_at = datetime.now(timezone.utc) if changes.pop("tour_completed") else None
     if "email_signature" in changes:

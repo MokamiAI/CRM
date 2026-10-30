@@ -189,7 +189,37 @@ async def sync(db, apply: bool = True, only: set | None = None) -> list[Change]:
             done += todo
         except Exception:
             logger.exception("Couldn't update YGT's pipeline for %s", company.company_name)
+    await _sync_consent(db, owners, only)
     return done
+
+
+async def _sync_consent(db, owners: dict, only: set | None) -> None:
+    """Each subscriber's answer to YGT's marketing question (their owner's,
+    from sign-up, the app or their profile) onto their record in YGT's
+    workspace, so campaigns reach exactly those who said yes (POPIA s69).
+    Only a newer answer counts: an unsubscribe from a campaign email since
+    then stands."""
+    links = await db.scalars(select(SubscriberLink).where(SubscriberLink.customer_id.is_not(None)))
+    for link in links:
+        owner = owners.get(link.company_id)
+        if only is not None and link.company_id not in only:
+            continue
+        if owner is None or owner.marketing_opt_in is None or owner.marketing_opt_in_at is None:
+            continue
+        customer = await db.get(Customer, link.customer_id)
+        if customer is None:
+            continue
+        latest = max((at for at in (customer.marketing_consent_at, customer.marketing_opt_out_at) if at), default=None)
+        if latest is not None and latest >= owner.marketing_opt_in_at:
+            continue
+        if owner.marketing_opt_in:
+            customer.marketing_consent_at = owner.marketing_opt_in_at
+            customer.marketing_consent_source = f"Said yes in YGT ({owner.marketing_opt_in_source})"
+            customer.marketing_opt_out = False
+        else:
+            customer.marketing_opt_out = True
+            customer.marketing_opt_out_at = owner.marketing_opt_in_at
+    await db.flush()
 
 
 async def _add(db, admin: User, company: CompanySettings, owner: User | None, customer_id, change: Change) -> SubscriberLink:

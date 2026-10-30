@@ -36,6 +36,8 @@ export function notificationText(n, t) {
       return { title: p.status ? t("notify.updated", { by: p.by, status: t(`task.status.${p.status}`), subject: p.subject }) : t("notify.noted", { by: p.by, subject: p.subject }), body: p.note };
     case "deal_no_next_step":
       return { title: t("notify.noNextStep", { deal: p.deal }), body: t("notify.noNextStepBody") };
+    case "marketing_consent":
+      return { title: t("notify.marketingConsent"), body: t("notify.marketingConsentBody") };
     case "test":
       return { title: t("notify.test"), body: t("notify.testBody") };
     default:

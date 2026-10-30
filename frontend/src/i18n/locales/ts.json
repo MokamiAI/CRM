@@ -1663,7 +1663,9 @@
     "save": "Hlayisa",
     "saveFailed": "A yi swi kotanga ku hlayisa phurofayili ya wena.",
     "saved": "Phurofayili yi hlayisiwile",
-    "title": "Phurofayili ya wena"
+    "title": "Phurofayili ya wena",
+    "marketing": "Ndzi rhumele switsundzuxo swa YGT, mahungu ya swikumiwa na swinyiko",
+    "marketingHint": "Tiimeyili ta ku kuma swo tala eka YGT, swiave leswintshwa na swinyiko. Tiimeyili ta akhawunti ya wena na ku hakela ti ta minkarhi hinkwayo."
   },
   "quickAction": {
     "call": "Xirhambo",
@@ -1742,7 +1744,9 @@
     "protected1": "Vuhlanganisi lebyi khumbiweke: leswi u hi rhumelaka swona swi famba hi vuhlayiseki.",
     "protected2": "Phasiwedi ya wena yi hlayisiwa yi pfanganisiwile, hikwalaho a nga kona loyi a nga yi hlayaka, hambi ku ri hina.",
     "protected3": "Data ya khampani ya wena i xihundla xa ntlawa wa wena naswona yi hambanisiwile ni mabindzu man'wana hinkwawo, hi ku landza POPIA.",
-    "privacyLink": "Hlaya pholisi ya hina ya xihundla"
+    "privacyLink": "Hlaya pholisi ya hina ya xihundla",
+    "marketing": "Ndzi rhumele switsundzuxo swa YGT, mahungu ya swikumiwa na swinyiko",
+    "marketingHint": "A swi bohi. U nga swi yimisa nkarhi wun'wana na wun'wana, ku suka eka imeyili yin'wana na yin'wana kumbe eka phurofayili ya wena."
   },
   "role": {
     "admin": "Mulawuri",
@@ -2673,7 +2677,9 @@
       "blocked": "Swilemukiso swi siviriwile eka YGT eka burawuza leyi. Swi pfumelele eka swiveko swa saiti.",
       "failed": "A hi swi kotanga ku pfula swilemukiso. Hi kombela u ringeta nakambe."
     },
-    "goToActivities": "Yana eka mintirho"
+    "goToActivities": "Yana eka mintirho",
+    "marketingConsent": "Xana YGT yi nga ku rhumela switsundzuxo, mahungu na swinyiko?",
+    "marketingConsentBody": "Hlamula eka xitiviso lexi nga ehenhla ka pheji. U nga cinca miehleketo nkarhi wun'wana na wun'wana eka phurofayili ya wena."
   },
   "task": {
     "status": {
@@ -3127,5 +3133,13 @@
     "inviteAdds": "Hi engetela buthoni ya \"Yes, keep me posted\", xihlanganisi xa \"No thanks\" na ntila wa \"We won't email you again unless you say yes.\"",
     "sendInvite": "Rhumela xirhambo",
     "invited": "Xirhambo xi rhumeriwile eka {{email}}"
+  },
+  "consent": {
+    "title": "Xana YGT yi nga ku rhumela switsundzuxo, mahungu na swinyiko?",
+    "body": "Nkarhi na nkarhi: tindlela to hlayisa nkarhi, swiave leswintshwa na swinyiko swo hlawuleka. Ntsena loko u ku ina, naswona u nga swi yimisa nkarhi wun'wana na wun'wana eka phurofayili ya wena.",
+    "yes": "Ina, ndzi tivise",
+    "no": "E-e ndza khensa",
+    "savedYes": "Ha khensa! U nga cinca leswi eka phurofayili ya wena nkarhi wun'wana na wun'wana.",
+    "savedNo": "Swi lulamile. A hi nge ku rhumeli tiimeyili ta vuxavisi."
   }
 }

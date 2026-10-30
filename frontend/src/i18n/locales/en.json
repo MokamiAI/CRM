@@ -1686,7 +1686,9 @@
     "save": "Save",
     "saveFailed": "Couldn't save your profile.",
     "saved": "Profile saved",
-    "title": "Your profile"
+    "title": "Your profile",
+    "marketing": "Send me YGT's tips, product news and offers",
+    "marketingHint": "Emails about getting more from YGT, new features and offers. Emails about your account and billing always come."
   },
   "quickAction": {
     "call": "Call",
@@ -1765,7 +1767,9 @@
     "protected1": "Encrypted connection: what you send us travels securely.",
     "protected2": "Your password is stored scrambled, so no one can read it, not even us.",
     "protected3": "Your company's data is private to your team and kept separate from every other business, in line with POPIA.",
-    "privacyLink": "Read our privacy policy"
+    "privacyLink": "Read our privacy policy",
+    "marketing": "Send me YGT's tips, product news and offers",
+    "marketingHint": "Optional. You can stop them at any time, from any email or your profile."
   },
   "role": {
     "admin": "Admin",
@@ -2702,7 +2706,9 @@
       "blocked": "Alerts are blocked for YGT in this browser. Allow them in the browser's site settings.",
       "failed": "Couldn't turn on alerts. Please try again."
     },
-    "goToActivities": "Go to activities"
+    "goToActivities": "Go to activities",
+    "marketingConsent": "May YGT send you tips, news and offers?",
+    "marketingConsentBody": "Answer on the notice at the top of the page. You can change your mind at any time in your profile."
   },
   "campaignTemplates": {
     "title": "What do you want to do?",
@@ -3283,5 +3289,13 @@
     "inviteAdds": "We add a \"Yes, keep me posted\" button, a \"No thanks\" link and the line \"We won't email you again unless you say yes.\"",
     "sendInvite": "Send invite",
     "invited": "Invite sent to {{email}}"
+  },
+  "consent": {
+    "title": "May YGT send you tips, news and offers?",
+    "body": "Now and then: ways to save time, new features and special offers. Only if you say yes, and you can stop at any time in your profile.",
+    "yes": "Yes, keep me posted",
+    "no": "No thanks",
+    "savedYes": "Thanks! You can change this in your profile at any time.",
+    "savedNo": "Got it. We won't send you marketing emails."
   }
 }

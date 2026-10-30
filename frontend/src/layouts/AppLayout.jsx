@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import VerifyEmailBanner from "../components/VerifyEmailBanner";
+import MarketingConsentBanner from "../components/MarketingConsentBanner";
 import GetTheAppBanner from "../components/GetTheAppBanner";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
@@ -487,6 +488,7 @@ export default function AppLayout() {
           <div className="mx-auto max-w-[88rem]">
             <LockedBanner />
             <VerifyEmailBanner />
+            <MarketingConsentBanner />
             {/* Some pages load on first visit; the frame and menu stay put meanwhile. */}
             <Suspense fallback={<ListSkeleton rows={5} />}>
               <Outlet />
