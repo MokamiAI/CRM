@@ -2,14 +2,15 @@
 import asyncio
 import logging
 from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from sqlalchemy import select
 from celery_app import celery_app
 from app.core.config import settings
 from app.core.database import AsyncSessionLocal
+from app.core.plans import PLANS
 from app.core.tenancy import set_system
 from app.models.billing import Subscription, SubscriptionInvoice
-from app.services import subscriber_pipeline
+from app.services import platform_email, subscriber_pipeline
 from app.services.manual_billing import issue_trial_invoice, invoice_email
 from app.services.subscription_invoices import recipients, render_html
 from app.services.document_service import pdf_attachment
@@ -96,3 +97,54 @@ async def sync_subscriber_pipeline():
 @celery_app.task(name="app.tasks.billing_tasks.sync_subscriber_pipeline_task")
 def sync_subscriber_pipeline_task():
     return run_async(sync_subscriber_pipeline)
+
+
+# CPA s14(2)(c): a yearly plan's holder hears 40 to 80 business days before
+# it renews. In calendar days, 62 to 100 sits inside that window even with
+# public holidays.
+RENEWAL_NOTICE_DAYS = (62, 100)
+
+
+async def send_renewal_notices(now=None) -> int:
+    """Once a year, to each active yearly plan's admins and billing email:
+    when it renews, for how much, and how to change or cancel it."""
+    now = now or datetime.now(timezone.utc)
+    soonest, latest = (now + timedelta(days=d) for d in RENEWAL_NOTICE_DAYS)
+    async with AsyncSessionLocal() as db:
+        set_system(db)
+        subs = list(await db.scalars(select(Subscription).where(
+            Subscription.interval == "annually", Subscription.status == "active",
+            Subscription.current_period_end >= soonest, Subscription.current_period_end <= latest)))
+        sent = 0
+        for sub in subs:
+            plan = PLANS.get(sub.plan)
+            if plan is None or sub.renewal_notice_for == sub.current_period_end:
+                continue
+            addresses = await recipients(db, sub.company_id, sub.billing_email)
+            if not addresses:
+                continue
+            renews = f"{sub.current_period_end:%d %B %Y}".lstrip("0")
+            amount = f"R{plan.price_cents('annually', sub.seats) / 100:,.2f}".replace(",", " ")
+            emails = [
+                platform_email.compose(
+                    to=address,
+                    subject=f"Your yearly YGT plan renews on {renews}",
+                    title="Your yearly plan renews soon",
+                    paragraphs=[
+                        f"Your YGT {plan.name} plan renews for another year on {renews}, for {amount}.",
+                        "To keep it, you don't need to do anything. To change your plan or cancel, go to Settings > Billing before that date. "
+                        "If you cancel, YGT keeps working until the end of the year you've paid for.",
+                    ],
+                    button=("Open billing", platform_email.app_link("/settings?tab=billing")),
+                )
+                for address in addresses
+            ]
+            sub.renewal_notice_for = sub.current_period_end
+            await platform_email.queue(db, *emails)  # commits
+            sent += 1
+    return sent
+
+
+@celery_app.task(name="app.tasks.billing_tasks.send_renewal_notices_task")
+def send_renewal_notices_task():
+    return run_async(send_renewal_notices)

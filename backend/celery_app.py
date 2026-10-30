@@ -41,6 +41,11 @@ celery_app.conf.beat_schedule = {
         "task": "app.tasks.billing_tasks.invoice_expired_trials_task",
         "schedule": crontab(minute=5),
     },
+    # Yearly plans: told 40 to 80 business days before they renew (CPA s14).
+    "yearly-renewal-notices": {
+        "task": "app.tasks.billing_tasks.send_renewal_notices_task",
+        "schedule": crontab(hour=8, minute=15),
+    },
     # Sign-ups, payments and ended trials into YGT's own pipeline.
     "subscriber-pipeline": {
         "task": "app.tasks.billing_tasks.sync_subscriber_pipeline_task",

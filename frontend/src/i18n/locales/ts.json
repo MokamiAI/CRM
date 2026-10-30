@@ -1336,7 +1336,9 @@
     "privacy": "Xihundla",
     "refunds": "Pholisi yo vuyisa mali",
     "terms": "Swipimelo",
-    "updated": "Yi pfuxetiwe hi {{date}}"
+    "updated": "Yi pfuxetiwe hi {{date}}",
+    "termsFull": "Swiyimiso na Swipimelo",
+    "privacyFull": "Pholisi ya Vuhlayiseki"
   },
   "login": {
     "createAccount": "Endla akhawunti ya khamphani",
@@ -1746,7 +1748,8 @@
     "protected3": "Data ya khampani ya wena i xihundla xa ntlawa wa wena naswona yi hambanisiwile ni mabindzu man'wana hinkwawo, hi ku landza POPIA.",
     "privacyLink": "Hlaya pholisi ya hina ya xihundla",
     "marketing": "Ndzi rhumele switsundzuxo swa YGT, mahungu ya swikumiwa na swinyiko",
-    "marketingHint": "A swi bohi. U nga swi yimisa nkarhi wun'wana na wun'wana, ku suka eka imeyili yin'wana na yin'wana kumbe eka phurofayili ya wena."
+    "marketingHint": "A swi bohi. U nga swi yimisa nkarhi wun'wana na wun'wana, ku suka eka imeyili yin'wana na yin'wana kumbe eka phurofayili ya wena.",
+    "agree": "Ndza pfumelelana na {{terms}} na {{privacy}}"
   },
   "role": {
     "admin": "Mulawuri",
@@ -2710,7 +2713,8 @@
     "password": "Endla phasiwedi",
     "submit": "Endla phasiwedi u nghena",
     "badLinkTitle": "Xirhambo lexi a xi tirhiseki",
-    "alreadyJoined": "Se u nghenile?"
+    "alreadyJoined": "Se u nghenile?",
+    "agree": "Hi ku joyina, u pfumelelana na {{terms}} na {{privacy}}."
   },
   "attachments": {
     "title": "Swinamarheti",

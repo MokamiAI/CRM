@@ -26,6 +26,8 @@ class Subscription(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     seats: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     trial_ends_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     current_period_end: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # The period end the yearly renewal notice was sent for (CPA s14): once a year.
+    renewal_notice_for: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     billing_email: Mapped[str | None] = mapped_column(String(255), nullable=True)
     paystack_customer_code: Mapped[str | None] = mapped_column(String(50), nullable=True, index=True)

@@ -1359,7 +1359,9 @@
     "refunds": "Refund policy",
     "deleteAccount": "Delete your account",
     "terms": "Terms",
-    "updated": "Last updated {{date}}"
+    "updated": "Last updated {{date}}",
+    "termsFull": "Terms and conditions",
+    "privacyFull": "Privacy policy"
   },
   "login": {
     "createAccount": "Create a company account",
@@ -1769,7 +1771,8 @@
     "protected3": "Your company's data is private to your team and kept separate from every other business, in line with POPIA.",
     "privacyLink": "Read our privacy policy",
     "marketing": "Send me YGT's tips, product news and offers",
-    "marketingHint": "Optional. You can stop them at any time, from any email or your profile."
+    "marketingHint": "Optional. You can stop them at any time, from any email or your profile.",
+    "agree": "I agree to the {{terms}} and the {{privacy}}"
   },
   "role": {
     "admin": "Admin",
@@ -2866,7 +2869,8 @@
     "password": "Create a password",
     "submit": "Create password and join",
     "badLinkTitle": "This invitation can't be used",
-    "alreadyJoined": "Already joined?"
+    "alreadyJoined": "Already joined?",
+    "agree": "By joining, you agree to the {{terms}} and the {{privacy}}."
   },
   "attachments": {
     "title": "Attachments",

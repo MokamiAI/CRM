@@ -6,7 +6,7 @@ import { announceVerified, useAuth } from "../context/AuthContext";
 import { APP_NAME, BrandMark, COMPANY_NAME } from "../components/Brand";
 import LanguagePicker from "../components/LanguagePicker";
 import GlowField from "../components/GlowField";
-import { AuthShell, FormError, SwitchLink } from "./LoginPage";
+import { AuthShell, FormError, SwitchLink, TermsLinks } from "./LoginPage";
 import { Field } from "../components/ui";
 import { errorMessage } from "../utils/format";
 import { markArrived, queueWelcome } from "../components/Startup";
@@ -14,13 +14,18 @@ import { markArrived, queueWelcome } from "../components/Startup";
 // Your business details for the legal pages. Fill these in before going
 // live (Paystack checks them when it reviews your account).
 export const LEGAL = {
-  company: COMPANY_NAME,
+  company: `${COMPANY_NAME} (Pty) Ltd`,
+  status: "Private company, registered in South Africa with the Companies and Intellectual Property Commission (CIPC)",
   registration: "K2026/825202/07",
+  directors: "Mokami Johannes",
   address: "1929 Vuka Section, Oukasie, Brits, 0250, South Africa",
+  phone: "063 670 7123",
   email: "johannes@yougt.co.za",
   informationOfficer: "Mokami Johannes",
-  updated: "29 October 2026",
-};
+  vat: "YGT isn't registered for VAT, so no VAT is added; if that changes, we'll tell you before VAT is charged.",
+  // Change with TERMS_VERSION (backend core/legal.py): accounts record which version they accepted.
+  updated: "30 October 2026",
+}
 const missing = (value) => value || "[to be added]";
 
 /** The frame for public pages: the header, the page, and the footer links. */
@@ -437,6 +442,10 @@ export function InvitePage() {
           {mismatch && <span className="mt-1.5 block text-xs font-medium text-red-600">{t("password.mismatch")}</span>}
         </div>
         <FormError>{error}</FormError>
+        {/* Joining records their agreement (backend invite_service). */}
+        <p className="text-xs leading-relaxed text-zinc-500">
+          <TermsLinks text={t("invite.agree", { terms: "{{terms}}", privacy: "{{privacy}}", interpolation: { escapeValue: false } })} />
+        </p>
         <button type="submit" className="btn btn-primary w-full" disabled={busy || !invite || mismatch}>
           {busy ? t("common.saving") : t("invite.submit")}
         </button>
@@ -485,47 +494,60 @@ const LEGAL_PAGES = {
     ),
   },
   terms: {
-    titleKey: "legal.terms",
+    titleKey: "legal.termsFull",
     body: () => (
       <>
         <p>
           These terms apply when you or your organisation (“you”) use YGT (You Got This), a customer relationship management and invoicing service
-          developed and run from South Africa by {LEGAL.company} (“YGT”, “we”). By creating an account you agree to them on behalf of your organisation.
+          developed and run from South Africa by {LEGAL.company} (“YGT”, “we”). You accept them by ticking the box when you create an account (or by joining a
+          team you were invited to), on behalf of your organisation. You can save or print this page at any time; the version you accepted is recorded with
+          your account.
         </p>
         <Section title="1. Your account">
-          <p>You are responsible for the people you invite, for keeping passwords safe, and for the information you put into YGT. Each person must use their own sign-in.</p>
+          <p>
+            You must be 18 or older and allowed to act for your organisation. You are responsible for the people you invite, for keeping passwords safe, and for
+            the information you put into YGT. Each person must use their own sign-in.
+          </p>
         </Section>
         <Section title="2. Free trial, plans and payment">
           <p>
-            New organisations get a 14-day free trial; no card is needed. After the trial you choose a plan (Hustle, Grow or Scale). Plans are billed in South African
-            rand, monthly or yearly, in advance, through Paystack. Subscriptions renew automatically until cancelled.
+            Each organisation gets one 14-day free trial; no card is needed. A second trial for the same organisation, for example under a new email address, isn't
+            allowed. After the trial you choose a plan (Hustle, Grow or Scale). If a trial ends or a plan is cancelled and you return later, you pay the plan's normal
+            price from the start.
           </p>
           <p>
-            If a trial ends or a payment fails and isn't fixed within a few days, your account becomes read-only: you can still view and export your information, but
-            you can't add, change or send anything until a plan is active again. We may change prices with at least 30 days' notice.
+            Prices are shown in South African rand on the pricing page before you pay, and the price shown is the full price. {LEGAL.vat} Plans are paid in advance,
+            monthly or yearly, by card through Paystack or by bank transfer. The service is available as soon as your account is created, and every invoice is
+            kept in Settings &gt; Billing for you to view, download and print.
+          </p>
+          <p>
+            If a payment fails and isn't fixed within a few days, or a trial ends unpaid, your account becomes read-only: you can still view and export your
+            information, but you can't add, change or send anything until a plan is active again. We may change prices with at least 30 days' notice.
           </p>
         </Section>
-        <Section title="3. Cancelling">
+        <Section title="3. Renewal and cancelling">
           <p>
-            You can cancel at any time in Settings &gt; Billing. Cancelling stops the next renewal; it doesn't end your plan straight away. Your subscription keeps
-            running, with everything working, until the end of the billing period you've already paid for (the month, or the year on a yearly plan).
+            Monthly plans renew each month and yearly plans each year, until cancelled. For a yearly plan we email you between 40 and 80 business days before it
+            renews, with the date, the price and how to cancel.
           </p>
           <p>
-            After that, your workspace becomes read-only: you can still sign in, see and export your information, but you can't add, change or send anything until
-            you choose a plan again. Nothing is deleted. Refunds are covered in our Refund policy.
+            You can cancel at any time in Settings &gt; Billing. Cancelling stops the next renewal; your plan keeps working until the end of the period you've paid
+            for, then your workspace becomes read-only. Nothing is deleted, and you can still sign in, see and export your information. Your right to cancel within
+            7 days, and refunds, are set out in our <Link to="/refunds" className="font-medium text-indigo-600">Refund policy</Link>.
           </p>
         </Section>
         <Section title="4. Your information">
           <p>
             Everything you add (clients, invoices, messages and so on) belongs to you. You can export it at any time. Under the Protection of Personal Information Act
             (POPIA) you are the responsible party for your clients' personal information and YGT is your operator: we process it only to provide the service, keep it
-            secure, keep each organisation's information separate, and don't sell it. See our Privacy policy.
+            secure, keep each organisation's information separate, and don't sell it. See our <Link to="/privacy" className="font-medium text-indigo-600">Privacy policy</Link>.
           </p>
         </Section>
         <Section title="5. Acceptable use">
           <p>
-            Don't use YGT to send spam or unlawful messages, to break the law (including POPIA and the Consumer Protection Act), or to interfere with the service. Marketing
-            emails must go only to people who agreed to receive them; every campaign includes an unsubscribe link. We may suspend accounts that break these terms.
+            Don't use YGT to send spam or unlawful messages, to break the law (including POPIA and the Consumer Protection Act), or to interfere with the service.
+            Marketing must go only to people who agreed to receive it or, for your existing customers, who haven't opted out; every campaign includes an unsubscribe
+            link. We may suspend accounts that break these terms.
           </p>
         </Section>
         <Section title="6. Your invoices and tax">
@@ -536,23 +558,33 @@ const LEGAL_PAGES = {
         </Section>
         <Section title="7. Availability and liability">
           <p>
-            We work to keep YGT available and your information backed up, but the service is provided “as is”. To the extent the law allows, our total liability for any
-            claim is limited to the fees you paid in the three months before it arose, and we aren't liable for indirect or consequential loss.
+            We work to keep YGT available and your information backed up, and we use encrypted connections and Paystack's secure payment pages. To the extent the
+            law allows, our total liability for any claim is limited to the fees you paid in the three months before it arose, and we aren't liable for indirect or
+            consequential loss. Nothing in these terms limits rights you have under the Consumer Protection Act or the Electronic Communications and Transactions Act
+            that can't lawfully be limited.
           </p>
         </Section>
-        <Section title="8. Changes and law">
-          <p>We'll tell you about material changes to these terms by email or in the app. These terms are governed by the laws of the Republic of South Africa.</p>
-        </Section>
-        <Section title="9. Contact">
+        <Section title="8. Complaints and disputes">
           <p>
-            {LEGAL.company}, registration number {missing(LEGAL.registration)}, {missing(LEGAL.address)}. Email: {missing(LEGAL.email)}.
+            Tell us first, by a ticket in the app under Support or by email to {missing(LEGAL.email)}. We reply within 5 business days and aim to resolve it within
+            20. If we can't, you may refer it to the Consumer Goods and Services Ombud (cgso.org.za) or the National Consumer Commission, or, about personal
+            information, the Information Regulator. We don't belong to an industry self-regulatory body or subscribe to an industry code of conduct.
           </p>
+        </Section>
+        <Section title="9. Changes and law">
+          <p>
+            We'll tell you about material changes to these terms by email or in the app at least 30 days before they apply, and ask you to accept them. These terms
+            are governed by the laws of the Republic of South Africa.
+          </p>
+        </Section>
+        <Section title="10. About us">
+          <CompanyDetails />
         </Section>
       </>
     ),
   },
   privacy: {
-    titleKey: "legal.privacy",
+    titleKey: "legal.privacyFull",
     body: () => (
       <>
         <p>This policy explains how {LEGAL.company} handles personal information, in line with the Protection of Personal Information Act, 2013 (POPIA).</p>
@@ -569,31 +601,52 @@ const LEGAL_PAGES = {
         <Section title="2. What we collect and why">
           <p>
             Account details, to run your account and support you; usage and security logs (such as sign-ins, errors and IP addresses), to keep the service secure and
-            working; billing records, to charge for plans (card details are handled by Paystack, never stored by us); and messages you send our support team.
+            working; billing records, to charge for plans (card details are handled by Paystack, never stored by us); messages you send our support team or through
+            our contact form; and a record of when you accepted our terms and what you chose about marketing, as proof of both.
+          </p>
+          <p>
+            The free business check-up works in your browser: your answers aren't sent to us unless you ask for a walkthrough, and then we receive your answers
+            with your name and contact details, to reply to you.
           </p>
         </Section>
-        <Section title="3. Sharing">
+        <Section title="3. Marketing">
+          <p>
+            We send you YGT's tips, product news and offers only if you agreed: by ticking the box when you signed up, by answering yes in the app, or in your
+            profile. You can change your mind at any time in your profile, or by the unsubscribe link in every marketing email. Emails about your account, billing
+            and security aren't marketing and still come.
+          </p>
+        </Section>
+        <Section title="4. Cookies and browser storage">
+          <p>
+            We don't use advertising or tracking cookies, or analytics that follow you. Your browser stores only what YGT needs to work: that you're signed in,
+            your language, and where you were (for example, check-up answers in progress).
+          </p>
+        </Section>
+        <Section title="5. Sharing">
           <p>
             We share information only with service providers that help us run YGT (hosting, email delivery, payments through Paystack, and WhatsApp or SMS providers you
             connect yourself), under agreements that protect it, or when the law requires it. Some providers store information outside South Africa; we only use
-            providers with adequate protection, as POPIA requires.
+            providers with adequate protection, as POPIA requires. We never sell personal information.
           </p>
         </Section>
-        <Section title="4. Security and retention">
+        <Section title="6. Security and retention">
           <p>
             Information is encrypted in transit, passwords and connection secrets are stored encrypted, and each organisation's information is kept separate. We keep
-            account information while your account is open and for as long as the law requires afterwards; organisations can export or ask us to delete their information.
+            account information while your account is open and for as long as the law requires afterwards (for example, tax records); organisations can export or
+            ask us to delete their information. If we learn of a security compromise affecting your information, we'll tell you and the Information Regulator, as
+            POPIA requires.
           </p>
         </Section>
-        <Section title="5. Your rights">
+        <Section title="7. Your rights">
           <p>
-            You may ask what personal information we hold about you, ask us to correct or delete it, object to processing, and complain to the Information Regulator
-            (inforegulator.org.za). Clients of organisations using YGT should contact that organisation first.
+            You may ask what personal information we hold about you, ask us to correct or delete it, object to processing, withdraw consent you gave, and complain to
+            the Information Regulator (inforegulator.org.za). Requests for records under the Promotion of Access to Information Act (PAIA) go to our Information
+            Officer. Clients of organisations using YGT should contact that organisation first.
           </p>
         </Section>
-        <Section title="6. Information officer">
+        <Section title="8. Information officer">
           <p>
-            {LEGAL.informationOfficer}, {missing(LEGAL.email)}. {LEGAL.company}, {missing(LEGAL.address)}.
+            {LEGAL.informationOfficer}, {missing(LEGAL.email)}, {missing(LEGAL.phone)}. {LEGAL.company}, {missing(LEGAL.address)}.
           </p>
         </Section>
       </>
@@ -610,27 +663,68 @@ const LEGAL_PAGES = {
           </p>
         </Section>
         <Section title="Free trial">
-          <p>Every new organisation gets 14 days free. We don't ask for a card, so nothing is charged during the trial.</p>
+          <p>
+            Every new organisation gets one 14-day free trial. We don't ask for a card, so nothing is charged during the trial. There's no second trial: if you return
+            after a trial or a cancelled plan, you pay the plan's normal price.
+          </p>
+        </Section>
+        <Section title="Changed your mind: 7 days">
+          <p>
+            You may cancel within 7 days of your first payment for a plan, without giving a reason, and we refund that payment in full. This includes the cooling-off
+            right in section 44 of the Electronic Communications and Transactions Act.
+          </p>
         </Section>
         <Section title="Monthly plans">
-          <p>You can cancel at any time; your plan runs to the end of the month you've paid for and isn't renewed. We don't refund part-months.</p>
+          <p>After those 7 days you can cancel at any time; your plan runs to the end of the month you've paid for and isn't renewed. We don't refund part-months.</p>
         </Section>
         <Section title="Yearly plans">
-          <p>If you cancel within 14 days of a yearly payment, we refund it in full. After that the plan runs to the end of the year and isn't renewed.</p>
+          <p>
+            If you cancel within 14 days of a yearly payment, we refund it in full. After that, the plan normally runs to the end of the year and isn't renewed. We
+            email you 40 to 80 business days before a yearly plan renews.
+          </p>
+          <p>
+            If the Consumer Protection Act applies to you (individuals, and businesses with an annual turnover or assets below R2 million), you may end a yearly plan
+            early on 20 business days' notice. We then refund the whole months left after the notice period, less a reasonable cancellation charge of no more than
+            one month's fee.
+          </p>
         </Section>
         <Section title="Mistakes and outages">
           <p>If you were charged in error, or a serious outage on our side stopped you working, we'll refund the affected amount.</p>
         </Section>
         <Section title="How to ask">
           <p>
-            Log a ticket in the app under Support, or email {missing(LEGAL.email)}. Approved refunds go back to the card you paid with through Paystack, usually within 5 to
-            10 business days.
+            Log a ticket in the app under Support, or email {missing(LEGAL.email)}. Approved refunds go back to the card you paid with through Paystack, or to your bank
+            account if you paid by transfer, usually within 5 to 10 business days.
           </p>
         </Section>
       </>
     ),
   },
 };
+
+/** Who YGT is, as the Electronic Communications and Transactions Act (s43) asks. */
+function CompanyDetails() {
+  const rows = [
+    ["Name", LEGAL.company],
+    ["Legal status", LEGAL.status],
+    ["Registration number", missing(LEGAL.registration)],
+    ["Directors", LEGAL.directors],
+    ["Physical address (also for legal notices)", missing(LEGAL.address)],
+    ["Phone", missing(LEGAL.phone)],
+    ["Email", missing(LEGAL.email)],
+    ["Website", "yougt.co.za"],
+  ];
+  return (
+    <dl className="grid gap-x-6 gap-y-2 sm:grid-cols-[max-content_1fr]">
+      {rows.map(([label, value]) => (
+        <div key={label} className="contents">
+          <dt className="font-medium text-zinc-900">{label}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
 
 export function LegalPage({ kind }) {
   const { t } = useTranslation();

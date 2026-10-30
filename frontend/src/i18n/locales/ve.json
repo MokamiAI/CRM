@@ -1336,7 +1336,9 @@
     "privacy": "Tshiphiri",
     "refunds": "Mbekanyamaitele ya u vhuisa tshelede",
     "terms": "Milayo",
-    "updated": "Yo vusuludzwa nga {{date}}"
+    "updated": "Yo vusuludzwa nga {{date}}",
+    "termsFull": "Milayo na Zwiimo",
+    "privacyFull": "Mbekanyamaitele ya Tshidzumbe"
   },
   "login": {
     "createAccount": "Itani akhaunthu ya khamphani",
@@ -1746,7 +1748,8 @@
     "protected3": "Data ya khamphani yaṋu ndi tshiphiri tsha tshigwada tshaṋu nahone yo khethululwa na mabindu maṅwe oṱhe, u ya nga POPIA.",
     "privacyLink": "Vhalani mbekanyamaitele yashu ya tshiphiri",
     "marketing": "Nthumeleni nyeletshedzo dza YGT, mafhungo a zwibveledzwa na zwiṋetshedzo",
-    "marketingHint": "A zwi kombetshedzwi. Ni nga zwi imisa tshifhinga tshiṅwe na tshiṅwe, u bva kha imeiḽi iṅwe na iṅwe kana kha phurofaiḽi yaṋu."
+    "marketingHint": "A zwi kombetshedzwi. Ni nga zwi imisa tshifhinga tshiṅwe na tshiṅwe, u bva kha imeiḽi iṅwe na iṅwe kana kha phurofaiḽi yaṋu.",
+    "agree": "Ndi a tendelana na {{terms}} na {{privacy}}"
   },
   "role": {
     "admin": "Mulanguli",
@@ -2710,7 +2713,8 @@
     "password": "Itani phasiweḓe",
     "submit": "Itani phasiweḓe ni dzhene",
     "badLinkTitle": "Iyi ṱhamo a i koni u shumiswa",
-    "alreadyJoined": "No no dzhena?"
+    "alreadyJoined": "No no dzhena?",
+    "agree": "Nga u ṱanganela, ni a tendelana na {{terms}} na {{privacy}}."
   },
   "attachments": {
     "title": "Zwo nambatedzwaho",

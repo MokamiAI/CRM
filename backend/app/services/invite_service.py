@@ -13,6 +13,7 @@ from datetime import datetime, timedelta, timezone
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.legal import TERMS_VERSION
 from app.core.config import settings
 from app.core.exceptions import AppError
 from app.core.security import hash_password
@@ -91,6 +92,9 @@ class InviteService:
         now = datetime.now(timezone.utc)
         user.password_hash = hash_password(password)
         user.invite_accepted_at = now
+        # Joining says they agree to the terms and privacy policy (shown on the page).
+        user.terms_accepted_at = now
+        user.terms_version = TERMS_VERSION
         if user.email_verified_at is None:
             user.email_verified_at = now
         row.used_at = now

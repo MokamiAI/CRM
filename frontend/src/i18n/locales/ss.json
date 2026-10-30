@@ -1336,7 +1336,9 @@
     "privacy": "Imfihlo",
     "refunds": "Inchubomgomo yekubuyisela imali",
     "terms": "Imibandzela",
-    "updated": "Kubuyeketwe nga-{{date}}"
+    "updated": "Kubuyeketwe nga-{{date}}",
+    "termsFull": "nemigomo nemibandzela",
+    "privacyFull": "nenchubomgomo yebumfihlo"
   },
   "login": {
     "createAccount": "Yenta i-akhawunti yenkampani",
@@ -1746,7 +1748,8 @@
     "protected3": "Imininingwane yenkampani yakho iyimfihlo yelicembu lakho futsi yehlukaniswe nawo onkhe lamanye emabhizinisi, ngekuvumelana ne-POPIA.",
     "privacyLink": "Fundza inchubomgomo yetfu yemfihlo",
     "marketing": "Ngitfumelele emacebiso e-YGT, tindzaba temikhicito netipho",
-    "marketingHint": "Akusiko kuphoceleleka. Ungakumisa nanoma nini, kunoma nguyiphi i-imeyili nome kuphrofayili yakho."
+    "marketingHint": "Akusiko kuphoceleleka. Ungakumisa nanoma nini, kunoma nguyiphi i-imeyili nome kuphrofayili yakho.",
+    "agree": "Ngiyavumelana {{terms}} kanye {{privacy}}"
   },
   "role": {
     "admin": "Umphatsi",
@@ -2710,7 +2713,8 @@
     "password": "Akha liphasiwedi",
     "submit": "Akha liphasiwedi bese uyajoyina",
     "badLinkTitle": "Lesimemo asikhoni kusetjentiswa",
-    "alreadyJoined": "Sewujoyinile?"
+    "alreadyJoined": "Sewujoyinile?",
+    "agree": "Ngekujoyina, uyavumelana {{terms}} kanye {{privacy}}."
   },
   "attachments": {
     "title": "Lokunamatsiselwe",

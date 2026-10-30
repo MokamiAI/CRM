@@ -1336,7 +1336,9 @@
     "privacy": "Privaatheid",
     "refunds": "Terugbetalingsbeleid",
     "terms": "Terme",
-    "updated": "Laas bygewerk {{date}}"
+    "updated": "Laas bygewerk {{date}}",
+    "termsFull": "Bepalings en voorwaardes",
+    "privacyFull": "Privaatheidsbeleid"
   },
   "login": {
     "createAccount": "Skep 'n maatskappyrekening",
@@ -1746,7 +1748,8 @@
     "protected3": "Jou maatskappy se data is privaat vir jou span en apart van elke ander besigheid gehou, in lyn met POPIA.",
     "privacyLink": "Lees ons privaatheidsbeleid",
     "marketing": "Stuur vir my YGT se wenke, produknuus en aanbiedinge",
-    "marketingHint": "Opsioneel. Jy kan dit enige tyd stop, uit enige e-pos of jou profiel."
+    "marketingHint": "Opsioneel. Jy kan dit enige tyd stop, uit enige e-pos of jou profiel.",
+    "agree": "Ek stem in tot die {{terms}} en die {{privacy}}"
   },
   "role": {
     "admin": "Administrateur",
@@ -2710,7 +2713,8 @@
     "password": "Skep 'n wagwoord",
     "submit": "Skep wagwoord en sluit aan",
     "badLinkTitle": "Hierdie uitnodiging kan nie gebruik word nie",
-    "alreadyJoined": "Reeds aangesluit?"
+    "alreadyJoined": "Reeds aangesluit?",
+    "agree": "Deur aan te sluit, stem jy in tot die {{terms}} en die {{privacy}}."
   },
   "attachments": {
     "title": "Aanhegsels",

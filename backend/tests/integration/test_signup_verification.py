@@ -18,7 +18,7 @@ from app.services import email_check, verification_service
 
 from .conftest import ADDRESS
 
-SIGNUP = {"company_name": "Proof Catering", "full_name": "Lerato Mokoena", "password": "Correct-Horse-9", "business_address": ADDRESS}
+SIGNUP = {"company_name": "Proof Catering", "full_name": "Lerato Mokoena", "password": "Correct-Horse-9", "business_address": ADDRESS, "accept_terms": True}
 
 
 def _email() -> str:

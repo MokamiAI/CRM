@@ -1336,7 +1336,9 @@
     "privacy": "Ifihlo",
     "refunds": "Umthetho wokubuyisela imali",
     "terms": "Imigomo",
-    "updated": "Kubuyekezwe ngo-{{date}}"
+    "updated": "Kubuyekezwe ngo-{{date}}",
+    "termsFull": "nemigomo nemibandela",
+    "privacyFull": "nomthethomgomo wefihlo"
   },
   "login": {
     "createAccount": "Yenza i-akhawunti yekampani",
@@ -1746,7 +1748,8 @@
     "protected3": "Imininingwana yekhampani yakho imfihlo yesiqhema sakho begodu yehlukaniswe nawo woke amanye amabhizinisi, ngokuvumelana ne-POPIA.",
     "privacyLink": "Funda umgomo wethu wefihlo",
     "marketing": "Ngithumelela amathiphu we-YGT, iindaba zemikhiqizo neenzuzo",
-    "marketingHint": "Akukatelelekanga. Ungakujamisa nanyana kunini, ku-imeyili nanyana ngiyiphi namkha kuphrofayili yakho."
+    "marketingHint": "Akukatelelekanga. Ungakujamisa nanyana kunini, ku-imeyili nanyana ngiyiphi namkha kuphrofayili yakho.",
+    "agree": "Ngiyavumelana {{terms}} kanye {{privacy}}"
   },
   "role": {
     "admin": "Umphathi",
@@ -2710,7 +2713,8 @@
     "password": "Akha iphasiwedi",
     "submit": "Akha iphasiwedi bese ujoyina",
     "badLinkTitle": "Isimemo lesi asikghoni ukusetjenziswa",
-    "alreadyJoined": "Sele ujoyinile?"
+    "alreadyJoined": "Sele ujoyinile?",
+    "agree": "Ngokujoyina, uyavumelana {{terms}} kanye {{privacy}}."
   },
   "attachments": {
     "title": "Okunamathiselweko",

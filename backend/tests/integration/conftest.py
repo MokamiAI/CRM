@@ -66,7 +66,7 @@ async def new_company(api: AsyncClient, name: str, plan: str = "grow") -> dict:
     email = f"{uuid.uuid4().hex[:12]}@example.com"
     res = await api.post(
         "/auth/register",
-        json={"company_name": name, "full_name": "Test Owner", "email": email, "password": "Correct-Horse-9", "plan": plan, "business_address": ADDRESS},
+        json={"company_name": name, "full_name": "Test Owner", "email": email, "password": "Correct-Horse-9", "plan": plan, "business_address": ADDRESS, "accept_terms": True},
     )
     assert res.status_code == 201, res.text
     await mark_verified(email)

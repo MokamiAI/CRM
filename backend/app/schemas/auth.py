@@ -38,6 +38,15 @@ class RegisterRequest(BaseModel):
     business_address: str = Field(min_length=10, max_length=500)
     # Ticked (never by default): YGT may send them tips, news and offers.
     marketing_opt_in: bool = False
+    # Required: they agree to the terms and privacy policy (recorded).
+    accept_terms: bool = Field(default=False, validate_default=True)
+
+    @field_validator("accept_terms")
+    @classmethod
+    def _terms_accepted(cls, value: bool) -> bool:
+        if not value:
+            raise ValueError("Agree to the terms and privacy policy to create an account")
+        return value
 
     @field_validator("business_address")
     @classmethod

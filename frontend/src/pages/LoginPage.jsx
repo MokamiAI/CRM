@@ -78,6 +78,27 @@ export function AuthShell({ children }) {
   );
 }
 
+/** "I agree to the Terms and conditions and the Privacy policy", with both
+ *  opening in a new tab so the form isn't lost. `text` is a translation
+ *  with {{terms}} and {{privacy}} where the links go. */
+export function TermsLinks({ text }) {
+  const { t } = useTranslation();
+  const links = {
+    terms: ["/terms", t("legal.termsFull")],
+    privacy: ["/privacy", t("legal.privacyFull")],
+  };
+  return text.split(/(\{\{terms\}\}|\{\{privacy\}\})/).map((part, i) => {
+    const key = part.slice(2, -2);
+    if (!links[key] || !part.startsWith("{{")) return part;
+    const [to, label] = links[key];
+    return (
+      <a key={i} href={to} target="_blank" rel="noopener noreferrer" className="font-medium text-indigo-700 underline underline-offset-2 hover:text-indigo-900">
+        {label}
+      </a>
+    );
+  });
+}
+
 export function FormError({ children }) {
   if (!children) return null;
   return (
@@ -191,6 +212,8 @@ export function RegisterPage() {
   const [goal, setGoal] = useState("");
   // YGT's tips, news and offers: never ticked for them (POPIA s69).
   const [marketing, setMarketing] = useState(false);
+  // Required, and recorded on the account (with the terms' version).
+  const [agreed, setAgreed] = useState(false);
   // ?plan=scale from a "Start free trial" button; Grow otherwise.
   const [plan, setPlan] = useState(() => (["hustle", "grow", "scale"].includes(location.search.match(/plan=(\w+)/)?.[1]) ? location.search.match(/plan=(\w+)/)[1] : "grow"));
   // Step 1: who you are; step 2: which plan to try.
@@ -209,7 +232,7 @@ export function RegisterPage() {
     setIsSubmitting(true);
     try {
       const target = Number(String(goal).replace(/[^\d.]/g, ""));
-      await register({ ...form, plan, marketing_opt_in: marketing, ...(target > 0 && { annual_revenue_goal: String(target) }) });
+      await register({ ...form, plan, marketing_opt_in: marketing, accept_terms: agreed, ...(target > 0 && { annual_revenue_goal: String(target) }) });
       navigate("/", { replace: true });
     } catch (err) {
       const code = err?.response?.data?.error_code;
@@ -296,6 +319,12 @@ export function RegisterPage() {
         ) : (
           <>
             <PlanPicker value={plan} onChange={setPlan} />
+            <label className="flex cursor-pointer items-start gap-3 rounded-xl px-1 py-1 text-sm text-zinc-700">
+              <input type="checkbox" required className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
+              <span>
+                <TermsLinks text={t("register.agree", { terms: "{{terms}}", privacy: "{{privacy}}", interpolation: { escapeValue: false } })} />
+              </span>
+            </label>
             <label className="flex cursor-pointer items-start gap-3 rounded-xl px-1 py-1 text-sm text-zinc-700">
               <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} />
               <span>

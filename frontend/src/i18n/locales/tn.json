@@ -1336,7 +1336,9 @@
     "privacy": "Sephiri",
     "refunds": "Pholisi ya go busetsa madi",
     "terms": "Mabaka",
-    "updated": "E ntšhafaditswe ka {{date}}"
+    "updated": "E ntšhafaditswe ka {{date}}",
+    "termsFull": "Mabaka le Dipeelo",
+    "privacyFull": "Pholisi ya Sephiri"
   },
   "login": {
     "createAccount": "Dira akhaonto ya khampani",
@@ -1746,7 +1748,8 @@
     "protected3": "Data ya khampani ya gago ke sephiri sa setlhopha sa gago e bile e kgaogantswe le dikgwebo tse dingwe tsotlhe, go ya ka POPIA.",
     "privacyLink": "Bala pholisi ya rona ya sephiri",
     "marketing": "Nthomelela dikgakololo tsa YGT, dikgang tsa ditlhagiswa le dikabelo",
-    "marketingHint": "Ga se kgapeletso. O ka di emisa nako nngwe le nngwe, go tswa mo imeileng nngwe le nngwe kgotsa mo profaeleng ya gago."
+    "marketingHint": "Ga se kgapeletso. O ka di emisa nako nngwe le nngwe, go tswa mo imeileng nngwe le nngwe kgotsa mo profaeleng ya gago.",
+    "agree": "Ke dumalana le {{terms}} le {{privacy}}"
   },
   "role": {
     "admin": "Motsamaisi",
@@ -2710,7 +2713,8 @@
     "password": "Dira lefoko-sephiri",
     "submit": "Dira lefoko-sephiri mme o tsene",
     "badLinkTitle": "Taletso e ga e kgone go dirisiwa",
-    "alreadyJoined": "O setse o tsene?"
+    "alreadyJoined": "O setse o tsene?",
+    "agree": "Ka go tsenela, o dumalana le {{terms}} le {{privacy}}."
   },
   "attachments": {
     "title": "Dikgomaretso",

@@ -43,6 +43,10 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     marketing_opt_in: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
     marketing_opt_in_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     marketing_opt_in_source: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    # When they agreed to the terms and privacy policy, and which version
+    # (core/legal.TERMS_VERSION). None: before YGT recorded it.
+    terms_accepted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    terms_version: Mapped[str | None] = mapped_column(String(20), nullable=True)
 
     @property
     def can_receive_tasks(self) -> bool:

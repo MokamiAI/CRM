@@ -18,7 +18,7 @@ from .conftest import ADDRESS, mark_verified, new_company
 async def sign_up(api, name, **extra):
     email = f"{uuid.uuid4().hex[:12]}@example.com"
     res = await api.post("/auth/register", json={
-        "company_name": name, "full_name": "Test Owner", "email": email, "password": "Correct-Horse-9", "business_address": ADDRESS, **extra,
+        "company_name": name, "full_name": "Test Owner", "email": email, "password": "Correct-Horse-9", "business_address": ADDRESS, "accept_terms": True, **extra,
     })
     assert res.status_code == 201, res.text
     await mark_verified(email)

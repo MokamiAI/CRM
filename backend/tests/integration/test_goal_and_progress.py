@@ -56,7 +56,7 @@ async def test_goal_can_be_set_at_sign_up(api):
 
     email = f"{uuid.uuid4().hex[:10]}@example.com"
     res = await api.post("/auth/register", json={"company_name": "Goal At Signup", "full_name": "Owner", "email": email,
-                                                  "password": "Correct-Horse-9", "annual_revenue_goal": "500000", "business_address": ADDRESS})
+                                                  "password": "Correct-Horse-9", "annual_revenue_goal": "500000", "business_address": ADDRESS, "accept_terms": True})
     assert res.status_code == 201, res.text
     await mark_verified(email)
     h = {"Authorization": f"Bearer {res.json()['access_token']}"}

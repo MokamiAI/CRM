@@ -1336,7 +1336,9 @@
     "privacy": "Lekunutu",
     "refunds": "Leano la ho kgutlisa tjhelete",
     "terms": "Dipehelo",
-    "updated": "E ntjhafaditswe ka {{date}}"
+    "updated": "E ntjhafaditswe ka {{date}}",
+    "termsFull": "Dipehelo le Maemo",
+    "privacyFull": "Leano la Lekunutu"
   },
   "login": {
     "createAccount": "Etsa akhaonto ya khampani",
@@ -1746,7 +1748,8 @@
     "protected3": "Data ya khampani ya hao ke lekunutu la sehlopha sa hao mme e arohantswe le dikgwebo tse ding kaofela, ho latela POPIA.",
     "privacyLink": "Bala leano la rona la lekunutu",
     "marketing": "Nthomelle malebela a YGT, ditaba tsa dihlahiswa le dinyehelo",
-    "marketingHint": "Ha se tlamo. O ka di emisa neng kapa neng, ho tswa ho imeile efe kapa efe kapa profaeleng ya hao."
+    "marketingHint": "Ha se tlamo. O ka di emisa neng kapa neng, ho tswa ho imeile efe kapa efe kapa profaeleng ya hao.",
+    "agree": "Ke dumellana le {{terms}} le {{privacy}}"
   },
   "role": {
     "admin": "Motsamaisi",
@@ -2710,7 +2713,8 @@
     "password": "Etsa phasewete",
     "submit": "Etsa phasewete mme o kene",
     "badLinkTitle": "Memo ena e ke ke ya sebediswa",
-    "alreadyJoined": "O se o kene?"
+    "alreadyJoined": "O se o kene?",
+    "agree": "Ka ho kenela, o dumellana le {{terms}} le {{privacy}}."
   },
   "attachments": {
     "title": "Dikgomaretso",

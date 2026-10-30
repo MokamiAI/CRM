@@ -17,6 +17,7 @@ from app.models.enums import UserRole
 from app.models.user import RefreshToken, User
 from app.repositories.refresh_token_repository import RefreshTokenRepository
 from app.repositories.user_repository import UserRepository
+from app.core.legal import TERMS_VERSION
 from app.schemas.auth import RegisterRequest, TokenResponse
 from app.services.billing_service import new_trial
 from app.services.email_check import ensure_deliverable
@@ -73,6 +74,8 @@ class AuthService:
             marketing_opt_in=data.marketing_opt_in,
             marketing_opt_in_at=datetime.now(timezone.utc),
             marketing_opt_in_source="signup",
+            terms_accepted_at=datetime.now(timezone.utc),
+            terms_version=TERMS_VERSION,
         )
         self.db.add(user)
         await self.db.flush()

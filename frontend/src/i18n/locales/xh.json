@@ -1336,7 +1336,9 @@
     "privacy": "Ubumfihlo",
     "refunds": "Umgaqo-nkqubo wembuyekezo",
     "terms": "Imiqathango",
-    "updated": "Kuhlaziywe ngo-{{date}}"
+    "updated": "Kuhlaziywe ngo-{{date}}",
+    "termsFull": "nemiqathango",
+    "privacyFull": "nomgaqo-nkqubo wabucala"
   },
   "login": {
     "createAccount": "Yenza iakhawunti yenkampani",
@@ -1746,7 +1748,8 @@
     "protected3": "Iinkcukacha zenkampani yakho ziyimfihlo kwiqela lakho kwaye zahlulwe kuwo onke amanye amashishini, ngokuhambelana ne-POPIA.",
     "privacyLink": "Funda umgaqo-nkqubo wethu wabucala",
     "marketing": "Ndithumelele iingcebiso ze-YGT, iindaba zemveliso kunye nezibonelelo",
-    "marketingHint": "Akunyanzelekanga. Unokuyimisa nanini na, kuyo nayiphi na i-imeyile okanye kwiprofayile yakho."
+    "marketingHint": "Akunyanzelekanga. Unokuyimisa nanini na, kuyo nayiphi na i-imeyile okanye kwiprofayile yakho.",
+    "agree": "Ndiyavumelana {{terms}} kunye {{privacy}}"
   },
   "role": {
     "admin": "Umlawuli",
@@ -2710,7 +2713,8 @@
     "password": "Yenza ipaswedi",
     "submit": "Yenza ipaswedi uze ujoyine",
     "badLinkTitle": "Esi simemo asinakusetyenziswa",
-    "alreadyJoined": "Sele ujoyinile?"
+    "alreadyJoined": "Sele ujoyinile?",
+    "agree": "Ngokujoyina, uyavumelana {{terms}} kunye {{privacy}}."
   },
   "attachments": {
     "title": "Izincamathelo",

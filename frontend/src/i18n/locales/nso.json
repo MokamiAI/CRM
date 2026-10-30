@@ -1336,7 +1336,9 @@
     "privacy": "Sephiri",
     "refunds": "Pholisi ya go bušetša tšhelete",
     "terms": "Mabaka",
-    "updated": "E mpshafaditšwe ka {{date}}"
+    "updated": "E mpshafaditšwe ka {{date}}",
+    "termsFull": "Mabaka le Dipeelano",
+    "privacyFull": "Pholisi ya Sephiri"
   },
   "login": {
     "createAccount": "Hlama akhaonte ya khamphani",
@@ -1746,7 +1748,8 @@
     "protected3": "Data ya khamphani ya gago ke sephiri sa sehlopha sa gago gomme e aroganywa le dikgwebo tše dingwe ka moka, go ya ka POPIA.",
     "privacyLink": "Bala pholisi ya rena ya sephiri",
     "marketing": "Nthomelela maele a YGT, ditaba tša ditšweletšwa le dikgothatšo",
-    "marketingHint": "Ga se gapeletšo. O ka di emiša nako efe goba efe, go tšwa go imeile efe goba efe goba profaeleng ya gago."
+    "marketingHint": "Ga se gapeletšo. O ka di emiša nako efe goba efe, go tšwa go imeile efe goba efe goba profaeleng ya gago.",
+    "agree": "Ke dumelelana le {{terms}} le {{privacy}}"
   },
   "role": {
     "admin": "Molaodi",
@@ -2710,7 +2713,8 @@
     "password": "Hlama phasewete",
     "submit": "Hlama phasewete gomme o tsene",
     "badLinkTitle": "Taletšo ye e ka se šomišwe",
-    "alreadyJoined": "O šetše o tsene?"
+    "alreadyJoined": "O šetše o tsene?",
+    "agree": "Ka go tsenela, o dumelelana le {{terms}} le {{privacy}}."
   },
   "attachments": {
     "title": "Dikgomaretšo",
