@@ -9,6 +9,9 @@ import "@fontsource-variable/inter";
 import { i18nReady } from "./i18n";
 import "./utils/install"; // early, so the browser's install offer isn't missed
 import "./index.css";
+import { installAutosize } from "./utils/autosize";
+
+installAutosize(); // every text box grows with its text
 
 const queryClient = new QueryClient({
   defaultOptions: {

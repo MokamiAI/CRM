@@ -151,8 +151,10 @@ a,
       border-color 150ms ease,
       box-shadow 150ms ease;
   }
+  /* Grows with its text (utils/autosize.js); dragging the corner still works. */
   textarea.input {
     @apply h-auto py-2;
+    resize: vertical;
   }
   .input:focus {
     @apply border-blue-500 outline-none ring-4 ring-blue-600/10;

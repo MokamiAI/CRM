@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -571,16 +571,8 @@ function SavedItems({ onLoad, currentItems, canSave }) {
  *  the line, starts at two lines and grows as it's written. */
 function LineDetails({ item, onChange }) {
   const { t } = useTranslation();
-  const box = useRef(null);
-  useLayoutEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    el.style.height = "auto";
-    el.style.height = `${Math.min(el.scrollHeight + 2, 320)}px`;
-  }, [item.details]);
   return (
     <textarea
-      ref={box}
       className="input mt-2 min-h-[4.25rem] resize-y py-2.5 text-sm leading-relaxed"
       rows={2}
       maxLength={5000}
