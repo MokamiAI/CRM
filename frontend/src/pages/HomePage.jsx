@@ -1,13 +1,12 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
-import LanguagePicker from "../components/LanguagePicker";
+import { APP_FULL_NAME, APP_NAME } from "../components/Brand";
 import HomeScene from "../components/home/HomeScene";
 import HomePeople from "../components/home/HomePeople";
 import HomeSavings from "../components/home/HomeSavings";
 import { FEATURES, FeatureIcon, Pricing } from "./AboutPage";
-import { PublicFooter } from "./PublicPages";
+import { PublicFooter, PublicHeader } from "./PublicPages";
 import { INTRO_CLASS, INTRO_DONE, StartupIntro } from "../components/Startup";
 
 const STEPS = ["setup", "manage", "track"];
@@ -53,6 +52,11 @@ export default function HomePage() {
   const { t } = useTranslation();
   const page = useRef(null);
   useReveal(page);
+  // Arriving from another page's Features, Pricing or Questions tab.
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
+  }, [hash]);
   const start = (
     <Link to="/register" className="btn btn-primary !h-11 !px-5 !text-[15px]">
       {t("home.hero.ctaTrial")}
@@ -68,30 +72,7 @@ export default function HomePage() {
       </div>
 
       <div className="safe-top relative mx-auto max-w-6xl px-5 sm:px-6">
-        <header className="hero-rise flex items-center gap-3 py-5">
-          <Link to="/" className="flex min-h-10 items-center gap-2.5 rounded-lg [@media(pointer:coarse)]:min-h-11">
-            <BrandMark size="sm" />
-            <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
-          </Link>
-          <nav className="ml-6 hidden items-center gap-5 text-sm text-zinc-600 md:flex" aria-label={t("home.nav.label")}>
-            <a href="#features" className="hover:text-zinc-900">{t("home.nav.features")}</a>
-            <a href="#pricing" className="hover:text-zinc-900">{t("home.nav.pricing")}</a>
-            <a href="#faq" className="hover:text-zinc-900">{t("home.nav.faq")}</a>
-            <Link to="/assessment" className="font-medium text-indigo-700 hover:text-indigo-900">
-              {t("home.nav.checkup")}
-            </Link>
-            <Link to="/about" className="hover:text-zinc-900">{t("about.link")}</Link>
-          </nav>
-          <div className="ml-auto flex items-center gap-2 sm:gap-3">
-            <LanguagePicker />
-            <Link to="/login" className="btn btn-secondary !h-9 !text-sm [@media(pointer:coarse)]:!h-11">
-              {t("login.signIn")}
-            </Link>
-            <Link to="/register" className="btn btn-primary hidden !h-9 !text-sm sm:inline-flex">
-              {t("home.nav.start")}
-            </Link>
-          </div>
-        </header>
+        <PublicHeader className="hero-rise" />
 
         <main>
         {/* What it is, for whom, and the way in. */}

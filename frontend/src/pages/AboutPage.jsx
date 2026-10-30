@@ -3,9 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 import { APP_FULL_NAME, APP_NAME, BrandMark, COMPANY_NAME } from "../components/Brand";
-import LanguagePicker from "../components/LanguagePicker";
 import { IntervalToggle, PlanCard } from "../components/Billing";
-import { ContactForm, PublicNav } from "./PublicPages";
+import { ContactForm, PublicHeader } from "./PublicPages";
 import { usePlans } from "../hooks/useApi";
 import { LANGUAGES } from "../i18n/languages";
 import pkg from "../../package.json";
@@ -74,21 +73,10 @@ export default function AboutPage() {
         <span className="aurora-blob -left-24 top-[-4rem] h-80 w-80 bg-violet-300" />
         <span className="aurora-blob right-[-6rem] top-[2rem] h-80 w-80 bg-sky-300" />
       </div>
-      <div className="safe-top relative mx-auto max-w-4xl px-6">
-        <header className="flex flex-wrap items-center gap-x-2.5 py-6">
-          {/* Home for people signed in; the sign-in page for everyone else. */}
-          <Link to="/" className="flex min-h-10 items-center gap-2.5 rounded-lg [@media(pointer:coarse)]:min-h-11">
-            <BrandMark size="sm" />
-            <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
-          </Link>
-          <PublicNav />
-          <div className="ml-auto flex items-center gap-3">
-            <LanguagePicker />
-            <Link to={user ? "/" : "/login"} className="btn btn-secondary !h-9 !text-sm [@media(pointer:coarse)]:!h-11">
-              {t(user ? "about.backToApp" : "login.signIn")}
-            </Link>
-          </div>
-        </header>
+      <div className="safe-top relative mx-auto max-w-6xl px-5 sm:px-6">
+        <PublicHeader />
+      </div>
+      <div className="relative mx-auto max-w-4xl px-6">
 
         <main>
         <section className="py-12 text-center sm:py-16">

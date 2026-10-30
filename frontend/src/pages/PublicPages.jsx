@@ -23,27 +23,15 @@ export const LEGAL = {
 };
 const missing = (value) => value || "[to be added]";
 
-/** The frame for public pages: brand, language, sign in, and the footer links. */
+/** The frame for public pages: the header, the page, and the footer links. */
 export function PublicShell({ children, narrow = false }) {
-  const { t } = useTranslation();
-  const { user } = useAuth();
   useEffect(markArrived, []);
   return (
     <div className="min-h-[100dvh] bg-white">
-      <div className={`safe-top mx-auto px-6 ${narrow ? "max-w-3xl" : "max-w-4xl"}`}>
-        <header className="flex flex-wrap items-center gap-x-2.5 py-6">
-          <Link to="/" className="flex items-center gap-2.5 rounded-lg">
-            <BrandMark size="sm" />
-            <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
-          </Link>
-          <PublicNav />
-          <div className="ml-auto flex items-center gap-3">
-            <LanguagePicker />
-            <Link to={user ? "/" : "/login"} className="btn btn-secondary !h-9 !text-sm">
-              {t(user ? "about.backToApp" : "login.signIn")}
-            </Link>
-          </div>
-        </header>
+      <div className="safe-top mx-auto max-w-6xl px-5 sm:px-6">
+        <PublicHeader />
+      </div>
+      <div className={`mx-auto px-6 ${narrow ? "max-w-3xl" : "max-w-4xl"}`}>
         {children}
         <PublicFooter />
       </div>
@@ -51,40 +39,69 @@ export function PublicShell({ children, narrow = false }) {
   );
 }
 
-/** The public pages' tabs: home, the check-up, prices, about and contact.
-    Beside the logo on wide screens; its own scrolling row under it on phones. */
-export function PublicNav() {
+/** The one header every public page shares, the home page's: brand, the
+    tabs, language, sign in and the trial. On phones the tabs get their own
+    scrolling row under it. Features, pricing and questions live on the home
+    page, so elsewhere they link there. */
+export function PublicHeader({ className = "" }) {
   const { t } = useTranslation();
-  const { pathname, hash } = useLocation();
+  const { user } = useAuth();
+  const { pathname } = useLocation();
+  const section = (id) => (pathname === "/" ? `#${id}` : `/#${id}`);
   const links = [
-    ["/", t("nav.home")],
-    ["/assessment", t("home.nav.checkup")],
-    ["/about#about-pricing", t("home.nav.pricing")],
+    [section("features"), t("home.nav.features")],
+    [section("pricing"), t("home.nav.pricing")],
+    [section("faq"), t("home.nav.faq")],
+    ["/assessment", t("home.nav.checkup"), true],
     ["/about", t("about.link")],
-    ["/contact", t("contact.link")],
   ];
-  const isCurrent = (to) => {
-    const [path, part] = to.split("#");
-    return path === pathname && (part ? hash === `#${part}` : !hash);
-  };
   return (
-    <nav aria-label={t("home.nav.label")} className="order-last -mx-6 mt-4 w-[calc(100%+3rem)] overflow-x-auto px-6 lg:order-none lg:mx-0 lg:ml-6 lg:mt-0 lg:w-auto lg:overflow-visible lg:px-0">
-      <ul className="flex gap-1 whitespace-nowrap text-sm">
-        {links.map(([to, label]) => (
-          <li key={to}>
-            <Link
-              to={to}
-              aria-current={isCurrent(to) ? "page" : undefined}
-              className={`inline-flex min-h-9 items-center rounded-lg px-2.5 font-medium [@media(pointer:coarse)]:min-h-11 ${
-                isCurrent(to) ? "bg-indigo-50 text-indigo-700" : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
-              }`}
-            >
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <header className={`flex flex-wrap items-center gap-3 py-5 ${className}`}>
+      <Link to="/" className="flex min-h-10 items-center gap-2.5 rounded-lg [@media(pointer:coarse)]:min-h-11">
+        <BrandMark size="sm" />
+        <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
+      </Link>
+      <nav
+        aria-label={t("home.nav.label")}
+        className="order-last -mx-5 w-[calc(100%+2.5rem)] overflow-x-auto px-5 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:order-none md:mx-0 md:ml-6 md:w-auto md:overflow-visible md:px-0"
+      >
+        <ul className="flex gap-5 whitespace-nowrap text-sm">
+          {links.map(([to, label, accent]) => {
+            const current = to === pathname;
+            const look = accent
+              ? `font-medium text-indigo-700 hover:text-indigo-900 ${current ? "underline decoration-2 underline-offset-8" : ""}`
+              : current
+                ? "font-medium text-zinc-900"
+                : "text-zinc-600 hover:text-zinc-900";
+            const box = `inline-flex min-h-9 items-center [@media(pointer:coarse)]:min-h-11 ${look}`;
+            return (
+              <li key={to}>
+                {to.startsWith("#") ? (
+                  <a href={to} className={box}>
+                    {label}
+                  </a>
+                ) : (
+                  <Link to={to} aria-current={current ? "page" : undefined} className={box}>
+                    {label}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+      <div className="ml-auto flex items-center gap-2 sm:gap-3">
+        <LanguagePicker />
+        <Link to={user ? "/" : "/login"} className="btn btn-secondary !h-9 !text-sm [@media(pointer:coarse)]:!h-11">
+          {t(user ? "about.backToApp" : "login.signIn")}
+        </Link>
+        {!user && (
+          <Link to="/register" className="btn btn-primary hidden !h-9 !text-sm sm:inline-flex">
+            {t("home.nav.start")}
+          </Link>
+        )}
+      </div>
+    </header>
   );
 }
 
