@@ -2682,7 +2682,10 @@
     },
     "goToActivities": "Eya mesebetsing",
     "marketingConsent": "Na YGT e ka o romella malebela, ditaba le dinyehelo?",
-    "marketingConsentBody": "Araba tsebisong e kaholimo ho leqephe. O ka fetola mohopolo neng kapa neng profaeleng ya hao."
+    "marketingConsentBody": "Araba tsebisong e kaholimo ho leqephe. O ka fetola mohopolo neng kapa neng profaeleng ya hao.",
+    "teamMessage": "{{by}} ho #{{channel}}",
+    "teamMany_one": "Molaetsa o motjha o {{count}} ho #{{channel}}",
+    "teamMany_other": "Melaetsa e metjha e {{count}} ho #{{channel}}"
   },
   "task": {
     "status": {

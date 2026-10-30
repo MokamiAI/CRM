@@ -36,6 +36,8 @@ export function notificationText(n, t) {
       return { title: p.status ? t("notify.updated", { by: p.by, status: t(`task.status.${p.status}`), subject: p.subject }) : t("notify.noted", { by: p.by, subject: p.subject }), body: p.note };
     case "deal_no_next_step":
       return { title: t("notify.noNextStep", { deal: p.deal }), body: t("notify.noNextStepBody") };
+    case "team_message":
+      return { title: p.count > 1 ? t("notify.teamMany", { count: p.count, channel: p.channel }) : t("notify.teamMessage", { by: p.by, channel: p.channel }), body: p.count > 1 ? `${p.by}: ${p.text}` : p.text };
     case "marketing_consent":
       return { title: t("notify.marketingConsent"), body: t("notify.marketingConsentBody") };
     case "test":
@@ -89,13 +91,18 @@ export function NotificationPopper() {
   useEffect(() => {
     if (!data) return;
     const items = data.items ?? [];
+    // A team chat's notification is reused for its next message, with a new
+    // time, so it's news again.
+    const id = (n) => `${n.id}@${n.created_at}`;
     if (seen.current === null) {
       // First load: what's already there isn't news.
-      seen.current = new Set(items.map((n) => n.id));
+      seen.current = new Set(items.map(id));
       return;
     }
-    const fresh = items.filter((n) => !seen.current.has(n.id) && !n.read_at);
-    items.forEach((n) => seen.current.add(n.id));
+    // Not for the chat being read right now.
+    const reading = (n) => n.kind === "team_message" && window.location.search.includes(n.params?.channel_id);
+    const fresh = items.filter((n) => !seen.current.has(id(n)) && !n.read_at && !reading(n));
+    items.forEach((n) => seen.current.add(id(n)));
     if (!fresh.length) return;
     chime();
     for (const n of fresh.slice(0, 3)) {

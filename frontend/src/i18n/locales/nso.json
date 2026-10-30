@@ -2682,7 +2682,10 @@
     },
     "goToActivities": "Eya mešomong",
     "marketingConsent": "Na YGT e ka go romela maele, ditaba le dikgothatšo?",
-    "marketingConsentBody": "Araba tsebišong ye e lego godimo ga letlakala. O ka fetola monagano nako efe goba efe profaeleng ya gago."
+    "marketingConsentBody": "Araba tsebišong ye e lego godimo ga letlakala. O ka fetola monagano nako efe goba efe profaeleng ya gago.",
+    "teamMessage": "{{by}} go #{{channel}}",
+    "teamMany_one": "Molaetša o moswa o {{count}} go #{{channel}}",
+    "teamMany_other": "Melaetša ye mefsa ye {{count}} go #{{channel}}"
   },
   "task": {
     "status": {

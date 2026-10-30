@@ -2682,7 +2682,10 @@
     },
     "goToActivities": "Iya emisebenzini",
     "marketingConsent": "Ingabe i-YGT ingakuthumelela amathiphu, izindaba neminikelo?",
-    "marketingConsentBody": "Phendula esaziso esiphezulu ekhasini. Ungashintsha umqondo wakho noma nini kuphrofayela yakho."
+    "marketingConsentBody": "Phendula esaziso esiphezulu ekhasini. Ungashintsha umqondo wakho noma nini kuphrofayela yakho.",
+    "teamMessage": "{{by}} ku-#{{channel}}",
+    "teamMany_one": "Umlayezo omusha o-{{count}} ku-#{{channel}}",
+    "teamMany_other": "Imilayezo emisha engu-{{count}} ku-#{{channel}}"
   },
   "task": {
     "status": {

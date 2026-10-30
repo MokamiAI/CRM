@@ -2682,7 +2682,10 @@
     },
     "goToActivities": "Hamba emisebentini",
     "marketingConsent": "Ingabe i-YGT ingakutfumelela emacebiso, tindzaba netipho?",
-    "marketingConsentBody": "Phendvula esatisweni lesisetulu ekhasini. Ungashintja umcondvo wakho nanoma nini kuphrofayili yakho."
+    "marketingConsentBody": "Phendvula esatisweni lesisetulu ekhasini. Ungashintja umcondvo wakho nanoma nini kuphrofayili yakho.",
+    "teamMessage": "{{by}} ku-#{{channel}}",
+    "teamMany_one": "Umlayeto lomusha lo-{{count}} ku-#{{channel}}",
+    "teamMany_other": "Imilayeto lemisha lengu-{{count}} ku-#{{channel}}"
   },
   "task": {
     "status": {

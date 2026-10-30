@@ -21,7 +21,7 @@ class Notification(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     __table_args__ = (UniqueConstraint("user_id", "key", name="uq_notifications_user_key"),)
 
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
-    # activity_due | task_assigned | task_update | deal_no_next_step
+    # activity_due | task_assigned | task_update | deal_no_next_step | team_message | ...
     kind: Mapped[str] = mapped_column(String(40), nullable=False)
     # Shown in the app in the person's language (from kind + params);
     # title/body are the English text for email and push.

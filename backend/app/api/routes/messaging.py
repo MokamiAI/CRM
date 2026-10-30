@@ -139,9 +139,12 @@ async def channel_messages(
     channel_id: uuid.UUID,
     after: datetime | None = None,
     db: AsyncSession = Depends(get_db),
-    _: User = Depends(get_current_user),
+    user: User = Depends(get_current_user),
 ):
-    return await MessagingService(db).team_messages(channel_id, after)
+    service = MessagingService(db)
+    messages = await service.team_messages(channel_id, after)
+    await service.read_team_channel(channel_id, user)
+    return messages
 
 
 @router.post("/team-chat/channels/{channel_id}/messages", response_model=TeamMessageOut, status_code=201, dependencies=[Depends(plan_feature(TEAM_CHAT))])

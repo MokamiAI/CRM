@@ -2682,7 +2682,10 @@
     },
     "goToActivities": "Yana eka mintirho",
     "marketingConsent": "Xana YGT yi nga ku rhumela switsundzuxo, mahungu na swinyiko?",
-    "marketingConsentBody": "Hlamula eka xitiviso lexi nga ehenhla ka pheji. U nga cinca miehleketo nkarhi wun'wana na wun'wana eka phurofayili ya wena."
+    "marketingConsentBody": "Hlamula eka xitiviso lexi nga ehenhla ka pheji. U nga cinca miehleketo nkarhi wun'wana na wun'wana eka phurofayili ya wena.",
+    "teamMessage": "{{by}} eka #{{channel}}",
+    "teamMany_one": "Rungula lerintshwa ra {{count}} eka #{{channel}}",
+    "teamMany_other": "Marungula lamantshwa ya {{count}} eka #{{channel}}"
   },
   "task": {
     "status": {

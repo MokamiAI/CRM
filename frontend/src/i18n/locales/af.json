@@ -2682,7 +2682,10 @@
     },
     "goToActivities": "Gaan na aktiwiteite",
     "marketingConsent": "Mag YGT vir jou wenke, nuus en aanbiedinge stuur?",
-    "marketingConsentBody": "Antwoord op die kennisgewing bo-aan die bladsy. Jy kan enige tyd in jou profiel van plan verander."
+    "marketingConsentBody": "Antwoord op die kennisgewing bo-aan die bladsy. Jy kan enige tyd in jou profiel van plan verander.",
+    "teamMessage": "{{by}} in #{{channel}}",
+    "teamMany_one": "{{count}} nuwe boodskap in #{{channel}}",
+    "teamMany_other": "{{count}} nuwe boodskappe in #{{channel}}"
   },
   "task": {
     "status": {

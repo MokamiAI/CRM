@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime, timezone
 from email.utils import make_msgid
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
@@ -352,8 +352,44 @@ class MessagingService:
         return latest[::-1]
 
     async def post_team_message(self, channel_id: uuid.UUID, body: str, user: User) -> TeamMessage:
-        await self._channel(channel_id)
+        channel = await self._channel(channel_id)
         message = TeamMessage(channel_id=channel_id, author_id=user.id, body=body.strip(), created_at=_now())
         self.db.add(message)
         await self.db.flush()
+        await self._tell_team(channel, message, user)
         return message
+
+    async def _tell_team(self, channel: TeamChannel, message: TeamMessage, author: User) -> None:
+        """Everyone else in the company hears about a new team message: in
+        the bell and as an alert on their devices, not by email (a busy chat
+        would flood inboxes). While unread, a channel's news is one
+        notification that keeps the latest message and counts the rest."""
+        from app.models.notification import Notification
+        from app.services import notify
+
+        key = f"team:{channel.id}"
+        text = message.body if len(message.body) <= 140 else message.body[:139].rstrip() + "…"
+        others = await self.db.scalars(select(User).where(
+            User.company_id == author.company_id, User.id != author.id, User.is_active.is_(True)))
+        for person in others.all():
+            note = await self.db.scalar(select(Notification).where(Notification.user_id == person.id, Notification.key == key))
+            count = note.params.get("count", 1) + 1 if note is not None and note.read_at is None else 1
+            params = {"by": author.full_name, "channel": channel.name, "channel_id": str(channel.id), "count": count, "text": text}
+            title = f"{count} new messages in #{channel.name}" if count > 1 else f"{author.full_name} in #{channel.name}"
+            body = f"{author.full_name}: {text}"
+            link = f"/messages?tab=team&ch={channel.id}"
+            if note is None:
+                await notify.notify(self.db, person, kind="team_message", title=title, body=body, link=link, params=params, key=key, email=False)
+                continue
+            note.params, note.title, note.body, note.link = params, title[:255], body, link
+            note.read_at, note.created_at = None, _now()
+            await self.db.commit()
+            if notify.push_enabled():
+                await notify._dispatch_push(note.id)
+
+    async def read_team_channel(self, channel_id: uuid.UUID, user: User) -> None:
+        """Opening a channel reads its notification."""
+        from app.models.notification import Notification
+
+        await self.db.execute(update(Notification).where(
+            Notification.user_id == user.id, Notification.key == f"team:{channel_id}", Notification.read_at.is_(None)).values(read_at=_now()))

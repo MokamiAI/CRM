@@ -2711,7 +2711,10 @@
     },
     "goToActivities": "Go to activities",
     "marketingConsent": "May YGT send you tips, news and offers?",
-    "marketingConsentBody": "Answer on the notice at the top of the page. You can change your mind at any time in your profile."
+    "marketingConsentBody": "Answer on the notice at the top of the page. You can change your mind at any time in your profile.",
+    "teamMessage": "{{by}} in #{{channel}}",
+    "teamMany_one": "{{count}} new message in #{{channel}}",
+    "teamMany_other": "{{count}} new messages in #{{channel}}"
   },
   "campaignTemplates": {
     "title": "What do you want to do?",

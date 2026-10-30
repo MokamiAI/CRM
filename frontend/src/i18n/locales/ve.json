@@ -2682,7 +2682,10 @@
     },
     "goToActivities": "Iyani kha mishumo",
     "marketingConsent": "YGT i nga ni rumela nyeletshedzo, mafhungo na zwiṋetshedzo?",
-    "marketingConsentBody": "Fhindulani kha nḓivhadzo i re nṱha ha siaṱari. Ni nga shandukisa muhumbulo tshifhinga tshiṅwe na tshiṅwe kha phurofaiḽi yaṋu."
+    "marketingConsentBody": "Fhindulani kha nḓivhadzo i re nṱha ha siaṱari. Ni nga shandukisa muhumbulo tshifhinga tshiṅwe na tshiṅwe kha phurofaiḽi yaṋu.",
+    "teamMessage": "{{by}} kha #{{channel}}",
+    "teamMany_one": "Mulaedza muswa wa {{count}} kha #{{channel}}",
+    "teamMany_other": "Milaedza miswa ya {{count}} kha #{{channel}}"
   },
   "task": {
     "status": {

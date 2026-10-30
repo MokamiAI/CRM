@@ -2682,7 +2682,10 @@
     },
     "goToActivities": "Ya kwa ditirong",
     "marketingConsent": "A YGT e ka go romelela dikgakololo, dikgang le dikabelo?",
-    "marketingConsentBody": "Araba mo kitsisong e e kwa godimo ga tsebe. O ka fetola mogopolo nako nngwe le nngwe mo profaeleng ya gago."
+    "marketingConsentBody": "Araba mo kitsisong e e kwa godimo ga tsebe. O ka fetola mogopolo nako nngwe le nngwe mo profaeleng ya gago.",
+    "teamMessage": "{{by}} mo #{{channel}}",
+    "teamMany_one": "Molaetsa o mošwa o {{count}} mo #{{channel}}",
+    "teamMany_other": "Melaetsa e mešwa e {{count}} mo #{{channel}}"
   },
   "task": {
     "status": {
