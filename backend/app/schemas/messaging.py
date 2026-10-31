@@ -96,6 +96,13 @@ class InboundEmail(BaseModel):
 
 class ChannelCreate(BaseModel):
     name: str = Field(min_length=1, max_length=60)
+    # Who can see the space, besides whoever creates it.
+    member_ids: list[uuid.UUID] = Field(default_factory=list, max_length=500)
+
+
+class ChannelUpdate(BaseModel):
+    name: str | None = Field(default=None, min_length=1, max_length=60)
+    member_ids: list[uuid.UUID] | None = Field(default=None, max_length=500)
 
 
 class ChannelOut(BaseModel):
@@ -104,10 +111,50 @@ class ChannelOut(BaseModel):
     id: uuid.UUID
     name: str
     created_at: datetime
+    is_private: bool = False
+    created_by: uuid.UUID | None = None
+    # Private spaces only; an open channel is everyone's.
+    member_ids: list[uuid.UUID] = Field(default_factory=list)
+    # The whole team's first channel: can't be renamed into a space or deleted.
+    is_general: bool = False
+
+
+REACTIONS = ("👍", "❤️", "😂", "🎉", "🙏", "👀", "✅")
 
 
 class TeamMessageCreate(BaseModel):
     body: str = Field(min_length=1, max_length=5_000)
+    reply_to_id: uuid.UUID | None = None
+    # People named with @ in the message: told directly.
+    mention_ids: list[uuid.UUID] = Field(default_factory=list, max_length=50)
+
+
+class TeamMessageEdit(BaseModel):
+    body: str = Field(min_length=1, max_length=5_000)
+
+
+class ReactionToggle(BaseModel):
+    emoji: str = Field(min_length=1, max_length=16)
+
+
+class TeamAttachmentOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    filename: str
+    content_type: str
+    size: int
+
+
+class TeamReactionOut(BaseModel):
+    emoji: str
+    user_ids: list[uuid.UUID]
+
+
+class TeamReplyOut(BaseModel):
+    id: uuid.UUID
+    author_id: uuid.UUID | None
+    body: str
 
 
 class TeamMessageOut(BaseModel):
@@ -118,6 +165,11 @@ class TeamMessageOut(BaseModel):
     author_id: uuid.UUID | None
     body: str
     created_at: datetime
+    edited_at: datetime | None = None
+    reply_to_id: uuid.UUID | None = None
+    reply_to: TeamReplyOut | None = None
+    attachments: list[TeamAttachmentOut] = Field(default_factory=list)
+    reactions: list[TeamReactionOut] = Field(default_factory=list)
 
 
 # ---------- Channel connections (Settings) ----------

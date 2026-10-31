@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../context/AuthContext";
 
 // Famous lines from salespeople, sales trainers and people who built
 // businesses on selling. Kept in their original words. One per week, in order.
@@ -67,13 +68,16 @@ function markSeen(who, key) {
 }
 
 /** The sales quote of the week: a card pinned to the bottom of the screen,
- *  shown once per person per week from Monday 09:00, inside the app only
+ *  shown once per person per week from Monday 09:00 (once, whichever device
+ *  or browser they use: it's marked seen on their account as it appears), inside the app only
  *  (never on sign-in or sign-up). `who` is the user's id. `hold` delays it
  *  (e.g. while the welcome tour is running). */
 export default function QuoteOfTheWeek({ who, hold = false, className = "" }) {
   const { t } = useTranslation();
   const [week, setWeek] = useState(() => quoteWeek());
   const [state, setState] = useState("hidden"); // hidden | open | closing
+  const { user, updateProfile } = useAuth();
+  const already = seen(who) === week.key || user?.quote_seen === week.key;
 
   // Notice Monday 09:00 arriving while the app is already open.
   useEffect(() => {
@@ -83,10 +87,15 @@ export default function QuoteOfTheWeek({ who, hold = false, className = "" }) {
 
   useEffect(() => {
     if (hold || state !== "hidden") return undefined;
-    if (seen(who) === week.key) return undefined;
-    const timer = setTimeout(() => setState("open"), 900);
+    if (already) return undefined;
+    const timer = setTimeout(() => {
+      // Seen once it's shown: closing it, or just moving on, both count.
+      markSeen(who, week.key);
+      updateProfile({ quote_seen: week.key }).catch(() => {});
+      setState("open");
+    }, 900);
     return () => clearTimeout(timer);
-  }, [who, hold, week.key]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [who, hold, week.key, already]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const close = useCallback(() => {
     markSeen(who, week.key);

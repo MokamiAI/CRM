@@ -15,6 +15,9 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
 
     company_name: Mapped[str] = mapped_column(String(255), nullable=False)
     address: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # For signatures (and documents): how customers reach the company.
+    phone: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    website: Mapped[str | None] = mapped_column(String(255), nullable=True)
     tax_number: Mapped[str | None] = mapped_column(String(100), nullable=True)
     # Registered for VAT? Off: documents say "Invoice", show no VAT number,
     # and new lines start at 0% VAT. Ticked when the company registers.

@@ -151,7 +151,10 @@
     "subtitle": "Oproepe, vergaderings en take: die volgende stappe op elke transaksie en kliënt",
     "handedOut": "Deur my gegee",
     "forPerson": "Vir {{name}}",
-    "fromPerson": "Van {{name}}"
+    "fromPerson": "Van {{name}}",
+    "byType": "Wys volgens soort",
+    "noneOfType": "Niks van hierdie soort hier nie.",
+    "showAll": "Wys alles"
   },
   "activity": {
     "done": "Klaar",
@@ -192,7 +195,8 @@
       "whatsapp_sms": "WhatsApp en SMS",
       "reports": "\"Wie skuld jou\"-verslag",
       "recurring_invoices": "Herhalende fakture",
-      "discovery": "Ontdekking: nuwe leidrade elke week"
+      "discovery": "Ontdekking: nuwe leidrade elke week",
+      "team_spaces": "Soveel spanklets-ruimtes as wat jy nodig het"
     },
     "fewer": "Minder sitplekke",
     "fixPayment": "Werk kaart by",
@@ -1007,7 +1011,12 @@
     "ATTACHMENT_BAD_TYPE": "Heg 'n PDF, beeld, Office-dokument, CSV- of tekslêer aan.",
     "ATTACHMENT_TOO_LARGE": "Elke lêer moet 10 MB of kleiner wees.",
     "ATTACHMENT_LIMIT": "'n Aktiwiteit kan tot 20 lêers hê.",
-    "ATTACHMENT_EMPTY": "Daardie lêer is leeg."
+    "ATTACHMENT_EMPTY": "Daardie lêer is leeg.",
+    "PLAN_TEAM_SPACES": "Grow sluit een ruimte buiten General in. Kies Scale in Instellings > Fakturering vir soveel ruimtes as wat jy nodig het.",
+    "CHANNEL_GENERAL": "General is die hele span se kanaal en kan nie geskrap word nie.",
+    "CHANNEL_FORBIDDEN": "Net wie hierdie ruimte geskep het, of 'n bestuurder, kan dit verander.",
+    "MESSAGE_FORBIDDEN": "Jy kan net jou eie boodskappe verander.",
+    "MESSAGE_EMPTY": "Skryf 'n boodskap of heg 'n lêer aan."
   },
   "feed": {
     "activityDone": "{{type}} voltooi",
@@ -1667,7 +1676,10 @@
     "saved": "Profiel gestoor",
     "title": "Jou profiel",
     "marketing": "Stuur vir my YGT se wenke, produknuus en aanbiedinge",
-    "marketingHint": "E-posse oor hoe om meer uit YGT te kry, nuwe funksies en aanbiedinge. E-posse oor jou rekening en fakturering kom altyd."
+    "marketingHint": "E-posse oor hoe om meer uit YGT te kry, nuwe funksies en aanbiedinge. E-posse oor jou rekening en fakturering kom altyd.",
+    "chatColor": "Jou kleur in spanklets",
+    "chatColorHint": "Jou spanmaats sien dit by jou naam en boodskappe.",
+    "positionHint": "Jou span sien dit, en dit staan in jou e-poshandtekening."
   },
   "quickAction": {
     "call": "Oproep",
@@ -1795,7 +1807,10 @@
       "name": "Maatskappynaam",
       "timezone": "Verstek-tydsone",
       "title": "Maatskappy",
-      "attachLogo": "Heg logo aan"
+      "attachLogo": "Heg logo aan",
+      "phone": "Telefoon",
+      "website": "Webwerf",
+      "contactHint": "Word gebruik in almal se voorgestelde e-poshandtekening."
     },
     "documents": {
       "invoicePrefix": "Faktuurnommervoorvoegsel",
@@ -1889,7 +1904,7 @@
     "previewBody": "…die einde van jou boodskap.",
     "starter": "Begin met my besonderhede",
     "yours": "Jou e-poshandtekening",
-    "yoursHint": "Word bygevoeg by die e-posse wat jy vanaf Boodskappe aan kliënte stuur. Laat dit leeg om die maatskappy se handtekening te gebruik.",
+    "yoursHint": "Word bygevoeg by die e-posse wat jy uit Boodskappe aan kliënte stuur. Laat dit leeg en YGT gebruik die een hieronder, gemaak uit jou naam, pos en maatskappybesonderhede.",
     "yoursPlaceholder": "bv. Thabo Mokoena\nVerkoopshoof · Zintos Trading\n082 555 0101"
   },
   "stage": {
@@ -2051,7 +2066,9 @@
     "resendInvite": "Stuur uitnodiging weer",
     "inviteResent": "Uitnodiging weer gestuur",
     "inviteHint": "Hulle kry 'n e-pos om hul eie wagwoord te skep. Jy hoef nie een te deel nie.",
-    "sendInvite": "Stuur uitnodiging"
+    "sendInvite": "Stuur uitnodiging",
+    "position": "Pos",
+    "positionPlaceholder": "bv. Verkoopsbestuurder"
   },
   "time": {
     "daysAgo_one": "{{count}} dag gelede",
@@ -2685,7 +2702,8 @@
     "marketingConsentBody": "Antwoord op die kennisgewing bo-aan die bladsy. Jy kan enige tyd in jou profiel van plan verander.",
     "teamMessage": "{{by}} in #{{channel}}",
     "teamMany_one": "{{count}} nuwe boodskap in #{{channel}}",
-    "teamMany_other": "{{count}} nuwe boodskappe in #{{channel}}"
+    "teamMany_other": "{{count}} nuwe boodskappe in #{{channel}}",
+    "teamMention": "{{by}} het jou in #{{channel}} genoem"
   },
   "task": {
     "status": {
@@ -3148,5 +3166,41 @@
     "no": "Nee dankie",
     "savedYes": "Dankie! Jy kan dit enige tyd in jou profiel verander.",
     "savedNo": "Reg so. Ons sal nie vir jou bemarkings-e-posse stuur nie."
+  },
+  "teamChat": {
+    "wholeTeam": "Hele span",
+    "spaces": "Ruimtes",
+    "noSpaces": "Nog geen ruimtes nie.",
+    "newSpace": "Nuwe ruimte",
+    "create": "Skep ruimte",
+    "created": "Ruimte geskep",
+    "saved": "Ruimte gestoor",
+    "deleted": "Ruimte geskrap",
+    "manage": "Ruimte-instellings",
+    "spaceName": "Naam van ruimte",
+    "whoCanSee": "Wie kan hierdie ruimte sien",
+    "whoCanSeeHint": "Net die mense wat jy merk (en jy) kan dit sien en die kennisgewings kry.",
+    "selectAll": "Kies almal",
+    "clearAll": "Maak skoon",
+    "spaceHint_one": "Net jy kan hierdie ruimte sien",
+    "spaceHint_other": "Net hierdie {{count}} mense kan hierdie ruimte sien",
+    "deleteSpace": "Skrap ruimte",
+    "deleteSpaceHint": "Die boodskappe en lêers word vir almal geskrap. Dit kan nie ontdoen word nie.",
+    "deleteSpaceConfirm": "Ja, skrap dit",
+    "edited": "gewysig",
+    "react": "Reageer",
+    "reply": "Antwoord",
+    "edit": "Wysig",
+    "delete": "Skrap",
+    "deleteConfirm": "Skrap hierdie boodskap?",
+    "replyingTo": "Antwoord op {{name}}",
+    "attach": "Heg lêers aan",
+    "removeFile": "Verwyder lêer",
+    "tooManyFiles": "Heg tot {{count}} lêers op 'n slag aan.",
+    "fileTooBig": "{{name}} is groter as 10 MB.",
+    "composerHint": "Enter om te stuur, Shift+Enter vir 'n nuwe reël. Tik @ om iemand te noem. Sleep of plak lêers om aan te heg."
+  },
+  "getApp": {
+    "alreadyAdded": "Ek het dit reeds bygevoeg"
   }
 }

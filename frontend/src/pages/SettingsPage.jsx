@@ -19,6 +19,8 @@ import DeleteAccount from "../components/DeleteAccount";
 const EMPTY_FORM = {
   company_name: "",
   address: "",
+  phone: "",
+  website: "",
   tax_number: "",
   default_currency: "",
   default_timezone: "",
@@ -174,6 +176,12 @@ export default function SettingsPage() {
                 value={form.address ?? ""}
                 onChange={(e) => update("address", e.target.value)}
               />
+            </Field>
+            <Field label={t("settings.company.phone")}>
+              <input className={inputClass} type="tel" maxLength={50} value={form.phone ?? ""} onChange={(e) => update("phone", e.target.value)} placeholder="012 345 6789" />
+            </Field>
+            <Field label={t("settings.company.website")} hint={t("settings.company.contactHint")}>
+              <input className={inputClass} maxLength={255} value={form.website ?? ""} onChange={(e) => update("website", e.target.value)} placeholder="www.yourbusiness.co.za" />
             </Field>
             <Field label={t("settings.company.logo")}>
               <input

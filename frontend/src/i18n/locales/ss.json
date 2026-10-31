@@ -151,7 +151,10 @@
     "subtitle": "Tincingo, imihlangano nemisebenti: tinyatselo letilandzelako kuto tonkhe tivumelwano nebatsengi",
     "handedOut": "Lengikunikile",
     "forPerson": "Kwa-{{name}}",
-    "fromPerson": "Kusuka ku-{{name}}"
+    "fromPerson": "Kusuka ku-{{name}}",
+    "byType": "Khombisa ngeluhlobo",
+    "noneOfType": "Kute lutfo lwaloluhlobo lapha.",
+    "showAll": "Khombisa konkhe"
   },
   "activity": {
     "done": "Kuphetsiwe",
@@ -192,7 +195,8 @@
       "whatsapp_sms": "WhatsApp ne-SMS",
       "reports": "Umbiko wekutsi \"Ngubani lokweletako\"",
       "recurring_invoices": "Ema-invoyisi laphindzaphindzako",
-      "discovery": "Kutfola: emakhasimende lamasha liviki ngalinye"
+      "discovery": "Kutfola: emakhasimende lamasha liviki ngalinye",
+      "team_spaces": "Tikhala tenkhulumo yelithimba letinyenti njengobe utidzinga"
     },
     "fewer": "Tihlalo letimbalwa",
     "fixPayment": "Buyeketa likhadi",
@@ -1007,7 +1011,12 @@
     "ATTACHMENT_BAD_TYPE": "Namatsisela i-PDF, sitfombe, lidokhumenti le-Office, i-CSV nobe lifayela lembhalo.",
     "ATTACHMENT_TOO_LARGE": "Lifayela ngalinye kufanele libe ngu-10 MB nobe ngaphasi.",
     "ATTACHMENT_LIMIT": "Umsebenti ungaba nemafayela lafika ku-20.",
-    "ATTACHMENT_EMPTY": "Lelo fayela alinalutfo."
+    "ATTACHMENT_EMPTY": "Lelo fayela alinalutfo.",
+    "PLAN_TEAM_SPACES": "I-Grow ifaka sikhala sinye ngaphandle kwe-General. Khetsa i-Scale ku-Tilungiselelo > Kukhokha kute utfole tikhala lotidzingako.",
+    "CHANNEL_GENERAL": "I-General sitishi selithimba lonkhe futsi ayikwati kususwa.",
+    "CHANNEL_FORBIDDEN": "Ngulowente lesikhala kuphela, nome umphatsi, longasishintja.",
+    "MESSAGE_FORBIDDEN": "Ungashintja imilayeto yakho kuphela.",
+    "MESSAGE_EMPTY": "Bhala umlayeto nome unamatsisele lifayela."
   },
   "feed": {
     "activityDone": "{{type}} kuphetsiwe",
@@ -1667,7 +1676,10 @@
     "saved": "Iphrofayili ilondvolotiwe",
     "title": "Iphrofayili yakho",
     "marketing": "Ngitfumelele emacebiso e-YGT, tindzaba temikhicito netipho",
-    "marketingHint": "Ema-imeyili mayelana nekutfola lokunyenti ku-YGT, tintfo letinsha netipho. Ema-imeyili mayelana ne-akhawunti yakho nekukhokha ahlala afika."
+    "marketingHint": "Ema-imeyili mayelana nekutfola lokunyenti ku-YGT, tintfo letinsha netipho. Ema-imeyili mayelana ne-akhawunti yakho nekukhokha ahlala afika.",
+    "chatColor": "Umbala wakho enkhulumeni yelithimba",
+    "chatColorHint": "Lobasebenta nabo bawubona ebitweni lakho nasemilayetweni.",
+    "positionHint": "Kubonwa lithimba lakho nasesiginesheni ye-imeyili yakho."
   },
   "quickAction": {
     "call": "Lucingo",
@@ -1795,7 +1807,10 @@
       "name": "Libito lenkampani",
       "timezone": "Sikhatsi sendzawo lesijwayelekile",
       "title": "Inkampani",
-      "attachLogo": "Namatsisela lilogo"
+      "attachLogo": "Namatsisela lilogo",
+      "phone": "Lucingo",
+      "website": "Iwebhusayithi",
+      "contactHint": "Kusetjentiswa esiginesheni ye-imeyili lephakanyiswako yawonkhe muntfu."
     },
     "documents": {
       "invoicePrefix": "Sicalo senombolo ye-invoyisi",
@@ -1889,7 +1904,7 @@
     "previewBody": "…kuphela kwemlayeto wakho.",
     "starter": "Cala ngemininingwane yami",
     "yours": "Lisayini lakho le-imeyili",
-    "yoursHint": "Lengetwa kuma-imeyili lowatfumela batsengi kusuka ku-Imilayeto. Lishiye lingenalutfo kute usebentise lisayini lenkampani.",
+    "yoursHint": "Yengetwa kuma-imeyili lowatfumelela emakhasimende kusuka ku-Imilayeto. Yishiye ingenalutfo bese i-YGT isebentisa lena lengentasi, leyentiwe ngelibito lakho, sikhundla nemininingwane yenkampani.",
     "yoursPlaceholder": "sib. Thabo Mokoena\nUmholi wekutsengisa · Zintos Trading\n082 555 0101"
   },
   "stage": {
@@ -2051,7 +2066,9 @@
     "resendInvite": "Tfumela simemo futsi",
     "inviteResent": "Simemo sitfunyelwe futsi",
     "inviteHint": "Batawutfola i-imeyili yekwakha liphasiwedi labo. Akudzingeki kutsi wabelane ngalo.",
-    "sendInvite": "Tfumela simemo"
+    "sendInvite": "Tfumela simemo",
+    "position": "Sikhundla",
+    "positionPlaceholder": "sib. Umphatsi Wekutsengisa"
   },
   "time": {
     "daysAgo_one": "lilanga le-{{count}} lelendlulile",
@@ -2685,7 +2702,8 @@
     "marketingConsentBody": "Phendvula esatisweni lesisetulu ekhasini. Ungashintja umcondvo wakho nanoma nini kuphrofayili yakho.",
     "teamMessage": "{{by}} ku-#{{channel}}",
     "teamMany_one": "Umlayeto lomusha lo-{{count}} ku-#{{channel}}",
-    "teamMany_other": "Imilayeto lemisha lengu-{{count}} ku-#{{channel}}"
+    "teamMany_other": "Imilayeto lemisha lengu-{{count}} ku-#{{channel}}",
+    "teamMention": "{{by}} ukubitile ku-#{{channel}}"
   },
   "task": {
     "status": {
@@ -3148,5 +3166,41 @@
     "no": "Cha ngiyabonga",
     "savedYes": "Siyabonga! Ungakushintja loku kuphrofayili yakho nanoma nini.",
     "savedNo": "Kulungile. Ngeke sikutfumelele ema-imeyili ekumaketha."
+  },
+  "teamChat": {
+    "wholeTeam": "Lithimba lonkhe",
+    "spaces": "Tikhala",
+    "noSpaces": "Kute tikhala kwanyalo.",
+    "newSpace": "Sikhala lesisha",
+    "create": "Dala sikhala",
+    "created": "Sikhala sidaliwe",
+    "saved": "Sikhala sigciniwe",
+    "deleted": "Sikhala sesisusiwe",
+    "manage": "Tilungiselelo tesikhala",
+    "spaceName": "Libito lesikhala",
+    "whoCanSee": "Ngubani longasibona lesikhala",
+    "whoCanSeeHint": "Ngulabantfu lobakhetsako kuphela (nawe) labangasibona baphindze batfole taziso taso.",
+    "selectAll": "Khetsa bonkhe",
+    "clearAll": "Sula",
+    "spaceHint_one": "Nguwe wedvwa longasibona lesikhala",
+    "spaceHint_other": "Ngulabantfu labangu-{{count}} kuphela labangasibona lesikhala",
+    "deleteSpace": "Susa sikhala",
+    "deleteSpaceHint": "Imilayeto netifayela taso kuyasuswa kubo bonkhe. Loku akukwati kubuyiselwa.",
+    "deleteSpaceConfirm": "Yebo, sisuse",
+    "edited": "kuhleliwe",
+    "react": "Sabela",
+    "reply": "Phendvula",
+    "edit": "Hlela",
+    "delete": "Susa",
+    "deleteConfirm": "Susa lomlayeto?",
+    "replyingTo": "Uphendvula {{name}}",
+    "attach": "Namatsisela tifayela",
+    "removeFile": "Susa lifayela",
+    "tooManyFiles": "Namatsisela kufika etifayeleni leti-{{count}} ngesikhatsi.",
+    "fileTooBig": "{{name}} likhulu kune-10 MB.",
+    "composerHint": "Enter kutfumela, Shift+Enter umugca lomusha. Bhala @ kubita lotsite. Dvonsa nome unamatsisele tifayela."
+  },
+  "getApp": {
+    "alreadyAdded": "Sengiyengetile"
   }
 }

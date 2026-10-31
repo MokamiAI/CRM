@@ -291,3 +291,5 @@ class UserBrief(BaseModel):
 
     id: uuid.UUID
     full_name: str
+    chat_color: str | None = None
+    job_title: str | None = None

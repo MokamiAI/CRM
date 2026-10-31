@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,27 @@ import { errorMessage, formatMoneyWhole } from "../utils/format";
 import { Avatar, Button, StatusBadge } from "./ui";
 
 const ROLES = ["admin", "manager", "staff", "viewer"];
-const BLANK = { full_name: "", email: "", role: "staff" };
+const BLANK = { full_name: "", email: "", role: "staff", job_title: "" };
+
+/** A person's position, edited in place and saved when you leave the box. */
+function PositionInput({ person, onSave }) {
+  const { t } = useTranslation();
+  const [value, setValue] = useState(person.job_title ?? "");
+  useEffect(() => setValue(person.job_title ?? ""), [person.job_title]);
+  const save = () => value.trim() !== (person.job_title ?? "") && onSave(value.trim());
+  return (
+    <input
+      className="input !h-9 !w-40 !py-0 !text-sm"
+      aria-label={t("team.position")}
+      placeholder={t("team.positionPlaceholder")}
+      maxLength={100}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={save}
+      onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
+    />
+  );
+}
 
 /** Seats: one per person. How many are used, and what to do when they're
  *  all taken (add seats on Grow/Scale; move up from Hustle's three). */
@@ -132,7 +152,10 @@ export default function TeamManager() {
                 <p className="truncate font-medium text-zinc-900">
                   {u.full_name} {self && <span className="text-xs font-normal text-zinc-400">· {t("messages.you")}</span>}
                 </p>
-                <p className="truncate text-xs text-zinc-500">{u.email}</p>
+                <p className="truncate text-xs text-zinc-500">
+                  {u.job_title && <span className="font-medium text-blue-700">{u.job_title} · </span>}
+                  {u.email}
+                </p>
               </div>
               {!u.is_active && <StatusBadge status="inactive" />}
               {u.is_active && u.invite_pending && (
@@ -143,6 +166,7 @@ export default function TeamManager() {
                   </Button>
                 </>
               )}
+              <PositionInput person={u} onSave={(job_title) => update.mutate({ id: u.id, job_title })} />
               <select
                 className="input !h-9 !w-auto !py-0 !text-sm"
                 aria-label={t("team.role")}
@@ -186,6 +210,10 @@ export default function TeamManager() {
           <input className="input" type="email" autoCapitalize="none" required value={draft.email} onChange={(e) => setDraft({ ...draft, email: e.target.value })} />
         </label>
         <label className="block">
+          <span className="label">{t("team.position")}</span>
+          <input className="input" maxLength={100} placeholder={t("team.positionPlaceholder")} value={draft.job_title} onChange={(e) => setDraft({ ...draft, job_title: e.target.value })} />
+        </label>
+        <label className="block">
           <span className="label">{t("team.role")}</span>
           <select className="input" value={draft.role} onChange={(e) => setDraft({ ...draft, role: e.target.value })}>
             {ROLES.map((r) => (
@@ -195,7 +223,7 @@ export default function TeamManager() {
             ))}
           </select>
         </label>
-        <p className="self-end text-xs leading-snug text-zinc-500">{t("team.inviteHint")}</p>
+        <p className="self-end text-xs leading-snug text-zinc-500 sm:col-span-2">{t("team.inviteHint")}</p>
         <div className="flex justify-end sm:col-span-2">
           <button type="submit" className="btn btn-primary" disabled={create.isPending || full}>
             {full ? t("team.seats.addSeatsFirst") : t("team.sendInvite")}

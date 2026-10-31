@@ -153,7 +153,10 @@
     "subtitle": "Calls, meetings and tasks: the next steps on every deal and customer",
     "handedOut": "Handed out by me",
     "forPerson": "For {{name}}",
-    "fromPerson": "From {{name}}"
+    "fromPerson": "From {{name}}",
+    "byType": "Show by type",
+    "noneOfType": "Nothing of this kind here.",
+    "showAll": "Show all"
   },
   "activity": {
     "done": "Done",
@@ -197,7 +200,8 @@
       "whatsapp_sms": "WhatsApp and SMS",
       "reports": "\"Who owes you\" report",
       "recurring_invoices": "Recurring invoices",
-      "discovery": "Discovery: new leads every week"
+      "discovery": "Discovery: new leads every week",
+      "team_spaces": "As many team chat spaces as you need"
     },
     "fewer": "Fewer seats",
     "fixPayment": "Update card",
@@ -1029,7 +1033,12 @@
     "ATTACHMENT_BAD_TYPE": "Attach a PDF, image, Office document, CSV or text file.",
     "ATTACHMENT_TOO_LARGE": "Each file must be 10 MB or smaller.",
     "ATTACHMENT_LIMIT": "An activity can have up to 20 files.",
-    "ATTACHMENT_EMPTY": "That file is empty."
+    "ATTACHMENT_EMPTY": "That file is empty.",
+    "PLAN_TEAM_SPACES": "Grow includes one space besides General. Choose Scale in Settings > Billing for as many spaces as you need.",
+    "CHANNEL_GENERAL": "General is the whole team's channel and can't be deleted.",
+    "CHANNEL_FORBIDDEN": "Only whoever made this space, or a manager, can change it.",
+    "MESSAGE_FORBIDDEN": "You can only change your own messages.",
+    "MESSAGE_EMPTY": "Write a message or attach a file."
   },
   "feed": {
     "activityDone": "{{type}} completed",
@@ -1690,7 +1699,10 @@
     "saved": "Profile saved",
     "title": "Your profile",
     "marketing": "Send me YGT's tips, product news and offers",
-    "marketingHint": "Emails about getting more from YGT, new features and offers. Emails about your account and billing always come."
+    "marketingHint": "Emails about getting more from YGT, new features and offers. Emails about your account and billing always come.",
+    "chatColor": "Your colour in team chat",
+    "chatColorHint": "Your teammates see it on your name and messages.",
+    "positionHint": "Shown to your team and in your email signature."
   },
   "quickAction": {
     "call": "Call",
@@ -1819,7 +1831,10 @@
       "name": "Company name",
       "timezone": "Default timezone",
       "title": "Company",
-      "attachLogo": "Attach logo"
+      "attachLogo": "Attach logo",
+      "phone": "Phone",
+      "website": "Website",
+      "contactHint": "Used in everyone's suggested email signature."
     },
     "documents": {
       "invoicePrefix": "Invoice number prefix",
@@ -1913,7 +1928,7 @@
     "previewBody": "…the end of your message.",
     "starter": "Start from my details",
     "yours": "Your email signature",
-    "yoursHint": "Added to the emails you send customers from Messages. Leave it empty to use the company signature.",
+    "yoursHint": "Added to the emails you send customers from Messages. Leave it empty and YGT uses the one below, made from your name, position and company details.",
     "yoursPlaceholder": "e.g. Thabo Mokoena\nSales lead · Zintos Trading\n082 555 0101"
   },
   "stage": {
@@ -2075,7 +2090,9 @@
     "resendInvite": "Resend invite",
     "inviteResent": "Invitation sent again",
     "inviteHint": "They'll get an email to create their own password. No need to share one.",
-    "sendInvite": "Send invitation"
+    "sendInvite": "Send invitation",
+    "position": "Position",
+    "positionPlaceholder": "e.g. Sales Manager"
   },
   "time": {
     "daysAgo_one": "{{count}} day ago",
@@ -2714,7 +2731,8 @@
     "marketingConsentBody": "Answer on the notice at the top of the page. You can change your mind at any time in your profile.",
     "teamMessage": "{{by}} in #{{channel}}",
     "teamMany_one": "{{count}} new message in #{{channel}}",
-    "teamMany_other": "{{count}} new messages in #{{channel}}"
+    "teamMany_other": "{{count}} new messages in #{{channel}}",
+    "teamMention": "{{by}} mentioned you in #{{channel}}"
   },
   "campaignTemplates": {
     "title": "What do you want to do?",
@@ -2841,7 +2859,8 @@
     "alertsButton": "Turn on alerts",
     "installed": "YGT is installed. Find it on your desktop, taskbar or home screen.",
     "failed": "Couldn't install YGT. Try your browser's menu: Install YGT, or Add to home screen.",
-    "close": "Close"
+    "close": "Close",
+    "alreadyAdded": "I've already added it"
   },
   "task": {
     "status": {
@@ -3304,5 +3323,38 @@
     "no": "No thanks",
     "savedYes": "Thanks! You can change this in your profile at any time.",
     "savedNo": "Got it. We won't send you marketing emails."
+  },
+  "teamChat": {
+    "wholeTeam": "Whole team",
+    "spaces": "Spaces",
+    "noSpaces": "No spaces yet.",
+    "newSpace": "New space",
+    "create": "Create space",
+    "created": "Space created",
+    "saved": "Space saved",
+    "deleted": "Space deleted",
+    "manage": "Space settings",
+    "spaceName": "Space name",
+    "whoCanSee": "Who can see this space",
+    "whoCanSeeHint": "Only the people you tick (and you) can see it and get its notifications.",
+    "selectAll": "Select all",
+    "clearAll": "Clear",
+    "spaceHint_one": "Only you can see this space",
+    "spaceHint_other": "Only these {{count}} people can see this space",
+    "deleteSpace": "Delete space",
+    "deleteSpaceHint": "Its messages and files are deleted for everyone. This can't be undone.",
+    "deleteSpaceConfirm": "Yes, delete it",
+    "edited": "edited",
+    "react": "React",
+    "reply": "Reply",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this message?",
+    "replyingTo": "Replying to {{name}}",
+    "attach": "Attach files",
+    "removeFile": "Remove file",
+    "tooManyFiles": "Attach up to {{count}} files at a time.",
+    "fileTooBig": "{{name}} is larger than 10 MB.",
+    "composerHint": "Enter to send, Shift+Enter for a new line. Type @ to mention someone. Drop or paste files to attach."
   }
 }

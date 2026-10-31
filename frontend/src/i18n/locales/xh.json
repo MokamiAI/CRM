@@ -151,7 +151,10 @@
     "subtitle": "Iifowuni, iintlanganiso nemisebenzi: amanyathelo alandelayo kuzo zonke izivumelwano nabathengi",
     "handedOut": "Endizinikileyo",
     "forPerson": "Ka-{{name}}",
-    "fromPerson": "Ukusuka ku-{{name}}"
+    "fromPerson": "Ukusuka ku-{{name}}",
+    "byType": "Bonisa ngohlobo",
+    "noneOfType": "Akukho nto yolu hlobo apha.",
+    "showAll": "Bonisa konke"
   },
   "activity": {
     "done": "Kugqityiwe",
@@ -192,7 +195,8 @@
       "whatsapp_sms": "WhatsApp ne-SMS",
       "reports": "Ingxelo ethi \"Ngubani okutyalayo\"",
       "recurring_invoices": "Ii-invoyisi eziphindaphindayo",
-      "discovery": "Ukufumanisa: abathengi abatsha veki nganye"
+      "discovery": "Ukufumanisa: abathengi abatsha veki nganye",
+      "team_spaces": "Izithuba zencoko yeqela ezininzi kangangoko uzidinga"
     },
     "fewer": "Izitulo ezimbalwa",
     "fixPayment": "Hlaziya ikhadi",
@@ -1007,7 +1011,12 @@
     "ATTACHMENT_BAD_TYPE": "Ncamathela i-PDF, umfanekiso, uxwebhu lwe-Office, i-CSV okanye ifayile yesicatshulwa.",
     "ATTACHMENT_TOO_LARGE": "Ifayile nganye mayibe yi-10 MB okanye ngaphantsi.",
     "ATTACHMENT_LIMIT": "Umsebenzi unokuba neefayile ezifikelela kuma-20.",
-    "ATTACHMENT_EMPTY": "Loo fayile ayinanto."
+    "ATTACHMENT_EMPTY": "Loo fayile ayinanto.",
+    "PLAN_TEAM_SPACES": "I-Grow iquka isithuba esinye ngaphandle kwe-General. Khetha i-Scale kwiiSetingi > Ukuhlawula ukuze ufumane izithuba ozidingayo.",
+    "CHANNEL_GENERAL": "I-General lijelo leqela lonke kwaye alinakucinywa.",
+    "CHANNEL_FORBIDDEN": "Kuphela lowo wenze esi sithuba, okanye umphathi, onokusitshintsha.",
+    "MESSAGE_FORBIDDEN": "Unokutshintsha imiyalezo yakho kuphela.",
+    "MESSAGE_EMPTY": "Bhala umyalezo okanye uqhoboshele ifayile."
   },
   "feed": {
     "activityDone": "{{type}} igqityiwe",
@@ -1667,7 +1676,10 @@
     "saved": "Iprofayile igciniwe",
     "title": "Iprofayile yakho",
     "marketing": "Ndithumelele iingcebiso ze-YGT, iindaba zemveliso kunye nezibonelelo",
-    "marketingHint": "Ii-imeyile malunga nokufumana okungakumbi kwi-YGT, iimpawu ezintsha nezibonelelo. Ii-imeyile malunga ne-akhawunti yakho nentlawulo zihlala zifika."
+    "marketingHint": "Ii-imeyile malunga nokufumana okungakumbi kwi-YGT, iimpawu ezintsha nezibonelelo. Ii-imeyile malunga ne-akhawunti yakho nentlawulo zihlala zifika.",
+    "chatColor": "Umbala wakho kwincoko yeqela",
+    "chatColorHint": "Oogxa bakho bawubona egameni lakho nakwimiyalezo yakho.",
+    "positionHint": "Kubonwa liqela lakho nakumsayino we-imeyile yakho."
   },
   "quickAction": {
     "call": "Ifowuni",
@@ -1795,7 +1807,10 @@
       "name": "Igama lenkampani",
       "timezone": "Ixesha lendawo elingagqibekanga",
       "title": "Inkampani",
-      "attachLogo": "Ncamathela ilogo"
+      "attachLogo": "Ncamathela ilogo",
+      "phone": "Ifowuni",
+      "website": "Iwebhusayithi",
+      "contactHint": "Kusetyenziswa kumsayino we-imeyile ocetyiswayo womntu wonke."
     },
     "documents": {
       "invoicePrefix": "Isiqalo senombolo ye-invoyisi",
@@ -1889,7 +1904,7 @@
     "previewBody": "…isiphelo somyalezo wakho.",
     "starter": "Qala ngeenkcukacha zam",
     "yours": "Utyikityo lwakho lwe-imeyile",
-    "yoursHint": "Longezwa kwii-imeyile ozithumela kubathengi ukusuka kwi-Imiyalezo. Lushiye lungenanto ukuze usebenzise utyikityo lwenkampani.",
+    "yoursHint": "Yongezwa kwii-imeyile ozithumelela abathengi ukusuka kwiMiyalezo. Yishiye ingenanto kwaye i-YGT iya kusebenzisa le ingezantsi, eyenziwe ngegama lakho, isikhundla neenkcukacha zenkampani.",
     "yoursPlaceholder": "umz. Thabo Mokoena\nInkokeli yentengiso · Zintos Trading\n082 555 0101"
   },
   "stage": {
@@ -2051,7 +2066,9 @@
     "resendInvite": "Thumela isimemo kwakhona",
     "inviteResent": "Isimemo sithunyelwe kwakhona",
     "inviteHint": "Baza kufumana i-imeyile yokwenza ipaswedi yabo. Akukho mfuneko yokwabelana ngayo.",
-    "sendInvite": "Thumela isimemo"
+    "sendInvite": "Thumela isimemo",
+    "position": "Isikhundla",
+    "positionPlaceholder": "umz. uMphathi weNtengiso"
   },
   "time": {
     "daysAgo_one": "usuku olu-{{count}} oludlulileyo",
@@ -2685,7 +2702,8 @@
     "marketingConsentBody": "Phendula kwisaziso esiphezulu ephepheni. Unokutshintsha ingqondo yakho nanini na kwiprofayile yakho.",
     "teamMessage": "{{by}} kwi-#{{channel}}",
     "teamMany_one": "Umyalezo omtsha o-{{count}} kwi-#{{channel}}",
-    "teamMany_other": "Imiyalezo emitsha eyi-{{count}} kwi-#{{channel}}"
+    "teamMany_other": "Imiyalezo emitsha eyi-{{count}} kwi-#{{channel}}",
+    "teamMention": "U-{{by}} ukukhankanyile ku-#{{channel}}"
   },
   "task": {
     "status": {
@@ -3148,5 +3166,41 @@
     "no": "Hayi enkosi",
     "savedYes": "Enkosi! Unokuyitshintsha le nto kwiprofayile yakho nanini na.",
     "savedNo": "Kulungile. Asizukukuthumelela ii-imeyile zentengiso."
+  },
+  "teamChat": {
+    "wholeTeam": "Iqela lonke",
+    "spaces": "Izithuba",
+    "noSpaces": "Akukho zithuba okwangoku.",
+    "newSpace": "Isithuba esitsha",
+    "create": "Yenza isithuba",
+    "created": "Isithuba senziwe",
+    "saved": "Isithuba sigciniwe",
+    "deleted": "Isithuba sicinyiwe",
+    "manage": "Iisetingi zesithuba",
+    "spaceName": "Igama lesithuba",
+    "whoCanSee": "Ngubani onokusibona esi sithuba",
+    "whoCanSeeHint": "Kuphela abantu obakhethayo (nawe) abanokusibona kwaye bafumane izaziso zaso.",
+    "selectAll": "Khetha bonke",
+    "clearAll": "Cima",
+    "spaceHint_one": "Nguwe kuphela onokusibona esi sithuba",
+    "spaceHint_other": "Kuphela aba bantu ba-{{count}} abanokusibona esi sithuba",
+    "deleteSpace": "Cima isithuba",
+    "deleteSpaceHint": "Imiyalezo neefayile zaso ziyacinywa kubo bonke. Oku akunakubuyiselwa.",
+    "deleteSpaceConfirm": "Ewe, sicime",
+    "edited": "kuhleliwe",
+    "react": "Sabela",
+    "reply": "Phendula",
+    "edit": "Hlela",
+    "delete": "Cima",
+    "deleteConfirm": "Cima lo myalezo?",
+    "replyingTo": "Uphendula u-{{name}}",
+    "attach": "Qhoboshela iifayile",
+    "removeFile": "Susa ifayile",
+    "tooManyFiles": "Qhoboshela ukuya kwiifayile ezi-{{count}} ngexesha.",
+    "fileTooBig": "{{name}} inkulu kune-10 MB.",
+    "composerHint": "Enter ukuthumela, Shift+Enter umgca omtsha. Chwetheza @ ukukhankanya umntu. Rhuqa okanye unamathisele iifayile."
+  },
+  "getApp": {
+    "alreadyAdded": "Sele ndiyongezile"
   }
 }

@@ -1,9 +1,9 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, String, Text, UniqueConstraint
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, LargeBinary, String, Text, UniqueConstraint, false
 from sqlalchemy.dialects.postgresql import JSONB, UUID
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, deferred, mapped_column, relationship
 
 from app.core.database import Base
 from app.core.tenancy import TenantMixin
@@ -74,12 +74,27 @@ class Message(TenantMixin, UUIDPKMixin, Base):
 
 
 class TeamChannel(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
-    """Internal team chat channel ("General", "Sales", ...)."""
+    """Internal team chat: the whole team's "General", or a space only the
+    people chosen for it can see (is_private). Channels from before spaces
+    stay open to everyone."""
 
     __tablename__ = "team_channels"
 
     name: Mapped[str] = mapped_column(String(60), nullable=False)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), _user_fk(), nullable=True)
+    is_private: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default=false())
+
+
+class TeamChannelMember(TenantMixin, UUIDPKMixin, Base):
+    """Someone who can see a private space."""
+
+    __tablename__ = "team_channel_members"
+    __table_args__ = (UniqueConstraint("channel_id", "user_id", name="uq_team_channel_member"),)
+
+    channel_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("team_channels.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
 
 
 class TeamMessage(TenantMixin, UUIDPKMixin, Base):
@@ -89,8 +104,40 @@ class TeamMessage(TenantMixin, UUIDPKMixin, Base):
         UUID(as_uuid=True), ForeignKey("team_channels.id", ondelete="CASCADE"), nullable=False, index=True
     )
     author_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), _user_fk(), nullable=True)
+    # Empty when the message is only files.
     body: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
+    # A reply quotes this message; deleting it leaves the reply standing.
+    reply_to_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("team_messages.id", ondelete="SET NULL"), nullable=True
+    )
+    edited_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class TeamMessageAttachment(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
+    """A file sent in team chat. Like activity files, the bytes stay in the
+    database and load only when someone opens the file."""
+
+    __tablename__ = "team_message_attachments"
+
+    message_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("team_messages.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    filename: Mapped[str] = mapped_column(String(255), nullable=False)
+    content_type: Mapped[str] = mapped_column(String(120), nullable=False)
+    size: Mapped[int] = mapped_column(Integer, nullable=False)
+    data: Mapped[bytes] = deferred(mapped_column(LargeBinary, nullable=False))
+
+
+class TeamMessageReaction(TenantMixin, UUIDPKMixin, Base):
+    __tablename__ = "team_message_reactions"
+    __table_args__ = (UniqueConstraint("message_id", "user_id", "emoji", name="uq_team_message_reaction"),)
+
+    message_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("team_messages.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    emoji: Mapped[str] = mapped_column(String(16), nullable=False)
 
 
 CONNECTION_KINDS = ("email_in", "whatsapp", "sms")

@@ -9,6 +9,8 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 class CompanySettingsUpdate(BaseModel):
     company_name: str | None = Field(default=None, min_length=1, max_length=255)
     address: str | None = None
+    phone: str | None = Field(default=None, max_length=50)
+    website: str | None = Field(default=None, max_length=255)
     tax_number: str | None = Field(default=None, max_length=100)
     vat_registered: bool | None = None
     default_currency: str | None = Field(default=None, min_length=3, max_length=10)
@@ -55,6 +57,8 @@ class CompanySettingsOut(BaseModel):
     id: uuid.UUID
     company_name: str
     address: str | None
+    phone: str | None = None
+    website: str | None = None
     tax_number: str | None
     vat_registered: bool = False
     default_currency: str
@@ -117,3 +121,6 @@ class CompanyProfileOut(BaseModel):
     logo_url: str | None
     customer_term: str
     email_signature: str | None = None
+    # For each person's suggested signature.
+    phone: str | None = None
+    website: str | None = None

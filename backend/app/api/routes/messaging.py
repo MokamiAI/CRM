@@ -1,7 +1,9 @@
 import uuid
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, Query
+from urllib.parse import quote
+
+from fastapi import APIRouter, Depends, File, Form, Query, Response, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, plan_feature, require_role
@@ -13,6 +15,7 @@ from app.models.user import User
 from app.schemas.messaging import (
     ChannelCreate,
     ChannelOut,
+    ChannelUpdate,
     ConversationCreate,
     ConversationDetail,
     ConversationOut,
@@ -20,9 +23,12 @@ from app.schemas.messaging import (
     InboxCounts,
     MessageCreate,
     MessageOut,
+    ReactionToggle,
     TeamMessageCreate,
+    TeamMessageEdit,
     TeamMessageOut,
 )
+from app.services import ticket_attachments
 from app.services.billing_service import BillingService
 from app.services.channel_service import ChannelService
 from app.services.messaging_service import MessagingService, reply_address
@@ -126,12 +132,27 @@ async def post_message(
 
 @router.get("/team-chat/channels", response_model=list[ChannelOut])
 async def list_channels(db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
-    return await MessagingService(db).channels(user)
+    service = MessagingService(db)
+    return await service.channel_views(await service.channels(user))
 
 
 @router.post("/team-chat/channels", response_model=ChannelOut, status_code=201, dependencies=[Depends(plan_feature(TEAM_CHAT))])
 async def create_channel(data: ChannelCreate, db: AsyncSession = Depends(get_db), user: User = Depends(_can_write)):
-    return await MessagingService(db).create_channel(data.name, user)
+    service = MessagingService(db)
+    channel = await service.create_channel(data.name, user, data.member_ids)
+    return (await service.channel_views([channel]))[0]
+
+
+@router.patch("/team-chat/channels/{channel_id}", response_model=ChannelOut, dependencies=[Depends(plan_feature(TEAM_CHAT))])
+async def update_channel(channel_id: uuid.UUID, data: ChannelUpdate, db: AsyncSession = Depends(get_db), user: User = Depends(_can_write)):
+    service = MessagingService(db)
+    channel = await service.update_channel(channel_id, user, data.name, data.member_ids)
+    return (await service.channel_views([channel]))[0]
+
+
+@router.delete("/team-chat/channels/{channel_id}", status_code=204)
+async def delete_channel(channel_id: uuid.UUID, db: AsyncSession = Depends(get_db), user: User = Depends(_can_write)):
+    await MessagingService(db).delete_channel(channel_id, user)
 
 
 @router.get("/team-chat/channels/{channel_id}/messages", response_model=list[TeamMessageOut])
@@ -142,9 +163,13 @@ async def channel_messages(
     user: User = Depends(get_current_user),
 ):
     service = MessagingService(db)
-    messages = await service.team_messages(channel_id, after)
+    messages = await service.team_messages(channel_id, user, after)
     await service.read_team_channel(channel_id, user)
-    return messages
+    return await service.message_views(messages)
+
+
+async def _one(service: MessagingService, message) -> dict:
+    return (await service.message_views([message]))[0]
 
 
 @router.post("/team-chat/channels/{channel_id}/messages", response_model=TeamMessageOut, status_code=201, dependencies=[Depends(plan_feature(TEAM_CHAT))])
@@ -152,4 +177,49 @@ async def post_team_message(
     channel_id: uuid.UUID, data: TeamMessageCreate, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)
 ):
     # Viewers can chat with the team too; they just can't change records.
-    return await MessagingService(db).post_team_message(channel_id, data.body, user)
+    service = MessagingService(db)
+    message = await service.post_team_message(channel_id, data.body, user, data.reply_to_id, data.mention_ids)
+    return await _one(service, message)
+
+
+@router.post("/team-chat/channels/{channel_id}/messages/files", response_model=TeamMessageOut, status_code=201, dependencies=[Depends(plan_feature(TEAM_CHAT))])
+async def post_team_files(
+    channel_id: uuid.UUID,
+    body: str = Form(default="", max_length=5_000),
+    reply_to_id: uuid.UUID | None = Form(default=None),
+    mention_ids: list[uuid.UUID] = Form(default=[]),
+    files: list[UploadFile] = File(...),
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    """A message with files (up to 5, 10 MB each), checked like ticket files."""
+    service = MessagingService(db)
+    attachments = await ticket_attachments.read_files(files)
+    message = await service.post_team_message(channel_id, body, user, reply_to_id, mention_ids, attachments)
+    return await _one(service, message)
+
+
+@router.patch("/team-chat/messages/{message_id}", response_model=TeamMessageOut)
+async def edit_team_message(message_id: uuid.UUID, data: TeamMessageEdit, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
+    service = MessagingService(db)
+    return await _one(service, await service.edit_team_message(message_id, data.body, user))
+
+
+@router.delete("/team-chat/messages/{message_id}", status_code=204)
+async def delete_team_message(message_id: uuid.UUID, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
+    await MessagingService(db).delete_team_message(message_id, user)
+
+
+@router.post("/team-chat/messages/{message_id}/reactions", response_model=TeamMessageOut)
+async def toggle_reaction(message_id: uuid.UUID, data: ReactionToggle, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
+    service = MessagingService(db)
+    return await _one(service, await service.toggle_reaction(message_id, data.emoji, user))
+
+
+@router.get("/team-chat/messages/{message_id}/attachments/{attachment_id}", include_in_schema=False)
+async def team_file(message_id: uuid.UUID, attachment_id: uuid.UUID, db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
+    row = await MessagingService(db).team_file(message_id, attachment_id, user)
+    return Response(row.data, media_type=row.content_type, headers={
+        "Content-Disposition": f"attachment; filename*=UTF-8''{quote(row.filename)}",
+        "X-Content-Type-Options": "nosniff", "Content-Security-Policy": "sandbox", "Cache-Control": "private, no-store",
+    })

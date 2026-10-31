@@ -7,17 +7,16 @@ import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
 import {
   useAvailableChannels,
-  useChannels,
   useConversation,
   useConversations,
   usePipelineAccounts,
   useInboxAddress,
   useTeam,
   useTeamMap,
-  useTeamMessages,
 } from "../hooks/useApi";
 import Sheet from "../components/Sheet";
 import { PlanNotice } from "../components/Billing";
+import TeamChat, { SpaceSheet } from "../components/TeamChat";
 import { Avatar, Button, EmptyState, ErrorState, Field, FilterChips, ListSkeleton, PageHeader, PlusIcon } from "../components/ui";
 import { errorMessage, formatDateTime, todayISO } from "../utils/format";
 
@@ -121,7 +120,7 @@ export default function MessagesPage() {
         actions={
           canWrite && (
             <Button onClick={() => setSheet(tab === "team" ? "new-channel" : "new-conversation")}>
-              <PlusIcon className="h-4 w-4" /> {t(tab === "team" ? "messages.newChannel" : "messages.newConversation")}
+              <PlusIcon className="h-4 w-4" /> {t(tab === "team" ? "teamChat.newSpace" : "messages.newConversation")}
             </Button>
           )
         }
@@ -135,9 +134,9 @@ export default function MessagesPage() {
         ]}
       />
       {tab === "team" && <PlanNotice feature="team_chat" />}
-      {tab === "team" ? <TeamChat /> : <CustomerInbox />}
+      {tab === "team" ? <TeamChat onNewSpace={() => setSheet("new-channel")} /> : <CustomerInbox />}
       <NewConversationSheet open={sheet === "new-conversation"} onClose={() => setSheet(null)} />
-      <NewChannelSheet open={sheet === "new-channel"} onClose={() => setSheet(null)} />
+      <SpaceSheet open={sheet === "new-channel"} onClose={() => setSheet(null)} />
     </>
   );
 }
@@ -535,152 +534,6 @@ export function NewConversationSheet({ open, onClose, customerId }) {
           }
         >
           <textarea className="input" required rows={7} value={form.body} onChange={set("body")} />
-        </Field>
-      </form>
-    </Sheet>
-  );
-}
-
-// ---------- Team chat ----------
-
-function TeamChat() {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  const [params, setParams] = useSearchParams();
-  const { data: channels = [], isLoading } = useChannels();
-  const channelId = params.get("ch") ?? channels[0]?.id;
-  const channel = channels.find((c) => c.id === channelId);
-  const { data: messages = [] } = useTeamMessages(channelId);
-  const authors = useTeamMap();
-  const { user } = useAuth();
-  const [body, setBody] = useState("");
-  const bottom = useRef(null);
-  const known = useKnownIds(channelId, messages);
-  useEffect(() => {
-    bottom.current?.scrollIntoView({ block: "end" });
-  }, [messages.length, channelId]);
-
-  const post = useMutation({
-    mutationFn: () => apiClient.post(`/team-chat/channels/${channelId}/messages`, { body }),
-    onSuccess: () => {
-      setBody("");
-      queryClient.invalidateQueries({ queryKey: ["team-messages", channelId] });
-    },
-    onError: (error) => toast.error(errorMessage(error)),
-  });
-  const submit = () => body.trim() && !post.isPending && post.mutate();
-
-  if (isLoading) return <ListSkeleton rows={3} />;
-
-  return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[14rem_minmax(0,1fr)]">
-      <nav className="card h-fit p-2" aria-label={t("messages.channels")}>
-        <p className="px-2 pb-1 pt-1 text-[11px] font-semibold uppercase tracking-wide text-zinc-400">{t("messages.channels")}</p>
-        <ul className="flex gap-1 overflow-x-auto lg:flex-col">
-          {channels.map((c) => (
-            <li key={c.id}>
-              <button
-                type="button"
-                onClick={() => setParams({ tab: "team", ch: c.id })}
-                className={`w-full whitespace-nowrap rounded-md px-2.5 py-1.5 text-left text-sm ${c.id === channelId ? "bg-indigo-50 font-medium text-indigo-700" : "text-zinc-600 hover:bg-zinc-50"}`}
-              >
-                # {c.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <section className={PANE}>
-        <header className="border-b border-zinc-100 px-5 py-3">
-          <h2 className="font-semibold text-zinc-900"># {channel?.name}</h2>
-          <p className="text-xs text-zinc-500">{t("messages.teamHint")}</p>
-        </header>
-        <div className="min-h-[16rem] flex-1 space-y-4 overflow-y-auto px-5 py-4" aria-live="polite">
-          {messages.length === 0 && <p className="py-8 text-center text-sm text-zinc-500">{t("messages.teamEmpty")}</p>}
-          {messages.map((m) => {
-            const name = authors.get(m.author_id)?.full_name ?? "—";
-            const mine = m.author_id === user?.id;
-            return (
-              <div key={m.id} className={`flex gap-3 ${known.has(m.id) ? "" : "bubble-in bubble-from"}`}>
-                <Avatar name={name} size="sm" />
-                <div className="min-w-0">
-                  <p className="text-[13px]">
-                    <span className="font-semibold text-zinc-900">{mine ? t("messages.you") : name}</span>{" "}
-                    <span className="text-xs text-zinc-400">{formatDateTime(m.created_at, { dateStyle: "medium", timeStyle: "short" })}</span>
-                  </p>
-                  <p className="whitespace-pre-line break-words text-sm text-zinc-800">{m.body}</p>
-                </div>
-              </div>
-            );
-          })}
-          <div ref={bottom} />
-        </div>
-        <footer className="flex items-end gap-2 border-t border-zinc-100 p-3">
-          <textarea
-            className="input min-h-[2.75rem] flex-1"
-            rows={1}
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            onKeyDown={(e) => {
-              // Enter sends; Shift+Enter adds a line, as in every chat app.
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                submit();
-              }
-            }}
-            placeholder={t("messages.teamPlaceholder", { channel: channel?.name ?? "" })}
-            aria-label={t("messages.message")}
-          />
-          <Button disabled={!body.trim() || post.isPending} onClick={submit}>
-            {t("messages.send")}
-          </Button>
-        </footer>
-      </section>
-    </div>
-  );
-}
-
-function NewChannelSheet({ open, onClose }) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  const [, setParams] = useSearchParams();
-  const [name, setName] = useState("");
-  const create = useMutation({
-    mutationFn: () => apiClient.post("/team-chat/channels", { name }).then((r) => r.data),
-    onSuccess: (channel) => {
-      queryClient.invalidateQueries({ queryKey: ["team-channels"] });
-      setName("");
-      onClose();
-      setParams({ tab: "team", ch: channel.id });
-    },
-    onError: (error) => toast.error(errorMessage(error)),
-  });
-  return (
-    <Sheet
-      open={open}
-      onClose={onClose}
-      title={t("messages.newChannel")}
-      footer={
-        <>
-          <Button variant="secondary" onClick={onClose}>
-            {t("common.cancel")}
-          </Button>
-          <button type="submit" form="channel-form" className="btn btn-primary" disabled={create.isPending}>
-            {t("common.save")}
-          </button>
-        </>
-      }
-    >
-      <form
-        id="channel-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          create.mutate();
-        }}
-      >
-        <Field label={t("messages.channelName")}>
-          <input className="input" required maxLength={60} value={name} onChange={(e) => setName(e.target.value)} placeholder={t("messages.channelNameHint")} />
         </Field>
       </form>
     </Sheet>

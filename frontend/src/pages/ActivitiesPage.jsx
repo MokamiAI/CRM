@@ -5,7 +5,7 @@ import { useActivities, useActivity, useActivityCounts, useCustomerMap, useDeals
 import TaskSheet from "../components/TaskSheet";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
-import { ActivityRow, ComposerSheet, useToggleActivity } from "../components/crm";
+import { ActivityIcon, ActivityRow, activityColor, ACTIVITY_TYPES, ComposerSheet, useToggleActivity } from "../components/crm";
 import { Button, EmptyState, ErrorState, FilterChips, ListSkeleton, PageHeader, PlusIcon } from "../components/ui";
 
 const SCOPES = [
@@ -39,7 +39,10 @@ export default function ActivitiesPage() {
   const team = useTeamMap();
   const [openTask, setOpenTask] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
-  const { data: activities = [], isLoading, isError, refetch } = useActivities(params);
+  const { data: all = [], isLoading, isError, refetch } = useActivities(params);
+  // Calls, meetings, tasks...: one tap shows just that kind.
+  const [kind, setKind] = useState("all");
+  const activities = kind === "all" ? all : all.filter((a) => a.type === kind);
   const customers = useCustomerMap();
   const { data: deals = [] } = useDeals({ status: "all" });
   const dealTitles = new Map(deals.map((d) => [d.id, d.title]));
@@ -99,12 +102,44 @@ export default function ActivitiesPage() {
         />
       </div>
 
+      <div className="-mt-1 mb-4 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]" role="radiogroup" aria-label={t("activities.byType")}>
+        {[{ value: "all", label: t("common.all") }, ...ACTIVITY_TYPES].map((option) => {
+          const count = option.value === "all" ? all.length : all.filter((a) => a.type === option.value).length;
+          const on = kind === option.value;
+          const color = option.value === "all" ? null : activityColor(option.value);
+          return (
+            <button
+              key={option.value}
+              type="button"
+              role="radio"
+              aria-checked={on}
+              onClick={() => setKind(option.value)}
+              className={`pressable inline-flex shrink-0 items-center gap-1.5 rounded-full py-1 pl-1.5 pr-3 text-sm font-medium ring-1 ring-inset transition-colors duration-150 ${
+                on ? (color ? color.solid : "bg-zinc-900 text-white ring-zinc-900") : "bg-white text-zinc-700 ring-zinc-200 hover:bg-zinc-50"
+              } ${option.value === "all" ? "pl-3" : ""}`}
+            >
+              {color && (
+                <span className={`flex h-6 w-6 items-center justify-center rounded-full ${on ? "bg-white/20" : color.icon}`}>
+                  <ActivityIcon type={option.value} className="h-3.5 w-3.5" />
+                </span>
+              )}
+              {option.label}
+              <span className={`text-xs ${on ? "text-white/80" : "text-zinc-400"}`}>{count}</span>
+            </button>
+          );
+        })}
+      </div>
+
       {isLoading ? (
         <ListSkeleton />
       ) : isError ? (
         <ErrorState onRetry={refetch} />
       ) : activities.length === 0 ? (
-        <EmptyState title={t(EMPTY[scope][0])} description={t(EMPTY[scope][1])} />
+        all.length > 0 ? (
+          <EmptyState title={t("activities.noneOfType")} action={<Button variant="secondary" onClick={() => setKind("all")}>{t("activities.showAll")}</Button>} />
+        ) : (
+          <EmptyState title={t(EMPTY[scope][0])} description={t(EMPTY[scope][1])} />
+        )
       ) : (
         <ul className="card divide-y divide-zinc-100 overflow-hidden">
           {activities.map((activity) => (

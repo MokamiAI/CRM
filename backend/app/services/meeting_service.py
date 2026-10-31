@@ -12,6 +12,7 @@ from zoneinfo import ZoneInfo
 import jwt
 from sqlalchemy import func, or_, select
 
+from app.services.signatures import signature_for
 from app.api.email_dispatch import commit_and_enqueue_each
 from app.core.config import settings
 from app.core.activity_access import CHECK_AVAILABILITY
@@ -153,7 +154,7 @@ class MeetingService:
         if meeting.location:
             details.append(("Location / call link", meeting.location))
         calendar = meeting_ics(meeting, activity, organizer, cancel=cancel, proposed=proposed)
-        signature = organizer.email_signature or company.email_signature
+        signature = signature_for(organizer, company)
         guest = compose(to=meeting.attendee_email, subject=f"{message}: {activity.subject}", title=message,
                         paragraphs=[f"Hi {meeting.attendee_name},", f"{organizer.full_name} from {company.company_name}: {activity.subject}.",
                                     "Use Respond in YGT to record your choice. The attached calendar event can be added to your own calendar."],

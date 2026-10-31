@@ -6,6 +6,9 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 from app.models.enums import SUPPORTED_LANGUAGES, UserRole
 
+# Team chat colours a person can pick (the app maps each to soft tints).
+CHAT_COLORS = ("indigo", "violet", "teal", "emerald", "amber", "orange", "fuchsia", "cyan", "sky", "lime")
+
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -13,12 +16,15 @@ class UserCreate(BaseModel):
     password: str | None = Field(default=None, min_length=8, max_length=128)
     full_name: str = Field(min_length=1, max_length=255)
     role: UserRole = UserRole.STAFF
+    job_title: str | None = Field(default=None, max_length=100)
 
 
 class UserUpdate(BaseModel):
     full_name: str | None = Field(default=None, min_length=1, max_length=255)
     role: UserRole | None = None
     is_active: bool | None = None
+    # Empty string clears it.
+    job_title: str | None = Field(default=None, max_length=100)
 
 
 class UserOut(BaseModel):
@@ -40,6 +46,9 @@ class UserOut(BaseModel):
     invite_pending: bool = False
     # YGT's own marketing: None until they've answered.
     marketing_opt_in: bool | None = None
+    chat_color: str | None = None
+    job_title: str | None = None
+    quote_seen: str | None = None
     created_at: datetime
 
 
@@ -64,3 +73,9 @@ class ProfileUpdate(BaseModel):
     # one-time question (prompt) or in Settings.
     marketing_opt_in: bool | None = None
     marketing_source: Literal["prompt", "settings"] = "settings"
+    # Their team chat colour; None goes back to the one picked for them.
+    chat_color: Literal[CHAT_COLORS] | None = None  # type: ignore[valid-type]
+    # Their position; empty string clears it.
+    job_title: str | None = Field(default=None, max_length=100)
+    # The sales quote of the week they've seen.
+    quote_seen: str | None = Field(default=None, max_length=20)

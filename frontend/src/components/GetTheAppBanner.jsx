@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import apiClient from "../services/apiClient";
-import { installMode, isPhone, onInstallChange, promptInstall } from "../utils/install";
+import { installMode, isPhone, markInstalled, onInstallChange, promptInstall } from "../utils/install";
 import { enablePush, pushState } from "../utils/push";
 
 // Closed with ×: asked again after this long.
@@ -93,6 +93,15 @@ export default function GetTheAppBanner() {
     >
       <div className="flex min-w-0 flex-1 flex-wrap items-center justify-center gap-x-4 gap-y-2">
         <p className="text-center text-sm font-medium leading-snug">{text}</p>
+        {(install === "ios" || install === "mac-safari") && kind === "install" && (
+          <button
+            type="button"
+            onClick={markInstalled}
+            className="pressable inline-flex h-9 shrink-0 items-center rounded-lg px-3.5 text-sm font-semibold ring-1 ring-inset ring-white/70 transition-colors hover:bg-white/10"
+          >
+            {t("getApp.alreadyAdded")}
+          </button>
+        )}
         {button && (
           <button
             type="button"

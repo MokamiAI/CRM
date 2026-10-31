@@ -4,8 +4,9 @@ import uuid
 from datetime import datetime, timezone
 from email.utils import make_msgid
 
-from sqlalchemy import func, select, update
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import undefer
 
 from app.core.config import settings
 from app.core.exceptions import AppError, NotFoundError
@@ -13,12 +14,14 @@ from app.core.tenancy import set_tenant
 from app.models.company_settings import CompanySettings
 from app.models.customer import Customer
 from app.services.contact_service import account_email_matches
-from app.models.messaging import Conversation, Message, TeamChannel, TeamMessage
+from app.models.enums import UserRole
+from app.models.messaging import Conversation, Message, TeamChannel, TeamChannelMember, TeamMessage, TeamMessageAttachment, TeamMessageReaction
 from app.models.user import User
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.schemas.messaging import ConversationCreate, ConversationUpdate, InboundEmail
 from app.services.channel_providers import normalize_phone
 from app.services.email_service import OutgoingEmail, render_email
+from app.services.signatures import signature_for
 
 _TOKEN_RE = re.compile(r"\b(reply|inbox)\+([A-Za-z0-9_-]{8,40})@", re.I)
 # Where most mail clients start quoting the message being replied to.
@@ -266,7 +269,7 @@ class MessagingService:
             subject=subject,
             paragraphs=[block.split("\n") for block in message.body.split("\n\n") if block.strip()],
             author_name=author.full_name if author else company.company_name,
-            signature=(author.email_signature if author else None) or company.email_signature,
+            signature=signature_for(author, company),
             company=company,
         )
         from app.services.channel_service import ChannelService
@@ -320,30 +323,122 @@ class MessagingService:
         return conversation
 
     # ---------- Team chat ----------
+    # The whole team's General (the company's first channel) and any channel
+    # from before spaces are open to everyone; a space (is_private) is seen
+    # only by its members.
+
+    async def _general_id(self) -> uuid.UUID | None:
+        return await self.db.scalar(select(TeamChannel.id).order_by(TeamChannel.created_at, TeamChannel.id).limit(1))
+
+    async def _member_ids(self, channel_ids: list[uuid.UUID]) -> dict[uuid.UUID, list[uuid.UUID]]:
+        found: dict[uuid.UUID, list[uuid.UUID]] = {c: [] for c in channel_ids}
+        if channel_ids:
+            rows = await self.db.execute(
+                select(TeamChannelMember.channel_id, TeamChannelMember.user_id).where(TeamChannelMember.channel_id.in_(channel_ids))
+            )
+            for channel_id, user_id in rows.all():
+                found[channel_id].append(user_id)
+        return found
+
+    async def channel_views(self, channels: list[TeamChannel]) -> list[dict]:
+        general = await self._general_id()
+        members = await self._member_ids([c.id for c in channels if c.is_private])
+        return [
+            {
+                "id": c.id, "name": c.name, "created_at": c.created_at, "is_private": c.is_private, "created_by": c.created_by,
+                "member_ids": members.get(c.id, []), "is_general": c.id == general,
+            }
+            for c in channels
+        ]
+
+    async def _ensure_general(self, user: User) -> None:
+        if await self._general_id() is None:
+            self.db.add(TeamChannel(name="General", created_by=user.id))
+            await self.db.flush()
 
     async def channels(self, user: User) -> list[TeamChannel]:
-        channels = list((await self.db.scalars(select(TeamChannel).order_by(TeamChannel.created_at))).all())
-        if not channels:
-            general = TeamChannel(name="General", created_by=user.id)
-            self.db.add(general)
-            await self.db.flush()
-            channels = [general]
-        return channels
+        await self._ensure_general(user)
+        mine = select(TeamChannelMember.channel_id).where(TeamChannelMember.user_id == user.id)
+        query = select(TeamChannel).where(TeamChannel.is_private.is_(False) | TeamChannel.id.in_(mine))
+        return list((await self.db.scalars(query.order_by(TeamChannel.created_at, TeamChannel.id))).all())
 
-    async def create_channel(self, name: str, user: User) -> TeamChannel:
-        channel = TeamChannel(name=name.strip(), created_by=user.id)
+    async def _valid_members(self, member_ids, user: User) -> set[uuid.UUID]:
+        wanted = set(member_ids) | {user.id}
+        found = await self.db.scalars(
+            select(User.id).where(User.company_id == user.company_id, User.is_active.is_(True), User.id.in_(wanted))
+        )
+        return set(found.all()) | {user.id}
+
+    async def create_channel(self, name: str, user: User, member_ids=()) -> TeamChannel:
+        """A new space, seen by the people chosen for it. Scale has as many
+        as it likes; Grow has one besides General (channels made before
+        spaces keep working, they just count)."""
+        from app.core.plans import GROW_SPACES, TEAM_SPACES
+        from app.services.billing_service import BillingService, PlanLimitError
+
+        await self._ensure_general(user)
+        plan = (await BillingService(self.db).current()).plan
+        if TEAM_SPACES not in plan.features:
+            total = await self.db.scalar(select(func.count()).select_from(TeamChannel)) or 0
+            if total - 1 >= GROW_SPACES:  # General doesn't count
+                raise PlanLimitError("Your plan includes one space besides General. Scale has as many as you need.", "PLAN_TEAM_SPACES")
+        channel = TeamChannel(name=name.strip(), created_by=user.id, is_private=True)
         self.db.add(channel)
+        await self.db.flush()
+        for member in await self._valid_members(member_ids, user):
+            self.db.add(TeamChannelMember(channel_id=channel.id, user_id=member))
         await self.db.flush()
         return channel
 
-    async def _channel(self, channel_id: uuid.UUID) -> TeamChannel:
+    def _can_manage(self, channel: TeamChannel, user: User) -> bool:
+        return channel.created_by == user.id or user.role in (UserRole.ADMIN, UserRole.MANAGER)
+
+    async def update_channel(self, channel_id: uuid.UUID, user: User, name: str | None = None, member_ids=None) -> TeamChannel:
+        channel = await self._channel(channel_id, user)
+        if not self._can_manage(channel, user):
+            raise AppError("Only whoever made this space, or a manager, can change it", "CHANNEL_FORBIDDEN", 403)
+        if name is not None:
+            channel.name = name.strip()
+        if member_ids is not None:
+            if not channel.is_private:
+                raise AppError("Everyone on the team is in this channel", "CHANNEL_OPEN", 422)
+            keep = await self._valid_members(member_ids, user)
+            if channel.created_by:
+                keep.add(channel.created_by)
+            current = set((await self._member_ids([channel.id]))[channel.id])
+            for gone in current - keep:
+                await self.db.execute(
+                    delete(TeamChannelMember).where(TeamChannelMember.channel_id == channel.id, TeamChannelMember.user_id == gone)
+                )
+            for added in keep - current:
+                self.db.add(TeamChannelMember(channel_id=channel.id, user_id=added))
+        await self.db.flush()
+        return channel
+
+    async def delete_channel(self, channel_id: uuid.UUID, user: User) -> None:
+        """Deletes a space with its messages and files. General stays."""
+        channel = await self._channel(channel_id, user)
+        if channel.id == await self._general_id():
+            raise AppError("General is the whole team's channel and stays", "CHANNEL_GENERAL", 422)
+        if not self._can_manage(channel, user):
+            raise AppError("Only whoever made this space, or a manager, can delete it", "CHANNEL_FORBIDDEN", 403)
+        await self.db.delete(channel)
+        await self.db.flush()
+
+    async def _channel(self, channel_id: uuid.UUID, user: User | None = None) -> TeamChannel:
         channel = await self.db.get(TeamChannel, channel_id)
+        if channel is not None and channel.is_private and user is not None:
+            member = await self.db.scalar(
+                select(TeamChannelMember.id).where(TeamChannelMember.channel_id == channel.id, TeamChannelMember.user_id == user.id)
+            )
+            if member is None:
+                channel = None  # not theirs to see, so not there
         if channel is None:
             raise NotFoundError("Channel not found", "CHANNEL_NOT_FOUND")
         return channel
 
-    async def team_messages(self, channel_id: uuid.UUID, after: datetime | None = None) -> list[TeamMessage]:
-        await self._channel(channel_id)
+    async def team_messages(self, channel_id: uuid.UUID, user: User, after: datetime | None = None) -> list[TeamMessage]:
+        await self._channel(channel_id, user)
         query = select(TeamMessage).where(TeamMessage.channel_id == channel_id)
         if after:
             query = query.where(TeamMessage.created_at > after)
@@ -351,33 +446,141 @@ class MessagingService:
         latest = list((await self.db.scalars(query.order_by(TeamMessage.created_at.desc()).limit(200))).all())
         return latest[::-1]
 
-    async def post_team_message(self, channel_id: uuid.UUID, body: str, user: User) -> TeamMessage:
-        channel = await self._channel(channel_id)
-        message = TeamMessage(channel_id=channel_id, author_id=user.id, body=body.strip(), created_at=_now())
+    async def message_views(self, messages: list[TeamMessage]) -> list[dict]:
+        """Messages with their files, reactions and the message each replies to."""
+        ids = [m.id for m in messages]
+        files: dict[uuid.UUID, list] = {i: [] for i in ids}
+        reactions: dict[uuid.UUID, dict[str, list]] = {i: {} for i in ids}
+        quoted: dict[uuid.UUID, TeamMessage] = {}
+        if ids:
+            rows = await self.db.scalars(
+                select(TeamMessageAttachment).where(TeamMessageAttachment.message_id.in_(ids)).order_by(TeamMessageAttachment.created_at)
+            )
+            for row in rows:
+                files[row.message_id].append(row)
+            rows = await self.db.execute(
+                select(TeamMessageReaction.message_id, TeamMessageReaction.emoji, TeamMessageReaction.user_id)
+                .where(TeamMessageReaction.message_id.in_(ids))
+                .order_by(TeamMessageReaction.id)
+            )
+            for message_id, emoji, user_id in rows.all():
+                reactions[message_id].setdefault(emoji, []).append(user_id)
+            wanted = {m.reply_to_id for m in messages if m.reply_to_id}
+            if wanted:
+                quoted = {m.id: m for m in await self.db.scalars(select(TeamMessage).where(TeamMessage.id.in_(wanted)))}
+        views = []
+        for m in messages:
+            original = quoted.get(m.reply_to_id) if m.reply_to_id else None
+            views.append({
+                "id": m.id, "channel_id": m.channel_id, "author_id": m.author_id, "body": m.body, "created_at": m.created_at,
+                "edited_at": m.edited_at, "reply_to_id": m.reply_to_id,
+                "reply_to": {"id": original.id, "author_id": original.author_id, "body": original.body[:200]} if original else None,
+                "attachments": files[m.id],
+                "reactions": [{"emoji": e, "user_ids": who} for e, who in reactions[m.id].items()],
+            })
+        return views
+
+    async def post_team_message(
+        self, channel_id: uuid.UUID, body: str, user: User, reply_to_id: uuid.UUID | None = None, mention_ids=(), files=()
+    ) -> TeamMessage:
+        channel = await self._channel(channel_id, user)
+        body = (body or "").strip()
+        if not body and not files:
+            raise AppError("Write a message or attach a file", "MESSAGE_EMPTY", 422)
+        if reply_to_id is not None:
+            original = await self.db.get(TeamMessage, reply_to_id)
+            if original is None or original.channel_id != channel.id:
+                reply_to_id = None
+        message = TeamMessage(channel_id=channel_id, author_id=user.id, body=body, created_at=_now(), reply_to_id=reply_to_id)
         self.db.add(message)
         await self.db.flush()
-        await self._tell_team(channel, message, user)
+        for f in files:
+            self.db.add(TeamMessageAttachment(message_id=message.id, **f))
+        await self.db.flush()
+        await self._tell_team(channel, message, user, set(mention_ids), [f["filename"] for f in files])
         return message
 
-    async def _tell_team(self, channel: TeamChannel, message: TeamMessage, author: User) -> None:
-        """Everyone else in the company hears about a new team message: in
+    async def _message(self, message_id: uuid.UUID, user: User) -> TeamMessage:
+        message = await self.db.get(TeamMessage, message_id)
+        if message is None:
+            raise NotFoundError("Message not found", "MESSAGE_NOT_FOUND")
+        await self._channel(message.channel_id, user)
+        return message
+
+    async def _own_message(self, message_id: uuid.UUID, user: User, allow_admin: bool = False) -> TeamMessage:
+        message = await self._message(message_id, user)
+        if message.author_id != user.id and not (allow_admin and user.role == UserRole.ADMIN):
+            raise AppError("You can only change your own messages", "MESSAGE_FORBIDDEN", 403)
+        return message
+
+    async def edit_team_message(self, message_id: uuid.UUID, body: str, user: User) -> TeamMessage:
+        message = await self._own_message(message_id, user)
+        message.body = body.strip()
+        message.edited_at = _now()
+        await self.db.flush()
+        return message
+
+    async def delete_team_message(self, message_id: uuid.UUID, user: User) -> None:
+        # An admin can take down anyone's message; its files go with it.
+        await self.db.delete(await self._own_message(message_id, user, allow_admin=True))
+        await self.db.flush()
+
+    async def toggle_reaction(self, message_id: uuid.UUID, emoji: str, user: User) -> TeamMessage:
+        from app.schemas.messaging import REACTIONS
+
+        if emoji not in REACTIONS:
+            raise AppError("Pick one of the reactions", "REACTION_UNKNOWN", 422)
+        message = await self._message(message_id, user)
+        mine = await self.db.scalar(select(TeamMessageReaction).where(
+            TeamMessageReaction.message_id == message_id, TeamMessageReaction.user_id == user.id, TeamMessageReaction.emoji == emoji
+        ))
+        if mine is None:
+            self.db.add(TeamMessageReaction(message_id=message_id, user_id=user.id, emoji=emoji))
+        else:
+            await self.db.delete(mine)
+        await self.db.flush()
+        return message
+
+    async def team_file(self, message_id: uuid.UUID, attachment_id: uuid.UUID, user: User) -> TeamMessageAttachment:
+        await self._message(message_id, user)
+        row = await self.db.scalar(
+            select(TeamMessageAttachment)
+            .where(TeamMessageAttachment.id == attachment_id, TeamMessageAttachment.message_id == message_id)
+            .options(undefer(TeamMessageAttachment.data))
+        )
+        if row is None:
+            raise NotFoundError("File not found", "ATTACHMENT_NOT_FOUND")
+        return row
+
+    async def _tell_team(self, channel: TeamChannel, message: TeamMessage, author: User, mentioned=frozenset(), filenames=()) -> None:
+        """Everyone else who can see the channel hears about a new message: in
         the bell and as an alert on their devices, not by email (a busy chat
         would flood inboxes). While unread, a channel's news is one
-        notification that keeps the latest message and counts the rest."""
+        notification that keeps the latest message and counts the rest.
+        Someone named with @ gets a notification of their own instead."""
         from app.models.notification import Notification
         from app.services import notify
 
         key = f"team:{channel.id}"
-        text = message.body if len(message.body) <= 140 else message.body[:139].rstrip() + "…"
-        others = await self.db.scalars(select(User).where(
-            User.company_id == author.company_id, User.id != author.id, User.is_active.is_(True)))
-        for person in others.all():
+        said = message.body or "📎 " + ", ".join(filenames)
+        text = said if len(said) <= 140 else said[:139].rstrip() + "…"
+        query = select(User).where(User.company_id == author.company_id, User.id != author.id, User.is_active.is_(True))
+        if channel.is_private:
+            query = query.where(User.id.in_(select(TeamChannelMember.user_id).where(TeamChannelMember.channel_id == channel.id)))
+        link = f"/messages?tab=team&ch={channel.id}"
+        for person in (await self.db.scalars(query)).all():
+            if person.id in mentioned:
+                params = {"by": author.full_name, "channel": channel.name, "channel_id": str(channel.id), "text": text}
+                await notify.notify(
+                    self.db, person, kind="team_mention", title=f"{author.full_name} mentioned you in #{channel.name}",
+                    body=f"{author.full_name}: {text}", link=link, params=params, key=f"mention:{message.id}", email=False,
+                )
+                continue
             note = await self.db.scalar(select(Notification).where(Notification.user_id == person.id, Notification.key == key))
             count = note.params.get("count", 1) + 1 if note is not None and note.read_at is None else 1
             params = {"by": author.full_name, "channel": channel.name, "channel_id": str(channel.id), "count": count, "text": text}
             title = f"{count} new messages in #{channel.name}" if count > 1 else f"{author.full_name} in #{channel.name}"
             body = f"{author.full_name}: {text}"
-            link = f"/messages?tab=team&ch={channel.id}"
             if note is None:
                 await notify.notify(self.db, person, kind="team_message", title=title, body=body, link=link, params=params, key=key, email=False)
                 continue
@@ -388,8 +591,11 @@ class MessagingService:
                 await notify._dispatch_push(note.id)
 
     async def read_team_channel(self, channel_id: uuid.UUID, user: User) -> None:
-        """Opening a channel reads its notification."""
+        """Opening a channel reads its notifications, mentions too."""
         from app.models.notification import Notification
 
+        link = f"/messages?tab=team&ch={channel_id}"
         await self.db.execute(update(Notification).where(
-            Notification.user_id == user.id, Notification.key == f"team:{channel_id}", Notification.read_at.is_(None)).values(read_at=_now()))
+            Notification.user_id == user.id, Notification.read_at.is_(None),
+            (Notification.key == f"team:{channel_id}") | ((Notification.kind == "team_mention") & (Notification.link == link)),
+        ).values(read_at=_now()))

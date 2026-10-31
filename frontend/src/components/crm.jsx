@@ -3,7 +3,7 @@ import { meetingLabel } from "./MeetingCard";
 import { activityWorkspace } from "../utils/activityWorkspace";
 import { useEffect, useRef, useState } from "react";
 import { StatusChip } from "./TaskSheet";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -93,6 +93,29 @@ const ICON_PATHS = {
   deadline: "M5 21V4M5 4h11l-2 4 2 4H5",
   note: "M4 4h16v12H8l-4 4V4Z",
 };
+
+// One colour per kind of activity, the same everywhere it shows. Deadline
+// is amber, not red: red already means overdue.
+export const ACTIVITY_COLORS = {
+  call: { soft: "bg-emerald-50 text-emerald-700 ring-emerald-200", icon: "bg-emerald-100 text-emerald-700", solid: "bg-emerald-600 text-white ring-emerald-600" },
+  meeting: { soft: "bg-violet-50 text-violet-700 ring-violet-200", icon: "bg-violet-100 text-violet-700", solid: "bg-violet-600 text-white ring-violet-600" },
+  task: { soft: "bg-blue-50 text-blue-700 ring-blue-200", icon: "bg-blue-100 text-blue-700", solid: "bg-blue-600 text-white ring-blue-600" },
+  email: { soft: "bg-sky-50 text-sky-700 ring-sky-200", icon: "bg-sky-100 text-sky-700", solid: "bg-sky-600 text-white ring-sky-600" },
+  deadline: { soft: "bg-amber-50 text-amber-800 ring-amber-200", icon: "bg-amber-100 text-amber-700", solid: "bg-amber-500 text-white ring-amber-500" },
+  note: { soft: "bg-zinc-50 text-zinc-700 ring-zinc-200", icon: "bg-zinc-100 text-zinc-600", solid: "bg-zinc-800 text-white ring-zinc-800" },
+};
+export const activityColor = (type) => ACTIVITY_COLORS[type] ?? ACTIVITY_COLORS.task;
+
+/** "Call", "Meeting"... as a small coloured label with its icon. */
+export function ActivityTypePill({ type }) {
+  const { t } = useTranslation();
+  return (
+    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold ring-1 ring-inset ${activityColor(type).soft}`}>
+      <ActivityIcon type={type} className="h-3 w-3" />
+      {t(`activityType.${type}`)}
+    </span>
+  );
+}
 
 export function ActivityIcon({ type, className = "h-4 w-4" }) {
   return (
@@ -288,6 +311,9 @@ export function ActivityRow({ activity, context, onToggle, onOpen }) {
   const [leaving, setLeaving] = useState(false);
   const done = optimisticDone ?? activity.done;
   const state = done ? "done" : dueState(activity.due_date);
+  // On the deal or customer page itself, "View workspace" would lead back here.
+  const { pathname } = useLocation();
+  const workspace = activityWorkspace(activity);
 
   function handleToggle() {
     if (optimisticDone !== null) return; // already on its way out
@@ -332,15 +358,12 @@ export function ActivityRow({ activity, context, onToggle, onOpen }) {
               {!done && (activity.status === "in_progress" || activity.status === "blocked") && <StatusChip status={activity.status} />}
             </p>
             <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-zinc-500">
-              <span className="inline-flex items-center gap-1">
-                <ActivityIcon type={activity.type} className="h-3.5 w-3.5" />
-                {ACTIVITY_TYPES.find((t) => t.value === activity.type)?.label}
-              </span>
+              <ActivityTypePill type={activity.type} />
               {!done && <span className={DUE_STYLES[state]}>{dueLabel(activity.due_date, activity.due_time)}</span>}
               {context}
               {activity.assignee_ids?.length > 0 && <span>{t("task.assigneeCount", { defaultValue: "{{count}} assignees", count: activity.assignee_ids.length + (activity.owner_id ? 1 : 0) })}</span>}
-              {activityWorkspace(activity) && (
-                <Link to={activityWorkspace(activity)} className="font-semibold text-blue-600 hover:underline">
+              {workspace && workspace !== pathname && (
+                <Link to={workspace} className="font-semibold text-blue-600 hover:underline">
                   {t("activity.viewWorkspace", "View workspace")}
                 </Link>
               )}
@@ -495,23 +518,30 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
           </Field>
         ) : (
           <>
-            <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label={t("composer.type")}>
-              {ACTIVITY_TYPES.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  role="radio"
-                  aria-checked={type === option.value}
-                  disabled={Boolean(activity?.meeting) && option.value !== "meeting"}
-                  onClick={() => setType(option.value)}
-                  className={`pressable inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium ring-1 ring-inset ${
-                    type === option.value ? "bg-zinc-900 text-white ring-zinc-900" : "bg-white text-zinc-600 ring-zinc-200 hover:bg-zinc-50"
-                  }`}
-                >
-                  <ActivityIcon type={option.value} className="h-4 w-4" />
-                  {option.label}
-                </button>
-              ))}
+            {/* Five equal tiles across the sheet: each in its own soft colour, the
+                chosen one solid. */}
+            <div className="grid grid-cols-5 gap-1.5 sm:gap-2" role="radiogroup" aria-label={t("composer.type")}>
+              {ACTIVITY_TYPES.map((option) => {
+                const on = type === option.value;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    role="radio"
+                    aria-checked={on}
+                    disabled={Boolean(activity?.meeting) && option.value !== "meeting"}
+                    onClick={() => setType(option.value)}
+                    className={`pressable flex min-w-0 flex-col items-center gap-1 rounded-xl px-1 py-2.5 text-xs font-semibold ring-1 ring-inset transition-colors duration-150 disabled:opacity-40 sm:text-sm ${
+                      on ? `${activityColor(option.value).solid} shadow-xs` : `${activityColor(option.value).soft} hover:brightness-[0.97]`
+                    }`}
+                  >
+                    <span className={`flex h-7 w-7 items-center justify-center rounded-full ${on ? "bg-white/20" : "bg-white/80"}`}>
+                      <ActivityIcon type={option.value} className="h-4 w-4" />
+                    </span>
+                    <span className="w-full truncate text-center">{option.label}</span>
+                  </button>
+                );
+              })}
             </div>
             <Field label={t("composer.subject")}>
               <input className="input" required value={subject} onChange={(e) => setSubject(e.target.value)} placeholder={t("composer.subjectPlaceholder")} />
@@ -766,7 +796,7 @@ export function QuickActions({ email, phone, onCompose, canWrite = true }) {
         const href = action.key === "email" && email ? `mailto:${email}` : action.key === "call" && phone ? `tel:${phone}` : null;
         const content = (
           <>
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-600 shadow-xs transition-colors duration-150 group-hover:border-zinc-300 group-hover:text-zinc-900">
+            <span className={`flex h-9 w-9 items-center justify-center rounded-full shadow-xs ring-1 ring-inset ring-black/5 transition-transform duration-150 group-hover:scale-105 ${activityColor(action.icon).icon}`}>
               <ActivityIcon type={action.icon} className="h-4 w-4" />
             </span>
             <span className="text-[11px] font-medium text-zinc-500 group-hover:text-zinc-900">{t(`quickAction.${action.key}`)}</span>

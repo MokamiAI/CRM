@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useAuth } from "../context/AuthContext";
@@ -7,6 +8,8 @@ import { errorMessage } from "../utils/format";
 import Sheet from "./Sheet";
 import { Avatar, Button, Field } from "./ui";
 import DeleteAccount from "./DeleteAccount";
+import { CHAT_COLORS, colorOf } from "./TeamChat";
+import { suggestedSignature } from "../utils/signature";
 
 const MAX = 1000;
 
@@ -70,19 +73,26 @@ export function ProfileSheet({ open, onClose }) {
   const { user, updateProfile } = useAuth();
   const { data: company } = useCompany();
   const [name, setName] = useState("");
+  const [position, setPosition] = useState("");
   const [signature, setSignature] = useState("");
   const [marketing, setMarketing] = useState(false);
+  const [color, setColor] = useState(null);
   const [saving, setSaving] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!open || !user) return;
     setName(user.full_name || "");
+    setPosition(user.job_title || "");
     setSignature(user.email_signature || "");
     setMarketing(Boolean(user.marketing_opt_in));
+    setColor(user.chat_color ?? null);
   }, [open, user]);
 
-  const companyName = company?.company_name || "";
-  const starter = () => setSignature([name.trim(), `${t(`role.${user?.role}`)} · ${companyName}`, user?.email].filter(Boolean).join("\n"));
+  // Made from their name, position and the company's details; used on
+  // their emails until they write their own.
+  const suggested = suggestedSignature({ full_name: name.trim() || user?.full_name, job_title: position, email: user?.email }, company);
+  const starter = () => setSignature(suggested);
 
   async function save(event) {
     event.preventDefault();
@@ -90,7 +100,8 @@ export function ProfileSheet({ open, onClose }) {
     try {
       // Only a change is recorded as a new answer (with its date).
       const answer = marketing !== Boolean(user.marketing_opt_in) ? { marketing_opt_in: marketing } : {};
-      await updateProfile({ full_name: name.trim(), email_signature: signature, ...(user.is_platform_admin ? {} : answer) });
+      await updateProfile({ full_name: name.trim(), job_title: position.trim(), email_signature: signature, chat_color: color, ...(user.is_platform_admin ? {} : answer) });
+      queryClient.invalidateQueries({ queryKey: ["team"] }); // names and colours in chat
       toast.success(t("profile.saved"));
       onClose();
     } catch (error) {
@@ -127,6 +138,29 @@ export function ProfileSheet({ open, onClose }) {
         <Field label={t("profile.name")}>
           <input className="input" required maxLength={255} value={name} onChange={(e) => setName(e.target.value)} />
         </Field>
+        <Field label={t("team.position")} hint={t("profile.positionHint")}>
+          <input className="input" maxLength={100} value={position} onChange={(e) => setPosition(e.target.value)} placeholder={t("team.positionPlaceholder")} />
+        </Field>
+        <div>
+          <p className="label">{t("profile.chatColor")}</p>
+          <p className="mb-2 text-sm text-zinc-500">{t("profile.chatColorHint")}</p>
+          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={t("profile.chatColor")}>
+            {Object.entries(CHAT_COLORS).map(([key, c]) => {
+              const chosen = (color ?? null) === key || (!color && colorOf({ id: user?.id }) === c);
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  role="radio"
+                  aria-checked={chosen}
+                  aria-label={key}
+                  onClick={() => setColor(key)}
+                  className={`h-8 w-8 rounded-full ${c.swatch} transition-transform duration-150 hover:scale-110 ${chosen ? "ring-2 ring-zinc-900 ring-offset-2" : ""}`}
+                />
+              );
+            })}
+          </div>
+        </div>
         <div>
           <label htmlFor="profile-signature" className="label">
             {t("signature.yours")}
@@ -137,7 +171,7 @@ export function ProfileSheet({ open, onClose }) {
             value={signature}
             onChange={setSignature}
             placeholder={t("signature.yoursPlaceholder")}
-            fallback={company?.email_signature || `${name || user?.full_name || ""}\n${companyName}`}
+            fallback={company?.email_signature || suggested}
             onStarter={starter}
           />
         </div>

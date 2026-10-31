@@ -151,7 +151,10 @@
     "subtitle": "Swirhambo, minhlangano ni mintirho: magoza lama landzelaka eka ntwanano wun'wana ni wun'wana ni muxavi",
     "handedOut": "Leswi ndzi swi nyikeke",
     "forPerson": "Swa {{name}}",
-    "fromPerson": "Ku suka eka {{name}}"
+    "fromPerson": "Ku suka eka {{name}}",
+    "byType": "Kombisa hi muxaka",
+    "noneOfType": "A ku na nchumu wa muxaka lowu laha.",
+    "showAll": "Kombisa hinkwaswo"
   },
   "activity": {
     "done": "Swi hetiwile",
@@ -192,7 +195,8 @@
       "whatsapp_sms": "WhatsApp ni SMS",
       "reports": "Xiviko xa \"I mani loyi a ku kolotaka\"",
       "recurring_invoices": "Tiinvhoyisi leti phindhaphindhaka",
-      "discovery": "Ku kuma: vaxavi lavantshwa vhiki na vhiki"
+      "discovery": "Ku kuma: vaxavi lavantshwa vhiki na vhiki",
+      "team_spaces": "Swivandla swa mbulavurisano wa ntlawa swo tala hilaha u swi lavaka hakona"
     },
     "fewer": "Switulu swi nga ri swingani",
     "fixPayment": "Pfuxeta karata",
@@ -1007,7 +1011,12 @@
     "ATTACHMENT_BAD_TYPE": "Namarheta PDF, xifaniso, dokumente ya Office, CSV kumbe fayili ya matsalwa.",
     "ATTACHMENT_TOO_LARGE": "Fayili yin'wana na yin'wana yi fanele ku va 10 MB kumbe ehansi.",
     "ATTACHMENT_LIMIT": "Ntirho wu nga va na tifayili ku fika eka 20.",
-    "ATTACHMENT_EMPTY": "Fayili yoleyo a yi na nchumu."
+    "ATTACHMENT_EMPTY": "Fayili yoleyo a yi na nchumu.",
+    "PLAN_TEAM_SPACES": "Grow yi katsa xivandla xin'we handle ka General. Hlawula Scale eka Mavekelo > Ku hakela ku kuma swivandla leswi u swi lavaka.",
+    "CHANNEL_GENERAL": "General i chanele ya ntlawa hinkwawo naswona a yi nge susiwi.",
+    "CHANNEL_FORBIDDEN": "I loyi a endleke xivandla lexi ntsena, kumbe mufambisi, a nga xi cincaka.",
+    "MESSAGE_FORBIDDEN": "U nga cinca mahungu ya wena ntsena.",
+    "MESSAGE_EMPTY": "Tsala rungula kumbe u namarhetela fayili."
   },
   "feed": {
     "activityDone": "{{type}} yi hetiwile",
@@ -1667,7 +1676,10 @@
     "saved": "Phurofayili yi hlayisiwile",
     "title": "Phurofayili ya wena",
     "marketing": "Ndzi rhumele switsundzuxo swa YGT, mahungu ya swikumiwa na swinyiko",
-    "marketingHint": "Tiimeyili ta ku kuma swo tala eka YGT, swiave leswintshwa na swinyiko. Tiimeyili ta akhawunti ya wena na ku hakela ti ta minkarhi hinkwayo."
+    "marketingHint": "Tiimeyili ta ku kuma swo tala eka YGT, swiave leswintshwa na swinyiko. Tiimeyili ta akhawunti ya wena na ku hakela ti ta minkarhi hinkwayo.",
+    "chatColor": "Muhlovo wa wena eka mbulavurisano wa ntlawa",
+    "chatColorHint": "Vatirhikulobye va wena va wu vona evitweni ra wena ni le ka mahungu.",
+    "positionHint": "Swi voniwa hi ntlawa wa wena ni le ka nsayino wa imeyili ya wena."
   },
   "quickAction": {
     "call": "Xirhambo",
@@ -1795,7 +1807,10 @@
       "name": "Vito ra khamphani",
       "timezone": "Xiphemu xa nkarhi xa ntolovelo",
       "title": "Khamphani",
-      "attachLogo": "Namarheta logo"
+      "attachLogo": "Namarheta logo",
+      "phone": "Riqingho",
+      "website": "Webusayiti",
+      "contactHint": "Swi tirhisiwa eka nsayino wa imeyili lowu ringanyetiweke wa un'wana ni un'wana."
     },
     "documents": {
       "invoicePrefix": "Masungulo ya nomboro ya nhlayo-xikoloto",
@@ -1889,7 +1904,7 @@
     "previewBody": "…makumu ya rungula ra wena.",
     "starter": "Sungula hi vuxokoxoko bya mina",
     "yours": "Nsayino wa wena wa imeyili",
-    "yoursHint": "Wu engeteriwa eka ti-imeyili leti u ti rhumelaka vaxavi ku suka eka Marungula. Wu siye wu nga ri na nchumu ku tirhisa nsayino wa khampani.",
+    "yoursHint": "Yi engeteriwa eka ti-imeyili leti u ti rhumelaka vaxavi ku suka eka Mahungu. Yi siye yi ri hava nchumu kutani YGT yi ta tirhisa leyi nga laha hansi, leyi endliweke hi vito ra wena, xikhundlha ni vuxokoxoko bya khampani.",
     "yoursPlaceholder": "xik. Thabo Mokoena\nMurhangeri wa vuxavisi · Zintos Trading\n082 555 0101"
   },
   "stage": {
@@ -2051,7 +2066,9 @@
     "resendInvite": "Rhumela xirhambo nakambe",
     "inviteResent": "Xirhambo xi rhumeriwile nakambe",
     "inviteHint": "Va ta kuma imeyili yo endla phasiwedi ya vona. A swi lavi u yi avelana.",
-    "sendInvite": "Rhumela xirhambo"
+    "sendInvite": "Rhumela xirhambo",
+    "position": "Xikhundlha",
+    "positionPlaceholder": "xik. Mufambisi wa Mixaviso"
   },
   "time": {
     "daysAgo_one": "siku ra {{count}} leri hundzeke",
@@ -2685,7 +2702,8 @@
     "marketingConsentBody": "Hlamula eka xitiviso lexi nga ehenhla ka pheji. U nga cinca miehleketo nkarhi wun'wana na wun'wana eka phurofayili ya wena.",
     "teamMessage": "{{by}} eka #{{channel}}",
     "teamMany_one": "Rungula lerintshwa ra {{count}} eka #{{channel}}",
-    "teamMany_other": "Marungula lamantshwa ya {{count}} eka #{{channel}}"
+    "teamMany_other": "Marungula lamantshwa ya {{count}} eka #{{channel}}",
+    "teamMention": "{{by}} u ku vurile eka #{{channel}}"
   },
   "task": {
     "status": {
@@ -3148,5 +3166,41 @@
     "no": "E-e ndza khensa",
     "savedYes": "Ha khensa! U nga cinca leswi eka phurofayili ya wena nkarhi wun'wana na wun'wana.",
     "savedNo": "Swi lulamile. A hi nge ku rhumeli tiimeyili ta vuxavisi."
+  },
+  "teamChat": {
+    "wholeTeam": "Ntlawa hinkwawo",
+    "spaces": "Swivandla",
+    "noSpaces": "Ka ha swi na swivandla sweswi.",
+    "newSpace": "Xivandla xintshwa",
+    "create": "Endla xivandla",
+    "created": "Xivandla xi endliwile",
+    "saved": "Xivandla xi hlayisiwile",
+    "deleted": "Xivandla xi susiwile",
+    "manage": "Mavekelo ya xivandla",
+    "spaceName": "Vito ra xivandla",
+    "whoCanSee": "I mani a nga xi vonaka xivandla lexi",
+    "whoCanSeeHint": "I vanhu lava u va hlawulaka ntsena (na wena) lava nga xi vonaka ni ku kuma switiviso swa xona.",
+    "selectAll": "Hlawula hinkwavo",
+    "clearAll": "Sula",
+    "spaceHint_one": "I wena ntsena u nga xi vonaka xivandla lexi",
+    "spaceHint_other": "I vanhu lava va {{count}} ntsena lava nga xi vonaka xivandla lexi",
+    "deleteSpace": "Susa xivandla",
+    "deleteSpaceHint": "Mahungu ni tifayili swa xona swi susiwa eka hinkwavo. Leswi a swi nge tlheriseki.",
+    "deleteSpaceConfirm": "Ina, xi suse",
+    "edited": "swi lulamisiwile",
+    "react": "Angula",
+    "reply": "Hlamula",
+    "edit": "Lulamisa",
+    "delete": "Susa",
+    "deleteConfirm": "Susa rungula leri?",
+    "replyingTo": "U hlamula {{name}}",
+    "attach": "Namarhetela tifayili",
+    "removeFile": "Susa fayili",
+    "tooManyFiles": "Namarhetela ku fika eka tifayili ta {{count}} hi nkarhi.",
+    "fileTooBig": "{{name}} yi tlula 10 MB.",
+    "composerHint": "Enter ku rhumela, Shift+Enter layini leyintshwa. Tsala @ ku vula munhu. Koka kumbe u namarhetela tifayili."
+  },
+  "getApp": {
+    "alreadyAdded": "Se ndzi yi engeterile"
   }
 }

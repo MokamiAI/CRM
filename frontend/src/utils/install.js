@@ -7,6 +7,30 @@ let deferred = null;
 const listeners = new Set();
 const notify = () => listeners.forEach((fn) => fn());
 
+// Once YGT is installed on this device we stop asking. Browsers only tell
+// us some of the time (Apple's never do), so we also remember it: when YGT
+// opens as the app, when the browser says it was installed, or when someone
+// on an iPhone taps "I've already added it".
+const INSTALLED = "ygt.appInstalled";
+
+function remembered() {
+  try {
+    return localStorage.getItem(INSTALLED) === "1";
+  } catch {
+    return false;
+  }
+}
+
+export function markInstalled() {
+  try {
+    localStorage.setItem(INSTALLED, "1");
+  } catch {
+    // Private window: we just ask again next visit.
+  }
+  deferred = null;
+  notify();
+}
+
 /** Inside the Capacitor phone app: it's already an app. */
 export function isNativeApp() {
   return Boolean(window.Capacitor?.isNativePlatform?.());
@@ -36,7 +60,7 @@ export function isPhone() {
 /** "prompt" (we can show the browser's install dialog), "ios" or
  *  "mac-safari" (menu steps), or null (installed, native, or not offered). */
 export function installMode() {
-  if (isNativeApp() || isInstalled()) return null;
+  if (isNativeApp() || isInstalled() || remembered()) return null;
   if (deferred) return "prompt";
   if (isIOS()) return "ios";
   if (isMacSafari()) return "mac-safari";
@@ -63,12 +87,19 @@ if (typeof window !== "undefined" && !isNativeApp()) {
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault(); // our bar asks, not the browser's own pop-up
     deferred = event;
+    // Offered again: it was uninstalled, so forget that it was there.
+    try {
+      localStorage.removeItem(INSTALLED);
+    } catch {
+      // nothing to forget
+    }
     notify();
   });
-  window.addEventListener("appinstalled", () => {
-    deferred = null;
-    notify();
-  });
+  window.addEventListener("appinstalled", markInstalled);
+  if (isInstalled()) markInstalled();
+  // Chrome and Edge can say whether this site is installed on the device
+  // (manifest.webmanifest lists it under related_applications).
+  navigator.getInstalledRelatedApps?.().then((apps) => apps.length > 0 && markInstalled()).catch(() => {});
   // Same worker that push alerts use; some browsers want one before they
   // treat the site as installable.
   if ("serviceWorker" in navigator) {

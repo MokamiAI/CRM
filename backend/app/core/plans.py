@@ -17,6 +17,9 @@ from dataclasses import dataclass, field
 WHATSAPP_SMS = "whatsapp_sms"
 MARKETING = "marketing"
 TEAM_CHAT = "team_chat"
+# As many team chat spaces as they like. Without it (Grow), one space
+# besides the whole team's General.
+TEAM_SPACES = "team_spaces"
 PRIORITY_SUPPORT = "priority_support"
 REPORTS = "reports"  # "Who owes you" (aged receivables)
 RECURRING = "recurring_invoices"
@@ -67,7 +70,8 @@ class Plan:
 
 
 GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, TEAM_CHAT, REPORTS, RECURRING})
-SCALE_FEATURES = GROW_FEATURES | {DISCOVERY, PRIORITY_SUPPORT}
+SCALE_FEATURES = GROW_FEATURES | {DISCOVERY, PRIORITY_SUPPORT, TEAM_SPACES}
+GROW_SPACES = 1
 
 PLANS: dict[str, Plan] = {
     # Per company: up to three people.

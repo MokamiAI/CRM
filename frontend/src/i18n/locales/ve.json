@@ -151,7 +151,10 @@
     "subtitle": "Mafounu, maṱangano na mishumo: zwikalo zwi tevhelaho kha thendelano iṅwe na iṅwe na murengi",
     "handedOut": "Zwe nda zwi ṋea",
     "forPerson": "Zwa {{name}}",
-    "fromPerson": "U bva kha {{name}}"
+    "fromPerson": "U bva kha {{name}}",
+    "byType": "Sumbedza nga lushaka",
+    "noneOfType": "A hu na tshithu tsha lushaka ulu fhano.",
+    "showAll": "Sumbedza zwoṱhe"
   },
   "activity": {
     "done": "Zwo fhela",
@@ -192,7 +195,8 @@
       "whatsapp_sms": "WhatsApp na SMS",
       "reports": "Muvhigo wa \"Ndi nnyi ane a ni kolodela\"",
       "recurring_invoices": "Dziinvoisi dzi dzhenaho hafhu",
-      "discovery": "U wana: vharengi vhaswa vhege iṅwe na iṅwe"
+      "discovery": "U wana: vharengi vhaswa vhege iṅwe na iṅwe",
+      "team_spaces": "Zwikhala zwa nyambedzano ya tshigwada zwinzhi u ya nga ha zwine na zwi ṱoḓa"
     },
     "fewer": "Zwidulo zwi si gathi",
     "fixPayment": "Vusuludzani garaṱa",
@@ -1007,7 +1011,12 @@
     "ATTACHMENT_BAD_TYPE": "Nambatedzani PDF, tshifanyiso, ḽiṅwalwa ḽa Office, CSV kana faela ya maṅwalwa.",
     "ATTACHMENT_TOO_LARGE": "Faela iṅwe na iṅwe i fanela u vha 10 MB kana nga fhasi.",
     "ATTACHMENT_LIMIT": "Mushumo u nga vha na faela u swika kha 20.",
-    "ATTACHMENT_EMPTY": "Iyo faela a i na tshithu."
+    "ATTACHMENT_EMPTY": "Iyo faela a i na tshithu.",
+    "PLAN_TEAM_SPACES": "Grow i katela tshikhala tshithihi nga nnḓa ha General. Nangani Scale kha Zwiimiswa > Mbadelo u wana zwikhala zwine na zwi ṱoḓa.",
+    "CHANNEL_GENERAL": "General ndi tshanele ya tshigwada tshoṱhe nahone a i bviswi.",
+    "CHANNEL_FORBIDDEN": "Ndi o itaho tshikhala itshi fhedzi, kana mulanguli, ane a nga tshi shandukisa.",
+    "MESSAGE_FORBIDDEN": "Ni nga shandukisa milaedza yaṋu fhedzi.",
+    "MESSAGE_EMPTY": "Ṅwalani mulaedza kana ni nambatedze faela."
   },
   "feed": {
     "activityDone": "{{type}} yo fhela",
@@ -1667,7 +1676,10 @@
     "saved": "Phurofaiḽi yo vhulungwa",
     "title": "Phurofaiḽi yaṋu",
     "marketing": "Nthumeleni nyeletshedzo dza YGT, mafhungo a zwibveledzwa na zwiṋetshedzo",
-    "marketingHint": "Dziimeiḽi nga ha u wana zwinzhi kha YGT, zwiṱaluli zwiswa na zwiṋetshedzo. Dziimeiḽi nga ha akhaunthu yaṋu na mbadelo dzi ḓa misi yoṱhe."
+    "marketingHint": "Dziimeiḽi nga ha u wana zwinzhi kha YGT, zwiṱaluli zwiswa na zwiṋetshedzo. Dziimeiḽi nga ha akhaunthu yaṋu na mbadelo dzi ḓa misi yoṱhe.",
+    "chatColor": "Muvhala waṋu kha nyambedzano ya tshigwada",
+    "chatColorHint": "Vhashumisani vhaṋu vha u vhona kha dzina ḽaṋu na milaedza.",
+    "positionHint": "Zwi vhonwa nga tshigwada tshaṋu na kha tshaino ya imeiḽi yaṋu."
   },
   "quickAction": {
     "call": "Founu",
@@ -1795,7 +1807,10 @@
       "name": "Dzina ḽa khamphani",
       "timezone": "Tshifhinga tsha fhethu tsha tshiofisi",
       "title": "Khamphani",
-      "attachLogo": "Nambatedzani logo"
+      "attachLogo": "Nambatedzani logo",
+      "phone": "Founu",
+      "website": "Webusaithi",
+      "contactHint": "Zwi shumiswa kha tshaino ya imeiḽi yo themendelwaho ya muṅwe na muṅwe."
     },
     "documents": {
       "invoicePrefix": "Mathomo a nomboro ya invoice",
@@ -1889,7 +1904,7 @@
     "previewBody": "…mafhedziselo a mulaedza waṋu.",
     "starter": "Thomani nga zwidodombedzwa zwanga",
     "yours": "Saini yaṋu ya imeiḽi",
-    "yoursHint": "I engedzwa kha imeiḽi dzine na dzi rumela vharengi u bva kha Milaedza. I litsheni i si na tshithu u shumisa saini ya khamphani.",
+    "yoursHint": "I engedzwa kha imeiḽi dzine na dzi rumela vharengi u bva kha Milaedza. I litsheni i si na tshithu nahone YGT i ḓo shumisa ine ya vha afho fhasi, yo itwaho nga dzina ḽaṋu, vhuimo na zwidodombedzwa zwa khamphani.",
     "yoursPlaceholder": "tsumbo Thabo Mokoena\nMurangaphanḓa wa thengiso · Zintos Trading\n082 555 0101"
   },
   "stage": {
@@ -2051,7 +2066,9 @@
     "resendInvite": "Rumelani ṱhamo hafhu",
     "inviteResent": "Ṱhamo yo rumelwa hafhu",
     "inviteHint": "Vha ḓo wana imeiḽi ya u ita phasiweḓe yavho. A zwi ṱoḓei uri ni i kovhekane.",
-    "sendInvite": "Rumelani ṱhamo"
+    "sendInvite": "Rumelani ṱhamo",
+    "position": "Vhuimo",
+    "positionPlaceholder": "tsumbo: Mulanguli wa Thengiso"
   },
   "time": {
     "daysAgo_one": "ḓuvha ḽa {{count}} ḽo fhiraho",
@@ -2685,7 +2702,8 @@
     "marketingConsentBody": "Fhindulani kha nḓivhadzo i re nṱha ha siaṱari. Ni nga shandukisa muhumbulo tshifhinga tshiṅwe na tshiṅwe kha phurofaiḽi yaṋu.",
     "teamMessage": "{{by}} kha #{{channel}}",
     "teamMany_one": "Mulaedza muswa wa {{count}} kha #{{channel}}",
-    "teamMany_other": "Milaedza miswa ya {{count}} kha #{{channel}}"
+    "teamMany_other": "Milaedza miswa ya {{count}} kha #{{channel}}",
+    "teamMention": "{{by}} o ni bula kha #{{channel}}"
   },
   "task": {
     "status": {
@@ -3148,5 +3166,41 @@
     "no": "Hai ndo livhuwa",
     "savedYes": "Ri a livhuwa! Ni nga shandukisa izwi kha phurofaiḽi yaṋu tshifhinga tshiṅwe na tshiṅwe.",
     "savedNo": "Zwo luga. A ri nga ni rumeli dziimeiḽi dza u rengisa."
+  },
+  "teamChat": {
+    "wholeTeam": "Tshigwada tshoṱhe",
+    "spaces": "Zwikhala",
+    "noSpaces": "A hu na zwikhala zwino.",
+    "newSpace": "Tshikhala tshiswa",
+    "create": "Itani tshikhala",
+    "created": "Tshikhala tsho itwa",
+    "saved": "Tshikhala tsho vhulungwa",
+    "deleted": "Tshikhala tsho bviswa",
+    "manage": "Zwiimiswa zwa tshikhala",
+    "spaceName": "Dzina ḽa tshikhala",
+    "whoCanSee": "Ndi nnyi ane a nga vhona tshikhala itshi",
+    "whoCanSeeHint": "Ndi vhathu vhane na vha nanga fhedzi (na inwi) vhane vha nga tshi vhona na u wana nḓivhadzo dzatsho.",
+    "selectAll": "Nangani vhoṱhe",
+    "clearAll": "Bvisa",
+    "spaceHint_one": "Ndi inwi fhedzi ane a nga vhona tshikhala itshi",
+    "spaceHint_other": "Ndi vhathu ava vha {{count}} fhedzi vhane vha nga vhona tshikhala itshi",
+    "deleteSpace": "Bvisa tshikhala",
+    "deleteSpaceHint": "Milaedza na faela zwatsho zwi bviswa kha vhoṱhe. Izwi a zwi vhuyiselwi murahu.",
+    "deleteSpaceConfirm": "Ee, tshi bviseni",
+    "edited": "yo khwiniswa",
+    "react": "Fhindula nga tshiga",
+    "reply": "Fhindula",
+    "edit": "Khwinisa",
+    "delete": "Bvisa",
+    "deleteConfirm": "Bvisa uyu mulaedza?",
+    "replyingTo": "Ni khou fhindula {{name}}",
+    "attach": "Nambatedza faela",
+    "removeFile": "Bvisa faela",
+    "tooManyFiles": "Nambatedzani u swika kha faela dza {{count}} nga tshifhinga.",
+    "fileTooBig": "{{name}} i fhira 10 MB.",
+    "composerHint": "Enter u rumela, Shift+Enter mutevhe muswa. Ṅwalani @ u bula muthu. Kokodzani kana ni nambatedze faela."
+  },
+  "getApp": {
+    "alreadyAdded": "Ndo no i engedza"
   }
 }

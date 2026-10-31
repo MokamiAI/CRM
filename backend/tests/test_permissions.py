@@ -46,6 +46,10 @@ ANY_SIGNED_IN = {
     "/api/v1/support/tickets/{ticket_id}/close",
     "/api/v1/support/tickets/{ticket_id}/messages",
     "/api/v1/team-chat/channels/{channel_id}/messages",
+    # Viewers chat too; changing a message is checked against its author.
+    "/api/v1/team-chat/channels/{channel_id}/messages/files",
+    "/api/v1/team-chat/messages/{message_id}",
+    "/api/v1/team-chat/messages/{message_id}/reactions",
 }
 
 

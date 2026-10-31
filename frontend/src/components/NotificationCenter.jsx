@@ -38,6 +38,8 @@ export function notificationText(n, t) {
       return { title: t("notify.noNextStep", { deal: p.deal }), body: t("notify.noNextStepBody") };
     case "team_message":
       return { title: p.count > 1 ? t("notify.teamMany", { count: p.count, channel: p.channel }) : t("notify.teamMessage", { by: p.by, channel: p.channel }), body: p.count > 1 ? `${p.by}: ${p.text}` : p.text };
+    case "team_mention":
+      return { title: t("notify.teamMention", { by: p.by, channel: p.channel }), body: p.text };
     case "marketing_consent":
       return { title: t("notify.marketingConsent"), body: t("notify.marketingConsentBody") };
     case "test":
@@ -100,7 +102,7 @@ export function NotificationPopper() {
       return;
     }
     // Not for the chat being read right now.
-    const reading = (n) => n.kind === "team_message" && window.location.search.includes(n.params?.channel_id);
+    const reading = (n) => (n.kind === "team_message" || n.kind === "team_mention") && window.location.search.includes(n.params?.channel_id);
     const fresh = items.filter((n) => !seen.current.has(id(n)) && !n.read_at && !reading(n));
     items.forEach((n) => seen.current.add(id(n)));
     if (!fresh.length) return;

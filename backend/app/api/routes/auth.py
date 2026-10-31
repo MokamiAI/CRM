@@ -134,6 +134,8 @@ async def update_me(
             )
     if "tour_completed" in changes:
         current_user.tour_completed_at = datetime.now(timezone.utc) if changes.pop("tour_completed") else None
+    if "job_title" in changes:
+        changes["job_title"] = (changes["job_title"] or "").strip() or None
     if "email_signature" in changes:
         changes["email_signature"] = clean_signature(changes["email_signature"])
     for field, value in changes.items():

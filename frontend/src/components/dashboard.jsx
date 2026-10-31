@@ -4,7 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Avatar } from "./ui";
-import { ActivityIcon, EditActivityButton, PencilIcon, STAGE_LABELS } from "./crm";
+import { ActivityIcon, activityColor, EditActivityButton, PencilIcon, STAGE_LABELS } from "./crm";
 import { EditCustomerSheet } from "./CustomerFormSheet";
 import { useAuth } from "../context/AuthContext";
 import { formatMoney, formatMoneyFit, formatMoneyWhole, formatShortDate } from "../utils/format";
@@ -331,7 +331,6 @@ export function QuickActions({ actions }) {
 
 /* ---------------------------------------------------- upcoming activity */
 
-const ACT_TINT = { call: "bg-amber-50 text-amber-600", meeting: "bg-blue-50 text-blue-600", task: "bg-emerald-50 text-emerald-600", email: "bg-violet-50 text-violet-600", deadline: "bg-rose-50 text-rose-600" };
 
 export function UpcomingList({ items, customers, today, onToggle }) {
   const { t } = useTranslation();
@@ -344,7 +343,7 @@ export function UpcomingList({ items, customers, today, onToggle }) {
         const href = a.deal_id ? `/deals/${a.deal_id}` : a.customer_id ? `/customers/${a.customer_id}` : "/activities";
         return (
           <li key={a.id} className="flex items-center gap-3 px-5 py-3">
-            <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${ACT_TINT[a.type] ?? ACT_TINT.task}`}>
+            <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${activityColor(a.type).icon}`}>
               <ActivityIcon type={a.type} className="h-4 w-4" />
             </span>
             <Link to={href} className="min-w-0 flex-1">

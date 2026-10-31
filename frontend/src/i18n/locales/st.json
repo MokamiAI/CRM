@@ -151,7 +151,10 @@
     "subtitle": "Mehala, dikopano le mesebetsi: mehato e latelang tumellanong e nngwe le e nngwe le moreki",
     "handedOut": "Tseo ke di fileng",
     "forPerson": "Tsa {{name}}",
-    "fromPerson": "Ho tswa ho {{name}}"
+    "fromPerson": "Ho tswa ho {{name}}",
+    "byType": "Bontsha ka mofuta",
+    "noneOfType": "Ha ho letho la mofuta ona mona.",
+    "showAll": "Bontsha tsohle"
   },
   "activity": {
     "done": "Ho phethilwe",
@@ -192,7 +195,8 @@
       "whatsapp_sms": "WhatsApp le SMS",
       "reports": "Tlaleho ya \"Ke mang ya o kolotang\"",
       "recurring_invoices": "Di-invoice tse iphetang",
-      "discovery": "Tshibollo: bareki ba batjha beke le beke"
+      "discovery": "Tshibollo: bareki ba batjha beke le beke",
+      "team_spaces": "Dibaka tsa moqoqo wa sehlopha tse ngata kamoo o di hlokang"
     },
     "fewer": "Ditulo tse fokolang",
     "fixPayment": "Ntjhafatsa karete",
@@ -1007,7 +1011,12 @@
     "ATTACHMENT_BAD_TYPE": "Kgomaretsa PDF, setshwantsho, tokomane ya Office, CSV kapa faele ya mongolo.",
     "ATTACHMENT_TOO_LARGE": "Faele ka nngwe e tlameha ho ba 10 MB kapa ka tlase.",
     "ATTACHMENT_LIMIT": "Mosebetsi o ka ba le difaele ho fihla ho 20.",
-    "ATTACHMENT_EMPTY": "Faele eo ha e na letho."
+    "ATTACHMENT_EMPTY": "Faele eo ha e na letho.",
+    "PLAN_TEAM_SPACES": "Grow e kenyelletsa sebaka se le seng ntle le General. Kgetha Scale ho Ditlhophiso > Tefo bakeng sa dibaka tseo o di hlokang.",
+    "CHANNEL_GENERAL": "General ke kanale ya sehlopha sohle mme e ke ke ya hlakolwa.",
+    "CHANNEL_FORBIDDEN": "Ke ya thehileng sebaka sena feela, kapa mookamedi, ya ka se fetolang.",
+    "MESSAGE_FORBIDDEN": "O ka fetola melaetsa ya hao feela.",
+    "MESSAGE_EMPTY": "Ngola molaetsa kapa o kgomaretse faele."
   },
   "feed": {
     "activityDone": "{{type}} e phethilwe",
@@ -1667,7 +1676,10 @@
     "saved": "Profaele e bolokilwe",
     "title": "Profaele ya hao",
     "marketing": "Nthomelle malebela a YGT, ditaba tsa dihlahiswa le dinyehelo",
-    "marketingHint": "Diimeile mabapi le ho fumana ho eketsehileng ho YGT, dikarolo tse ntjha le dinyehelo. Diimeile mabapi le akhaonto ya hao le tefo di tla kamehla."
+    "marketingHint": "Diimeile mabapi le ho fumana ho eketsehileng ho YGT, dikarolo tse ntjha le dinyehelo. Diimeile mabapi le akhaonto ya hao le tefo di tla kamehla.",
+    "chatColor": "Mmala wa hao moqoqong wa sehlopha",
+    "chatColorHint": "Basebetsimmoho ba hao ba o bona lebitsong la hao le melaetseng.",
+    "positionHint": "Ho bonwa ke sehlopha sa hao le tshaenong ya imeile ya hao."
   },
   "quickAction": {
     "call": "Mohala",
@@ -1795,7 +1807,10 @@
       "name": "Lebitso la khampani",
       "timezone": "Sebaka sa nako sa kamehla",
       "title": "Khampani",
-      "attachLogo": "Kgomaretsa logo"
+      "attachLogo": "Kgomaretsa logo",
+      "phone": "Mohala",
+      "website": "Websaete",
+      "contactHint": "Ho sebediswa tshaenong ya imeile e sisintsweng ya motho e mong le e mong."
     },
     "documents": {
       "invoicePrefix": "Qalo ya nomoro ya invoice",
@@ -1889,7 +1904,7 @@
     "previewBody": "…qetello ya molaetsa wa hao.",
     "starter": "Qala ka dintlha tsa ka",
     "yours": "Tekeno ya hao ya imeile",
-    "yoursHint": "E ekelletswa ho diimeile tseo o di romellang bareki ho tswa ho Melaetsa. E tlohele e se na letho ho sebedisa tekeno ya khampani.",
+    "yoursHint": "E kenngwa ho diimeile tseo o di romellang bareki ho tswa ho Melaetsa. E tlohele e se na letho mme YGT e tla sebedisa e ka tlase, e entsweng ka lebitso la hao, boemo le dintlha tsa khampani.",
     "yoursPlaceholder": "mohl. Thabo Mokoena\nMoetapele wa thekiso · Zintos Trading\n082 555 0101"
   },
   "stage": {
@@ -2051,7 +2066,9 @@
     "resendInvite": "Romela memo hape",
     "inviteResent": "Memo e rometswe hape",
     "inviteHint": "Ba tla fumana imeile ya ho etsa phasewete ya bona. Ha ho hlokehe hore o arolelane yona.",
-    "sendInvite": "Romela memo"
+    "sendInvite": "Romela memo",
+    "position": "Boemo",
+    "positionPlaceholder": "mohl. Mookamedi wa Thekiso"
   },
   "time": {
     "daysAgo_one": "letsatsi le {{count}} le fetileng",
@@ -2685,7 +2702,8 @@
     "marketingConsentBody": "Araba tsebisong e kaholimo ho leqephe. O ka fetola mohopolo neng kapa neng profaeleng ya hao.",
     "teamMessage": "{{by}} ho #{{channel}}",
     "teamMany_one": "Molaetsa o motjha o {{count}} ho #{{channel}}",
-    "teamMany_other": "Melaetsa e metjha e {{count}} ho #{{channel}}"
+    "teamMany_other": "Melaetsa e metjha e {{count}} ho #{{channel}}",
+    "teamMention": "{{by}} o o boletse ho #{{channel}}"
   },
   "task": {
     "status": {
@@ -3148,5 +3166,41 @@
     "no": "Tjhe ke a leboha",
     "savedYes": "Re a leboha! O ka fetola sena profaeleng ya hao neng kapa neng.",
     "savedNo": "Ho lokile. Re ke ke ra o romella diimeile tsa papatso."
+  },
+  "teamChat": {
+    "wholeTeam": "Sehlopha sohle",
+    "spaces": "Dibaka",
+    "noSpaces": "Ha ho dibaka hajoale.",
+    "newSpace": "Sebaka se secha",
+    "create": "Theha sebaka",
+    "created": "Sebaka se thehilwe",
+    "saved": "Sebaka se bolokilwe",
+    "deleted": "Sebaka se hlakotsoe",
+    "manage": "Ditlhophiso tsa sebaka",
+    "spaceName": "Lebitso la sebaka",
+    "whoCanSee": "Ke mang ya ka bonang sebaka sena",
+    "whoCanSeeHint": "Ke batho bao o ba kgethang feela (le wena) ba ka se bonang le ho fumana ditsebiso tsa sona.",
+    "selectAll": "Kgetha bohle",
+    "clearAll": "Hlakola",
+    "spaceHint_one": "Ke wena feela ya ka bonang sebaka sena",
+    "spaceHint_other": "Ke batho bana ba {{count}} feela ba ka bonang sebaka sena",
+    "deleteSpace": "Hlakola sebaka",
+    "deleteSpaceHint": "Melaetsa le difaele tsa sona di hlakolwa ho bohle. Sena se ke ke sa kgutliswa.",
+    "deleteSpaceConfirm": "E, se hlakole",
+    "edited": "e fetotswe",
+    "react": "Arabela",
+    "reply": "Araba",
+    "edit": "Fetola",
+    "delete": "Hlakola",
+    "deleteConfirm": "Hlakola molaetsa ona?",
+    "replyingTo": "O araba {{name}}",
+    "attach": "Kgomaretsa difaele",
+    "removeFile": "Tlosa faele",
+    "tooManyFiles": "Kgomaretsa ho fihla ho difaele tse {{count}} ka nako.",
+    "fileTooBig": "{{name}} e kgolo ho feta 10 MB.",
+    "composerHint": "Enter ho romela, Shift+Enter mola o motjha. Ngola @ ho bolela motho. Hula kapa o kgomaretse difaele."
+  },
+  "getApp": {
+    "alreadyAdded": "Ke se ke e kentse"
   }
 }

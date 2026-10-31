@@ -23,6 +23,7 @@ class UserService:
             password_hash=hash_password(data.password) if data.password else unusable_password(),
             full_name=data.full_name,
             role=data.role,
+            job_title=(data.job_title or "").strip() or None,
         )
         return await self.users.create(user)
 
@@ -43,4 +44,6 @@ class UserService:
             user.role = data.role
         if data.is_active is not None:
             user.is_active = data.is_active
+        if data.job_title is not None:
+            user.job_title = data.job_title.strip() or None
         return await self.users.save(user)

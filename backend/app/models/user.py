@@ -47,6 +47,15 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # (core/legal.TERMS_VERSION). None: before YGT recorded it.
     terms_accepted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     terms_version: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    # Their colour in team chat (a name from the app's palette). None: one
+    # picked from their id, so it's the same on every screen.
+    chat_color: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    # Their position in the company ("Sales Manager"): shown to the team
+    # and in their email signature. Not the role, which sets what they can do.
+    job_title: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    # The week whose sales quote they've seen ("2026-10-26"), so it shows
+    # once on whichever device they use, not once per browser.
+    quote_seen: Mapped[str | None] = mapped_column(String(20), nullable=True)
 
     @property
     def can_receive_tasks(self) -> bool:
