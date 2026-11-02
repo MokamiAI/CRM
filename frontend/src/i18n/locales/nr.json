@@ -1016,7 +1016,11 @@
     "CHANNEL_GENERAL": "I-General sitjhaneli sesiqhema soke begodu angekhe isuswe.",
     "CHANNEL_FORBIDDEN": "Ngowenze isikhala lesi kwaphela, namkha umphathi, ongasitjhugulula.",
     "MESSAGE_FORBIDDEN": "Ungatjhugulula imilayezo yakho kwaphela.",
-    "MESSAGE_EMPTY": "Tlola umlayezo namkha unamathisele ifayela."
+    "MESSAGE_EMPTY": "Tlola umlayezo namkha unamathisele ifayela.",
+    "QUOTE_FULLY_INVOICED": "I-quote le sele yenzelwe i-invoyisi ngokupheleleko.",
+    "QUOTE_PART_TOO_LARGE": "Lokho kungaphezu kwalokho okuseleko ukwenzelwa i-invoyisi ku-quote le.",
+    "QUOTE_NOT_ACCEPTED": "I-quote eyamukelweko kwaphela engenzelwa i-invoyisi.",
+    "QUOTE_DRAFT_EDITED": "I-invoyisi yesibhalwa ye-quote le ilungisiwe, ngalokho ayitjhentjhwa. Yisule kuqala bona wenze ama-invoyisi ngeengcenye."
   },
   "feed": {
     "activityDone": "{{type}} kuqediwe",
@@ -3114,6 +3118,92 @@
       "sentTitle": "Siyathokoza, siyifumene imiphumela yakho",
       "sentBody": "Sizakuthintana nawe ku-{{email}} ngaphakathi kwelanga linye lokusebenza.",
       "privacy": "Umthethomgomo wefihlo"
+    },
+    "forIndustry": {
+      "catering": {
+        "q": {
+          "enquiries": "Isibonelo: umtjhado, ukudla kwemini kwekhamphani, isibawo semenyu.",
+          "documents": "Isibonelo: amamenyu ngomuntu, ama-quote wemigidi, ama-invoyisi ngemva komgidi.",
+          "payments": "Isibonelo: idiphozithi yokubhuka ilanga, okuseleko ngemva komgidi."
+        },
+        "plan": {
+          "customers": "Bulunga imigidi yekhasimende ngalinye, amanothi wokudla namamenyu adlulileko endaweni yinye, bona ukubhuka godu kuthathe imizuzu.",
+          "pipeline": "Tlola umbuzo ngamunye nelanga lawo, inani lezivakatjhi nenani, bona kungabi khona ukubhuka okuphelelwako.",
+          "tasks": "Yenza umgidi ngamunye ube yimisebenzi enamalanga yesiqhema sakho: ukunambitha, ukuthenga, ukuletha nokuhlela.",
+          "documents": "Bulunga ukudla kwakho namanani ngomuntu njengemikhiqizo, bona i-quote yemenyu ithathe imizuzu begodu ibe yi-invoyisi nayamukelwako.",
+          "payments": "Yenza i-invoyisi yediphozithi yokubhuka ilanga, bese kuba ngokuseleko ngemva komgidi. Iinkhumbuzo zilandelela okusakweletwako."
+        }
+      },
+      "construction": {
+        "q": {
+          "enquiries": "Isibonelo: ifoni mayelana nokuvuselela, ukuvakatjhela isiza ukwenza i-quote, ithenda.",
+          "documents": "Isibonelo: ama-quote ngomsebenzi nezinto nabasebenzi, ama-invoyisi njengombana umsebenzi wenziwa.",
+          "payments": "Isibonelo: idiphozithi ngaphambi kokuthoma, iimbhadelo njengombana iigaba ziqedwa."
+        },
+        "plan": {
+          "customers": "Bulunga ikheli lesiza lekhasimende ngalinye, imisebenzi namaphepha endaweni yinye.",
+          "pipeline": "Landelela umsebenzi ngamunye ukusuka ekuvakatjheleni isiza ukuya ku-quote eyamukelweko, nenani lawo nesinyathelo esilandelako.",
+          "tasks": "Nikela isiqhema sakho ukuvakatjhela iindawo, ama-oda wezinto nokuhlola, namalanga wokuqeda.",
+          "documents": "Bulunga amanani wezinto nabasebenzi njengemikhiqizo, wenze i-quote ngomsebenzi, bese u-oda izinto ngama-oda wokuthenga.",
+          "payments": "Yenza i-invoyisi yomsebenzi ngeengaba: idiphozithi, iimbhadelo zokuthuthuka, bese kuba ngokuseleko. Iinkhumbuzo zilandelela okusakweletwako."
+        }
+      },
+      "cleaning": {
+        "q": {
+          "enquiries": "Isibonelo: isibawo sokuhlwengisa iofisi, ukuhlwengisa okujulileko kanye, ikontraka yenyanga nenyanga.",
+          "documents": "Isibonelo: ama-invoyisi wekontraka yenyanga nenyanga, ama-quote wokuhlwengisa okujulileko kanye.",
+          "payments": "Isibonelo: ikontraka yenyanga ebhadelwa kade, ukuhlwengisa kanye okungakhenge kubhadelwe."
+        },
+        "plan": {
+          "customers": "Bulunga isiza ngasinye, umuntu wokuthintana nekontraka erekhodeni linye lekhasimende.",
+          "pipeline": "Landelela isibawo ngasinye se-quote ukusuka ekuvakatjheleni isiza ukuya ekontrakeni etlikitlwe.",
+          "tasks": "Hlela ukuhlwengisa nokuhlola njengemisebenzi enamalanga, enikelwe ilunga lesiqhema elifaneleko.",
+          "documents": "Bhadelisa amakontraka wenyanga nenyanga ngama-invoyisi aphindwako azithumelako.",
+          "payments": "Vumela iinkhumbuzo zilandelele ama-invoyisi wekontraka asedlulelwe sikhathi, bese ubona msinyana bona ngubani okweletako."
+        }
+      },
+      "it": {
+        "q": {
+          "enquiries": "Isibonelo: ikhasimende elitjha elibawa isizo, ukufaka inethiwekhi, i-oda ye-laptop.",
+          "documents": "Isibonelo: amakontraka wesizo, ama-invoyisi wokubizwa, ama-quote we-hardware.",
+          "payments": "Isibonelo: imali yesizo yenyanga ebhadelwe kade, i-invoyisi yeprojekthi esavulekileko."
+        },
+        "plan": {
+          "customers": "Bulunga abantu bokuthintana bekhasimende ngalinye, amanothi nomlando endaweni yinye.",
+          "pipeline": "Landelela iprojekthi ngayinye nesibawo sesizo ukusuka embuzweni ukuya ku-quote etlikitlwe.",
+          "tasks": "Yenza ukubizwa nokufaka kube yimisebenzi enomnikazi, irhelo lokuhlola nelanga lokuqeda.",
+          "documents": "Bhadelisa amakontraka wesizo ngama-invoyisi aphindwako, wenze ama-quote we-hardware emikhiqizweni ebulungiweko.",
+          "payments": "Yenza ama-invoyisi wamaphrojekthi amakhulu ngeengaba, begodu uvumele iinkhumbuzo zilandelele ama-invoyisi asedlulelwe sikhathi ngokuzenzakalela."
+        }
+      },
+      "accounting": {
+        "q": {
+          "enquiries": "Isibonelo: ikhasimende elitjha elibawa ukubulungwa kwamabhuku, iimbuyiselo zomthelo namkha amaholo.",
+          "documents": "Isibonelo: ama-invoyisi wemali yenyanga nenyanga, ama-quote womsebenzi wakanye.",
+          "payments": "Isibonelo: imali yenyanga ebhadelwe kade, umsebenzi wokuphela komnyaka ongakabhadelwa."
+        },
+        "plan": {
+          "customers": "Bulunga imininingwana yekhasimende ngalinye, amalanga wokugcina nomlando erhelweni linye isiqhema sakho esingalifuna.",
+          "pipeline": "Landelela imibuzo yamakhasimende amatjha ukusuka efonini yokuthoma ukuya esivumelwaneni esitlikitlwe.",
+          "tasks": "Nikela imbuyiselo ngayinye, ilanga lokugcina nokulandelela ilanga nomnikazi.",
+          "documents": "Bhadelisa imali yenyanga ngama-invoyisi aphindwako, wenze ama-quote womsebenzi wakanye eenkonzweni ezibulungiweko.",
+          "payments": "Vumela iinkhumbuzo zilandelele iimali ezisedlulelwe sikhathi, bona ungatlhogi ukuleleka amakhasimende wakho."
+        }
+      },
+      "events": {
+        "q": {
+          "enquiries": "Isibonelo: umtjhado, umgidi wokuphela komnyaka, ukubhuka ikomfrensi.",
+          "documents": "Isibonelo: ama-quote wemigidi anokuhlobisa, ukuqatjha nabasebenzi, ama-invoyisi ngemva komgidi.",
+          "payments": "Isibonelo: idiphozithi yokubhuka ilanga, okuseleko ngaphambi komgidi."
+        },
+        "plan": {
+          "customers": "Bulunga imigidi yekhasimende ngalinye, iindawo nalokho akuthandako endaweni yinye.",
+          "pipeline": "Tlola umbuzo ngamunye nelanga lomgidi nenani lawo, bona kungabi khona ukubhuka okutjhelelako.",
+          "tasks": "Yenza umgidi ngamunye ube yimisebenzi enamalanga yesiqhema sakho: ukuhlela, abahlinzeki nokubuthelela.",
+          "documents": "Bulunga ukuhlobisa, izinto eziqatjhwako namanani wabasebenzi njengemikhiqizo, bona i-quote yomgidi ithathe imizuzu.",
+          "payments": "Yenza i-invoyisi yediphozithi yokubhuka ilanga, bese kuba ngokuseleko. Iinkhumbuzo zilandelela okusakweletwako."
+        }
+      }
     }
   },
   "prospects": {
@@ -3202,5 +3292,40 @@
   },
   "getApp": {
     "alreadyAdded": "Sengiyengezile"
+  },
+  "staged": {
+    "title": "Ukwenza ama-invoyisi",
+    "progress": "{{invoiced}} kwama-{{total}} kwenzelwe i-invoyisi",
+    "left": "{{amount}} esele ukwenzelwa i-invoyisi",
+    "addDeposit": "Yenza i-invoyisi yediphozithi",
+    "addStage": "Yenza i-invoyisi yesigaba esilandelako",
+    "addBalance": "Yenza i-invoyisi yalokho okuseleko ({{amount}})",
+    "splitHint": "I-invoyisi yesibhalwa esenziwe nakwamukelwako ihlanganisa i-quote yoke. Yenza i-invoyisi yediphozithi esikhundleni sayo, begodu izakutjhentjhwa.",
+    "balanceLabel": "Okuseleko",
+    "depositLabel": "Idiphozithi",
+    "stageLabel": "Ibhadelo lokuthuthuka",
+    "balanceTitle": "Yenza i-invoyisi yalokho okuseleko",
+    "depositTitle": "Yenza i-invoyisi yediphozithi",
+    "stageTitle": "Yenza i-invoyisi yesigaba esilandelako",
+    "create": "Yenza i-invoyisi ka-{{amount}}",
+    "intro": "I-quote {{number}} ngeyama-{{total}}. I-invoyisi yenziwa njengesibhalwa, bona uyihlole ngaphambi kokuyithumela.",
+    "how": "Kangangani",
+    "mode": {
+      "percent": "Iphesende",
+      "amount": "Inani"
+    },
+    "percentLabel": "Iphesende le-quote",
+    "amountLabel": "Inani, kufakwa i-VAT",
+    "tooMuch": "Kusele {{amount}} kwaphela ukwenzelwa i-invoyisi.",
+    "labelField": "Yenzelwe ini",
+    "labelHint": "Igadangiswa ku-invoyisi, isibonelo Idiphozithi namkha Isigaba 2: ikulu.",
+    "due": "Ilanga lokubhadela (akukateleleki)",
+    "dueHint": "Yitjhiye ingenalitho begodu imibandela yakho ejayelekileko yokubhadela iyasebenza.",
+    "thisInvoice": "I-invoyisi le",
+    "vatNote": "I-VAT yehlukaniswa ngendlela efanako ne-quote.",
+    "replaces": "Isibhalwa {{number}}, esenziwe nayamukelwa i-quote begodu esingakathunyelwa, sitjhentjhwa yi-invoyisi le nalezo ezilandelako.",
+    "created": "I-invoyisi {{number}} yenziwe njengesibhalwa",
+    "draftEdited": "Isibhalwa {{number}} sihlanganisa i-quote yoke begodu silungisiwe, ngalokho asitjhentjhwa. Ukwenza ama-invoyisi ngeengcenye, sisule kuqala.",
+    "openDraft": "Vula isibhalwa"
   }
 }

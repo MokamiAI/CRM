@@ -1038,7 +1038,11 @@
     "CHANNEL_GENERAL": "General is the whole team's channel and can't be deleted.",
     "CHANNEL_FORBIDDEN": "Only whoever made this space, or a manager, can change it.",
     "MESSAGE_FORBIDDEN": "You can only change your own messages.",
-    "MESSAGE_EMPTY": "Write a message or attach a file."
+    "MESSAGE_EMPTY": "Write a message or attach a file.",
+    "QUOTE_FULLY_INVOICED": "This quote is already fully invoiced.",
+    "QUOTE_PART_TOO_LARGE": "That's more than is left to invoice on this quote.",
+    "QUOTE_NOT_ACCEPTED": "Only an accepted quote can be invoiced.",
+    "QUOTE_DRAFT_EDITED": "The draft invoice for this quote was edited, so it isn't replaced. Delete it first to invoice in parts."
   },
   "feed": {
     "activityDone": "{{type}} completed",
@@ -3271,6 +3275,92 @@
       "sentTitle": "Thanks, we've got your results",
       "sentBody": "We'll be in touch at {{email}} within one working day.",
       "privacy": "Privacy policy"
+    },
+    "forIndustry": {
+      "catering": {
+        "q": {
+          "enquiries": "For example: a wedding, a corporate lunch, a request for a menu.",
+          "documents": "For example: menus priced per head, event quotes, invoices after the event.",
+          "payments": "For example: a deposit to secure the date, the balance after the event."
+        },
+        "plan": {
+          "customers": "Keep each client's events, dietary notes and past menus in one place, so repeat bookings take minutes.",
+          "pipeline": "Log each event enquiry with its date, guest count and value, so no booking goes cold.",
+          "tasks": "Turn each event into dated tasks for your team: tasting, shopping, delivery and set-up.",
+          "documents": "Save your dishes and per-head prices as products, so a menu quote takes minutes and becomes an invoice when accepted.",
+          "payments": "Invoice a deposit to secure the date, then the balance after the event. Reminders follow up what's still owed."
+        }
+      },
+      "construction": {
+        "q": {
+          "enquiries": "For example: a call about a renovation, a site visit to quote, a tender.",
+          "documents": "For example: quotes per job with materials and labour, invoices as the work is done.",
+          "payments": "For example: a deposit before you start, payments as stages are finished."
+        },
+        "plan": {
+          "customers": "Keep each client's site address, jobs and paperwork in one place.",
+          "pipeline": "Track every job from site visit to accepted quote, with its value and next step.",
+          "tasks": "Assign site visits, material orders and inspections to your team, with due dates.",
+          "documents": "Save materials and labour rates as products, quote per job, and order materials with purchase orders.",
+          "payments": "Invoice a job in stages: a deposit, progress payments, then the balance. Reminders chase what's still owed."
+        }
+      },
+      "cleaning": {
+        "q": {
+          "enquiries": "For example: a request for an office clean, a once-off deep clean, a monthly contract.",
+          "documents": "For example: monthly contract invoices, quotes for once-off deep cleans.",
+          "payments": "For example: a monthly contract that's paid late, a once-off clean that's never paid."
+        },
+        "plan": {
+          "customers": "Keep each site, contact person and contract in one customer record.",
+          "pipeline": "Track every quote request from site visit to signed contract.",
+          "tasks": "Schedule cleans and inspections as tasks with dates, assigned to the right team member.",
+          "documents": "Bill monthly contracts with recurring invoices that go out by themselves.",
+          "payments": "Let reminders follow up overdue contract invoices, and see who owes you at a glance."
+        }
+      },
+      "it": {
+        "q": {
+          "enquiries": "For example: a new client asking for support, a network install, a laptop order.",
+          "documents": "For example: support contracts, call-out invoices, quotes for hardware.",
+          "payments": "For example: a monthly support fee paid late, a project invoice still open."
+        },
+        "plan": {
+          "customers": "Keep each client's contacts, notes and history in one place.",
+          "pipeline": "Track every project and support request from enquiry to signed quote.",
+          "tasks": "Turn call-outs and installs into tasks with an owner, a checklist and a due date.",
+          "documents": "Bill support contracts with recurring invoices, and quote hardware from saved products.",
+          "payments": "Invoice big projects in stages, and let reminders follow up overdue invoices automatically."
+        }
+      },
+      "accounting": {
+        "q": {
+          "enquiries": "For example: a new client asking for bookkeeping, tax returns or payroll.",
+          "documents": "For example: monthly retainer invoices, quotes for once-off work.",
+          "payments": "For example: a monthly fee paid late, year-end work that's still unpaid."
+        },
+        "plan": {
+          "customers": "Keep each client's details, deadlines and history in one list your team can search.",
+          "pipeline": "Track new client enquiries from first call to signed engagement.",
+          "tasks": "Give every return, deadline and follow-up a date and an owner.",
+          "documents": "Bill monthly retainers with recurring invoices, and quote once-off work from saved services.",
+          "payments": "Let reminders follow up overdue fees, so you don't have to chase your own clients."
+        }
+      },
+      "events": {
+        "q": {
+          "enquiries": "For example: a wedding, a year-end function, a conference booking.",
+          "documents": "For example: event quotes with décor, hire and staff, invoices after the event.",
+          "payments": "For example: a deposit to book the date, the balance before the event."
+        },
+        "plan": {
+          "customers": "Keep each client's events, venues and preferences in one place.",
+          "pipeline": "Log every enquiry with its event date and value, so no booking slips.",
+          "tasks": "Turn each event into dated tasks for your team: set-up, suppliers and breakdown.",
+          "documents": "Save décor, hire items and staff rates as products, so an event quote takes minutes.",
+          "payments": "Invoice a deposit to book the date, then the balance. Reminders follow up what's still owed."
+        }
+      }
     }
   },
   "prospects": {
@@ -3356,5 +3446,40 @@
     "tooManyFiles": "Attach up to {{count}} files at a time.",
     "fileTooBig": "{{name}} is larger than 10 MB.",
     "composerHint": "Enter to send, Shift+Enter for a new line. Type @ to mention someone. Drop or paste files to attach."
+  },
+  "staged": {
+    "title": "Invoicing",
+    "progress": "{{invoiced}} of {{total}} invoiced",
+    "left": "{{amount}} still to invoice",
+    "addDeposit": "Invoice a deposit",
+    "addStage": "Invoice the next stage",
+    "addBalance": "Invoice the balance ({{amount}})",
+    "splitHint": "The draft invoice made on acceptance covers the whole quote. Invoice a deposit instead and it's replaced.",
+    "balanceLabel": "Balance",
+    "depositLabel": "Deposit",
+    "stageLabel": "Progress payment",
+    "balanceTitle": "Invoice the balance",
+    "depositTitle": "Invoice a deposit",
+    "stageTitle": "Invoice the next stage",
+    "create": "Create invoice for {{amount}}",
+    "intro": "Quote {{number}} is for {{total}}. The invoice is made as a draft, so you can check it before sending.",
+    "how": "How much",
+    "mode": {
+      "percent": "A percentage",
+      "amount": "An amount"
+    },
+    "percentLabel": "Percentage of the quote",
+    "amountLabel": "Amount, including VAT",
+    "tooMuch": "Only {{amount}} is left to invoice.",
+    "labelField": "What it's for",
+    "labelHint": "Printed on the invoice, for example Deposit or Stage 2: roofing.",
+    "due": "Due date (optional)",
+    "dueHint": "Leave it empty and your usual payment terms apply.",
+    "thisInvoice": "This invoice",
+    "vatNote": "VAT is split the same way as on the quote.",
+    "replaces": "Draft {{number}}, made when the quote was accepted and not sent yet, is replaced by this invoice and the ones after it.",
+    "created": "Invoice {{number}} created as a draft",
+    "draftEdited": "Draft {{number}} covers the whole quote and was edited, so it isn't replaced. To invoice in parts instead, delete it first.",
+    "openDraft": "Open the draft"
   }
 }

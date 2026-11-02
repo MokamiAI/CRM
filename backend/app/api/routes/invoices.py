@@ -15,6 +15,8 @@ from app.models.user import User
 from app.schemas.invoice import (
     InvoiceCreate,
     InvoiceFromQuote,
+    InvoicePartFromQuote,
+    QuoteBilling,
     InvoiceOut,
     InvoiceUpdate,
     OverdueRefreshResult,
@@ -49,6 +51,24 @@ async def create_invoice_from_quote(
     current_user: User = Depends(_can_write),
 ):
     return await InvoiceService(db).create_from_quote(quote_id, data, created_by_id=current_user.id)
+
+
+@router.get("/from-quote/{quote_id}/billing", response_model=QuoteBilling)
+async def quote_billing(quote_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    """How much of the quote is invoiced so far, and by which invoices."""
+    return await InvoiceService(db).quote_billing(quote_id)
+
+
+@router.post("/from-quote/{quote_id}/part", response_model=InvoiceOut, status_code=201, dependencies=[_invoice_room])
+async def create_part_invoice(
+    quote_id: uuid.UUID,
+    data: InvoicePartFromQuote,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(_can_write),
+):
+    """A deposit, a stage or the balance of an accepted quote, as a draft
+    invoice to review and send."""
+    return await InvoiceService(db).create_part_from_quote(quote_id, data, created_by_id=current_user.id)
 
 
 @router.get("", response_model=list[InvoiceOut])

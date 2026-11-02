@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from decimal import Decimal
 
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import ConflictError, NotFoundError
@@ -12,8 +13,8 @@ from app.repositories.company_settings_repository import CompanySettingsReposito
 from app.repositories.customer_repository import CustomerRepository
 from app.repositories.invoice_repository import InvoiceRepository
 from app.repositories.quote_repository import QuoteRepository
-from app.schemas.invoice import InvoiceCreate, InvoiceFromQuote, InvoiceItemCreate, InvoiceUpdate
-from app.services.pricing import build_line_items
+from app.schemas.invoice import InvoiceCreate, InvoiceFromQuote, InvoiceItemCreate, InvoicePartFromQuote, InvoiceUpdate
+from app.services.pricing import build_line_items, money
 
 _ALLOWED_TRANSITIONS: dict[InvoiceStatus, set[InvoiceStatus]] = {
     # PARTIALLY_PAID/PAID are set by the payment recording flow
@@ -98,6 +99,133 @@ class InvoiceService:
             subtotal=subtotal,
             tax_total=tax_total,
             total=total,
+            created_by=created_by_id,
+            items=items,
+        )
+        await self.invoices.create(invoice)
+        quote.status = QuoteStatus.CONVERTED
+        await self.quotes.save(quote)
+        return invoice
+
+    # ---------- A quote invoiced in parts (deposit, stages, balance) ----------
+    # Every part is worked out from the quote's own stored figures: its net
+    # amount per VAT rate (discount lines included) and its VAT total as the
+    # quote rounded it, line by line. A percentage or an amount takes that
+    # share of each; the balance takes exactly what the earlier parts left.
+    # So the parts always add up to the quote, VAT included, to the cent.
+
+    async def _quote_invoices(self, quote_id: uuid.UUID, with_items: bool = False) -> list[Invoice]:
+        stmt = select(Invoice).where(Invoice.quote_id == quote_id, Invoice.status != InvoiceStatus.VOID).order_by(Invoice.created_at)
+        if with_items:
+            stmt = stmt.options(selectinload(Invoice.items))
+        return list((await self.db.scalars(stmt)).all())
+
+    @staticmethod
+    def _invoiced(invoices: list[Invoice]) -> Decimal:
+        return sum((Decimal(i.total) for i in invoices), Decimal("0"))
+
+    @staticmethod
+    def _whole_draft(quote, invoices: list[Invoice]) -> tuple[Invoice | None, bool]:
+        """The one draft covering the whole quote, and whether it's still as
+        acceptance made it. Edited (its lines, dates or notes changed since),
+        it's the person's work and is never replaced."""
+        if len(invoices) != 1:
+            return None, False
+        only = invoices[0]
+        if only.status != InvoiceStatus.DRAFT or Decimal(only.amount_paid or 0) != 0 or Decimal(only.total) < Decimal(quote.total):
+            return None, False
+        untouched = only.updated_at == only.created_at and Decimal(only.total) == Decimal(quote.total)
+        return only, untouched
+
+    async def quote_billing(self, quote_id: uuid.UUID) -> dict:
+        quote = await self.quotes.get_by_id(quote_id)
+        if quote is None:
+            raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
+        invoices = await self._quote_invoices(quote.id)
+        invoiced = self._invoiced(invoices)
+        draft, untouched = self._whole_draft(quote, invoices)
+        return {
+            "total": quote.total, "invoiced": invoiced, "remaining": max(Decimal("0"), Decimal(quote.total) - invoiced),
+            "invoices": invoices,
+            "draft_to_replace": draft if draft is not None and untouched else None,
+            "draft_edited": draft if draft is not None and not untouched else None,
+        }
+
+    async def create_part_from_quote(self, quote_id: uuid.UUID, data: InvoicePartFromQuote, created_by_id: uuid.UUID) -> Invoice:
+        """An invoice for part of an accepted quote: a percentage, an amount
+        (VAT included) or the balance still to invoice."""
+        quote = await self.quotes.get_for_update(quote_id)
+        if quote is None:
+            raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
+        if quote.status not in (QuoteStatus.ACCEPTED, QuoteStatus.CONVERTED):
+            raise ConflictError("Only an accepted quote can be invoiced", "QUOTE_NOT_ACCEPTED")
+        invoices = await self._quote_invoices(quote.id, with_items=True)
+        draft, untouched = self._whole_draft(quote, invoices)
+        if draft is not None and data.replace_draft:
+            if not untouched:
+                raise ConflictError(
+                    "The draft invoice for this quote was edited, so it isn't replaced. Delete or void it first.", "QUOTE_DRAFT_EDITED"
+                )
+            await self.invoices.delete(draft)
+            await self.db.flush()
+            invoices = []
+
+        total = Decimal(quote.total)
+        remaining = total - self._invoiced(invoices)
+        if remaining <= 0:
+            raise ConflictError("This quote is already fully invoiced", "QUOTE_FULLY_INVOICED")
+
+        # The quote's net per VAT rate, and what the earlier parts took.
+        net: dict[Decimal, Decimal] = {}
+        for item in quote.items:
+            net[Decimal(item.tax_rate)] = net.get(Decimal(item.tax_rate), Decimal("0")) + Decimal(item.line_total)
+        done: dict[Decimal, Decimal] = {}
+        for invoice in invoices:
+            for item in invoice.items:
+                done[Decimal(item.tax_rate)] = done.get(Decimal(item.tax_rate), Decimal("0")) + Decimal(item.line_total)
+        done_tax = sum((Decimal(i.tax_total) for i in invoices), Decimal("0"))
+
+        if data.kind == "balance":
+            rates = sorted(set(net) | set(done))
+            share = {rate: net.get(rate, Decimal("0")) - done.get(rate, Decimal("0")) for rate in rates}
+            tax = Decimal(quote.tax_total) - done_tax
+            part_text = None
+        else:
+            fraction = data.value / Decimal("100") if data.kind == "percent" else (data.value / total if total else Decimal("0"))
+            share = {rate: money(amount * fraction) for rate, amount in net.items()}
+            tax = money(Decimal(quote.tax_total) * fraction)
+            part_text = f"{(fraction * 100).quantize(Decimal('0.1')).normalize():f}%"
+            # A percentage or an amount can't be more than is left.
+            if sum(share.values()) + tax > remaining + Decimal("0.01"):
+                raise ConflictError("That's more than is left to invoice on this quote", "QUOTE_PART_TOO_LARGE")
+        share = {rate: amount for rate, amount in share.items() if amount != 0}
+        subtotal = sum(share.values(), Decimal("0"))
+        if subtotal + tax <= 0:
+            raise ConflictError("There's nothing left to invoice on this quote", "QUOTE_PART_TOO_LARGE")
+
+        label = (data.label or "").strip() or ("Balance" if data.kind == "balance" else "Deposit" if not invoices else "Progress payment")
+        what = f"{label} of quote {quote.quote_number}" if part_text is None else f"{label}: {part_text} of quote {quote.quote_number}"
+        # Built here, not from request lines: every figure comes from the
+        # quote and its invoices, never from the caller.
+        items = [
+            InvoiceItem(product_id=None, description=what, details=quote.title, quantity=Decimal("1"), unit_price=amount,
+                        tax_rate=rate, line_total=amount, sort_order=n)
+            for n, (rate, amount) in enumerate(sorted(share.items()))
+        ]
+        issue_date = date.today()
+        invoice = Invoice(
+            invoice_number=await self.company_settings.reserve_next_invoice_number(),
+            customer_id=quote.customer_id,
+            quote_id=quote.id,
+            issue_date=issue_date,
+            due_date=data.due_date or await self._default_due_date(issue_date),
+            notes=quote.notes,
+            po_number=quote.po_number,
+            reference=quote.reference,
+            subtotal=subtotal,
+            # The quote's own VAT share, so the parts' VAT adds up to the quote's.
+            tax_total=tax,
+            total=subtotal + tax,
             created_by=created_by_id,
             items=items,
         )

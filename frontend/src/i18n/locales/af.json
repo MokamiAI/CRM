@@ -1016,7 +1016,11 @@
     "CHANNEL_GENERAL": "General is die hele span se kanaal en kan nie geskrap word nie.",
     "CHANNEL_FORBIDDEN": "Net wie hierdie ruimte geskep het, of 'n bestuurder, kan dit verander.",
     "MESSAGE_FORBIDDEN": "Jy kan net jou eie boodskappe verander.",
-    "MESSAGE_EMPTY": "Skryf 'n boodskap of heg 'n lêer aan."
+    "MESSAGE_EMPTY": "Skryf 'n boodskap of heg 'n lêer aan.",
+    "QUOTE_FULLY_INVOICED": "Hierdie kwotasie is reeds ten volle gefaktureer.",
+    "QUOTE_PART_TOO_LARGE": "Dit is meer as wat oor is om op hierdie kwotasie te faktureer.",
+    "QUOTE_NOT_ACCEPTED": "Net 'n aanvaarde kwotasie kan gefaktureer word.",
+    "QUOTE_DRAFT_EDITED": "Die konsepfaktuur vir hierdie kwotasie is gewysig, so dit word nie vervang nie. Skrap dit eers om in dele te faktureer."
   },
   "feed": {
     "activityDone": "{{type}} voltooi",
@@ -3114,6 +3118,92 @@
       "sentTitle": "Dankie, ons het jou uitslae",
       "sentBody": "Ons kontak jou binne een werksdag by {{email}}.",
       "privacy": "Privaatheidsbeleid"
+    },
+    "forIndustry": {
+      "catering": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n troue, 'n korporatiewe middagete, 'n versoek vir 'n spyskaart.",
+          "documents": "Byvoorbeeld: spyskaarte per persoon, kwotasies vir geleenthede, fakture ná die geleentheid.",
+          "payments": "Byvoorbeeld: 'n deposito om die datum te bespreek, die balans ná die geleentheid."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se geleenthede, dieetnotas en vorige spyskaarte op een plek, sodat herhaalbesprekings minute neem.",
+          "pipeline": "Teken elke navraag aan met die datum, getal gaste en waarde, sodat geen bespreking koud word nie.",
+          "tasks": "Maak van elke geleentheid take met datums vir jou span: proe, inkopies, aflewering en opstel.",
+          "documents": "Stoor jou geregte en pryse per persoon as produkte, sodat 'n spyskaartkwotasie minute neem en 'n faktuur word wanneer dit aanvaar word.",
+          "payments": "Faktureer 'n deposito om die datum te bespreek, dan die balans ná die geleentheid. Herinneringe volg op wat nog skuld is."
+        }
+      },
+      "construction": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n oproep oor 'n opknapping, 'n terreinbesoek om te kwoteer, 'n tender.",
+          "documents": "Byvoorbeeld: kwotasies per werk met materiaal en arbeid, fakture soos die werk gedoen word.",
+          "payments": "Byvoorbeeld: 'n deposito voor jy begin, betalings soos fases klaar is."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se terreinadres, werke en papierwerk op een plek.",
+          "pipeline": "Volg elke werk van terreinbesoek tot aanvaarde kwotasie, met die waarde en volgende stap.",
+          "tasks": "Gee terreinbesoeke, materiaalbestellings en inspeksies met sperdatums aan jou span.",
+          "documents": "Stoor materiaal- en arbeidstariewe as produkte, kwoteer per werk en bestel materiaal met bestellings.",
+          "payments": "Faktureer 'n werk in fases: 'n deposito, vorderingsbetalings en dan die balans. Herinneringe volg op wat nog skuld is."
+        }
+      },
+      "cleaning": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n versoek vir 'n kantoorskoonmaak, 'n eenmalige diepskoonmaak, 'n maandelikse kontrak.",
+          "documents": "Byvoorbeeld: maandelikse kontrakfakture, kwotasies vir eenmalige diepskoonmaak.",
+          "payments": "Byvoorbeeld: 'n maandelikse kontrak wat laat betaal word, 'n eenmalige skoonmaak wat nooit betaal word nie."
+        },
+        "plan": {
+          "customers": "Hou elke perseel, kontakpersoon en kontrak in een kliëntrekord.",
+          "pipeline": "Volg elke kwotasieversoek van terreinbesoek tot getekende kontrak.",
+          "tasks": "Skeduleer skoonmaak en inspeksies as take met datums, aan die regte spanlid toegewys.",
+          "documents": "Faktureer maandelikse kontrakte met herhalende fakture wat vanself uitgaan.",
+          "payments": "Laat herinneringe agterstallige kontrakfakture opvolg, en sien in 'n oogopslag wie jou skuld."
+        }
+      },
+      "it": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n nuwe kliënt wat ondersteuning vra, 'n netwerkinstallasie, 'n skootrekenaarbestelling.",
+          "documents": "Byvoorbeeld: ondersteuningskontrakte, uitroepfakture, kwotasies vir hardeware.",
+          "payments": "Byvoorbeeld: 'n maandelikse ondersteuningsfooi wat laat betaal word, 'n projekfaktuur wat nog oop is."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se kontakte, notas en geskiedenis op een plek.",
+          "pipeline": "Volg elke projek en ondersteuningsversoek van navraag tot getekende kwotasie.",
+          "tasks": "Maak van uitroepe en installasies take met 'n eienaar, 'n kontrolelys en 'n sperdatum.",
+          "documents": "Faktureer ondersteuningskontrakte met herhalende fakture, en kwoteer hardeware uit gestoorde produkte.",
+          "payments": "Faktureer groot projekte in fases, en laat herinneringe agterstallige fakture outomaties opvolg."
+        }
+      },
+      "accounting": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n nuwe kliënt wat boekhouding, belastingopgawes of salarisse vra.",
+          "documents": "Byvoorbeeld: maandelikse retensiefakture, kwotasies vir eenmalige werk.",
+          "payments": "Byvoorbeeld: 'n maandelikse fooi wat laat betaal word, jaareindwerk wat nog nie betaal is nie."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se besonderhede, sperdatums en geskiedenis in een lys wat jou span kan deursoek.",
+          "pipeline": "Volg nuwe kliëntnavrae van die eerste oproep tot getekende aanstelling.",
+          "tasks": "Gee elke opgawe, sperdatum en opvolg 'n datum en 'n eienaar.",
+          "documents": "Faktureer maandelikse retensies met herhalende fakture, en kwoteer eenmalige werk uit gestoorde dienste.",
+          "payments": "Laat herinneringe agterstallige fooie opvolg, sodat jy nie jou eie kliënte hoef te jaag nie."
+        }
+      },
+      "events": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n troue, 'n jaareindfunksie, 'n konferensiebespreking.",
+          "documents": "Byvoorbeeld: kwotasies met dekor, huur en personeel, fakture ná die geleentheid.",
+          "payments": "Byvoorbeeld: 'n deposito om die datum te bespreek, die balans voor die geleentheid."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se geleenthede, lokale en voorkeure op een plek.",
+          "pipeline": "Teken elke navraag aan met die datum en waarde, sodat geen bespreking deurval nie.",
+          "tasks": "Maak van elke geleentheid take met datums vir jou span: opstel, verskaffers en afbreek.",
+          "documents": "Stoor dekor, huuritems en personeeltariewe as produkte, sodat 'n kwotasie minute neem.",
+          "payments": "Faktureer 'n deposito om die datum te bespreek, dan die balans. Herinneringe volg op wat nog skuld is."
+        }
+      }
     }
   },
   "prospects": {
@@ -3202,5 +3292,40 @@
   },
   "getApp": {
     "alreadyAdded": "Ek het dit reeds bygevoeg"
+  },
+  "staged": {
+    "title": "Fakturering",
+    "progress": "{{invoiced}} van {{total}} gefaktureer",
+    "left": "{{amount}} moet nog gefaktureer word",
+    "addDeposit": "Faktureer 'n deposito",
+    "addStage": "Faktureer die volgende fase",
+    "addBalance": "Faktureer die balans ({{amount}})",
+    "splitHint": "Die konsepfaktuur wat met aanvaarding gemaak is, dek die hele kwotasie. Faktureer eerder 'n deposito en dit word vervang.",
+    "balanceLabel": "Balans",
+    "depositLabel": "Deposito",
+    "stageLabel": "Vorderingsbetaling",
+    "balanceTitle": "Faktureer die balans",
+    "depositTitle": "Faktureer 'n deposito",
+    "stageTitle": "Faktureer die volgende fase",
+    "create": "Skep faktuur vir {{amount}}",
+    "intro": "Kwotasie {{number}} is vir {{total}}. Die faktuur word as konsep gemaak, sodat jy dit kan nagaan voor jy dit stuur.",
+    "how": "Hoeveel",
+    "mode": {
+      "percent": "'n Persentasie",
+      "amount": "'n Bedrag"
+    },
+    "percentLabel": "Persentasie van die kwotasie",
+    "amountLabel": "Bedrag, BTW ingesluit",
+    "tooMuch": "Net {{amount}} is oor om te faktureer.",
+    "labelField": "Waarvoor dit is",
+    "labelHint": "Op die faktuur gedruk, byvoorbeeld Deposito of Fase 2: dak.",
+    "due": "Vervaldatum (opsioneel)",
+    "dueHint": "Laat dit leeg en jou gewone betalingsterme geld.",
+    "thisInvoice": "Hierdie faktuur",
+    "vatNote": "BTW word op dieselfde manier as op die kwotasie verdeel.",
+    "replaces": "Konsep {{number}}, gemaak toe die kwotasie aanvaar is en nog nie gestuur nie, word deur hierdie faktuur en die volgendes vervang.",
+    "created": "Faktuur {{number}} as konsep geskep",
+    "draftEdited": "Konsep {{number}} dek die hele kwotasie en is gewysig, so dit word nie vervang nie. Skrap dit eers om eerder in dele te faktureer.",
+    "openDraft": "Maak die konsep oop"
   }
 }

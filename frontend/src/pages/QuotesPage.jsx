@@ -27,6 +27,7 @@ import {
 } from "../components/ui";
 import { errorMessage, formatDate, formatMoney, formatMoneyWhole, formatShortDate, todayISO } from "../utils/format";
 import ImportExportButtons from "../components/ImportExport";
+import QuoteBilling from "../components/QuoteBilling";
 
 const STATUS_FILTERS = [
   { value: "", key: "common.all" },
@@ -437,6 +438,11 @@ export function QuoteDetailPage() {
             ]}
             emphasis={[t("document.totalIncl"), formatMoney(quote.total)]}
           />
+          {["accepted", "converted"].includes(quote.status) && (
+            <div className="mt-6">
+              <QuoteBilling quote={quote} canWrite={canWrite} />
+            </div>
+          )}
         </aside>
       </div>
 

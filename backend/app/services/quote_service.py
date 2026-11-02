@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from app.core.exceptions import ConflictError, NotFoundError
-from app.models.enums import QuoteStatus
+from app.models.enums import InvoiceStatus, QuoteStatus
 from app.models.crm import Deal
 from app.models.invoice import Invoice
 from app.models.quote import Quote, QuoteItem
@@ -160,7 +160,10 @@ class QuoteService:
         if quote is None:
             raise NotFoundError("Quote not found", "QUOTE_NOT_FOUND")
         if quote.status == QuoteStatus.CONVERTED:
-            existing = await self.db.scalar(select(Invoice).where(Invoice.quote_id == quote.id))
+            # Its first live invoice (a quote invoiced in parts has several).
+            existing = await self.db.scalar(
+                select(Invoice).where(Invoice.quote_id == quote.id, Invoice.status != InvoiceStatus.VOID).order_by(Invoice.created_at).limit(1)
+            )
             return quote, existing
         if quote.status != QuoteStatus.ACCEPTED:
             if QuoteStatus.ACCEPTED not in _ALLOWED_TRANSITIONS.get(quote.status, set()):

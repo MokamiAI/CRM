@@ -1016,7 +1016,11 @@
     "CHANNEL_GENERAL": "General ndi tshanele ya tshigwada tshoṱhe nahone a i bviswi.",
     "CHANNEL_FORBIDDEN": "Ndi o itaho tshikhala itshi fhedzi, kana mulanguli, ane a nga tshi shandukisa.",
     "MESSAGE_FORBIDDEN": "Ni nga shandukisa milaedza yaṋu fhedzi.",
-    "MESSAGE_EMPTY": "Ṅwalani mulaedza kana ni nambatedze faela."
+    "MESSAGE_EMPTY": "Ṅwalani mulaedza kana ni nambatedze faela.",
+    "QUOTE_FULLY_INVOICED": "Quote iyi yo no itelwa invoice yoṱhe.",
+    "QUOTE_PART_TOO_LARGE": "Izwo zwi fhira zwo salaho u itelwa invoice kha quote iyi.",
+    "QUOTE_NOT_ACCEPTED": "Ndi quote yo ṱanganedzwaho fhedzi ine ya nga itelwa invoice.",
+    "QUOTE_DRAFT_EDITED": "Invoice ya ḓirafuthi ya quote iyi yo khwiniswa, ngauralo a i shandukiswi. I bviseni u thoma u itela u ita invoice nga zwipiḓa."
   },
   "feed": {
     "activityDone": "{{type}} yo fhela",
@@ -3114,6 +3118,92 @@
       "sentTitle": "Ri a livhuwa, ro wana mvelelo dzaṋu",
       "sentBody": "Ri ḓo kwamana naṋu kha {{email}} nga ngomu ha ḓuvha ḽithihi ḽa mushumo.",
       "privacy": "Mbekanyamaitele ya tshiphiri"
+    },
+    "forIndustry": {
+      "catering": {
+        "q": {
+          "enquiries": "Tsumbo: mbingano, zwiḽiwa zwa masiari zwa khamphani, khumbelo ya menyu.",
+          "documents": "Tsumbo: menyu nga muthu, quote dza mitambo, invoice nga murahu ha mutambo.",
+          "payments": "Tsumbo: diphosithi u fara ḓuvha, zwo salaho nga murahu ha mutambo."
+        },
+        "plan": {
+          "customers": "Vhulungani mitambo ya murengi muṅwe na muṅwe, zwiṅwalwa zwa zwiḽiwa na menyu dza kale fhethu huthihi, uri u buka hafhu hu dzhie mimunithi.",
+          "pipeline": "Ṅwalani mbudziso iṅwe na iṅwe na ḓuvha ḽayo, tshivhalo tsha vhaeni na ndeme, uri hu si vhe na u buka hu ṱonifhaho.",
+          "tasks": "Shandukisani mutambo muṅwe na muṅwe u vhe mishumo ine ya vha na maḓuvha ya tshigwada tshaṋu: u lingedza, u renga, u isa na u dzudzanya.",
+          "documents": "Vhulungani zwiḽiwa zwaṋu na mitengo nga muthu sa zwibveledzwa, uri quote ya menyu i dzhie mimunithi nahone i vhe invoice musi yo ṱanganedzwa.",
+          "payments": "Itani invoice ya diphosithi u fara ḓuvha, nga murahu zwo salaho nga murahu ha mutambo. Zwiitavhudzi zwi tevhela zwi kha ḓi kolodiwaho."
+        }
+      },
+      "construction": {
+        "q": {
+          "enquiries": "Tsumbo: luṱingo nga ha u khwinisa nnḓu, u dalela fhethu u ita quote, thendara.",
+          "documents": "Tsumbo: quote nga mushumo na zwishumiswa na vhashumi, invoice musi mushumo u tshi khou itwa.",
+          "payments": "Tsumbo: diphosithi ni sa athu thoma, mbadelo musi zwiṱirathu zwi tshi fhela."
+        },
+        "plan": {
+          "customers": "Vhulungani ḓiresi ya fhethu ya murengi muṅwe na muṅwe, mishumo na maṅwalo fhethu huthihi.",
+          "pipeline": "Tevhelani mushumo muṅwe na muṅwe u bva kha u dalela fhethu u swika kha quote yo ṱanganedzwaho, na ndeme yawo na tshikalo tshi tevhelaho.",
+          "tasks": "Ṋeani tshigwada tshaṋu u dalela fhethu, oda dza zwishumiswa na ndingo, na maḓuvha a u fhedza.",
+          "documents": "Vhulungani mitengo ya zwishumiswa na vhashumi sa zwibveledzwa, itani quote nga mushumo, ni ode zwishumiswa nga oda dza u renga.",
+          "payments": "Itani invoice ya mushumo nga zwiṱirathu: diphosithi, mbadelo dza mvelaphanḓa, nga murahu zwo salaho. Zwiitavhudzi zwi tevhela zwi kha ḓi kolodiwaho."
+        }
+      },
+      "cleaning": {
+        "q": {
+          "enquiries": "Tsumbo: khumbelo ya u kunakisa ofisi, u kunakisa nga vhuḓalo luthihi, khonthiraka ya ṅwedzi muṅwe na muṅwe.",
+          "documents": "Tsumbo: invoice dza khonthiraka ya ṅwedzi muṅwe na muṅwe, quote dza u kunakisa nga vhuḓalo luthihi.",
+          "payments": "Tsumbo: khonthiraka ya ṅwedzi i badelwaho nga u lenga, u kunakisa luthihi hu sa athu badelwa."
+        },
+        "plan": {
+          "customers": "Vhulungani fhethu huṅwe na huṅwe, muthu wa vhukwamani na khonthiraka kha rekhodo nthihi ya murengi.",
+          "pipeline": "Tevhelani khumbelo iṅwe na iṅwe ya quote u bva kha u dalela fhethu u swika kha khonthiraka yo sainiwaho.",
+          "tasks": "Dzudzanyani u kunakisa na ndingo sa mishumo ine ya vha na maḓuvha, yo ṋewaho muraḓo wa tshigwada wo teaho.",
+          "documents": "Badelisani khonthiraka dza ṅwedzi nga invoice dzi dovholowaho dzine dza ḓi rumela.",
+          "payments": "Tendelani zwiitavhudzi zwi tevhele invoice dza khonthiraka dzo fhiraho tshifhinga, ni vhone nga u ṱavhanya uri ndi nnyi ane a ni kolodaho."
+        }
+      },
+      "it": {
+        "q": {
+          "enquiries": "Tsumbo: murengi muswa a tshi humbela thikhedzo, u dzhenisa netiweke, oda ya laptop.",
+          "documents": "Tsumbo: khonthiraka dza thikhedzo, invoice dza u vhidzwa, quote dza hardware.",
+          "payments": "Tsumbo: mbadelo ya thikhedzo ya ṅwedzi yo badelwaho nga u lenga, invoice ya phurojeke i kha ḓi vulea."
+        },
+        "plan": {
+          "customers": "Vhulungani vhathu vha vhukwamani vha murengi muṅwe na muṅwe, zwiṅwalwa na ḓivhazwakale fhethu huthihi.",
+          "pipeline": "Tevhelani phurojeke iṅwe na iṅwe na khumbelo ya thikhedzo u bva kha mbudziso u swika kha quote yo sainiwaho.",
+          "tasks": "Shandukisani u vhidzwa na u dzhenisa zwi vhe mishumo ine ya vha na mune, mutevhe wa u sedza na ḓuvha ḽa u fhedza.",
+          "documents": "Badelisani khonthiraka dza thikhedzo nga invoice dzi dovholowaho, ni ite quote dza hardware u bva kha zwibveledzwa zwo vhulungwaho.",
+          "payments": "Itani invoice dza phurojeke khulwane nga zwiṱirathu, ni tendele zwiitavhudzi zwi tevhele invoice dzo fhiraho tshifhinga nga u ḓiitela."
+        }
+      },
+      "accounting": {
+        "q": {
+          "enquiries": "Tsumbo: murengi muswa a tshi humbela u vhulunga bugu, mbuedzedzo dza muthelo kana miholo.",
+          "documents": "Tsumbo: invoice dza mbadelo ya ṅwedzi muṅwe na muṅwe, quote dza mushumo wa luthihi.",
+          "payments": "Tsumbo: mbadelo ya ṅwedzi yo badelwaho nga u lenga, mushumo wa magumo a ṅwaha u sa athu badelwa."
+        },
+        "plan": {
+          "customers": "Vhulungani zwidodombedzwa zwa murengi muṅwe na muṅwe, maḓuvha a u fhedza na ḓivhazwakale kha mutevhe muthihi une tshigwada tshaṋu tsha nga u ṱoḓa.",
+          "pipeline": "Tevhelani mbudziso dza vharengi vhaswa u bva kha luṱingo lwa u thoma u swika kha tshivhumbeo tsho sainiwaho.",
+          "tasks": "Ṋeani mbuedzedzo iṅwe na iṅwe, ḓuvha ḽa u fhedza na u tevhela ḓuvha na mune.",
+          "documents": "Badelisani mbadelo dza ṅwedzi nga invoice dzi dovholowaho, ni ite quote dza mushumo wa luthihi u bva kha tshumelo dzo vhulungwaho.",
+          "payments": "Tendelani zwiitavhudzi zwi tevhele mbadelo dzo fhiraho tshifhinga, uri ni si tee u tshimbidza vharengi vhaṋu."
+        }
+      },
+      "events": {
+        "q": {
+          "enquiries": "Tsumbo: mbingano, mutambo wa magumo a ṅwaha, u buka khonferentsi.",
+          "documents": "Tsumbo: quote dza mitambo dzine dza vha na u khavhisa, u hira na vhashumi, invoice nga murahu ha mutambo.",
+          "payments": "Tsumbo: diphosithi u buka ḓuvha, zwo salaho phanḓa ha mutambo."
+        },
+        "plan": {
+          "customers": "Vhulungani mitambo ya murengi muṅwe na muṅwe, fhethu na zwine a zwi funa fhethu huthihi.",
+          "pipeline": "Ṅwalani mbudziso iṅwe na iṅwe na ḓuvha ḽa mutambo na ndeme yayo, uri hu si vhe na u buka hu ṱahaho.",
+          "tasks": "Shandukisani mutambo muṅwe na muṅwe u vhe mishumo ine ya vha na maḓuvha ya tshigwada tshaṋu: u dzudzanya, vhaṋetshedzi na u kuvhanganya.",
+          "documents": "Vhulungani u khavhisa, zwithu zwi hirwaho na mitengo ya vhashumi sa zwibveledzwa, uri quote ya mutambo i dzhie mimunithi.",
+          "payments": "Itani invoice ya diphosithi u buka ḓuvha, nga murahu zwo salaho. Zwiitavhudzi zwi tevhela zwi kha ḓi kolodiwaho."
+        }
+      }
     }
   },
   "prospects": {
@@ -3202,5 +3292,40 @@
   },
   "getApp": {
     "alreadyAdded": "Ndo no i engedza"
+  },
+  "staged": {
+    "title": "U ita invoice",
+    "progress": "{{invoiced}} kha {{total}} zwo itelwa invoice",
+    "left": "{{amount}} i kha ḓi tea u itelwa invoice",
+    "addDeposit": "Itani invoice ya diphosithi",
+    "addStage": "Itani invoice ya tshiṱirathu tshi tevhelaho",
+    "addBalance": "Itani invoice ya zwo salaho ({{amount}})",
+    "splitHint": "Invoice ya ḓirafuthi yo itwaho musi hu tshi ṱanganedzwa i katela tshitatamennde tshoṱhe. Itani invoice ya diphosithi nṱhani hayo, nahone i ḓo shandukiswa.",
+    "balanceLabel": "Zwo salaho",
+    "depositLabel": "Diphosithi",
+    "stageLabel": "Mbadelo ya mvelaphanḓa",
+    "balanceTitle": "Itani invoice ya zwo salaho",
+    "depositTitle": "Itani invoice ya diphosithi",
+    "stageTitle": "Itani invoice ya tshiṱirathu tshi tevhelaho",
+    "create": "Itani invoice ya {{amount}}",
+    "intro": "Quote {{number}} ndi ya {{total}}. Invoice i itwa sa ḓirafuthi, uri ni i ṱole ni sa athu i rumela.",
+    "how": "Ndi vhugai",
+    "mode": {
+      "percent": "Phesenthe",
+      "amount": "Tshelede"
+    },
+    "percentLabel": "Phesenthe ya quote",
+    "amountLabel": "Tshelede, hu tshi katelwa VAT",
+    "tooMuch": "Ho sala {{amount}} fhedzi u itelwa invoice.",
+    "labelField": "Ndi ya mini",
+    "labelHint": "I gandiswa kha invoice, tsumbo: Diphosithi kana Tshiṱirathu 2: ṱhanga.",
+    "due": "Ḓuvha ḽa u badela (a si khombekhombe)",
+    "dueHint": "I litsheni i si na tshithu nahone milayo yaṋu ya mbadelo ya ḓuvha ḽiṅwe na ḽiṅwe i ḓo shuma.",
+    "thisInvoice": "Invoice iyi",
+    "vatNote": "VAT i khethekanywa nga nḓila i fanaho na kha quote.",
+    "replaces": "Ḓirafuthi {{number}}, yo itwaho musi quote i tshi ṱanganedzwa nahone i sa athu rumelwa, i shandukiswa nga invoice iyi na dzi tevhelaho.",
+    "created": "Invoice {{number}} yo itwa sa ḓirafuthi",
+    "draftEdited": "Ḓirafuthi {{number}} i katela quote yoṱhe nahone yo khwiniswa, ngauralo a i shandukiswi. U ita invoice nga zwipiḓa, i bviseni u thoma.",
+    "openDraft": "Vulani ḓirafuthi"
   }
 }

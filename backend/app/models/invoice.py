@@ -15,8 +15,10 @@ class Invoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     __tablename__ = "invoices"
     __table_args__ = (
         UniqueConstraint("company_id", "invoice_number", name="uq_invoices_company_number"),
-        # One invoice per quote, however many times it is accepted or converted.
-        Index("uq_invoices_quote_id", "quote_id", unique=True, postgresql_where=text("quote_id IS NOT NULL")),
+        # A quote's invoices: one for all of it, or one per part (deposit,
+        # stages, balance). The quote is locked while it's invoiced, so it
+        # can't be converted twice.
+        Index("ix_invoices_quote_id", "quote_id"),
         # One invoice per recurring schedule per cycle.
         Index(
             "uq_invoices_recurring_cycle",

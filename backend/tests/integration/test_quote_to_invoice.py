@@ -5,11 +5,9 @@ import uuid
 from decimal import Decimal
 
 import pytest
-from sqlalchemy.exc import IntegrityError
 
 from app.core.database import AsyncSessionLocal
 from app.core.tenancy import set_tenant
-from app.models.invoice import Invoice
 from app.services.quote_service import QuoteService
 
 from .conftest import new_company
@@ -136,23 +134,13 @@ async def test_two_accepts_at_once_wait_for_each_other(api):
 
 
 @pytest.mark.asyncio
-async def test_database_allows_one_invoice_per_quote(api):
+async def test_a_quote_is_converted_whole_only_once(api):
+    # Several invoices per quote are allowed for deposits and stages
+    # (test_staged_invoices); converting the whole quote again is not.
     owner = await new_company(api, "Eta Electrical")
     _, quote = await _sent_quote(api, owner)
-    invoice_id = (await api.post(f"/quotes/{quote['id']}/accept", headers=owner["headers"])).json()["invoice_id"]
-    async with AsyncSessionLocal() as db:
-        set_tenant(db, owner["company_id"])
-        original = await db.get(Invoice, uuid.UUID(invoice_id))
-        db.add(
-            Invoice(
-                company_id=original.company_id,
-                invoice_number=original.invoice_number + "-B",
-                customer_id=original.customer_id,
-                quote_id=original.quote_id,
-                issue_date=original.issue_date,
-                due_date=original.due_date,
-            )
-        )
-        with pytest.raises(IntegrityError):
-            await db.flush()
-        await db.rollback()
+    first = (await api.post(f"/quotes/{quote['id']}/accept", headers=owner["headers"])).json()["invoice_id"]
+    again = (await api.post(f"/quotes/{quote['id']}/accept", headers=owner["headers"])).json()["invoice_id"]
+    assert again == first
+    converted = await api.post(f"/invoices/from-quote/{quote['id']}", json={}, headers=owner["headers"])
+    assert converted.status_code == 409

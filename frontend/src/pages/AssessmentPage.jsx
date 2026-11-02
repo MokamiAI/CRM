@@ -1,6 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 import apiClient from "../services/apiClient";
 import { usePlans } from "../hooks/useApi";
 import { APP_NAME } from "../components/Brand";
@@ -202,6 +203,10 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
           {t(`assessment.q.${q.key}.title`)}
         </h1>
         <p className="mt-1.5 text-zinc-600">{t(`assessment.q.${q.key}.hint`, { defaultValue: q.kind === "multi" ? t("assessment.pickAll") : "" })}</p>
+        {/* Examples from their own line of work, once we know it. */}
+        {i18n.exists(`assessment.forIndustry.${answers.industry}.q.${q.key}`) && (
+          <p className="mt-2 inline-flex rounded-lg bg-indigo-50 px-3 py-1.5 text-sm text-indigo-800">{t(`assessment.forIndustry.${answers.industry}.q.${q.key}`)}</p>
+        )}
 
         <div className="mt-6">
           {q.kind === "profile" ? (
@@ -645,7 +650,9 @@ function Report({ answers, onRestart }) {
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">{i + 1}</span>
                 <div className="min-w-0">
                   <p className="font-medium text-zinc-900">{t(`assessment.roadmap.${area}.title`)}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-zinc-600">{t(`assessment.roadmap.${area}.body`)}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+                    {t(`assessment.forIndustry.${answers.industry}.plan.${area}`, { defaultValue: t(`assessment.roadmap.${area}.body`) })}
+                  </p>
                   <Link to={`/about#feature-${FEATURE_FOR[area]}`} className="mt-1.5 inline-block text-sm font-medium text-indigo-700 hover:text-indigo-900">
                     {t("assessment.roadmap.link", { name: APP_NAME })} →
                   </Link>
