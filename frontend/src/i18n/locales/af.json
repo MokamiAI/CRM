@@ -3203,6 +3203,133 @@
           "documents": "Stoor dekor, huuritems en personeeltariewe as produkte, sodat 'n kwotasie minute neem.",
           "payments": "Faktureer 'n deposito om die datum te bespreek, dan die balans. Herinneringe volg op wat nog skuld is."
         }
+      },
+      "trades": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n uitroep vir 'n gebarste geiser, 'n nuwe kragpuntstroombaan, 'n badkamer oordoen.",
+          "documents": "Byvoorbeeld: uitroepkwotasies, werkkaarte wat fakture word, materiaal en arbeid.",
+          "payments": "Byvoorbeeld: 'n deposito vir materiaal, betaling sodra die werk afgeteken is."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se adres, vorige werke en waarborgwerk op een plek.",
+          "pipeline": "Teken elke uitroep en kwotasieversoek aan, sodat geen werk na 'n mededinger gaan omdat dit vergeet is nie.",
+          "tasks": "Gee elke werk 'n datum, 'n eienaar en 'n kontrolelys, sodat die span weet waar om te wees.",
+          "documents": "Stoor jou uitroepfooi, arbeidstarief en algemene onderdele as produkte, sodat 'n kwotasie minute neem.",
+          "payments": "Neem 'n deposito vir materiaal, faktureer die balans wanneer die werk klaar is, en laat herinneringe laat betalers agtervolg."
+        }
+      },
+      "auto": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n diensbespreking, 'n paneelklopkwotasie vir versekering, 'n onklaarraking.",
+          "documents": "Byvoorbeeld: kwotasies vir onderdele en arbeid, versekeringsbeoordelings, fakture by afhaal.",
+          "payments": "Byvoorbeeld: betaling by afhaal, versekeraars wat laat betaal, rekeningkliënte."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se voertuie, vorige dienste en kontakbesonderhede op een plek.",
+          "pipeline": "Volg elke kwotasie van inspeksie tot goedkeuring, ook dié wat op 'n versekeraar wag.",
+          "tasks": "Maak van elke voertuig 'n werk met take vir jou span: uitmekaarhaal, onderdele bestel, herstel, toets.",
+          "documents": "Stoor onderdele- en arbeidstariewe as produkte, kwoteer vinnig en bestel onderdele met bestellings.",
+          "payments": "Faktureer by afhaal, en laat herinneringe rekeningkliënte en stadige versekeraars opvolg."
+        }
+      },
+      "security": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n kompleks wat wagte vra, 'n alarminstallasie, gewapende reaksie-intekenings.",
+          "documents": "Byvoorbeeld: maandelikse bewakingskontrakte, installasiekwotasies, uitroepfakture.",
+          "payments": "Byvoorbeeld: maandelikse kontrakte wat laat betaal word, 'n regspersoon wat op goedkeuring wag."
+        },
+        "plan": {
+          "customers": "Hou elke perseel, kontakpersoon en kontrak op een plek.",
+          "pipeline": "Volg elke perseelnavraag van beoordeling tot getekende kontrak.",
+          "tasks": "Skeduleer perseelbesoeke, installasies en inspeksies as take vir jou span.",
+          "documents": "Faktureer maandelikse kontrakte met herhalende fakture wat vanself uitgaan.",
+          "payments": "Laat herinneringe laat maandelikse fooie opvolg, en sien in 'n oogopslag wie jou skuld."
+        }
+      },
+      "transport": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n versoek om meubels te verskuif, 'n gereelde afleweringsroete, 'n eenmalige koerierwerk.",
+          "documents": "Byvoorbeeld: kwotasies per rit of per kilometer, maandelikse fakture vir gereelde kliënte.",
+          "payments": "Byvoorbeeld: gereelde kliënte wat aan die einde van die maand betaal, eenmalige werke vooruitbetaal."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se adresse, roetes en tariewe op een plek.",
+          "pipeline": "Teken elke ritversoek aan met die datum en waarde, sodat geen bespreking gemis word nie.",
+          "tasks": "Beplan elke rit as 'n taak met 'n datum, 'n bestuurder en 'n kontrolelys.",
+          "documents": "Stoor jou tariewe as produkte, en faktureer gereelde kliënte met herhalende maandelikse fakture.",
+          "payments": "Laat herinneringe maandeinde-rekeninge opvolg, sodat die voertuie aanhou verdien."
+        }
+      },
+      "landscaping": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n maandelikse tuindiens, 'n eenmalige opruiming, 'n nuwe besproeiingstelsel.",
+          "documents": "Byvoorbeeld: maandelikse instandhoudingsfakture, kwotasies vir landskapprojekte.",
+          "payments": "Byvoorbeeld: maandelikse kliënte wat laat betaal, 'n deposito vir plante en materiaal."
+        },
+        "plan": {
+          "customers": "Hou elke eiendom, kontak en diensskedule op een plek.",
+          "pipeline": "Volg elke kwotasieversoek van terreinbesoek tot aanvaarde kwotasie.",
+          "tasks": "Skeduleer elke besoek as 'n taak met 'n datum en 'n spanlid.",
+          "documents": "Faktureer maandelikse instandhouding met herhalende fakture, en kwoteer projekte uit gestoorde produkte.",
+          "payments": "Neem 'n deposito vir groot projekte en laat herinneringe laat maandelikse fooie agtervolg."
+        }
+      },
+      "creative": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n logo-opdrag, 'n webwerfprojek, 'n fotosessie, 'n maandelikse sosiale media-retensie.",
+          "documents": "Byvoorbeeld: projekkwotasies, maandelikse retensiefakture, fakture per mylpaal.",
+          "payments": "Byvoorbeeld: 'n deposito voor jy begin, betalings per mylpaal, retensies wat laat betaal word."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se opdragte, kontakte en vorige projekte op een plek.",
+          "pipeline": "Volg elke opdrag van die eerste gesprek tot getekende kwotasie, met die waarde.",
+          "tasks": "Breek elke projek op in take met eienaars, kontrolelyste en sperdatums.",
+          "documents": "Faktureer retensies met herhalende fakture, en kwoteer projekte uit gestoorde dienste.",
+          "payments": "Neem vooraf 'n deposito, faktureer per mylpaal, en laat herinneringe die res opvolg."
+        }
+      },
+      "salon": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n bruidsgeselskapbespreking, 'n nuwe kliënt wat oor pryse vra, 'n produkbestelling.",
+          "documents": "Byvoorbeeld: kwotasies vir bruids- of groepbesprekings, fakture vir korporatiewe kliënte.",
+          "payments": "Byvoorbeeld: groepbesprekings wat 'n deposito betaal, korporatiewe kliënte op rekening."
+        },
+        "plan": {
+          "customers": "Hou elke kliënt se besonderhede en geskiedenis in een lys, sodat jy hulle weer kan verwelkom.",
+          "pipeline": "Teken navrae vir bruidsgeselskappe en geleenthede aan, sodat geen koud word nie.",
+          "tasks": "Gee opvolge, produkbestellings en geleenthede 'n datum en 'n eienaar.",
+          "documents": "Stoor jou behandelings en produkte met pryse, sodat 'n groepkwotasie minute neem.",
+          "payments": "Neem deposito's vir groot besprekings en laat herinneringe enigiets wat geskuld word opvolg."
+        }
+      },
+      "retail": {
+        "q": {
+          "enquiries": "Byvoorbeeld: 'n besigheid wat grootmaat bestel, 'n spesiale bestelling, 'n verskaffernavraag.",
+          "documents": "Byvoorbeeld: kwotasies vir grootmaat- of spesiale bestellings, fakture vir rekeningkliënte.",
+          "payments": "Byvoorbeeld: rekeningkliënte wat aan die einde van die maand betaal, 'n deposito op 'n spesiale bestelling."
+        },
+        "plan": {
+          "customers": "Hou jou gereelde en rekeningkliënte se besonderhede en bestellings op een plek.",
+          "pipeline": "Volg grootmaat- en spesiale bestellingnavrae totdat hulle bevestig is.",
+          "tasks": "Gee elke bestelling, aflewering en verskaffer-opvolg 'n datum en 'n eienaar.",
+          "documents": "Stoor jou voorraaditems as produkte, kwoteer grootmaatbestellings vinnig en bestel voorraad met bestellings.",
+          "payments": "Laat herinneringe rekeningkliënte opvolg, en sien in 'n oogopslag wie jou skuld."
+        }
+      }
+    },
+    "recognised": {
+      "note": "Ons pas jou kontrole aan vir {{name}}.",
+      "notQuite": "Nie heeltemal nie",
+      "general": "Reg so. Ons hou die kontrole algemeen.",
+      "names": {
+        "trades": "ambagte (loodgieterswerk, elektries en meer)",
+        "auto": "motorherstelwerk",
+        "security": "sekuriteitsdienste",
+        "transport": "vervoer en logistiek",
+        "landscaping": "landskapering en tuinmaak",
+        "creative": "konsultasie, agentskappe en kreatiewe werk",
+        "salon": "skoonheid en salonne",
+        "retail": "kleinhandel en winkels"
       }
     }
   },

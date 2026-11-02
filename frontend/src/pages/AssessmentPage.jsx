@@ -11,7 +11,7 @@ import { trackVisit } from "../utils/visits";
 import { PublicShell } from "./PublicPages";
 import { FormError } from "./LoginPage";
 import { PEOPLE } from "../components/home/HomePeople";
-import { AREA_MAX, AREAS, ASSUMPTIONS, MODEL_VERSION, QUESTIONS, assess, band, recommendPlan, toolsUsed } from "../components/assessment/model";
+import { AREA_MAX, AREAS, ASSUMPTIONS, MODEL_VERSION, QUESTIONS, assess, band, HIDDEN_INDUSTRIES, recommendPlan, recogniseIndustry, tailoredIndustry, toolsUsed } from "../components/assessment/model";
 
 /*
  * The free business check-up: ten quick questions, a brief "working it
@@ -204,8 +204,8 @@ function Quiz({ step, answers, onAnswer, onStep, onDone }) {
         </h1>
         <p className="mt-1.5 text-zinc-600">{t(`assessment.q.${q.key}.hint`, { defaultValue: q.kind === "multi" ? t("assessment.pickAll") : "" })}</p>
         {/* Examples from their own line of work, once we know it. */}
-        {i18n.exists(`assessment.forIndustry.${answers.industry}.q.${q.key}`) && (
-          <p className="mt-2 inline-flex rounded-lg bg-indigo-50 px-3 py-1.5 text-sm text-indigo-800">{t(`assessment.forIndustry.${answers.industry}.q.${q.key}`)}</p>
+        {i18n.exists(`assessment.forIndustry.${tailoredIndustry(answers)}.q.${q.key}`) && (
+          <p className="mt-2 inline-flex rounded-lg bg-indigo-50 px-3 py-1.5 text-sm text-indigo-800">{t(`assessment.forIndustry.${tailoredIndustry(answers)}.q.${q.key}`)}</p>
         )}
 
         <div className="mt-6">
@@ -261,8 +261,12 @@ function Profile({ q, answers, onAnswer }) {
             autoFocus={other}
             placeholder={t("assessment.q.profile.describePlaceholder")}
             value={answers.industryDetail ?? ""}
-            onChange={(e) => onAnswer("industryDetail", e.target.value)}
+            onChange={(e) => {
+              onAnswer("industryDetail", e.target.value);
+              if (answers.keepGeneral) onAnswer("keepGeneral", false); // a new description is looked at again
+            }}
           />
+          {other && <Recognised answers={answers} onAnswer={onAnswer} />}
         </div>
       )}
       <div>
@@ -273,6 +277,27 @@ function Profile({ q, answers, onAnswer }) {
         </div>
       </div>
     </div>
+  );
+}
+
+/** Under "Something else": the industry their words point to, so they know
+ *  the check-up will speak their language, and can say it's not right. */
+function Recognised({ answers, onAnswer }) {
+  const { t } = useTranslation();
+  const found = recogniseIndustry(answers.industryDetail);
+  if (!found) return null;
+  const name = HIDDEN_INDUSTRIES.includes(found) ? t(`assessment.recognised.names.${found}`) : t(`home.people.${found}.label`);
+  if (answers.keepGeneral) {
+    return <p className="mt-2 text-sm text-zinc-500">{t("assessment.recognised.general")}</p>;
+  }
+  return (
+    <p className="checkup-in mt-2 flex flex-wrap items-center gap-x-2 text-sm text-emerald-800">
+      <span aria-hidden="true">✓</span>
+      <span>{t("assessment.recognised.note", { name })}</span>
+      <button type="button" className="font-medium text-zinc-600 underline underline-offset-2 hover:text-zinc-900" onClick={() => onAnswer("keepGeneral", true)}>
+        {t("assessment.recognised.notQuite")}
+      </button>
+    </p>
   );
 }
 
@@ -651,7 +676,7 @@ function Report({ answers, onRestart }) {
                 <div className="min-w-0">
                   <p className="font-medium text-zinc-900">{t(`assessment.roadmap.${area}.title`)}</p>
                   <p className="mt-1 text-sm leading-relaxed text-zinc-600">
-                    {t(`assessment.forIndustry.${answers.industry}.plan.${area}`, { defaultValue: t(`assessment.roadmap.${area}.body`) })}
+                    {t(`assessment.forIndustry.${tailoredIndustry(answers)}.plan.${area}`, { defaultValue: t(`assessment.roadmap.${area}.body`) })}
                   </p>
                   <Link to={`/about#feature-${FEATURE_FOR[area]}`} className="mt-1.5 inline-block text-sm font-medium text-indigo-700 hover:text-indigo-900">
                     {t("assessment.roadmap.link", { name: APP_NAME })} →
@@ -826,7 +851,7 @@ function Walkthrough({ answers, result, plan }) {
     // Written in English for YGT's team, whatever language the page is in.
     const message = [
       `Free business check-up (rules v${MODEL_VERSION}): operations score ${result.score}/100`,
-      `Industry: ${answers.industry}${answers.industryDetail?.trim() ? ` (${answers.industryDetail.trim()})` : ""}. People handling admin: ${answers.team}. A month: ${result.quotes} quotes, ${result.invoices} invoices.`,
+      `Industry: ${answers.industry}${answers.industryDetail?.trim() ? ` (${answers.industryDetail.trim()})` : ""}${answers.industry === "other" ? `, tailored as: ${tailoredIndustry(answers) ?? "general"}` : ""}. People handling admin: ${answers.team}. A month: ${result.quotes} quotes, ${result.invoices} invoices.`,
       `Tools (${result.tools}, ${answers.connect ?? "not said"}): ${result.detected.join(", ")}`,
       `Areas: ${AREAS.map((a) => `${a} ${result.areas[a]}/${AREA_MAX}`).join(", ")}`,
       `Biggest gaps: ${result.gaps.join(", ") || "none"}`,

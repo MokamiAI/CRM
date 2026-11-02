@@ -3203,6 +3203,133 @@
           "documents": "Gcina ukuhombisa, izinto eziqeshwayo namaxabiso abasebenzi njengeemveliso, ukuze ikowuthi yomsitho ithathe imizuzu.",
           "payments": "Yenza i-invoyisi yediphozithi yokubhukisha umhla, emva koko intsalela. Izikhumbuzi zilandela okusatyalwayo."
         }
+      },
+      "trades": {
+        "q": {
+          "enquiries": "Umzekelo: umnxeba ngegiza eliqhushumbileyo, isekethi entsha yeeplagi, ukulungiswa kwegumbi lokuhlambela.",
+          "documents": "Umzekelo: iikowuthi zokubizwa, amakhadi omsebenzi aba zii-invoyisi, izixhobo nabasebenzi.",
+          "payments": "Umzekelo: idiphozithi yezixhobo, intlawulo xa umsebenzi ugqityiwe."
+        },
+        "plan": {
+          "customers": "Gcina idilesi yomthengi ngamnye, imisebenzi edlulileyo nomsebenzi wewaranti kwindawo enye.",
+          "pipeline": "Bhala ukubizwa ngakunye nesicelo sekowuthi, ukuze kungabikho msebenzi uya kukhuphiswano kuba ulibele.",
+          "tasks": "Nika umsebenzi ngamnye umhla, umnini noluhlu lokukhangela, ukuze iqela lazi apho liza kuba khona.",
+          "documents": "Gcina intlawulo yokubizwa, ixabiso labasebenzi namalungu aqhelekileyo njengeemveliso, ukuze ikowuthi ithathe imizuzu.",
+          "payments": "Thatha idiphozithi yezixhobo, yenza i-invoyisi yentsalela xa umsebenzi ugqityiwe, uze uvumele izikhumbuzi zileqe abahlawula emva kwexesha."
+        }
+      },
+      "auto": {
+        "q": {
+          "enquiries": "Umzekelo: ukubhukisha inkonzo, ikowuthi yokulungisa umzimba wemoto we-inshorensi, imoto efileyo.",
+          "documents": "Umzekelo: iikowuthi zamalungu nabasebenzi, uvavanyo lwe-inshorensi, ii-invoyisi xa ilandwa.",
+          "payments": "Umzekelo: intlawulo xa ilandwa, iinkampani ze-inshorensi ezihlawula emva kwexesha, abathengi be-akhawunti."
+        },
+        "plan": {
+          "customers": "Gcina iimoto zomthengi ngamnye, iinkonzo ezidlulileyo neenkcukacha zonxibelelwano kwindawo enye.",
+          "pipeline": "Landela ikowuthi nganye ukusuka ekuhlolweni ukuya ekuvunywa, kuquka ezo zilinde i-inshorensi.",
+          "tasks": "Yenza imoto nganye ibe ngumsebenzi onemisebenzi yeqela lakho: ukuqhaqha, ukuodola amalungu, ukulungisa, ukuvavanya.",
+          "documents": "Gcina amaxabiso amalungu nabasebenzi njengeemveliso, yenza iikowuthi ngokukhawuleza, u-odole amalungu nge-odolo zokuthenga.",
+          "payments": "Yenza i-invoyisi xa ilandwa, uvumele izikhumbuzi zilandele abathengi be-akhawunti neenkampani ze-inshorensi ezicothayo."
+        }
+      },
+      "security": {
+        "q": {
+          "enquiries": "Umzekelo: isakhiwo esicela oonogada, ukufakwa kwe-alarm, ukubhalisela impendulo exhobileyo.",
+          "documents": "Umzekelo: iikhontrakthi zoonogada zenyanga, iikowuthi zokufaka, ii-invoyisi zokubizwa.",
+          "payments": "Umzekelo: iikhontrakthi zenyanga ezihlawulwa emva kwexesha, ikomiti yesakhiwo elinde ukuvunywa."
+        },
+        "plan": {
+          "customers": "Gcina isiza ngasinye, umntu wonxibelelwano nekhontrakthi kwindawo enye.",
+          "pipeline": "Landela umbuzo ngamnye wesiza ukusuka kuvavanyo ukuya kwikhontrakthi esayiniweyo.",
+          "tasks": "Cwangcisa utyelelo lweendawo, ukufaka nokuhlola njengemisebenzi yeqela lakho.",
+          "documents": "Hlawulisa iikhontrakthi zenyanga ngee-invoyisi eziphindaphindwayo ezizithumelayo.",
+          "payments": "Vumela izikhumbuzi zilandele iintlawulo zenyanga eziphelelwe lixesha, ubone ngokukhawuleza ukuba ngubani okutyalayo."
+        }
+      },
+      "transport": {
+        "q": {
+          "enquiries": "Umzekelo: isicelo sokuthutha ifenitshala, indlela yokuhambisa eqhelekileyo, umsebenzi wekhuriya kube kanye.",
+          "documents": "Umzekelo: iikowuthi ngohambo okanye ngekhilomitha, ii-invoyisi zenyanga zabathengi abaqhelekileyo.",
+          "payments": "Umzekelo: abathengi abaqhelekileyo abahlawula ekupheleni kwenyanga, imisebenzi yakanye ehlawulwa kuqala."
+        },
+        "plan": {
+          "customers": "Gcina iidilesi zomthengi ngamnye, iindlela namaxabiso kwindawo enye.",
+          "pipeline": "Bhala isicelo ngasinye sohambo nomhla waso nexabiso, ukuze kungabikho kubhukisha kuphoswayo.",
+          "tasks": "Cwangcisa uhambo ngalunye njengomsebenzi onomhla, umqhubi noluhlu lokukhangela.",
+          "documents": "Gcina amaxabiso akho njengeemveliso, uhlawulise abathengi abaqhelekileyo ngee-invoyisi eziphindaphindwayo zenyanga.",
+          "payments": "Vumela izikhumbuzi zilandele ii-akhawunti zokuphela kwenyanga, ukuze izithuthi ziqhubeke zisenza imali."
+        }
+      },
+      "landscaping": {
+        "q": {
+          "enquiries": "Umzekelo: inkonzo yegadi yenyanga, ukucoca kube kanye, inkqubo entsha yokunkcenkceshela.",
+          "documents": "Umzekelo: ii-invoyisi zokugcinwa kwenyanga, iikowuthi zeeprojekthi zokuyila umhlaba.",
+          "payments": "Umzekelo: abathengi benyanga abahlawula emva kwexesha, idiphozithi yezityalo nezixhobo."
+        },
+        "plan": {
+          "customers": "Gcina ipropati nganye, umntu wonxibelelwano neshedyuli yenkonzo kwindawo enye.",
+          "pipeline": "Landela isicelo ngasinye sekowuthi ukusuka kutyelelo lwesiza ukuya kwikowuthi eyamkelweyo.",
+          "tasks": "Cwangcisa utyelelo ngalunye njengomsebenzi onomhla nelungu leqela.",
+          "documents": "Hlawulisa ukugcinwa kwenyanga ngee-invoyisi eziphindaphindwayo, wenze iikowuthi zeeprojekthi kwiimveliso ezigciniweyo.",
+          "payments": "Thatha idiphozithi kwiiprojekthi ezinkulu uze uvumele izikhumbuzi zileqe iintlawulo zenyanga eziphelelwe lixesha."
+        }
+      },
+      "creative": {
+        "q": {
+          "enquiries": "Umzekelo: umyalelo welogo, iprojekthi yewebhusayithi, ukufota, intlawulo yenyanga yemidiya yoluntu.",
+          "documents": "Umzekelo: iikowuthi zeeprojekthi, ii-invoyisi zentlawulo yenyanga, ii-invoyisi ngenqanaba ngalinye.",
+          "payments": "Umzekelo: idiphozithi phambi kokuqala, iintlawulo ngenqanaba, iintlawulo zenyanga ezihlawulwa emva kwexesha."
+        },
+        "plan": {
+          "customers": "Gcina imiyalelo yomthengi ngamnye, abantu bonxibelelwano neeprojekthi ezidlulileyo kwindawo enye.",
+          "pipeline": "Landela umyalelo ngamnye ukusuka kwincoko yokuqala ukuya kwikowuthi esayiniweyo, nexabiso lawo.",
+          "tasks": "Yahlula iprojekthi nganye ibe yimisebenzi eneenini, uluhlu lokukhangela nemihla yokugqiba.",
+          "documents": "Hlawulisa iintlawulo zenyanga ngee-invoyisi eziphindaphindwayo, wenze iikowuthi zeeprojekthi kwiinkonzo ezigciniweyo.",
+          "payments": "Thatha idiphozithi kuqala, wenze ii-invoyisi ngenqanaba, uze uvumele izikhumbuzi zilandele okuseleyo."
+        }
+      },
+      "salon": {
+        "q": {
+          "enquiries": "Umzekelo: ukubhukisha iqela lomtshakazi, umthengi omtsha obuza ngamaxabiso, i-odolo yemveliso.",
+          "documents": "Umzekelo: iikowuthi zokubhukisha komtshakazi okanye kwamaqela, ii-invoyisi zabathengi beenkampani.",
+          "payments": "Umzekelo: ukubhukisha kwamaqela okuhlawula idiphozithi, abathengi beenkampani abane-akhawunti."
+        },
+        "plan": {
+          "customers": "Gcina iinkcukacha zomthengi ngamnye nembali kuluhlu olunye, ukuze ubamkele kwakhona.",
+          "pipeline": "Bhala imibuzo yamaqela abatshakazi nemisitho, ukuze kungabikho uphelelwayo.",
+          "tasks": "Nika ukulandela, ii-odolo zeemveliso nemisitho umhla nomnini.",
+          "documents": "Gcina unyango lwakho neemveliso ezinamaxabiso, ukuze ikowuthi yeqela ithathe imizuzu.",
+          "payments": "Thatha iidiphozithi kubhukisho olukhulu uze uvumele izikhumbuzi zilandele nantoni na esatyalwayo."
+        }
+      },
+      "retail": {
+        "q": {
+          "enquiries": "Umzekelo: ishishini eli-odola ngobuninzi, i-odolo ekhethekileyo, umbuzo womboneleli.",
+          "documents": "Umzekelo: iikowuthi zee-odolo ezininzi okanye ezikhethekileyo, ii-invoyisi zabathengi be-akhawunti.",
+          "payments": "Umzekelo: abathengi be-akhawunti abahlawula ekupheleni kwenyanga, idiphozithi kwi-odolo ekhethekileyo."
+        },
+        "plan": {
+          "customers": "Gcina iinkcukacha nee-odolo zabathengi bakho abaqhelekileyo nabe-akhawunti kwindawo enye.",
+          "pipeline": "Landela imibuzo yee-odolo ezininzi nezikhethekileyo de ziqinisekiswe.",
+          "tasks": "Nika i-odolo nganye, ukuhambisa nokulandela ababoneleli umhla nomnini.",
+          "documents": "Gcina izinto zesitokhwe njengeemveliso, wenze iikowuthi zee-odolo ezininzi ngokukhawuleza, u-odole isitokhwe nge-odolo zokuthenga.",
+          "payments": "Vumela izikhumbuzi zilandele abathengi be-akhawunti, ubone ngokukhawuleza ukuba ngubani okutyalayo."
+        }
+      }
+    },
+    "recognised": {
+      "note": "Siza kulungiselela uvavanyo lwakho lube lwe-{{name}}.",
+      "notQuite": "Akunjalo",
+      "general": "Kulungile. Siza kugcina uvavanyo luqhelekile.",
+      "names": {
+        "trades": "imisebenzi yezandla (imibhobho, umbane nokunye)",
+        "auto": "ukulungiswa kweemoto",
+        "security": "iinkonzo zokhuseleko",
+        "transport": "ezothutho nolawulo lokuhanjiswa kwempahla",
+        "landscaping": "ukuyila imihlaba nokulima iigadi",
+        "creative": "ukucebisa, ii-arhente nomsebenzi wobugcisa",
+        "salon": "ubuhle neesaluni",
+        "retail": "ezentengiso neevenkile"
       }
     }
   },

@@ -3203,6 +3203,133 @@
           "documents": "Boloka mekgabiso, dilo tse di hirwang le ditlhwatlhwa tsa badiri jaaka ditlhagiswa, gore quote ya moletlo e tseye metsotso.",
           "payments": "Dira invoice ya depositi go buka letlha, morago madi a a setseng. Dikgakololo di latela se se santseng se kolotwa."
         }
+      },
+      "trades": {
+        "q": {
+          "enquiries": "Sekai: go bidiwa ka ntlha ya geyser e e thubegileng, sekhethe e ntšha ya diplaka, go baakanya phaposi ya go tlhapela.",
+          "documents": "Sekai: di-quote tsa go bidiwa, dikarata tsa tiro tse di nnang di-invoice, didirisiwa le badiri.",
+          "payments": "Sekai: depositi ya didirisiwa, tuelo fa tiro e weditswe."
+        },
+        "plan": {
+          "customers": "Boloka aterese ya moreki mongwe le mongwe, ditiro tsa pele le tiro ya warente mo lefelong le le lengwe.",
+          "pipeline": "Kwala go bidiwa gongwe le gongwe le kopo ya quote, gore go se nne le tiro e e yang kwa mogaisaneng ka gonne e lebetswe.",
+          "tasks": "Naya tiro nngwe le nngwe letlha, mong le lenaane la go tlhola, gore setlhopha se itse kwa se tshwanetseng go nna teng.",
+          "documents": "Boloka tuelo ya go bidiwa, tlhwatlhwa ya badiri le dikarolo tse di tlwaelegileng jaaka ditlhagiswa, gore quote e tseye metsotso.",
+          "payments": "Tsaya depositi ya didirisiwa, dira invoice ya madi a a setseng fa tiro e fedile, mme o letle dikgakololo di lelekise ba ba duelang morago ga nako."
+        }
+      },
+      "auto": {
+        "q": {
+          "enquiries": "Sekai: go buka tirelo, quote ya go baakanya mmele wa koloi ya inshorense, koloi e e swileng.",
+          "documents": "Sekai: di-quote tsa dikarolo le badiri, ditekolo tsa inshorense, di-invoice fa e tsewa.",
+          "payments": "Sekai: tuelo fa e tsewa, dikhampani tsa inshorense tse di duelang morago ga nako, badirisi ba akhaonte."
+        },
+        "plan": {
+          "customers": "Boloka dikoloi tsa moreki mongwe le mongwe, ditirelo tsa pele le dintlha tsa kgolagano mo lefelong le le lengwe.",
+          "pipeline": "Latela quote nngwe le nngwe go simolola ka tekolo go fitlha tumelelong, go akaretsa tse di emetseng inshorense.",
+          "tasks": "Fetola koloi nngwe le nngwe go nna tiro e e nang le ditiro tsa setlhopha sa gago: go phutholola, go odara dikarolo, go baakanya, go leka.",
+          "documents": "Boloka ditlhwatlhwa tsa dikarolo le badiri jaaka ditlhagiswa, dira di-quote ka bonako, mme o odare dikarolo ka diodara tsa theko.",
+          "payments": "Dira invoice fa e tsewa, mme o letle dikgakololo di latele badirisi ba akhaonte le dikhampani tsa inshorense tse di diegang."
+        }
+      },
+      "security": {
+        "q": {
+          "enquiries": "Sekai: moago o o kopang balebedi, go tsenya alamo, go ikwadisetsa karabo e e itlhometseng.",
+          "documents": "Sekai: dikonteraka tsa kgwedi tsa balebedi, di-quote tsa go tsenya, di-invoice tsa go bidiwa.",
+          "payments": "Sekai: dikonteraka tsa kgwedi tse di duelwang morago ga nako, komiti ya moago e e emetseng tumelelo."
+        },
+        "plan": {
+          "customers": "Boloka lefelo lengwe le lengwe, motho wa kgolagano le konteraka mo lefelong le le lengwe.",
+          "pipeline": "Latela potso nngwe le nngwe ya lefelo go simolola ka tekolo go fitlha mo konterakeng e e saennweng.",
+          "tasks": "Rulaganya maeto a mafelo, go tsenya le ditlhatlhobo jaaka ditiro tsa setlhopha sa gago.",
+          "documents": "Duedisa dikonteraka tsa kgwedi ka di-invoice tse di boelelwang tse di itsamaisang.",
+          "payments": "Letla dikgakololo di latele dituelo tsa kgwedi tse di fetilweng ke nako, mme o bone ka bonako gore ke mang yo o go kolotang."
+        }
+      },
+      "transport": {
+        "q": {
+          "enquiries": "Sekai: kopo ya go sutisa fenitšhara, tsela ya go isa e e tlwaelegileng, tiro ya khuriere ya le gangwe.",
+          "documents": "Sekai: di-quote ka loeto kgotsa ka khilomitara, di-invoice tsa kgwedi tsa badirisi ba ba tlwaelegileng.",
+          "payments": "Sekai: badirisi ba ba tlwaelegileng ba ba duelang kwa bofelong jwa kgwedi, ditiro tsa le gangwe tse di duelwang pele."
+        },
+        "plan": {
+          "customers": "Boloka diaterese tsa moreki mongwe le mongwe, ditsela le ditlhwatlhwa mo lefelong le le lengwe.",
+          "pipeline": "Kwala kopo nngwe le nngwe ya loeto le letlha la yone le boleng, gore go se nne le go buka go go tlolwang.",
+          "tasks": "Rulaganya loeto lengwe le lengwe jaaka tiro e e nang le letlha, mokgweetsi le lenaane la go tlhola.",
+          "documents": "Boloka ditlhwatlhwa tsa gago jaaka ditlhagiswa, mme o duedise badirisi ba ba tlwaelegileng ka di-invoice tse di boelelwang tsa kgwedi.",
+          "payments": "Letla dikgakololo di latele diakhaonte tsa bofelo jwa kgwedi, gore dipalangwa di tswelele go dira madi."
+        }
+      },
+      "landscaping": {
+        "q": {
+          "enquiries": "Sekai: tirelo ya tshingwana ya kgwedi, go phepafatsa ga le gangwe, thulaganyo e ntšha ya go nosetsa.",
+          "documents": "Sekai: di-invoice tsa tlhokomelo ya kgwedi, di-quote tsa diporojeke tsa go rulaganya lefatshe.",
+          "payments": "Sekai: badirisi ba kgwedi ba ba duelang morago ga nako, depositi ya dimela le didirisiwa."
+        },
+        "plan": {
+          "customers": "Boloka thoto nngwe le nngwe, motho wa kgolagano le lenaane la tirelo mo lefelong le le lengwe.",
+          "pipeline": "Latela kopo nngwe le nngwe ya quote go simolola ka go etela lefelo go fitlha mo quote e e amogetsweng.",
+          "tasks": "Rulaganya loeto lengwe le lengwe jaaka tiro e e nang le letlha le leloko la setlhopha.",
+          "documents": "Duedisa tlhokomelo ya kgwedi ka di-invoice tse di boelelwang, mme o dire di-quote tsa diporojeke go tswa mo ditlhagiswa tse di bolokilweng.",
+          "payments": "Tsaya depositi ya diporojeke tse dikgolo mme o letle dikgakololo di lelekise dituelo tsa kgwedi tse di fetilweng ke nako."
+        }
+      },
+      "creative": {
+        "q": {
+          "enquiries": "Sekai: taelo ya logo, porojeke ya webosaete, go tsaya ditshwantsho, tuelo ya kgwedi ya mecha ya loago.",
+          "documents": "Sekai: di-quote tsa diporojeke, di-invoice tsa tuelo ya kgwedi, di-invoice ka kgato nngwe le nngwe.",
+          "payments": "Sekai: depositi pele o simolola, dituelo ka kgato, dituelo tsa kgwedi tse di duelwang morago ga nako."
+        },
+        "plan": {
+          "customers": "Boloka ditaelo tsa moreki mongwe le mongwe, batho ba kgolagano le diporojeke tsa pele mo lefelong le le lengwe.",
+          "pipeline": "Latela taelo nngwe le nngwe go simolola ka puisano ya ntlha go fitlha mo quote e e saennweng, le boleng jwa yone.",
+          "tasks": "Kgaoganya porojeke nngwe le nngwe go nna ditiro tse di nang le beng, lenaane la go tlhola le matlha a go wetsa.",
+          "documents": "Duedisa dituelo tsa kgwedi ka di-invoice tse di boelelwang, mme o dire di-quote tsa diporojeke go tswa mo ditirelong tse di bolokilweng.",
+          "payments": "Tsaya depositi pele, dira di-invoice ka kgato, mme o letle dikgakololo di latele tse di setseng."
+        }
+      },
+      "salon": {
+        "q": {
+          "enquiries": "Sekai: go buka setlhopha sa monyadiwa, moreki yo mošwa yo o botsang ka ditlhwatlhwa, odara ya setlhagiswa.",
+          "documents": "Sekai: di-quote tsa go buka ga monyadiwa kgotsa ditlhopha, di-invoice tsa badirisi ba dikhampani.",
+          "payments": "Sekai: go buka ga ditlhopha go go duelang depositi, badirisi ba dikhampani ba ba nang le akhaonte."
+        },
+        "plan": {
+          "customers": "Boloka dintlha tsa moreki mongwe le mongwe le hisitori mo lenaaneng le le lengwe, gore o ba amogele gape.",
+          "pipeline": "Kwala dipotso tsa ditlhopha tsa banyadiwa le meletlo, gore go se nne le ope yo o tsididang.",
+          "tasks": "Naya ditatelo, diodara tsa ditlhagiswa le meletlo letlha le mong.",
+          "documents": "Boloka kalafi ya gago le ditlhagiswa tse di nang le ditlhwatlhwa, gore quote ya setlhopha e tseye metsotso.",
+          "payments": "Tsaya didepositi tsa go buka go gogolo mme o letle dikgakololo di latele sengwe le sengwe se se kolotwang."
+        }
+      },
+      "retail": {
+        "q": {
+          "enquiries": "Sekai: kgwebo e e odarang ka bontsi, odara e e kgethegileng, potso ya motlamedi.",
+          "documents": "Sekai: di-quote tsa diodara tse dintsi kgotsa tse di kgethegileng, di-invoice tsa badirisi ba akhaonte.",
+          "payments": "Sekai: badirisi ba akhaonte ba ba duelang kwa bofelong jwa kgwedi, depositi mo odareng e e kgethegileng."
+        },
+        "plan": {
+          "customers": "Boloka dintlha le diodara tsa badirisi ba gago ba ba tlwaelegileng le ba akhaonte mo lefelong le le lengwe.",
+          "pipeline": "Latela dipotso tsa diodara tse dintsi le tse di kgethegileng go fitlha di netefaditswe.",
+          "tasks": "Naya odara nngwe le nngwe, go isa le tatelo ya batlamedi letlha le mong.",
+          "documents": "Boloka dilo tsa setoko jaaka ditlhagiswa, dira di-quote tsa diodara tse dintsi ka bonako, mme o odare setoko ka diodara tsa theko.",
+          "payments": "Letla dikgakololo di latele badirisi ba akhaonte, mme o bone ka bonako gore ke mang yo o go kolotang."
+        }
+      }
+    },
+    "recognised": {
+      "note": "Re tla baakanya tekolo ya gago gore e nne ya {{name}}.",
+      "notQuite": "Nnyaa, ga go jalo",
+      "general": "Go siame. Re tla boloka tekolo e le ya kakaretso.",
+      "names": {
+        "trades": "ditiro tsa diatla (dipeipi, motlakase le tse dingwe)",
+        "auto": "go baakanya dikoloi",
+        "security": "ditirelo tsa tshireletso",
+        "transport": "dipalangwa le go isa dithoto",
+        "landscaping": "go rulaganya lefatshe le ditshingwana",
+        "creative": "kgakololo, diejensi le tiro ya botaki",
+        "salon": "bontle le disalone",
+        "retail": "kgwebo ya go rekisa le mabenkele"
       }
     }
   },

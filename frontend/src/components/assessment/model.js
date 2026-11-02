@@ -235,3 +235,74 @@ export function planCost(plan, seats) {
   const seat = plan.team_monthly_cents && n >= plan.team_seats ? plan.team_monthly_cents : plan.monthly_cents;
   return (seat * n) / 100;
 }
+
+// ---------- "Something else": recognising the business they describe ----------
+// The words that point to an industry, so a typed "we fix geysers" gets the
+// trades examples and plan. Plain matching in the browser: nothing typed
+// leaves the page. A word ending in * matches as a start ("plumb*" finds
+// plumber and plumbing); words with a space match as a phrase. Listed
+// specific first: on a tie the earlier industry wins. Includes the tiles'
+// own industries, so "catering for weddings" typed here counts as catering.
+const KEYWORDS = {
+  trades: ["plumb*", "loodgieter*", "electric*", "elektris*", "geyser*", "handyman", "weld*", "sweis*", "carpent*", "timmerman*", "painter*", "painting", "aircon*",
+    "air con*", "refrigerat*", "fridge*", "gate motor*", "glazier*", "glazing", "locksmith*", "solar*", "umpompi", "ugesi", "intambo"],
+  auto: ["mechanic*", "meganikus*", "umakhenikha", "panel beat*", "panelbeat*", "paneelklop*", "car repair*", "motor repair*", "vehicle*", "voertuig*", "tyre*", "tire*",
+    "exhaust*", "towing", "auto electric*", "car service*", "servicing cars", "spray paint*", "izimoto", "iimoto"],
+  security: ["security", "sekuriteit*", "guard*", "alarm*", "armed response", "cctv", "access control", "onogada", "ukuvikela", "ukhuseleko"],
+  transport: ["transport*", "vervoer*", "courier*", "koerier*", "logistic*", "deliver*", "aflewer*", "truck*", "trok*", "removal*", "moving house", "freight*",
+    "haulage", "shuttle*", "taxi*", "dispatch*", "ukuthutha", "ezokuthutha"],
+  landscaping: ["landscap*", "garden*", "tuin*", "lawn*", "grass cut*", "tree fell*", "tree cutting", "irrigat*", "besproei*", "pool clean*", "pool service*",
+    "ingadi", "igadi", "izingadi"],
+  creative: ["consult*", "agency", "agencies", "agentskap*", "marketing", "design*", "ontwerp*", "graphic*", "photograph*", "fotograf*", "videograph*", "video*",
+    "branding", "social media", "advertis*", "advertensie*", "copywrit*", "printing", "architect*", "media", "content creat*"],
+  salon: ["salon*", "hair*", "hare", "beauty", "beautician*", "skoonheid*", "nail*", "naels", "spa", "barber*", "kapper*", "braid*", "makeup", "make-up",
+    "lash*", "massage*", "izinwele", "iinwele"],
+  retail: ["shop", "shops", "store", "stores", "winkel*", "spaza*", "retail*", "boutique*", "tuck shop*", "tuckshop*", "clothing", "klere*", "supermarket*",
+    "hardware store*", "isitolo", "ivenkile"],
+  catering: ["cater*", "spysenier*", "chef*", "kitchen*", "bakery", "baker*", "baking", "cake*", "koek*", "buffet*", "meal*", "lunch*", "food*", "kos",
+    "ukudla", "ukupheka", "ukutya"],
+  events: ["event*", "wedding*", "troue*", "function*", "funksie*", "decor*", "dekor*", "venue*", "party hire", "tent hire", "jumping castle*", "dj", "sound hire",
+    "umcimbi", "imicimbi", "umshado", "umtshato"],
+  cleaning: ["clean*", "skoonmaak*", "hygiene", "laundr*", "wasgoed*", "pest*", "fumigat*", "car wash*", "carwash*", "ukuhlanza", "ukucoca", "hlwekisa", "hlatswa"],
+  it: ["it support", "it company", "it services", "it solutions", "ict", "software*", "computer*", "rekenaar*", "network*", "laptop*", "programm*", "coding",
+    "developer*", "web develop*", "app develop*", "tech support", "ikhompyutha"],
+  accounting: ["account*", "bookkeep*", "boekhou*", "rekenmeester*", "tax", "taxes", "belasting*", "payroll*", "salaris*", "audit*", "sars", "ukubalwa kwemali"],
+  construction: ["construct*", "builder*", "building", "bou", "bouer*", "renovat*", "contractor*", "kontrakteur*", "civil*", "roof*", "paving", "brick*",
+    "plaster*", "tiling", "tiler*", "umakhi", "ukwakha"],
+};
+export const RECOGNISED_INDUSTRIES = Object.keys(KEYWORDS);
+// The ones without a tile of their own: named in words instead.
+export const HIDDEN_INDUSTRIES = ["trades", "auto", "security", "transport", "landscaping", "creative", "salon", "retail"];
+
+const normalise = (text) => ` ${text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim()} `;
+
+/** The industry a free-text description points to, or null. */
+export function recogniseIndustry(text) {
+  if (!text || text.trim().length < 2) return null;
+  const said = normalise(text);
+  let best = null;
+  let bestScore = 0;
+  for (const [industry, words] of Object.entries(KEYWORDS)) {
+    let score = 0;
+    for (const word of words) {
+      const stem = word.endsWith("*") ? word.slice(0, -1) : word;
+      const key = normalise(stem).trimEnd();
+      // A stem matches the start of a word; a whole word matches only itself.
+      if (word.endsWith("*") ? said.includes(key) : said.includes(`${key} `)) score += 1;
+    }
+    if (score > bestScore) {
+      best = industry;
+      bestScore = score;
+    }
+  }
+  return best;
+}
+
+/** The industry the check-up is tailored to: the tile they picked, or what
+ *  their description under "Something else" was recognised as (unless they
+ *  said "Not quite"). Null keeps the general wording. */
+export function tailoredIndustry(answers) {
+  if (answers.industry && answers.industry !== "other") return answers.industry;
+  if (answers.industry === "other" && !answers.keepGeneral) return recogniseIndustry(answers.industryDetail);
+  return null;
+}

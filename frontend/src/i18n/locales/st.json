@@ -3203,6 +3203,133 @@
           "documents": "Boloka mekgabiso, dintho tse hirwang le ditheko tsa basebetsi e le dihlahiswa, hore quote ya mokete e nke metsotso.",
           "payments": "Etsa invoice ya depositi ho buka letsatsi, ebe tjhelete e setseng. Dikgopotso di latela se ntseng se kolotwa."
         }
+      },
+      "trades": {
+        "q": {
+          "enquiries": "Mohlala: ho bitswa ka lebaka la geyser e phatlohileng, sekhethe e ntjha ya diplaka, ho lokisa kamore ya ho hlapela.",
+          "documents": "Mohlala: di-quote tsa ho bitswa, dikarete tsa mosebetsi tse fetohang di-invoice, thepa le basebetsi.",
+          "payments": "Mohlala: depositi ya thepa, tefo ha mosebetsi o phethilwe."
+        },
+        "plan": {
+          "customers": "Boloka aterese ya moreki e mong le e mong, mesebetsi ya pele le mosebetsi wa warente sebakeng se le seng.",
+          "pipeline": "Ngola ho bitswa ho hong le ho hong le kopo ya quote, hore ho se be le mosebetsi o yang ho mohlodisani hobane o lebetswe.",
+          "tasks": "Fa mosebetsi o mong le o mong letsatsi, mong le lethathamo la ho hlahloba, hore sehlopha se tsebe moo se lokelang ho ba.",
+          "documents": "Boloka tefo ya ho bitswa, theko ya basebetsi le dikarolo tse tlwaelehileng e le dihlahiswa, hore quote e nke metsotso.",
+          "payments": "Nka depositi ya thepa, etsa invoice ya tjhelete e setseng ha mosebetsi o phethilwe, mme o dumelle dikgopotso ho lelekisa ba lefang morao ho nako."
+        }
+      },
+      "auto": {
+        "q": {
+          "enquiries": "Mohlala: ho buka tshebeletso, quote ya ho lokisa mmele wa koloi ya inshorense, koloi e shweleng.",
+          "documents": "Mohlala: di-quote tsa dikarolo le basebetsi, ditekolo tsa inshorense, di-invoice ha e nkuwa.",
+          "payments": "Mohlala: tefo ha e nkuwa, dikhamphani tsa inshorense tse lefang morao ho nako, bareki ba akhaonto."
+        },
+        "plan": {
+          "customers": "Boloka dikoloi tsa moreki e mong le e mong, ditshebeletso tsa pele le dintlha tsa kgokahano sebakeng se le seng.",
+          "pipeline": "Latela quote e nngwe le e nngwe ho tloha tekolong ho isa tumellong, ho kenyeleditswe tse emetseng inshorense.",
+          "tasks": "Fetola koloi e nngwe le e nngwe e be mosebetsi o nang le mesebetsi ya sehlopha sa hao: ho qhaqha, ho odara dikarolo, ho lokisa, ho leka.",
+          "documents": "Boloka ditheko tsa dikarolo le basebetsi e le dihlahiswa, etsa di-quote kapele, mme o odare dikarolo ka diodara tsa theko.",
+          "payments": "Etsa invoice ha e nkuwa, mme o dumelle dikgopotso ho latela bareki ba akhaonto le dikhamphani tsa inshorense tse diehang."
+        }
+      },
+      "security": {
+        "q": {
+          "enquiries": "Mohlala: moaho o kopang balebedi, ho kenya alamo, ho ingodisetsa karabo ya ho hlomela.",
+          "documents": "Mohlala: dikonteraka tsa kgwedi tsa balebedi, di-quote tsa ho kenya, di-invoice tsa ho bitswa.",
+          "payments": "Mohlala: dikonteraka tsa kgwedi tse lefuwang morao ho nako, komiti ya moaho e emetseng tumello."
+        },
+        "plan": {
+          "customers": "Boloka sebaka se seng le se seng, motho wa kgokahano le konteraka sebakeng se le seng.",
+          "pipeline": "Latela potso e nngwe le e nngwe ya sebaka ho tloha tekolong ho isa konterakeng e saennweng.",
+          "tasks": "Hlophisa maeto a dibaka, ho kenya le ditlhahlobo e le mesebetsi ya sehlopha sa hao.",
+          "documents": "Lefisa dikonteraka tsa kgwedi ka di-invoice tse iphetang tse itsamaelang.",
+          "payments": "Dumella dikgopotso ho latela ditefo tsa kgwedi tse fetileng nako, mme o bone kapele hore na ke mang ya o kolotang."
+        }
+      },
+      "transport": {
+        "q": {
+          "enquiries": "Mohlala: kopo ya ho tsamaisa thepa ya ka tlung, tsela ya ho isa e tlwaelehileng, mosebetsi wa khuriere wa hang.",
+          "documents": "Mohlala: di-quote ka leeto kapa ka khilomithara, di-invoice tsa kgwedi tsa bareki ba tlwaelehileng.",
+          "payments": "Mohlala: bareki ba tlwaelehileng ba lefang qetellong ya kgwedi, mesebetsi ya hang e lefuwang pele."
+        },
+        "plan": {
+          "customers": "Boloka diaterese tsa moreki e mong le e mong, ditsela le ditheko sebakeng se le seng.",
+          "pipeline": "Ngola kopo e nngwe le e nngwe ya leeto le letsatsi la yona le boleng, hore ho se be le ho buka ho fetwang.",
+          "tasks": "Hlophisa leeto le leng le le leng e le mosebetsi o nang le letsatsi, mokganni le lethathamo la ho hlahloba.",
+          "documents": "Boloka ditheko tsa hao e le dihlahiswa, mme o lefise bareki ba tlwaelehileng ka di-invoice tse iphetang tsa kgwedi.",
+          "payments": "Dumella dikgopotso ho latela diakhaonto tsa qetello ya kgwedi, hore dipalangwang di tswele pele ho etsa tjhelete."
+        }
+      },
+      "landscaping": {
+        "q": {
+          "enquiries": "Mohlala: tshebeletso ya serapa ya kgwedi, ho hlwekisa hang, tsamaiso e ntjha ya ho nosetsa.",
+          "documents": "Mohlala: di-invoice tsa tlhokomelo ya kgwedi, di-quote tsa diprojeke tsa ho hlophisa naha.",
+          "payments": "Mohlala: bareki ba kgwedi ba lefang morao ho nako, depositi ya dimela le thepa."
+        },
+        "plan": {
+          "customers": "Boloka thepa e nngwe le e nngwe, motho wa kgokahano le lenaneo la tshebeletso sebakeng se le seng.",
+          "pipeline": "Latela kopo e nngwe le e nngwe ya quote ho tloha ho etela sebaka ho isa ho quote e amohetsweng.",
+          "tasks": "Hlophisa leeto le leng le le leng e le mosebetsi o nang le letsatsi le setho sa sehlopha.",
+          "documents": "Lefisa tlhokomelo ya kgwedi ka di-invoice tse iphetang, mme o etse di-quote tsa diprojeke ho tswa dihlahiswang tse bolokilweng.",
+          "payments": "Nka depositi ya diprojeke tse kgolo mme o dumelle dikgopotso ho lelekisa ditefo tsa kgwedi tse fetileng nako."
+        }
+      },
+      "creative": {
+        "q": {
+          "enquiries": "Mohlala: taelo ya logo, projeke ya websaete, ho nka ditshwantsho, tefo ya kgwedi ya mecha ya setjhaba.",
+          "documents": "Mohlala: di-quote tsa diprojeke, di-invoice tsa tefo ya kgwedi, di-invoice ka mohato o mong le o mong.",
+          "payments": "Mohlala: depositi pele o qala, ditefo ka mohato, ditefo tsa kgwedi tse lefuwang morao ho nako."
+        },
+        "plan": {
+          "customers": "Boloka ditaelo tsa moreki e mong le e mong, batho ba kgokahano le diprojeke tsa pele sebakeng se le seng.",
+          "pipeline": "Latela taelo e nngwe le e nngwe ho tloha moqoqong wa pele ho isa ho quote e saennweng, le boleng ba yona.",
+          "tasks": "Arola projeke e nngwe le e nngwe e be mesebetsi e nang le beng, lethathamo la ho hlahloba le matsatsi a ho qeta.",
+          "documents": "Lefisa ditefo tsa kgwedi ka di-invoice tse iphetang, mme o etse di-quote tsa diprojeke ho tswa ditshebeletsong tse bolokilweng.",
+          "payments": "Nka depositi pele, etsa di-invoice ka mohato, mme o dumelle dikgopotso ho latela tse setseng."
+        }
+      },
+      "salon": {
+        "q": {
+          "enquiries": "Mohlala: ho buka sehlopha sa monyaduwa, moreki e motjha ya botsang ka ditheko, odara ya sehlahiswa.",
+          "documents": "Mohlala: di-quote tsa ho buka ha monyaduwa kapa dihlopha, di-invoice tsa bareki ba dikhamphani.",
+          "payments": "Mohlala: ho buka ha dihlopha ho lefang depositi, bareki ba dikhamphani ba nang le akhaonto."
+        },
+        "plan": {
+          "customers": "Boloka dintlha tsa moreki e mong le e mong le nalane lethathamong le le leng, hore o ba amohele hape.",
+          "pipeline": "Ngola dipotso tsa dihlopha tsa banyaduwa le mekete, hore ho se be le ya batang.",
+          "tasks": "Fa ditatelo, diodara tsa dihlahiswa le mekete letsatsi le mong.",
+          "documents": "Boloka kalafo ya hao le dihlahiswa tse nang le ditheko, hore quote ya sehlopha e nke metsotso.",
+          "payments": "Nka didepositi tsa ho buka ho hoholo mme o dumelle dikgopotso ho latela eng kapa eng e kolotwang."
+        }
+      },
+      "retail": {
+        "q": {
+          "enquiries": "Mohlala: kgwebo e odarang ka bongata, odara e ikgethang, potso ya mofepedi.",
+          "documents": "Mohlala: di-quote tsa diodara tse ngata kapa tse ikgethang, di-invoice tsa bareki ba akhaonto.",
+          "payments": "Mohlala: bareki ba akhaonto ba lefang qetellong ya kgwedi, depositi ho odara e ikgethang."
+        },
+        "plan": {
+          "customers": "Boloka dintlha le diodara tsa bareki ba hao ba tlwaelehileng le ba akhaonto sebakeng se le seng.",
+          "pipeline": "Latela dipotso tsa diodara tse ngata le tse ikgethang ho fihlela di netefatswa.",
+          "tasks": "Fa odara e nngwe le e nngwe, ho isa le tatelo ya bafepedi letsatsi le mong.",
+          "documents": "Boloka dintho tsa setoko e le dihlahiswa, etsa di-quote tsa diodara tse ngata kapele, mme o odare setoko ka diodara tsa theko.",
+          "payments": "Dumella dikgopotso ho latela bareki ba akhaonto, mme o bone kapele hore na ke mang ya o kolotang."
+        }
+      }
+    },
+    "recognised": {
+      "note": "Re tla lokisa tekolo ya hao hore e be ya {{name}}.",
+      "notQuite": "Tjhe, ha ho jwalo",
+      "general": "Ho lokile. Re tla boloka tekolo e le ya kakaretso.",
+      "names": {
+        "trades": "mesebetsi ya matsoho (diphaephe, motlakase le tse ding)",
+        "auto": "ho lokisa dikoloi",
+        "security": "ditshebeletso tsa tshireletso",
+        "transport": "dipalangwang le ho isa thepa",
+        "landscaping": "ho hlophisa naha le dirapa",
+        "creative": "boeletsi, diejensi le mosebetsi wa bonono",
+        "salon": "botle le disalone",
+        "retail": "kgwebo ya ho rekisa le mabenkele"
       }
     }
   },

@@ -3203,6 +3203,133 @@
           "documents": "Boloka mekgabišo, dilo tše di hirwago le ditheko tša bašomi bjalo ka ditšweletšwa, gore quote ya moletlo e tšee metsotso.",
           "payments": "Dira invoice ya tipositi go puka letšatši, ke moka tšhalelo. Dikgopotšo di latela seo se sa kolotwago."
         }
+      },
+      "trades": {
+        "q": {
+          "enquiries": "Mohlala: go bitšwa ka lebaka la geyser ye e thuntšego, sekhethe ye mpsha ya diplaka, go lokiša phapoši ya go hlapela.",
+          "documents": "Mohlala: di-quote tša go bitšwa, dikarata tša mošomo tše di bago di-invoice, didirišwa le bašomi.",
+          "payments": "Mohlala: tipositi ya didirišwa, tefo ge mošomo o fetšwa."
+        },
+        "plan": {
+          "customers": "Boloka aterese ya moreki yo mongwe le yo mongwe, mešomo ya kgale le mošomo wa warente lefelong le tee.",
+          "pipeline": "Ngwala go bitšwa go gongwe le go gongwe le kgopelo ya quote, gore go se be le mošomo wo o yago go mohlodišani ka gobane o lebetšwe.",
+          "tasks": "Fa mošomo wo mongwe le wo mongwe letšatši, mong le lenaneo la go lekola, gore sehlopha se tsebe moo se swanetšego go ba.",
+          "documents": "Boloka tefo ya go bitšwa, theko ya bašomi le dikarolo tše di tlwaelegilego bjalo ka ditšweletšwa, gore quote e tšee metsotso.",
+          "payments": "Tšea tipositi ya didirišwa, dira invoice ya tšhalelo ge mošomo o fedile, gomme o dumelele dikgopotšo di kitimiše bao ba lefago ka morago ga nako."
+        }
+      },
+      "auto": {
+        "q": {
+          "enquiries": "Mohlala: go puka tirelo, quote ya go lokiša mmele wa koloi ya inšorense, koloi ye e hwilego.",
+          "documents": "Mohlala: di-quote tša dikarolo le bašomi, ditekolo tša inšorense, di-invoice ge e tšewa.",
+          "payments": "Mohlala: tefo ge e tšewa, dikhamphani tša inšorense tše di lefago ka morago ga nako, bareki ba akhaonte."
+        },
+        "plan": {
+          "customers": "Boloka dikoloi tša moreki yo mongwe le yo mongwe, ditirelo tša kgale le dintlha tša kgokagano lefelong le tee.",
+          "pipeline": "Latela quote ye nngwe le ye nngwe go tloga tekolong go fihla tumelelong, go akaretšwa tše di letetšego inšorense.",
+          "tasks": "Fetoša koloi ye nngwe le ye nngwe go ba mošomo wo o nago le mešomo ya sehlopha sa gago: go phutholla, go odara dikarolo, go lokiša, go leka.",
+          "documents": "Boloka ditheko tša dikarolo le bašomi bjalo ka ditšweletšwa, dira di-quote ka pela, o odare dikarolo ka diodara tša theko.",
+          "payments": "Dira invoice ge e tšewa, gomme o dumelele dikgopotšo di latele bareki ba akhaonte le dikhamphani tša inšorense tše di diegago."
+        }
+      },
+      "security": {
+        "q": {
+          "enquiries": "Mohlala: moago wo o kgopelago balebeledi, go tsenya alamo, go ingwadišetša karabo ya go itlhama.",
+          "documents": "Mohlala: dikonteraka tša kgwedi tša balebeledi, di-quote tša go tsenya, di-invoice tša go bitšwa.",
+          "payments": "Mohlala: dikonteraka tša kgwedi tše di lefšwago ka morago ga nako, komiti ya moago ye e letetšego tumelelo."
+        },
+        "plan": {
+          "customers": "Boloka lefelo le lengwe le le lengwe, motho wa kgokagano le konteraka lefelong le tee.",
+          "pipeline": "Latela potšišo ye nngwe le ye nngwe ya lefelo go tloga tekolong go fihla go konteraka ye e saennwego.",
+          "tasks": "Beakanya maeto a mafelo, go tsenya le ditlhahlobo bjalo ka mešomo ya sehlopha sa gago.",
+          "documents": "Lefiša dikonteraka tša kgwedi ka di-invoice tše di boelelwago tšeo di itomelago.",
+          "payments": "Dumelela dikgopotšo di latele ditefo tša kgwedi tše di fetilwego ke nako, gomme o bone ka pela gore ke mang yo a go kolotago."
+        }
+      },
+      "transport": {
+        "q": {
+          "enquiries": "Mohlala: kgopelo ya go šuthiša fenitšhara, tsela ya go iša ye e tlwaelegilego, mošomo wa khuriere wa ga tee.",
+          "documents": "Mohlala: di-quote ka leeto goba ka khilomithara, di-invoice tša kgwedi tša bareki ba ba tlwaelegilego.",
+          "payments": "Mohlala: bareki ba ba tlwaelegilego ba ba lefago mafelelong a kgwedi, mešomo ya ga tee ye e lefšwago pele."
+        },
+        "plan": {
+          "customers": "Boloka diaterese tša moreki yo mongwe le yo mongwe, ditsela le ditheko lefelong le tee.",
+          "pipeline": "Ngwala kgopelo ye nngwe le ye nngwe ya leeto le letšatši la yona le boleng, gore go se be le go puka mo go fetwago.",
+          "tasks": "Beakanya leeto le lengwe le le lengwe bjalo ka mošomo wo o nago le letšatši, mootledi le lenaneo la go lekola.",
+          "documents": "Boloka ditheko tša gago bjalo ka ditšweletšwa, gomme o lefiše bareki ba ba tlwaelegilego ka di-invoice tše di boelelwago tša kgwedi.",
+          "payments": "Dumelela dikgopotšo di latele diakhaonte tša mafelelo a kgwedi, gore dinamelwa di tšwele pele go dira tšhelete."
+        }
+      },
+      "landscaping": {
+        "q": {
+          "enquiries": "Mohlala: tirelo ya serapa ya kgwedi, go hlwekiša ga tee, tshepedišo ye mpsha ya go nošetša.",
+          "documents": "Mohlala: di-invoice tša tlhokomelo ya kgwedi, di-quote tša diprojeke tša go beakanya naga.",
+          "payments": "Mohlala: bareki ba kgwedi ba ba lefago ka morago ga nako, tipositi ya dimela le didirišwa."
+        },
+        "plan": {
+          "customers": "Boloka thoto ye nngwe le ye nngwe, motho wa kgokagano le lenaneo la tirelo lefelong le tee.",
+          "pipeline": "Latela kgopelo ye nngwe le ye nngwe ya quote go tloga go etela lefelo go fihla go quote ye e amogetšwego.",
+          "tasks": "Beakanya leeto le lengwe le le lengwe bjalo ka mošomo wo o nago le letšatši le leloko la sehlopha.",
+          "documents": "Lefiša tlhokomelo ya kgwedi ka di-invoice tše di boelelwago, o dire di-quote tša diprojeke go tšwa ditšweletšweng tše di bolokilwego.",
+          "payments": "Tšea tipositi ya diprojeke tše dikgolo gomme o dumelele dikgopotšo di kitimiše ditefo tša kgwedi tše di fetilwego ke nako."
+        }
+      },
+      "creative": {
+        "q": {
+          "enquiries": "Mohlala: taelo ya logo, projeke ya wepsaete, go tšea diswantšho, tefo ya kgwedi ya dikgokagano tša setšhaba.",
+          "documents": "Mohlala: di-quote tša diprojeke, di-invoice tša tefo ya kgwedi, di-invoice ka kgato ye nngwe le ye nngwe.",
+          "payments": "Mohlala: tipositi pele o thoma, ditefo ka kgato, ditefo tša kgwedi tše di lefšwago ka morago ga nako."
+        },
+        "plan": {
+          "customers": "Boloka ditaelo tša moreki yo mongwe le yo mongwe, batho ba kgokagano le diprojeke tša kgale lefelong le tee.",
+          "pipeline": "Latela taelo ye nngwe le ye nngwe go tloga poledišanong ya mathomo go fihla go quote ye e saennwego, le boleng bja yona.",
+          "tasks": "Arola projeke ye nngwe le ye nngwe go ba mešomo ye e nago le beng, lenaneo la go lekola le matšatši a go fetša.",
+          "documents": "Lefiša ditefo tša kgwedi ka di-invoice tše di boelelwago, o dire di-quote tša diprojeke go tšwa ditirelong tše di bolokilwego.",
+          "payments": "Tšea tipositi pele, dira di-invoice ka kgato, gomme o dumelele dikgopotšo di latele tše di šetšego."
+        }
+      },
+      "salon": {
+        "q": {
+          "enquiries": "Mohlala: go puka sehlopha sa monyadiwa, moreki yo moswa a botšiša ka ditheko, odara ya setšweletšwa.",
+          "documents": "Mohlala: di-quote tša go puka ga monyadiwa goba ga dihlopha, di-invoice tša bareki ba dikhamphani.",
+          "payments": "Mohlala: go puka ga dihlopha go go lefago tipositi, bareki ba dikhamphani ba akhaonte."
+        },
+        "plan": {
+          "customers": "Boloka dintlha tša moreki yo mongwe le yo mongwe le histori lenaneong le tee, gore o ba amogele gape.",
+          "pipeline": "Ngwala dipotšišo tša dihlopha tša banyadiwa le meletlo, gore go se be le yo a fodilego.",
+          "tasks": "Fa ditatelo, diodara tša ditšweletšwa le meletlo letšatši le mong.",
+          "documents": "Boloka kalafo ya gago le ditšweletšwa tše di nago le ditheko, gore quote ya sehlopha e tšee metsotso.",
+          "payments": "Tšea ditipositi tša go puka mo go gogolo gomme o dumelele dikgopotšo di latele se sengwe le se sengwe se se kolotwago."
+        }
+      },
+      "retail": {
+        "q": {
+          "enquiries": "Mohlala: kgwebo ye e odarago ka bontši, odara ye e kgethegilego, potšišo ya mofepedi.",
+          "documents": "Mohlala: di-quote tša diodara tše dintši goba tše di kgethegilego, di-invoice tša bareki ba akhaonte.",
+          "payments": "Mohlala: bareki ba akhaonte ba ba lefago mafelelong a kgwedi, tipositi go odara ye e kgethegilego."
+        },
+        "plan": {
+          "customers": "Boloka dintlha le diodara tša bareki ba gago ba ba tlwaelegilego le ba akhaonte lefelong le tee.",
+          "pipeline": "Latela dipotšišo tša diodara tše dintši le tše di kgethegilego go fihlela di netefatšwa.",
+          "tasks": "Fa odara ye nngwe le ye nngwe, go iša le tatelo ya bafepedi letšatši le mong.",
+          "documents": "Boloka dilo tša setoko bjalo ka ditšweletšwa, dira di-quote tša diodara tše dintši ka pela, o odare setoko ka diodara tša theko.",
+          "payments": "Dumelela dikgopotšo di latele bareki ba akhaonte, gomme o bone ka pela gore ke mang yo a go kolotago."
+        }
+      }
+    },
+    "recognised": {
+      "note": "Re tla lokiša tekolo ya gago go ba ya {{name}}.",
+      "notQuite": "Aowa, ga se bjalo",
+      "general": "Go lokile. Re tla boloka tekolo e le ya kakaretšo.",
+      "names": {
+        "trades": "mešomo ya diatla (dipeipi, mohlagase le tše dingwe)",
+        "auto": "go lokiša dikoloi",
+        "security": "ditirelo tša tšhireletšo",
+        "transport": "dinamelwa le go iša dithoto",
+        "landscaping": "go beakanya naga le dirapa",
+        "creative": "keletšo, diejensi le mošomo wa bokgabo",
+        "salon": "botse le disalone",
+        "retail": "kgwebo ya go rekiša le mabenkele"
       }
     }
   },

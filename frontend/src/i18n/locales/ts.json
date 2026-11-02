@@ -3203,6 +3203,133 @@
           "documents": "Hlayisa swihlovo, swilo leswi hirhiwaka ni nxavo wa vatirhi tanihi swikumiwa, leswaku xilinganiso xa nkhuvo xi teka timinete.",
           "payments": "Endla invoyisi ya diphoziti ku buka siku, kutani leswi saleke. Switsundzuxo swi landzelela leswi ha ri ni xikweleti."
         }
+      },
+      "trades": {
+        "q": {
+          "enquiries": "Xikombiso: ku vitaniwa hikwalaho ka geyser leyi buluukeke, sekhethe leyintshwa ya tipulaka, ku lulamisa kamara yo hlambela.",
+          "documents": "Xikombiso: swilinganiso swo vitaniwa, tikarata ta ntirho leti vaka ti-invoyisi, switirho ni vatirhi.",
+          "payments": "Xikombiso: diphoziti ya switirho, hakelo loko ntirho wu herile."
+        },
+        "plan": {
+          "customers": "Hlayisa adirese ya muxavi un'wana ni un'wana, mintirho ya khale ni ntirho wa waranti endhawini yin'we.",
+          "pipeline": "Tsala ku vitaniwa kun'wana ni kun'wana ni xikombelo xa xilinganiso, leswaku ku nga vi na ntirho lowu yaka eka muphikisani hikuva wu rivariwile.",
+          "tasks": "Nyika ntirho wun'wana ni wun'wana siku, n'winyi ni nxaxamelo wo kambela, leswaku ntlawa wu tiva laha wu faneleke ku va kona.",
+          "documents": "Hlayisa hakelo yo vitaniwa, nxavo wa vatirhi ni swiphemu leswi tolovelekeke tanihi swikumiwa, leswaku xilinganiso xi teka timinete.",
+          "payments": "Teka diphoziti ya switirho, endla invoyisi ya leswi saleke loko ntirho wu herile, u pfumelela switsundzuxo swi hlongorisa lava hakelaka hi ku hlwela."
+        }
+      },
+      "auto": {
+        "q": {
+          "enquiries": "Xikombiso: ku buka vukorhokeri, xilinganiso xo lulamisa miri wa movha xa inshorense, movha lowu feke.",
+          "documents": "Xikombiso: swilinganiso swa swiphemu ni vatirhi, makambelo ya inshorense, ti-invoyisi loko wu tekiwa.",
+          "payments": "Xikombiso: hakelo loko wu tekiwa, tikhampani ta inshorense leti hakelaka hi ku hlwela, vaxavi va akhawunti."
+        },
+        "plan": {
+          "customers": "Hlayisa timovha ta muxavi un'wana ni un'wana, vukorhokeri bya khale ni vuxokoxoko bya vuhlanganisi endhawini yin'we.",
+          "pipeline": "Landzelela xilinganiso xin'wana ni xin'wana ku suka eka makambelo ku ya eka mpfumelelo, ku katsa leswi rindzeleke inshorense.",
+          "tasks": "Hundzula movha wun'wana ni wun'wana wu va ntirho lowu nga ni mintirho ya ntlawa wa wena: ku tlhantlha, ku oda swiphemu, ku lulamisa, ku ringeta.",
+          "documents": "Hlayisa nxavo wa swiphemu ni vatirhi tanihi swikumiwa, endla swilinganiso hi ku hatlisa, u oda swiphemu hi ti-oda to xava.",
+          "payments": "Endla invoyisi loko wu tekiwa, u pfumelela switsundzuxo swi landzelela vaxavi va akhawunti ni tikhampani ta inshorense leti hlwelaka."
+        }
+      },
+      "security": {
+        "q": {
+          "enquiries": "Xikombiso: muako lowu kombelaka varindzi, ku nghenisa alamu, ku tsarisela nhlamulo leyi hlomeke.",
+          "documents": "Xikombiso: tikontiraka ta n'hweti ta varindzi, swilinganiso swo nghenisa, ti-invoyisi to vitaniwa.",
+          "payments": "Xikombiso: tikontiraka ta n'hweti leti hakeriwaka hi ku hlwela, komiti ya muako leyi rindzeleke mpfumelelo."
+        },
+        "plan": {
+          "customers": "Hlayisa ndhawu yin'wana ni yin'wana, munhu wa vuhlanganisi ni kontiraka endhawini yin'we.",
+          "pipeline": "Landzelela xivutiso xin'wana ni xin'wana xa ndhawu ku suka eka makambelo ku ya eka kontiraka leyi sayiniweke.",
+          "tasks": "Kunguhata maendzo ya tindhawu, ku nghenisa ni swikambelo tanihi mintirho ya ntlawa wa wena.",
+          "documents": "Hakelisa tikontiraka ta n'hweti hi ti-invoyisi leti phindhaphindhiwaka leti tirhumelaka.",
+          "payments": "Pfumelela switsundzuxo swi landzelela tihakelo ta n'hweti leti hundzeke nkarhi, u tlhela u vona hi ku hatlisa leswaku i mani a ku kolotaka."
+        }
+      },
+      "transport": {
+        "q": {
+          "enquiries": "Xikombiso: xikombelo xo rhurha fanichara, ndlela yo yisa leyi tolovelekeke, ntirho wa khuriya wa kan'we.",
+          "documents": "Xikombiso: swilinganiso hi riendzo kumbe hi khilomitara, ti-invoyisi ta n'hweti ta vaxavi lava tolovelekeke.",
+          "payments": "Xikombiso: vaxavi lava tolovelekeke lava hakelaka emakumu ka n'hweti, mintirho ya kan'we leyi hakeriwaka ku sungula."
+        },
+        "plan": {
+          "customers": "Hlayisa tiadirese ta muxavi un'wana ni un'wana, tindlela ni nxavo endhawini yin'we.",
+          "pipeline": "Tsala xikombelo xin'wana ni xin'wana xa riendzo ni siku ra xona ni nkoka, leswaku ku nga vi na ku buka loku hundzeriwaka.",
+          "tasks": "Kunguhata riendzo rin'wana ni rin'wana tanihi ntirho lowu nga ni siku, muchayeri ni nxaxamelo wo kambela.",
+          "documents": "Hlayisa nxavo wa wena tanihi swikumiwa, u hakelisa vaxavi lava tolovelekeke hi ti-invoyisi leti phindhaphindhiwaka ta n'hweti.",
+          "payments": "Pfumelela switsundzuxo swi landzelela tiakhawunti ta makumu ya n'hweti, leswaku swifambo swi ya emahlweni swi endla mali."
+        }
+      },
+      "landscaping": {
+        "q": {
+          "enquiries": "Xikombiso: vukorhokeri bya xirhapa bya n'hweti, ku basisa kan'we, sisiteme leyintshwa yo cheleta.",
+          "documents": "Xikombiso: ti-invoyisi to hlayisa ta n'hweti, swilinganiso swa tiphurojeke to lulamisa misava.",
+          "payments": "Xikombiso: vaxavi va n'hweti lava hakelaka hi ku hlwela, diphoziti ya swimila ni switirho."
+        },
+        "plan": {
+          "customers": "Hlayisa nhundzu yin'wana ni yin'wana, munhu wa vuhlanganisi ni xikedulu xa vukorhokeri endhawini yin'we.",
+          "pipeline": "Landzelela xikombelo xin'wana ni xin'wana xa xilinganiso ku suka eku endzeleni ka ndhawu ku ya eka xilinganiso lexi amukeriweke.",
+          "tasks": "Kunguhata riendzo rin'wana ni rin'wana tanihi ntirho lowu nga ni siku ni xirho xa ntlawa.",
+          "documents": "Hakelisa vuhlayisi bya n'hweti hi ti-invoyisi leti phindhaphindhiwaka, u endla swilinganiso swa tiphurojeke ku suka eka swikumiwa leswi hlayisiweke.",
+          "payments": "Teka diphoziti ya tiphurojeke letikulu u pfumelela switsundzuxo swi hlongorisa tihakelo ta n'hweti leti hundzeke nkarhi."
+        }
+      },
+      "creative": {
+        "q": {
+          "enquiries": "Xikombiso: xileriso xa logo, phurojeke ya webusayiti, ku teka swifaniso, hakelo ya n'hweti ya mahungu ya vanhu.",
+          "documents": "Xikombiso: swilinganiso swa tiphurojeke, ti-invoyisi ta hakelo ya n'hweti, ti-invoyisi hi xiyimo xin'wana ni xin'wana.",
+          "payments": "Xikombiso: diphoziti u nga si sungula, tihakelo hi xiyimo, tihakelo ta n'hweti leti hakeriwaka hi ku hlwela."
+        },
+        "plan": {
+          "customers": "Hlayisa swileriso swa muxavi un'wana ni un'wana, vanhu va vuhlanganisi ni tiphurojeke ta khale endhawini yin'we.",
+          "pipeline": "Landzelela xileriso xin'wana ni xin'wana ku suka eka mbulavurisano wo sungula ku ya eka xilinganiso lexi sayiniweke, ni nkoka wa xona.",
+          "tasks": "Avanyisa phurojeke yin'wana ni yin'wana yi va mintirho leyi nga ni vinyi, nxaxamelo wo kambela ni masiku yo heta.",
+          "documents": "Hakelisa tihakelo ta n'hweti hi ti-invoyisi leti phindhaphindhiwaka, u endla swilinganiso swa tiphurojeke ku suka eka vukorhokeri lebyi hlayisiweke.",
+          "payments": "Teka diphoziti ku sungula, endla ti-invoyisi hi xiyimo, u pfumelela switsundzuxo swi landzelela leswi saleke."
+        }
+      },
+      "salon": {
+        "q": {
+          "enquiries": "Xikombiso: ku buka ntlawa wa mutekiwa, muxavi lowuntshwa la vutisaka hi nxavo, oda ya xikumiwa.",
+          "documents": "Xikombiso: swilinganiso swo buka ka mutekiwa kumbe mintlawa, ti-invoyisi ta vaxavi va tikhampani.",
+          "payments": "Xikombiso: ku buka ka mintlawa loku hakelaka diphoziti, vaxavi va tikhampani lava nga ni akhawunti."
+        },
+        "plan": {
+          "customers": "Hlayisa vuxokoxoko bya muxavi un'wana ni un'wana ni matimu eka nxaxamelo wun'we, leswaku u va amukela nakambe.",
+          "pipeline": "Tsala swivutiso swa mintlawa ya vatekiwa ni minkhuvo, leswaku ku nga vi na lowu titimelaka.",
+          "tasks": "Nyika ku landzelela, ti-oda ta swikumiwa ni minkhuvo siku ni n'winyi.",
+          "documents": "Hlayisa vutshunguri bya wena ni swikumiwa leswi nga ni nxavo, leswaku xilinganiso xa ntlawa xi teka timinete.",
+          "payments": "Teka tidiphoziti ta ku buka lokukulu u pfumelela switsundzuxo swi landzelela xin'wana ni xin'wana lexi kolotiwaka."
+        }
+      },
+      "retail": {
+        "q": {
+          "enquiries": "Xikombiso: bindzu leri odaka hi vunyingi, oda yo hlawuleka, xivutiso xa muphakeli.",
+          "documents": "Xikombiso: swilinganiso swa ti-oda to tala kumbe to hlawuleka, ti-invoyisi ta vaxavi va akhawunti.",
+          "payments": "Xikombiso: vaxavi va akhawunti lava hakelaka emakumu ka n'hweti, diphoziti eka oda yo hlawuleka."
+        },
+        "plan": {
+          "customers": "Hlayisa vuxokoxoko ni ti-oda ta vaxavi va wena lava tolovelekeke ni va akhawunti endhawini yin'we.",
+          "pipeline": "Landzelela swivutiso swa ti-oda to tala ni to hlawuleka kufikela ti tiyisisiwa.",
+          "tasks": "Nyika oda yin'wana ni yin'wana, ku yisa ni ku landzelela vaphakeli siku ni n'winyi.",
+          "documents": "Hlayisa swilo swa xitoko tanihi swikumiwa, endla swilinganiso swa ti-oda to tala hi ku hatlisa, u oda xitoko hi ti-oda to xava.",
+          "payments": "Pfumelela switsundzuxo swi landzelela vaxavi va akhawunti, u tlhela u vona hi ku hatlisa leswaku i mani a ku kolotaka."
+        }
+      }
+    },
+    "recognised": {
+      "note": "Hi ta lulamisa ku kambela ka wena ku va ka {{name}}.",
+      "notQuite": "A swi tano",
+      "general": "Swi lulamile. Hi ta hlayisa ku kambela ku ri ka ntolovelo.",
+      "names": {
+        "trades": "mintirho ya mavoko (tiphayiphi, gezi ni swin'wana)",
+        "auto": "ku lulamisa timovha",
+        "security": "vukorhokeri bya vuhlayiseki",
+        "transport": "swa vutleketli ni ku yisa nhundzu",
+        "landscaping": "ku lulamisa misava ni swirhapa",
+        "creative": "vutsundzuxi, tiejensi ni ntirho wa vutshila",
+        "salon": "ku saseka ni tisalone",
+        "retail": "mabindzu yo xavisa ni swivhengele"
       }
     }
   },

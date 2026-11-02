@@ -3360,6 +3360,133 @@
           "documents": "Save décor, hire items and staff rates as products, so an event quote takes minutes.",
           "payments": "Invoice a deposit to book the date, then the balance. Reminders follow up what's still owed."
         }
+      },
+      "trades": {
+        "q": {
+          "enquiries": "For example: a burst geyser call-out, a new plug circuit, a bathroom re-do.",
+          "documents": "For example: call-out quotes, job cards turned into invoices, materials and labour.",
+          "payments": "For example: a deposit for materials, payment once the job is signed off."
+        },
+        "plan": {
+          "customers": "Keep each client's address, past jobs and warranty work in one place.",
+          "pipeline": "Log every call-out and quote request, so no job goes to a competitor because it was forgotten.",
+          "tasks": "Give every job a date, an owner and a checklist, so the team knows where to be.",
+          "documents": "Save your call-out fee, labour rate and common parts as products, so a quote takes minutes.",
+          "payments": "Take a deposit for materials, invoice the balance when the job's done, and let reminders chase late payers."
+        }
+      },
+      "auto": {
+        "q": {
+          "enquiries": "For example: a service booking, a panel-beating quote for insurance, a breakdown.",
+          "documents": "For example: quotes for parts and labour, insurance assessments, invoices on collection.",
+          "payments": "For example: payment on collection, insurers who pay late, account customers."
+        },
+        "plan": {
+          "customers": "Keep each customer's vehicles, past services and contact details in one place.",
+          "pipeline": "Track every quote from inspection to approval, including those waiting on an insurer.",
+          "tasks": "Turn each vehicle into a job with tasks for your team: strip, order parts, repair, test.",
+          "documents": "Save parts and labour rates as products, quote fast, and order parts with purchase orders.",
+          "payments": "Invoice on collection, and let reminders follow up account customers and slow insurers."
+        }
+      },
+      "security": {
+        "q": {
+          "enquiries": "For example: a complex asking for guards, an alarm installation, armed response sign-ups.",
+          "documents": "For example: monthly guarding contracts, installation quotes, call-out invoices.",
+          "payments": "For example: monthly contracts paid late, a body corporate waiting on approval."
+        },
+        "plan": {
+          "customers": "Keep each site, contact person and contract in one place.",
+          "pipeline": "Track every site enquiry from assessment to signed contract.",
+          "tasks": "Schedule site visits, installations and inspections as tasks for your team.",
+          "documents": "Bill monthly contracts with recurring invoices that go out by themselves.",
+          "payments": "Let reminders follow up late monthly fees, and see who owes you at a glance."
+        }
+      },
+      "transport": {
+        "q": {
+          "enquiries": "For example: a request to move furniture, a regular delivery route, a once-off courier job.",
+          "documents": "For example: quotes per trip or per kilometre, monthly invoices for regular clients.",
+          "payments": "For example: regular clients who pay at month-end, once-off jobs paid up front."
+        },
+        "plan": {
+          "customers": "Keep each client's addresses, routes and rates in one place.",
+          "pipeline": "Log every trip request with its date and value, so no booking is missed.",
+          "tasks": "Plan each trip as a task with a date, a driver and a checklist.",
+          "documents": "Save your rates as products, and bill regular clients with recurring monthly invoices.",
+          "payments": "Let reminders follow up month-end accounts, so the vehicles keep earning."
+        }
+      },
+      "landscaping": {
+        "q": {
+          "enquiries": "For example: a monthly garden service, a once-off clean-up, a new irrigation system.",
+          "documents": "For example: monthly maintenance invoices, quotes for landscaping projects.",
+          "payments": "For example: monthly clients who pay late, a deposit for plants and materials."
+        },
+        "plan": {
+          "customers": "Keep each property, contact and service schedule in one place.",
+          "pipeline": "Track every quote request from site visit to accepted quote.",
+          "tasks": "Schedule each visit as a task with a date and a team member.",
+          "documents": "Bill monthly maintenance with recurring invoices, and quote projects from saved products.",
+          "payments": "Take a deposit for big projects and let reminders chase late monthly fees."
+        }
+      },
+      "creative": {
+        "q": {
+          "enquiries": "For example: a logo brief, a website project, a photo shoot, a monthly social media retainer.",
+          "documents": "For example: project quotes, monthly retainer invoices, invoices per milestone.",
+          "payments": "For example: a deposit before you start, payments per milestone, retainers paid late."
+        },
+        "plan": {
+          "customers": "Keep each client's briefs, contacts and past projects in one place.",
+          "pipeline": "Track every brief from first chat to signed quote, with its value.",
+          "tasks": "Break each project into tasks with owners, checklists and deadlines.",
+          "documents": "Bill retainers with recurring invoices, and quote projects from saved services.",
+          "payments": "Take a deposit up front, invoice per milestone, and let reminders follow up the rest."
+        }
+      },
+      "salon": {
+        "q": {
+          "enquiries": "For example: a bridal party booking, a new client asking about prices, a product order.",
+          "documents": "For example: quotes for bridal or group bookings, invoices for corporate clients.",
+          "payments": "For example: group bookings that pay a deposit, corporate clients on account."
+        },
+        "plan": {
+          "customers": "Keep each client's details and history in one list, so you can welcome them back.",
+          "pipeline": "Log enquiries for bridal parties and events, so none go cold.",
+          "tasks": "Give follow-ups, product orders and events a date and an owner.",
+          "documents": "Save your treatments and products with prices, so a group quote takes minutes.",
+          "payments": "Take deposits for big bookings and let reminders follow up anything owed."
+        }
+      },
+      "retail": {
+        "q": {
+          "enquiries": "For example: a business ordering in bulk, a special order, a supplier query.",
+          "documents": "For example: quotes for bulk or special orders, invoices for account customers.",
+          "payments": "For example: account customers paying at month-end, a deposit on a special order."
+        },
+        "plan": {
+          "customers": "Keep your regular and account customers' details and orders in one place.",
+          "pipeline": "Track bulk and special-order enquiries until they're confirmed.",
+          "tasks": "Give every order, delivery and supplier follow-up a date and an owner.",
+          "documents": "Save your stock items as products, quote bulk orders fast, and order stock with purchase orders.",
+          "payments": "Let reminders follow up account customers, and see who owes you at a glance."
+        }
+      }
+    },
+    "recognised": {
+      "note": "We'll tailor your check-up for {{name}}.",
+      "notQuite": "Not quite",
+      "general": "Got it. We'll keep the check-up general.",
+      "names": {
+        "trades": "trades (plumbing, electrical and more)",
+        "auto": "auto repair",
+        "security": "security services",
+        "transport": "transport and logistics",
+        "landscaping": "landscaping and gardening",
+        "creative": "consulting, agencies and creative work",
+        "salon": "beauty and salons",
+        "retail": "retail and shops"
       }
     }
   },

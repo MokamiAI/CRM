@@ -3203,6 +3203,133 @@
           "documents": "Gcina kuhlobisa, tintfo letiqashwako nemanani ebasebenti njengemikhicito, kute sicaphuno semcimbi sitsatse imizuzu.",
           "payments": "Yenta i-invoyisi yelidiphozithi lekubhuka lilanga, bese kuba ngulokusele. Tikhumbuto tilandzelela lokusakweletwako."
         }
+      },
+      "trades": {
+        "q": {
+          "enquiries": "Sibonelo: kubitwa ngenca yegiza leliqhumile, isekhethi lensha yemaplaga, kulungiswa kwekamelo lekugeza.",
+          "documents": "Sibonelo: ticaphuno tekubitwa, emakhadi emsebenti laba ema-invoyisi, imphahla nebasebenti.",
+          "payments": "Sibonelo: lidiphozithi lemphahla, inkhokhelo nangabe umsebenti usucedziwe."
+        },
+        "plan": {
+          "customers": "Gcina likheli lelikhasimende ngalinye, imisebenti lendzile nemsebenti wewaranti endzaweni yinye.",
+          "pipeline": "Bhala kubitwa ngakunye nesicelo sesicaphuno, kute kungabi khona umsebenti loya kumncintiswano ngobe ukhohliwe.",
+          "tasks": "Nika umsebenti ngamunye lilanga, umnikati neluhlu lwekuhlola, kute lithimba lati lapho litawuba khona.",
+          "documents": "Gcina imali yekubitwa, linani lebasebenti netincenye letijwayelekile njengemikhicito, kute sicaphuno sitsatse imizuzu.",
+          "payments": "Tsatsa lidiphozithi lemphahla, wente i-invoyisi yalokusele nangabe umsebenti uphelile, bese tikhumbuto tijaha labakhokha sekwephutile."
+        }
+      },
+      "auto": {
+        "q": {
+          "enquiries": "Sibonelo: kubhuka lusito, sicaphuno sekulungisa umtimba wemoto weshwalensi, imoto lefile.",
+          "documents": "Sibonelo: ticaphuno tetincenye nebasebenti, kuhlolwa kweshwalensi, ema-invoyisi nangabe itsatfwa.",
+          "payments": "Sibonelo: inkhokhelo nangabe itsatfwa, tinkampani teshwalensi letikhokha sekwephutile, emakhasimende e-akhawunti."
+        },
+        "plan": {
+          "customers": "Gcina timoto telikhasimende ngalinye, lusito lwangaphambilini nemininingwane yekuchumana endzaweni yinye.",
+          "pipeline": "Landzelela sicaphuno ngasinye kusukela ekuhlolweni kuya ekugunyatweni, kufaka naleto letilindze ishwalensi.",
+          "tasks": "Yenta imoto ngayinye ibe ngumsebenti lonemisebenti yelithimba lakho: kucaca, ku-oda tincenye, kulungisa, kuhlola.",
+          "documents": "Gcina emanani etincenye nebasebenti njengemikhicito, wente ticaphuno ngekushesha, u-ode tincenye ngema-oda ekutsenga.",
+          "payments": "Yenta i-invoyisi nangabe itsatfwa, bese tikhumbuto tilandzelela emakhasimende e-akhawunti netinkampani teshwalensi letihamba kancane."
+        }
+      },
+      "security": {
+        "q": {
+          "enquiries": "Sibonelo: sakhiwo lesicela bonogada, kufakwa kwe-alamu, kubhalisela kuphendvula lokuhlomile.",
+          "documents": "Sibonelo: tinkontileka tebonogada tenyanga, ticaphuno tekufaka, ema-invoyisi ekubitwa.",
+          "payments": "Sibonelo: tinkontileka tenyanga letikhokhwa sekwephutile, likomiti lesakhiwo lelilindze kugunyatwa."
+        },
+        "plan": {
+          "customers": "Gcina sita ngasinye, umuntfu wekuchumana nenkontileka endzaweni yinye.",
+          "pipeline": "Landzelela umbuto ngamunye wesita kusukela ekuhlolweni kuya enkontilekeni lesayiniwe.",
+          "tasks": "Hlela kuvakashela tindzawo, kufaka nekuhlola njengemisebenti yelithimba lakho.",
+          "documents": "Khokhisa tinkontileka tenyanga ngema-invoyisi laphindvwako latitfumelako.",
+          "payments": "Vumela tikhumbuto tilandzelele timali tenyanga letiphutile, futsi ubone ngekushesha kutsi ngubani lokweletako."
+        }
+      },
+      "transport": {
+        "q": {
+          "enquiries": "Sibonelo: sicelo sekutfutsa emafenisha, indlela yekuletsa lejwayelekile, umsebenti wekhuriya wakanye.",
+          "documents": "Sibonelo: ticaphuno ngeluhambo nome ngekhilomitha, ema-invoyisi enyanga emakhasimende lajwayelekile.",
+          "payments": "Sibonelo: emakhasimende lajwayelekile lakhokha ekupheleni kwenyanga, imisebenti yakanye lekhokhwa kucala."
+        },
+        "plan": {
+          "customers": "Gcina emakheli elikhasimende ngalinye, tindlela nemanani endzaweni yinye.",
+          "pipeline": "Bhala sicelo ngasinye seluhambo nelilanga laso nelinani, kute kungabi khona kubhuka lokuphutsiwako.",
+          "tasks": "Hlela luhambo ngalunye njengemsebenti lonelilanga, umshayeli neluhlu lwekuhlola.",
+          "documents": "Gcina emanani akho njengemikhicito, bese ukhokhisa emakhasimende lajwayelekile ngema-invoyisi laphindvwako enyanga.",
+          "payments": "Vumela tikhumbuto tilandzelele ema-akhawunti ekuphela kwenyanga, kute timoto tichubeke tenta imali."
+        }
+      },
+      "landscaping": {
+        "q": {
+          "enquiries": "Sibonelo: lusito lwengadze lwenyanga, kuhlanta kanye, luhlelo lolusha lwekunisela.",
+          "documents": "Sibonelo: ema-invoyisi ekunakekela enyanga, ticaphuno temaphrojekthi ekuhlela umhlaba.",
+          "payments": "Sibonelo: emakhasimende enyanga lakhokha sekwephutile, lidiphozithi letitjalo nemphahla."
+        },
+        "plan": {
+          "customers": "Gcina imphahla ngayinye, umuntfu wekuchumana nelusito endzaweni yinye.",
+          "pipeline": "Landzelela sicelo ngasinye sesicaphuno kusukela ekuvakasheleni sita kuya esicaphunweni lesemukelwe.",
+          "tasks": "Hlela kuvakasha ngakunye njengemsebenti lonelilanga nelilungu lelithimba.",
+          "documents": "Khokhisa kunakekela kwenyanga ngema-invoyisi laphindvwako, wente ticaphuno temaphrojekthi emikhicitweni legciniwe.",
+          "payments": "Tsatsa lidiphozithi lemaphrojekthi lamakhulu bese tikhumbuto tijaha timali tenyanga letiphutile."
+        }
+      },
+      "creative": {
+        "q": {
+          "enquiries": "Sibonelo: umyalo welogo, iphrojekthi yewebhusayithi, kutsatsa titfombe, imali yenyanga yetinkundla tekuchumana.",
+          "documents": "Sibonelo: ticaphuno temaphrojekthi, ema-invoyisi emali yenyanga, ema-invoyisi ngesigaba ngasinye.",
+          "payments": "Sibonelo: lidiphozithi ngembi kwekucala, tinkhokhelo ngesigaba, timali tenyanga letikhokhwa sekwephutile."
+        },
+        "plan": {
+          "customers": "Gcina imiyalo yelikhasimende ngalinye, labantfu bekuchumana nemaphrojekthi lendzile endzaweni yinye.",
+          "pipeline": "Landzelela umyalo ngamunye kusukela enkhulumeni yekucala kuya esicaphunweni lesisayiniwe, nelinani lawo.",
+          "tasks": "Hlukanisa iphrojekthi ngayinye ibe yimisebenti lenebanikati, luhlu lwekuhlola nemalanga ekucedza.",
+          "documents": "Khokhisa timali tenyanga ngema-invoyisi laphindvwako, wente ticaphuno temaphrojekthi etinsitakalweni letigciniwe.",
+          "payments": "Tsatsa lidiphozithi kucala, wente ema-invoyisi ngesigaba, bese tikhumbuto tilandzelela lokusele."
+        }
+      },
+      "salon": {
+        "q": {
+          "enquiries": "Sibonelo: kubhuka licembu lemakoti, likhasimende lelisha lelibuta ngemanani, i-oda yemkhicito.",
+          "documents": "Sibonelo: ticaphuno tekubhuka kwemakoti nome emacembu, ema-invoyisi emakhasimende etinkampani.",
+          "payments": "Sibonelo: kubhuka kwemacembu lokukhokha lidiphozithi, emakhasimende etinkampani lane-akhawunti."
+        },
+        "plan": {
+          "customers": "Gcina imininingwane yelikhasimende ngalinye nemlandvo eluhlwini lunye, kute ubemukele futsi.",
+          "pipeline": "Bhala imibuto yemacembu emakoti nemicimbi, kute kungabi khona lophelelwako.",
+          "tasks": "Nika kulandzelela, ema-oda emikhicito nemicimbi lilanga nemnikati.",
+          "documents": "Gcina kwelashwa kwakho nemikhicito lenemanani, kute sicaphuno selicembu sitsatse imizuzu.",
+          "payments": "Tsatsa emadiphozithi ekubhuka lokukhulu bese tikhumbuto tilandzelela nobe yini lekweletwako."
+        }
+      },
+      "retail": {
+        "q": {
+          "enquiries": "Sibonelo: libhizinisi le-oda ngebunyenti, i-oda lekhetsekile, umbuto wemhlinzeki.",
+          "documents": "Sibonelo: ticaphuno tema-oda lamanyenti nome lakhetsekile, ema-invoyisi emakhasimende e-akhawunti.",
+          "payments": "Sibonelo: emakhasimende e-akhawunti lakhokha ekupheleni kwenyanga, lidiphozithi ku-oda lekhetsekile."
+        },
+        "plan": {
+          "customers": "Gcina imininingwane nema-oda emakhasimende akho lajwayelekile nawe-akhawunti endzaweni yinye.",
+          "pipeline": "Landzelela imibuto yema-oda lamanyenti nalakhetsekile kute kucinisekiswe.",
+          "tasks": "Nika i-oda ngalinye, kuletsa nekulandzelela bahlinzeki lilanga nemnikati.",
+          "documents": "Gcina tintfo tesitoko njengemikhicito, wente ticaphuno tema-oda lamanyenti ngekushesha, u-ode sitoko ngema-oda ekutsenga.",
+          "payments": "Vumela tikhumbuto tilandzelele emakhasimende e-akhawunti, futsi ubone ngekushesha kutsi ngubani lokweletako."
+        }
+      }
+    },
+    "recognised": {
+      "note": "Sitawulungisa kuhlolwa kwakho kube ngekwe-{{name}}.",
+      "notQuite": "Akunjalo",
+      "general": "Kulungile. Sitawugcina kuhlolwa kujwayelekile.",
+      "names": {
+        "trades": "imisebenti yetandla (emapayipi, gesi nalokunye)",
+        "auto": "kulungiswa kwetimoto",
+        "security": "tinsita tekuphepha",
+        "transport": "kutfutsa nekulethwa kwetimphahla",
+        "landscaping": "kuhlela umhlaba netingadze",
+        "creative": "kweluleka, ema-ejensi nemsebenti webuciko",
+        "salon": "buhle nemasaluni",
+        "retail": "kutsengisa netitolo"
       }
     }
   },
