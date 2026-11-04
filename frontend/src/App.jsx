@@ -45,6 +45,8 @@ const RecurringInvoicesPage = named(() => import("./pages/RecurringInvoicesPage"
 const NewRecurringInvoicePage = named(() => import("./pages/RecurringInvoicesPage"), "NewRecurringInvoicePage");
 const RecurringInvoiceDetailPage = named(() => import("./pages/RecurringInvoicesPage"), "RecurringInvoiceDetailPage");
 const PurchaseOrdersPage = lazy(() => import("./pages/PurchaseOrdersPage"));
+const CostsPage = lazy(() => import("./pages/CostsPage"));
+const MoneyPage = lazy(() => import("./pages/MoneyPage"));
 const NewPurchaseOrderPage = named(() => import("./pages/PurchaseOrdersPage"), "NewPurchaseOrderPage");
 const PurchaseOrderDetailPage = named(() => import("./pages/PurchaseOrdersPage"), "PurchaseOrderDetailPage");
 const SupportPage = lazy(() => import("./pages/SupportPage"));
@@ -155,6 +157,8 @@ export default function App() {
         <Route path="/quotes/:id" element={<QuoteDetailPage />} />
         <Route path="/quotes/:id/edit" element={<EditDocumentPage kind="quote" />} />
         <Route path="/purchase-orders" element={<PurchaseOrdersPage />} />
+        <Route path="/costs" element={<CostsPage />} />
+        <Route path="/money" element={<MoneyPage />} />
         <Route
           path="/purchase-orders/new"
           element={

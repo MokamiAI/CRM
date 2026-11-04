@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import apiClient from "../services/apiClient";
-import { formatShortDate } from "../utils/format";
+import { formatMoney, formatShortDate } from "../utils/format";
 import { enablePush, pushState, refreshPush } from "../utils/push";
 
 const POLL_MS = 15 * 1000; // a reminder lands close to "a minute before"
@@ -40,6 +40,8 @@ export function notificationText(n, t) {
       return { title: p.count > 1 ? t("notify.teamMany", { count: p.count, channel: p.channel }) : t("notify.teamMessage", { by: p.by, channel: p.channel }), body: p.count > 1 ? `${p.by}: ${p.text}` : p.text };
     case "team_mention":
       return { title: t("notify.teamMention", { by: p.by, channel: p.channel }), body: p.text };
+    case "bill_due":
+      return { title: t(p.overdue ? "notify.billOverdue" : "notify.billDue", { description: p.description, amount: formatMoney(p.amount), date: formatShortDate(p.due) }), body: t("notify.billDueBody") };
     case "marketing_consent":
       return { title: t("notify.marketingConsent"), body: t("notify.marketingConsentBody") };
     case "test":

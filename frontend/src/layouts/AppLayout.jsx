@@ -72,6 +72,8 @@ const GearIcon = (props) => (
     d={<><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15Z" /></>}
   />
 );
+const CostsIcon = (props) => <Icon {...props} d={<><rect x="3" y="6" width="18" height="13" rx="2" /><path d="M3 10h18M7 15h3M16 3v3M8 3v3" /></>} />;
+const MoneyIcon = (props) => <Icon {...props} d={<><path d="M3 17l5-5 4 4 8-8" /><path d="M15 8h5v5" /></>} />;
 const ReportsIcon = (props) => <Icon {...props} d={<path d="M4 20V10M10 20V4M16 20v-7M21 20H3" />} />;
 const BellIcon = (props) => <Icon {...props} d={<><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9Z" /><path d="M10 20a2 2 0 0 0 4 0" /></>} />;
 const ChevronIcon = (props) => <Icon {...props} d={<path d="m6 9 6 6 6-6" />} />;
@@ -89,6 +91,7 @@ const NAV = {
   quotes: { to: "/quotes", navKey: "quotes", icon: QuoteIcon },
   invoices: { to: "/invoices", navKey: "invoices", icon: InvoiceIcon },
   purchaseOrders: { to: "/purchase-orders", navKey: "purchaseOrders", icon: PurchaseIcon },
+  costs: { to: "/costs", navKey: "costs", icon: CostsIcon, roles: ["admin", "manager"] },
   marketing: { to: "/marketing", navKey: "marketing", icon: MarketingIcon },
   customers: { to: "/customers", navKey: "customers", icon: CustomersIcon },
   products: { to: "/products", navKey: "products", icon: ProductsIcon },
@@ -97,19 +100,20 @@ const NAV = {
   help: { to: "/help", navKey: "help", icon: HelpIcon },
   support: { to: "/support", navKey: "support", icon: SupportIcon },
   admin: { to: "/admin", navKey: "admin", icon: ShieldIcon },
+  money: { to: "/money", navKey: "money", icon: MoneyIcon, feature: "reports", roles: ["admin", "manager"] },
   reports: { to: "/invoices/aging", navKey: "reports", icon: ReportsIcon, feature: "reports" },
 };
 
 // Grouped the way the work flows: your desk, then selling, then the rest.
 const NAV_GROUPS = [
   { items: [NAV.home, NAV.activities, NAV.messages] },
-  { title: "sales", items: [NAV.customers, NAV.deals, NAV.discovery, NAV.quotes, NAV.invoices, NAV.purchaseOrders] },
-  { title: "records", items: [NAV.products, NAV.marketing, NAV.reports] },
+  { title: "sales", items: [NAV.customers, NAV.deals, NAV.discovery, NAV.quotes, NAV.invoices, NAV.purchaseOrders, NAV.costs] },
+  { title: "records", items: [NAV.money, NAV.products, NAV.marketing, NAV.reports] },
 ];
 
 // Phones: the four places used most, plus "More" for everything else.
 const TAB_ITEMS = [NAV.home, NAV.customers, NAV.deals, NAV.invoices];
-const MORE_ITEMS = [NAV.activities, NAV.messages, NAV.discovery, NAV.quotes, NAV.purchaseOrders, NAV.products, NAV.marketing, NAV.reports];
+const MORE_ITEMS = [NAV.activities, NAV.messages, NAV.discovery, NAV.quotes, NAV.purchaseOrders, NAV.costs, NAV.money, NAV.products, NAV.marketing, NAV.reports];
 
 // Overdue + due today: the number of things that need doing now.
 function useActionCount() {
@@ -120,7 +124,8 @@ function useActionCount() {
 /** Hides nav items whose feature isn't in the company's plan (e.g. Reports). */
 function useVisible() {
   const reports = useHasFeature("reports");
-  return (item) => !item.feature || (item.feature === "reports" && reports === true);
+  const { user } = useAuth();
+  return (item) => (!item.roles || item.roles.includes(user?.role)) && (!item.feature || (item.feature === "reports" && reports === true));
 }
 
 function CountBadge({ count, urgent, collapsed }) {
@@ -169,7 +174,8 @@ function SidebarLink({ to, navKey, icon: ItemIcon, end, badge, collapsed }) {
       )}
     </NavLink>
   );
-  return collapsed ? (
+  // With a mouse, pointing opens the whole rail, so a tooltip would only flicker.
+  return collapsed && !canHover() ? (
     <Tooltip label={label} side="right">
       {link}
     </Tooltip>
@@ -344,16 +350,17 @@ function TeamQuote() {
   );
 }
 
-const SIDEBAR_KEY = "ygt.sidebar.collapsed";
-function initiallyCollapsed() {
+// The sidebar is a rail of icons for everyone; pointing at it opens it over
+// the page. The top-bar button pins it open for those who prefer names.
+const SIDEBAR_KEY = "ygt.sidebar.pinned";
+function initiallyPinned() {
   try {
-    const saved = localStorage.getItem(SIDEBAR_KEY);
-    if (saved != null) return saved === "1";
+    return localStorage.getItem(SIDEBAR_KEY) === "1";
   } catch {
-    /* storage blocked: fall through to the screen width */
+    return false;
   }
-  return typeof window !== "undefined" && window.innerWidth < 1100;
 }
+const canHover = () => typeof window !== "undefined" && window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
 
 export default function AppLayout() {
   const { t } = useTranslation();
@@ -370,16 +377,27 @@ export default function AppLayout() {
   }, [company]);
   const [moreOpen, setMoreOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(initiallyCollapsed);
+  const [pinned, setPinned] = useState(initiallyPinned);
   const toggleSidebar = () =>
-    setCollapsed((c) => {
+    setPinned((p) => {
       try {
-        localStorage.setItem(SIDEBAR_KEY, c ? "0" : "1");
+        localStorage.setItem(SIDEBAR_KEY, p ? "0" : "1");
       } catch {
         /* storage blocked: still toggles for this visit */
       }
-      return !c;
+      return !p;
     });
+  // Opens a moment after the pointer arrives and closes a moment after it
+  // leaves, so passing the left edge on the way elsewhere doesn't flash it.
+  const [peek, setPeek] = useState(false);
+  const peekTimer = useRef();
+  const peekSoon = (open) => {
+    if (pinned || !canHover()) return;
+    clearTimeout(peekTimer.current);
+    peekTimer.current = setTimeout(() => setPeek(open), open ? 150 : 300);
+  };
+  useEffect(() => () => clearTimeout(peekTimer.current), []);
+  const collapsed = !pinned && !peek;
   // Anywhere can ask for the profile sheet (e.g. "Edit your signature" in Messages).
   useEffect(() => {
     const open = () => setProfileOpen(true);
@@ -389,15 +407,29 @@ export default function AppLayout() {
   const { pathname } = useLocation();
   const moreItems = MORE_ITEMS.filter(visible);
   const moreActive = [...moreItems.map((i) => i.to), "/settings"].some((to) => pathname.startsWith(to));
+  // A new page closes the opened rail, so it doesn't cover what was chosen.
+  useEffect(() => {
+    clearTimeout(peekTimer.current);
+    setPeek(false);
+  }, [pathname]);
   const railCls = collapsed ? "flex flex-col items-center px-0" : "px-3";
 
   return (
     <TourProvider>
-      <div className="min-h-[100dvh] bg-canvas" style={{ "--sidebar-w": collapsed ? "4.75rem" : "16rem" }}>
+      <div className="min-h-[100dvh] bg-canvas" style={{ "--sidebar-w": pinned ? "16rem" : "4.75rem" }}>
         <CommandPalette />
 
-        {/* ---- Sidebar: tablets and up. Midnight, the current page in blue. ---- */}
-        <aside className="fixed inset-y-0 left-0 z-20 hidden w-[var(--sidebar-w)] flex-col bg-midnight text-white md:flex">
+        {/* ---- Sidebar: tablets and up. Midnight, the current page in blue.
+             Unpinned, it opens over the page rather than pushing it aside. ---- */}
+        <aside
+          onMouseEnter={() => peekSoon(true)}
+          onMouseLeave={() => peekSoon(false)}
+          onFocus={() => peekSoon(true)}
+          onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && peekSoon(false)}
+          className={`fixed inset-y-0 left-0 z-20 hidden flex-col overflow-hidden whitespace-nowrap bg-midnight text-white transition-[width] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none md:flex ${
+            collapsed ? "w-[4.75rem]" : "w-64"
+          } ${peek && !pinned ? "shadow-[12px_0_40px_-12px_rgb(15_23_42/0.45)]" : ""}`}
+        >
           <Link to="/" className={`flex items-center gap-2.5 pb-4 pt-5 ${collapsed ? "justify-center" : "px-5"}`}>
             <BrandMark size="md" />
             {!collapsed && (
@@ -435,12 +467,12 @@ export default function AppLayout() {
 
         {/* ---- Top bar: tablets and up ---- */}
         <header className="sticky top-0 z-10 hidden h-16 items-center gap-3 border-b border-slate-200/70 bg-white/85 px-4 backdrop-blur-md md:ml-[var(--sidebar-w)] md:flex lg:px-6">
-          <Tooltip label={t(collapsed ? "nav.expand" : "nav.collapse")} side="bottom">
+          <Tooltip label={t(pinned ? "nav.collapse" : "nav.expand")} side="bottom">
             <button
               type="button"
               onClick={toggleSidebar}
-              aria-label={t(collapsed ? "nav.expand" : "nav.collapse")}
-              aria-pressed={collapsed}
+              aria-label={t(pinned ? "nav.collapse" : "nav.expand")}
+              aria-pressed={pinned}
               className="pressable flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900"
             >
               <SidebarIcon className="h-5 w-5" />

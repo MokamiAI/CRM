@@ -13,6 +13,7 @@ import SupplierSheet, { EMPTY_SUPPLIER } from "../components/SupplierSheet";
 import { DocumentViewer } from "../components/Documents";
 import { Avatar, Button, ButtonLink, EmptyState, ErrorState, Field, FilterChips, ListSkeleton, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
 import { errorMessage, formatDate, formatMoney, formatShortDate } from "../utils/format";
+import { PurchaseOrderCost } from "./CostsPage";
 
 const STATUS_FILTERS = ["", "draft", "sent", "received", "cancelled"];
 
@@ -303,6 +304,7 @@ export function PurchaseOrderDetailPage() {
         subtitle={supplier?.name}
         actions={
           <>
+            <PurchaseOrderCost po={po} />
             <Button variant="secondary" onClick={() => setSheet("view")}>
               {t("documents.view")}
             </Button>

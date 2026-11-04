@@ -377,14 +377,14 @@ const SERIES = [
   { key: "collected", color: "#059669" },
 ];
 
-function niceMax(v) {
+export function niceMax(v) {
   if (v <= 0) return 1000;
   const p = 10 ** Math.floor(Math.log10(v));
   return [1, 2, 2.5, 5, 10].map((m) => m * p).find((m) => m >= v);
 }
 
 /** A bar with rounded top corners, from the baseline up to `top`. */
-function barPath(x0, w, top, base) {
+export function barPath(x0, w, top, base) {
   const r = Math.min(3, w / 2, base - top);
   return `M${x0},${base} V${top + r} Q${x0},${top} ${x0 + r},${top} H${x0 + w - r} Q${x0 + w},${top} ${x0 + w},${top + r} V${base} Z`;
 }

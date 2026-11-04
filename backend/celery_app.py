@@ -11,6 +11,7 @@ celery_app = Celery(
     backend=settings.REDIS_URL if settings.REDIS_URL.startswith("redis") else None,
     include=[
         "app.tasks.billing_tasks",
+        "app.tasks.cost_tasks",
         "app.tasks.discovery_tasks",
         "app.tasks.email_tasks",
         "app.tasks.invoice_tasks",
@@ -67,6 +68,10 @@ celery_app.conf.beat_schedule = {
     "daily-recurring-invoices": {
         "task": "app.tasks.recurring_tasks.make_recurring_invoices_task",
         "schedule": crontab(hour=6, minute=0),
+    },
+    "daily-recurring-costs": {
+        "task": "app.tasks.cost_tasks.make_recurring_costs_task",
+        "schedule": crontab(hour=6, minute=10),
     },
     "daily-invoice-reminder": {
         "task": "app.tasks.reminder_tasks.daily_invoice_reminder_task",

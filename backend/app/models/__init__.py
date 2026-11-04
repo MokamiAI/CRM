@@ -3,6 +3,7 @@
 # `from app.models import *`).
 from app.models.billing import BillingPayment, PaystackPlan, SubscriberLink, Subscription, SubscriptionInvoice
 from app.models.company_settings import CompanySettings
+from app.models.cost import Cost, RecurringCost
 from app.models.crm import Activity, ActivityAttachment, Contact, Deal, Note, TaskUpdate
 from app.models.meeting import Meeting
 from app.models.mcem import McemJourney, McemMilestone, McemEvidence, McemEvent
