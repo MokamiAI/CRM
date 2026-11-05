@@ -49,6 +49,9 @@ class UserOut(BaseModel):
     chat_color: str | None = None
     job_title: str | None = None
     quote_seen: str | None = None
+    # Costs and bills: the owner decides; none | view | manage for the rest.
+    is_account_owner: bool = False
+    cost_access: str = "none"
     created_at: datetime
 
 
@@ -79,3 +82,7 @@ class ProfileUpdate(BaseModel):
     job_title: str | None = Field(default=None, max_length=100)
     # The sales quote of the week they've seen.
     quote_seen: str | None = Field(default=None, max_length=20)
+
+
+class CostAccessUpdate(BaseModel):
+    cost_access: Literal["none", "view", "manage"]

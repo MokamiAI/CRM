@@ -5,6 +5,7 @@ import MarketingConsentBanner from "../components/MarketingConsentBanner";
 import GetTheAppBanner from "../components/GetTheAppBanner";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
+import { canViewCosts } from "../utils/costAccess";
 import { Avatar, ListSkeleton, Tooltip } from "../components/ui";
 import CommandPalette, { openCommandPalette } from "../components/CommandPalette";
 import LanguagePicker from "../components/LanguagePicker";
@@ -91,7 +92,7 @@ const NAV = {
   quotes: { to: "/quotes", navKey: "quotes", icon: QuoteIcon },
   invoices: { to: "/invoices", navKey: "invoices", icon: InvoiceIcon },
   purchaseOrders: { to: "/purchase-orders", navKey: "purchaseOrders", icon: PurchaseIcon },
-  costs: { to: "/costs", navKey: "costs", icon: CostsIcon, roles: ["admin", "manager"] },
+  costs: { to: "/costs", navKey: "costs", icon: CostsIcon, costs: true },
   marketing: { to: "/marketing", navKey: "marketing", icon: MarketingIcon },
   customers: { to: "/customers", navKey: "customers", icon: CustomersIcon },
   products: { to: "/products", navKey: "products", icon: ProductsIcon },
@@ -100,7 +101,7 @@ const NAV = {
   help: { to: "/help", navKey: "help", icon: HelpIcon },
   support: { to: "/support", navKey: "support", icon: SupportIcon },
   admin: { to: "/admin", navKey: "admin", icon: ShieldIcon },
-  money: { to: "/money", navKey: "money", icon: MoneyIcon, feature: "reports", roles: ["admin", "manager"] },
+  money: { to: "/money", navKey: "money", icon: MoneyIcon, feature: "reports", costs: true },
   reports: { to: "/invoices/aging", navKey: "reports", icon: ReportsIcon, feature: "reports" },
 };
 
@@ -125,7 +126,7 @@ function useActionCount() {
 function useVisible() {
   const reports = useHasFeature("reports");
   const { user } = useAuth();
-  return (item) => (!item.roles || item.roles.includes(user?.role)) && (!item.feature || (item.feature === "reports" && reports === true));
+  return (item) => (!item.costs || canViewCosts(user)) && (!item.feature || (item.feature === "reports" && reports === true));
 }
 
 function CountBadge({ count, urgent, collapsed }) {

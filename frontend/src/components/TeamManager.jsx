@@ -136,11 +136,31 @@ export default function TeamManager() {
     },
     onError: (error) => toast.error(errorMessage(error)),
   });
+  // Costs and bills: only the account owner decides who else sees them.
+  const owner = Boolean(me?.is_account_owner);
+  const costAccess = useMutation({
+    mutationFn: ({ id, cost_access }) => apiClient.put(`/users/${id}/cost-access`, { cost_access }),
+    onSuccess: () => {
+      toast.success(t("team.costAccessSaved"));
+      refresh();
+    },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  const handOver = useMutation({
+    mutationFn: (u) => apiClient.post(`/users/${u.id}/make-owner`).then(() => u),
+    onSuccess: (u) => {
+      toast.success(t("team.ownerHandedOver", { name: u.full_name }));
+      // The menu and pages follow the new owner.
+      setTimeout(() => window.location.reload(), 900);
+    },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
 
   return (
     <section className="card p-4 sm:p-6">
       <h2 className="mb-1 text-base font-semibold text-zinc-900">{t("team.title")}</h2>
       <p className="mb-4 text-sm text-zinc-500">{t("team.intro")}</p>
+      {owner && <p className="mb-4 rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-800">{t("team.costsOwnerNote")}</p>}
 
       <ul className="divide-y divide-zinc-100 rounded-lg border border-zinc-200/80">
         {users.map((u) => {
@@ -148,9 +168,11 @@ export default function TeamManager() {
           return (
             <li key={u.id} className="flex flex-wrap items-center gap-3 px-4 py-3">
               <Avatar name={u.full_name} size="sm" />
-              <div className="min-w-0 flex-1">
+              {/* Room for the name: the controls wrap below it before it is cut off. */}
+              <div className="min-w-[12rem] flex-1">
                 <p className="truncate font-medium text-zinc-900">
                   {u.full_name} {self && <span className="text-xs font-normal text-zinc-400">· {t("messages.you")}</span>}
+                  {u.is_account_owner && <span className="ml-2 rounded-full bg-midnight px-2 py-0.5 text-[11px] font-semibold text-white">{t("team.owner")}</span>}
                 </p>
                 <p className="truncate text-xs text-zinc-500">
                   {u.job_title && <span className="font-medium text-blue-700">{u.job_title} · </span>}
@@ -171,7 +193,7 @@ export default function TeamManager() {
                 className="input !h-9 !w-auto !py-0 !text-sm"
                 aria-label={t("team.role")}
                 value={u.role}
-                disabled={self}
+                disabled={self || u.is_account_owner}
                 onChange={(e) => update.mutate({ id: u.id, role: e.target.value })}
               >
                 {ROLES.map((r) => (
@@ -180,7 +202,32 @@ export default function TeamManager() {
                   </option>
                 ))}
               </select>
-              {!self && (
+              {owner && !u.is_account_owner && u.is_active && (
+                <select
+                  className="input !h-9 !w-auto !py-0 !text-sm"
+                  aria-label={t("team.costAccess")}
+                  value={u.cost_access}
+                  disabled={costAccess.isPending}
+                  onChange={(e) => costAccess.mutate({ id: u.id, cost_access: e.target.value })}
+                >
+                  {["none", "view", "manage"].map((a) => (
+                    <option key={a} value={a} disabled={a === "manage" && u.role === "viewer"}>
+                      {t(`team.costs.${a}`)}
+                    </option>
+                  ))}
+                </select>
+              )}
+              {owner && !self && u.is_active && u.role === "admin" && (
+                <Button
+                  variant="secondary"
+                  className="!h-9 !px-3 !text-xs"
+                  disabled={handOver.isPending}
+                  onClick={() => window.confirm(t("team.handOverConfirm", { name: u.full_name })) && handOver.mutate(u)}
+                >
+                  {t("team.makeOwner")}
+                </Button>
+              )}
+              {!self && !u.is_account_owner && (
                 <Button variant="secondary" className="!h-9 !px-3 !text-xs" onClick={() => update.mutate({ id: u.id, is_active: !u.is_active })}>
                   {t(u.is_active ? "team.deactivate" : "team.reactivate")}
                 </Button>

@@ -28,6 +28,7 @@ class CostCreate(BaseModel):
     paid: bool = False
     paid_date: date | None = None
     supplier_id: uuid.UUID | None = None
+    supplier_name: str | None = Field(default=None, max_length=255)
     notes: str | None = None
 
     _category = field_validator("category")(_clean_category)
@@ -40,6 +41,7 @@ class CostUpdate(BaseModel):
     due_date: date | None = None
     paid_date: date | None = None  # only for a cost that's paid
     supplier_id: uuid.UUID | None = None
+    supplier_name: str | None = Field(default=None, max_length=255)
     notes: str | None = None
 
     _category = field_validator("category")(_clean_category)
@@ -91,6 +93,7 @@ class RecurringCostCreate(BaseModel):
     start_date: date
     end_date: date | None = None
     supplier_id: uuid.UUID | None = None
+    supplier_name: str | None = Field(default=None, max_length=255)
     notes: str | None = None
 
     _category = field_validator("category")(_clean_category)
@@ -110,6 +113,7 @@ class RecurringCostUpdate(BaseModel):
     next_run_date: date | None = None
     end_date: date | None = None
     supplier_id: uuid.UUID | None = None
+    supplier_name: str | None = Field(default=None, max_length=255)
     notes: str | None = None
 
     _category = field_validator("category")(_clean_category)

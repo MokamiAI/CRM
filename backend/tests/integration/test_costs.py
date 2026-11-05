@@ -231,3 +231,24 @@ async def test_review_fixes_old_lease_paid_date_overdue_title_and_end_date(api):
         await CostService(db).remind_due(TODAY)
         titles = (await db.scalars(select(Notification.title).where(Notification.kind == "bill_due"))).all()
         assert any(t.startswith("Overdue bill: Water") for t in titles) and not any("due overdue" in t for t in titles)
+
+
+@pytest.mark.asyncio
+async def test_a_typed_supplier_name_is_matched_or_saved(api):
+    owner = await new_company(api, "Typed Suppliers")
+    h = owner["headers"]
+    fuel = (await api.post("/costs", json={"description": "Fuel", "category": "transport", "amount": "500", "due_date": TODAY.isoformat(), "paid": True, "supplier_name": "  Engen   Garage "}, headers=h)).json()
+    suppliers = (await api.get("/suppliers", headers=h)).json()
+    assert [s["name"] for s in suppliers] == ["Engen Garage"] and fuel["supplier_id"] == suppliers[0]["id"]
+
+    # The same name, typed differently, is the same supplier.
+    again = (await api.post("/costs", json={"description": "Oil", "category": "transport", "amount": "90", "due_date": TODAY.isoformat(), "supplier_name": "engen garage"}, headers=h)).json()
+    assert again["supplier_id"] == fuel["supplier_id"] and len((await api.get("/suppliers", headers=h)).json()) == 1
+
+    # Changing it on an edit, and clearing it with an empty name.
+    moved = (await api.patch(f"/costs/{fuel['id']}", json={"supplier_name": "Shell Rivonia"}, headers=h)).json()
+    assert moved["supplier_id"] != fuel["supplier_id"]
+    assert (await api.patch(f"/costs/{fuel['id']}", json={"supplier_name": ""}, headers=h)).json()["supplier_id"] is None
+
+    rent = (await api.post("/recurring-costs", json={"description": "Rent", "category": "rent", "amount": "8000", "start_date": TODAY.isoformat(), "supplier_name": "Growthpoint"}, headers=h)).json()
+    assert rent["supplier_id"] and {s["name"] for s in (await api.get("/suppliers", headers=h)).json()} == {"Engen Garage", "Shell Rivonia", "Growthpoint"}

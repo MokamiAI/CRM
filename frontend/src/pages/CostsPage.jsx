@@ -12,6 +12,7 @@ import { useSupplierMap, useSuppliers } from "../hooks/useApi";
 import Sheet from "../components/Sheet";
 import { Link } from "react-router-dom";
 import { useHasFeature } from "../components/Billing";
+import { canManageCosts, canViewCosts } from "../utils/costAccess";
 import { Button, EmptyState, ErrorState, Field, FilterChips, ListSkeleton, PageHeader, PlusIcon } from "../components/ui";
 import { errorMessage, formatDate, formatMoney } from "../utils/format";
 
@@ -103,22 +104,31 @@ function CategoryPicker({ value, onChange }) {
   );
 }
 
+/** Type a supplier: saved ones are suggested, a new name is saved for next time. */
 function SupplierPicker({ value, onChange }) {
   const { t } = useTranslation();
   const { data: suppliers = [] } = useSuppliers();
+  const name = value.trim().toLowerCase();
+  const isNew = name && !suppliers.some((s) => s.name.toLowerCase() === name);
   return (
-    <select className="input" value={value ?? ""} onChange={(e) => onChange(e.target.value || null)}>
-      <option value="">{t("costs.noSupplier")}</option>
-      {suppliers.map((s) => (
-        <option key={s.id} value={s.id}>
-          {s.name}
-        </option>
-      ))}
-    </select>
+    <>
+      <input className="input" list="cost-suppliers" maxLength={255} autoComplete="off" placeholder={t("costs.supplierHint")} value={value} onChange={(e) => onChange(e.target.value)} />
+      <datalist id="cost-suppliers">
+        {suppliers.map((s) => (
+          <option key={s.id} value={s.name} />
+        ))}
+      </datalist>
+      {isNew && <p className="mt-1 text-xs text-emerald-700">{t("costs.newSupplier", { name: value.trim() })}</p>}
+    </>
   );
 }
 
-function Receipt({ cost }) {
+// The name to show in the form for a saved cost or bill.
+function supplierName(map, id) {
+  return (id && map.get(id)?.name) || "";
+}
+
+function Receipt({ cost, readOnly }) {
   const { t } = useTranslation();
   const invalidate = useInvalidateCosts();
   const input = useRef(null);
@@ -158,15 +168,17 @@ function Receipt({ cost }) {
           <button type="button" className="min-w-0 truncate font-medium text-blue-600 hover:underline" onClick={open}>
             {cost.receipt_name}
           </button>
-          <span className="flex shrink-0 gap-3">
+          {!readOnly && <span className="flex shrink-0 gap-3">
             <button type="button" className="text-zinc-500 hover:text-zinc-900" onClick={() => input.current.click()}>
               {t("costs.replaceReceipt")}
             </button>
             <button type="button" className="text-red-600 hover:text-red-700" onClick={() => remove.mutate()}>
               {t("costs.removeReceipt")}
             </button>
-          </span>
+          </span>}
         </div>
+      ) : readOnly ? (
+        <span className="text-zinc-500">{t("costs.noReceipt")}</span>
       ) : (
         <button type="button" disabled={upload.isPending} className="w-full text-left text-zinc-600 hover:text-zinc-900" onClick={() => input.current.click()}>
           {upload.isPending ? t("costs.uploading") : t("costs.addReceipt")}
@@ -177,30 +189,34 @@ function Receipt({ cost }) {
 }
 
 /** Add a cost, or change one: details, paid or not, the receipt. */
-function CostSheet({ open, cost: picked, onClose }) {
+function CostSheet({ open, cost: picked, onClose, readOnly }) {
   const { t } = useTranslation();
   const invalidate = useInvalidateCosts();
   const editing = Boolean(picked?.id);
   // Kept fresh while open, so an added receipt shows straight away.
   const { data: cost = picked } = useQuery({ queryKey: ["costs", "one", picked?.id], queryFn: () => get(`/costs/${picked.id}`), enabled: open && editing, initialData: picked ?? undefined });
-  const blank = { description: "", amount: "", category: "stock", due_date: todayIso(), paid: true, supplier_id: null, notes: "" };
+  const supplierMap = useSupplierMap();
+  const queryClient = useQueryClient();
+  const blank = { description: "", amount: "", category: "stock", due_date: todayIso(), paid: true, supplier_name: "", notes: "" };
   const [form, setForm] = useState(blank);
   const [loadedFor, setLoadedFor] = useState(null);
   const key = open ? cost?.id ?? "new" : null;
   if (key !== loadedFor) {
     setLoadedFor(key);
-    if (open) setForm(editing ? { ...cost, amount: String(Number(cost.amount)), paid: cost.status === "paid", notes: cost.notes ?? "" } : blank);
+    if (open) setForm(editing ? { ...cost, amount: String(Number(cost.amount)), paid: cost.status === "paid", notes: cost.notes ?? "", supplier_name: supplierName(supplierMap, cost.supplier_id), supplier_was: supplierName(supplierMap, cost.supplier_id) } : blank);
   }
   const set = (field) => (value) => setForm((f) => ({ ...f, [field]: value }));
   const onError = (error) => toast.error(errorMessage(error));
   const done = (message) => {
     invalidate();
+    queryClient.invalidateQueries({ queryKey: ["suppliers"] });
     toast.success(message);
     onClose();
   };
   const save = useMutation({
     mutationFn: () => {
-      const body = { description: form.description, amount: form.amount, category: form.category.trim(), due_date: form.due_date, supplier_id: form.supplier_id, notes: form.notes || null };
+      const body = { description: form.description, amount: form.amount, category: form.category.trim(), due_date: form.due_date, notes: form.notes || null };
+      if (form.supplier_name.trim() !== (form.supplier_was ?? "")) body.supplier_name = form.supplier_name.trim();
       if (editing && cost.status === "paid") body.paid_date = form.paid_date;
       return editing ? apiClient.patch(`/costs/${cost.id}`, body) : apiClient.post("/costs", { ...body, paid: form.paid });
     },
@@ -219,9 +235,9 @@ function CostSheet({ open, cost: picked, onClose }) {
     <Sheet
       open={open}
       onClose={onClose}
-      title={t(editing ? "costs.edit" : "costs.add")}
+      title={t(readOnly ? "costs.viewCost" : editing ? "costs.edit" : "costs.add")}
       footer={
-        <>
+        readOnly ? null : <>
           {editing && (
             <Button variant="danger" className="mr-auto" disabled={remove.isPending} onClick={() => window.confirm(t("costs.deleteConfirm")) && remove.mutate()}>
               {t("common.delete")}
@@ -238,7 +254,7 @@ function CostSheet({ open, cost: picked, onClose }) {
         </>
       }
     >
-      <div className="space-y-4">
+      <fieldset disabled={readOnly} className="space-y-4">
         <Field label={t("costs.description")}>
           <input className="input" autoFocus={!editing} maxLength={255} placeholder={t("costs.descriptionHint")} value={form.description} onChange={(e) => set("description")(e.target.value)} />
         </Field>
@@ -273,47 +289,54 @@ function CostSheet({ open, cost: picked, onClose }) {
             </Field>
           )}
           <Field label={t("costs.supplier")}>
-            <SupplierPicker value={form.supplier_id} onChange={set("supplier_id")} />
+            <SupplierPicker value={form.supplier_name} onChange={set("supplier_name")} />
           </Field>
         </div>
         <Field label={t("costs.notes")}>
           <textarea className="input" rows={2} value={form.notes} onChange={(e) => set("notes")(e.target.value)} />
         </Field>
-        {editing ? (
+      </fieldset>
+      {/* Outside the fieldset: someone who can only view can still open the receipt. */}
+      {editing ? (
+        <div className="mt-4">
           <Field label={t("costs.receipt")}>
-            <Receipt cost={cost} />
+            <Receipt cost={cost} readOnly={readOnly} />
           </Field>
-        ) : (
-          <p className="text-xs text-zinc-500">{t("costs.receiptLater")}</p>
-        )}
-      </div>
+        </div>
+      ) : (
+        <p className="mt-4 text-xs text-zinc-500">{t("costs.receiptLater")}</p>
+      )}
     </Sheet>
   );
 }
 
 /** A bill that comes back: rent, salaries, insurance. */
-function RecurringSheet({ open, schedule, onClose }) {
+function RecurringSheet({ open, schedule, onClose, readOnly }) {
   const { t } = useTranslation();
   const invalidate = useInvalidateCosts();
   const editing = Boolean(schedule?.id);
-  const blank = { description: "", amount: "", category: "rent", frequency: "monthly", start_date: todayIso(), end_date: "", supplier_id: null, notes: "" };
+  const supplierMap = useSupplierMap();
+  const queryClient = useQueryClient();
+  const blank = { description: "", amount: "", category: "rent", frequency: "monthly", start_date: todayIso(), end_date: "", supplier_name: "", notes: "" };
   const [form, setForm] = useState(blank);
   const [loadedFor, setLoadedFor] = useState(null);
   const key = open ? schedule?.id ?? "new" : null;
   if (key !== loadedFor) {
     setLoadedFor(key);
-    if (open) setForm(editing ? { ...schedule, amount: String(Number(schedule.amount)), start_date: schedule.next_run_date, end_date: schedule.end_date ?? "", notes: schedule.notes ?? "" } : blank);
+    if (open) setForm(editing ? { ...schedule, amount: String(Number(schedule.amount)), start_date: schedule.next_run_date, end_date: schedule.end_date ?? "", notes: schedule.notes ?? "", supplier_name: supplierName(supplierMap, schedule.supplier_id), supplier_was: supplierName(supplierMap, schedule.supplier_id) } : blank);
   }
   const set = (field) => (value) => setForm((f) => ({ ...f, [field]: value }));
   const onError = (error) => toast.error(errorMessage(error));
   const done = (message) => {
     invalidate();
+    queryClient.invalidateQueries({ queryKey: ["suppliers"] });
     toast.success(message);
     onClose();
   };
   const save = useMutation({
     mutationFn: () => {
-      const body = { description: form.description, amount: form.amount, category: form.category.trim(), frequency: form.frequency, end_date: form.end_date || null, supplier_id: form.supplier_id, notes: form.notes || null };
+      const body = { description: form.description, amount: form.amount, category: form.category.trim(), frequency: form.frequency, end_date: form.end_date || null, notes: form.notes || null };
+      if (form.supplier_name.trim() !== (form.supplier_was ?? "")) body.supplier_name = form.supplier_name.trim();
       return editing ? apiClient.patch(`/recurring-costs/${schedule.id}`, { ...body, next_run_date: form.start_date }) : apiClient.post("/recurring-costs", { ...body, start_date: form.start_date });
     },
     onSuccess: () => done(t(editing ? "costs.recurringUpdated" : "costs.recurringAdded")),
@@ -331,9 +354,9 @@ function RecurringSheet({ open, schedule, onClose }) {
     <Sheet
       open={open}
       onClose={onClose}
-      title={t(editing ? "costs.editRecurring" : "costs.addRecurring")}
+      title={t(readOnly ? "costs.viewRecurring" : editing ? "costs.editRecurring" : "costs.addRecurring")}
       footer={
-        <>
+        readOnly ? null : <>
           {editing && (
             <Button variant="danger" className="mr-auto" disabled={remove.isPending} onClick={() => window.confirm(t("costs.recurringDeleteConfirm")) && remove.mutate()}>
               {t("common.delete")}
@@ -350,7 +373,7 @@ function RecurringSheet({ open, schedule, onClose }) {
         </>
       }
     >
-      <div className="space-y-4">
+      <fieldset disabled={readOnly} className="space-y-4">
         <Field label={t("costs.description")}>
           <input className="input" autoFocus={!editing} maxLength={255} placeholder={t("costs.recurringHint")} value={form.description} onChange={(e) => set("description")(e.target.value)} />
         </Field>
@@ -380,10 +403,10 @@ function RecurringSheet({ open, schedule, onClose }) {
           </Field>
         </div>
         <Field label={t("costs.supplier")}>
-          <SupplierPicker value={form.supplier_id} onChange={set("supplier_id")} />
+          <SupplierPicker value={form.supplier_name} onChange={set("supplier_name")} />
         </Field>
         <p className="rounded-lg bg-blue-50 px-3 py-2 text-xs text-blue-800">{t("costs.recurringExplain")}</p>
-      </div>
+      </fieldset>
     </Sheet>
   );
 }
@@ -409,7 +432,8 @@ function MarkPaid({ cost }) {
 export default function CostsPage() {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
-  const allowed = ["admin", "manager"].includes(user?.role);
+  const allowed = canViewCosts(user);
+  const manage = canManageCosts(user);
   const dashboard = useHasFeature("reports") === true;
   const [month, setMonth] = useState(thisMonth);
   const [view, setView] = useState("all");
@@ -431,7 +455,7 @@ export default function CostsPage() {
 
   if (!allowed) return <EmptyState title={t("costs.title")} description={t("costs.notAllowed")} />;
   const s = summary.data;
-  const actions = (
+  const actions = manage && (
     <>
       <Button variant="secondary" onClick={() => setSheet({ kind: "recurring" })}>
         {t("costs.addRecurring")}
@@ -491,7 +515,7 @@ export default function CostsPage() {
                 </button>
                 <PaidBadge status={c.status} due={c.due_date} />
                 <span className="w-24 shrink-0 text-right font-semibold tabular-nums text-zinc-900">{formatMoney(c.amount)}</span>
-                <MarkPaid cost={c} />
+                {manage && <MarkPaid cost={c} />}
               </li>
             ))}
           </ul>
@@ -529,7 +553,7 @@ export default function CostsPage() {
         ) : recurring.isError ? (
           <ErrorState onRetry={recurring.refetch} />
         ) : recurring.data.length === 0 ? (
-          <EmptyState title={t("costs.noRecurring")} description={t("costs.noRecurringHint")} action={<Button onClick={() => setSheet({ kind: "recurring" })}>{t("costs.addRecurring")}</Button>} />
+          <EmptyState title={t("costs.noRecurring")} description={t("costs.noRecurringHint")} action={manage && <Button onClick={() => setSheet({ kind: "recurring" })}>{t("costs.addRecurring")}</Button>} />
         ) : (
           <ul className="card divide-y divide-zinc-100">
             {recurring.data.map((r) => (
@@ -553,7 +577,7 @@ export default function CostsPage() {
       ) : costs.isError ? (
         <ErrorState onRetry={costs.refetch} />
       ) : costs.data.items.length === 0 ? (
-        <EmptyState title={t("costs.empty")} description={t("costs.emptyHint")} action={<Button onClick={() => setSheet({ kind: "cost" })}>{t("costs.add")}</Button>} />
+        <EmptyState title={t("costs.empty")} description={t("costs.emptyHint")} action={manage && <Button onClick={() => setSheet({ kind: "cost" })}>{t("costs.add")}</Button>} />
       ) : (
         <section className="card">
           <ul className="divide-y divide-zinc-100">
@@ -587,8 +611,8 @@ export default function CostsPage() {
 
       <p className="mt-6 text-xs text-zinc-500">{t("costs.notAccounting")}</p>
 
-      <CostSheet open={sheet?.kind === "cost"} cost={sheet?.kind === "cost" ? sheet.item : null} onClose={() => setSheet(null)} />
-      <RecurringSheet open={sheet?.kind === "recurring"} schedule={sheet?.kind === "recurring" ? sheet.item : null} onClose={() => setSheet(null)} />
+      <CostSheet open={sheet?.kind === "cost"} cost={sheet?.kind === "cost" ? sheet.item : null} readOnly={!manage} onClose={() => setSheet(null)} />
+      <RecurringSheet open={sheet?.kind === "recurring"} schedule={sheet?.kind === "recurring" ? sheet.item : null} readOnly={!manage} onClose={() => setSheet(null)} />
     </>
   );
 }
@@ -598,7 +622,7 @@ export function PurchaseOrderCost({ po }) {
   const { t } = useTranslation();
   const { user } = useAuth();
   const queryClient = useQueryClient();
-  const allowed = ["admin", "manager"].includes(user?.role) && ["sent", "received"].includes(po.status);
+  const allowed = canManageCosts(user) && ["sent", "received"].includes(po.status);
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ category: "stock", paid: true, paid_date: todayIso() });
   const { data: recorded, isLoading } = useQuery({ queryKey: ["costs", "po", po.id], queryFn: () => get(`/costs/from-purchase-order/${po.id}`), enabled: allowed });

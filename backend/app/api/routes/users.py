@@ -4,12 +4,13 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db, plan_room, require_role
+from app.core.exceptions import PermissionDeniedError
 from app.core.exceptions import ConflictError
 from app.models.user import User
 from app.services.invite_service import InviteService
 from app.core.database import CommitBeforeResponseRoute
 from app.models.enums import UserRole
-from app.schemas.user import UserCreate, UserOut, UserUpdate
+from app.schemas.user import CostAccessUpdate, UserCreate, UserOut, UserUpdate
 from app.services.billing_service import BillingService
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.services.user_service import UserService
@@ -64,3 +65,29 @@ async def update_user(user_id: uuid.UUID, data: UserUpdate, db: AsyncSession = D
     if data.is_active and not (await service.get_user(user_id)).is_active:
         await BillingService(db).check_room("users")  # reactivating takes a seat
     return await service.update_user(user_id, data)
+
+
+# ---------- Costs and bills: the account owner decides ----------
+
+
+def _owner(user: User) -> User:
+    if not user.is_account_owner:
+        raise PermissionDeniedError("Only the account owner can do this", "OWNER_ONLY")
+    return user
+
+
+@router.put("/{user_id}/cost-access", response_model=UserOut)
+async def set_cost_access(
+    user_id: uuid.UUID, data: CostAccessUpdate, db: AsyncSession = Depends(get_db), me: User = Depends(get_current_user)
+):
+    """Who else may see costs and bills (view), or also change them (manage)."""
+    _owner(me)
+    return await UserService(db).set_cost_access(user_id, data.cost_access)
+
+
+@router.post("/{user_id}/make-owner", response_model=UserOut)
+async def hand_over_ownership(user_id: uuid.UUID, db: AsyncSession = Depends(get_db), me: User = Depends(get_current_user)):
+    """Hand the account (and control of costs) to another admin. The former
+    owner keeps managing costs."""
+    _owner(me)
+    return await UserService(db).hand_over(me, user_id)

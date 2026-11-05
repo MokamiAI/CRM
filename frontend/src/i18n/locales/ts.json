@@ -2074,7 +2074,19 @@
     "inviteHint": "Va ta kuma imeyili yo endla phasiwedi ya vona. A swi lavi u yi avelana.",
     "sendInvite": "Rhumela xirhambo",
     "position": "Xikhundlha",
-    "positionPlaceholder": "xik. Mufambisi wa Mixaviso"
+    "positionPlaceholder": "xik. Mufambisi wa Mixaviso",
+    "owner": "N'wini wa akhawunti",
+    "costAccess": "Matirhiselo na swikweleti",
+    "costs": {
+      "none": "Matirhiselo: a ku na mfikelelo",
+      "view": "Matirhiselo: a nga vona",
+      "manage": "Matirhiselo: a nga lawula"
+    },
+    "costAccessSaved": "Mfikelelo wa matirhiselo wu pfuxetiwile",
+    "makeOwner": "Endla n'wini",
+    "handOverConfirm": "Endla {{name}} n'wini wa akhawunti? U ta teka xiboho xa leswaku i mani a vonaka matirhiselo na swikweleti. Wena u ya emahlweni u lawula matirhiselo.",
+    "ownerHandedOver": "{{name}} sweswi i n'wini wa akhawunti",
+    "costsOwnerNote": "I wena ntsena u nga vonaka matirhiselo na swikweleti. Hlawula laha hansi leswaku i mani un'wana a nga swi vonaka, kumbe a swi lawula."
   },
   "time": {
     "daysAgo_one": "siku ra {{count}} leri hundzeke",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Matirhiselo",
     "subtitle": "Leswi bindzu ra wena ri swi tirhisaka, ekusuhi na leswi nghenaka.",
-    "notAllowed": "I vafambisi na valawuri ntsena lava nga vonaka matirhiselo ya bindzu.",
+    "notAllowed": "Matirhiselo na swikweleti i swa xihundla. Kombela n'wini wa akhawunti mfikelelo.",
     "add": "Engetela ntirhiselo",
     "edit": "Lulamisa ntirhiselo",
     "added": "Ntirhiselo wu engeteriwile",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "{{number}} ya {{amount}} yi ta engeteriwa eka matirhiselo ya wena, swin'we na muphakeri wa yona.",
     "poRecorded": "Yi tsariwile tanihi ntirhiselo",
     "poAlready": "Yi tsariwile tanihi ntirhiselo",
-    "seeDashboard": "Vona dashboard ya mali ya tin'hweti ta 12"
+    "seeDashboard": "Vona dashboard ya mali ya tin'hweti ta 12",
+    "supplierHint": "Tsala vito, xik. Engen Garage",
+    "newSupplier": "Muphakeri lowuntshwa: {{name}} u ta hlayisiwa eka nkarhi lowu taka",
+    "viewCost": "Ntirhiselo",
+    "viewRecurring": "Xikweleti lexi tlhelelaka",
+    "noReceipt": "Ku hava rhisiti leyi engeteriweke"
   },
   "money": {
     "title": "Mali",

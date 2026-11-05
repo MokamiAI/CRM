@@ -2074,7 +2074,19 @@
     "inviteHint": "Ba tla amogela imeile ya go dira lefoko-sephiri la bone. Ga go tlhokege gore o le abelane.",
     "sendInvite": "Romela taletso",
     "position": "Maemo",
-    "positionPlaceholder": "sk. Motsamaisi wa Thekiso"
+    "positionPlaceholder": "sk. Motsamaisi wa Thekiso",
+    "owner": "Mong wa akhaonto",
+    "costAccess": "Ditshenyegelo le diakhaonto",
+    "costs": {
+      "none": "Ditshenyegelo: ga go phitlhelelo",
+      "view": "Ditshenyegelo: o ka bona",
+      "manage": "Ditshenyegelo: o ka laola"
+    },
+    "costAccessSaved": "Phitlhelelo ya ditshenyegelo e ntšhafaditswe",
+    "makeOwner": "Dira mong",
+    "handOverConfirm": "Dira {{name}} mong wa akhaonto? O tla tlhopha gore ke mang yo o bonang ditshenyegelo le diakhaonto. Wena o tswelela o laola ditshenyegelo.",
+    "ownerHandedOver": "{{name}} jaanong ke mong wa akhaonto",
+    "costsOwnerNote": "Ke wena fela yo o ka bonang ditshenyegelo le diakhaonto. Tlhopha fa tlase gore ke mang yo mongwe yo o ka di bonang, kgotsa a di laola."
   },
   "time": {
     "daysAgo_one": "letsatsi le le {{count}} le le fetileng",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Ditshenyegelo",
     "subtitle": "Se kgwebo ya gago e se dirisang, gaufi le se se tsenang.",
-    "notAllowed": "Ke batsamaisi le balaodi fela ba ba ka bonang ditshenyegelo tsa kgwebo.",
+    "notAllowed": "Ditshenyegelo le diakhaonto ke sephiri. Kopa mong wa akhaonto phitlhelelo.",
     "add": "Oketsa tshenyegelo",
     "edit": "Fetola tshenyegelo",
     "added": "Tshenyegelo e okeditswe",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "{{number}} ya {{amount}} e tla okelelwa mo ditshenyegelong tsa gago, le motlamedi wa yone.",
     "poRecorded": "E kwadilwe jaaka tshenyegelo",
     "poAlready": "E kwadilwe jaaka tshenyegelo",
-    "seeDashboard": "Bona dešebôte ya madi ya dikgwedi di le 12"
+    "seeDashboard": "Bona dešebôte ya madi ya dikgwedi di le 12",
+    "supplierHint": "Kwala leina, sk. Engen Garage",
+    "newSupplier": "Motlamedi yo moša: {{name}} o tla bolokwa go nako e e tlang",
+    "viewCost": "Tshenyegelo",
+    "viewRecurring": "Akhaonto e e boelelwang",
+    "noReceipt": "Ga go na rasiti e e okeditsweng"
   },
   "money": {
     "title": "Madi",

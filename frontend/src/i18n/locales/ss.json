@@ -2074,7 +2074,19 @@
     "inviteHint": "Batawutfola i-imeyili yekwakha liphasiwedi labo. Akudzingeki kutsi wabelane ngalo.",
     "sendInvite": "Tfumela simemo",
     "position": "Sikhundla",
-    "positionPlaceholder": "sib. Umphatsi Wekutsengisa"
+    "positionPlaceholder": "sib. Umphatsi Wekutsengisa",
+    "owner": "Umnikati we-akhawunti",
+    "costAccess": "Tindleko netikweleti",
+    "costs": {
+      "none": "Tindleko: kute kufinyelela",
+      "view": "Tindleko: angabona",
+      "manage": "Tindleko: angaphatsa"
+    },
+    "costAccessSaved": "Kufinyelela etindlekweni kubuyeketiwe",
+    "makeOwner": "Yenta umnikati",
+    "handOverConfirm": "Yenta {{name}} abe ngumnikati we-akhawunti? Utawunquma kutsi ngubani lobona tindleko netikweleti. Wena uchubeka uphatsa tindleko.",
+    "ownerHandedOver": "{{name}} nyalo ngumnikati we-akhawunti",
+    "costsOwnerNote": "Nguwe wedvwa longabona tindleko netikweleti. Khetsa ngentasi kutsi ngubani lomunye longatibona, nobe atiphatse."
   },
   "time": {
     "daysAgo_one": "lilanga le-{{count}} lelendlulile",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Tindleko",
     "subtitle": "Loko libhizinisi lakho likusebentisako, eceleni kwaloko lokungenako.",
-    "notAllowed": "Ngulabaphatsi nebaphatsi labakhulu kuphela labangabona tindleko telibhizinisi.",
+    "notAllowed": "Tindleko netikweleti tiyimfihlo. Cela umnikati we-akhawunti kutsi akuvumele.",
     "add": "Engeta tindleko",
     "edit": "Lungisa tindleko",
     "added": "Tindleko tengetiwe",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "I-{{number}} ye-{{amount}} itawungetwa etindlekweni takho, kanye nemhlinzeki wayo.",
     "poRecorded": "Kubhalwe njengetindleko",
     "poAlready": "Kubhalwe njengetindleko",
-    "seeDashboard": "Bona lideshibhodi lemali letinyanga leti-12"
+    "seeDashboard": "Bona lideshibhodi lemali letinyanga leti-12",
+    "supplierHint": "Bhala libito, sib. Engen Garage",
+    "newSupplier": "Umhlinzeki lomusha: {{name}} utawugcinwa kwesikhatsi lesitako",
+    "viewCost": "Tindleko",
+    "viewRecurring": "Sikweleti lesiphindaphindwako",
+    "noReceipt": "Kute irisidi lengetiwe"
   },
   "money": {
     "title": "Imali",

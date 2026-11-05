@@ -2074,7 +2074,19 @@
     "inviteHint": "Vha ḓo wana imeiḽi ya u ita phasiweḓe yavho. A zwi ṱoḓei uri ni i kovhekane.",
     "sendInvite": "Rumelani ṱhamo",
     "position": "Vhuimo",
-    "positionPlaceholder": "tsumbo: Mulanguli wa Thengiso"
+    "positionPlaceholder": "tsumbo: Mulanguli wa Thengiso",
+    "owner": "Muṋe wa akhaunthu",
+    "costAccess": "Mbadelo na milandu",
+    "costs": {
+      "none": "Mbadelo: a hu na u swikela",
+      "view": "Mbadelo: a nga vhona",
+      "manage": "Mbadelo: a nga langa"
+    },
+    "costAccessSaved": "U swikela mbadelo ho vusuludzwa",
+    "makeOwner": "Itani muṋe",
+    "handOverConfirm": "Ni ita {{name}} muṋe wa akhaunthu? U ḓo dzhia tsheo ya uri ndi nnyi ane a vhona mbadelo na milandu. Inwi ni bvela phanḓa ni tshi langa mbadelo.",
+    "ownerHandedOver": "{{name}} zwino ndi muṋe wa akhaunthu",
+    "costsOwnerNote": "Ndi inwi fhedzi ane na nga vhona mbadelo na milandu. Nangani afho fhasi uri ndi nnyi muṅwe ane a nga dzi vhona, kana a dzi langa."
   },
   "time": {
     "daysAgo_one": "ḓuvha ḽa {{count}} ḽo fhiraho",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Mbadelo",
     "subtitle": "Zwine bindu laṋu la zwi shumisa, tsini na zwine zwa dzhena.",
-    "notAllowed": "Ndi vhalanguli na vhalaṱedzi fhedzi vhane vha nga vhona mbadelo dza bindu.",
+    "notAllowed": "Mbadelo na milandu ndi tshiphiri. Humbelani muṋe wa akhaunthu u ni tendela.",
     "add": "Engedzani mbadelo",
     "edit": "Shandukisani mbadelo",
     "added": "Mbadelo yo engedzwa",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "{{number}} ya {{amount}} i ḓo engedzwa kha mbadelo dzaṋu, na muṋetshedzi wayo.",
     "poRecorded": "Yo ṅwaliwa sa mbadelo",
     "poAlready": "Yo ṅwaliwa sa mbadelo",
-    "seeDashboard": "Vhonani dashboard ya tshelede ya miṅwedzi ya 12"
+    "seeDashboard": "Vhonani dashboard ya tshelede ya miṅwedzi ya 12",
+    "supplierHint": "Ṅwalani dzina, tsumbo: Engen Garage",
+    "newSupplier": "Muṋetshedzi muswa: {{name}} u ḓo vhulungwa tshifhinga tshi ḓaho",
+    "viewCost": "Mbadelo",
+    "viewRecurring": "Mulandu une wa vhuelela",
+    "noReceipt": "A hu na rasiṱi yo engedzwaho"
   },
   "money": {
     "title": "Tshelede",

@@ -13,6 +13,7 @@ import { EmptyState, ErrorState, FilterChips, ListSkeleton, PageHeader } from ".
 import { formatMoney, formatMoneyFit } from "../utils/format";
 import { barPath, niceMax } from "../components/dashboard";
 import { categoryLabel } from "./CostsPage";
+import { canViewCosts } from "../utils/costAccess";
 
 const IN = "#059669";
 const OUT = "#E11D48";
@@ -190,7 +191,7 @@ function Categories({ rows }) {
 export default function MoneyPage() {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
-  const allowed = ["admin", "manager"].includes(user?.role);
+  const allowed = canViewCosts(user);
   const included = useHasFeature("reports");
   const [period, setPeriod] = useState("year");
   const { data: o, isLoading, isError, refetch } = useQuery({

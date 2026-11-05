@@ -16,14 +16,14 @@ from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import Date, cast, func, select
+from sqlalchemy import Date, cast, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import undefer
 
 from app.core.exceptions import AppError, ConflictError, NotFoundError
 from app.models.cost import Cost, RecurringCost
-from app.models.enums import PurchaseOrderStatus, UserRole
+from app.models.enums import PurchaseOrderStatus
 from app.models.payment import Payment
 from app.models.purchasing import PurchaseOrder, Supplier
 from app.models.user import User
@@ -70,6 +70,27 @@ class CostService:
         if supplier_id and await self.db.scalar(select(Supplier.id).where(Supplier.id == supplier_id)) is None:
             raise NotFoundError("Supplier not found", "SUPPLIER_NOT_FOUND")
 
+    async def supplier_for(self, data) -> tuple[bool, uuid.UUID | None]:
+        """(given, id) for a create or update: a typed name is matched to a
+        saved supplier (ignoring case) or saved as a new one; an empty name
+        clears it. Without a name, the picked supplier_id as sent."""
+        fields = data.model_fields_set
+        if "supplier_name" in fields:
+            name = " ".join((data.supplier_name or "").split())
+            if not name:
+                return True, None
+            found = await self.db.scalar(select(Supplier.id).where(func.lower(Supplier.name) == name.lower()).order_by(Supplier.is_active.desc()).limit(1))
+            if found:
+                return True, found
+            supplier = Supplier(name=name[:255])
+            self.db.add(supplier)
+            await self.db.flush()
+            return True, supplier.id
+        if "supplier_id" in fields:
+            await self._check_supplier(data.supplier_id)
+            return True, data.supplier_id
+        return False, None
+
     def _filtered(self, stmt, status: str | None, category: str | None, start: date | None, end: date | None):
         """Paid costs filter by the day they were paid, bills by their due date."""
         if status:
@@ -100,7 +121,7 @@ class CostService:
         return sorted(set(rows.all()) | set(recurring.all()))
 
     async def create(self, data: CostCreate, user: User, today: date) -> Cost:
-        await self._check_supplier(data.supplier_id)
+        _, supplier_id = await self.supplier_for(data)
         cost = Cost(
             description=data.description.strip(),
             category=data.category,
@@ -108,7 +129,7 @@ class CostService:
             due_date=data.due_date,
             status="paid" if data.paid else "due",
             paid_date=(data.paid_date or min(data.due_date, today)) if data.paid else None,
-            supplier_id=data.supplier_id,
+            supplier_id=supplier_id,
             notes=data.notes,
             created_by=user.id,
         )
@@ -118,9 +139,10 @@ class CostService:
 
     async def update(self, cost_id: uuid.UUID, data: CostUpdate) -> Cost:
         cost = await self.get(cost_id, lock=True)
-        changes = data.model_dump(exclude_unset=True)
-        if "supplier_id" in changes:
-            await self._check_supplier(changes["supplier_id"])
+        changes = data.model_dump(exclude_unset=True, exclude={"supplier_name"})
+        given, supplier_id = await self.supplier_for(data)
+        if given:
+            changes["supplier_id"] = supplier_id
         for field in ("description", "category", "amount", "due_date", "paid_date"):
             if field in changes and changes[field] is None:
                 changes.pop(field)
@@ -289,7 +311,7 @@ class CostService:
         }
 
     async def remind_due(self, today: date) -> int:
-        """Tells admins and managers, once per bill, when it's due within
+        """Tells the owner and cost managers, once per bill, when it's due within
         REMIND_DAYS (or already overdue)."""
         from app.services import notify
 
@@ -298,8 +320,9 @@ class CostService:
         )).all()
         if not bills:
             return 0
+        # Whoever pays the bills: the owner and those allowed to manage costs.
         people = (await self.db.scalars(
-            select(User).where(User.is_active.is_(True), User.role.in_([UserRole.ADMIN, UserRole.MANAGER]))
+            select(User).where(User.is_active.is_(True), or_(User.is_account_owner.is_(True), User.cost_access == "manage"))
         )).all()
         sent = 0
         for bill in bills:
@@ -341,7 +364,7 @@ class RecurringCostService:
         return list(rows.all())
 
     async def create(self, data: RecurringCostCreate, user: User, today: date) -> RecurringCost:
-        await CostService(self.db)._check_supplier(data.supplier_id)
+        _, supplier_id = await CostService(self.db).supplier_for(data)
         schedule = RecurringCost(
             description=data.description.strip(),
             category=data.category,
@@ -350,7 +373,7 @@ class RecurringCostService:
             start_date=data.start_date,
             next_run_date=data.start_date,
             end_date=data.end_date,
-            supplier_id=data.supplier_id,
+            supplier_id=supplier_id,
             notes=data.notes,
             created_by=user.id,
         )
@@ -365,9 +388,10 @@ class RecurringCostService:
 
     async def update(self, schedule_id: uuid.UUID, data: RecurringCostUpdate, today: date) -> RecurringCost:
         schedule = await self.get(schedule_id, lock=True)
-        changes = data.model_dump(exclude_unset=True)
-        if "supplier_id" in changes:
-            await CostService(self.db)._check_supplier(changes["supplier_id"])
+        changes = data.model_dump(exclude_unset=True, exclude={"supplier_name"})
+        given, supplier_id = await CostService(self.db).supplier_for(data)
+        if given:
+            changes["supplier_id"] = supplier_id
         for field in ("description", "category", "amount", "frequency", "next_run_date"):
             if field in changes and changes[field] is None:
                 changes.pop(field)

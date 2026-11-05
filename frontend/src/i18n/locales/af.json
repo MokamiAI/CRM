@@ -2074,7 +2074,19 @@
     "inviteHint": "Hulle kry 'n e-pos om hul eie wagwoord te skep. Jy hoef nie een te deel nie.",
     "sendInvite": "Stuur uitnodiging",
     "position": "Pos",
-    "positionPlaceholder": "bv. Verkoopsbestuurder"
+    "positionPlaceholder": "bv. Verkoopsbestuurder",
+    "owner": "Rekeningeienaar",
+    "costAccess": "Uitgawes en rekeninge",
+    "costs": {
+      "none": "Uitgawes: geen toegang",
+      "view": "Uitgawes: kan sien",
+      "manage": "Uitgawes: kan bestuur"
+    },
+    "costAccessSaved": "Toegang tot uitgawes opgedateer",
+    "makeOwner": "Maak eienaar",
+    "handOverConfirm": "Maak {{name}} die rekeningeienaar? Hulle sal besluit wie uitgawes en rekeninge sien. Jy bestuur steeds uitgawes.",
+    "ownerHandedOver": "{{name}} is nou die rekeningeienaar",
+    "costsOwnerNote": "Net jy kan uitgawes en rekeninge sien. Kies hieronder wie anders dit mag sien, of ook bestuur."
   },
   "time": {
     "daysAgo_one": "{{count}} dag gelede",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Uitgawes",
     "subtitle": "Wat jou besigheid spandeer, langs wat inkom.",
-    "notAllowed": "Net administrateurs en bestuurders kan die besigheid se uitgawes sien.",
+    "notAllowed": "Uitgawes en rekeninge is privaat. Vra die rekeningeienaar vir toegang.",
     "add": "Voeg uitgawe by",
     "edit": "Wysig uitgawe",
     "added": "Uitgawe bygevoeg",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "{{number}} vir {{amount}} sal by jou uitgawes gevoeg word, met sy verskaffer.",
     "poRecorded": "As uitgawe aangeteken",
     "poAlready": "As uitgawe aangeteken",
-    "seeDashboard": "Sien die 12-maande-geldpaneel"
+    "seeDashboard": "Sien die 12-maande-geldpaneel",
+    "supplierHint": "Tik 'n naam, bv. Engen-garage",
+    "newSupplier": "Nuwe verskaffer: {{name}} word vir volgende keer gestoor",
+    "viewCost": "Uitgawe",
+    "viewRecurring": "Herhalende rekening",
+    "noReceipt": "Geen strokie bygevoeg nie"
   },
   "money": {
     "title": "Geld",

@@ -2074,7 +2074,19 @@
     "inviteHint": "Ba tla hwetša imeile ya go hlama phasewete ya bona. Ga go hlokege gore o abelane ka yona.",
     "sendInvite": "Romela taletšo",
     "position": "Maemo",
-    "positionPlaceholder": "mohl. Molaodi wa Thekišo"
+    "positionPlaceholder": "mohl. Molaodi wa Thekišo",
+    "owner": "Mong wa akhaonto",
+    "costAccess": "Ditshenyegelo le melato",
+    "costs": {
+      "none": "Ditshenyegelo: ga go phihlelelo",
+      "view": "Ditshenyegelo: a ka bona",
+      "manage": "Ditshenyegelo: a ka laola"
+    },
+    "costAccessSaved": "Phihlelelo ya ditshenyegelo e mpshafaditšwe",
+    "makeOwner": "Dira mong",
+    "handOverConfirm": "Dira {{name}} mong wa akhaonto? O tla kgetha gore ke mang yo a bonago ditshenyegelo le melato. Wena o tšwela pele o laola ditshenyegelo.",
+    "ownerHandedOver": "{{name}} bjale ke mong wa akhaonto",
+    "costsOwnerNote": "Ke wena feela yo a ka bonago ditshenyegelo le melato. Kgetha ka fase gore ke mang yo mongwe yo a ka di bonago, goba a di laola."
   },
   "time": {
     "daysAgo_one": "letšatši le {{count}} le fetilego",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Ditshenyegelo",
     "subtitle": "Seo kgwebo ya gago e se šomišago, kgauswi le seo se tsenago.",
-    "notAllowed": "Ke balaodi le bolaodi feela bao ba ka bonago ditshenyegelo tša kgwebo.",
+    "notAllowed": "Ditshenyegelo le melato ke sephiri. Kgopela mong wa akhaonto phihlelelo.",
     "add": "Oketša tshenyegelo",
     "edit": "Fetoša tshenyegelo",
     "added": "Tshenyegelo e okeditšwe",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "{{number}} ya {{amount}} e tla okeletšwa go ditshenyegelo tša gago, le mofepi wa yona.",
     "poRecorded": "E ngwadilwe bjalo ka tshenyegelo",
     "poAlready": "E ngwadilwe bjalo ka tshenyegelo",
-    "seeDashboard": "Bona dešbôte ya tšhelete ya dikgwedi tše 12"
+    "seeDashboard": "Bona dešbôte ya tšhelete ya dikgwedi tše 12",
+    "supplierHint": "Ngwala leina, mohl. Engen Garage",
+    "newSupplier": "Mofepi yo mofsa: {{name}} o tla bolokwa nako ye e tlago",
+    "viewCost": "Tshenyegelo",
+    "viewRecurring": "Molato wo o boelelwago",
+    "noReceipt": "Ga go rasiti ye e okeditšwego"
   },
   "money": {
     "title": "Tšhelete",

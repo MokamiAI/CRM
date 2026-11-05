@@ -2074,7 +2074,19 @@
     "inviteHint": "Bazothola i-imeyili yokwakha iphasiwedi yabo. Akudingeki wabelane ngayo.",
     "sendInvite": "Thumela isimemo",
     "position": "Isikhundla",
-    "positionPlaceholder": "isb. Umphathi Wezokuthengisa"
+    "positionPlaceholder": "isb. Umphathi Wezokuthengisa",
+    "owner": "Umnikazi we-akhawunti",
+    "costAccess": "Izindleko nezikweletu",
+    "costs": {
+      "none": "Izindleko: akukho ukufinyelela",
+      "view": "Izindleko: angabona",
+      "manage": "Izindleko: angaphatha"
+    },
+    "costAccessSaved": "Ukufinyelela ezindlekweni kubuyekeziwe",
+    "makeOwner": "Yenza umnikazi",
+    "handOverConfirm": "Yenza u-{{name}} abe ngumnikazi we-akhawunti? Uzonquma ukuthi ubani obona izindleko nezikweletu. Wena uqhubeka uphatha izindleko.",
+    "ownerHandedOver": "U-{{name}} manje ungumnikazi we-akhawunti",
+    "costsOwnerNote": "Nguwe kuphela ongabona izindleko nezikweletu. Khetha ngezansi ukuthi obani abanye abangazibona, noma bazilawule."
   },
   "time": {
     "daysAgo_one": "usuku olu-{{count}} olwedlule",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Izindleko",
     "subtitle": "Lokho ibhizinisi lakho elikusebenzisayo, eceleni kwalokho okungenayo.",
-    "notAllowed": "Abaphathi nabaphathi abaphezulu kuphela abangabona izindleko zebhizinisi.",
+    "notAllowed": "Izindleko nezikweletu ziyimfihlo. Cela umnikazi we-akhawunti ukuthi akuvumele.",
     "add": "Engeza izindleko",
     "edit": "Hlela izindleko",
     "added": "Izindleko zengeziwe",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "I-{{number}} ka-{{amount}} izongezwa ezindlekweni zakho, kanye nomhlinzeki wayo.",
     "poRecorded": "Kubhalwe njengezindleko",
     "poAlready": "Kubhalwe njengezindleko",
-    "seeDashboard": "Bona ideshibhodi yemali yezinyanga ezi-12"
+    "seeDashboard": "Bona ideshibhodi yemali yezinyanga ezi-12",
+    "supplierHint": "Bhala igama, isb. Engen Garage",
+    "newSupplier": "Umhlinzeki omusha: u-{{name}} uzolondolozwa kwesikhathi esizayo",
+    "viewCost": "Izindleko",
+    "viewRecurring": "Isikweletu esiphindaphindayo",
+    "noReceipt": "Ayikho irisidi engeziwe"
   },
   "money": {
     "title": "Imali",

@@ -1,5 +1,5 @@
 """Costs and recurring bills. The business's spending (salaries among it) is
-for admins and managers only."""
+for the account owner, and whoever the owner allows: to view, or to manage."""
 import uuid
 from datetime import date
 from urllib.parse import quote
@@ -7,10 +7,9 @@ from urllib.parse import quote
 from fastapi import APIRouter, Depends, File, Query, Response, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_db, plan_feature, require_role
+from app.api.deps import get_db, plan_feature, require_cost_access
 from app.core.database import CommitBeforeResponseRoute
 from app.core.plans import REPORTS
-from app.models.enums import UserRole
 from app.models.user import User
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.schemas.cost import (
@@ -33,7 +32,9 @@ from app.services.reminder_service import company_today
 
 router = APIRouter(route_class=CommitBeforeResponseRoute, tags=["costs"])
 
-_money = require_role(UserRole.ADMIN, UserRole.MANAGER)
+
+_view = require_cost_access("view")
+_money = require_cost_access("manage")
 
 
 async def _company(db: AsyncSession):
@@ -55,7 +56,7 @@ async def list_costs(
     start: date | None = Query(default=None, alias="from"),
     end: date | None = Query(default=None, alias="to"),
     db: AsyncSession = Depends(get_db),
-    _: User = Depends(_money),
+    _: User = Depends(_view),
 ):
     """Costs, newest first. Paid ones filter by the day they were paid, bills by their due date."""
     items, total_paid, total_due = await CostService(db).list(status_, category, start, end)
@@ -63,19 +64,19 @@ async def list_costs(
 
 
 @router.get("/costs/categories", response_model=list[str])
-async def cost_categories(db: AsyncSession = Depends(get_db), _: User = Depends(_money)):
+async def cost_categories(db: AsyncSession = Depends(get_db), _: User = Depends(_view)):
     return await CostService(db).categories()
 
 
 @router.get("/costs/summary", response_model=MoneySummary)
-async def money_summary(month: str | None = None, db: AsyncSession = Depends(get_db), _: User = Depends(_money)):
+async def money_summary(month: str | None = None, db: AsyncSession = Depends(get_db), _: User = Depends(_view)):
     """A month's money in (payments received), money out (costs paid) and profit."""
     today, tz = await _company(db)
     return await CostService(db).summary(month or f"{today:%Y-%m}", today, tz)
 
 
 @router.get("/costs/overview", response_model=MoneyOverview, dependencies=[Depends(plan_feature(REPORTS))])
-async def money_overview(db: AsyncSession = Depends(get_db), _: User = Depends(_money)):
+async def money_overview(db: AsyncSession = Depends(get_db), _: User = Depends(_view)):
     """The Money dashboard (Grow and Scale): 12 months of money in, money out
     and profit, where the money went, and what's still to come in and to pay."""
     today, tz = await _company(db)
@@ -88,7 +89,7 @@ async def create_cost(data: CostCreate, db: AsyncSession = Depends(get_db), user
 
 
 @router.get("/costs/{cost_id}", response_model=CostOut)
-async def get_cost(cost_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_money)):
+async def get_cost(cost_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_view)):
     return await CostService(db).get(cost_id)
 
 
@@ -119,7 +120,7 @@ async def add_receipt(cost_id: uuid.UUID, file: UploadFile = File(...), db: Asyn
 
 
 @router.get("/costs/{cost_id}/receipt", include_in_schema=False)
-async def download_receipt(cost_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_money)):
+async def download_receipt(cost_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_view)):
     cost = await CostService(db).get(cost_id, with_receipt=True)
     if not cost.receipt_data:
         return Response(status_code=status.HTTP_404_NOT_FOUND)
@@ -142,7 +143,7 @@ async def remove_receipt(cost_id: uuid.UUID, db: AsyncSession = Depends(get_db),
 
 
 @router.get("/costs/from-purchase-order/{po_id}", response_model=CostOut | None)
-async def cost_for_purchase_order(po_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_money)):
+async def cost_for_purchase_order(po_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(_view)):
     """The cost a purchase order was recorded as, if it was."""
     return await CostService(db).for_purchase_order(po_id)
 
@@ -159,7 +160,7 @@ async def cost_from_purchase_order(
 
 
 @router.get("/recurring-costs", response_model=list[RecurringCostOut])
-async def list_recurring_costs(db: AsyncSession = Depends(get_db), _: User = Depends(_money)):
+async def list_recurring_costs(db: AsyncSession = Depends(get_db), _: User = Depends(_view)):
     return await RecurringCostService(db).list()
 
 

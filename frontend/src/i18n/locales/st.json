@@ -2074,7 +2074,19 @@
     "inviteHint": "Ba tla fumana imeile ya ho etsa phasewete ya bona. Ha ho hlokehe hore o arolelane yona.",
     "sendInvite": "Romela memo",
     "position": "Boemo",
-    "positionPlaceholder": "mohl. Mookamedi wa Thekiso"
+    "positionPlaceholder": "mohl. Mookamedi wa Thekiso",
+    "owner": "Mong wa akhaonto",
+    "costAccess": "Ditjeo le diakhaonto",
+    "costs": {
+      "none": "Ditjeo: ha ho phihlello",
+      "view": "Ditjeo: a ka bona",
+      "manage": "Ditjeo: a ka laola"
+    },
+    "costAccessSaved": "Phihlello ya ditjeo e ntjhafaditswe",
+    "makeOwner": "Etsa mong",
+    "handOverConfirm": "Etsa {{name}} mong wa akhaonto? O tla etsa qeto ya hore na ke mang ya bonang ditjeo le diakhaonto. Wena o tswela pele o laola ditjeo.",
+    "ownerHandedOver": "{{name}} jwale ke mong wa akhaonto",
+    "costsOwnerNote": "Ke wena feela ya ka bonang ditjeo le diakhaonto. Kgetha ka tlase hore na ke mang e mong ya ka di bona, kapa a di laola."
   },
   "time": {
     "daysAgo_one": "letsatsi le {{count}} le fetileng",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Ditjeo",
     "subtitle": "Seo kgwebo ya hao e se sebedisang, haufi le se kenang.",
-    "notAllowed": "Ke batsamaisi le baokamedi feela ba ka bonang ditjeo tsa kgwebo.",
+    "notAllowed": "Ditjeo le diakhaonto ke lekunutu. Kopa mong wa akhaonto phihlello.",
     "add": "Eketsa tjeo",
     "edit": "Fetola tjeo",
     "added": "Tjeo e eketsuwe",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "{{number}} ya {{amount}} e tla ekelletswa ditjeong tsa hao, le mofani wa yona.",
     "poRecorded": "E ngodilwe e le tjeo",
     "poAlready": "E ngodilwe e le tjeo",
-    "seeDashboard": "Bona dashboard ya tjhelete ya dikgwedi tse 12"
+    "seeDashboard": "Bona dashboard ya tjhelete ya dikgwedi tse 12",
+    "supplierHint": "Ngola lebitso, mohl. Engen Garage",
+    "newSupplier": "Mofani e motjha: {{name}} o tla bolokwa bakeng sa nako e tlang",
+    "viewCost": "Tjeo",
+    "viewRecurring": "Akhaonto e iphetang",
+    "noReceipt": "Ha ho rasiti e kentsweng"
   },
   "money": {
     "title": "Tjhelete",

@@ -106,6 +106,26 @@ def require_role(*allowed_roles: UserRole):
     return _check
 
 
+def require_cost_access(level: str):
+    """Costs and bills: "view" or "manage", as the account owner allowed
+    (the owner always has both). Stricter than a role: other admins too
+    need the owner's say."""
+
+    async def _check(user: User = Depends(get_current_user)) -> User:
+        if level == "view" and not user.can_view_costs:
+            raise PermissionDeniedError("Ask the account owner for access to costs and bills", "COSTS_NO_ACCESS")
+        if level == "manage" and not user.can_manage_costs:
+            raise PermissionDeniedError(
+                "You can view costs, but only the account owner or a cost manager can change them"
+                if user.can_view_costs
+                else "Ask the account owner for access to costs and bills",
+                "COSTS_VIEW_ONLY" if user.can_view_costs else "COSTS_NO_ACCESS",
+            )
+        return user
+
+    return _check
+
+
 async def require_platform_admin(user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)) -> User:
     """YGT's own team only (PLATFORM_ADMIN_EMAILS). Admin queries then run
     across every company."""

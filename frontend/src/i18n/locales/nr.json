@@ -2074,7 +2074,19 @@
     "inviteHint": "Bazokufumana i-imeyili yokwakha iphasiwedi yabo. Akutlhogeki bona wabelane ngayo.",
     "sendInvite": "Thumela isimemo",
     "position": "Isikhundla",
-    "positionPlaceholder": "isib. Umphathi Wokuthengisa"
+    "positionPlaceholder": "isib. Umphathi Wokuthengisa",
+    "owner": "Umnikazi we-akhawunti",
+    "costAccess": "Iindleko neenkoloto",
+    "costs": {
+      "none": "Iindleko: akukho ukufikelela",
+      "view": "Iindleko: angabona",
+      "manage": "Iindleko: angaphatha"
+    },
+    "costAccessSaved": "Ukufikelela eendlekweni kubuyekeziwe",
+    "makeOwner": "Yenza umnikazi",
+    "handOverConfirm": "Yenza u-{{name}} abe mnikazi we-akhawunti? Uzokuqunta bona ngubani obona iindleko neenkoloto. Wena uragela phambili uphatha iindleko.",
+    "ownerHandedOver": "U-{{name}} nje mnikazi we-akhawunti",
+    "costsOwnerNote": "Nguwe kwaphela ongabona iindleko neenkoloto. Khetha ngaphasi bona ngubani omunye ongazibona, namkha azilawule."
   },
   "time": {
     "daysAgo_one": "ilanga eli-{{count}} elidlulileko",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Iindleko",
     "subtitle": "Lokho ibhizinisi lakho elikusebenzisako, eqadi kwalokho okungenako.",
-    "notAllowed": "Bafundisi nabaphathi kwaphela abangabona iindleko zebhizinisi.",
+    "notAllowed": "Iindleko neenkoloto ziyifihlo. Bawa umnikazi we-akhawunti bona akuvumele.",
     "add": "Ngezelela iindleko",
     "edit": "Lungisa iindleko",
     "added": "Iindleko zingezelelwe",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "I-{{number}} ye-{{amount}} izokungezelelwa eendlekweni zakho, kanye nomthengisi wayo.",
     "poRecorded": "Kutlolwe njengeendleko",
     "poAlready": "Kutlolwe njengeendleko",
-    "seeDashboard": "Bona idashibhodi yemali yeenyanga ezi-12"
+    "seeDashboard": "Bona idashibhodi yemali yeenyanga ezi-12",
+    "supplierHint": "Tlola ibizo, isib. Engen Garage",
+    "newSupplier": "Umthengisi omutjha: u-{{name}} uzokubulungwa ngesikhathi esizako",
+    "viewCost": "Iindleko",
+    "viewRecurring": "Isikoloto esiphindaphindekako",
+    "noReceipt": "Akukho irisidi engezelelweko"
   },
   "money": {
     "title": "Imali",

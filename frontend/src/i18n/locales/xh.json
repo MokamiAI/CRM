@@ -2074,7 +2074,19 @@
     "inviteHint": "Baza kufumana i-imeyile yokwenza ipaswedi yabo. Akukho mfuneko yokwabelana ngayo.",
     "sendInvite": "Thumela isimemo",
     "position": "Isikhundla",
-    "positionPlaceholder": "umz. uMphathi weNtengiso"
+    "positionPlaceholder": "umz. uMphathi weNtengiso",
+    "owner": "Umnini we-akhawunti",
+    "costAccess": "Iindleko namatyala",
+    "costs": {
+      "none": "Iindleko: akukho kufikelela",
+      "view": "Iindleko: angabona",
+      "manage": "Iindleko: angalawula"
+    },
+    "costAccessSaved": "Ukufikelela kwiindleko kuhlaziyiwe",
+    "makeOwner": "Yenza umnini",
+    "handOverConfirm": "Yenza u-{{name}} abe ngumnini we-akhawunti? Uya kugqiba ukuba ngubani obona iindleko namatyala. Wena uqhubeka ulawula iindleko.",
+    "ownerHandedOver": "U-{{name}} ngoku ungumnini we-akhawunti",
+    "costsOwnerNote": "Nguwe kuphela onokubona iindleko namatyala. Khetha apha ngezantsi ukuba ngoobani abanye abanokuzibona, okanye bazilawule."
   },
   "time": {
     "daysAgo_one": "usuku olu-{{count}} oludlulileyo",
@@ -3463,7 +3475,7 @@
   "costs": {
     "title": "Iindleko",
     "subtitle": "Oko ishishini lakho likuchithayo, ecaleni koko kungenayo.",
-    "notAllowed": "Ngabalawuli nabaphathi kuphela abanokubona iindleko zeshishini.",
+    "notAllowed": "Iindleko namatyala zezabucala. Cela umnini we-akhawunti ukuba akuvumele.",
     "add": "Yongeza iindleko",
     "edit": "Hlela iindleko",
     "added": "Iindleko zongeziwe",
@@ -3553,7 +3565,12 @@
     "recordPoHint": "I-{{number}} ye-{{amount}} iya kongezwa kwiindleko zakho, kunye nomboneleli wayo.",
     "poRecorded": "Kubhalwe njengeendleko",
     "poAlready": "Kubhalwe njengeendleko",
-    "seeDashboard": "Bona ideshbhodi yemali yeenyanga ezili-12"
+    "seeDashboard": "Bona ideshbhodi yemali yeenyanga ezili-12",
+    "supplierHint": "Chwetheza igama, umz. Engen Garage",
+    "newSupplier": "Umboneleli omtsha: u-{{name}} uza kugcinwa kwixesha elizayo",
+    "viewCost": "Iindleko",
+    "viewRecurring": "Ityala eliphindaphindayo",
+    "noReceipt": "Akukho risithi yongeziweyo"
   },
   "money": {
     "title": "Imali",

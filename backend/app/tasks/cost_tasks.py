@@ -1,7 +1,8 @@
 # Daily run of recurring bills, scheduled by celery_app.conf.beat_schedule
 # ("daily-recurring-costs", 06:10): each company's coming cycles become bills
-# to pay (a week ahead, on that company's own calendar), then admins and
-# managers hear about bills due within three days. Nothing is marked paid.
+# to pay (a week ahead, on that company's own calendar), then the account
+# owner and cost managers hear about bills due within three days. Nothing is
+# marked paid.
 import logging
 
 from celery_app import celery_app

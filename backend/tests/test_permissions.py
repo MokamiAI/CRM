@@ -66,7 +66,8 @@ def test_every_data_changing_endpoint_checks_the_role():
         if not isinstance(route, APIRoute) or not (route.methods - {"GET", "HEAD", "OPTIONS"}):
             continue
         names = _dependency_names(route.dependant, set())
-        if any(n.startswith("require_role") or "require_platform_admin" in n for n in names):
+        # require_cost_access: costs and bills, by the account owner's say.
+        if any(n.startswith(("require_role", "require_cost_access")) or "require_platform_admin" in n for n in names):
             continue
         if route.path in PUBLIC:
             continue

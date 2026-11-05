@@ -56,6 +56,19 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # The week whose sales quote they've seen ("2026-10-26"), so it shows
     # once on whichever device they use, not once per browser.
     quote_seen: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    # The account owner: the one person per company (an admin) who sees the
+    # business's costs and bills and decides who else may. Handed over, not shared.
+    is_account_owner: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    # Costs and bills for everyone else: none | view | manage, set by the owner.
+    cost_access: Mapped[str] = mapped_column(String(10), nullable=False, default="none", server_default="none")
+
+    @property
+    def can_view_costs(self) -> bool:
+        return self.is_account_owner or self.cost_access in ("view", "manage")
+
+    @property
+    def can_manage_costs(self) -> bool:
+        return self.is_account_owner or (self.cost_access == "manage" and self.role != UserRole.VIEWER)
 
     @property
     def can_receive_tasks(self) -> bool:
