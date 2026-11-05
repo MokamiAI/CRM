@@ -1842,7 +1842,9 @@
       "testSent": "Imeile ya teko e rometswe",
       "title": "Imeile e e tswang",
       "tls": "Dirisa TLS",
-      "username": "Leina la modirisi la SMTP"
+      "username": "Leina la modirisi la SMTP",
+      "replyTo": "Dikarabo tsa badirisi di ya kwa",
+      "replyToHint": "Go fitlha go diaterese di le 3, di kgaogantswe ka dikhoma. Tlogela go se na sepe go dirisa imeile ya moromi. Golaganya lebokoso la gago la poso fa tlase go bala dikarabo mo Melaetsa."
     },
     "loadFailed": "Re paletswe ke go laisa dithulaganyo.",
     "reminders": {

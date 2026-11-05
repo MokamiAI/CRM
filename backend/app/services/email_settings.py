@@ -40,5 +40,7 @@ def resolve_email_config(company: CompanySettings) -> EffectiveEmailConfig:
         use_tls=company.smtp_use_tls if own_server else settings.SMTP_USE_TLS,
         from_email=from_email,
         from_name=name,
-        reply_to=reply_to if reply_to and reply_to != from_email else None,
+        # The company's chosen reply addresses win; else replies go to the
+        # company (when From is YGT's address).
+        reply_to=(getattr(company, "reply_to_emails", None) or None) or (reply_to if reply_to and reply_to != from_email else None),
     )

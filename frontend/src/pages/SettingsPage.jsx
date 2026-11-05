@@ -31,6 +31,7 @@ const EMPTY_FORM = {
   payment_terms_days: 30,
   sender_name: "",
   sender_email: "",
+  reply_to_emails: "",
   smtp_host: "",
   smtp_port: "",
   smtp_username: "",
@@ -344,6 +345,14 @@ export default function SettingsPage() {
                 className={inputClass}
                 value={form.sender_email ?? ""}
                 onChange={(e) => update("sender_email", e.target.value)}
+              />
+            </Field>
+            <Field label={t("settings.email.replyTo")} hint={t("settings.email.replyToHint")}>
+              <input
+                className={inputClass}
+                placeholder={form.sender_email || "billing@yourbusiness.co.za, you@yourbusiness.co.za"}
+                value={form.reply_to_emails ?? ""}
+                onChange={(e) => update("reply_to_emails", e.target.value)}
               />
             </Field>
             <Field label={t("settings.email.host")}>

@@ -1842,7 +1842,9 @@
       "testSent": "Toets-e-pos gestuur",
       "title": "Uitgaande e-pos",
       "tls": "Gebruik TLS",
-      "username": "SMTP-gebruikersnaam"
+      "username": "SMTP-gebruikersnaam",
+      "replyTo": "Kliënte se antwoorde gaan na",
+      "replyToHint": "Tot 3 adresse, geskei deur kommas. Laat leeg om die senderadres te gebruik. Koppel jou posbus hieronder om antwoorde in Boodskappe te lees."
     },
     "loadFailed": "Kon nie instellings laai nie.",
     "reminders": {

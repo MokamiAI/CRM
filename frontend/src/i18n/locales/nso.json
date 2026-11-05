@@ -1842,7 +1842,9 @@
       "testSent": "Imeile ya teko e romilwe",
       "title": "Imeile ye e tšwago",
       "tls": "Šomiša TLS",
-      "username": "Leina la mošomiši la SMTP"
+      "username": "Leina la mošomiši la SMTP",
+      "replyTo": "Dikarabo tša bareki di ya go",
+      "replyToHint": "Go fihla go diaterese tše 3, di arogantšwe ka dikhoma. Tlogela go se na selo go šomiša imeile ya moromelwa. Kopanya lepokisi la gago la poso ka fase go bala dikarabo go Melaetša."
     },
     "loadFailed": "Re paletšwe ke go laiša dipeakanyo.",
     "reminders": {

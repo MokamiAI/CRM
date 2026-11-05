@@ -49,6 +49,10 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
     # in app/core/config.py (see app/services/email_settings.py).
     sender_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     sender_email: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # Where clients' replies go, up to 3 addresses ("a@x.co.za, b@x.co.za").
+    # Empty: the sender email. A connected mailbox (email_in) takes replies
+    # into Messages instead.
+    reply_to_emails: Mapped[str | None] = mapped_column(String(500), nullable=True)
     smtp_host: Mapped[str | None] = mapped_column(String(255), nullable=True)
     smtp_port: Mapped[int | None] = mapped_column(Integer, nullable=True)
     smtp_username: Mapped[str | None] = mapped_column(String(255), nullable=True)

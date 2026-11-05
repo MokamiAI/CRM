@@ -76,6 +76,10 @@ class Settings(BaseSettings):
     # webhook (Mailgun Routes, SendGrid Inbound Parse, Postmark Inbound...)
     # posts replies to /api/v1/public/inbound/email with this secret.
     INBOUND_EMAIL_DOMAIN: str = "inbound.localhost"
+    # Only once a mail provider really receives mail for INBOUND_EMAIL_DOMAIN.
+    # Off: replies go to each company's own addresses (reply_to_emails, else
+    # sender_email), never to a domain nobody receives mail for.
+    INBOUND_EMAIL_ENABLED: bool = False
     INBOUND_EMAIL_SECRET: str = "change-me-inbound-secret"
 
     # Subscriptions, paid through YGT's own Paystack account (Paystack

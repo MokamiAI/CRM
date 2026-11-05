@@ -1,9 +1,23 @@
+import re
 from decimal import Decimal
 import uuid
 from datetime import datetime
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+
+
+def clean_reply_to(value: str | None) -> str | None:
+    """'a@x.co.za; B@x.co.za ' -> 'a@x.co.za, b@x.co.za' (max 3); '' -> None."""
+    if value is None:
+        return None
+    parts = [p.strip().lower() for p in value.replace(";", ",").split(",") if p.strip()]
+    if len(parts) > 3:
+        raise ValueError("Give at most 3 reply addresses")
+    for part in parts:
+        if not re.fullmatch(r"[^@\s,]+@[^@\s,]+\.[^@\s,]+", part):
+            raise ValueError(f"{part} isn't an email address")
+    return ", ".join(dict.fromkeys(parts)) or ""
 
 
 class CompanySettingsUpdate(BaseModel):
@@ -26,6 +40,13 @@ class CompanySettingsUpdate(BaseModel):
     # smtp_host unset falls back to the server-wide SMTP_* env vars.
     sender_name: str | None = Field(default=None, max_length=255)
     sender_email: EmailStr | None = None
+    # Client replies go to: up to 3 addresses, comma-separated. "" clears it.
+    reply_to_emails: str | None = Field(default=None, max_length=500)
+
+    @field_validator("reply_to_emails")
+    @classmethod
+    def _reply_to(cls, value):
+        return clean_reply_to(value)
     smtp_host: str | None = Field(default=None, max_length=255)
     smtp_port: int | None = Field(default=None, ge=1, le=65535)
     smtp_username: str | None = Field(default=None, max_length=255)
@@ -72,6 +93,7 @@ class CompanySettingsOut(BaseModel):
     payment_terms_days: int
     sender_name: str | None
     sender_email: str | None
+    reply_to_emails: str | None = None
     smtp_host: str | None
     smtp_port: int | None
     smtp_username: str | None

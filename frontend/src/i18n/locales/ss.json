@@ -1842,7 +1842,9 @@
       "testSent": "I-imeyili yekuhlola itfunyelwe",
       "title": "I-imeyili lephumako",
       "tls": "Sebentisa i-TLS",
-      "username": "Libito lalosebentisako le-SMTP"
+      "username": "Libito lalosebentisako le-SMTP",
+      "replyTo": "Timphendvulo tebatsengi tiya ku-",
+      "replyToHint": "Kufika kumakheli la-3, ahlukaniswe ngemakhoma. Shiya kungenalutfo kute kusetjentiswe i-imeyili yalotfumelako. Hlanganisa libhokisi lakho leposi ngentasi kute ufundze timphendvulo kuTincwadzi."
     },
     "loadFailed": "Asikhonanga kulayisha kuhlela.",
     "reminders": {

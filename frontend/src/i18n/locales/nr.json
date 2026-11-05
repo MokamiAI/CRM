@@ -1842,7 +1842,9 @@
       "testSent": "I-imeyili yokuhlola ithunyelwe",
       "title": "I-imeyili ephumako",
       "tls": "Sebenzisa i-TLS",
-      "username": "Ibizo lomsebenzisi le-SMTP"
+      "username": "Ibizo lomsebenzisi le-SMTP",
+      "replyTo": "Iimpendulo zamakhasimende ziya ku-",
+      "replyToHint": "Ukufikela kumakheli ama-3, ahlukaniswe ngamakhoma. Tjhiya kungenalitho bona kusetjenziswe i-imeyili yomthumeli. Hlanganisa ibhoksi lakho leposo ngaphasi bona ufunde iimpendulo kuMilayezo."
     },
     "loadFailed": "Asikghonanga ukulayitsha iinlungiselelo.",
     "reminders": {

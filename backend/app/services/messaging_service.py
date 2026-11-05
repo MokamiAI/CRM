@@ -243,12 +243,22 @@ class MessagingService:
             conversation.unread = False
             await self.db.flush()
 
-    async def inbox_address_for_current(self) -> str:
+    async def inbox_address_for_current(self) -> str | None:
+        """Where clients can email the company: its connected mailbox (read
+        into Messages), YGT's inbound address when that's switched on, else
+        its own reply addresses. None when there's nothing real to show."""
+        from app.services.channel_service import ChannelService
+
         company = await CompanySettingsRepository(self.db).get_current()
-        if not company.inbox_token:
-            company.inbox_token = secrets.token_urlsafe(12)
-            await self.db.flush()
-        return inbox_address(company.inbox_token)
+        mailbox = await ChannelService(self.db).enabled("email_in")
+        if mailbox and (mailbox.settings or {}).get("username"):
+            return mailbox.settings["username"]
+        if settings.INBOUND_EMAIL_ENABLED:
+            if not company.inbox_token:
+                company.inbox_token = secrets.token_urlsafe(12)
+                await self.db.flush()
+            return inbox_address(company.inbox_token)
+        return company.reply_to_emails or company.sender_email or None
 
     # ---------- Outgoing email ----------
 
@@ -280,8 +290,10 @@ class MessagingService:
         domain = (company.sender_email or "").rpartition("@")[2] or settings.INBOUND_EMAIL_DOMAIN
         message.email_message_id = make_msgid(idstring=f"conv-{conversation.token}", domain=domain)
         email.headers["Message-ID"] = message.email_message_id
-        if await ChannelService(self.db).enabled("email_in") is None:
-            # No mailbox connected: fall back to the platform's reply address.
+        if settings.INBOUND_EMAIL_ENABLED and await ChannelService(self.db).enabled("email_in") is None:
+            # No mailbox connected: the platform's reply address brings the
+            # reply into Messages. Without inbound mail, the company's own
+            # reply addresses apply (email_settings.resolve_email_config).
             email.headers["Reply-To"] = reply_address(conversation.token)
         if previous_in:
             email.headers["In-Reply-To"] = previous_in

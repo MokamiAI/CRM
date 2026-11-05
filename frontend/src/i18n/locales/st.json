@@ -1842,7 +1842,9 @@
       "testSent": "Imeile ya teko e rometswe",
       "title": "Imeile e tswang",
       "tls": "Sebedisa TLS",
-      "username": "Lebitso la mosebedisi la SMTP"
+      "username": "Lebitso la mosebedisi la SMTP",
+      "replyTo": "Dikarabo tsa bareki di ya ho",
+      "replyToHint": "Ho fihlela ho diaterese tse 3, di arohantswe ka dikhoma. Tlohela ho se letho ho sebedisa imeile ya moromelli. Hokahanya lebokose la hao la poso ka tlase ho bala dikarabo ho Melaetsa."
     },
     "loadFailed": "Re hlolehile ho laisha ditlhophiso.",
     "reminders": {

@@ -1842,7 +1842,9 @@
       "testSent": "I-imeyile yovavanyo ithunyelwe",
       "title": "I-imeyile ephumayo",
       "tls": "Sebenzisa i-TLS",
-      "username": "Igama lomsebenzisi le-SMTP"
+      "username": "Igama lomsebenzisi le-SMTP",
+      "replyTo": "Iimpendulo zabathengi ziya ku-",
+      "replyToHint": "Ukuya kuthi ga kwiidilesi ezi-3, zahlulwe ngeekoma. Shiya kungenanto ukuze kusetyenziswe i-imeyile yomthumeli. Qhagamshela ibhokisi yakho yeposi ngezantsi ukuze ufunde iimpendulo kwiMiyalezo."
     },
     "loadFailed": "Asikwazanga ukulayisha iisetingi.",
     "reminders": {

@@ -1842,7 +1842,9 @@
       "testSent": "Imeiḽi ya ndingo yo rumelwa",
       "title": "Imeiḽi i bvaho",
       "tls": "Shumisani TLS",
-      "username": "Dzina ḽa mushumisi ḽa SMTP"
+      "username": "Dzina ḽa mushumisi ḽa SMTP",
+      "replyTo": "Phindulo dza vharengi dzi ya kha",
+      "replyToHint": "U swika kha diresi dza 3, dzo khethekanywa nga khoma. Siani ho tou vha hu si na tshithu u shumisa imeiḽi ya muṱumeli. Ṱumanyani bogisi ḽaṋu ḽa poswo afho fhasi u vhala phindulo kha Milaedza."
     },
     "loadFailed": "Ro kundelwa u hwalela nzudzanyo.",
     "reminders": {

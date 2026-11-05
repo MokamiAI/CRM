@@ -1866,7 +1866,9 @@
       "testSent": "Test email sent",
       "title": "Outgoing email",
       "tls": "Use TLS",
-      "username": "SMTP username"
+      "username": "SMTP username",
+      "replyTo": "Client replies go to",
+      "replyToHint": "Up to 3 addresses, separated by commas. Leave empty to use the sender email. Connect your mailbox below to read replies in Messages."
     },
     "loadFailed": "Couldn't load settings.",
     "reminders": {

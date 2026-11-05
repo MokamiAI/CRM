@@ -1842,7 +1842,9 @@
       "testSent": "Imeyili ya ndzingo yi rhumeriwile",
       "title": "Imeyili leyi humaka",
       "tls": "Tirhisa TLS",
-      "username": "Vito ra mutirhisi ra SMTP"
+      "username": "Vito ra mutirhisi ra SMTP",
+      "replyTo": "Tinhlamulo ta vaxavi ti ya eka",
+      "replyToHint": "Ku fika eka tiadirese ta 3, ti hambanisiwile hi tikhoma. Siya ku nga ri na nchumu ku tirhisa imeyili ya murhumeri. Hlanganisa bokisi ra wena ra poso laha hansi ku hlaya tinhlamulo eka Marungula."
     },
     "loadFailed": "A hi swi kotanga ku layicha mavekelo.",
     "reminders": {
