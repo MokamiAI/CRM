@@ -40,6 +40,7 @@ i18nReady.catch(() => {}).finally(() => ReactDOM.createRoot(document.getElementB
         <Toaster
           position="top-center"
           richColors
+          closeButton
           mobileOffset={{ top: "max(env(safe-area-inset-top, 0px), 16px)" }}
         />
       </BrowserRouter>

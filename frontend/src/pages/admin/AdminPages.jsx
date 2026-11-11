@@ -198,20 +198,17 @@ export function AdminTenants() {
   const query = useQuery({ queryKey: ["admin", "tenants", search], queryFn: () => get("/admin/tenants", search ? { search } : undefined) });
   return (
     <>
-      <Title sub="Every company on YGT, with what they use and pay.">Tenants</Title>
+      <Title sub="Every company on YGT and its subscription. Their clients, quotes and invoices are private to them.">Tenants</Title>
       <input type="search" className="input mb-4 max-w-sm" placeholder="Search by company or email…" value={search} onChange={(e) => setSearch(e.target.value)} />
       <Loading query={query}>
         {(rows) => (
           <div className="card overflow-x-auto">
-            <table className="w-full min-w-[56rem] text-sm">
+            <table className="w-full min-w-[40rem] text-sm">
               <thead className="table-head">
                 <tr>
                   <th>Company</th>
                   <th>Plan</th>
                   <th className="text-right">People</th>
-                  <th className="text-right">Clients</th>
-                  <th className="text-right">Invoices</th>
-                  <th className="text-right">Invoiced</th>
                   <th className="text-right">MRR</th>
                   <th>Last active</th>
                 </tr>
@@ -231,9 +228,6 @@ export function AdminTenants() {
                       <StatePill state={t.state} plan={t.plan} />
                     </td>
                     <td className="text-right tabular-nums">{t.users}</td>
-                    <td className="text-right tabular-nums">{t.customers}</td>
-                    <td className="text-right tabular-nums">{t.invoices}</td>
-                    <td className="text-right tabular-nums">{formatMoney(t.invoiced)}</td>
                     <td className="text-right tabular-nums">{rands(t.mrr_cents)}</td>
                     <td className="whitespace-nowrap text-zinc-500">{t.last_active_at ? formatDateTime(t.last_active_at) : "—"}</td>
                   </tr>
@@ -337,14 +331,12 @@ export function AdminTenant() {
               Suspended {formatDateTime(t.suspended_at)}: {t.suspended_reason}
             </p>
           )}
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             {[
               ["People", t.users],
-              ["Clients", t.customers],
-              ["Quotes", t.quotes],
-              ["Invoices", t.invoices],
-              ["Invoiced", formatMoney(t.invoiced)],
-              ["Collected", formatMoney(t.collected)],
+              ["Seats", t.seats ?? "—"],
+              ["Worth per month", rands(t.mrr_cents)],
+              ["Last active", t.last_active_at ? formatDate(t.last_active_at) : "—"],
             ].map(([label, value]) => (
               <div key={label} className="card p-3">
                 <p className="text-xs text-zinc-500">{label}</p>
@@ -466,7 +458,7 @@ function DeleteCompanySheet({ tenant, onClose }) {
   const remove = useMutation({
     mutationFn: () => apiClient.post(`/admin/tenants/${tenant.id}/delete`, { confirm_name: typed }).then((r) => r.data),
     onSuccess: (r) => {
-      toast.success(`${r.deleted} deleted`, { description: `${r.people} people, ${r.customers} clients and ${r.invoices} invoices erased.` });
+      toast.success(`${r.deleted} deleted`, { description: `The company, its ${r.people} people and all its data were erased.` });
       queryClient.invalidateQueries({ queryKey: ["admin"] });
       setTyped("");
       onClose();

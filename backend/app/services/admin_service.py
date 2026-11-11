@@ -1,6 +1,10 @@
-"""The admin site's view across every company: tenants and their totals,
-subscriptions and refunds, errors and activity. Runs in a SYSTEM session
-(see require_platform_admin), so nothing here is filtered by company."""
+"""The admin site's view across every company: tenants, subscriptions and
+refunds, errors and activity. Runs in a SYSTEM session (see
+require_platform_admin), so nothing here is filtered by company.
+
+A company's own business (its clients, quotes, invoices and money) is
+private to it: nothing here counts or totals it, so YGT's team only sees
+what running the subscription needs."""
 import logging
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -13,18 +17,13 @@ from app.core.exceptions import AppError, NotFoundError
 from app.core.plans import PLANS
 from app.models.billing import BillingPayment, Subscription, SubscriptionInvoice
 from app.models.company_settings import CompanySettings
-from app.models.customer import Customer
-from app.models.enums import InvoiceStatus, UserRole
-from app.models.invoice import Invoice
+from app.models.enums import UserRole
 from app.models.platform import AuditEvent, BillingRefund, ContactRequest, ErrorLog, SessionBooking, SupportTicket
-from app.models.quote import Quote
 from app.models.user import User
 from app.services import paystack
 from app.services.billing_service import effective
 
 logger = logging.getLogger(__name__)
-
-_BILLED = (InvoiceStatus.SENT, InvoiceStatus.PARTIALLY_PAID, InvoiceStatus.PAID, InvoiceStatus.OVERDUE)
 
 
 def _now() -> datetime:
@@ -42,7 +41,7 @@ def monthly_cents(sub: Subscription) -> int:
 async def erase_company(db, company: CompanySettings) -> dict:
     """Erases a company and everything it holds: every table cascades from
     company_settings. A card subscription is stopped first, and if Paystack
-    can't be reached nothing is deleted. Returns what was there."""
+    can't be reached nothing is deleted. Returns how many people it had."""
     company_id = company.id
     sub = await db.scalar(select(Subscription).where(Subscription.company_id == company_id))
     if sub and sub.status in ("active", "past_due") and sub.paystack_subscription_code and sub.paystack_email_token:
@@ -51,11 +50,8 @@ async def erase_company(db, company: CompanySettings) -> dict:
         except Exception as exc:
             # Never leave a card being charged for a company that no longer exists.
             raise AppError("Couldn't stop the Paystack subscription, so nothing was deleted. Cancel it in the Paystack dashboard, then try again.", "PAYSTACK_CANCEL_FAILED") from exc
-    counts = {
-        "people": await db.scalar(select(func.count()).select_from(User).where(User.company_id == company_id)),
-        "customers": await db.scalar(select(func.count()).select_from(Customer).where(Customer.company_id == company_id, Customer.is_prospect.is_(False))),
-        "invoices": await db.scalar(select(func.count()).select_from(Invoice).where(Invoice.company_id == company_id)),
-    }
+    # Only how many people had accounts: what the company held is its own business.
+    counts = {"people": await db.scalar(select(func.count()).select_from(User).where(User.company_id == company_id))}
     await db.execute(sa_delete(CompanySettings).where(CompanySettings.id == company_id))
     await db.flush()
     return counts
@@ -104,18 +100,6 @@ class AdminService:
             query = query.where(or_(CompanySettings.company_name.ilike(like), CompanySettings.id.in_(owners)))
         companies = list(await self.db.scalars(query.limit(500)))
         users = await self._count_by_company(User, User.is_active.is_(True))
-        customers = await self._count_by_company(Customer)
-        invoices = await self._count_by_company(Invoice)
-        money = dict(
-            (row[0], (row[1], row[2]))
-            for row in (
-                await self.db.execute(
-                    select(Invoice.company_id, func.coalesce(func.sum(Invoice.total), 0), func.coalesce(func.sum(Invoice.amount_paid), 0))
-                    .where(Invoice.status.in_(_BILLED))
-                    .group_by(Invoice.company_id)
-                )
-            ).all()
-        )
         last_seen = dict((await self.db.execute(select(AuditEvent.company_id, func.max(AuditEvent.created_at)).group_by(AuditEvent.company_id))).all())
         subs = {s.company_id: s for s in await self.db.scalars(select(Subscription))}
         admins = {}
@@ -125,7 +109,6 @@ class AdminService:
         for c in companies:
             sub = subs.get(c.id)
             current = effective(sub) if sub else None
-            invoiced, paid = money.get(c.id, (0, 0))
             out.append(
                 {
                     "id": c.id,
@@ -139,10 +122,6 @@ class AdminService:
                     "trial_ends_at": sub.trial_ends_at if sub else None,
                     "mrr_cents": monthly_cents(sub) if sub else 0,
                     "users": users.get(c.id, 0),
-                    "customers": customers.get(c.id, 0),
-                    "invoices": invoices.get(c.id, 0),
-                    "invoiced": float(invoiced),
-                    "collected": float(paid),
                     "last_active_at": last_seen.get(c.id),
                 }
             )
@@ -162,14 +141,12 @@ class AdminService:
         refunds = list(await self.db.scalars(select(BillingRefund).where(BillingRefund.company_id == company_id).order_by(BillingRefund.created_at.desc())))
         numbers = dict((await self.db.execute(select(SubscriptionInvoice.payment_id, SubscriptionInvoice.number).where(SubscriptionInvoice.company_id == company_id))).all())
         users = list(await self.db.scalars(select(User).where(User.company_id == company_id).order_by(User.created_at)))
-        quotes = await self.db.scalar(select(func.count()).select_from(Quote).where(Quote.company_id == company_id))
         return {
             **summary,
             "address": company.address,
             "tax_number": company.tax_number,
             "suspended_at": company.suspended_at,
             "suspended_reason": company.suspended_reason,
-            "quotes": quotes,
             "subscription": {
                 "status": sub.status if sub else None,
                 "plan": sub.plan if sub else None,
@@ -221,9 +198,9 @@ class AdminService:
         if admin.company_id == company_id:
             raise AppError("You can't delete the company your own YGT admin account belongs to.", "CANNOT_DELETE_OWN_COMPANY")
         name = company.company_name
-        counts = await erase_company(self.db, company)
-        logger.warning("Company %s (%s) deleted by %s: %s", name, company_id, admin.email, counts)
-        return {"deleted": name, **counts}
+        people = (await erase_company(self.db, company))["people"]
+        logger.warning("Company %s (%s) deleted by %s: %s people", name, company_id, admin.email, people)
+        return {"deleted": name, "people": people}
 
     async def unsuspend(self, company_id: uuid.UUID) -> None:
         company = await self.company(company_id)

@@ -82,11 +82,15 @@ function chime() {
   }
 }
 
+/** Asks the bell in the top bar to open its list. */
+export const OPEN_BELL = "ygt:open-notifications";
+
 /** While YGT is open: a new notification pops up (and chimes). Mounted
  *  once, in the app layout. */
 export function NotificationPopper() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { data } = useMyNotifications();
   const seen = useRef(null);
   useEffect(() => {
@@ -109,15 +113,34 @@ export function NotificationPopper() {
     items.forEach((n) => seen.current.add(id(n)));
     if (!fresh.length) return;
     chime();
-    for (const n of fresh.slice(0, 3)) {
-      const text = notificationText(n, t);
-      toast(text.title, {
-        description: text.body || undefined,
+    // One pop-up, never a stack: several at once become a summary that
+    // opens the bell. Closing a pop-up only hides it; it stays unread there.
+    const first = notificationText(fresh[0], t);
+    if (fresh.length === 1) {
+      const n = fresh[0];
+      toast(first.title, {
+        id: "notification",
+        description: first.body || undefined,
         duration: 8000,
-        action: n.link ? { label: t("notify.open"), onClick: () => navigate(n.link) } : undefined,
+        action: n.link
+          ? {
+              label: t("notify.open"),
+              onClick: () => {
+                apiClient.post("/notifications/read", { ids: [n.id] }).then(() => queryClient.invalidateQueries({ queryKey: ["notifications"] }));
+                navigate(n.link);
+              },
+            }
+          : undefined,
+      });
+    } else {
+      toast(t("notify.newCount", { count: fresh.length }), {
+        id: "notification",
+        description: t("notify.andMore", { title: first.title, count: fresh.length - 1 }),
+        duration: 8000,
+        action: { label: t("notify.viewAll"), onClick: () => window.dispatchEvent(new Event(OPEN_BELL)) },
       });
     }
-  }, [data, t, navigate]);
+  }, [data, t, navigate, queryClient]);
   return null;
 }
 

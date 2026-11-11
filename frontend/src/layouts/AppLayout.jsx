@@ -16,7 +16,7 @@ import { TourProvider, useTour } from "../components/Tour";
 import { ProfileSheet } from "../components/Signature";
 import { LockedBanner, useHasFeature } from "../components/Billing";
 import QuoteOfTheWeek from "../components/QuoteOfTheWeek";
-import { NotificationList, NotificationPopper, PushToggle, useMyNotifications } from "../components/NotificationCenter";
+import { NotificationList, NotificationPopper, OPEN_BELL, PushToggle, useMyNotifications } from "../components/NotificationCenter";
 import { WelcomeSplash, welcomeQueued } from "../components/Startup";
 import { useActivityCounts, useCompany, useDiscoveryCounts, useInboxCounts } from "../hooks/useApi";
 
@@ -243,6 +243,12 @@ function Notifications() {
     ...(discovery ? [{ to: "/discovery", icon: DiscoveryIcon, count: found?.new ?? 0, text: "discovery" }] : []),
   ].filter((r) => r.count > 0);
   const { data: mine } = useMyNotifications();
+  // "View all" on a notification pop-up opens this list.
+  useEffect(() => {
+    const show = () => setOpen(true);
+    window.addEventListener(OPEN_BELL, show);
+    return () => window.removeEventListener(OPEN_BELL, show);
+  }, [setOpen]);
   const total = rows.reduce((n, r) => n + r.count, 0) + (mine?.unread ?? 0);
   return (
     <div className="relative" ref={ref}>
