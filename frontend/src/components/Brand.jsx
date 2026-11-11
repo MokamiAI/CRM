@@ -1,8 +1,27 @@
+import { useTranslation } from "react-i18next";
+
 // The product's name and mark, in one place.
 export const APP_NAME = "YGT";
 export const APP_FULL_NAME = "You Got This";
-// The company that develops and runs YGT.
+// The company that develops and runs YGT, and its own website.
 export const COMPANY_NAME = "YGT Nexovanta Technologies";
+export const COMPANY_URL = "https://ynexovantatech.co.za";
+
+/** "Developed by YGT Nexovanta Technologies", the name linking to the
+ *  company's website (a new tab, so YGT stays open). */
+export function DevelopedBy() {
+  const { t } = useTranslation();
+  const [before, after = ""] = t("about.developedBy", { company: "%COMPANY%" }).split("%COMPANY%");
+  return (
+    <>
+      {before}
+      <a href={COMPANY_URL} target="_blank" rel="noopener" className="underline-offset-2 hover:text-zinc-800 hover:underline">
+        {COMPANY_NAME}
+      </a>
+      {after}
+    </>
+  );
+}
 
 /** The YGT monogram on the brand gradient. `join` lets the letters rise into
  *  place once (sign-in and About only; never in the sidebar). */

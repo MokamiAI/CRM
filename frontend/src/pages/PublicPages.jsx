@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router-do
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
 import { announceVerified, useAuth } from "../context/AuthContext";
-import { APP_NAME, BrandMark, COMPANY_NAME } from "../components/Brand";
+import { APP_NAME, BrandMark, COMPANY_NAME, DevelopedBy } from "../components/Brand";
 import LanguagePicker from "../components/LanguagePicker";
 import GlowField from "../components/GlowField";
 import { AuthShell, FormError, SwitchLink, TermsLinks } from "./LoginPage";
@@ -123,7 +123,7 @@ export function PublicFooter() {
   return (
     <footer className="safe-bottom mt-12 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-zinc-100 py-6 text-xs text-zinc-500">
       <span>
-        © {new Date().getFullYear()} {APP_NAME} · {t("about.developedBy", { company: COMPANY_NAME })}
+        © {new Date().getFullYear()} {APP_NAME} · <DevelopedBy />
       </span>
       {links.map(([to, label]) => (
         <Link key={to} to={to} className="inline-flex min-h-9 items-center hover:text-zinc-800 [@media(pointer:coarse)]:min-h-11">
