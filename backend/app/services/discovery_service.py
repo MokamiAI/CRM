@@ -19,11 +19,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import AppError, NotFoundError
 from app.core.tenancy import current_company_id
-from app.models.crm import Deal
+from app.models.crm import Activity, Deal
 from app.models.customer import Customer
 from app.models.discovery import DiscoveredLead, DiscoverySettings
 from app.models.enums import DealStage, InvoiceStatus, QuoteStatus
 from app.models.invoice import Invoice
+from app.models.messaging import Conversation, Message
 from app.models.quote import Quote
 from app.models.user import User
 from app.schemas.crm import DealCreate
@@ -255,11 +256,53 @@ class DiscoveryService:
                 break
         return out
 
+    async def _latest(self, query) -> dict[uuid.UUID, date]:
+        """customer_id -> a date, from a (customer_id, date or time) query."""
+        out: dict[uuid.UUID, date] = {}
+        for customer_id, when in (await self.db.execute(query)).all():
+            if customer_id is not None and when is not None:
+                out[customer_id] = when.date() if isinstance(when, datetime) else when
+        return out
+
     async def _own_records(self, today: date) -> list[dict]:
-        """Customers worth a call: one reason each, the strongest first."""
+        """Customers worth a call: one reason each, the strongest first.
+
+        Not someone a person is already on (an open deal or a planned
+        activity), and not someone who has bought, accepted or been in touch
+        since the quote or lost deal in question."""
         open_deal = select(Deal.customer_id).where(Deal.stage.in_(OPEN_STAGES))
         pending = select(DiscoveredLead.customer_id).where(DiscoveredLead.status == "new", DiscoveredLead.customer_id.is_not(None))
-        busy = set((await self.db.scalars(open_deal)).all()) | set((await self.db.scalars(pending)).all())
+        planned = select(Activity.customer_id).where(Activity.done.is_(False), Activity.customer_id.is_not(None))
+        busy = set((await self.db.scalars(open_deal)).all()) | set((await self.db.scalars(pending)).all()) | set((await self.db.scalars(planned)).all())
+
+        # The last time each customer bought or said yes, and the last time
+        # someone was in touch: a finished activity, or a message either way
+        # (Messages holds only what people wrote, never YGT's own document
+        # emails; internal notes don't count).
+        bought: dict[uuid.UUID, date] = {}
+        for query in (
+            select(Invoice.customer_id, func.max(Invoice.issue_date)).where(Invoice.status.not_in((InvoiceStatus.DRAFT, InvoiceStatus.VOID))).group_by(Invoice.customer_id),
+            select(Quote.customer_id, func.max(Quote.issue_date)).where(Quote.status.in_((QuoteStatus.ACCEPTED, QuoteStatus.CONVERTED))).group_by(Quote.customer_id),
+            select(Deal.customer_id, func.max(Deal.closed_at)).where(Deal.stage == DealStage.WON).group_by(Deal.customer_id),
+        ):
+            for customer_id, when in (await self._latest(query)).items():
+                bought[customer_id] = max(when, bought.get(customer_id, when))
+        touched = await self._latest(select(Activity.customer_id, func.max(Activity.done_at)).where(Activity.done.is_(True)).group_by(Activity.customer_id))
+        written = (
+            select(Conversation.customer_id, func.max(Message.created_at))
+            .join(Message, Message.conversation_id == Conversation.id)
+            .where(Message.direction.in_(("in", "out")))
+            .group_by(Conversation.customer_id)
+        )
+        for customer_id, when in (await self._latest(written)).items():
+            touched[customer_id] = max(when, touched.get(customer_id, when))
+
+        def moved_on(customer_id: uuid.UUID, since: date | None) -> bool:
+            """Bought, said yes or was in touch after `since`."""
+            if since is None:
+                return False
+            return bought.get(customer_id, date.min) > since or touched.get(customer_id, date.min) > since
+
         out: list[dict] = []
 
         def take(customer: Customer, source: str, ref: str, details: dict, last: date | None) -> None:
@@ -290,7 +333,7 @@ class DiscoveryService:
             .order_by(Quote.total.desc())
         )
         for quote, customer in quotes.all():
-            if customer.id not in busy:
+            if customer.id not in busy and not moved_on(customer.id, quote.issue_date):
                 details = {"quote_id": str(quote.id), "number": quote.quote_number, "value": _money(quote.total)}
                 take(customer, "stale_quote", f"quote:{quote.id}", details, quote.issue_date)
 
@@ -306,7 +349,7 @@ class DiscoveryService:
             .order_by(Deal.value.desc())
         )
         for deal, customer in lost.all():
-            if customer.id not in busy:
+            if customer.id not in busy and not moved_on(customer.id, deal.closed_at.date() if deal.closed_at else None):
                 details = {"deal_id": str(deal.id), "title": deal.title, "value": _money(deal.value), "reason": deal.lost_reason}
                 take(customer, "lost_deal", f"lost:{deal.id}", details, deal.closed_at.date() if deal.closed_at else None)
 
@@ -328,6 +371,7 @@ class DiscoveryService:
             .order_by(last_invoice.c.avg.desc())
         )
         for customer, latest_day, avg in quiet.all():
-            if customer.id not in busy:
+            # Quiet on paper, but someone spoke to them recently: not quiet.
+            if customer.id not in busy and touched.get(customer.id, date.min) <= today - timedelta(days=QUIET_AFTER_DAYS):
                 take(customer, "quiet_customer", f"quiet:{customer.id}:{latest_day.isoformat()}", {"value": _money(avg)}, latest_day)
         return out

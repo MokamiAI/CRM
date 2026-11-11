@@ -239,6 +239,7 @@ async def test_map_outage_keeps_own_records_and_backup_server_is_tried(api, monk
 
     monkeypatch.setattr(discovery_osm, "_get", busy_then_ok)
     monkeypatch.setattr(settings, "OVERPASS_URL", "https://first.example/api,https://second.example/api")
+    monkeypatch.setattr(discovery_osm, "RETRY_PAUSE_SECONDS", 0)
     places = await discovery_osm.nearby(-33.9, 18.4, 5, ["education"])
     assert len(places) == 3 and tried == ["https://first.example/api", "https://second.example/api"]
 
@@ -251,3 +252,53 @@ async def test_map_outage_keeps_own_records_and_backup_server_is_tried(api, monk
     assert res == {"found": 3, "looking_nearby": True}
     assert len((await api.get("/discovery/leads", headers=h)).json()) == 3
     assert (await api.get("/discovery/settings", headers=h)).json()["nearby_status"] == "failed"
+
+
+@pytest.mark.asyncio
+async def test_not_for_customers_who_moved_on_or_are_being_looked_after(api):
+    """A lost deal won back, a quote followed by a purchase, a quiet customer
+    someone spoke to last week, and a customer with a call planned: none of
+    them is a lead."""
+    owner = await new_company(api, f"Moved {uuid.uuid4().hex[:4]}", plan="scale")
+    h = owner["headers"]
+    won_back, bought, called, planned = [await _customer(api, h, n) for n in ("Won Back Co", "Bought Since Co", "Called Co", "Planned Co")]
+    # Lost 90 days ago, won 10 days ago.
+    lost = (await api.post("/deals", json={"title": "First try", "customer_id": won_back, "stage": "lost", "value": "5000"}, headers=h)).json()
+    won = (await api.post("/deals", json={"title": "Second try", "customer_id": won_back, "stage": "won", "value": "5000"}, headers=h)).json()
+    for deal_id, days in ((lost["id"], 90), (won["id"], 10)):
+        await _system(update(Deal).where(Deal.id == uuid.UUID(deal_id)).values(closed_at=datetime.now(timezone.utc) - timedelta(days=days)))
+    # A quote 30 days ago, then an invoice 5 days ago.
+    for customer in (bought, planned):
+        q = (await api.post("/quotes", json={"customer_id": customer, "issue_date": (TODAY - timedelta(days=30)).isoformat(), "items": ITEM}, headers=h)).json()
+        await api.post(f"/quotes/{q['id']}/send", params={"notify": "false"}, headers=h)
+    inv = (await api.post("/invoices", json={"customer_id": bought, "issue_date": (TODAY - timedelta(days=5)).isoformat(), "items": ITEM}, headers=h)).json()
+    await api.post(f"/invoices/{inv['id']}/send", params={"notify": "false"}, headers=h)
+    # Paid 200 days ago, nothing since on paper, but a call logged as done today.
+    old = (await api.post("/invoices", json={"customer_id": called, "issue_date": (TODAY - timedelta(days=200)).isoformat(), "items": ITEM}, headers=h)).json()
+    await api.post(f"/invoices/{old['id']}/send", params={"notify": "false"}, headers=h)
+    await api.post(f"/invoices/{old['id']}/payments", json={"amount": old["total"], "method": "eft"}, headers=h)
+    call = (await api.post("/activities", json={"type": "call", "subject": "Catch-up", "due_date": TODAY.isoformat(), "customer_id": called}, headers=h)).json()
+    assert (await api.patch(f"/activities/{call['id']}", json={"done": True}, headers=h)).status_code == 200
+    # A follow-up already planned.
+    await api.post("/activities", json={"type": "call", "subject": "Follow up the quote", "due_date": (TODAY + timedelta(days=2)).isoformat(), "customer_id": planned}, headers=h)
+
+    run = (await api.post("/discovery/run", headers=h)).json()
+    leads = (await api.get("/discovery/leads", headers=h)).json()
+    assert run["found"] == 0 and leads == [], [(lead["name"], lead["source"]) for lead in leads]
+
+
+def test_map_leads_skip_chains_and_put_the_best_first():
+    here = (-25.63, 27.78)
+    near, far = {"lat": -25.631, "lon": 27.781}, {"lat": -25.70, "lon": 27.90}
+    elements = [
+        {"type": "node", "id": 1, "tags": {"name": "Far Bakery", "shop": "bakery", "phone": "012 1"}, **far},
+        {"type": "node", "id": 2, "tags": {"name": "Near Bakery", "shop": "bakery", "phone": "012 2"}, **near},
+        {"type": "node", "id": 3, "tags": {"name": "Nearest, No Contact", "shop": "bakery"}, "lat": -25.6301, "lon": 27.7801},
+        {"type": "node", "id": 4, "tags": {"name": "Pick n Pay", "shop": "bakery", "brand": "Pick n Pay"}, **near},  # tagged brand
+        {"type": "node", "id": 5, "tags": {"name": "Woolworths", "shop": "bakery"}, **near},  # known chain, untagged
+        *({"type": "node", "id": 10 + i, "tags": {"name": "Corner Pies", "shop": "bakery"}, **near} for i in range(3)),  # three branches
+        {"type": "way", "id": 6, "tags": {"name": "Way Bakery", "shop": "bakery", "website": "x.example"}, "center": {"lat": -25.65, "lon": 27.80}},
+    ]
+    places = discovery_osm.parse({"elements": elements}, ["food_beverage"], *here)
+    assert [p.name for p in places] == ["Near Bakery", "Way Bakery", "Far Bakery", "Nearest, No Contact"]
+    assert places[0].distance_km < 1 < places[-2].distance_km

@@ -2573,6 +2573,7 @@
       "dismissed": "Nothing dismissed"
     },
     "privacy": "Leads are suggestions only: YGT never contacts them. Nearby businesses come from public map data,",
+    "coverage": "Map coverage varies by area: smaller towns may show only a few businesses. Branches of big chains are left out.",
     "settings": {
       "button": "Where to look",
       "title": "Where to look",

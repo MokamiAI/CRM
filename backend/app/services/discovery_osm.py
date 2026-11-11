@@ -5,7 +5,9 @@ at a time, and no bulk downloads. Discovery runs once a week per company.
 
 Data © OpenStreetMap contributors, under the Open Database Licence; the
 Discovery page says so wherever these leads appear."""
+import asyncio
 import logging
+import math
 import re
 from dataclasses import dataclass
 
@@ -18,7 +20,23 @@ logger = logging.getLogger(__name__)
 # Busy public servers can take a minute; Discovery never waits on them
 # while a person watches (see DiscoveryService.run).
 _TIMEOUT = httpx.Timeout(90.0, connect=15.0)
-MAX_RESULTS = 300
+# Everything in the circle, so the nearest can be picked (the map service
+# returns results in no particular order).
+MAX_RESULTS = 1000
+# Every server busy: wait this long, then try them all once more.
+RETRY_PAUSE_SECONDS = 20
+
+# National chains decide at head office, so a branch isn't a lead. The map
+# tags most with "brand"; these are the common South African ones it often
+# doesn't. Matched on the whole name, ignoring case.
+CHAINS = {
+    "ackermans", "absa", "boxer", "bradlows", "builders", "builders warehouse", "capitec", "cashbuild", "cell c", "checkers",
+    "chicken licken", "clicks", "debonairs", "debonairs pizza", "dis-chem", "edgars", "engen", "fnb", "foschini", "game",
+    "hi-fi corporation", "incredible connection", "jet", "kfc", "lewis", "makro", "mcdonald's", "mr price", "mtn", "nando's",
+    "nedbank", "ok foods", "pep", "pick n pay", "postnet", "roman's pizza", "russells", "sasol", "shell", "shoe city",
+    "shoprite", "spar", "spur", "standard bank", "steers", "superspar", "telkom", "total", "truworths", "usave", "vodacom",
+    "wimpy", "woolworths",
+}
 
 # Each industry code (app/models/enums.py INDUSTRIES) and the OpenStreetMap
 # tags of businesses in it. "other" has none: nothing to search for.
@@ -59,6 +77,12 @@ class Place:
     phone: str | None
     email: str | None
     website: str | None
+    distance_km: float | None = None
+
+    @property
+    def reachable(self) -> bool:
+        """Has a phone number, email or website to get in touch."""
+        return bool(self.phone or self.email or self.website)
 
 
 class OsmUnavailable(Exception):
@@ -121,13 +145,39 @@ def _clean(value: str | None, limit: int) -> str | None:
     return value[:limit] or None
 
 
-def parse(payload: dict, industries: list[str]) -> list[Place]:
+def _distance_km(el: dict, lat: float | None, lon: float | None) -> float | None:
+    point = el.get("center") or el
+    if lat is None or lon is None or point.get("lat") is None or point.get("lon") is None:
+        return None
+    # Haversine: accurate enough for "how far away".
+    p1, p2 = math.radians(lat), math.radians(point["lat"])
+    dp, dl = p2 - p1, math.radians(point["lon"] - lon)
+    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    return round(6371 * 2 * math.asin(math.sqrt(a)), 1)
+
+
+def _is_chain(tags: dict, name: str, branches: dict[str, int]) -> bool:
+    """A branch of a national chain: tagged with a brand, a well-known
+    name, or the same name three times or more in one search."""
+    key = name.lower()
+    return bool(tags.get("brand") or tags.get("brand:wikidata")) or key in CHAINS or branches.get(key, 0) >= 3
+
+
+def parse(payload: dict, industries: list[str], lat: float | None = None, lon: float | None = None) -> list[Place]:
+    """The independent businesses found, best leads first: those with a way
+    to get in touch, then the nearest."""
+    elements = payload.get("elements", [])
+    branches: dict[str, int] = {}
+    for el in elements:
+        name = _clean((el.get("tags") or {}).get("name"), 255)
+        if name:
+            branches[name.lower()] = branches.get(name.lower(), 0) + 1
     places: list[Place] = []
-    for el in payload.get("elements", []):
+    for el in elements:
         tags = el.get("tags") or {}
         name = _clean(tags.get("name"), 255)
         match = _industry_of(tags, industries)
-        if not name or not match:
+        if not name or not match or _is_chain(tags, name, branches):
             continue
         website = _clean(tags.get("website") or tags.get("contact:website"), 500)
         if website and not website.startswith(("http://", "https://")):
@@ -142,8 +192,11 @@ def parse(payload: dict, industries: list[str]) -> list[Place]:
                 phone=_clean(tags.get("phone") or tags.get("contact:phone"), 50),
                 email=_clean(tags.get("email") or tags.get("contact:email"), 255),
                 website=website,
+                distance_km=_distance_km(el, lat, lon),
             )
         )
+    far = float("inf")
+    places.sort(key=lambda p: (not p.reachable, p.distance_km if p.distance_km is not None else far))
     return places
 
 
@@ -153,11 +206,16 @@ async def nearby(lat: float, lon: float, radius_km: int, industries: list[str]) 
         return []
     query = build_query(lat, lon, radius_km, searchable)
     servers = [u.strip() for u in settings.OVERPASS_URL.split(",") if u.strip()]
-    for i, url in enumerate(servers):
+    # The public servers are often busy for a moment: each one, then all of
+    # them once more after a pause.
+    attempts = servers + servers
+    for i, url in enumerate(attempts):
+        if i == len(servers):
+            await asyncio.sleep(RETRY_PAUSE_SECONDS)
         try:
             res = await _get(url, method="POST", data={"data": query})
-            return parse(res.json(), searchable)
+            return parse(res.json(), searchable, lat, lon)
         except OsmUnavailable:
-            if i == len(servers) - 1:
+            if i == len(attempts) - 1:
                 raise
     return []

@@ -337,6 +337,7 @@ export default function DiscoveryPage() {
             <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" className="underline">
               © OpenStreetMap contributors
             </a>
+            . {t("discovery.coverage")}
           </p>
         </div>
       )}
