@@ -128,6 +128,11 @@ export default function TeamManager() {
     onSuccess: (u) => toast.success(t("team.inviteResent"), { description: u.email }),
     onError: (error) => toast.error(errorMessage(error)),
   });
+  const sendReset = useMutation({
+    mutationFn: (u) => apiClient.post(`/users/${u.id}/password-reset`).then(() => u),
+    onSuccess: (u) => toast.success(t("team.resetSent"), { description: t("team.resetSentHint", { email: u.email }) }),
+    onError: (error) => toast.error(errorMessage(error)),
+  });
   const update = useMutation({
     mutationFn: ({ id, ...body }) => apiClient.patch(`/users/${id}`, body),
     onSuccess: () => {
@@ -225,6 +230,16 @@ export default function TeamManager() {
                   onClick={() => window.confirm(t("team.handOverConfirm", { name: u.full_name })) && handOver.mutate(u)}
                 >
                   {t("team.makeOwner")}
+                </Button>
+              )}
+              {!self && u.is_active && !u.invite_pending && (
+                <Button
+                  variant="secondary"
+                  className="!h-9 !px-3 !text-xs"
+                  disabled={sendReset.isPending}
+                  onClick={() => window.confirm(t("team.resetConfirm", { name: u.full_name, email: u.email })) && sendReset.mutate(u)}
+                >
+                  {t("team.sendReset")}
                 </Button>
               )}
               {!self && !u.is_account_owner && (

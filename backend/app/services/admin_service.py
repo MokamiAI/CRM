@@ -201,7 +201,7 @@ class AdminService:
                 {"id": r.id, "payment_id": r.payment_id, "amount_cents": r.amount_cents, "reason": r.reason, "status": r.status, "created_at": r.created_at, "by": r.created_by_email}
                 for r in refunds
             ],
-            "people": [{"id": u.id, "name": u.full_name, "email": u.email, "role": u.role.value, "active": u.is_active, "created_at": u.created_at} for u in users],
+            "people": [{"id": u.id, "name": u.full_name, "email": u.email, "role": u.role.value, "active": u.is_active, "joined": not u.invite_pending, "created_at": u.created_at} for u in users],
         }
 
     async def suspend(self, company_id: uuid.UUID, reason: str) -> None:

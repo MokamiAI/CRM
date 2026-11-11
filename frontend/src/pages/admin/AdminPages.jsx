@@ -274,6 +274,11 @@ export function AdminTenant() {
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ["admin"] }); toast.success("Payment recorded and subscription activated"); },
     onError: error => toast.error(errorMessage(error)),
   });
+  const sendReset = useMutation({
+    mutationFn: (p) => apiClient.post(`/admin/tenants/${id}/people/${p.id}/password-reset`).then(() => p),
+    onSuccess: (p) => toast.success("Reset link sent", { description: p.email }),
+    onError: (error) => toast.error(errorMessage(error)),
+  });
   function suspend() {
     const reason = window.prompt("Why are you suspending this company? (They'll see that their account is suspended and to contact support.)");
     if (reason && reason.trim().length >= 3) act.mutate({ path: "suspend", body: { reason }, message: "Suspended" });
@@ -402,11 +407,23 @@ export function AdminTenant() {
               <h2 className="text-sm font-semibold text-zinc-900">People</h2>
               <ul className="mt-2 divide-y divide-zinc-100 text-sm">
                 {t.people.map((p) => (
-                  <li key={p.id} className="flex justify-between gap-2 py-2">
-                    <span className={p.active ? "" : "text-zinc-400 line-through"}>
+                  <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
+                    <span className={`min-w-0 break-words ${p.active ? "" : "text-zinc-400 line-through"}`}>
                       {p.name} <span className="text-zinc-500">· {p.email}</span>
                     </span>
-                    <span className="text-zinc-500">{p.role}</span>
+                    <span className="flex items-center gap-3">
+                      <span className="text-zinc-500">{p.role}</span>
+                      {p.active && p.joined && (
+                        <button
+                          type="button"
+                          disabled={sendReset.isPending}
+                          onClick={() => window.confirm(`Email ${p.name} a link to choose a new password? It goes to ${p.email} and works for an hour.`) && sendReset.mutate(p)}
+                          className="text-sm font-medium text-indigo-600 hover:text-indigo-700 disabled:opacity-50"
+                        >
+                          Send reset link
+                        </button>
+                      )}
+                    </span>
                   </li>
                 ))}
               </ul>

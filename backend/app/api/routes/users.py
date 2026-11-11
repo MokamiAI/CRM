@@ -7,6 +7,7 @@ from app.api.deps import get_current_user, get_db, plan_room, require_role
 from app.core.exceptions import PermissionDeniedError
 from app.core.exceptions import ConflictError
 from app.models.user import User
+from app.services import password_service
 from app.services.invite_service import InviteService
 from app.core.database import CommitBeforeResponseRoute
 from app.models.enums import UserRole
@@ -43,6 +44,16 @@ async def resend_invite(user_id: uuid.UUID, db: AsyncSession = Depends(get_db), 
     await InviteService(db).send(user, admin, company.company_name)
     await db.refresh(user)
     return user
+
+
+@router.post("/{user_id}/password-reset", status_code=202)
+async def send_password_reset(user_id: uuid.UUID, db: AsyncSession = Depends(get_db), admin: User = Depends(get_current_user)):
+    """Emails the person a link to choose a new password themselves."""
+    user = await UserService(db).get_user(user_id)
+    company = await CompanySettingsRepository(db).get_current()
+    sender = f"{admin.full_name} from {company.company_name}" if company.company_name else admin.full_name
+    await password_service.send_for(db, user, sender)
+    return {"ok": True}
 
 
 @router.get("", response_model=list[UserOut])

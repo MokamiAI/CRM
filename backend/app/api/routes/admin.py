@@ -29,6 +29,7 @@ from app.schemas.platform import (
     TicketOut,
     TicketUpdate,
 )
+from app.services import password_service
 from app.services.admin_service import AdminService
 from app.services.billing_service import effective
 from app.services.booking_service import BookingService
@@ -113,6 +114,16 @@ async def extend_trial(company_id: uuid.UUID, data: ExtendTrialIn, db: AsyncSess
     service = AdminService(db)
     await service.extend_trial(company_id, data.days)
     return await service.tenant(company_id)
+
+
+@router.post("/tenants/{company_id}/people/{user_id}/password-reset", status_code=202)
+async def send_password_reset(company_id: uuid.UUID, user_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
+    """For someone locked out: emails them a link to choose a new password."""
+    user = await db.get(User, user_id)
+    if user is None or user.company_id != company_id:
+        raise NotFoundError("Person not found", "USER_NOT_FOUND")
+    await password_service.send_for(db, user, "YGT support")
+    return {"ok": True}
 
 
 @router.post("/payments/{payment_id}/refund")
