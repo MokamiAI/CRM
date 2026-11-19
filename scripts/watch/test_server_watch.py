@@ -40,3 +40,13 @@ def test_env_file_values_are_read_without_quotes(tmp_path):
     f = tmp_path / ".env"
     f.write_text('SMTP_HOST="smtp.example.com"\n# note\nSMTP_PORT=465\n')
     assert sw.read_env(f) == {"SMTP_HOST": "smtp.example.com", "SMTP_PORT": "465"}
+
+
+def test_a_growing_queue_is_reported_after_15_minutes(monkeypatch):
+    monkeypatch.setattr(sw, "run", lambda cmd: "12" if cmd[-1] == "emails" else "0")
+    assert sw.backlog("crm-redis-1") == {"emails": 12, "default": 0, "reports": 0}
+    state, t = {}, 1_000_000.0
+    why = "40 jobs are waiting"
+    assert sw.decide(state, {"backlog": why}, t)[0] == []
+    assert sw.decide(state, {"backlog": why}, t + 300)[0] == []
+    assert sw.decide(state, {"backlog": why}, t + 600)[0] == [why]

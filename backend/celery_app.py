@@ -38,6 +38,12 @@ celery_app.conf.update(
     enable_utc=True,
 )
 
+# Jobs that repeat every few minutes are dropped if they wait too long to
+# start: the next run does the same work, and a backlog of stale copies
+# would hold up real emails in the same queue.
+EVERY_MINUTE = {"expires": 50}
+EVERY_5_MINUTES = {"expires": 240}
+
 celery_app.conf.beat_schedule = {
     "expired-trial-invoices": {
         "task": "app.tasks.billing_tasks.invoice_expired_trials_task",
@@ -52,6 +58,7 @@ celery_app.conf.beat_schedule = {
     "subscriber-pipeline": {
         "task": "app.tasks.billing_tasks.sync_subscriber_pipeline_task",
         "schedule": crontab(minute="*/5"),
+        "options": EVERY_5_MINUTES,
     },
     # Monday morning: new potential leads, and one email per admin about them.
     "weekly-discovery": {
@@ -63,6 +70,7 @@ celery_app.conf.beat_schedule = {
     "due-reminders": {
         "task": "app.tasks.notification_tasks.due_reminders_task",
         "schedule": crontab(),
+        "options": EVERY_MINUTE,
     },
     # Before the reminders: today's recurring drafts are ready first.
     "daily-recurring-invoices": {
@@ -80,10 +88,12 @@ celery_app.conf.beat_schedule = {
     "scheduled-campaigns": {
         "task": "app.tasks.marketing_tasks.dispatch_scheduled_campaigns_task",
         "schedule": crontab(),  # every minute
+        "options": EVERY_MINUTE,
     },
     "poll-company-mailboxes": {
         "task": "app.tasks.messaging_tasks.poll_mailboxes_task",
         "schedule": crontab(),  # every minute
+        "options": EVERY_MINUTE,
     },
     # 22:00: the day's website visitors, emailed to YGT's team.
     "daily-visitor-report": {

@@ -3,7 +3,7 @@
 # deals with no next step. Each reminder has a key, so it's sent once.
 import logging
 import uuid
-from datetime import date, datetime, time, timedelta
+from datetime import date, datetime, time, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from sqlalchemy import exists, select
@@ -13,6 +13,7 @@ from celery_app import celery_app
 from app.core.database import AsyncSessionLocal
 from app.core.tenancy import set_system, set_tenant
 from app.models.crm import Activity, Deal
+from app.models.notification import Notification
 from app.models.enums import ActivityType, DealStage
 from app.models.user import User
 from app.repositories.company_settings_repository import CompanySettingsRepository
@@ -42,8 +43,10 @@ def _activity_text(activity: Activity, tz: ZoneInfo) -> tuple[str, str]:
     return title, body
 
 
-async def remind_company(company_id: uuid.UUID, now: datetime | None = None) -> int:
-    """One company's due reminders. Returns how many were sent."""
+async def remind_company(company_id: uuid.UUID, now: datetime | None = None, full: bool = True) -> int:
+    """One company's due reminders. Returns how many were sent. `full` also
+    runs the once-a-day and weekly parts (digest, no next step, customer
+    progress); without it, only activities falling due are checked."""
     sent = 0
     async with AsyncSessionLocal() as db:
         set_tenant(db, company_id)
@@ -56,7 +59,7 @@ async def remind_company(company_id: uuid.UUID, now: datetime | None = None) -> 
         today = now.date()
         # One daily digest per person, in the company's local time. Freshly
         # created tasks don't immediately trigger a redundant reminder.
-        if time(9, 0) <= now.time().replace(tzinfo=None) < time(18, 0):
+        if full and time(9, 0) <= now.time().replace(tzinfo=None) < time(18, 0):
             tasks = (await db.scalars(select(Activity).where(
                 Activity.type == ActivityType.TASK, Activity.done.is_(False), Activity.daily_reminders.is_(True)
             ))).all()
@@ -82,10 +85,19 @@ async def remind_company(company_id: uuid.UUID, now: datetime | None = None) -> 
         # Open activities due by tomorrow (so a 00:00 one is caught at 23:59).
         rows = await db.scalars(
             select(Activity).where(
-                Activity.done.is_(False), Activity.owner_id.is_not(None), Activity.due_date <= today + timedelta(days=1)
+                Activity.done.is_(False), Activity.owner_id.is_not(None),
+                # Older ones are past STALE_AFTER: nothing left to send.
+                Activity.due_date >= today - timedelta(days=1), Activity.due_date <= today + timedelta(days=1),
             )
         )
         due_activities = list(rows.all())
+        # Reminders already sent, in one query rather than one per person
+        # per activity every minute (each query crosses to the database).
+        already = set() if not due_activities else {
+            (row.user_id, row.key) for row in await db.execute(
+                select(Notification.user_id, Notification.key).where(
+                    Notification.key.like("due:%"), Notification.created_at >= now - timedelta(days=3)))
+        }
         from app.services.meeting_service import MeetingService
         await MeetingService(db).attach(due_activities)
         for activity in due_activities:
@@ -114,7 +126,10 @@ async def remind_company(company_id: uuid.UUID, now: datetime | None = None) -> 
                 title = f"Task deadline approaching: {activity.subject}"
                 body = f"{activity.subject} is due at {activity.due_time:%H:%M} ({company.default_timezone}), within two hours."
             link = f"/activities?task={activity.id}"
+            key = f"due:{activity.id}:{activity.due_date.isoformat()}:{activity.due_time or ''}"
             for person_id in ActivityService.participants(activity):
+                if (person_id, key) in already:
+                    continue
                 owner = await db.get(User, person_id)
                 if owner is None:
                     continue
@@ -125,11 +140,11 @@ async def remind_company(company_id: uuid.UUID, now: datetime | None = None) -> 
                     body=body,
                     link=link,
                     params={"subject": activity.subject, "time": activity.due_time.strftime("%H:%M") if activity.due_time else None, "type": activity.type.value},
-                    key=f"due:{activity.id}:{activity.due_date.isoformat()}:{activity.due_time or ''}",
+                    key=key,
                 )
                 sent += note is not None
         # Monday 08:00: open deals nobody has planned a next step for.
-        if now.weekday() == 0 and now.time() >= ALL_DAY_AT:
+        if full and now.weekday() == 0 and now.time() >= ALL_DAY_AT:
             week = today.isocalendar()
             planned = exists().where(Activity.deal_id == Deal.id, Activity.done.is_(False))
             stale = await db.scalars(
@@ -152,20 +167,33 @@ async def remind_company(company_id: uuid.UUID, now: datetime | None = None) -> 
                     email=False,  # a nudge in the app and on the phone is enough
                 )
                 sent += note is not None
-        from app.services.mcem_service import McemService
-        sent += await McemService(db).remind(today)
+        if full:
+            from app.services.mcem_service import McemService
+            sent += await McemService(db).remind(today)
     return sent
 
 
 async def remind_all(now: datetime | None = None) -> int:
+    # Every quarter of an hour, every company gets the full check (digests,
+    # weekly nudges, customer progress: all once a day or week). The minutes
+    # in between only visit companies with an activity falling due around
+    # today, so a quiet company costs nothing.
+    full = (now or datetime.now(timezone.utc)).minute % 15 == 0
     async with AsyncSessionLocal() as session:
         set_system(session)
         company_ids = await CompanySettingsRepository(session).list_ids()
+        if not full:
+            utc_today = (now or datetime.now(timezone.utc)).astimezone(timezone.utc).date()
+            busy = set(await session.scalars(select(Activity.company_id).where(
+                Activity.done.is_(False), Activity.owner_id.is_not(None),
+                Activity.due_date >= utc_today - timedelta(days=2), Activity.due_date <= utc_today + timedelta(days=1),
+            ).distinct()))
+            company_ids = [company_id for company_id in company_ids if company_id in busy]
     sent = 0
     for company_id in company_ids:
         # One company at a time: a problem in one doesn't stop the rest.
         try:
-            sent += await remind_company(company_id, now)
+            sent += await remind_company(company_id, now, full=full)
         except Exception:
             logger.exception("Due reminders failed for company %s", company_id)
     return sent

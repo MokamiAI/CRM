@@ -169,3 +169,30 @@ async def test_a_meeting_can_be_logged_without_an_invitation(api):
         "type": "meeting", "subject": "Walk the site", "due_date": date.today().isoformat(), "due_time": "15:00"})
     assert response.status_code == 201, response.text
     assert response.json()["type"] == "meeting" and response.json().get("meeting") is None
+
+
+@pytest.mark.asyncio
+async def test_quiet_companies_are_only_visited_on_the_quarter_hour(api, monkeypatch):
+    from datetime import timezone as tz_utc
+
+    from app.tasks import notification_tasks
+
+    busy = await new_company(api, "Reminders Busy")
+    quiet = await new_company(api, "Reminders Quiet")
+    await task(api, busy["headers"], checklist_enabled=False)
+    calls = []
+
+    async def fake(company_id, now=None, full=True):
+        calls.append((str(company_id), full))
+        return 0
+
+    monkeypatch.setattr(notification_tasks, "remind_company", fake)
+    between = datetime.now(tz_utc.utc).replace(minute=7)
+    await notification_tasks.remind_all(between)
+    visited = {company for company, _ in calls}
+    assert str(busy["company_id"]) in visited and str(quiet["company_id"]) not in visited
+    assert not any(full for _, full in calls)
+    calls.clear()
+    await notification_tasks.remind_all(between.replace(minute=15))
+    visited = {company for company, _ in calls}
+    assert {str(busy["company_id"]), str(quiet["company_id"])} <= visited and all(full for _, full in calls)

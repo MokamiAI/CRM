@@ -44,8 +44,12 @@ DISK_MAX = 0.80
 REMIND_EVERY = 6 * 3600
 SAST = timezone(timedelta(hours=2))
 
+# Jobs waiting in the background queues: a healthy worker keeps this near 0.
+BACKLOG_MAX = 30
+QUEUES = ("emails", "default", "reports")
+
 # How many 5-minute checks in a row before a problem is reported.
-STRIKES = {"site": 2, "memory": 3, "swap": 3, "load": 3}
+STRIKES = {"site": 2, "memory": 3, "swap": 3, "load": 3, "backlog": 3}
 
 
 def read_env(path: Path) -> dict:
@@ -129,6 +133,16 @@ def containers() -> dict[str, tuple[str, str, int]]:
     return found
 
 
+def backlog(redis: str) -> dict[str, int]:
+    """Jobs waiting per queue, read from Redis inside its container."""
+    waiting = {}
+    for queue in QUEUES:
+        out = run(["docker", "exec", redis, "redis-cli", "llen", queue]).strip()
+        if out.isdigit():
+            waiting[queue] = int(out)
+    return waiting
+
+
 def problems(state: dict, now_readings: dict, busy: bool) -> dict[str, str]:
     """Every problem seen in this run: key -> what to tell the owner."""
     seen: dict[str, str] = {}
@@ -161,6 +175,16 @@ def problems(state: dict, now_readings: dict, busy: bool) -> dict[str, str]:
             seen["queue"] = (
                 f"{failed} email(s) or notification(s) couldn't be queued in the last 5 minutes, so they won't be sent. "
                 "The background worker or Redis is probably down."
+            )
+
+    redis = next((n for n in found if "redis" in n), None)
+    if redis and not busy:
+        waiting = backlog(redis)
+        if sum(waiting.values()) > BACKLOG_MAX:
+            detail = ", ".join(f"{queue} {count}" for queue, count in waiting.items() if count)
+            seen["backlog"] = (
+                f"{sum(waiting.values())} jobs are waiting in the background queue ({detail}) and it isn't clearing. "
+                "Emails, password reset links and reminders go out late."
             )
 
     if not busy:
