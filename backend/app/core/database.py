@@ -15,19 +15,37 @@ class Base(DeclarativeBase):
     pass
 
 
-engine = create_async_engine(
-    # Supabase's transaction pooler can hand a server connection to another
-    # client between transactions, so prepared statements are never cached
-    # (SQLAlchemy's cache here, asyncpg's below) and each gets a unique name,
-    # or two clients collide with DuplicatePreparedStatementError.
-    make_url(settings.DATABASE_URL).update_query_dict({"prepared_statement_cache_size": "0"}),
-    echo=settings.DEBUG,
-    pool_pre_ping=True,
-    connect_args={
-        "statement_cache_size": 0,
-        "prepared_statement_name_func": lambda: f"__asyncpg_{uuid4().hex}__",
-    },
-)
+_url = make_url(settings.DATABASE_URL)
+# Supabase's transaction pooler (port 6543) can hand a server connection to
+# another client between transactions, so prepared statements are never
+# cached and each gets a unique name, or two clients collide with
+# DuplicatePreparedStatementError. That costs extra round trips per query,
+# and the database is far away (Ireland, ~180 ms each way).
+TRANSACTION_POOLER = _url.port == 6543
+
+if TRANSACTION_POOLER:
+    engine = create_async_engine(
+        _url.update_query_dict({"prepared_statement_cache_size": "0"}),
+        echo=settings.DEBUG,
+        pool_pre_ping=True,
+        connect_args={
+            "statement_cache_size": 0,
+            "prepared_statement_name_func": lambda: f"__asyncpg_{uuid4().hex}__",
+        },
+    )
+else:
+    # A session connection (Supabase's port 5432, or a plain PostgreSQL) keeps
+    # its server connection, so queries are prepared once and reused: one
+    # round trip per query. No ping on every checkout (another round trip);
+    # connections are renewed every 5 minutes instead. The pool stays small:
+    # Supabase limits session connections per project.
+    engine = create_async_engine(
+        _url,
+        echo=settings.DEBUG,
+        pool_size=5,
+        max_overflow=5,
+        pool_recycle=300,
+    )
 
 AsyncSessionLocal = async_sessionmaker(
     bind=engine,
