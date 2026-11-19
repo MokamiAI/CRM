@@ -6,7 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{% endblock %}</title>
 <style>
-  @page { size: A4; margin: 14mm 14mm 16mm; }
+  /* Our own margin boxes: once a page defines them, Chrome leaves out its
+     own print header and footer (date and time, title, web address). */
+  @page {
+    size: A4; margin: 14mm 14mm 16mm;
+    @top-center { content: ""; }
+    @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 8pt "Inter", "Segoe UI", Arial, sans-serif; color: #71717a; }
+  }
   * { box-sizing: border-box; }
   :root { --accent: {{ t.accent }}; --ink: #18181b; --muted: #71717a; --line: #e4e4e7; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
