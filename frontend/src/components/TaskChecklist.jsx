@@ -12,6 +12,44 @@ export function refreshTask(queryClient, updated) {
   }
 }
 
+/** Subtasks typed while scheduling or editing an activity, saved with it.
+ *  `items` are { id?, title }: an id means it already exists on the task. */
+export function SubtaskDraft({ items, onAdd, onRemove }) {
+  const { t } = useTranslation();
+  const [title, setTitle] = useState("");
+  const add = () => {
+    if (!title.trim() || items.length >= 100) return;
+    onAdd(title.trim());
+    setTitle("");
+  };
+  return (
+    <div className="space-y-2 rounded-xl border border-zinc-200 p-3">
+      {items.length > 0 && (
+        <ul className="space-y-1">
+          {items.map((item, index) => (
+            <li key={item.id ?? `new-${index}`} className="flex items-center gap-2 text-sm text-zinc-800">
+              <span className="h-4 w-4 shrink-0 rounded border border-zinc-300" aria-hidden="true" />
+              <span className="min-w-0 flex-1 break-words">{item.title}</span>
+              <button type="button" className="min-h-9 shrink-0 px-1 text-xs text-zinc-500 hover:text-red-600"
+                aria-label={t("task.removeSubtask", { defaultValue: "Remove {{title}}", title: item.title })} onClick={() => onRemove(item, index)}>
+                {t("common.remove", "Remove")}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="flex gap-2">
+        <input className="input min-w-0 flex-1" aria-label={t("task.newSubtask", "Add a subtask")} placeholder={t("task.newSubtask", "Add a subtask")}
+          maxLength={255} value={title} onChange={(e) => setTitle(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); add(); } }}
+          data-pending-subtask={title.trim() || undefined} />
+        <button type="button" className="btn btn-secondary" disabled={!title.trim() || items.length >= 100} onClick={add}>{t("common.add", "Add")}</button>
+      </div>
+      <p className="text-xs text-zinc-500">{t("task.subtaskDraftHelp", "Press Enter after each one. Ticking them all off later marks the task Done.")}</p>
+    </div>
+  );
+}
+
 export default function TaskChecklist({ activity, canWrite }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();

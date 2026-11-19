@@ -4,13 +4,13 @@ import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
 import { Field } from "./ui";
 
-export default function MeetingFields({ value, onChange, dealId, customerId, contactId, timezone, enabled }) {
+export default function MeetingFields({ value, onChange, dealId, customerId, contactId, timezone, enabled, invited = false }) {
   const { t } = useTranslation();
   const linked = Boolean(dealId || customerId || contactId);
   const contact = useQuery({
     queryKey: ["meeting-contact", dealId, customerId, contactId],
     queryFn: () => apiClient.get("/meetings/contact", { params: { deal_id: dealId, customer_id: customerId, contact_id: contactId } }).then((r) => r.data),
-    enabled: enabled && linked,
+    enabled: enabled && linked && value.send_invitation,
   });
   useEffect(() => {
     if (!contact.data) return;
@@ -20,6 +20,17 @@ export default function MeetingFields({ value, onChange, dealId, customerId, con
   return (
     <fieldset className="space-y-3 rounded-xl border border-blue-100 bg-blue-50/40 p-4">
       <legend className="px-1 text-sm font-semibold text-zinc-900">{t("meeting.invitation", "Meeting invitation")}</legend>
+      {/* Once an invitation has gone out, changes always update it. */}
+      {!invited && (
+        <label className="flex items-center gap-2 text-sm font-medium text-zinc-800">
+          <input type="checkbox" className="h-4 w-4 rounded" checked={value.send_invitation}
+            onChange={(e) => onChange((current) => ({ ...current, send_invitation: e.target.checked }))} />
+          {t("meeting.sendInvitation", "Send an email invitation")}
+        </label>
+      )}
+      {!value.send_invitation ? (
+        <p className="text-xs leading-relaxed text-zinc-600">{t("meeting.noInvitationHelp", "No email is sent. The meeting is saved in your activities with its date and time, and you can send an invitation later by editing it.")}</p>
+      ) : (<>
       <p className="text-xs leading-relaxed text-zinc-600">{linked ? t("meeting.contactHelp", "The workspace's contact person receives this invitation. Add missing details below; a missing contact email is saved back to their record.") : t("meeting.standaloneHelp", "This meeting has no workspace. Enter the attendee's name and email to send an invitation.")}</p>
       {contact.isFetching && <p className="text-xs text-zinc-500">{t("meeting.loadingContact", "Loading contact person...")}</p>}
       {contact.isError && <p role="alert" className="text-sm text-red-700">{t("meeting.contactError", "The contact could not be loaded.")} <button type="button" className="underline" onClick={() => contact.refetch()}>{t("common.retry", "Try again")}</button></p>}
@@ -41,6 +52,7 @@ export default function MeetingFields({ value, onChange, dealId, customerId, con
         <input className="input" maxLength={500} value={value.location || ""} onChange={set("location")} placeholder={t("meeting.locationHint", "Office address or video call link")} />
       </Field>
       <p className="text-xs leading-relaxed text-zinc-500">{t("meeting.sendHelp", "Saving sends an email invitation and holds the time in YGT. The attendee can accept, decline with a reason, or suggest another time. Changes send an updated invitation.")}</p>
+      </>)}
     </fieldset>
   );
 }

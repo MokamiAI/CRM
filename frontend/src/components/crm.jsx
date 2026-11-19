@@ -3,6 +3,7 @@ import { meetingLabel } from "./MeetingCard";
 import { activityWorkspace } from "../utils/activityWorkspace";
 import { useEffect, useRef, useState } from "react";
 import { StatusChip } from "./TaskSheet";
+import { SubtaskDraft } from "./TaskChecklist";
 import { Link, useLocation } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -369,7 +370,7 @@ export function ActivityRow({ activity, context, onToggle, onOpen }) {
               )}
             </p>
             {activity.note && <p className="mt-1 whitespace-pre-line text-sm text-zinc-600">{activity.note}</p>}
-            {activity.checklist_enabled && <p className="mt-1 text-xs font-medium text-emerald-700">{t("task.percentComplete", { defaultValue: "{{percent}}% complete", percent: activity.completion_percentage ?? 0 })}</p>}
+            {activity.checklist_enabled && activity.checklist?.length > 0 && <p className="mt-1 text-xs font-medium text-emerald-700">{t("task.percentComplete", { defaultValue: "{{percent}}% complete", percent: activity.completion_percentage ?? 0 })}</p>}
 
             {!activityWorkspace(activity) && !done && canWrite && !(activity.checklist_enabled && activity.checklist?.length > 0) && (
               <button type="button" className="mt-2 text-xs font-semibold text-blue-600 hover:underline disabled:opacity-50" disabled={optimisticDone !== null} onClick={handleToggle}>
@@ -437,6 +438,9 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
   const [ownerId, setOwnerId] = useState("");
   const [assigneeIds, setAssigneeIds] = useState([]);
   const [checklistEnabled, setChecklistEnabled] = useState(false);
+  // Subtasks typed in this form: new titles, and existing ones marked for removal (edit).
+  const [newSubtasks, setNewSubtasks] = useState([]);
+  const [removedSubtasks, setRemovedSubtasks] = useState([]);
   const [meetingDraft, setMeetingDraft] = useState({ attendee_name: "", attendee_email: "", duration_minutes: 30, location: "", send_invitation: true });
   const [body, setBody] = useState("");
   const [note, setNote] = useState("");
@@ -456,18 +460,29 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
       setOwnerId(activity?.owner_id ?? "");
       setAssigneeIds(activity?.assignee_ids ?? []);
       setChecklistEnabled(activity?.checklist_enabled ?? false);
-      setMeetingDraft({ attendee_name: activity?.meeting?.attendee_name ?? "", attendee_email: activity?.meeting?.attendee_email ?? "", duration_minutes: activity?.meeting ? Math.round((new Date(activity.meeting.ends_at)-new Date(activity.meeting.starts_at))/60000) : 30, location: activity?.meeting?.location ?? "", send_invitation: true });
+      setNewSubtasks([]);
+      setRemovedSubtasks([]);
+      setMeetingDraft({ attendee_name: activity?.meeting?.attendee_name ?? "", attendee_email: activity?.meeting?.attendee_email ?? "", duration_minutes: activity?.meeting ? Math.round((new Date(activity.meeting.ends_at)-new Date(activity.meeting.starts_at))/60000) : 30, location: activity?.meeting?.location ?? "", send_invitation: activity ? Boolean(activity.meeting) : true });
       setFiles([]);
     }
   }
 
+  // A meeting goes out as an invitation only when asked; otherwise it's just logged.
+  const inviting = type === "meeting" && meetingDraft.send_invitation;
+  const existingSubtasks = (activity?.checklist ?? []).filter((item) => !removedSubtasks.includes(item.id));
   const save = useMutation({
-    mutationFn: () =>
-      mode === "note"
-        ? apiClient.post("/notes", { body, customer_id: dealId ? null : customerId, deal_id: dealId ?? null })
-        : editing
-          ? apiClient.patch(`/activities/${activity.id}`, { ...(type === "meeting" && { meeting: meetingDraft }), type, subject, note: note || null, due_date: dueDate, due_time: dueTime || null, assignee_ids: assigneeIds, checklist_enabled: checklistEnabled, ...(ownerId && { owner_id: ownerId }) })
-          : apiClient.post("/activities", {
+    mutationFn: async (extraSubtask) => {
+      const titles = checklistEnabled ? [...newSubtasks, ...(extraSubtask ? [extraSubtask] : [])] : [];
+      if (mode === "note") return apiClient.post("/notes", { body, customer_id: dealId ? null : customerId, deal_id: dealId ?? null });
+      if (editing) {
+        const res = await apiClient.patch(`/activities/${activity.id}`, { ...(inviting && { meeting: meetingDraft }), type, subject, note: note || null, due_date: dueDate, due_time: dueTime || null, assignee_ids: assigneeIds, checklist_enabled: checklistEnabled, ...(ownerId && { owner_id: ownerId }) });
+        if (checklistEnabled) {
+          for (const id of removedSubtasks) await apiClient.delete(`/activities/${activity.id}/checklist/${id}`);
+          for (const title of titles) await apiClient.post(`/activities/${activity.id}/checklist`, { title });
+        }
+        return res;
+      }
+      return apiClient.post("/activities", {
               type,
               subject,
               note: note || null,
@@ -476,10 +491,12 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
               customer_id: dealId ? null : customerId,
               deal_id: dealId ?? null,
               owner_id: ownerId || null,
-              ...(type === "meeting" && { meeting: meetingDraft }),
+              ...(inviting && { meeting: meetingDraft }),
               assignee_ids: assigneeIds,
               checklist_enabled: checklistEnabled,
-            }),
+              checklist_items: titles,
+            });
+    },
     onSuccess: async (res) => {
       // Files chosen before the activity existed go up now.
       if (mode !== "note" && !editing && files.length && res?.data?.id) await uploadPending(res.data.id, files);
@@ -492,7 +509,8 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
 
   function handleSubmit(event) {
     event.preventDefault();
-    save.mutate();
+    // A subtask typed but not yet added still counts.
+    save.mutate(event.currentTarget.querySelector("[data-pending-subtask]")?.dataset.pendingSubtask);
   }
 
   return (
@@ -554,7 +572,7 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
                 <input className="input" type="time" required={type === "meeting"} value={dueTime} onChange={(e) => setDueTime(e.target.value)} />
               </Field>
             </div>
-            {type === "meeting" && <MeetingFields enabled={open} value={meetingDraft} onChange={setMeetingDraft}
+            {type === "meeting" && <MeetingFields enabled={open} value={meetingDraft} onChange={setMeetingDraft} invited={Boolean(activity?.meeting)}
               dealId={activity?.deal_id ?? dealId} customerId={activity?.customer_id ?? customerId} contactId={activity?.contact_id}
               timezone={company?.default_timezone} />}
             <Field label={t("edit.details")}>
@@ -565,6 +583,15 @@ export function ComposerSheet({ open, onClose, mode, customerId, dealId, initial
               <input type="checkbox" className="h-4 w-4 rounded" checked={checklistEnabled} onChange={(e) => setChecklistEnabled(e.target.checked)} />
               {t("task.useChecklist", "Use a checklist of subtasks")}
             </label>
+            {checklistEnabled && (
+              <SubtaskDraft
+                items={[...existingSubtasks, ...newSubtasks.map((title) => ({ title }))]}
+                onAdd={(title) => setNewSubtasks((list) => [...list, title])}
+                onRemove={(item, index) => item.id
+                  ? setRemovedSubtasks((ids) => [...ids, item.id])
+                  : setNewSubtasks((list) => list.filter((_, i) => i !== index - existingSubtasks.length))}
+              />
+            )}
             {team.length > 1 && <fieldset className="space-y-2">
               <legend className="mb-1 text-sm font-medium text-zinc-700">{t("task.additionalAssignees", "Additional assignees")}</legend>
               <div className="grid gap-2 sm:grid-cols-2">{team.filter((person) => person.id !== ownerId && person.can_receive_tasks !== false).map((person) => (

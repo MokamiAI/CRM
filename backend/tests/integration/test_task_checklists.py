@@ -145,3 +145,27 @@ async def test_deadline_reminder_crosses_midnight_and_respects_opt_out(api):
     assert await remind_company(owner["company_id"], datetime.combine(today, time(23, 1), tz)) == 0
     notes = (await api.get("/notifications", headers=owner["headers"])).json()["items"]
     assert len([note for note in notes if note["kind"] == "task_deadline"]) == 1
+
+
+@pytest.mark.asyncio
+async def test_subtasks_typed_while_scheduling_are_saved_with_the_task(api):
+    owner = await new_company(api, "Checklist On Create")
+    headers = owner["headers"]
+    activity = await task(api, headers, checklist_items=["Buy materials", "  ", "Book delivery"])
+    assert [item["title"] for item in activity["checklist"]] == ["Buy materials", "Book delivery"]
+    assert activity["completion_percentage"] == 0 and activity["status"] == "todo" and activity["done"] is False
+    first = activity["checklist"][0]
+    ticked = await api.patch(f"/activities/{activity['id']}/checklist/{first['id']}", headers=headers, json={"done": True})
+    assert ticked.json()["completion_percentage"] == 50
+    # Titles sent without the checklist switched on are ignored.
+    plain = await task(api, headers, checklist_enabled=False, checklist_items=["Ignored"])
+    assert plain["checklist"] == []
+
+
+@pytest.mark.asyncio
+async def test_a_meeting_can_be_logged_without_an_invitation(api):
+    owner = await new_company(api, "Meeting Without Invite")
+    response = await api.post("/activities", headers=owner["headers"], json={
+        "type": "meeting", "subject": "Walk the site", "due_date": date.today().isoformat(), "due_time": "15:00"})
+    assert response.status_code == 201, response.text
+    assert response.json()["type"] == "meeting" and response.json().get("meeting") is None

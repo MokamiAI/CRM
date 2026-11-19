@@ -170,12 +170,16 @@ class ActivityService:
             customer_id = customer_id or contact.customer_id
         assignees = await self._validate_people(data.owner_id or user.id, data.assignee_ids)
         activity = Activity(
-            **data.model_dump(exclude={"customer_id", "owner_id", "assignee_ids", "meeting"}),
+            **data.model_dump(exclude={"customer_id", "owner_id", "assignee_ids", "meeting", "checklist_items"}),
             assignee_ids=assignees,
             customer_id=customer_id,
             owner_id=data.owner_id or user.id,
             created_by=user.id,
         )
+        titles = [title.strip()[:255] for title in data.checklist_items if title and title.strip()]
+        if titles and data.checklist_enabled:
+            activity.checklist = [{"id": str(uuid.uuid4()), "title": title, "done": False, "completed_by": None, "completed_at": None} for title in titles]
+            self._checklist_status(activity)
         self.db.add(activity)
         await self.db.flush()
         activity.meeting = None

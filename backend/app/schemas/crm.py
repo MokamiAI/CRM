@@ -131,6 +131,8 @@ class ActivityCreate(BaseModel):
     owner_id: uuid.UUID | None = None
     assignee_ids: list[uuid.UUID] = Field(default_factory=list, max_length=50)
     checklist_enabled: bool = False
+    # Subtasks typed in the Schedule form, saved with the activity in one go.
+    checklist_items: list[str] = Field(default_factory=list, max_length=100)
     daily_reminders: bool = True
     deadline_reminders: bool = True
 
