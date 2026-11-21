@@ -10,6 +10,7 @@ import { Button, EmptyState, ErrorState, Field, FilterChips, ListSkeleton, PageH
 import { errorMessage, formatDate, formatDateTime } from "../utils/format";
 import { celebrate } from "../utils/motion";
 import TicketAttachments, { TicketFileInput } from "../components/TicketAttachments";
+import { OnboardingCovers, OnboardingRequestForm, useOnboardingStatus } from "../components/Onboarding";
 
 const CATEGORIES = ["question", "problem", "billing", "feature", "account"];
 const URGENCIES = ["low", "normal", "high"];
@@ -264,9 +265,12 @@ function Sessions() {
   const queryClient = useQueryClient();
   const { data: slots, isLoading } = useQuery({ queryKey: ["slots"], queryFn: () => apiClient.get("/bookings/slots").then((r) => r.data) });
   const { data: bookings = [] } = useQuery({ queryKey: ["bookings"], queryFn: () => apiClient.get("/bookings").then((r) => r.data) });
+  const [params] = useSearchParams();
+  const { requested } = useOnboardingStatus();
   const [day, setDay] = useState(null);
   const [slot, setSlot] = useState(null);
-  const [topic, setTopic] = useState("onboarding");
+  // ?topic=onboarding from the dashboard's "Request onboarding".
+  const [topic, setTopic] = useState(() => (TOPICS.includes(params.get("topic")) ? params.get("topic") : "onboarding"));
   const [notes, setNotes] = useState("");
   const days = slots?.days ?? [];
   const chosenDay = days.find((d) => d.date === day) ?? days[0];
@@ -310,10 +314,25 @@ function Sessions() {
             <p className="mt-2 text-sm text-zinc-700">{t("sessions.host", { name: slots.host_name })} | <a className="font-medium text-indigo-600 hover:underline" href={`mailto:${slots.host_email}`}>{slots.host_email}</a></p>
           )}
         </div>
+        {topic === "onboarding" && (
+          <div>
+            <p className="label">{t("onboarding.coversTitle")}</p>
+            <OnboardingCovers />
+          </div>
+        )}
         {isLoading ? (
           <ListSkeleton rows={2} />
         ) : !days.length ? (
-          <p className="rounded-xl bg-zinc-50 px-4 py-3 text-sm text-zinc-600">{t("sessions.noSlots")}</p>
+          requested ? (
+            <p className="rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-800 ring-1 ring-inset ring-emerald-200/70" role="status">
+              {t("onboarding.requested")}
+            </p>
+          ) : (
+            <>
+              <p className="rounded-xl bg-zinc-50 px-4 py-3 text-sm text-zinc-600">{t("onboarding.noSlots")}</p>
+              <OnboardingRequestForm />
+            </>
+          )
         ) : (
           <>
             <div>

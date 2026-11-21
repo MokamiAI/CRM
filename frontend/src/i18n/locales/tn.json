@@ -173,8 +173,8 @@
     "banner": {
       "free": "O mo leanong la Free. Tlhopha leano go oketsa batho, bareki le di-invoice tse dintsi.",
       "pastDue": "Paystack ga e a kgona go duedisa karata ya gago. E ntšhafatse go boloka leano la gago.",
-      "trial_one": "Go setse letsatsi le le {{count}} mo nakong ya gago ya go leka Grow mahala.",
-      "trial_other": "Go setse malatsi a le {{count}} mo nakong ya gago ya go leka Grow mahala."
+      "trial_one": "Go setse letsatsi le le {{count}} mo nakong ya gago ya go leka {{plan}} mahala.",
+      "trial_other": "Go setse malatsi a le {{count}} mo nakong ya gago ya go leka {{plan}} mahala."
     },
     "cancel": "Khansela leano",
     "cancelConfirm": "O khansela leano la gago? Le ka se ntšhwafadiwe. O tshwara sengwe le sengwe go fitlha kwa bokhutlong jwa nako e o e duetseng ka {{date}}; morago ga moo lefelo la gago la tiro le a balwa fela go fitlha o tlhopha leano gape. Ga go sepe se se phimolwang.",
@@ -231,7 +231,8 @@
       "whatsapp_sms": "Golaganya WhatsApp le SMS go romela bareki melaetsa kwa ba setseng ba le teng.",
       "reports": "Bona gore ke mang yo o go kolotang le gore tuelo nngwe le nngwe e diegile go le kana kang.",
       "recurring_invoices": "Lefisa dikonteraka tsa kgwedi le kgwedi ka thulaganyo ya invoice potologo nngwe le nngwe.",
-      "discovery": "Beke le beke YGT e bona badirisi ba ba ka nnang teng gaufi le wena le mo direkotong tsa gago."
+      "discovery": "Beke le beke YGT e bona badirisi ba ba ka nnang teng gaufi le wena le mo direkotong tsa gago.",
+      "money_overview": "Bona madi a a tsenang, a a tswang le poelo, kgwedi le kgwedi."
     },
     "paid": "Tuelo e amogetswe. Jaanong o mo {{plan}}.",
     "payments": "Dituelo",
@@ -313,7 +314,9 @@
       "big_one": "O na le batho ba {{count}}, mme botlhe ba tswelela go tsena ka nako ya teko. Hustle e akaretsa go fitlha go {{limit}}, ka jalo morago ga teko o tla tlhoka Grow kgotsa Scale, o duedisiwe ditulo di le {{count}} (go simolola ka {{price}} setulo ka kgwedi).",
       "big_other": "O na le batho ba {{count}}, mme botlhe ba tswelela go tsena ka nako ya teko. Hustle e akaretsa go fitlha go {{limit}}, ka jalo morago ga teko o tla tlhoka Grow kgotsa Scale, o duedisiwe ditulo di le {{count}} (go simolola ka {{price}} setulo ka kgwedi)."
     },
-    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretsa go fitlha go {{limit}}."
+    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretsa go fitlha go {{limit}}.",
+    "yearlyAsMonthly": "Ke {{amount}} ka kgwedi, e duelwa ngwaga",
+    "yearlyAsMonthlySeat": "Ke {{amount}} motho ka kgwedi, e duelwa ngwaga"
   },
   "channels": {
     "appPassword": {
@@ -478,7 +481,8 @@
       "sales": "Ditlhwatlhwa le maano",
       "support": "Ke tlhoka thuso"
     },
-    "updated": "Motho wa kgolagano o ntšhafaditswe"
+    "updated": "Motho wa kgolagano o ntšhafaditswe",
+    "orWhatsApp": "kgotsa WhatsApp"
   },
   "customFields": {
     "add": "Tsenya lefelo",
@@ -1028,6 +1032,42 @@
     "dealWon": "Tumalano e fentswe",
     "note": "Ntlha e tsentswe",
     "payment": "Tuelo e amogetswe"
+  },
+  "onboarding": {
+    "title": "Seshene ya go simolola ya mahala",
+    "intro": "Mogala wa bidio wa metsotso e le {{minutes}} mo setlhopha sa rona se rulaganyang YGT le wena. Ke mahala mo maanong otlhe.",
+    "request": "Kopa go simololwa",
+    "seeBooking": "Bona peelo",
+    "bookedFor": "Go simololwa ga gago go beetswe {{when}}. Kgolagano ya kopano e mo taletsong ya khalendara ya gago.",
+    "requested": "Go simololwa go kopilwe. Re tla ikgolaganya le wena go dumalana ka nako, gantsi mo letsatsing le le lengwe la tiro.",
+    "coversTitle": "Se go simololwa go se akaretsang",
+    "covers": {
+      "setup": {
+        "title": "Thulaganyo ya kgwebo ya gago",
+        "body": "Dintlha tsa khampani, logo, nomoro ya VAT le dintlha tsa banka, gore dikothei le di-invoice tsa gago di siamele go romelwa."
+      },
+      "import": {
+        "title": "Go tlisa data ya gago",
+        "body": "Bareki le ditlhagiswa tsa gago go tswa mo Excel kgotsa thulaganyong e nngwe."
+      },
+      "quoteToPay": {
+        "title": "Go tswa mo kotheing go ya tuelong",
+        "body": "Kothei ya gago ya ntlha, go e fetola invoice, le ka moo dikgopotso tsa tuelo di latelang madi a a kolotwang."
+      },
+      "connect": {
+        "title": "Imeile, WhatsApp le setlhopha sa gago",
+        "body": "Golaganya lebokoso la gago la imeile (WhatsApp le SMS mo Grow le Scale), rulaganya magato a gago, oketsa setlhopha sa gago, le dipotso tsa gago."
+      }
+    },
+    "noSlots": "Ga go na dinako tse di bulegileng tsa go beela jaanong. Re bolelele gore ke leng fa go go siametse mme re tla go rulaganya.",
+    "requestTitle": "Kopa go simololwa",
+    "requestIntro": "Re tla araba ka nako le kgolagano ya kopano.",
+    "times": "Malatsi le dinako tse di go siametseng",
+    "timesPlaceholder": "sk. Mesong ya beke, kgotsa Labone morago ga 2",
+    "timesRequired": "Re bolelele gore ke leng fa go go siametse.",
+    "phone": "Mogala kgotsa WhatsApp (ga go patelediwe)",
+    "sent": "Go simololwa go kopilwe",
+    "sentHint": "Re tla ikgolaganya le wena go dumalana ka nako."
   },
   "getStarted": {
     "askAdmin": "Kopa motsamaisi wa gago go dira se",
@@ -1767,7 +1807,14 @@
     "privacyLink": "Bala pholisi ya rona ya sephiri",
     "marketing": "Nthomelela dikgakololo tsa YGT, dikgang tsa ditlhagiswa le dikabelo",
     "marketingHint": "Ga se kgapeletso. O ka di emisa nako nngwe le nngwe, go tswa mo imeileng nngwe le nngwe kgotsa mo profaeleng ya gago.",
-    "agree": "Ke dumalana le {{terms}} le {{privacy}}"
+    "agree": "Ke dumalana le {{terms}} le {{privacy}}",
+    "errors": {
+      "required": "Tsweetswee tlatsa se.",
+      "email": "Tsenya aterese ya imeile jaaka leina@kgwebo.co.za.",
+      "password": "Dirisa bonnye ditlhaka di le 8.",
+      "address": "Tsenya seterata le toropo, sk. 12 Church Street, Polokwane.",
+      "agree": "Tsweetswee tshwaya se go dira akhaonto ya gago."
+    }
   },
   "role": {
     "admin": "Motsamaisi",
@@ -2447,6 +2494,9 @@
     "checkup": {
       "cta": "Simolola tlhatlhobo ya mahala",
       "meta": "Ga go kwadiso"
+    },
+    "trialBar": {
+      "note": "Malatsi a le {{days}} mahala. Ga go tlhokege karata."
     }
   },
   "aging": {

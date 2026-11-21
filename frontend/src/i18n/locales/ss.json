@@ -173,8 +173,8 @@
     "banner": {
       "free": "Usehlelweni le-Free. Khetsa luhlelo kute wengete bantfu, batsengi nema-invoyisi lamanyenti.",
       "pastDue": "I-Paystack ayikhonanga kukhokhisa likhadi lakho. Libuyeketa kute ugcine luhlelo lwakho.",
-      "trial_one": "Kusele lilanga la-{{count}} esikhatsini sakho sekuzama i-Grow mahhala.",
-      "trial_other": "Kusele emalanga la-{{count}} esikhatsini sakho sekuzama i-Grow mahhala."
+      "trial_one": "Kusele lilanga la-{{count}} esikhatsini sakho sekuzama i-{{plan}} mahhala.",
+      "trial_other": "Kusele emalanga la-{{count}} esikhatsini sakho sekuzama i-{{plan}} mahhala."
     },
     "cancel": "Khansela luhlelo",
     "cancelConfirm": "Ukhansela luhlelo lwakho? Ngeke lutsetselelwe. Ugcina konkhe kuze kuphele sikhatsi lowasikhokhela nga-{{date}}; ngemuva kwaloko indzawo yakho yekusebenta iyafundvwa kuphela kuze ukhetse luhlelo futsi. Kute lokususwako.",
@@ -231,7 +231,8 @@
       "whatsapp_sms": "Xhumanisa WhatsApp ne-SMS kute utfumele batsengi imilayeto lapho sebavele bakhona.",
       "reports": "Bona kutsi ngubani lokweletako nekutsi inkhokhelo ngayinye seyephuze kangakanani.",
       "recurring_invoices": "Tfumela ema-invoyisi etivumelwano tanyanga tonkhe ngelidrafti le-invoyisi sikhatsi ngasinye.",
-      "discovery": "Liviki ngalinye i-YGT itfola emakhasimende langaba khona eduze kwakho nasemarekhodini akho."
+      "discovery": "Liviki ngalinye i-YGT itfola emakhasimende langaba khona eduze kwakho nasemarekhodini akho.",
+      "money_overview": "Bona imali lengenako, lephumako nenzuzo, inyanga ngenyanga."
     },
     "paid": "Inkhokhelo itfoliwe. Nyalo use ku-{{plan}}.",
     "payments": "Tinkhokhelo",
@@ -313,7 +314,9 @@
       "big_one": "Unebantfu labangu-{{count}}, futsi bonkhe bachubeka nekungena ngesikhatsi sekuhlola. I-Hustle ifaka labafika ku-{{limit}}, ngako ngemuva kwekuhlola utawudzinga i-Grow noma i-Scale, ukhokhiswe tihlalo letingu-{{count}} (kusukela ku-{{price}} ngesihlalo ngenyanga).",
       "big_other": "Unebantfu labangu-{{count}}, futsi bonkhe bachubeka nekungena ngesikhatsi sekuhlola. I-Hustle ifaka labafika ku-{{limit}}, ngako ngemuva kwekuhlola utawudzinga i-Grow noma i-Scale, ukhokhiswe tihlalo letingu-{{count}} (kusukela ku-{{price}} ngesihlalo ngenyanga)."
     },
-    "tooSmall": "Unebantfu labangu-{{count}}. I-Hustle ifaka labafika ku-{{limit}}."
+    "tooSmall": "Unebantfu labangu-{{count}}. I-Hustle ifaka labafika ku-{{limit}}.",
+    "yearlyAsMonthly": "Loko ngu-{{amount}} ngenyanga, kukhokhelwa umnyaka",
+    "yearlyAsMonthlySeat": "Loko ngu-{{amount}} umuntfu ngamunye ngenyanga, kukhokhelwa umnyaka"
   },
   "channels": {
     "appPassword": {
@@ -478,7 +481,8 @@
       "sales": "Emanani netinhlelo",
       "support": "Ngidzinga lusito"
     },
-    "updated": "Lochumana naye uvuseletiwe"
+    "updated": "Lochumana naye uvuseletiwe",
+    "orWhatsApp": "noma i-WhatsApp"
   },
   "customFields": {
     "add": "Engeta indzawo",
@@ -1028,6 +1032,42 @@
     "dealWon": "Sivumelwano siphumelele",
     "note": "Linothi lengetiwe",
     "payment": "Inkhokhelo itfoliwe"
+  },
+  "onboarding": {
+    "title": "Seshini yekucala yamahhala",
+    "intro": "Lucingo lwevidiyo lwemizuzu lengu-{{minutes}} lapho licembu letfu lisetha i-YGT nawe. Mahhala kuto tonkhe tinhlelo.",
+    "request": "Cela kucalisa",
+    "seeBooking": "Bona kubhukha",
+    "bookedFor": "Kucaliswa kwakho kubhukhelwe {{when}}. Sixhumanisi semhlangano sisesimemweni sekhalenda yakho.",
+    "requested": "Kucaliswa kucelwe. Sitawukutsintsa kute sivumelane ngesikhatsi, ngalokuvamile ngelilanga linye lemsebenti.",
+    "coversTitle": "Loko kucaliswa lokukufaka ekhatsi",
+    "covers": {
+      "setup": {
+        "title": "Kusetha libhizinisi lakho",
+        "body": "Imininingwane yenkampani, ilogo, inombolo ye-VAT nemininingwane yelibhange, kute tilinganiso nema-invoyisi akho kulungele kutfunyelwa."
+      },
+      "import": {
+        "title": "Kufaka idatha yakho",
+        "body": "Emakhasimende nemikhicito yakho levela ku-Excel noma kulolunye luhlelo."
+      },
+      "quoteToPay": {
+        "title": "Kusuka esilinganisweni kuya ekukhokheni",
+        "body": "Silinganiso sakho sekucala, kusiguctula sibe yi-invoyisi, nekutsi tikhumbuto tekukhokha tilandzela njani tikweleti."
+      },
+      "connect": {
+        "title": "I-imeyili, i-WhatsApp nelicembu lakho",
+        "body": "Xhuma libhokisi lakho le-imeyili (i-WhatsApp ne-SMS ku-Grow naku-Scale), setha tigaba takho, engeta licembu lakho, nemibuto yakho."
+      }
+    },
+    "noSlots": "Kute tikhatsi letivulekile tekubhukha nyalo. Sitjele kutsi nini kukulungele futsi sitawukuhlela.",
+    "requestTitle": "Cela kucalisa",
+    "requestIntro": "Sitawuphendvula ngesikhatsi nesixhumanisi semhlangano.",
+    "times": "Emalanga netikhatsi letikulungele",
+    "timesPlaceholder": "sib. Ekuseni emalangeni eliviki, noma ngeLesine emva kwa-2",
+    "timesRequired": "Sitjele kutsi nini kukulungele.",
+    "phone": "Lucingo noma i-WhatsApp (ngekukhetsa)",
+    "sent": "Kucaliswa kucelwe",
+    "sentHint": "Sitawukutsintsa kute sivumelane ngesikhatsi."
   },
   "getStarted": {
     "askAdmin": "Cela umphatsi wakho akwente loku",
@@ -1767,7 +1807,14 @@
     "privacyLink": "Fundza inchubomgomo yetfu yemfihlo",
     "marketing": "Ngitfumelele emacebiso e-YGT, tindzaba temikhicito netipho",
     "marketingHint": "Akusiko kuphoceleleka. Ungakumisa nanoma nini, kunoma nguyiphi i-imeyili nome kuphrofayili yakho.",
-    "agree": "Ngiyavumelana {{terms}} kanye {{privacy}}"
+    "agree": "Ngiyavumelana {{terms}} kanye {{privacy}}",
+    "errors": {
+      "required": "Sicela ugcwalise loku.",
+      "email": "Faka likheli le-imeyili lelifana na-libito@libhizinisi.co.za.",
+      "password": "Sebentisa lokungenani tinhlamvu leti-8.",
+      "address": "Faka umgwaco nelidolobha, sib. 12 Church Street, Polokwane.",
+      "agree": "Sicela ukhetse loku kute wakhe i-akhawunti yakho."
+    }
   },
   "role": {
     "admin": "Umphatsi",
@@ -2447,6 +2494,9 @@
     "checkup": {
       "cta": "Cala kuhlolwa mahhala",
       "meta": "Akudzingeki ubhalise"
+    },
+    "trialBar": {
+      "note": "Emalanga langu-{{days}} mahhala. Alidzingeki likhadi."
     }
   },
   "aging": {

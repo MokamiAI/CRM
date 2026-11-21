@@ -51,7 +51,9 @@ function planLines(plan, t) {
   if (!plan.max_customers && !plan.invoices_per_month) lines.push(t("billing.lines.unlimited"));
   lines.push(t("billing.lines.core"));
   lines.push(t("billing.features.custom_fields")); // in every plan
-  plan.features.forEach((f) => lines.push(t(`billing.features.${f}`)));
+  // The Money overview has no line of its own on the cards (it came with
+  // the reports line on Grow and Scale before Hustle got "Who owes you").
+  plan.features.filter((f) => f !== "money_overview").forEach((f) => lines.push(t(`billing.features.${f}`)));
   return lines;
 }
 
@@ -93,6 +95,11 @@ export function PlanPrice({ plan, interval, users = 1 }) {
             {t("billing.teamFrom", { price: formatMoneyWhole(teamCents / 100), count: plan.team_seats, percent: plan.team_discount_percent })}
           </p>
         ))}
+      {annual && cents > 0 && (
+        <p className="mt-1 text-xs font-medium text-zinc-600 tabular-nums">
+          {t(plan.per_user ? "billing.yearlyAsMonthlySeat" : "billing.yearlyAsMonthly", { amount: formatMoneyWhole(Math.round(cents / 12) / 100) })}
+        </p>
+      )}
       {plan.per_user && cents > 0 && users > 1 && (
         <p className="mt-1 text-xs text-zinc-500 tabular-nums">{t("billing.total", { amount: formatMoneyWhole((cents * users) / 100), count: users })}</p>
       )}
@@ -496,7 +503,10 @@ export function PlanBanner() {
   if (!billing || user?.role !== "admin" || !["trialing", "past_due"].includes(billing.state)) return null;
   const urgent = billing.state !== "trialing" || daysLeft(billing.trial_ends_at) <= 3;
   const text =
-    billing.state === "trialing" ? t("billing.banner.trial", { count: daysLeft(billing.trial_ends_at) }) : t("billing.banner.pastDue");
+    billing.state === "trialing"
+      ? // The plan they chose at sign-up (Hustle, Grow or Scale), not always Grow.
+        t("billing.banner.trial", { count: daysLeft(billing.trial_ends_at), plan: t(`billing.planName.${billing.plan}`, { defaultValue: billing.plan }) })
+      : t("billing.banner.pastDue");
   return (
     <div
       className={`flex flex-wrap items-center justify-between gap-3 rounded-xl px-4 py-3 ring-1 ring-inset ${

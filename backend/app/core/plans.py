@@ -23,6 +23,9 @@ TEAM_SPACES = "team_spaces"
 PRIORITY_SUPPORT = "priority_support"
 REPORTS = "reports"  # "Who owes you" (aged receivables)
 RECURRING = "recurring_invoices"
+# The Money overview (money in, money out and profit by month). Was part of
+# REPORTS until Hustle got "Who owes you"; it stays on Grow and Scale.
+MONEY = "money_overview"
 DISCOVERY = "discovery"  # potential leads, found weekly
 
 INTERVALS = ("monthly", "annually")
@@ -69,13 +72,16 @@ class Plan:
         return seats if self.per_user else self.max_users
 
 
-GROW_FEATURES = frozenset({WHATSAPP_SMS, MARKETING, TEAM_CHAT, REPORTS, RECURRING})
+# Getting paid is the point of every plan: even Hustle sees who owes it and
+# can bill regular clients automatically.
+HUSTLE_FEATURES = frozenset({REPORTS, RECURRING})
+GROW_FEATURES = HUSTLE_FEATURES | {WHATSAPP_SMS, MARKETING, TEAM_CHAT, MONEY}
 SCALE_FEATURES = GROW_FEATURES | {DISCOVERY, PRIORITY_SUPPORT, TEAM_SPACES}
 GROW_SPACES = 1
 
 PLANS: dict[str, Plan] = {
     # Per company: up to three people.
-    "hustle": Plan("hustle", "Hustle", 19_900, max_users=3),
+    "hustle": Plan("hustle", "Hustle", 19_900, max_users=3, features=HUSTLE_FEATURES),
     # Per seat per month: 1–2 seats, then from TEAM_SEATS seats. Grow's full
     # seat price stays above Hustle, so one person never pays less for more.
     "grow": Plan("grow", "Grow", 22_900, team_cents=team_price(22_900), per_user=True, features=GROW_FEATURES),

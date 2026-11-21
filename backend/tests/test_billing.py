@@ -81,7 +81,7 @@ def test_billing_periods():
 def test_trial_is_the_plan_chosen_at_sign_up():
     hustle = effective(new_trial(uuid.uuid4(), "hustle"))
     assert (hustle.plan.key, hustle.users, hustle.state) == ("hustle", 3, "trialing")
-    assert hustle.plan.features == frozenset()  # what Hustle pays for, nothing more
+    assert hustle.plan.features == {"reports", "recurring_invoices"}  # what Hustle pays for, nothing more
     scale = effective(new_trial(uuid.uuid4(), "scale"))
     assert scale.plan.key == "scale" and "priority_support" in scale.plan.features and scale.users == TRIAL_USERS
     assert effective(new_trial(uuid.uuid4(), "unknown")).plan.key == "grow"

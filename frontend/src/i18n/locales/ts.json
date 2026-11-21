@@ -173,8 +173,8 @@
     "banner": {
       "free": "U le ka pulani ya Free. Hlawula pulani ku engetela vanhu, vaxavi ni tinhlayo-xikoloto to tala.",
       "pastDue": "Paystack a yi swi kotanga ku hakerisa karata ya wena. Yi pfuxete ku hlayisa pulani ya wena.",
-      "trial_one": "Ku sale siku ra {{count}} eka nkarhi wa wena wo ringeta Grow mahala.",
-      "trial_other": "Ku sale masiku ya {{count}} eka nkarhi wa wena wo ringeta Grow mahala."
+      "trial_one": "Ku sale siku ra {{count}} eka nkarhi wa wena wo ringeta {{plan}} mahala.",
+      "trial_other": "Ku sale masiku ya {{count}} eka nkarhi wa wena wo ringeta {{plan}} mahala."
     },
     "cancel": "Khansela pulani",
     "cancelConfirm": "U khansela pulani ya wena? A yi nge pfuxetiwi. U hlayisa hinkwaswo ku fikela emakumu ka nkarhi lowu u wu hakeleke hi {{date}}; endzhaku ka sweswo ndhawu ya wena ya ntirho yi hlayiwa ntsena ku fikela u hlawula pulani nakambe. A ku na lexi susiwaka.",
@@ -231,7 +231,8 @@
       "whatsapp_sms": "Hlanganisa WhatsApp ni SMS ku rhumela vaxavi marungula laha va se va nga kona.",
       "reports": "Vona leswaku i mani loyi a ku kolotaka ni leswaku hakelo yin'wana na yin'wana yi hlwele ku fikela kwihi.",
       "recurring_invoices": "Hakerisa tikontiraka ta n'hweti na n'hweti hi xikunguhatwa xa invhoyisi nkarhi wun'wana na wun'wana.",
-      "discovery": "Vhiki na vhiki YGT yi kuma vaxavi lava nga vaka kona ekusuhi na wena ni le ka swirhekhodo swa wena."
+      "discovery": "Vhiki na vhiki YGT yi kuma vaxavi lava nga vaka kona ekusuhi na wena ni le ka swirhekhodo swa wena.",
+      "money_overview": "Vona mali lama nghenaka, lama humaka ni vuyelo, n'hweti na n'hweti."
     },
     "paid": "Hakelo yi amukeriwile. Sweswi u le ka {{plan}}.",
     "payments": "Tihakelo",
@@ -313,7 +314,9 @@
       "big_one": "U na vanhu va {{count}}, naswona hinkwavo va hambeta va nghena hi nkarhi wa ndzingeto. Hustle yi katsa ku fika eka {{limit}}, hikwalaho endzhaku ka ndzingeto u ta lava Grow kumbe Scale, u hakerisiwa swifulu swa {{count}} (ku sukela eka {{price}} hi xitulu hi n'hweti).",
       "big_other": "U na vanhu va {{count}}, naswona hinkwavo va hambeta va nghena hi nkarhi wa ndzingeto. Hustle yi katsa ku fika eka {{limit}}, hikwalaho endzhaku ka ndzingeto u ta lava Grow kumbe Scale, u hakerisiwa swifulu swa {{count}} (ku sukela eka {{price}} hi xitulu hi n'hweti)."
     },
-    "tooSmall": "U na vanhu va {{count}}. Hustle yi katsa ku fika eka {{limit}}."
+    "tooSmall": "U na vanhu va {{count}}. Hustle yi katsa ku fika eka {{limit}}.",
+    "yearlyAsMonthly": "Leswi i {{amount}} hi n'hweti, ku hakeriwa lembe",
+    "yearlyAsMonthlySeat": "Leswi i {{amount}} hi munhu hi n'hweti, ku hakeriwa lembe"
   },
   "channels": {
     "appPassword": {
@@ -478,7 +481,8 @@
       "sales": "Mintsengo ni tipulani",
       "support": "Ndzi lava mpfuno"
     },
-    "updated": "Munhu wa vuhlanganisi u pfuxetiwile"
+    "updated": "Munhu wa vuhlanganisi u pfuxetiwile",
+    "orWhatsApp": "kumbe WhatsApp"
   },
   "customFields": {
     "add": "Engetela xivandla",
@@ -1028,6 +1032,42 @@
     "dealWon": "Ntwanano wu hluriwile",
     "note": "Xitsundzuxo xi engeteriwile",
     "payment": "Ntsengo wu amukeriwile"
+  },
+  "onboarding": {
+    "title": "Seŝeni ya ku sungula ya mahala",
+    "intro": "Rifoni ra vhidiyo ra timinete ta {{minutes}} laha ntlawa wa hina wu lulamisaka YGT na wena. I mahala eka makungu hinkwawo.",
+    "request": "Kombela ku sunguxiwa",
+    "seeBooking": "Vona ku veka",
+    "bookedFor": "Ku sunguxiwa ka wena ku vekeriwile {{when}}. Xihlanganisi xa nhlangano xi le ka xirhambo xa khalendara ya wena.",
+    "requested": "Ku sunguxiwa ku kombeliwile. Hi ta tihlanganisa na wena ku pfumelelana hi nkarhi, hi ntolovelo endzeni ka siku rin'we ra ntirho.",
+    "coversTitle": "Leswi ku sunguxiwa ku swi katsaka",
+    "covers": {
+      "setup": {
+        "title": "Ku lulamisa bindzu ra wena",
+        "body": "Vuxokoxoko bya khampani, logo, nomboro ya VAT na vuxokoxoko bya banki, leswaku tikhotexini ni tiinvhoyisi ta wena ti lunghekela ku rhumeriwa."
+      },
+      "import": {
+        "title": "Ku nghenisa data ya wena",
+        "body": "Vaxavi ni swikumiwa swa wena ku suka eka Excel kumbe sisiteme yin'wana."
+      },
+      "quoteToPay": {
+        "title": "Ku suka eka khotexini ku ya eka hakelo",
+        "body": "Khotexini ya wena yo sungula, ku yi hundzula invhoyisi, ni ndlela leyi swirhalanganyi swa hakelo swi landzelaka mali leyi kolotiwaka."
+      },
+      "connect": {
+        "title": "Imeyili, WhatsApp ni ntlawa wa wena",
+        "body": "Hlanganisa bokisi ra wena ra imeyili (WhatsApp ni SMS eka Grow ni Scale), lulamisa swiyimo swa wena, engetela ntlawa wa wena, ni swivutiso swa wena."
+      }
+    },
+    "noSlots": "A ku na minkarhi leyi pfulekeke yo veka sweswi. Hi byele leswaku i rini loko swi ku fanela kutani hi ta swi lulamisa.",
+    "requestTitle": "Kombela ku sunguxiwa",
+    "requestIntro": "Hi ta hlamula hi nkarhi ni xihlanganisi xa nhlangano.",
+    "times": "Masiku ni minkarhi leyi ku fanelaka",
+    "timesPlaceholder": "xik. Mixo hi masiku ya vhiki, kumbe Ravumune endzhaku ka 2",
+    "timesRequired": "Hi byele leswaku i rini loko swi ku fanela.",
+    "phone": "Riqingho kumbe WhatsApp (hi ku hlawula)",
+    "sent": "Ku sunguxiwa ku kombeliwile",
+    "sentHint": "Hi ta tihlanganisa na wena ku pfumelelana hi nkarhi."
   },
   "getStarted": {
     "askAdmin": "Kombela mulawuri wa wena ku endla leswi",
@@ -1767,7 +1807,14 @@
     "privacyLink": "Hlaya pholisi ya hina ya xihundla",
     "marketing": "Ndzi rhumele switsundzuxo swa YGT, mahungu ya swikumiwa na swinyiko",
     "marketingHint": "A swi bohi. U nga swi yimisa nkarhi wun'wana na wun'wana, ku suka eka imeyili yin'wana na yin'wana kumbe eka phurofayili ya wena.",
-    "agree": "Ndza pfumelelana na {{terms}} na {{privacy}}"
+    "agree": "Ndza pfumelelana na {{terms}} na {{privacy}}",
+    "errors": {
+      "required": "Hi kombela u tata leswi.",
+      "email": "Nghenisa adirese ya imeyili ku fana na vito@bindzu.co.za.",
+      "password": "Tirhisa kwalomu ka 8 wa swiletelo.",
+      "address": "Nghenisa xitarata na doroba, xik. 12 Church Street, Polokwane.",
+      "agree": "Hi kombela u hlawula leswi ku endla akhawunti ya wena."
+    }
   },
   "role": {
     "admin": "Mulawuri",
@@ -2447,6 +2494,9 @@
     "checkup": {
       "cta": "Sungula ndzavisiso wa mahala",
       "meta": "A ku na ku tsarisa"
+    },
+    "trialBar": {
+      "note": "Masiku ya {{days}} mahala. A ku laveki khadi."
     }
   },
   "aging": {

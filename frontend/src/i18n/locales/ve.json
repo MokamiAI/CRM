@@ -173,8 +173,8 @@
     "banner": {
       "free": "Ni kha pulane ya Free. Nangani pulane u engedza vhathu, vharengi na dzi-invoice nnzhi.",
       "pastDue": "Paystack a yo ngo kona u badelisa garaṱa yaṋu. I vusuludzeni u vhulunga pulane yaṋu.",
-      "trial_one": "Ho sala ḓuvha ḽa {{count}} kha tshifhinga tshaṋu tsha u lingedza Grow mahala.",
-      "trial_other": "Ho sala maḓuvha a {{count}} kha tshifhinga tshaṋu tsha u lingedza Grow mahala."
+      "trial_one": "Ho sala ḓuvha ḽa {{count}} kha tshifhinga tshaṋu tsha u lingedza {{plan}} mahala.",
+      "trial_other": "Ho sala maḓuvha a {{count}} kha tshifhinga tshaṋu tsha u lingedza {{plan}} mahala."
     },
     "cancel": "Khanselani pulane",
     "cancelConfirm": "Ni khansela pulane yaṋu? A i nga vusuluswi. Ni ḓo vha na zwoṱhe u swika magumoni a tshifhinga tshe na tshi badela nga {{date}}; nga murahu ha zwenezwo fhethu haṋu ha mushumo hu ḓo vha ha u vhala fhedzi u swika ni tshi nanga pulane hafhu. A hu na tshithu tshi phumulwaho.",
@@ -231,7 +231,8 @@
       "whatsapp_sms": "Ṱumanyani WhatsApp na SMS u rumela vharengi milaedza hune vha vha hone.",
       "reports": "Vhonani uri ndi nnyi ane a ni kolodela na uri mbadelo iṅwe na iṅwe yo lenga lini.",
       "recurring_invoices": "Badelisani dzikonṱiraka dza ṅwedzi nga ṅwedzi nga mbudziso ya invoisi tshifhinga tshiṅwe na tshiṅwe.",
-      "discovery": "Vhege iṅwe na iṅwe YGT i wana vharengi vha re na tshikhala tsini naṋu na kha rekhodo dzaṋu."
+      "discovery": "Vhege iṅwe na iṅwe YGT i wana vharengi vha re na tshikhala tsini naṋu na kha rekhodo dzaṋu.",
+      "money_overview": "Vhonani masheleni a dzhenaho, a bvaho na mbuelo, ṅwedzi nga ṅwedzi."
     },
     "paid": "Mbadelo yo ṱanganedzwa. Zwino ni kha {{plan}}.",
     "payments": "Mbadelo",
@@ -313,7 +314,9 @@
       "big_one": "Ni na vhathu vha {{count}}, nahone vhoṱhe vha bvela phanḓa u dzhena tshifhingani tsha ndingo. Hustle i katela u swika kha {{limit}}, nga zwenezwo nga murahu ha ndingo ni ḓo ṱoḓa Grow kana Scale, na badeliswa zwidulo zwa {{count}} (u thoma kha {{price}} nga tshidulo nga ṅwedzi).",
       "big_other": "Ni na vhathu vha {{count}}, nahone vhoṱhe vha bvela phanḓa u dzhena tshifhingani tsha ndingo. Hustle i katela u swika kha {{limit}}, nga zwenezwo nga murahu ha ndingo ni ḓo ṱoḓa Grow kana Scale, na badeliswa zwidulo zwa {{count}} (u thoma kha {{price}} nga tshidulo nga ṅwedzi)."
     },
-    "tooSmall": "Ni na vhathu vha {{count}}. Hustle i katela u swika kha {{limit}}."
+    "tooSmall": "Ni na vhathu vha {{count}}. Hustle i katela u swika kha {{limit}}.",
+    "yearlyAsMonthly": "Ndi {{amount}} nga ṅwedzi, zwi tshi badelwa nga ṅwaha",
+    "yearlyAsMonthlySeat": "Ndi {{amount}} nga muthu nga ṅwedzi, zwi tshi badelwa nga ṅwaha"
   },
   "channels": {
     "appPassword": {
@@ -478,7 +481,8 @@
       "sales": "Mitengo na pulane",
       "support": "Ndi ṱoḓa thuso"
     },
-    "updated": "Muthu wa vhukwamani o khwiniswa"
+    "updated": "Muthu wa vhukwamani o khwiniswa",
+    "orWhatsApp": "kana WhatsApp"
   },
   "customFields": {
     "add": "Engedzani fhethu",
@@ -1028,6 +1032,42 @@
     "dealWon": "Thendelano yo kundwa",
     "note": "Noutu yo engedzwa",
     "payment": "Mbadelo yo ṱanganedzwa"
+  },
+  "onboarding": {
+    "title": "Sesheni ya u thoma ya mahala",
+    "intro": "Luṱingo lwa vidiyo lwa minete dza {{minutes}} hune tshigwada tshashu tsha dzudzanya YGT na inwi. Ndi mahala kha pulane dzoṱhe.",
+    "request": "Humbelani u thomiswa",
+    "seeBooking": "Vhonani u dzhenisa",
+    "bookedFor": "U thomiswa haṋu ho dzheniswa nga {{when}}. Vhukwamanyi ha muṱangano vhu kha ndalukanyo ya khalenda yaṋu.",
+    "requested": "U thomiswa ho humbelwa. Ri ḓo kwamana na inwi u itela u tendelana nga tshifhinga, nga u ṱoḓa u fana ḽiṅwe ḓuvha ḽa mushumo.",
+    "coversTitle": "Zwine u thomiswa zwa katela",
+    "covers": {
+      "setup": {
+        "title": "U dzudzanya bindu ḽaṋu",
+        "body": "Zwidodombedzwa zwa khamphani, logo, nomboro ya VAT na zwidodombedzwa zwa bannga, uri khotheisheni na dziinvoisi dzaṋu dzi lugele u rumelwa."
+      },
+      "import": {
+        "title": "U ḓisa data yaṋu",
+        "body": "Vharengi na zwibveledzwa zwaṋu u bva kha Excel kana kha sisiṱeme iṅwe."
+      },
+      "quoteToPay": {
+        "title": "U bva kha khotheisheni u swika kha mbadelo",
+        "body": "Khotheisheni yaṋu ya u thoma, u i shandukisa invoisi, na nḓila ine zwiitisi zwa mbadelo zwa tevhela ngayo masheleni a kolodwaho."
+      },
+      "connect": {
+        "title": "Imeiḽi, WhatsApp na tshigwada tshaṋu",
+        "body": "Ṱumanyani bogisi ḽaṋu ḽa imeiḽi (WhatsApp na SMS kha Grow na Scale), dzudzanyani zwiṱeṅwa zwaṋu, engedzani tshigwada tshaṋu, na mbudziso dzaṋu."
+      }
+    },
+    "noSlots": "A hu na zwifhinga zwo vulea zwa u dzhenisa zwino. Ri vhudzeni uri ndi lini zwi tshi ni tea nahone ri ḓo zwi dzudzanya.",
+    "requestTitle": "Humbelani u thomiswa",
+    "requestIntro": "Ri ḓo fhindula nga tshifhinga na vhukwamanyi ha muṱangano.",
+    "times": "Maḓuvha na zwifhinga zwi ni teaho",
+    "timesPlaceholder": "tsumbo. Matsheloni a vhege, kana Ḽavhuṋa nga murahu ha 2",
+    "timesRequired": "Ri vhudzeni uri ndi lini zwi tshi ni tea.",
+    "phone": "Founu kana WhatsApp (a zwo ngo kombetshedzwa)",
+    "sent": "U thomiswa ho humbelwa",
+    "sentHint": "Ri ḓo kwamana na inwi u itela u tendelana nga tshifhinga."
   },
   "getStarted": {
     "askAdmin": "Humbelani mulanguli waṋu u ita izwi",
@@ -1767,7 +1807,14 @@
     "privacyLink": "Vhalani mbekanyamaitele yashu ya tshiphiri",
     "marketing": "Nthumeleni nyeletshedzo dza YGT, mafhungo a zwibveledzwa na zwiṋetshedzo",
     "marketingHint": "A zwi kombetshedzwi. Ni nga zwi imisa tshifhinga tshiṅwe na tshiṅwe, u bva kha imeiḽi iṅwe na iṅwe kana kha phurofaiḽi yaṋu.",
-    "agree": "Ndi a tendelana na {{terms}} na {{privacy}}"
+    "agree": "Ndi a tendelana na {{terms}} na {{privacy}}",
+    "errors": {
+      "required": "Ri humbela ni ḓadze heli.",
+      "email": "Dzhenisani ḓiresi ya imeiḽi i ngaho dzina@bindu.co.za.",
+      "password": "Shumisani nyana ya zwiḽedzwa zwa 8.",
+      "address": "Dzhenisani zwiṱarata na ḓorobo, tsumbo. 12 Church Street, Polokwane.",
+      "agree": "Ri humbela ni swaye heli u itela u sika akhaunthu yaṋu."
+    }
   },
   "role": {
     "admin": "Mulanguli",
@@ -2447,6 +2494,9 @@
     "checkup": {
       "cta": "Thomani ndingo ya mahala",
       "meta": "A hu na u ḓiṅwalisa"
+    },
+    "trialBar": {
+      "note": "Maḓuvha a {{days}} mahala. A hu ṱoḓei garaṱa."
     }
   },
   "aging": {

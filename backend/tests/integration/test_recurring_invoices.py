@@ -7,7 +7,10 @@ from decimal import Decimal
 
 import pytest
 
+from dataclasses import replace
+
 from app.core.database import AsyncSessionLocal
+from app.core.plans import PLANS
 from sqlalchemy import update
 
 from app.core.tenancy import set_system, set_tenant
@@ -118,9 +121,10 @@ async def test_pause_resume_end_and_other_companies(api):
 
 
 @pytest.mark.asyncio
-async def test_recurring_needs_grow_or_scale(api):
-    """Hustle can't start or restart a schedule, and the run leaves a
-    downgraded company's schedules waiting; it can still see and stop them."""
+async def test_recurring_is_in_every_plan_and_gated_without_it(api, monkeypatch):
+    """Every paid plan includes recurring invoices (Hustle too). A plan
+    without the feature can't start or restart a schedule, and the run
+    leaves its schedules waiting; it can still see and stop them."""
     grow_owner = await new_company(api, "Pi Grow")
     gcustomer = (await api.post("/customers", json={"name": "Client"}, headers=grow_owner["headers"])).json()
     ok = await api.post(
@@ -130,13 +134,15 @@ async def test_recurring_needs_grow_or_scale(api):
     )
     assert ok.status_code == 201, ok.text  # Grow includes recurring invoices
 
-    grow = await new_company(api, "Pi Plumbing", plan="hustle")
-    customer = (await api.post("/customers", json={"name": "Client"}, headers=grow["headers"])).json()
-    res = await api.post(
-        "/recurring-invoices",
-        json={"customer_id": customer["id"], "frequency": "monthly", "start_date": date.today().isoformat(), "items": ITEMS},
-        headers=grow["headers"],
-    )
+    hustle = await new_company(api, "Pi Plumbing", plan="hustle")
+    customer = (await api.post("/customers", json={"name": "Client"}, headers=hustle["headers"])).json()
+    body = {"customer_id": customer["id"], "frequency": "monthly", "start_date": date.today().isoformat(), "items": ITEMS}
+    res = await api.post("/recurring-invoices", json=body, headers=hustle["headers"])
+    assert res.status_code == 201, res.text  # Hustle includes recurring invoices
+
+    # The gate itself, on a plan without the feature.
+    monkeypatch.setitem(PLANS, "hustle", replace(PLANS["hustle"], features=frozenset()))
+    res = await api.post("/recurring-invoices", json=body, headers=hustle["headers"])
     assert res.status_code == 402 and res.json()["error_code"] == "PLAN_FEATURE_RECURRING_INVOICES"
 
     owner = await new_company(api, "Rho Bookkeeping", plan="scale")

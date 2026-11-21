@@ -434,7 +434,7 @@ export default function CostsPage() {
   const { user } = useAuth();
   const allowed = canViewCosts(user);
   const manage = canManageCosts(user);
-  const dashboard = useHasFeature("reports") === true;
+  const dashboard = useHasFeature("money_overview") === true;
   const [month, setMonth] = useState(thisMonth);
   const [view, setView] = useState("all");
   const [category, setCategory] = useState("");

@@ -201,6 +201,9 @@ export default function LoginPage() {
   );
 }
 
+// Step 1's fields, in the order they appear (the first problem gets focus).
+const STEP_ONE = ["company_name", "business_address", "full_name", "email", "password"];
+
 /** Self-service sign-up: creates a new company with this person as its admin. */
 export function RegisterPage() {
   const { t } = useTranslation();
@@ -208,8 +211,9 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [form, setForm] = useState({ company_name: "", business_address: "", full_name: "", email: "", password: "" });
-  // Optional: the year's revenue goal, for the dashboard's goal card.
-  const [goal, setGoal] = useState("");
+  // Each field's problem, shown under it (our words, not the browser's
+  // bubble), after the person first tries to continue.
+  const [invalid, setInvalid] = useState({});
   // YGT's tips, news and offers: never ticked for them (POPIA s69).
   const [marketing, setMarketing] = useState(false);
   // Required, and recorded on the account (with the terms' version).
@@ -220,19 +224,44 @@ export function RegisterPage() {
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const set = (field) => (event) => setForm((prev) => ({ ...prev, [field]: event.target.value }));
+  const set = (field) => (event) => {
+    const { value } = event.target;
+    setForm((prev) => ({ ...prev, [field]: value }));
+    // Once a field has been flagged, re-check it as they fix it.
+    if (invalid[field]) setInvalid((prev) => ({ ...prev, [field]: problem(field, value) }));
+  };
+
+  function problem(field, raw) {
+    const value = raw.trim();
+    if (!value) return t("register.errors.required");
+    if (field === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return t("register.errors.email");
+    if (field === "password" && raw.length < 8) return t("register.errors.password");
+    if (field === "business_address" && value.length < 10) return t("register.errors.address");
+    return "";
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
     setError("");
     if (step === 1) {
-      setStep(2); // the browser has already checked the fields
+      const found = Object.fromEntries(STEP_ONE.map((f) => [f, problem(f, form[f])]).filter(([, p]) => p));
+      setInvalid(found);
+      const first = STEP_ONE.find((f) => found[f]);
+      if (first) {
+        document.getElementById(first)?.focus();
+        return;
+      }
+      setStep(2);
+      return;
+    }
+    if (!agreed) {
+      setInvalid({ agree: t("register.errors.agree") });
+      document.getElementById("accept_terms")?.focus();
       return;
     }
     setIsSubmitting(true);
     try {
-      const target = Number(String(goal).replace(/[^\d.]/g, ""));
-      await register({ ...form, plan, marketing_opt_in: marketing, accept_terms: agreed, ...(target > 0 && { annual_revenue_goal: String(target) }) });
+      await register({ ...form, plan, marketing_opt_in: marketing, accept_terms: agreed });
       navigate("/", { replace: true });
     } catch (err) {
       const code = err?.response?.data?.error_code;
@@ -253,6 +282,14 @@ export function RegisterPage() {
       setIsSubmitting(false);
     }
   }
+
+  const fieldError = (id) =>
+    invalid[id] ? (
+      <span id={`${id}-error`} className="mt-1.5 block text-xs font-medium text-red-700">
+        {invalid[id]}
+      </span>
+    ) : null;
+  const errorProps = (id) => (invalid[id] ? { "aria-invalid": true, "aria-describedby": `${id}-error` } : {});
 
   const fields = [
     { id: "company_name", autoComplete: "organization", autoFocus: true },
@@ -276,7 +313,7 @@ export function RegisterPage() {
         </span>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+      <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-4">
         {step === 1 ? (
           <>
             {fields.map(({ id, hint, ...props }) => (
@@ -284,7 +321,8 @@ export function RegisterPage() {
                 <label className="label" htmlFor={id}>
                   {t(`register.${id}`)}
                 </label>
-                <GlowField id={id} required value={form[id]} onChange={set(id)} {...props} />
+                <GlowField id={id} required value={form[id]} onChange={set(id)} {...props} {...errorProps(id)} />
+                {fieldError(id)}
                 {hint && <span className="mt-1.5 block text-xs text-zinc-500">{hint}</span>}
                 {id === "company_name" && (
                   <div className="mt-4">
@@ -293,6 +331,7 @@ export function RegisterPage() {
                     </label>
                     <textarea
                       id="business_address"
+                      {...errorProps("business_address")}
                       className="input min-h-[4.5rem] resize-y"
                       rows={2}
                       required
@@ -303,28 +342,40 @@ export function RegisterPage() {
                       value={form.business_address}
                       onChange={set("business_address")}
                     />
+                    {fieldError("business_address")}
                     <span className="mt-1.5 block text-xs text-zinc-500">{t("register.addressHint")}</span>
                   </div>
                 )}
               </div>
             ))}
-            <div>
-              <label className="label" htmlFor="annual_revenue_goal">
-                {t("goal.signupLabel")} <span className="font-normal text-zinc-400">{t("goal.optional")}</span>
-              </label>
-              <GlowField id="annual_revenue_goal" inputMode="decimal" placeholder={t("goal.placeholder")} value={goal} onChange={(e) => setGoal(e.target.value)} />
-              <span className="mt-1.5 block text-xs text-zinc-500">{t("goal.signupHint")}</span>
-            </div>
           </>
         ) : (
           <>
             <PlanPicker value={plan} onChange={setPlan} />
-            <label className="flex cursor-pointer items-start gap-3 rounded-xl px-1 py-1 text-sm text-zinc-700">
-              <input type="checkbox" required className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
-              <span>
-                <TermsLinks text={t("register.agree", { terms: "{{terms}}", privacy: "{{privacy}}", interpolation: { escapeValue: false } })} />
-              </span>
-            </label>
+            <div>
+              <label className="flex cursor-pointer items-start gap-3 rounded-xl px-1 py-1 text-sm text-zinc-700">
+                <input
+                  id="accept_terms"
+                  type="checkbox"
+                  required
+                  {...errorProps("agree")}
+                  className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500"
+                  checked={agreed}
+                  onChange={(e) => {
+                    setAgreed(e.target.checked);
+                    if (e.target.checked) setInvalid((prev) => ({ ...prev, agree: "" }));
+                  }}
+                />
+                <span>
+                  <TermsLinks text={t("register.agree", { terms: "{{terms}}", privacy: "{{privacy}}", interpolation: { escapeValue: false } })} />
+                </span>
+              </label>
+              {invalid.agree && (
+                <span id="agree-error" className="ml-9 block text-xs font-medium text-red-700">
+                  {invalid.agree}
+                </span>
+              )}
+            </div>
             <label className="flex cursor-pointer items-start gap-3 rounded-xl px-1 py-1 text-sm text-zinc-700">
               <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} />
               <span>

@@ -421,6 +421,14 @@ a,
   box-shadow: none;
   outline: none;
 }
+/* A field with a problem (its message sits under it): a red edge, also
+   inside the glow ring, so the field to fix is easy to find. */
+.input[aria-invalid="true"],
+.glow-field .input[aria-invalid="true"],
+.glow-field .input[aria-invalid="true"]:focus {
+  border-color: rgb(239 68 68);
+  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.12);
+}
 @keyframes glow-spin {
   to {
     transform: translate(-50%, -50%) rotate(360deg);
@@ -1102,7 +1110,7 @@ textarea.input:focus {
 
 /* ---- Arrival moments (components/Startup.jsx): rare, so a little ceremony ---- */
 .intro-tagline {
-  animation: rise-in 500ms var(--ease-out) 1900ms both;
+  animation: rise-in 400ms var(--ease-out) 700ms both;
 }
 .welcome-in {
   animation: rise-in 420ms var(--ease-out) both;

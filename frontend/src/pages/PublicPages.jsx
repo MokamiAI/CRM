@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
@@ -20,6 +21,8 @@ export const LEGAL = {
   directors: "Mokami Johannes",
   address: "1929 Vuka Section, Oukasie, Brits, 0250, South Africa",
   phone: "063 670 7123",
+  // The same number on WhatsApp, in international form for wa.me links.
+  whatsapp: "27636707123",
   email: "johannes@yougt.co.za",
   informationOfficer: "Mokami Johannes",
   vat: "YGT isn't registered for VAT, so no VAT is added; if that changes, we'll tell you before VAT is charged.",
@@ -53,6 +56,27 @@ export function PublicHeader({ className = "" }) {
   const { user } = useAuth();
   const { pathname } = useLocation();
   const section = (id) => (pathname === "/" ? `#${id}` : `/#${id}`);
+  // On phones the tabs scroll sideways: fade the right edge while more
+  // tabs are out of sight, so the cut-off one reads as "scroll for more".
+  const nav = useRef(null);
+  const [more, setMore] = useState(false);
+  const measure = () => {
+    const el = nav.current;
+    if (el) setMore(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+  useEffect(() => {
+    measure();
+    // Again whenever the tabs change size: the web font arriving, or a
+    // language with longer words.
+    const watch = typeof ResizeObserver === "function" ? new ResizeObserver(measure) : null;
+    const list = nav.current?.firstElementChild;
+    if (watch && list) watch.observe(list);
+    window.addEventListener("resize", measure);
+    return () => {
+      watch?.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
   const links = [
     [section("features"), t("home.nav.features")],
     [section("pricing"), t("home.nav.pricing")],
@@ -67,10 +91,15 @@ export function PublicHeader({ className = "" }) {
         <span className="text-[15px] font-semibold tracking-tight text-zinc-900">{APP_NAME}</span>
       </Link>
       <nav
+        ref={nav}
+        onScroll={measure}
         aria-label={t("home.nav.label")}
-        className="order-last -mx-5 w-[calc(100%+2.5rem)] overflow-x-auto px-5 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:order-none md:mx-0 md:ml-6 md:w-auto md:overflow-visible md:px-0"
+        className={`order-last -mx-5 w-[calc(100%+2.5rem)] overflow-x-auto px-5 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:order-none md:mx-0 md:ml-6 md:w-auto md:overflow-visible md:px-0 md:[mask-image:none] ${
+          more ? "[mask-image:linear-gradient(to_right,#000_80%,transparent)]" : ""
+        }`}
       >
-        <ul className="flex gap-5 whitespace-nowrap text-sm">
+        {/* pr-5: room after the last tab once the row is scrolled to its end. */}
+        <ul className="flex w-max gap-5 whitespace-nowrap pr-5 text-sm md:w-auto md:pr-0">
           {links.map(([to, label, accent]) => {
             const current = to === pathname;
             const look = accent
@@ -106,8 +135,47 @@ export function PublicHeader({ className = "" }) {
           </Link>
         )}
       </div>
+      {!user && <PhoneTrialBar />}
     </header>
   );
+}
+
+/** Phones have no room for the trial button in the header, so once the
+ *  page is scrolled past its opening it waits at the bottom of the screen.
+ *  Rendered on <body>: the header's entrance animation leaves a transform
+ *  behind, which would pin a fixed bar to the header instead of the screen. */
+function PhoneTrialBar() {
+  const { t } = useTranslation();
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const check = () => setShown(window.scrollY > 520);
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    return () => window.removeEventListener("scroll", check);
+  }, []);
+  return createPortal(
+    <div
+      className={`safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-zinc-200/80 bg-white/95 px-4 pt-3 backdrop-blur-md transition-transform duration-300 sm:hidden ${
+        shown ? "translate-y-0" : "pointer-events-none translate-y-full"
+      }`}
+      inert={shown ? undefined : ""}
+      data-testid="phone-trial-bar"
+    >
+      <div className="flex items-center gap-3 pb-3">
+        <p className="min-w-0 flex-1 text-xs leading-snug text-zinc-600">{t("home.trialBar.note", { days: 14 })}</p>
+        <Link to="/register" className="btn btn-primary !h-11 shrink-0 !px-4 !text-sm">
+          {t("home.nav.start")}
+        </Link>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+/** Room under the footer for the phone trial bar, so it never covers the last links. */
+export function TrialBarSpace() {
+  const { user } = useAuth();
+  return user ? null : <div className="h-20 w-full basis-full sm:hidden" aria-hidden="true" />;
 }
 
 export function PublicFooter() {
@@ -130,6 +198,7 @@ export function PublicFooter() {
           {label}
         </Link>
       ))}
+      <TrialBarSpace />
     </footer>
   );
 }
@@ -204,6 +273,25 @@ export function ContactForm({ compact = false }) {
   );
 }
 
+/** The one public way to reach YGT besides the form: email and WhatsApp. */
+export function ContactLinks({ className = "" }) {
+  const { t } = useTranslation();
+  const link = "inline-block py-2 -my-2 font-medium text-indigo-600 hover:text-indigo-700";
+  return (
+    <p className={`text-sm text-zinc-500 ${className}`}>
+      {t("contact.orEmail")}{" "}
+      <a href={`mailto:${LEGAL.email}`} className={link}>
+        {LEGAL.email}
+      </a>
+      {" · "}
+      {t("contact.orWhatsApp")}{" "}
+      <a href={`https://wa.me/${LEGAL.whatsapp}`} target="_blank" rel="noopener noreferrer" className={`${link} tabular-nums`}>
+        {LEGAL.phone}
+      </a>
+    </p>
+  );
+}
+
 export function ContactPage() {
   const { t } = useTranslation();
   return (
@@ -211,14 +299,7 @@ export function ContactPage() {
       <section className="py-8">
         <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">{t("contact.title")}</h1>
         <p className="mt-2 max-w-xl text-zinc-600">{t("contact.intro")}</p>
-        {LEGAL.email && (
-          <p className="mt-2 text-sm text-zinc-500">
-            {t("contact.orEmail")}{" "}
-            <a href={`mailto:${LEGAL.email}`} className="inline-block py-2 -my-2 font-medium text-indigo-600 hover:text-indigo-700">
-              {LEGAL.email}
-            </a>
-          </p>
-        )}
+        <ContactLinks className="mt-2" />
         <div className="card mt-8 p-5 sm:p-7">
           <ContactForm />
         </div>

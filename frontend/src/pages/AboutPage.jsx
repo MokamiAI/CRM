@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 import { APP_FULL_NAME, APP_NAME, BrandMark, DevelopedBy } from "../components/Brand";
 import { IntervalToggle, PlanCard } from "../components/Billing";
-import { ContactForm, PublicHeader } from "./PublicPages";
+import { ContactForm, ContactLinks, PublicHeader, TrialBarSpace } from "./PublicPages";
 import { usePlans } from "../hooks/useApi";
 import { LANGUAGES } from "../i18n/languages";
 import pkg from "../../package.json";
@@ -25,8 +25,6 @@ const ICONS = {
 };
 const PILLARS = ["grow", "manage", "succeed"];
 const VALUES = ["simplicity", "accessibility", "innovation", "reliability", "empowerment"];
-// Optional, set per deployment (VITE_SUPPORT_EMAIL in frontend/.env).
-const SUPPORT_EMAIL = import.meta.env.VITE_SUPPORT_EMAIL;
 const FOUNDER = "Mokami Johannes";
 
 export function FeatureIcon({ name }) {
@@ -237,15 +235,7 @@ export default function AboutPage() {
             <h2 className="font-semibold text-zinc-900">{t("about.languagesTitle")}</h2>
             <p className="mt-3 text-sm leading-relaxed text-zinc-600">{LANGUAGES.map((l) => l.name).join(" · ")}</p>
             <h2 className="mt-6 font-semibold text-zinc-900">{t("about.supportTitle")}</h2>
-            <p className="mt-3 text-sm text-zinc-600">
-              {SUPPORT_EMAIL ? (
-                <a href={`mailto:${SUPPORT_EMAIL}`} className="inline-block py-2 -my-2 font-medium text-indigo-600 hover:text-indigo-700">
-                  {SUPPORT_EMAIL}
-                </a>
-              ) : (
-                t("about.supportAdmin")
-              )}
-            </p>
+            <ContactLinks className="mt-3" />
           </div>
         </section>
 
@@ -267,6 +257,7 @@ export default function AboutPage() {
             </Link>
             <span className="tabular-nums">{t("about.version", { version: pkg.version })}</span>
           </span>
+          <TrialBarSpace />
         </footer>
       </div>
     </div>

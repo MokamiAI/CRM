@@ -31,7 +31,9 @@ function useReveal(root) {
             io.unobserve(entry.target);
           }
         },
-        { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+        // As soon as a section's top edge is a little way into view: a share
+        // of the section (the old 12%) left tall sections blank on phones.
+        { rootMargin: "0px 0px -8% 0px", threshold: 0 },
       );
       el.querySelectorAll(".reveal").forEach((node) => io.observe(node));
     };
