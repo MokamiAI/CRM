@@ -178,8 +178,8 @@
     "banner": {
       "free": "You're on the Free plan. Choose a plan to add more people, customers and invoices.",
       "pastDue": "Paystack couldn't charge your card. Update it to keep your plan.",
-      "trial_one": "{{count}} day left in your free trial of Grow.",
-      "trial_other": "{{count}} days left in your free trial of Grow."
+      "trial_one": "{{count}} day left in your free trial of {{plan}}.",
+      "trial_other": "{{count}} days left in your free trial of {{plan}}."
     },
     "cancel": "Cancel plan",
     "cancelConfirm": "Cancel your plan? It won't renew. You keep everything until the end of your paid period on {{date}}; after that your workspace is read-only until you choose a plan again. Nothing is deleted.",
@@ -246,7 +246,8 @@
       "whatsapp_sms": "Connect WhatsApp and SMS to message customers where they already are.",
       "reports": "See who owes you money and how late each payment is.",
       "recurring_invoices": "Bill retainers and monthly contracts with a draft invoice each cycle.",
-      "discovery": "Every week YGT finds potential customers near you and in your own records."
+      "discovery": "Every week YGT finds potential customers near you and in your own records.",
+      "money_overview": "See money in, money out and profit, month by month."
     },
     "paid": "Payment received. You're on {{plan}} now.",
     "payments": "Payments",
@@ -300,6 +301,8 @@
     "total_one": "{{amount}} for {{count}} seat",
     "total_other": "{{amount}} for {{count}} seats",
     "twoFree": "2 months free",
+    "yearlyAsMonthly": "That's {{amount}} a month, billed yearly",
+    "yearlyAsMonthlySeat": "That's {{amount}} per person a month, billed yearly",
     "updateCard": "Update card",
     "usage": {
       "customers": "Customers",
@@ -480,6 +483,7 @@
     "message": "Message",
     "name": "Your name",
     "orEmail": "Or email us at",
+    "orWhatsApp": "or WhatsApp",
     "phone": "Phone (optional)",
     "primary": "Primary contact for this customer",
     "removed": "Contact removed",
@@ -1050,6 +1054,42 @@
     "dealWon": "Deal won",
     "note": "Note added",
     "payment": "Payment received"
+  },
+  "onboarding": {
+    "title": "Free onboarding session",
+    "intro": "A {{minutes}}-minute video call with our team to set YGT up with you. Free on every plan.",
+    "request": "Request onboarding",
+    "seeBooking": "See booking",
+    "bookedFor": "Your onboarding is booked for {{when}}. The meeting link is in your calendar invite.",
+    "requested": "Onboarding requested. We'll contact you to agree on a time, usually within one working day.",
+    "coversTitle": "What onboarding covers",
+    "covers": {
+      "setup": {
+        "title": "Your business set-up",
+        "body": "Company details, logo, VAT number and bank details, so your quotes and invoices are ready to send."
+      },
+      "import": {
+        "title": "Bringing your data in",
+        "body": "Your customers and products from Excel or another system."
+      },
+      "quoteToPay": {
+        "title": "Quote to payment",
+        "body": "Your first quote, turning it into an invoice, and how payment reminders chase what's owed."
+      },
+      "connect": {
+        "title": "Email, WhatsApp and your team",
+        "body": "Connect your mailbox (WhatsApp and SMS on Grow and Scale), set your pipeline stages, add your team, and your questions."
+      }
+    },
+    "noSlots": "There are no open times to book right now. Tell us when suits you and we'll set it up.",
+    "requestTitle": "Request onboarding",
+    "requestIntro": "We'll reply with a time and a meeting link.",
+    "times": "Days and times that suit you",
+    "timesPlaceholder": "e.g. Weekday mornings, or Thursday after 2pm",
+    "timesRequired": "Tell us when suits you.",
+    "phone": "Phone or WhatsApp (optional)",
+    "sent": "Onboarding requested",
+    "sentHint": "We'll contact you to agree on a time."
   },
   "getStarted": {
     "askAdmin": "Ask your admin to do this",
@@ -1790,7 +1830,14 @@
     "privacyLink": "Read our privacy policy",
     "marketing": "Send me YGT's tips, product news and offers",
     "marketingHint": "Optional. You can stop them at any time, from any email or your profile.",
-    "agree": "I agree to the {{terms}} and the {{privacy}}"
+    "agree": "I agree to the {{terms}} and the {{privacy}}",
+    "errors": {
+      "required": "Please fill this in.",
+      "email": "Enter an email address like name@business.co.za.",
+      "password": "Use at least 8 characters.",
+      "address": "Enter the street and town, e.g. 12 Church Street, Polokwane.",
+      "agree": "Please tick this to create your account."
+    }
   },
   "role": {
     "admin": "Admin",
@@ -2240,6 +2287,9 @@
     "reactivated": "Supplier reactivated"
   },
   "home": {
+    "trialBar": {
+      "note": "{{days}} days free. No card needed."
+    },
     "nav": {
       "label": "Main",
       "features": "Features",

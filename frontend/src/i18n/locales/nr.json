@@ -173,8 +173,8 @@
     "banner": {
       "free": "Usehlelweni le-Free. Khetha ihlelo bona wengeze abantu, amakhasimende nama-invoyisi amanengi.",
       "pastDue": "I-Paystack ayikghonanga ukubhadelisa ikarada yakho. Yibuyekeze bona ugcine ihlelo lakho.",
-      "trial_one": "Kusele ilanga eli-{{count}} esikhathini sakho sokulinga i-Grow simahhala.",
-      "trial_other": "Kusele amalanga ali-{{count}} esikhathini sakho sokulinga i-Grow simahhala."
+      "trial_one": "Kusele ilanga eli-{{count}} esikhathini sakho sokulinga i-{{plan}} simahhala.",
+      "trial_other": "Kusele amalanga ali-{{count}} esikhathini sakho sokulinga i-{{plan}} simahhala."
     },
     "cancel": "Khansela ihlelo",
     "cancelConfirm": "Ukhansela ihlelo lakho? Angekhe livuselelwe. Ugcina koke bekube sekupheleni kwesikhathi osibhadeleko ngo-{{date}}; ngemva kwalokho indawo yakho yokusebenza ifundeka kwaphela bekube ukhetha ihlelo godu. Akukho okususwako.",
@@ -231,7 +231,8 @@
       "whatsapp_sms": "Hlanganisa i-WhatsApp ne-SMS bona uthumele amakhasimende imilayezo lapho asele akhona.",
       "reports": "Bona ngubani okukweletako nokuthi ibhadelo ngalinye seliphuze kangangani.",
       "recurring_invoices": "Thumela ama-invoyisi weenkontraga zenyanga ngenyanga ngedrafti ye-invoyisi isikhathi ngasinye.",
-      "discovery": "Iveke ngeveke i-YGT ifumana amakhasimende angaba khona eduze kwakho nemarekhodini wakho."
+      "discovery": "Iveke ngeveke i-YGT ifumana amakhasimende angaba khona eduze kwakho nemarekhodini wakho.",
+      "money_overview": "Bona imali engenako, ephumako nenzuzo, inyanga ngenyanga."
     },
     "paid": "Imbhadelo yamukelwe. Nje use ku-{{plan}}.",
     "payments": "Iimbhadelo",
@@ -313,7 +314,9 @@
       "big_one": "Unabantu abali-{{count}}, begodu boke baragela phambili nokungena ngesikhathi sokulinga. I-Hustle ifaka abafika ku-{{limit}}, ngalokho ngemva kokulinga uzokutlhoga i-Grow namkha i-Scale, ubhadeliswe iinhlalo ezili-{{count}} (ukuthoma ku-{{price}} ngesihlalo ngenyanga).",
       "big_other": "Unabantu abali-{{count}}, begodu boke baragela phambili nokungena ngesikhathi sokulinga. I-Hustle ifaka abafika ku-{{limit}}, ngalokho ngemva kokulinga uzokutlhoga i-Grow namkha i-Scale, ubhadeliswe iinhlalo ezili-{{count}} (ukuthoma ku-{{price}} ngesihlalo ngenyanga)."
     },
-    "tooSmall": "Unabantu abali-{{count}}. I-Hustle ifaka abafika ku-{{limit}}."
+    "tooSmall": "Unabantu abali-{{count}}. I-Hustle ifaka abafika ku-{{limit}}.",
+    "yearlyAsMonthly": "Lokho ngu-{{amount}} ngenyanga, kubhadelwa umnyaka",
+    "yearlyAsMonthlySeat": "Lokho ngu-{{amount}} umuntu ngamunye ngenyanga, kubhadelwa umnyaka"
   },
   "channels": {
     "appPassword": {
@@ -478,7 +481,8 @@
       "sales": "Amanani namahlelo",
       "support": "Ngitlhoga isizo"
     },
-    "updated": "Othintanwa naye uvuselelwe"
+    "updated": "Othintanwa naye uvuselelwe",
+    "orWhatsApp": "namkha i-WhatsApp"
   },
   "customFields": {
     "add": "Engeza indawo",
@@ -1028,6 +1032,42 @@
     "dealWon": "Isivumelwano siphumelele",
     "note": "Inothi lengezwe",
     "payment": "Imbadelo yamukelwe"
+  },
+  "onboarding": {
+    "title": "Iseshini yokuthoma yesimahla",
+    "intro": "Ikhwelo levidiyo lemizuzu eli-{{minutes}} lapho isiqhema sethu sihlela i-YGT nawe. Simahla kiwo woke amaphakheji.",
+    "request": "Bawa ukuthonyiswa",
+    "seeBooking": "Bona ukubhukha",
+    "bookedFor": "Ukuthonyiswa kwakho kubhukhelwe {{when}}. Ilinki yomhlangano isesimemweni sekhalenda yakho.",
+    "requested": "Ukuthonyiswa kubawiwe. Sizokuthintana nawe bona sivumelane ngesikhathi, ngokujayelekileko ngelanga linye lomsebenzi.",
+    "coversTitle": "Lokho ukuthonyiswa okukufaka hlangana",
+    "covers": {
+      "setup": {
+        "title": "Ukuhlela ibhizinisi lakho",
+        "body": "Imininingwana yekampani, ilogo, inomboro ye-VAT nemininingwana yebhange, bona iimlinganiso nama-invoyisi wakho alungele ukuthunyelwa."
+      },
+      "import": {
+        "title": "Ukufaka idatha yakho",
+        "body": "Abathengi nemikhiqizo yakho evela ku-Excel namkha kelinye irhelo."
+      },
+      "quoteToPay": {
+        "title": "Ukusuka emlinganisweni ukuya ekubhadeleni",
+        "body": "Umlinganiso wakho wokuthoma, ukuwutjhugulula ube yi-invoyisi, nokuthi iinkhumbuzo zokubhadela zilandela njani iinkolodo."
+      },
+      "connect": {
+        "title": "I-imeyili, i-WhatsApp nesiqhema sakho",
+        "body": "Hlanganisa ibhoksi lakho le-imeyili (i-WhatsApp ne-SMS ku-Grow naku-Scale), hlela iinqhema zakho, engeza isiqhema sakho, nemibuzo yakho."
+      }
+    },
+    "noSlots": "Azikho iinkhathi ezivulekileko zokubhukha nje. Sitjele bona nini kukulungele begodu sizokuhlela.",
+    "requestTitle": "Bawa ukuthonyiswa",
+    "requestIntro": "Sizokuphendula ngesikhathi nelinki yomhlangano.",
+    "times": "Amalanga neenkhathi ezikulungeleko",
+    "timesPlaceholder": "isib. Ekuseni emalangeni weveke, namkha ngoLesine ngemva kwa-2",
+    "timesRequired": "Sitjele bona nini kukulungele.",
+    "phone": "Ifowuni namkha i-WhatsApp (ngokuzikhethela)",
+    "sent": "Ukuthonyiswa kubawiwe",
+    "sentHint": "Sizokuthintana nawe bona sivumelane ngesikhathi."
   },
   "getStarted": {
     "askAdmin": "Bawa umphathi wakho akwenze lokhu",
@@ -1767,7 +1807,14 @@
     "privacyLink": "Funda umgomo wethu wefihlo",
     "marketing": "Ngithumelela amathiphu we-YGT, iindaba zemikhiqizo neenzuzo",
     "marketingHint": "Akukatelelekanga. Ungakujamisa nanyana kunini, ku-imeyili nanyana ngiyiphi namkha kuphrofayili yakho.",
-    "agree": "Ngiyavumelana {{terms}} kanye {{privacy}}"
+    "agree": "Ngiyavumelana {{terms}} kanye {{privacy}}",
+    "errors": {
+      "required": "Sibawa uzalise lokhu.",
+      "email": "Faka ikheli le-imeyili elifana no-ibizo@ibhizinisi.co.za.",
+      "password": "Sebenzisa okungenani iimpawu ezi-8.",
+      "address": "Faka isitarada nedorobho, isib. 12 Church Street, Polokwane.",
+      "agree": "Sibawa ukhethe lokhu bona wenze i-akhawunti yakho."
+    }
   },
   "role": {
     "admin": "Umphathi",
@@ -2447,6 +2494,9 @@
     "checkup": {
       "cta": "Thoma ukuhlolwa simahla",
       "meta": "Akutlhogeki ubhalise"
+    },
+    "trialBar": {
+      "note": "Amalanga ali-{{days}} simahla. Alitlhogeki ikarada."
     }
   },
   "aging": {

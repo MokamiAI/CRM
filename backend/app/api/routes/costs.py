@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db, plan_feature, require_cost_access
 from app.core.database import CommitBeforeResponseRoute
-from app.core.plans import REPORTS
+from app.core.plans import MONEY
 from app.models.user import User
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.schemas.cost import (
@@ -75,7 +75,7 @@ async def money_summary(month: str | None = None, db: AsyncSession = Depends(get
     return await CostService(db).summary(month or f"{today:%Y-%m}", today, tz)
 
 
-@router.get("/costs/overview", response_model=MoneyOverview, dependencies=[Depends(plan_feature(REPORTS))])
+@router.get("/costs/overview", response_model=MoneyOverview, dependencies=[Depends(plan_feature(MONEY))])
 async def money_overview(db: AsyncSession = Depends(get_db), _: User = Depends(_view)):
     """The Money dashboard (Grow and Scale): 12 months of money in, money out
     and profit, where the money went, and what's still to come in and to pay."""

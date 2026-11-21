@@ -75,7 +75,7 @@ async def test_owed_money_is_bucketed_by_days_late(api):
 
 
 @pytest.mark.asyncio
-async def test_hustle_does_not_include_the_report(api):
+async def test_hustle_includes_the_report(api):
     owner = await new_company(api, "Sigma Signs", plan="hustle")
     res = await api.get("/reports/aged-receivables", headers=owner["headers"])
-    assert res.status_code == 402 and res.json()["error_code"] == "PLAN_FEATURE_REPORTS"
+    assert res.status_code == 200, res.text

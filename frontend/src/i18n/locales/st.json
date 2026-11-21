@@ -173,8 +173,8 @@
     "banner": {
       "free": "O moralong wa Free. Kgetha moralo ho eketsa batho, bareki le di-invoice tse ngata.",
       "pastDue": "Paystack ha e a kgona ho lefisa karete ya hao. E ntjhafatse ho boloka moralo wa hao.",
-      "trial_one": "Ho setse letsatsi le {{count}} nakong ya hao ya ho leka Grow mahala.",
-      "trial_other": "Ho setse matsatsi a {{count}} nakong ya hao ya ho leka Grow mahala."
+      "trial_one": "Ho setse letsatsi le {{count}} nakong ya hao ya ho leka {{plan}} mahala.",
+      "trial_other": "Ho setse matsatsi a {{count}} nakong ya hao ya ho leka {{plan}} mahala."
     },
     "cancel": "Hlakola moralo",
     "cancelConfirm": "O hlakola moralo wa hao? O ke ke wa nchafatswa. O boloka tsohle ho fihlela qetellong ya nako eo o e lefetseng ka {{date}}; kamora moo sebaka sa hao sa mosebetsi se a balwa feela ho fihlela o kgetha moralo hape. Ha ho letho le hlakolwang.",
@@ -231,7 +231,8 @@
       "whatsapp_sms": "Hokela WhatsApp le SMS ho romella bareki melaetsa moo ba seng ba le teng.",
       "reports": "Bona hore na ke mang ya o kolotang le hore tefo ka nngwe e diehile hakae.",
       "recurring_invoices": "Lefisa dikonteraka tsa kgwedi le kgwedi ka moralo wa invoice potoloho ka nngwe.",
-      "discovery": "Beke le beke YGT e fumana bareki ba ka bang teng haufi le wena le direkotong tsa hao."
+      "discovery": "Beke le beke YGT e fumana bareki ba ka bang teng haufi le wena le direkotong tsa hao.",
+      "money_overview": "Bona tjhelete e kenang, e tswang le phaello, kgwedi le kgwedi."
     },
     "paid": "Tefo e amohetswe. Jwale o ho {{plan}}.",
     "payments": "Ditefo",
@@ -313,7 +314,9 @@
       "big_one": "O na le batho ba {{count}}, mme bohle ba tswela pele ho kena nakong ya teko. Hustle e akaretsa ho fihla ho {{limit}}, kahoo kamora teko o tla hloka Grow kapa Scale, o lefiswe ditulo tse {{count}} (ho qala ka {{price}} setulo ka kgwedi).",
       "big_other": "O na le batho ba {{count}}, mme bohle ba tswela pele ho kena nakong ya teko. Hustle e akaretsa ho fihla ho {{limit}}, kahoo kamora teko o tla hloka Grow kapa Scale, o lefiswe ditulo tse {{count}} (ho qala ka {{price}} setulo ka kgwedi)."
     },
-    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretsa ho fihla ho {{limit}}."
+    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretsa ho fihla ho {{limit}}.",
+    "yearlyAsMonthly": "Ke {{amount}} ka kgwedi, e lefuwa selemo",
+    "yearlyAsMonthlySeat": "Ke {{amount}} motho ka mong ka kgwedi, e lefuwa selemo"
   },
   "channels": {
     "appPassword": {
@@ -478,7 +481,8 @@
       "sales": "Ditheko le meralo",
       "support": "Ke hloka thuso"
     },
-    "updated": "Motho wa kgokahano o ntjhafaditswe"
+    "updated": "Motho wa kgokahano o ntjhafaditswe",
+    "orWhatsApp": "kapa WhatsApp"
   },
   "customFields": {
     "add": "Kenya sebaka",
@@ -1028,6 +1032,42 @@
     "dealWon": "Tumellano e hlotswe",
     "note": "Ntlha e kentswe",
     "payment": "Tefo e amohetswe"
+  },
+  "onboarding": {
+    "title": "Seshene ya ho qala ya mahala",
+    "intro": "Mohala wa video wa metsotso e {{minutes}} moo sehlopha sa rona se hlophisang YGT le wena. Ke mahala merong yohle.",
+    "request": "Kopa ho qaliswa",
+    "seeBooking": "Bona peeletso",
+    "bookedFor": "Ho qaliswa ha hao ho behetswe {{when}}. Lehokela la kopano le memong ya khalendara ya hao.",
+    "requested": "Ho qaliswa ho kopilwe. Re tla ikopanya le wena ho lumellana ka nako, hangata nakong ya letsatsi le le leng la mosebetsi.",
+    "coversTitle": "Seo ho qaliswa ho se akaretsang",
+    "covers": {
+      "setup": {
+        "title": "Ho hlophisa kgwebo ya hao",
+        "body": "Dintlha tsa khampani, logo, nomoro ya VAT le dintlha tsa banka, hore dikotheishene le di-invoice tsa hao di be di loketse ho romelwa."
+      },
+      "import": {
+        "title": "Ho tlisa data ya hao",
+        "body": "Bareki le dihlahiswa tsa hao ho tswa ho Excel kapa sisteming e nngwe."
+      },
+      "quoteToPay": {
+        "title": "Ho tloha kotheisheneng ho ya tefong",
+        "body": "Kotheishene ya hao ya pele, ho e fetola invoice, le kamoo dikgopotso tsa tefo di latelang tjhelete e kolotwang."
+      },
+      "connect": {
+        "title": "Imeile, WhatsApp le sehlopha sa hao",
+        "body": "Hokahanya lebokose la hao la imeile (WhatsApp le SMS ho Grow le Scale), hlophisa mekgahlelo ya hao, eketsa sehlopha sa hao, le dipotso tsa hao."
+      }
+    },
+    "noSlots": "Ha ho dinako tse bulehileng tsa ho beha hona jwale. Re bolelle hore ke neng ha ho o loketse mme re tla ho hlophisa.",
+    "requestTitle": "Kopa ho qaliswa",
+    "requestIntro": "Re tla araba ka nako le lehokela la kopano.",
+    "times": "Matsatsi le dinako tse o loketseng",
+    "timesPlaceholder": "mohl. Hoseng matsatsing a beke, kapa Labone kamora 2",
+    "timesRequired": "Re bolelle hore ke neng ha ho o loketse.",
+    "phone": "Mohala kapa WhatsApp (ka boikgethelo)",
+    "sent": "Ho qaliswa ho kopilwe",
+    "sentHint": "Re tla ikopanya le wena ho lumellana ka nako."
   },
   "getStarted": {
     "askAdmin": "Kopa motsamaisi wa hao ho etsa sena",
@@ -1767,7 +1807,14 @@
     "privacyLink": "Bala leano la rona la lekunutu",
     "marketing": "Nthomelle malebela a YGT, ditaba tsa dihlahiswa le dinyehelo",
     "marketingHint": "Ha se tlamo. O ka di emisa neng kapa neng, ho tswa ho imeile efe kapa efe kapa profaeleng ya hao.",
-    "agree": "Ke dumellana le {{terms}} le {{privacy}}"
+    "agree": "Ke dumellana le {{terms}} le {{privacy}}",
+    "errors": {
+      "required": "Ka kopo tlatsa sena.",
+      "email": "Kenya aterese ya imeile jwalo ka lebitso@kgwebo.co.za.",
+      "password": "Sebedisa bonyane ditlhaku tse 8.",
+      "address": "Kenya seterata le toropo, mohl. 12 Church Street, Polokwane.",
+      "agree": "Ka kopo tshwaya sena ho etsa akhaonto ya hao."
+    }
   },
   "role": {
     "admin": "Motsamaisi",
@@ -2447,6 +2494,9 @@
     "checkup": {
       "cta": "Qala tlhahlobo ya mahala",
       "meta": "Ha ho ngodiso"
+    },
+    "trialBar": {
+      "note": "Matsatsi a {{days}} mahala. Ha ho hlokehe karete."
     }
   },
   "aging": {

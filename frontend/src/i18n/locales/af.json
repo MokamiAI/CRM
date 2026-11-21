@@ -173,8 +173,8 @@
     "banner": {
       "free": "Jy is op die Free-plan. Kies 'n plan om meer mense, kliënte en fakture by te voeg.",
       "pastDue": "Paystack kon nie jou kaart debiteer nie. Werk dit by om jou plan te hou.",
-      "trial_one": "{{count}} dag oor van jou gratis proeftydperk van Grow.",
-      "trial_other": "{{count}} dae oor van jou gratis proeftydperk van Grow."
+      "trial_one": "{{count}} dag oor van jou gratis proeftydperk van {{plan}}.",
+      "trial_other": "{{count}} dae oor van jou gratis proeftydperk van {{plan}}."
     },
     "cancel": "Kanselleer plan",
     "cancelConfirm": "Kanselleer jou plan? Dit sal nie hernu nie. Jy hou alles tot die einde van jou betaalde tydperk op {{date}}; daarna is jou werkruimte slegs-lees totdat jy weer 'n plan kies. Niks word geskrap nie.",
@@ -231,7 +231,8 @@
       "whatsapp_sms": "Koppel WhatsApp en SMS om kliënte te bereik waar hulle reeds is.",
       "reports": "Sien wie jou geld skuld en hoe laat elke betaling is.",
       "recurring_invoices": "Faktureer vooruitbetalings en maandelikse kontrakte met 'n konsepfaktuur elke siklus.",
-      "discovery": "Elke week vind YGT moontlike kliënte naby jou en in jou eie rekords."
+      "discovery": "Elke week vind YGT moontlike kliënte naby jou en in jou eie rekords.",
+      "money_overview": "Sien geld in, geld uit en wins, maand vir maand."
     },
     "paid": "Betaling ontvang. Jy is nou op {{plan}}.",
     "payments": "Betalings",
@@ -313,7 +314,9 @@
       "big_one": "Jy het {{count}} mense, en almal behou toegang tydens die proeftydperk. Hustle dek tot {{limit}}, so ná die proeftydperk het jy Grow of Scale nodig, gefaktureer vir {{count}} plekke (vanaf {{price}} per plek per maand).",
       "big_other": "Jy het {{count}} mense, en almal behou toegang tydens die proeftydperk. Hustle dek tot {{limit}}, so ná die proeftydperk het jy Grow of Scale nodig, gefaktureer vir {{count}} plekke (vanaf {{price}} per plek per maand)."
     },
-    "tooSmall": "Jy het {{count}} mense. Hustle dek tot {{limit}}."
+    "tooSmall": "Jy het {{count}} mense. Hustle dek tot {{limit}}.",
+    "yearlyAsMonthly": "Dis {{amount}} per maand, jaarliks gehef",
+    "yearlyAsMonthlySeat": "Dis {{amount}} per persoon per maand, jaarliks gehef"
   },
   "channels": {
     "appPassword": {
@@ -478,7 +481,8 @@
       "sales": "Pryse en planne",
       "support": "Ek het hulp nodig"
     },
-    "updated": "Kontak bygewerk"
+    "updated": "Kontak bygewerk",
+    "orWhatsApp": "of WhatsApp"
   },
   "customFields": {
     "add": "Voeg veld by",
@@ -1028,6 +1032,42 @@
     "dealWon": "Transaksie gewen",
     "note": "Nota bygevoeg",
     "payment": "Betaling ontvang"
+  },
+  "onboarding": {
+    "title": "Gratis aanboordsessie",
+    "intro": "'n Video-oproep van {{minutes}} minute waarin ons span YGT saam met jou opstel. Gratis op elke plan.",
+    "request": "Versoek aanboording",
+    "seeBooking": "Sien bespreking",
+    "bookedFor": "Jou aanboording is bespreek vir {{when}}. Die vergaderskakel is in jou kalenderuitnodiging.",
+    "requested": "Aanboording versoek. Ons kontak jou om 'n tyd af te spreek, gewoonlik binne een werksdag.",
+    "coversTitle": "Wat aanboording dek",
+    "covers": {
+      "setup": {
+        "title": "Jou besigheid se opstelling",
+        "body": "Maatskappybesonderhede, logo, BTW-nommer en bankbesonderhede, sodat jou kwotasies en fakture gereed is om te stuur."
+      },
+      "import": {
+        "title": "Jou data inbring",
+        "body": "Jou kliënte en produkte uit Excel of 'n ander stelsel."
+      },
+      "quoteToPay": {
+        "title": "Van kwotasie tot betaling",
+        "body": "Jou eerste kwotasie, hoe dit 'n faktuur word, en hoe betalingsherinneringe agter skuld aan gaan."
+      },
+      "connect": {
+        "title": "E-pos, WhatsApp en jou span",
+        "body": "Koppel jou posbus (WhatsApp en SMS op Grow en Scale), stel jou pyplynfases op, voeg jou span by, en jou vrae."
+      }
+    },
+    "noSlots": "Daar is nou geen oop tye om te bespreek nie. Sê vir ons wanneer dit jou pas en ons reël dit.",
+    "requestTitle": "Versoek aanboording",
+    "requestIntro": "Ons antwoord met 'n tyd en 'n vergaderskakel.",
+    "times": "Dae en tye wat jou pas",
+    "timesPlaceholder": "bv. Weeksdae soggens, of Donderdag na 14:00",
+    "timesRequired": "Sê vir ons wanneer dit jou pas.",
+    "phone": "Foon of WhatsApp (opsioneel)",
+    "sent": "Aanboording versoek",
+    "sentHint": "Ons kontak jou om 'n tyd af te spreek."
   },
   "getStarted": {
     "askAdmin": "Vra jou administrateur om dit te doen",
@@ -1767,7 +1807,14 @@
     "privacyLink": "Lees ons privaatheidsbeleid",
     "marketing": "Stuur vir my YGT se wenke, produknuus en aanbiedinge",
     "marketingHint": "Opsioneel. Jy kan dit enige tyd stop, uit enige e-pos of jou profiel.",
-    "agree": "Ek stem in tot die {{terms}} en die {{privacy}}"
+    "agree": "Ek stem in tot die {{terms}} en die {{privacy}}",
+    "errors": {
+      "required": "Vul dit asseblief in.",
+      "email": "Tik 'n e-posadres soos naam@besigheid.co.za.",
+      "password": "Gebruik minstens 8 karakters.",
+      "address": "Tik die straat en dorp, bv. Kerkstraat 12, Polokwane.",
+      "agree": "Merk dit asseblief om jou rekening te skep."
+    }
   },
   "role": {
     "admin": "Administrateur",
@@ -2447,6 +2494,9 @@
     "checkup": {
       "cta": "Begin die gratis toets",
       "meta": "Geen registrasie"
+    },
+    "trialBar": {
+      "note": "{{days}} dae gratis. Geen kaart nodig nie."
     }
   },
   "aging": {

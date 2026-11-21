@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { getCustomerTerm } from "./i18n";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { VisitTracker } from "./utils/visits";
+import PageMeta from "./components/PageMeta";
 
 // Pages people open less often load the first time they're visited, so the
 // everyday screens above reach a phone sooner.
@@ -86,6 +87,7 @@ export default function App() {
   return (
     <Suspense fallback={null}>
     <VisitTracker />
+    <PageMeta />
     <Routes key={`${i18n.language}-${term}`}>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />

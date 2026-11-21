@@ -121,7 +121,11 @@ export function StartupIntro() {
   return <IntroLayer t={t} onClosed={done} />;
 }
 
-const INTRO_HOLD = 1500; // ms "You Got This" stays before folding back
+// The intro stands between a first-time visitor and the page, so it is kept
+// to about two seconds: the words play about twice as fast, hold briefly, and
+// the layer lifts away (no fold back into YGT, which took another ~2 s).
+const INTRO_PACE = 0.45;
+const INTRO_HOLD = 150; // ms "You Got This" stays before the layer lifts
 
 function IntroLayer({ t, onClosed }) {
   const words = useRef(null);
@@ -144,7 +148,7 @@ function IntroLayer({ t, onClosed }) {
   const timer = useRef(null);
   useEffect(() => () => clearTimeout(timer.current), []);
   const finished = useCallback(() => {
-    timer.current = setTimeout(() => close(true), INTRO_HOLD);
+    timer.current = setTimeout(() => close(), INTRO_HOLD);
   }, [close]);
   return (
     <div
@@ -157,7 +161,7 @@ function IntroLayer({ t, onClosed }) {
         <span className="aurora-blob -left-24 top-[-4rem] h-96 w-96 bg-violet-300" />
         <span className="aurora-blob right-[-6rem] bottom-[-4rem] h-96 w-96 bg-sky-300" />
       </div>
-      <YouGotThis ref={words} className="relative text-[clamp(2.75rem,11vw,7.5rem)] leading-none" delay={150} onDone={finished} />
+      <YouGotThis ref={words} className="relative text-[clamp(2.75rem,11vw,7.5rem)] leading-none" delay={100} pace={INTRO_PACE} onDone={finished} />
       <div className={`relative transition-opacity duration-300 ${closing ? "opacity-0" : "opacity-100"}`}>
         <p className="intro-tagline mt-6 text-base font-medium text-slate-600 sm:text-lg">{t("home.hero.headline")}</p>
       </div>

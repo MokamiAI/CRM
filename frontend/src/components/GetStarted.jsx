@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
 import { useTour } from "./Tour";
+import { OnboardingOffer } from "./Onboarding";
 
 // Where each checklist item is done.
 const LINKS = {
@@ -105,6 +106,7 @@ export default function GetStarted() {
           );
         })}
       </ul>
+      <OnboardingOffer />
     </section>
   );
 }

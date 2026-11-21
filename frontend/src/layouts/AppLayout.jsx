@@ -101,7 +101,7 @@ const NAV = {
   help: { to: "/help", navKey: "help", icon: HelpIcon },
   support: { to: "/support", navKey: "support", icon: SupportIcon },
   admin: { to: "/admin", navKey: "admin", icon: ShieldIcon },
-  money: { to: "/money", navKey: "money", icon: MoneyIcon, feature: "reports", costs: true },
+  money: { to: "/money", navKey: "money", icon: MoneyIcon, feature: "money_overview", costs: true },
   reports: { to: "/invoices/aging", navKey: "reports", icon: ReportsIcon, feature: "reports" },
 };
 
@@ -124,9 +124,9 @@ function useActionCount() {
 
 /** Hides nav items whose feature isn't in the company's plan (e.g. Reports). */
 function useVisible() {
-  const reports = useHasFeature("reports");
+  const has = { reports: useHasFeature("reports"), money_overview: useHasFeature("money_overview") };
   const { user } = useAuth();
-  return (item) => (!item.costs || canViewCosts(user)) && (!item.feature || (item.feature === "reports" && reports === true));
+  return (item) => (!item.costs || canViewCosts(user)) && (!item.feature || has[item.feature] === true);
 }
 
 function CountBadge({ count, urgent, collapsed }) {

@@ -173,8 +173,8 @@
     "banner": {
       "free": "O go leano la Free. Kgetha leano go oketša batho, bareki le di-invoice tše dintši.",
       "pastDue": "Paystack ga e a kgona go lefiša karata ya gago. E mpshafatše go boloka leano la gago.",
-      "trial_one": "Go šetše letšatši le {{count}} nakong ya gago ya go leka Grow mahala.",
-      "trial_other": "Go šetše matšatši a {{count}} nakong ya gago ya go leka Grow mahala."
+      "trial_one": "Go šetše letšatši le {{count}} nakong ya gago ya go leka {{plan}} mahala.",
+      "trial_other": "Go šetše matšatši a {{count}} nakong ya gago ya go leka {{plan}} mahala."
     },
     "cancel": "Khansela leano",
     "cancelConfirm": "O khansela leano la gago? Le ka se mpshafatšwe. O swara tšohle go fihla mafelelong a nako ye o e lefetšego ka {{date}}; ka morago ga moo lefelo la gago la go šoma le balwa fela go fihlela o kgetha leano gape. Ga go selo se se phumolwago.",
@@ -231,7 +231,8 @@
       "whatsapp_sms": "Kopanya WhatsApp le SMS go romela bareki melaetša moo ba šetšego ba le gona.",
       "reports": "Bona gore ke mang yo a go kolotago le gore tefelo ye nngwe le ye nngwe e diegile gakaakang.",
       "recurring_invoices": "Lefiša dikonteraka tša kgwedi le kgwedi ka tlhamo ya invoice sekgobo se sengwe le se sengwe.",
-      "discovery": "Beke le beke YGT e hwetša bareki bao ba ka bago gona kgauswi le wena le direkhoteng tša gago."
+      "discovery": "Beke le beke YGT e hwetša bareki bao ba ka bago gona kgauswi le wena le direkhoteng tša gago.",
+      "money_overview": "Bona tšhelete ye e tsenago, ye e tšwago le poelo, kgwedi ka kgwedi."
     },
     "paid": "Tefelo e amogetšwe. Bjale o go {{plan}}.",
     "payments": "Ditefelo",
@@ -313,7 +314,9 @@
       "big_one": "O na le batho ba {{count}}, gomme ka moka ba tšwela pele go tsena nakong ya teko. Hustle e akaretša go fihla go {{limit}}, ka gona ka morago ga teko o tla hloka Grow goba Scale, o lefišwe ditulo tše {{count}} (go thoma ka {{price}} setulo ka kgwedi).",
       "big_other": "O na le batho ba {{count}}, gomme ka moka ba tšwela pele go tsena nakong ya teko. Hustle e akaretša go fihla go {{limit}}, ka gona ka morago ga teko o tla hloka Grow goba Scale, o lefišwe ditulo tše {{count}} (go thoma ka {{price}} setulo ka kgwedi)."
     },
-    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretša go fihla go {{limit}}."
+    "tooSmall": "O na le batho ba {{count}}. Hustle e akaretša go fihla go {{limit}}.",
+    "yearlyAsMonthly": "Ke {{amount}} ka kgwedi, e lefelwa ngwaga",
+    "yearlyAsMonthlySeat": "Ke {{amount}} motho ka kgwedi, e lefelwa ngwaga"
   },
   "channels": {
     "appPassword": {
@@ -478,7 +481,8 @@
       "sales": "Ditheko le maano",
       "support": "Ke nyaka thušo"
     },
-    "updated": "Motho wa kgokagano o mpshafaditšwe"
+    "updated": "Motho wa kgokagano o mpshafaditšwe",
+    "orWhatsApp": "goba WhatsApp"
   },
   "customFields": {
     "add": "Oketša lefelo",
@@ -1028,6 +1032,42 @@
     "dealWon": "Kwano e fentšwe",
     "note": "Lengwalwana le okeditšwe",
     "payment": "Tefo e amogetšwe"
+  },
+  "onboarding": {
+    "title": "Sešene ya go thoma ya mahala",
+    "intro": "Mogala wa bidio wa metsotso e {{minutes}} moo sehlopha sa rena se beakanyago YGT le wena. Ke mahala go maano ka moka.",
+    "request": "Kgopela go thongwa",
+    "seeBooking": "Bona peeletšo",
+    "bookedFor": "Go thongwa ga gago go beetšwe {{when}}. Kgokagano ya kopano e ka taletšong ya khalendara ya gago.",
+    "requested": "Go thongwa go kgopetšwe. Re tla go ikgokaganya le wena go dumelelana ka nako, gantši ka letšatši le tee la mošomo.",
+    "coversTitle": "Seo go thongwa go se akaretšago",
+    "covers": {
+      "setup": {
+        "title": "Peakanyo ya kgwebo ya gago",
+        "body": "Dintlha tša khamphani, logo, nomoro ya VAT le dintlha tša panka, gore dikothei le di-invoice tša gago di be di loketše go romelwa."
+      },
+      "import": {
+        "title": "Go tliša data ya gago",
+        "body": "Bareki le ditšweletšwa tša gago go tšwa go Excel goba lenaneo le lengwe."
+      },
+      "quoteToPay": {
+        "title": "Go tloga go kothei go fihla tefong",
+        "body": "Kothei ya gago ya mathomo, go e fetola invoice, le ka moo dikgopotšo tša tefo di latelago tšhelete yeo e kolotwago."
+      },
+      "connect": {
+        "title": "Imeile, WhatsApp le sehlopha sa gago",
+        "body": "Kgokaganya lepokisi la gago la imeile (WhatsApp le SMS go Grow le Scale), beakanya magato a gago, oketša sehlopha sa gago, le dipotšišo tša gago."
+      }
+    },
+    "noSlots": "Ga go na dinako tše di bulegilego tša go bea bjale. Re botše gore ke neng mo go go loketšego gomme re tla go beakanya.",
+    "requestTitle": "Kgopela go thongwa",
+    "requestIntro": "Re tla araba ka nako le kgokagano ya kopano.",
+    "times": "Matšatši le dinako tše di go loketšego",
+    "timesPlaceholder": "mohl. Mesong ya beke, goba Labone ka morago ga 2",
+    "timesRequired": "Re botše gore ke neng mo go go loketšego.",
+    "phone": "Mogala goba WhatsApp (ga go gapeletšwe)",
+    "sent": "Go thongwa go kgopetšwe",
+    "sentHint": "Re tla ikgokaganya le wena go dumelelana ka nako."
   },
   "getStarted": {
     "askAdmin": "Kgopela molaodi wa gago go dira se",
@@ -1767,7 +1807,14 @@
     "privacyLink": "Bala pholisi ya rena ya sephiri",
     "marketing": "Nthomelela maele a YGT, ditaba tša ditšweletšwa le dikgothatšo",
     "marketingHint": "Ga se gapeletšo. O ka di emiša nako efe goba efe, go tšwa go imeile efe goba efe goba profaeleng ya gago.",
-    "agree": "Ke dumelelana le {{terms}} le {{privacy}}"
+    "agree": "Ke dumelelana le {{terms}} le {{privacy}}",
+    "errors": {
+      "required": "Hle tlatša se.",
+      "email": "Tsenya aterese ya imeile go swana le leina@kgwebo.co.za.",
+      "password": "Šomiša bonyane ditlhaka tše 8.",
+      "address": "Tsenya seterata le toropo, mohl. 12 Church Street, Polokwane.",
+      "agree": "Hle swaya se gore o hlame akhaonte ya gago."
+    }
   },
   "role": {
     "admin": "Molaodi",
@@ -2447,6 +2494,9 @@
     "checkup": {
       "cta": "Thoma tekolo ya mahala",
       "meta": "Ga go ngwadišo"
+    },
+    "trialBar": {
+      "note": "Matšatši a {{days}} mahala. Ga go hlokege karata."
     }
   },
   "aging": {

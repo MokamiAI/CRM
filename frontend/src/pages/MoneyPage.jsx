@@ -192,7 +192,7 @@ export default function MoneyPage() {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const allowed = canViewCosts(user);
-  const included = useHasFeature("reports");
+  const included = useHasFeature("money_overview");
   const [period, setPeriod] = useState("year");
   const { data: o, isLoading, isError, refetch } = useQuery({
     queryKey: ["costs", "overview"],
@@ -206,7 +206,7 @@ export default function MoneyPage() {
     return (
       <>
         {header}
-        <PlanNotice feature="reports" />
+        <PlanNotice feature="money_overview" />
         <p className="mt-4 text-sm text-zinc-600">
           {t("money.onCosts")}{" "}
           <Link to="/costs" className="font-medium text-blue-600 hover:underline">

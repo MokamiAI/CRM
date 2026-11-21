@@ -24,8 +24,10 @@ const EASE_IN_OUT = "cubic-bezier(0.77, 0, 0.175, 1)";
  * into their capitals, the line draws back, the capitals glide together
  * into YGT, hold a beat, then rise away. Resolves when it's gone.
  */
-const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, onDone }, ref) {
+const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, pace = 1, onDone }, ref) {
   const root = useRef(null);
+  // `pace` scales every step (0.5 = twice as fast); `delay` is left as given.
+  const ms = (n) => n * pace;
   const parts = useRef(null);
 
   useImperativeHandle(ref, () => ({
@@ -45,21 +47,21 @@ const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, o
               { clipPath: "inset(-0.2em -0.2em -0.2em 0)", opacity: 1 },
               { clipPath: "inset(-0.2em 100% -0.2em 0)", opacity: 0 },
             ],
-            { duration: 500, delay: i * 90, easing: EASE_IN_OUT, fill: "forwards" }
+            { duration: ms(500), delay: ms(i * 90), easing: EASE_IN_OUT, fill: "forwards" }
           )
         );
       });
       // 2. The line draws back the way it came.
       if (line) {
-        run.push(line.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], { duration: 950, easing: EASE_IN_OUT, fill: "forwards" }));
+        run.push(line.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], { duration: ms(950), easing: EASE_IN_OUT, fill: "forwards" }));
       }
       capitals.forEach((c, i) => {
         const dx = offsets[i];
         // 3. The capitals glide back together: YGT again.
         run.push(
           c.animate([{ transform: "translate(0, 0)" }, { transform: `translate(${dx}px, 0)` }], {
-            duration: 750,
-            delay: 550,
+            duration: ms(750),
+            delay: ms(550),
             easing: EASE_IN_OUT,
             fill: "forwards",
           })
@@ -71,7 +73,7 @@ const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, o
               { transform: `translate(${dx}px, 0)`, opacity: 1 },
               { transform: `translate(${dx}px, -40%)`, opacity: 0 },
             ],
-            { duration: 450, delay: 1450 + i * 70, easing: EASE_OUT, fill: "forwards" }
+            { duration: ms(450), delay: ms(1450 + i * 70), easing: EASE_OUT, fill: "forwards" }
           )
         );
       });
@@ -121,14 +123,14 @@ const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, o
             { transform: `translate(${dx}px, 0)`, opacity: 1 },
           ],
           // "both": holds the monogram spot until the glide takes over.
-          { duration: 520, delay: delay + i * 70, easing: EASE_OUT, fill: "both" }
+          { duration: ms(520), delay: delay + ms(i * 70), easing: EASE_OUT, fill: "both" }
         )
       );
       // 2. They glide apart to their places in the words.
       run.push(
         c.animate([{ transform: `translateX(${dx}px)` }, { transform: "translateX(0)" }], {
-          duration: 750,
-          delay: delay + 900,
+          duration: ms(750),
+          delay: delay + ms(900),
           easing: EASE_IN_OUT,
           fill: "forwards", // no effect before it starts, so the rise shows
         })
@@ -142,14 +144,14 @@ const YouGotThis = forwardRef(function YouGotThis({ className = "", delay = 0, o
             { clipPath: "inset(-0.2em 100% -0.2em 0)", opacity: 0 },
             { clipPath: "inset(-0.2em -0.2em -0.2em 0)", opacity: 1 },
           ],
-          { duration: 600, delay: delay + 1250 + i * 90, easing: EASE_OUT, fill: "both" }
+          { duration: ms(600), delay: delay + ms(1250 + i * 90), easing: EASE_OUT, fill: "both" }
         )
       );
     });
     // 4. A gradient line sweeps underneath.
     if (line) {
       run.push(
-        line.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration: 1000, delay: delay + 1750, easing: EASE_OUT, fill: "both" })
+        line.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration: ms(1000), delay: delay + ms(1750), easing: EASE_OUT, fill: "both" })
       );
     }
     Promise.all(run.map((a) => a.finished)).then(() => onDone?.(), () => {});

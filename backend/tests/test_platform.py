@@ -7,7 +7,7 @@ from decimal import Decimal
 import pytest
 
 from app.core.middleware import _MemoryCounter
-from app.core.plans import DISCOVERY, LOCKED, MARKETING, PLANS, PRIORITY_SUPPORT, RECURRING, REPORTS, TEAM_CHAT, TEAM_SPACES, TRIAL_PLAN, WHATSAPP_SMS
+from app.core.plans import DISCOVERY, LOCKED, MARKETING, MONEY, PLANS, PRIORITY_SUPPORT, RECURRING, REPORTS, TEAM_CHAT, TEAM_SPACES, TRIAL_PLAN, WHATSAPP_SMS
 from app.schemas.platform import Availability
 from app.services.booking_service import free_slots
 from app.services.data_service import RowError, _date, _money, _stage
@@ -103,8 +103,8 @@ def test_sign_in_attempts_also_count_per_account():
 
 def test_each_plan_gets_what_it_pays_for():
     """The features on each price card are exactly what the API allows."""
-    assert PLANS["hustle"].features == frozenset()
-    grow = {WHATSAPP_SMS, MARKETING, TEAM_CHAT, REPORTS, RECURRING}  # custom fields: every plan
+    assert PLANS["hustle"].features == {REPORTS, RECURRING}  # getting paid: every plan
+    grow = {WHATSAPP_SMS, MARKETING, TEAM_CHAT, REPORTS, RECURRING, MONEY}  # custom fields: every plan
     assert PLANS["grow"].features == grow
     assert PLANS["scale"].features == grow | {DISCOVERY, PRIORITY_SUPPORT, TEAM_SPACES}
     assert PLANS[TRIAL_PLAN] is PLANS["grow"]  # the trial is Grow

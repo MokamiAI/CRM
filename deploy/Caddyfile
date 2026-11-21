@@ -16,10 +16,13 @@
 		reverse_proxy backend:8000
 	}
 
-	# The web app: real files first, everything else is a page of the app.
+	# The web app: real files first, then a public page's own HTML (e.g.
+	# /about -> about.html, with that page's title and link-preview tags;
+	# built by frontend/vite.config.js), and everything else is a page of
+	# the app.
 	handle {
 		root * /srv
-		try_files {path} /index.html
+		try_files {path} {path}.html /index.html
 		file_server
 		@assets path /assets/*
 		header @assets Cache-Control "public, max-age=31536000, immutable"
