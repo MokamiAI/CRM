@@ -62,6 +62,8 @@ export default function DashboardPage() {
   const { user } = useAuth();
   const { data: s, isLoading, isError, refetch } = useReportSummary();
   const { data: forecast } = useCashForecast();
+  // A new account has nothing to forecast yet: no card of zeros.
+  const hasForecast = Boolean(forecast) && (Number(forecast.overdue_in) > 0 || forecast.windows.some((w) => Number(w.money_in) > 0 || Number(w.money_out) > 0));
   const { data: overdueActs = [] } = useActivities({ scope: "overdue", mine: true });
   const { data: todayActs = [] } = useActivities({ scope: "today", mine: true });
   const { data: nextActs = [] } = useActivities({ scope: "upcoming", mine: true });
@@ -226,7 +228,7 @@ export default function DashboardPage() {
           >
             {hasMoney ? <RevenueChart months={months} /> : <p className="py-10 text-center text-sm text-slate-500">{t("dashboard.revenue.empty")}</p>}
           </Panel>
-          {forecast && (
+          {hasForecast && (
             <Panel
               title={t("dashboard.forecast.title", "Cash forecast")}
               subtitle={forecast.includes_costs
