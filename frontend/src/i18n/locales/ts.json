@@ -2161,6 +2161,8 @@
     "loading": "Ku layicha matimu",
     "messageIn": "Imeyili leyi humaka eka muxavi: {{subject}}",
     "messageOut": "Imeyili yi rhumeriwile: {{subject}}",
+    "messageInChat": "{{channel}} leyi humaka eka muxavi: {{subject}}",
+    "messageOutChat": "{{channel}} yi rhumeriwile: {{subject}}",
     "note": "Xitsundzuxo",
     "paidBy": "{{amount}} hi {{method}}",
     "payment": "Ntsengo wu amukeriwile · {{number}}",

@@ -2161,6 +2161,8 @@
     "loading": "I khou hwalela ḓivhazwakale",
     "messageIn": "Imeiḽi i bvaho kha murengi: {{subject}}",
     "messageOut": "Imeiḽi yo rumelwa: {{subject}}",
+    "messageInChat": "{{channel}} i bvaho kha murengi: {{subject}}",
+    "messageOutChat": "{{channel}} yo rumelwa: {{subject}}",
     "note": "Noutu",
     "paidBy": "{{amount}} nga {{method}}",
     "payment": "Mbadelo yo ṱanganedzwa · {{number}}",

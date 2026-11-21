@@ -2161,6 +2161,8 @@
     "loading": "Laai geskiedenis",
     "messageIn": "E-pos van kliënt: {{subject}}",
     "messageOut": "E-pos gestuur: {{subject}}",
+    "messageInChat": "{{channel}} van kliënt: {{subject}}",
+    "messageOutChat": "{{channel}} gestuur: {{subject}}",
     "note": "Nota",
     "paidBy": "{{amount}} per {{method}}",
     "payment": "Betaling ontvang · {{number}}",

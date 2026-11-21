@@ -233,11 +233,13 @@ function Message({ message, grouped, people, team, me, isAdmin, onReply, onChang
     <div id={`m-${message.id}`} className={`group flex gap-2.5 ${mine ? "flex-row-reverse" : ""} ${grouped ? "mt-1" : "mt-4"}`}>
       <div className="w-8 shrink-0">{!grouped && !mine && <ChatAvatar person={author} />}</div>
       <div className={`flex min-w-0 max-w-[85%] flex-col sm:max-w-[75%] ${mine ? "items-end" : "items-start"}`}>
+        {/* On a phone the name, job title and time don't fit on one line:
+            each stays whole and the time moves to the next line. */}
         {!grouped && (
-          <p className={`mb-1 flex items-baseline gap-2 px-1 text-[13px] ${mine ? "flex-row-reverse" : ""}`}>
-            <span className={`font-semibold ${mine ? "text-zinc-900" : color.name}`}>{mine ? t("messages.you") : author?.full_name ?? "—"}</span>
-            {!mine && author?.job_title && <span className="text-[11px] font-medium text-zinc-500">{author.job_title}</span>}
-            <span className="text-[11px] text-zinc-400">{formatDateTime(message.created_at, { dateStyle: "medium", timeStyle: "short" })}</span>
+          <p className={`mb-1 flex flex-wrap items-baseline gap-x-2 px-1 text-[13px] ${mine ? "flex-row-reverse" : ""}`}>
+            <span className={`whitespace-nowrap font-semibold ${mine ? "text-zinc-900" : color.name}`}>{mine ? t("messages.you") : author?.full_name ?? "—"}</span>
+            {!mine && author?.job_title && <span className="whitespace-nowrap text-[11px] font-medium text-zinc-500">{author.job_title}</span>}
+            <span className="whitespace-nowrap text-[11px] text-zinc-400">{formatDateTime(message.created_at, { dateStyle: "medium", timeStyle: "short" })}</span>
           </p>
         )}
         <div className={`relative flex items-start gap-1 ${mine ? "flex-row-reverse" : ""}`}>

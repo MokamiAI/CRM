@@ -2161,6 +2161,8 @@
     "loading": "Kulayishwa umlandvo",
     "messageIn": "I-imeyili levela kumtsengi: {{subject}}",
     "messageOut": "I-imeyili itfunyelwe: {{subject}}",
+    "messageInChat": "{{channel}} levela kumtsengi: {{subject}}",
+    "messageOutChat": "{{channel}} itfunyelwe: {{subject}}",
     "note": "Linothi",
     "paidBy": "{{amount}} nge-{{method}}",
     "payment": "Inkhokhelo itfoliwe · {{number}}",

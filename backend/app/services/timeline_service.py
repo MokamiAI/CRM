@@ -16,6 +16,11 @@ from app.models.reminder import ReminderLog
 from app.schemas.crm import SearchHit, TimelineItem
 
 _LIMIT = 150
+_CHANNEL_NAMES = {"email": "Email", "whatsapp": "WhatsApp", "sms": "SMS"}
+
+
+def _channel_name(channel: str | None) -> str:
+    return _CHANNEL_NAMES.get(channel or "email", "Message")
 
 
 def _money(amount) -> str:
@@ -167,7 +172,7 @@ class TimelineService:
 
         # Emails with the customer from the inbox (internal notes stay there).
         rows = await self.db.execute(
-            select(Message, Conversation.subject)
+            select(Message, Conversation.subject, Conversation.channel)
             .join(Conversation, Conversation.id == Message.conversation_id)
             .where(Conversation.customer_id == customer_id, Message.direction.in_(("in", "out")))
         )
@@ -175,13 +180,13 @@ class TimelineService:
             TimelineItem(
                 kind="message",
                 at=m.created_at,
-                title=f"{'Email from customer' if m.direction == 'in' else 'Email sent'}: {subject}",
+                title=f"{_channel_name(channel)} {'from customer' if m.direction == 'in' else 'sent'}: {subject}",
                 detail=m.body[:280],
-                params={"direction": m.direction, "subject": subject},
+                params={"direction": m.direction, "subject": subject, "channel": channel or "email"},
                 ref_id=m.conversation_id,
                 actor_id=m.author_id,
             )
-            for m, subject in rows.tuples()
+            for m, subject, channel in rows.tuples()
         ]
 
         items.sort(key=lambda item: item.at, reverse=True)

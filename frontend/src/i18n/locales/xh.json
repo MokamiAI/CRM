@@ -2161,6 +2161,8 @@
     "loading": "Kulayishwa imbali",
     "messageIn": "I-imeyile evela kumthengi: {{subject}}",
     "messageOut": "I-imeyile ithunyelwe: {{subject}}",
+    "messageInChat": "{{channel}} evela kumthengi: {{subject}}",
+    "messageOutChat": "{{channel}} ithunyelwe: {{subject}}",
     "note": "Inqaku",
     "paidBy": "{{amount}} nge-{{method}}",
     "payment": "Intlawulo ifunyenwe · {{number}}",

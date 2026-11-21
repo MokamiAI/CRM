@@ -2161,6 +2161,8 @@
     "loading": "Kulayitshwa umlando",
     "messageIn": "I-imeyili evela ekhasimendeni: {{subject}}",
     "messageOut": "I-imeyili ithunyelwe: {{subject}}",
+    "messageInChat": "{{channel}} evela ekhasimendeni: {{subject}}",
+    "messageOutChat": "{{channel}} ithunyelwe: {{subject}}",
     "note": "Inothi",
     "paidBy": "{{amount}} nge-{{method}}",
     "payment": "Imbadelo yamukelwe · {{number}}",

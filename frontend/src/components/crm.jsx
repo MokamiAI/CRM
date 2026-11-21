@@ -93,6 +93,7 @@ const ICON_PATHS = {
   email: "M4 6h16v12H4zM4 7l8 6 8-6",
   deadline: "M5 21V4M5 4h11l-2 4 2 4H5",
   note: "M4 4h16v12H8l-4 4V4Z",
+  chat: "M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.4A8 8 0 1 1 21 12Z",
 };
 
 // One colour per kind of activity, the same everywhere it shows. Deadline
@@ -716,8 +717,12 @@ function describe(item) {
       };
     case "reminder":
       return { title: t("timeline.reminder", { number: p.number }), detail: t(p.manual === "1" ? "timeline.reminderManual" : "timeline.reminderAuto") };
-    case "message":
-      return { title: t(p.direction === "in" ? "timeline.messageIn" : "timeline.messageOut", { subject: p.subject }), detail: item.detail };
+    case "message": {
+      // Older timelines carry no channel: those were all email.
+      const chat = { whatsapp: "WhatsApp", sms: "SMS" }[p.channel];
+      const key = p.direction === "in" ? (chat ? "timeline.messageInChat" : "timeline.messageIn") : chat ? "timeline.messageOutChat" : "timeline.messageOut";
+      return { title: t(key, { subject: p.subject, channel: chat }), detail: item.detail };
+    }
     default:
       return { title: item.title, detail: item.detail };
   }
@@ -769,7 +774,7 @@ export function Timeline({ items: allItems, hideDealLinks = false, loading = fal
         return (
           <li key={itemKey(item)} className={`relative flex gap-3 pb-5 last:pb-0 ${seen.current && !seen.current.has(itemKey(item)) ? "timeline-enter" : ""}`}>
             <span className={`relative z-[1] flex h-8 w-8 shrink-0 items-center justify-center rounded-full ring-1 ring-inset ${KIND_TINT[item.kind]}`}>
-              <ActivityIcon type={KIND_ICON[item.kind]} className="h-4 w-4" />
+              <ActivityIcon type={item.kind === "message" && ["whatsapp", "sms"].includes(item.params?.channel) ? "chat" : KIND_ICON[item.kind]} className="h-4 w-4" />
             </span>
             <div className="min-w-0 flex-1 pt-1">
               <div className="flex flex-wrap items-baseline justify-between gap-x-3">

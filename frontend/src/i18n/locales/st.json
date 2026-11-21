@@ -2161,6 +2161,8 @@
     "loading": "E laisha histori",
     "messageIn": "Imeile e tswang ho moreki: {{subject}}",
     "messageOut": "Imeile e rometswe: {{subject}}",
+    "messageInChat": "{{channel}} e tswang ho moreki: {{subject}}",
+    "messageOutChat": "{{channel}} e rometswe: {{subject}}",
     "note": "Ntlha",
     "paidBy": "{{amount}} ka {{method}}",
     "payment": "Tefo e amohetswe · {{number}}",

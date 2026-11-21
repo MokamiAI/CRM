@@ -2161,6 +2161,8 @@
     "loading": "E laiša histori",
     "messageIn": "Imeile go tšwa go moreki: {{subject}}",
     "messageOut": "Imeile e romilwe: {{subject}}",
+    "messageInChat": "{{channel}} go tšwa go moreki: {{subject}}",
+    "messageOutChat": "{{channel}} e romilwe: {{subject}}",
     "note": "Lengwalwana",
     "paidBy": "{{amount}} ka {{method}}",
     "payment": "Tefo e amogetšwe · {{number}}",

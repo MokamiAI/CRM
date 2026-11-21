@@ -99,7 +99,7 @@ class WeeklySummary:
         details.append(("Next 30 days, coming in", m(coming["money_in"])))
         if forecast["includes_costs"]:
             details.append(("Next 30 days, going out", m(coming["money_out"])))
-        paragraphs = [f"Hi {person.full_name.split(' ')[0]},", f"Here is {company.company_name}'s week, {week}."]
+        paragraphs = [f"Hi {person.full_name.split(' ')[0]},", f"Here is your week at {company.company_name}, {week}."]
         if f["top_overdue"]:
             names = ", ".join(f"{name} ({m(amount)})" for name, amount in f["top_overdue"])
             paragraphs.append(f"Worth a call this week: {names}.")

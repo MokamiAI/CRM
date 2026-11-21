@@ -2200,6 +2200,8 @@
     "loading": "Loading history",
     "messageIn": "Email from customer: {{subject}}",
     "messageOut": "Email sent: {{subject}}",
+    "messageInChat": "{{channel}} from customer: {{subject}}",
+    "messageOutChat": "{{channel}} sent: {{subject}}",
     "note": "Note",
     "paidBy": "{{amount}} by {{method}}",
     "payment": "Payment received · {{number}}",
