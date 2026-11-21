@@ -2,6 +2,7 @@
 from typing import Literal
 
 from fastapi import APIRouter, Depends
+from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_db, require_role
@@ -67,3 +68,35 @@ async def test_channel(kind: Kind, data: ConnectionTest, db: AsyncSession = Depe
     service = ChannelService(db)
     conn = await service.test(kind, data.to)
     return _out(service, kind, conn)
+
+
+class RegisterNumber(BaseModel):
+    pin: str = Field(min_length=6, max_length=6)
+
+
+@router.post("/whatsapp/register")
+async def register_whatsapp_number(data: RegisterNumber, db: AsyncSession = Depends(get_db)):
+    """For a number Meta shows as Pending: registers it for the Cloud API
+    with a 6-digit PIN the admin chooses (WhatsApp's two-step PIN)."""
+    from app.services.whatsapp_reminder_service import WhatsAppReminderService
+
+    await BillingService(db).require_feature(WHATSAPP_SMS)
+    await WhatsAppReminderService(db).register(data.pin)
+    return {"registered": True}
+
+
+@router.get("/whatsapp/templates")
+async def whatsapp_templates(db: AsyncSession = Depends(get_db)):
+    """The payment-reminder templates' approval, asked of Meta now."""
+    from app.services.whatsapp_reminder_service import WhatsAppReminderService
+
+    return await WhatsAppReminderService(db).refresh()
+
+
+@router.post("/whatsapp/templates")
+async def create_whatsapp_templates(db: AsyncSession = Depends(get_db)):
+    """Submits YGT's payment-reminder templates to Meta for approval."""
+    from app.services.whatsapp_reminder_service import WhatsAppReminderService
+
+    await BillingService(db).require_feature(WHATSAPP_SMS)
+    return await WhatsAppReminderService(db).create_templates()

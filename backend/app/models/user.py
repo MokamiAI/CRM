@@ -60,11 +60,18 @@ class User(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     # business's costs and bills and decides who else may. Handed over, not shared.
     is_account_owner: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
     # Costs and bills for everyone else: none | view | manage, set by the owner.
+    # The Monday summary email. None: the default, on for the account
+    # owner and off for everyone else; True/False once they've chosen.
+    weekly_summary: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
     cost_access: Mapped[str] = mapped_column(String(10), nullable=False, default="none", server_default="none")
 
     @property
     def can_view_costs(self) -> bool:
         return self.is_account_owner or self.cost_access in ("view", "manage")
+
+    @property
+    def gets_weekly_summary(self) -> bool:
+        return self.is_active and (self.weekly_summary if self.weekly_summary is not None else self.is_account_owner)
 
     @property
     def can_manage_costs(self) -> bool:

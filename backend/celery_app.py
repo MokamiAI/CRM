@@ -68,6 +68,11 @@ celery_app.conf.beat_schedule = {
         "options": EVERY_5_MINUTES,
     },
     # Monday morning: new potential leads, and one email per admin about them.
+    # Monday morning: last week and what's coming, to each owner.
+    "weekly-summary": {
+        "task": "app.tasks.platform_tasks.weekly_summary_task",
+        "schedule": crontab(hour=7, minute=0, day_of_week=1),
+    },
     "weekly-discovery": {
         "task": "app.tasks.discovery_tasks.weekly_discovery_task",
         "schedule": crontab(hour=7, minute=30, day_of_week=1),

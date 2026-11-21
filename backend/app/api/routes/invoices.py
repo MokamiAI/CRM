@@ -103,10 +103,13 @@ async def send_due_reminders(
 ):
     """Runs the daily reminder pass now (the same logic Celery beat runs at
     07:00). Safe to repeat: each schedule step is sent at most once."""
+    from app.tasks.messaging_tasks import send_whatsapp_reminder_task
+
     claimed = await ReminderService(db).claim_due_reminders()
     await commit_and_enqueue_each(
         db, send_invoice_reminder_task, [(str(r.invoice_id),) for r in claimed]
     )
+    await commit_and_enqueue_each(db, send_whatsapp_reminder_task, [(str(r.invoice_id),) for r in claimed])
     return RemindersQueued(queued=len(claimed))
 
 
@@ -207,9 +210,12 @@ async def send_reminder_now(
     db: AsyncSession = Depends(get_db),
     _: User = Depends(_can_write),
 ):
+    from app.tasks.messaging_tasks import send_whatsapp_reminder_task
+
     claimed = await ReminderService(db).claim_manual_reminder(invoice_id)
     log = await db.get(ReminderLog, claimed.log_id)
     await commit_and_enqueue(db, send_invoice_reminder_task, str(invoice_id))
+    await commit_and_enqueue(db, send_whatsapp_reminder_task, str(invoice_id))
     return log
 
 

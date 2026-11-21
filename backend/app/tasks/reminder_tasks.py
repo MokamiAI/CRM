@@ -31,8 +31,12 @@ async def _claim_due_reminders() -> list[ClaimedReminder]:
 
 
 def queue_reminders(claimed: list[ClaimedReminder]) -> None:
+    from app.tasks.messaging_tasks import send_whatsapp_reminder_task
+
     for reminder in claimed:
         send_invoice_reminder_task.delay(str(reminder.invoice_id))
+        # Does nothing unless the company sends reminders on WhatsApp too.
+        send_whatsapp_reminder_task.delay(str(reminder.invoice_id))
 
 
 @celery_app.task(name="app.tasks.reminder_tasks.daily_invoice_reminder_task")

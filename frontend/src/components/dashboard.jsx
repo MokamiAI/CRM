@@ -615,3 +615,44 @@ export function RecentCustomers({ rows }) {
     </>
   );
 }
+
+/* ---------------------------------------------------------- Cash forecast */
+
+/** Money in and out over the next 30/60/90 days, from invoices and bills. */
+export function CashForecast({ forecast }) {
+  const { t } = useTranslation();
+  const columns = forecast.windows;
+  const shortSoon = Number(columns[0]?.net) < 0;
+  const overdue = Number(forecast.overdue_in);
+  return (
+    <div className="space-y-3">
+      <dl className="grid grid-cols-3 divide-x divide-slate-100 rounded-xl border border-slate-200/80">
+        {columns.map((w) => (
+          <div key={w.days} className="min-w-0 px-2 py-3 text-center sm:px-3">
+            <dt className="truncate text-xs font-medium text-slate-500">{t("dashboard.forecast.next", { defaultValue: "Next {{count}} days", count: w.days })}</dt>
+            <dd className="mt-1 truncate text-xs tabular-nums text-emerald-700">+ {formatMoneyWhole(w.money_in)}</dd>
+            {forecast.includes_costs && <dd className="truncate text-xs tabular-nums text-rose-600">− {formatMoneyWhole(w.money_out)}</dd>}
+            {forecast.includes_costs && (
+              <dd className={`mt-1 truncate text-sm font-bold tabular-nums sm:text-base ${Number(w.net) < 0 ? "text-rose-600" : "text-midnight"}`}>{formatMoneyWhole(w.net)}</dd>
+            )}
+          </div>
+        ))}
+      </dl>
+      {shortSoon && forecast.includes_costs && (
+        <p className="rounded-lg bg-rose-50 px-3 py-2 text-xs text-rose-700">
+          {t("dashboard.forecast.short", "More is due out than in over the next 30 days. Chase what's owed, or plan for the gap.")}
+        </p>
+      )}
+      {overdue > 0 && (
+        <p className="text-xs text-slate-500">
+          {t("dashboard.forecast.overdue", {
+            defaultValue: "Not counted above: {{amount}} already overdue on {{count}} invoice(s).",
+            amount: formatMoneyWhole(overdue),
+            count: forecast.overdue_in_count,
+          })}{" "}
+          <Link to="/invoices/aging" className="font-semibold text-blue-600 hover:text-blue-800">{t("dashboard.forecast.chase", "See who owes")}</Link>
+        </p>
+      )}
+    </div>
+  );
+}

@@ -366,11 +366,13 @@
       "token_secret": "API token secret",
       "use_ssl": "Use SSL",
       "username": "Email address / username",
-      "secret_key": "Secret key"
+      "secret_key": "Secret key",
+      "payment_reminders": "Also send payment reminders on WhatsApp"
     },
     "hints": {
       "only_known_customers": "Emails from addresses that aren't customers are left in your mailbox, so newsletters and spam stay out of YGT.",
-      "use_ssl": "Almost always on (port 993)."
+      "use_ssl": "Almost always on (port 993).",
+      "payment_reminders": "Each reminder email also goes on WhatsApp to the customer's phone, once Meta approves the reminder templates below. Meta charges per message."
     },
     "mailboxIntro": "Connect the same mailbox you send from. YGT checks it every minute and files customer replies into their conversations. It never deletes or marks your emails as read.",
     "mailboxTitle": "Incoming email (customer replies)",
@@ -428,7 +430,7 @@
       "save": "Paste them below, tick \"Use WhatsApp\", save, then test with your own cellphone number.",
       "token": "In Business Settings > System users, create a permanent access token with the whatsapp_business_messaging permission.",
       "webhook": "Copy the webhook URL and verify token shown after saving into Meta's webhook settings.",
-      "window": "WhatsApp rule: you can reply freely for 24 hours after a customer messages you; starting a chat after that needs a Meta-approved template."
+      "window": "WhatsApp rule: you can reply freely for 24 hours after a customer messages you; starting a chat after that needs a Meta-approved template (YGT makes the payment-reminder ones for you below)."
     },
     "whatsappTitle": "WhatsApp Business",
     "paymentsTitle": "Online payments (Paystack)",

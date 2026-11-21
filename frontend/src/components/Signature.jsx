@@ -76,6 +76,7 @@ export function ProfileSheet({ open, onClose }) {
   const [position, setPosition] = useState("");
   const [signature, setSignature] = useState("");
   const [marketing, setMarketing] = useState(false);
+  const [weekly, setWeekly] = useState(false);
   const [color, setColor] = useState(null);
   const [saving, setSaving] = useState(false);
   const queryClient = useQueryClient();
@@ -86,6 +87,7 @@ export function ProfileSheet({ open, onClose }) {
     setPosition(user.job_title || "");
     setSignature(user.email_signature || "");
     setMarketing(Boolean(user.marketing_opt_in));
+    setWeekly(Boolean(user.gets_weekly_summary));
     setColor(user.chat_color ?? null);
   }, [open, user]);
 
@@ -100,7 +102,8 @@ export function ProfileSheet({ open, onClose }) {
     try {
       // Only a change is recorded as a new answer (with its date).
       const answer = marketing !== Boolean(user.marketing_opt_in) ? { marketing_opt_in: marketing } : {};
-      await updateProfile({ full_name: name.trim(), job_title: position.trim(), email_signature: signature, chat_color: color, ...(user.is_platform_admin ? {} : answer) });
+      if (weekly !== Boolean(user.gets_weekly_summary)) answer.weekly_summary = weekly;
+      await updateProfile({ full_name: name.trim(), job_title: position.trim(), email_signature: signature, chat_color: color, ...(user.is_platform_admin ? (answer.weekly_summary === undefined ? {} : { weekly_summary: answer.weekly_summary }) : answer) });
       queryClient.invalidateQueries({ queryKey: ["team"] }); // names and colours in chat
       toast.success(t("profile.saved"));
       onClose();
@@ -175,6 +178,13 @@ export function ProfileSheet({ open, onClose }) {
             onStarter={starter}
           />
         </div>
+        <label className="flex cursor-pointer items-start gap-3 text-sm text-zinc-700">
+          <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500" checked={weekly} onChange={(e) => setWeekly(e.target.checked)} />
+          <span>
+            <span className="font-medium text-zinc-900">{t("profile.weeklySummary", "Monday summary email")}</span>
+            <span className="mt-0.5 block text-xs text-zinc-500">{t("profile.weeklySummaryHint", "Every Monday morning: what you were paid last week, what's owed and overdue, and what's coming in over the next 30 days.")}</span>
+          </span>
+        </label>
         {!user?.is_platform_admin && (
           <label className="flex cursor-pointer items-start gap-3 text-sm text-zinc-700">
             <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} />

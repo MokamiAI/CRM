@@ -15,6 +15,10 @@
 
 {{ button_label }}: {{ button_url }}
 {% endif %}
+{% for note in after|default([]) %}
+
+{{ note }}
+{% endfor %}
 
 {% if signature is defined and signature %}
 {{ signature }}

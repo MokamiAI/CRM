@@ -18,6 +18,19 @@ async def summary(db: AsyncSession = Depends(get_db), _: User = Depends(get_curr
     return await ReportService(db).summary()
 
 
+@router.get("/cash-forecast")
+async def cash_forecast(db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)):
+    """What should come in and go out over the next 30/60/90 days. Money
+    out only for people who may see costs. Every plan: cash flow is what
+    keeps a business alive."""
+    from app.repositories.company_settings_repository import CompanySettingsRepository
+    from app.services.forecast_service import ForecastService
+    from app.services.reminder_service import company_today
+
+    today = company_today((await CompanySettingsRepository(db).get_current()).default_timezone)
+    return await ForecastService(db).forecast(today, include_costs=user.can_view_costs)
+
+
 @router.get("/aged-receivables", response_model=AgedReceivables, dependencies=[Depends(plan_feature(REPORTS))])
 async def aged_receivables(db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
     """What each customer owes on sent invoices, by days past due:

@@ -52,6 +52,8 @@ class UserOut(BaseModel):
     # Costs and bills: the owner decides; none | view | manage for the rest.
     is_account_owner: bool = False
     cost_access: str = "none"
+    # The Monday summary email, as it stands (the default applied).
+    gets_weekly_summary: bool = False
     created_at: datetime
 
 
@@ -82,6 +84,8 @@ class ProfileUpdate(BaseModel):
     job_title: str | None = Field(default=None, max_length=100)
     # The sales quote of the week they've seen.
     quote_seen: str | None = Field(default=None, max_length=20)
+    # The Monday summary email: on or off.
+    weekly_summary: bool | None = None
 
 
 class CostAccessUpdate(BaseModel):

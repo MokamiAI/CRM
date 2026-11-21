@@ -93,3 +93,27 @@ def poll_mailboxes_task() -> int:
         return filed
 
     return run_async(_run)
+
+
+@celery_app.task(name="app.tasks.messaging_tasks.send_whatsapp_reminder_task")
+def send_whatsapp_reminder_task(invoice_id: str) -> str:
+    """A payment reminder on WhatsApp, queued next to the reminder email.
+    Not retried: a template message that may have gone out once must not
+    go out twice."""
+    from app.models.invoice import Invoice
+    from app.services.whatsapp_reminder_service import WhatsAppReminderService
+
+    async def _send() -> str:
+        async with AsyncSessionLocal() as db:
+            set_system(db)
+            company_id = await db.scalar(select(Invoice.company_id).where(Invoice.id == uuid.UUID(invoice_id)))
+            if company_id is None:
+                return "no invoice"
+            set_tenant(db, company_id)
+            outcome = await WhatsAppReminderService(db).send_reminder(uuid.UUID(invoice_id))
+            await db.commit()
+            return outcome
+
+    outcome = run_async(_send)
+    logger.info("WhatsApp reminder for invoice %s: %s", invoice_id, outcome)
+    return outcome

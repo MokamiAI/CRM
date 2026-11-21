@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
+from pydantic import field_validator, BaseModel, ConfigDict, EmailStr, Field, model_validator
 
 
 class ConversationCreate(BaseModel):
@@ -178,8 +178,17 @@ class TeamMessageOut(BaseModel):
 class ConnectionSave(BaseModel):
     provider: str = Field(max_length=30)
     enabled: bool = False
-    # Non-secret values (hosts, ids, sender). Unknown keys are ignored.
+    # Non-secret values (hosts, ids, sender). Unknown keys are ignored, and
+    # so is anything that isn't a plain value (an older app sending back
+    # what the server keeps for itself, like WhatsApp template approvals).
     settings: dict[str, str | int | bool | None] = Field(default_factory=dict)
+
+    @field_validator("settings", mode="before")
+    @classmethod
+    def _plain_values_only(cls, value):
+        if isinstance(value, dict):
+            return {k: v for k, v in value.items() if v is None or isinstance(v, (str, int, bool, float))}
+        return value
     # Only the secrets being changed; blank or missing keeps the saved one.
     secrets: dict[str, str] = Field(default_factory=dict)
 

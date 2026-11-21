@@ -11,7 +11,7 @@ import { DocumentTemplateSettings, LogoUpload } from "../components/Documents";
 import DataSettings from "../components/DataSettings";
 import { SignatureEditor } from "../components/Signature";
 import TeamManager from "../components/TeamManager";
-import { ConnectionCard, MAIL_PRESETS } from "../components/ChannelSettings";
+import { ConnectionCard, MAIL_PRESETS, WhatsAppTools } from "../components/ChannelSettings";
 import { ErrorState, FilterChips, ListSkeleton, PageHeader } from "../components/ui";
 import { errorMessage } from "../utils/format";
 import DeleteAccount from "../components/DeleteAccount";
@@ -523,6 +523,7 @@ export default function SettingsPage() {
           testWithNumber
         />
       )}
+      {tab === "whatsapp" && <WhatsAppTools />}
       {tab === "sms" && (
         <ConnectionCard
           kind="sms"

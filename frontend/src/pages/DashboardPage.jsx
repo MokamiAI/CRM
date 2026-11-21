@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useActivities, useCustomerMap, useInvoices, useQuotes, useReportSummary } from "../hooks/useApi";
+import { useActivities, useCashForecast, useCustomerMap, useInvoices, useQuotes, useReportSummary } from "../hooks/useApi";
 import GetStarted from "../components/GetStarted";
 import { useAuth } from "../context/AuthContext";
 import i18n from "../i18n";
@@ -9,6 +9,7 @@ import { PlanBanner } from "../components/Billing";
 import { ButtonLink, ErrorState, PageHeader, PlusIcon, StatusBadge } from "../components/ui";
 import { Link } from "react-router-dom";
 import {
+  CashForecast,
   GoalCard,
   KpiCard,
   OwedList,
@@ -60,6 +61,7 @@ export default function DashboardPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { data: s, isLoading, isError, refetch } = useReportSummary();
+  const { data: forecast } = useCashForecast();
   const { data: overdueActs = [] } = useActivities({ scope: "overdue", mine: true });
   const { data: todayActs = [] } = useActivities({ scope: "today", mine: true });
   const { data: nextActs = [] } = useActivities({ scope: "upcoming", mine: true });
@@ -224,6 +226,17 @@ export default function DashboardPage() {
           >
             {hasMoney ? <RevenueChart months={months} /> : <p className="py-10 text-center text-sm text-slate-500">{t("dashboard.revenue.empty")}</p>}
           </Panel>
+          {forecast && (
+            <Panel
+              title={t("dashboard.forecast.title", "Cash forecast")}
+              subtitle={forecast.includes_costs
+                ? t("dashboard.forecast.subtitle", "Coming in from invoices, going out on bills, from what's in YGT")
+                : t("dashboard.forecast.subtitleIn", "Coming in from your invoices, from what's in YGT")}
+              bodyClass="px-5 pb-5"
+            >
+              <CashForecast forecast={forecast} />
+            </Panel>
+          )}
           <Panel title={t("dashboard.owes.title")} action={<ViewAll to="/invoices/aging">{t("dashboard.viewAll")}</ViewAll>}>
             {owed.length ? <OwedList invoices={owed} customers={customers} today={today} /> : <p className="px-5 pb-5 text-sm text-slate-500">{t("dashboard.owes.empty")}</p>}
           </Panel>

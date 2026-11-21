@@ -30,6 +30,7 @@ export const PROVIDERS = {
       { name: "access_token", secret: true },
       { name: "app_secret", secret: true, optional: true },
     ],
+    toggles: [{ name: "payment_reminders", default: false }],
   },
   bulksms: { fields: [{ name: "token_id" }, { name: "token_secret", secret: true }, { name: "sender", optional: true, placeholder: "MyBusiness" }] },
   clickatell: { fields: [{ name: "api_key", secret: true }, { name: "sender", optional: true }] },
@@ -133,7 +134,10 @@ export function ConnectionCard({ kind, providers, title, intro, steps, preset, t
   const sameProvider = form.provider === saved.provider;
   const setSetting = (name, value) => setForm({ ...form, settings: { ...form.settings, [name]: value } });
   const submit = (enabled = form.enabled) => {
-    const settings = Object.fromEntries(Object.entries(form.settings).filter(([, v]) => v !== "" && v !== undefined));
+    // Only this form's own fields: what the server keeps for itself (the
+    // mailbox position, WhatsApp template approvals) is never sent back.
+    const own = new Set(spec.fields.filter((f) => !f.secret).map((f) => f.name));
+    const settings = Object.fromEntries(Object.entries(form.settings).filter(([k, v]) => own.has(k) && v !== "" && v !== undefined));
     for (const toggle of spec.toggles ?? []) settings[toggle.name] = form.settings[toggle.name] ?? toggle.default;
     save.mutate({ provider: form.provider, enabled, settings, secrets });
   };
@@ -265,6 +269,101 @@ export function ConnectionCard({ kind, providers, title, intro, steps, preset, t
             )}
           </p>
         )}
+      </form>
+    </section>
+  );
+}
+
+const TEMPLATE_NAMES = { ygt_payment_reminder_pay: "withButton", ygt_payment_reminder: "plain" };
+const TEMPLATE_TONE = {
+  APPROVED: "bg-emerald-50 text-emerald-700 ring-emerald-200/70",
+  PENDING: "bg-amber-50 text-amber-700 ring-amber-200/70",
+  REJECTED: "bg-rose-50 text-rose-700 ring-rose-200/70",
+};
+
+/** WhatsApp extras: register a Pending number, and the payment-reminder
+ *  templates Meta must approve before reminders can go out on WhatsApp. */
+export function WhatsAppTools() {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const { data: all = [] } = useConnections();
+  const conn = all.find((c) => c.kind === "whatsapp");
+  const [pin, setPin] = useState("");
+  const templates = conn?.settings?.templates ?? {};
+  const store = (data) => queryClient.setQueryData(["connections"], (prev = []) => prev.map((c) => (c.kind === "whatsapp" ? { ...c, settings: { ...c.settings, templates: data } } : c)));
+  const register = useMutation({
+    mutationFn: () => apiClient.post("/settings/channels/whatsapp/register", { pin }).then((r) => r.data),
+    onSuccess: () => { setPin(""); toast.success(t("whatsappTools.registered", "Number registered. It can now send and receive.")); },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  const create = useMutation({
+    mutationFn: () => apiClient.post("/settings/channels/whatsapp/templates").then((r) => r.data),
+    onSuccess: (data) => { store(data); toast.success(t("whatsappTools.submitted", "Sent to Meta for approval. This usually takes minutes, sometimes a day.")); },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  const refresh = useMutation({
+    mutationFn: () => apiClient.get("/settings/channels/whatsapp/templates").then((r) => r.data),
+    onSuccess: store,
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  if (!conn || conn.status === "not_set" || conn.provider !== "meta") return null;
+  const submitted = Object.keys(TEMPLATE_NAMES).some((name) => templates[name]);
+  return (
+    <section className="card space-y-6 p-4 sm:p-6">
+      <div>
+        <h2 className="mb-1 text-base font-semibold text-zinc-900">{t("whatsappTools.remindersTitle", "Payment reminders on WhatsApp")}</h2>
+        <p className="mb-3 text-sm text-zinc-500">
+          {t("whatsappTools.remindersIntro", "Meta has to approve the message first. Press the button once: YGT sends two reminder templates to Meta on your WhatsApp account, one with a Pay now button (used when online payments are on) and one without. Once approved, tick \"Also send payment reminders on WhatsApp\" above and save. Meta charges you per message.")}
+        </p>
+        {submitted && (
+          <ul className="mb-3 space-y-1.5 text-sm">
+            {Object.entries(TEMPLATE_NAMES).map(([name, key]) => (
+              <li key={name} className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-zinc-700">{t(`whatsappTools.template.${key}`, key === "withButton" ? "Reminder with Pay now button" : "Reminder without a button")}</span>
+                <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${TEMPLATE_TONE[templates[name]] ?? "bg-zinc-100 text-zinc-500 ring-zinc-200"}`}>
+                  {t(`whatsappTools.status.${templates[name] ?? "none"}`, { defaultValue: templates[name] ? templates[name].charAt(0) + templates[name].slice(1).toLowerCase() : "Not sent" })}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" disabled={create.isPending} onClick={() => create.mutate()}>
+            {create.isPending ? t("common.sending", "Sending…") : t(submitted ? "whatsappTools.resubmit" : "whatsappTools.create", submitted ? "Send again" : "Create reminder templates")}
+          </Button>
+          {submitted && (
+            <Button variant="secondary" disabled={refresh.isPending} onClick={() => refresh.mutate()}>
+              {t("whatsappTools.check", "Check approval")}
+            </Button>
+          )}
+        </div>
+      </div>
+      <form
+        className="border-t border-zinc-100 pt-5"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (/^\d{6}$/.test(pin)) register.mutate();
+        }}
+      >
+        <h2 className="mb-1 text-base font-semibold text-zinc-900">{t("whatsappTools.registerTitle", "Number stuck on Pending?")}</h2>
+        <p className="mb-3 text-sm text-zinc-500">
+          {t("whatsappTools.registerIntro", "Meta needs a new number registered before it can send. Choose a 6-digit PIN (WhatsApp's two-step PIN; keep it somewhere safe) and press Register.")}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <input
+            className="input w-40"
+            inputMode="numeric"
+            autoComplete="off"
+            maxLength={6}
+            placeholder="123456"
+            aria-label={t("whatsappTools.pin", "6-digit PIN")}
+            value={pin}
+            onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
+          />
+          <button type="submit" className="btn btn-secondary" disabled={pin.length !== 6 || register.isPending}>
+            {register.isPending ? t("common.saving", "Saving…") : t("whatsappTools.register", "Register number")}
+          </button>
+        </div>
       </form>
     </section>
   );

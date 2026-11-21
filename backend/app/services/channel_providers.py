@@ -96,7 +96,9 @@ def _error_text(response: httpx.Response) -> str:
 # ---------------------------------------------------------------- WhatsApp
 
 
-GRAPH = "https://graph.facebook.com/v21.0"
+# Meta retires each Graph API version about two years after release (v21.0
+# stops on 21 Jan 2027). v26.0 came out in July 2026.
+GRAPH = "https://graph.facebook.com/v26.0"
 
 META_WHATSAPP = ProviderSpec(
     kind="whatsapp",
@@ -106,6 +108,8 @@ META_WHATSAPP = ProviderSpec(
         FieldSpec("access_token", secret=True),
         # Optional: lets us verify each webhook call really came from Meta.
         FieldSpec("app_secret", secret=True, required=False),
+        # Also send payment reminders on WhatsApp (an approved template).
+        FieldSpec("payment_reminders", required=False),
     ],
 )
 
@@ -127,6 +131,62 @@ async def meta_send(cfg: dict, secrets: dict, to: str, body: str) -> str | None:
         f"{GRAPH}/{cfg['phone_number_id']}/messages",
         headers={"Authorization": f"Bearer {secrets['access_token']}"},
         json={"messaging_product": "whatsapp", "recipient_type": "individual", "to": to, "type": "text", "text": {"preview_url": False, "body": body}},
+    )
+    messages = response.json().get("messages") or [{}]
+    return messages[0].get("id")
+
+
+async def meta_register(cfg: dict, secrets: dict, pin: str) -> None:
+    """Registers the number for the Cloud API, setting its two-step PIN. A
+    number added in WhatsApp Manager stays "Pending" until this is done."""
+    await _request(
+        "POST",
+        f"{GRAPH}/{cfg['phone_number_id']}/register",
+        headers={"Authorization": f"Bearer {secrets['access_token']}"},
+        json={"messaging_product": "whatsapp", "pin": pin},
+    )
+
+
+async def meta_create_template(cfg: dict, secrets: dict, template: dict) -> str:
+    """Submits a message template to Meta for approval; returns its status.
+    One that already exists under this name is left as it is."""
+    try:
+        response = await _request(
+            "POST",
+            f"{GRAPH}/{cfg['business_account_id']}/message_templates",
+            headers={"Authorization": f"Bearer {secrets['access_token']}"},
+            json=template,
+        )
+    except ProviderError as exc:
+        if "already exists" in str(exc).lower() or "duplicate" in str(exc).lower():
+            return "EXISTS"
+        raise
+    return (response.json().get("status") or "PENDING").upper()
+
+
+async def meta_template_statuses(cfg: dict, secrets: dict) -> dict[str, str]:
+    """name -> APPROVED / PENDING / REJECTED / PAUSED / DISABLED."""
+    response = await _request(
+        "GET",
+        f"{GRAPH}/{cfg['business_account_id']}/message_templates",
+        headers={"Authorization": f"Bearer {secrets['access_token']}"},
+        params={"fields": "name,status,language", "limit": 200},
+    )
+    return {t["name"]: (t.get("status") or "").upper() for t in response.json().get("data", []) if t.get("name")}
+
+
+async def meta_send_template(cfg: dict, secrets: dict, to: str, name: str, language: str, body: list[str], button: str | None = None) -> str | None:
+    """Sends an approved template: the only kind of message Meta allows
+    more than 24 hours after the customer last wrote."""
+    components = [{"type": "body", "parameters": [{"type": "text", "text": value} for value in body]}]
+    if button is not None:
+        components.append({"type": "button", "sub_type": "url", "index": "0", "parameters": [{"type": "text", "text": button}]})
+    response = await _request(
+        "POST",
+        f"{GRAPH}/{cfg['phone_number_id']}/messages",
+        headers={"Authorization": f"Bearer {secrets['access_token']}"},
+        json={"messaging_product": "whatsapp", "recipient_type": "individual", "to": to, "type": "template",
+              "template": {"name": name, "language": {"code": language}, "components": components}},
     )
     messages = response.json().get("messages") or [{}]
     return messages[0].get("id")

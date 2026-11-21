@@ -43,6 +43,7 @@ def compose(
     details: list[tuple[str, str]] | None = None,
     quote: str | None = None,
     button: tuple[str, str] | None = None,
+    after: list[str] | None = None,
     reply_to: str | None = None,
     calendar: str | None = None,
     calendar_method: str = "REQUEST",
@@ -60,6 +61,7 @@ def compose(
         signature=signature,
         button_label=button[0] if button else None,
         button_url=button[1] if button else None,
+        after=after or [],  # small print under the button
         # People can't reply to YGT's own emails; say where help is.
         # (Emails to the YGT team carry a Reply-To and need no such line.)
         footer=None if reply_to else _no_reply_footer(),

@@ -9,6 +9,7 @@ from celery_app import celery_app
 
 from app.services.email_service import EmailNotConfiguredError, OutgoingEmail, send_email
 from app.services.platform_email import platform_config
+from app.tasks._runner import run_async
 
 logger = logging.getLogger(__name__)
 
@@ -49,3 +50,13 @@ def _record_task_failure(sender=None, task_id=None, exception=None, **_):
         run_async(lambda: _write(row))
     except Exception:
         logger.exception("Could not record failed task %s", task_id)
+
+
+@celery_app.task(name="app.tasks.platform_tasks.weekly_summary_task")
+def weekly_summary_task() -> int:
+    """Mondays 07:00: each company's week, to whoever gets the summary."""
+    from app.services.weekly_summary import send_all
+
+    sent = run_async(send_all)
+    logger.info("Sent %d weekly summary email(s)", sent)
+    return sent

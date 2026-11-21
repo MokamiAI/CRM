@@ -96,6 +96,8 @@ class ChannelService:
         plain = {f.name: values.get(f.name) for f in spec.fields if not f.secret and values.get(f.name) not in (None, "")}
         if kind == "email_in" and "last_uid" in (conn.settings or {}) and conn.provider == provider:
             plain["last_uid"] = conn.settings["last_uid"]  # keep our place in the mailbox
+        if "templates" in (conn.settings or {}) and conn.provider == provider:
+            plain["templates"] = conn.settings["templates"]  # WhatsApp template approvals
         missing = [f.name for f in spec.fields if f.required and not (stored.get(f.name) if f.secret else plain.get(f.name))]
         if enabled and missing:
             raise ChannelError(f"Fill in: {', '.join(missing)}", "CHANNEL_INCOMPLETE")
