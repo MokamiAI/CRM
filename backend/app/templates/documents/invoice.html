@@ -1,8 +1,9 @@
 {% extends "_base.html" %}
 {# Not registered for VAT: an "Invoice", never a "Tax invoice". #}
 {% set doc_name = "Invoice" if (company.vat_registered is defined and not company.vat_registered and t.invoice_title == "Tax invoice") else t.invoice_title %}
-{% from "_parts.html" import bank_box, items_table, lines_of with context %}
-{% block title %}{{ doc_name }} {{ doc.invoice_number }}{% endblock %}
+{% from "_parts.html" import bank_box, items_table, lines_of, pay_box with context %}
+{# The tab title is the file name "Save as PDF" suggests: client, then number. #}
+{% block title %}{{ (customer.name if customer else None, doc.invoice_number)|filename }}{% endblock %}
 {% block doc_title %}{{ doc_name }}{% endblock %}
 {% block meta %}
 <table>
@@ -27,6 +28,7 @@
   </table>
 </div>
 <div class="boxes">
+  {{ pay_box(pay_url|default(none), pay_qr|default(none), money(amount_due)) }}
   {{ bank_box(doc.invoice_number) }}
 </div>
 {% if doc.notes %}<div class="terms"><p class="label">Notes</p><p>{{ lines_of(doc.notes) }}</p></div>{% endif %}

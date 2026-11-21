@@ -20,6 +20,21 @@
 {% endif %}
 {% endmacro %}
 
+{# "Pay online": the company's own Paystack (Settings > Online payments). #}
+{% macro pay_box(url, qr, amount) %}
+{% if url %}
+<div class="box pay-box">
+  {% if qr %}<img class="pay-qr" src="{{ qr }}" alt="">{% endif %}
+  <div>
+    <p class="label">Pay online</p>
+    <p style="margin:0 0 8px;"><strong>{{ amount }}</strong> by card or other methods, securely on Paystack.</p>
+    <a class="pay-now" href="{{ url }}">Pay now</a>
+    {% if qr %}<p class="muted" style="margin:8px 0 0;font-size:8pt;">On paper? Scan the code with your phone camera.</p>{% endif %}
+  </div>
+</div>
+{% endif %}
+{% endmacro %}
+
 {% macro items_table(doc) %}
 <table class="items">
   <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit price</th><th class="num">{{ tax_short }}</th><th class="num">Amount</th></tr></thead>

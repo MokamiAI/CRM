@@ -1,6 +1,6 @@
 {% extends "_layout.html" %}
 {% from "_signature.html" import sign_off with context %}
-{% from "_bank.html" import bank_details, terms with context %}
+{% from "_bank.html" import bank_details, pay_button, terms with context %}
 {% from "_items.html" import line_items with context %}
 {% block content %}
 <p>Hi {{ customer.name }},</p>
@@ -15,6 +15,7 @@
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Your {{ t.tax_label }}</td><td>{{ customer.tax_number }}</td></tr>
   {% endif %}
 </table>
+{{ pay_button(pay_url|default(none), money(amount_due)) }}
 {{ line_items(invoice, money) }}
 {% if invoice.notes %}<p style="white-space:pre-line;">{{ invoice.notes }}</p>{% endif %}
 {{ bank_details(invoice.invoice_number) }}

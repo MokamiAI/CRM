@@ -1,4 +1,4 @@
-"""Settings > Email / WhatsApp / SMS: each company connects its own accounts."""
+"""Settings > Email / WhatsApp / SMS / Online payments: each company connects its own accounts."""
 from typing import Literal
 
 from fastapi import APIRouter, Depends
@@ -20,7 +20,7 @@ router = APIRouter(
     dependencies=[Depends(require_role(UserRole.ADMIN))],
 )
 
-Kind = Literal["email_in", "whatsapp", "sms"]
+Kind = Literal["email_in", "whatsapp", "sms", "payments"]
 
 
 def verify_token(conn: ChannelConnection) -> str:

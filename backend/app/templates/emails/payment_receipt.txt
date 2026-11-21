@@ -1,4 +1,5 @@
 {% from "_signature.txt" import sign_off with context %}
+{% from "_bank.txt" import pay_text with context %}
 Hi {{ customer.name }},
 
 Thank you, we have received your payment for invoice {{ invoice.invoice_number }}.
@@ -13,6 +14,8 @@ Balance remaining: {{ money(balance) }}
 {% if balance <= 0 %}
 
 This invoice is now paid in full.
+{% else %}
+{{ pay_text(pay_url|default(none), money(balance)) }}
 {% endif %}
 
 {{ sign_off("Thank you") }}

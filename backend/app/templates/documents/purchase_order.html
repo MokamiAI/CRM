@@ -1,6 +1,6 @@
 {% extends "_base.html" %}
 {% from "_parts.html" import items_table, lines_of with context %}
-{% block title %}Purchase order {{ doc.po_number }}{% endblock %}
+{% block title %}{{ (customer.name if customer else None, doc.po_number)|filename }}{% endblock %}
 {% block doc_title %}Purchase order{% endblock %}
 {% block to_label %}Supplier{% endblock %}
 {# Where to deliver sits beside the supplier, where they look first. #}

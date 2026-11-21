@@ -31,6 +31,12 @@ _env = Environment(
     trim_blocks=True,
     lstrip_blocks=True,
 )
+# Readable text on the accent colour (the "Pay now" button), as in emails.
+from app.services.email_service import on_accent  # noqa: E402
+
+_env.filters["on_accent"] = on_accent
+# The tab title is the name "Save as PDF" suggests: named like the email attachments.
+_env.filters["filename"] = lambda pair: document_filename(*pair)
 
 # Invoices that count towards what a client owes.
 _BILLED = (InvoiceStatus.SENT, InvoiceStatus.PARTIALLY_PAID, InvoiceStatus.PAID, InvoiceStatus.OVERDUE)
@@ -68,6 +74,24 @@ def pdf_from_html(html: str) -> bytes | None:
         return None
 
 
+# Characters Windows (and most systems) won't take in a file name.
+_UNSAFE_IN_NAMES = set('<>:"/|?*\\')
+
+
+def safe_filename(name: str) -> str:
+    """A file name as people typed it, minus what Windows refuses: "A/B
+    Builders - INV-0053" -> "A-B Builders - INV-0053"."""
+    cleaned = "".join("-" if ch in _UNSAFE_IN_NAMES or ord(ch) < 32 else ch for ch in name or "")
+    return " ".join(cleaned.split())[:150].strip(" .") or "document"
+
+
+def document_filename(party: str | None, number: str) -> str:
+    """How saved documents are named: the client (or supplier) first, so
+    each one's documents sit together in a folder, then the number."""
+    party = (party or "").strip()
+    return safe_filename(f"{party} - {number}" if party else number)
+
+
 async def pdf_attachment(html: str, filename: str) -> dict[str, str] | None:
     """A PDF of the document, ready to attach to an email (or None)."""
     import asyncio
@@ -76,8 +100,18 @@ async def pdf_attachment(html: str, filename: str) -> dict[str, str] | None:
     data = await asyncio.to_thread(pdf_from_html, html)
     if not data:
         return None
-    safe = "".join(ch if ch.isalnum() or ch in " -_." else "-" for ch in filename).strip() or "document"
-    return {"filename": f"{safe}.pdf", "content": base64.b64encode(data).decode(), "mime": "application/pdf"}
+    return {"filename": f"{safe_filename(filename)}.pdf", "content": base64.b64encode(data).decode(), "mime": "application/pdf"}
+
+
+def qr_data_uri(text: str) -> str | None:
+    """A QR code for the printed invoice's pay link, as an SVG data URI."""
+    try:
+        import segno
+
+        return segno.make(text, error="m").svg_data_uri(scale=4, border=0)
+    except Exception:
+        logger.warning("Could not make a QR code", exc_info=True)
+        return None
 
 
 def render(kind: str, company, template: DocumentTemplate, **context) -> str:
@@ -185,7 +219,13 @@ class DocumentService:
         customer = await CustomerRepository(self.db).get_by_id(invoice.customer_id)
         company, template = await self._company()
         people = await self._people(invoice.customer_id)
-        return render("invoice", company, template, doc=invoice, customer=customer, amount_due=invoice.total - invoice.amount_paid, **people)
+        from app.services.online_payment_service import OnlinePaymentService
+
+        link = await OnlinePaymentService(self.db).pay_url_for(invoice)
+        return render(
+            "invoice", company, template, doc=invoice, customer=customer, amount_due=invoice.total - invoice.amount_paid,
+            pay_url=link, pay_qr=qr_data_uri(link) if link else None, **people,
+        )
 
     async def quote_html(self, quote_id: uuid.UUID) -> str:
         quote = await QuoteRepository(self.db).get_by_id(quote_id)

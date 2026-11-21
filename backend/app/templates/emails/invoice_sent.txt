@@ -1,4 +1,4 @@
-{% from "_bank.txt" import bank_details_text with context %}
+{% from "_bank.txt" import bank_details_text, pay_text with context %}
 {% from "_signature.txt" import sign_off with context %}
 {% from "_items.html" import text_line_items with context %}
 Hi {{ customer.name }},
@@ -12,6 +12,7 @@ Due date:   {{ invoice.due_date.strftime("%d %b %Y") }}
 Amount due: {{ money(amount_due) }}
 {% if t and t.show_customer_tax_number and customer.tax_number %}Your {{ t.tax_label }}: {{ customer.tax_number }}
 {% endif %}
+{{ pay_text(pay_url|default(none), money(amount_due)) }}
 {{ text_line_items(invoice, money) }}
 {% if invoice.notes %}
 

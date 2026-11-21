@@ -116,7 +116,7 @@ class ChannelService:
         try:
             if kind == "email_in":
                 detail = await run_in_threadpool(email_inbox.test_mailbox, conn.settings, creds.get("password", ""))
-            elif to:
+            elif to and kind in ("whatsapp", "sms"):
                 phone = normalize_phone(to)
                 if not phone:
                     raise ProviderError("That phone number doesn't look right")

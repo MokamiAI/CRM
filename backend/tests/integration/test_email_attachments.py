@@ -43,7 +43,7 @@ async def test_the_invoice_email_carries_the_invoice(api, monkeypatch):
         set_tenant(db, owner["company_id"])
         email = await NotificationService(db).compose_invoice_sent(invoice["id"])
     [attachment] = email.attachments
-    assert attachment["filename"] == f"Invoice {invoice['invoice_number']}.pdf"
+    assert attachment["filename"] == f"Naledi Events - {invoice['invoice_number']}.pdf"
     assert attachment["mime"] == "application/pdf" and base64.b64decode(attachment["content"]).startswith(b"%PDF")
 
     # And it really goes out as an attachment.
@@ -62,7 +62,7 @@ async def test_the_invoice_email_carries_the_invoice(api, monkeypatch):
     email_service.send_email(config, email)
     parsed = message_from_bytes(sent[0])
     files = [(part.get_filename(), part.get_content_type()) for part in parsed.walk() if part.get_filename()]
-    assert files == [(f"Invoice {invoice['invoice_number']}.pdf", "application/pdf")]
+    assert files == [(f"Naledi Events - {invoice['invoice_number']}.pdf", "application/pdf")]
 
 
 @pytest.mark.asyncio

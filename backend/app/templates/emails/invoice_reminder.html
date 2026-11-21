@@ -1,6 +1,6 @@
 {% extends "_layout.html" %}
 {% from "_signature.html" import sign_off with context %}
-{% from "_bank.html" import bank_details with context %}
+{% from "_bank.html" import bank_details, pay_button with context %}
 {% block content %}
 <p>Hi {{ customer.name }},</p>
 {% if days_past_due > 0 %}
@@ -18,6 +18,7 @@
   {% endif %}
   <tr><td style="padding:2px 16px 2px 0;color:#6b7280;">Amount due</td><td><strong style="color:{{ accent }};">{{ money(amount_due) }}</strong></td></tr>
 </table>
+{{ pay_button(pay_url|default(none), money(amount_due)) }}
 {{ bank_details(invoice.invoice_number) }}
 <p>Please reply to this email if you have any questions about this invoice.</p>
 {{ sign_off("Thank you") }}

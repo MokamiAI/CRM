@@ -13,7 +13,7 @@ from app.models.customer import Customer
 from app.models.invoice import Invoice, InvoiceItem
 from app.models.marketing import Campaign, CampaignRecipient, Segment
 from app.models.messaging import ChannelConnection, Conversation, Message, TeamChannel, TeamChannelMember, TeamMessage, TeamMessageAttachment, TeamMessageReaction
-from app.models.payment import Payment
+from app.models.payment import OnlinePayment, Payment
 from app.models.platform import (
     AuditEvent,
     BillingRefund,
@@ -72,6 +72,7 @@ __all__ = [
     "Invoice",
     "InvoiceItem",
     "Message",
+    "OnlinePayment",
     "Payment",
     "Product",
     "LineTemplate",

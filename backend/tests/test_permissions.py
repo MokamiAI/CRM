@@ -26,6 +26,8 @@ PUBLIC = {
     "/api/v1/public/meetings/{token}",  # signed, revision-specific attendee response
     "/api/v1/public/quotes/accept/{token}",  # purpose-limited signed quote acceptance token
     "/api/v1/public/paystack/webhook",
+    "/api/v1/public/pay/{token}",  # signed invoice pay link: can only pay what is still owed
+    "/api/v1/public/channels/{token}/payments",  # the company's Paystack webhook, signed with its own key
 }
 # Any signed-in person, viewers too: their own profile, asking YGT for help,
 # talking to colleagues, and a preview that saves nothing.

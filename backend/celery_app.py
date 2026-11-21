@@ -18,6 +18,7 @@ celery_app = Celery(
         "app.tasks.marketing_tasks",
         "app.tasks.messaging_tasks",
         "app.tasks.notification_tasks",
+        "app.tasks.payment_tasks",
         "app.tasks.platform_tasks",
         "app.tasks.recurring_tasks",
         "app.tasks.reminder_tasks",
@@ -55,6 +56,12 @@ celery_app.conf.beat_schedule = {
         "schedule": crontab(hour=8, minute=15),
     },
     # Sign-ups, payments and ended trials into YGT's own pipeline.
+    # Online invoice payments the customer didn't come back from.
+    "online-payments": {
+        "task": "app.tasks.payment_tasks.check_online_payments_task",
+        "schedule": crontab(minute="*/5"),
+        "options": EVERY_5_MINUTES,
+    },
     "subscriber-pipeline": {
         "task": "app.tasks.billing_tasks.sync_subscriber_pipeline_task",
         "schedule": crontab(minute="*/5"),

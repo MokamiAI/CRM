@@ -13,3 +13,10 @@ Banking details
 {% endif %}
 {% endif %}
 {%- endmacro %}
+
+{# "Pay now" in plain-text emails. #}
+{% macro pay_text(url, amount) -%}
+{% if url %}
+Pay {{ amount }} online: {{ url }}
+{% endif %}
+{%- endmacro %}

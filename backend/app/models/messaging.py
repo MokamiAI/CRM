@@ -140,7 +140,7 @@ class TeamMessageReaction(TenantMixin, UUIDPKMixin, Base):
     emoji: Mapped[str] = mapped_column(String(16), nullable=False)
 
 
-CONNECTION_KINDS = ("email_in", "whatsapp", "sms")
+CONNECTION_KINDS = ("email_in", "whatsapp", "sms", "payments")
 
 
 class ChannelConnection(TenantMixin, UUIDPKMixin, TimestampMixin, Base):

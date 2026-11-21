@@ -17,6 +17,8 @@ redis==5.2.1
 python-multipart==0.0.20
 jinja2==3.1.5
 weasyprint==63.1
+# QR codes on invoices, for the online pay link
+segno==1.6.6
 python-dotenv==1.0.1
 httpx==0.28.1
 cryptography==44.0.0

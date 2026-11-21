@@ -34,6 +34,7 @@ export const PROVIDERS = {
   bulksms: { fields: [{ name: "token_id" }, { name: "token_secret", secret: true }, { name: "sender", optional: true, placeholder: "MyBusiness" }] },
   clickatell: { fields: [{ name: "api_key", secret: true }, { name: "sender", optional: true }] },
   twilio: { fields: [{ name: "account_sid", placeholder: "AC…" }, { name: "auth_token", secret: true }, { name: "sender", placeholder: "+27…" }] },
+  paystack: { fields: [{ name: "secret_key", secret: true }] },
 };
 
 // Mailbox presets: most people only need to pick their provider.

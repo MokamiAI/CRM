@@ -119,6 +119,18 @@ async def get_invoice(
     return await InvoiceService(db).get_invoice(invoice_id)
 
 
+@router.get("/{invoice_id}/pay-link")
+async def invoice_pay_link(invoice_id: uuid.UUID, db: AsyncSession = Depends(get_db), _: User = Depends(get_current_user)):
+    """The customer's "Pay now" link, to share by WhatsApp or SMS. `url` is
+    None until online payments are switched on (Settings > Online
+    payments), or once nothing is left to pay; `available` says which."""
+    from app.services.online_payment_service import OnlinePaymentService
+
+    service = OnlinePaymentService(db)
+    invoice = await InvoiceService(db).get_invoice(invoice_id)
+    return {"available": await service.connection() is not None, "url": await service.pay_url_for(invoice)}
+
+
 @router.patch("/{invoice_id}", response_model=InvoiceOut)
 async def update_invoice(
     invoice_id: uuid.UUID,

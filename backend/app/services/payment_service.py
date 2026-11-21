@@ -2,6 +2,7 @@ import uuid
 from datetime import datetime, timezone
 from decimal import Decimal
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.exceptions import ConflictError, NotFoundError
@@ -35,7 +36,11 @@ class PaymentService:
     async def record_payment(
         self, invoice_id: uuid.UUID, data: PaymentCreate, recorded_by_id: uuid.UUID
     ) -> Payment:
-        invoice = await self.invoices.get_by_id(invoice_id)
+        # Locked and re-read: an owner recording an EFT at the same moment as
+        # an online payment lands must not work from a stale amount paid.
+        invoice = await self.db.scalar(
+            select(Invoice).where(Invoice.id == invoice_id).with_for_update().execution_options(populate_existing=True)
+        )
         if invoice is None:
             raise NotFoundError("Invoice not found", "INVOICE_NOT_FOUND")
         if invoice.status in _NOT_PAYABLE:

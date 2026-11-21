@@ -21,6 +21,7 @@ from app.api.routes import (
     mcem,
     notifications,
     onboarding,
+    pay_public,
     payments,
     products,
     public,
@@ -109,6 +110,7 @@ app.include_router(support.router, prefix=settings.API_V1_PREFIX)
 app.include_router(data.router, prefix=settings.API_V1_PREFIX)
 app.include_router(admin.router, prefix=settings.API_V1_PREFIX)
 app.include_router(public.router, prefix=settings.API_V1_PREFIX)
+app.include_router(pay_public.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/health", tags=["health"])

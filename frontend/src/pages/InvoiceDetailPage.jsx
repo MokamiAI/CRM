@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
@@ -28,6 +28,63 @@ function describeReminder(reminderType) {
 const VOIDABLE = ["draft", "sent", "overdue"];
 // Already emailed: can be emailed again ("please resend").
 const RESENDABLE = ["sent", "partially_paid", "overdue", "paid"];
+
+// South African numbers as wa.me wants them: 082 123 4567 -> 27821234567.
+function whatsappNumber(raw) {
+  const digits = (raw ?? "").replace(/\D/g, "");
+  if (digits.startsWith("00")) return digits.slice(2);
+  if (digits.startsWith("0")) return `27${digits.slice(1)}`;
+  return digits.length >= 8 ? digits : "";
+}
+
+/** The customer's "Pay now" link, to copy or send on WhatsApp; or, before
+ *  online payments are on, a pointer to Settings for admins. */
+function PayLinkCard({ invoice, customer, isAdmin }) {
+  const { t } = useTranslation();
+  const { data } = useQuery({
+    queryKey: ["invoice", invoice.id, "pay-link"],
+    queryFn: () => apiClient.get(`/invoices/${invoice.id}/pay-link`).then((r) => r.data),
+  });
+  if (!data) return null;
+  if (!data.url) {
+    if (data.available || !isAdmin) return null;
+    return (
+      <section className="card p-5 text-sm">
+        <h2 className="mb-1 font-semibold text-zinc-900">{t("payLink.offTitle", "Get paid faster")}</h2>
+        <p className="mb-3 text-zinc-600">{t("payLink.offBody", "Let customers pay invoices online by card, with a Pay now button on the email, PDF and reminders.")}</p>
+        <Link className="font-medium text-indigo-600 hover:text-indigo-700" to="/settings?tab=payments">{t("payLink.setUp", "Set up online payments")} →</Link>
+      </section>
+    );
+  }
+  const amount = formatMoney(Number(invoice.total) - Number(invoice.amount_paid));
+  const message = t("payLink.whatsappText", {
+    defaultValue: "Hi {{name}}, here is the link to pay invoice {{number}} ({{amount}}) online: {{url}}",
+    name: customer?.name ?? "",
+    number: invoice.invoice_number,
+    amount,
+    url: data.url,
+  });
+  const whatsapp = `https://wa.me/${whatsappNumber(customer?.phone)}?text=${encodeURIComponent(message)}`;
+  return (
+    <section className="card space-y-3 p-5 text-sm">
+      <div>
+        <h2 className="mb-1 font-semibold text-zinc-900">{t("payLink.title", "Online payment link")}</h2>
+        <p className="text-zinc-600">{t("payLink.body", "Already in the invoice email, PDF and reminders. Customers pay what is still owed, and it's recorded here by itself.")}</p>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Button
+          variant="secondary"
+          onClick={() => navigator.clipboard?.writeText(data.url).then(() => toast.success(t("payLink.copied", "Pay link copied")))}
+        >
+          {t("payLink.copy", "Copy pay link")}
+        </Button>
+        <a className="btn btn-secondary" href={whatsapp} target="_blank" rel="noreferrer">
+          {t("payLink.whatsapp", "Send on WhatsApp")}
+        </a>
+      </div>
+    </section>
+  );
+}
 
 export default function InvoiceDetailPage() {
   const { t } = useTranslation();
@@ -234,6 +291,8 @@ export default function InvoiceDetailPage() {
             emphasis={[t("invoice.balanceDue"), formatMoney(balance)]}
           />
 
+          {PAYABLE.includes(invoice.status) && <PayLinkCard invoice={invoice} customer={customer} isAdmin={isAdmin} />}
+
           {payments.length > 0 && (
         <section className="card overflow-hidden">
           <h2 className="border-b border-zinc-100 px-5 py-3.5 text-sm font-semibold text-zinc-900">{t("invoice.payments")}</h2>
@@ -246,6 +305,7 @@ export default function InvoiceDetailPage() {
                     {formatDate(payment.paid_at)} · {t(`paymentMethod.${payment.method}`)}
                     {payment.reference && ` · ${payment.reference}`}
                   </p>
+                  {payment.notes && <p className="truncate text-xs text-zinc-400">{payment.notes}</p>}
                 </div>
                 {isAdmin && invoice.status !== "void" && (
                   <button

@@ -345,7 +345,8 @@
     "enable": {
       "email_in": "Read replies from this mailbox",
       "sms": "Use SMS for messages",
-      "whatsapp": "Use WhatsApp for messages"
+      "whatsapp": "Use WhatsApp for messages",
+      "payments": "Let customers pay invoices online"
     },
     "fields": {
       "access_token": "Permanent access token",
@@ -364,7 +365,8 @@
       "token_id": "API token ID",
       "token_secret": "API token secret",
       "use_ssl": "Use SSL",
-      "username": "Email address / username"
+      "username": "Email address / username",
+      "secret_key": "Secret key"
     },
     "hints": {
       "only_known_customers": "Emails from addresses that aren't customers are left in your mailbox, so newsletters and spam stay out of YGT.",
@@ -386,7 +388,8 @@
       "clickatell": "Clickatell",
       "imap": "Mailbox (IMAP)",
       "meta": "WhatsApp Cloud API (Meta)",
-      "twilio": "Twilio"
+      "twilio": "Twilio",
+      "paystack": "Paystack"
     },
     "saved": "Settings saved",
     "secretSaved": "Saved. Leave blank to keep it.",
@@ -414,7 +417,8 @@
     "verifyToken": "Verify token",
     "webhookHelp": {
       "sms": "In your SMS provider's dashboard, set this as the address for incoming messages (inbound / reply webhook) so replies reach YGT.",
-      "whatsapp": "Paste these into Meta: WhatsApp > Configuration > Webhook, then subscribe to \"messages\". This is how customer replies reach YGT."
+      "whatsapp": "Paste these into Meta: WhatsApp > Configuration > Webhook, then subscribe to \"messages\". This is how customer replies reach YGT.",
+      "payments": "Optional, but payments then show up within seconds: in Paystack go to Settings > API Keys & Webhooks and paste this as the Live (or Test) Webhook URL. Without it, YGT still checks Paystack every few minutes. Already using a webhook for an online shop? Leave that one as it is."
     },
     "webhookUrl": "Callback / webhook URL",
     "whatsappIntro": "Connect your own WhatsApp Business number through Meta's official Cloud API. Messages go out from your number and replies come into Messages.",
@@ -426,7 +430,15 @@
       "webhook": "Copy the webhook URL and verify token shown after saving into Meta's webhook settings.",
       "window": "WhatsApp rule: you can reply freely for 24 hours after a customer messages you; starting a chat after that needs a Meta-approved template."
     },
-    "whatsappTitle": "WhatsApp Business"
+    "whatsappTitle": "WhatsApp Business",
+    "paymentsTitle": "Online payments (Paystack)",
+    "paymentsIntro": "Customers pay your invoices by card and other methods with a \"Pay now\" button on the invoice email, the PDF (with a QR code) and payment reminders. The money goes straight to your own Paystack account; YGT never holds it. Each payment is recorded on the invoice and the customer gets a receipt. Paystack charges its own fee per payment.",
+    "paymentsSteps": {
+      "account": "No Paystack account yet? Sign up at paystack.com and complete their business check (it can take a few days).",
+      "key": "In Paystack, open Settings > API Keys & Webhooks and copy your Secret key (it starts with sk_live_). Use the Test key (sk_test_) first if you want to try it without real money.",
+      "save": "Paste it below, tick \"Let customers pay invoices online\", save, then press Test connection.",
+      "webhook": "Optional: copy the webhook URL shown after saving into Paystack, so payments show up within seconds."
+    }
   },
   "clientFilter": {
     "clear": "Show all clients",
@@ -1895,7 +1907,8 @@
       "general": "General",
       "sms": "SMS",
       "team": "Team",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "payments": "Online payments"
     },
     "wording": {
       "client": "Clients",

@@ -69,9 +69,10 @@ function Field({ label, children, hint }) {
 // iOS Safari/webview's auto-zoom-on-focus for fields under 16px.
 const inputClass = "input";
 
-const TABS = ["general", "team", "billing", "documents", "email", "whatsapp", "sms", "fields", "data"];
+const TABS = ["general", "team", "billing", "documents", "email", "payments", "whatsapp", "sms", "fields", "data"];
 const WHATSAPP_STEPS = ["app", "ids", "token", "save", "webhook", "window"];
 const SMS_STEPS = ["account", "keys", "sender", "webhook"];
+const PAYMENT_STEPS = ["account", "key", "save", "webhook"];
 
 export default function SettingsPage() {
   const { t } = useTranslation();
@@ -500,6 +501,15 @@ export default function SettingsPage() {
           title={t("channels.mailboxTitle")}
           intro={t("channels.mailboxIntro")}
           preset={preset ? { host: MAIL_PRESETS[preset].host, port: MAIL_PRESETS[preset].port, username: form.sender_email || undefined } : null}
+        />
+      )}
+      {tab === "payments" && (
+        <ConnectionCard
+          kind="payments"
+          providers={["paystack"]}
+          title={t("channels.paymentsTitle")}
+          intro={t("channels.paymentsIntro")}
+          steps={PAYMENT_STEPS.map((s) => t(`channels.paymentsSteps.${s}`))}
         />
       )}
       {(tab === "whatsapp" || tab === "sms") && <PlanNotice feature="whatsapp_sms" />}

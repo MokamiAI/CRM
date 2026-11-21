@@ -1,5 +1,6 @@
 {% extends "_layout.html" %}
 {% from "_signature.html" import sign_off with context %}
+{% from "_bank.html" import pay_button with context %}
 {% block content %}
 <p>Hi {{ customer.name }},</p>
 <p>Thank you, we have received your payment for invoice <strong>{{ invoice.invoice_number }}</strong>.</p>
@@ -14,6 +15,8 @@
 </table>
 {% if balance <= 0 %}
 <p>This invoice is now paid in full.</p>
+{% else %}
+{{ pay_button(pay_url|default(none), money(balance)) }}
 {% endif %}
 {{ sign_off("Thank you") }}
 {% endblock %}

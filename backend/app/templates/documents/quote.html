@@ -1,6 +1,6 @@
 {% extends "_base.html" %}
 {% from "_parts.html" import items_table, lines_of with context %}
-{% block title %}{{ t.quote_title }} {{ doc.quote_number }}{% endblock %}
+{% block title %}{{ (customer.name if customer else None, doc.quote_number)|filename }}{% endblock %}
 {% block doc_title %}{{ t.quote_title }}{% endblock %}
 {% block to_label %}Prepared for{% endblock %}
 {% block meta %}

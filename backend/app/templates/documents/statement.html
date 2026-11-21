@@ -1,6 +1,6 @@
 {% extends "_base.html" %}
 {% from "_parts.html" import bank_box with context %}
-{% block title %}{{ t.statement_title }} · {{ customer.name }}{% endblock %}
+{% block title %}{{ (customer.name, "Statement " ~ statement.start.isoformat() ~ " to " ~ statement.end.isoformat())|filename }}{% endblock %}
 {% block doc_title %}{{ t.statement_title }}{% endblock %}
 {% block to_label %}Account{% endblock %}
 {% block meta %}

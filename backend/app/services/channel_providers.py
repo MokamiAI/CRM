@@ -1,4 +1,4 @@
-"""WhatsApp and SMS providers a company can connect in Settings.
+"""WhatsApp, SMS and online payment providers a company can connect in Settings.
 
 Each provider declares the fields its settings form needs (plain vs
 secret), how to test the credentials, how to send a text, and how to read
@@ -259,10 +259,78 @@ def twilio_signature_ok(secrets: dict, url: str, form: dict, header: str | None)
     return bool(header) and hmac.compare_digest(expected, header)
 
 
+# ---------------------------------------------------------------- Online payments
+# The company's own Paystack account: customers pay invoices into it, and
+# YGT only starts each payment and reads back whether it went through.
+# (YGT's subscription billing uses the platform's key, in paystack.py.)
+
+PAYSTACK = ProviderSpec(kind="payments", fields=[FieldSpec("secret_key", secret=True)])
+
+
+def _paystack_key(secrets: dict) -> str:
+    key = (secrets.get("secret_key") or "").strip()
+    if key.startswith("pk_"):
+        raise ProviderError("That is the public key. Paste the secret key (it starts with sk_live_ or sk_test_).")
+    if not key.startswith(("sk_live_", "sk_test_")):
+        raise ProviderError("A Paystack secret key starts with sk_live_ or sk_test_.")
+    return key
+
+
+async def _paystack(method: str, path: str, secrets: dict, **kwargs) -> dict:
+    response = await _request(
+        method, f"{settings.PAYSTACK_API_BASE.rstrip('/')}{path}", headers={"Authorization": f"Bearer {_paystack_key(secrets)}"}, **kwargs
+    )
+    try:
+        body = response.json()
+    except ValueError as exc:
+        raise ProviderError(f"Paystack returned HTTP {response.status_code}") from exc
+    if not body.get("status"):
+        raise ProviderError(f"Paystack: {body.get('message') or 'request refused'}")
+    return body.get("data") or {}
+
+
+def paystack_test_mode(secrets: dict) -> bool:
+    return (secrets.get("secret_key") or "").strip().startswith("sk_test_")
+
+
+async def paystack_test(cfg: dict, secrets: dict) -> str:
+    # Any call needs a valid secret key; the balance endpoint changes nothing.
+    await _paystack("GET", "/balance", secrets)
+    if paystack_test_mode(secrets):
+        return "Connected to Paystack in test mode: no real money moves. Use your live secret key when you're ready."
+    return "Connected to Paystack. Customers can now pay your invoices online."
+
+
+async def paystack_start(secrets: dict, *, email: str, amount_cents: int, currency: str, reference: str, callback_url: str, metadata: dict) -> str:
+    """Opens a Paystack checkout for one payment; returns its page."""
+    data = await _paystack(
+        "POST",
+        "/transaction/initialize",
+        secrets,
+        json={"email": email, "amount": amount_cents, "currency": currency, "reference": reference, "callback_url": callback_url, "metadata": metadata},
+    )
+    return data["authorization_url"]
+
+
+async def paystack_verify(secrets: dict, reference: str) -> dict:
+    return await _paystack("GET", f"/transaction/verify/{reference}", secrets)
+
+
+def paystack_signature_ok(secrets: dict, raw_body: bytes, header: str | None) -> bool:
+    """Paystack signs each webhook with HMAC-SHA512 of the body, keyed by the
+    account's secret key, in the x-paystack-signature header."""
+    key = (secrets.get("secret_key") or "").strip()
+    if not key or not header:
+        return False
+    expected = hmac.new(key.encode(), raw_body, hashlib.sha512).hexdigest()
+    return hmac.compare_digest(expected, header)
+
+
 PROVIDERS: dict[str, dict] = {
     "meta": {"spec": META_WHATSAPP, "test": meta_test, "send": meta_send, "parse": meta_parse},
     "bulksms": {"spec": BULKSMS, "test": bulksms_test, "send": bulksms_send, "parse": bulksms_parse},
     "clickatell": {"spec": CLICKATELL, "test": clickatell_test, "send": clickatell_send, "parse": clickatell_parse},
     "twilio": {"spec": TWILIO, "test": twilio_test, "send": twilio_send, "parse": twilio_parse},
+    "paystack": {"spec": PAYSTACK, "test": paystack_test},
 }
-PROVIDERS_FOR = {"whatsapp": ["meta"], "sms": ["bulksms", "clickatell", "twilio"]}
+PROVIDERS_FOR = {"whatsapp": ["meta"], "sms": ["bulksms", "clickatell", "twilio"], "payments": ["paystack"]}
