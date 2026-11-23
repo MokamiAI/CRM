@@ -23,20 +23,24 @@ export function DevelopedBy() {
   );
 }
 
-/** The YGT monogram on the brand gradient. `join` lets the letters rise into
- *  place once (sign-in and About only; never in the sidebar). */
+/** The YGT logo. Every page shows it through this one component, from
+ *  copies of the master file frontend/brand/ygt-app-icon.png (see
+ *  frontend/brand/README.md). `join` fades it in once (sign-in, About and
+ *  the welcome tour; never in the sidebar). */
 export function BrandMark({ size = "md", className = "", join = false }) {
-  const box = { sm: "h-7 w-7 rounded-lg text-[9px]", md: "h-9 w-9 rounded-xl text-[11px]", lg: "h-16 w-16 rounded-2xl text-[19px]" }[size];
+  const box = { sm: "h-7 w-7 rounded-lg", md: "h-9 w-9 rounded-xl", lg: "h-16 w-16 rounded-2xl" }[size];
+  // Sharp on high-density screens: about three times the shown size.
+  const file = size === "lg" ? 256 : 128;
   return (
-    <span
-      className={`brand-bg inline-flex shrink-0 items-center justify-center font-extrabold tracking-[-0.04em] text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.3),0_1px_3px_rgb(139_92_246/0.35)] ${box} ${className}`}
+    <img
+      src={`/brand/ygt-logo-${file}.png`}
+      alt=""
       aria-hidden="true"
-    >
-      <span className={`inline-flex leading-none ${join ? "brand-join" : ""}`}>
-        <span>Y</span>
-        <span>G</span>
-        <span>T</span>
-      </span>
-    </span>
+      width={file}
+      height={file}
+      decoding="async"
+      draggable="false"
+      className={`inline-block shrink-0 select-none shadow-[0_1px_3px_rgb(79_70_229/0.25)] ${box} ${join ? "brand-join" : ""} ${className}`}
+    />
   );
 }

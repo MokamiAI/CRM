@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- Source of frontend/public/og-image.png (the link preview, 1200×630).
+     Rebuild with: node e2e/make-og-image.mjs -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Inter"; src: url("../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+  * { margin: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    font-family: "Inter", sans-serif; color: #18181b; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    background: radial-gradient(60% 70% at 0% 0%, #ede9fe 0%, transparent 70%), radial-gradient(45% 60% at 100% 100%, #dbeafe 0%, transparent 70%), #ffffff;
+  }
+  .logo { width: 104px; height: 104px; border-radius: 24px; box-shadow: 0 10px 30px rgb(79 70 229 / 0.22); }
+  h1 { margin-top: 18px; font-size: 104px; line-height: 1.05; font-weight: 800; letter-spacing: -0.045em; background: linear-gradient(90deg, #7c3aed, #4f46e5 45%, #2563eb); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 6px; }
+  .line { width: 560px; height: 5px; border-radius: 99px; margin-top: 8px; background: linear-gradient(90deg, #7c3aed, #2563eb); }
+  h2 { margin-top: 30px; font-size: 38px; font-weight: 700; letter-spacing: -0.02em; }
+  p { margin-top: 12px; font-size: 25px; color: #52525b; }
+  .pills { display: flex; gap: 14px; margin-top: 30px; }
+  .pills span { font-size: 21px; font-weight: 600; color: #065f46; background: #ecfdf5; border: 2px solid #a7f3d0; padding: 9px 20px; border-radius: 99px; }
+  .url { margin-top: 36px; font-size: 21px; font-weight: 600; color: #71717a; }
+</style>
+</head>
+<body>
+  <img class="logo" src="ygt-app-icon.png" alt="YGT">
+  <h1>You Got This</h1>
+  <div class="line"></div>
+  <h2>Run your business. Not after your business.</h2>
+  <p>Quotes, invoices and payment reminders in one place.</p>
+  <div class="pills"><span>14 days free</span><span>No card needed</span><span>All 11 SA languages</span></div>
+  <div class="url">yougt.co.za</div>
+</body>
+</html>

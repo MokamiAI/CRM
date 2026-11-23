@@ -8,7 +8,7 @@
 // Plain data, no imports: vite.config.js loads this file in Node.
 
 export const SITE_URL = "https://yougt.co.za";
-export const OG_IMAGE = `${SITE_URL}/og-image.png?v=1`;
+export const OG_IMAGE = `${SITE_URL}/og-image.png?v=2`;
 
 const HOME_DESCRIPTION =
   "One place for your customers, deals, quotes, invoices and payments. YGT follows up and chases payments for you, saving hours every week, so you can focus on running your business. 14-day free trial, no card needed.";
