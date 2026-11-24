@@ -38,6 +38,9 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
     # Purchase orders to suppliers: PO-0001, PO-0002...
     po_prefix: Mapped[str] = mapped_column(String(20), nullable=False, default="PO-", server_default="PO-")
     next_po_number: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    # Credit notes against invoices: CN-0001, CN-0002...
+    credit_note_prefix: Mapped[str] = mapped_column(String(20), nullable=False, default="CN-", server_default="CN-")
+    next_credit_note_number: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
     payment_terms_days: Mapped[int] = mapped_column(Integer, nullable=False, default=30)
     # The year's revenue goal (won deals count towards it) and the month the
     # company's year starts: 3 = March, the usual South African financial year.

@@ -62,7 +62,7 @@ export default function CustomerDetailPage() {
   const openActivities = activities.filter((a) => !a.done);
   const openDeals = deals.filter((d) => d.stage !== "won" && d.stage !== "lost");
   const openInvoices = invoices.filter((i) => OPEN_INVOICE.includes(i.status));
-  const owed = openInvoices.reduce((t, i) => t + Number(i.total) - Number(i.amount_paid), 0);
+  const owed = openInvoices.reduce((t, i) => t + Number(i.amount_due), 0);
   const lifetime = invoices.filter((i) => i.status !== "void").reduce((t, i) => t + Number(i.amount_paid), 0);
 
   return (

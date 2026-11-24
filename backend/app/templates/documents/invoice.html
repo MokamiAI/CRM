@@ -21,6 +21,9 @@
     <tr><td class="muted">Total excl. {{ tax_short }}</td><td class="num">{{ money(doc.subtotal) }}</td></tr>
     <tr><td class="muted">{{ tax_short }}</td><td class="num">{{ money(doc.tax_total) }}</td></tr>
     <tr><td>Total incl. {{ tax_short }}</td><td class="num">{{ money(doc.total) }}</td></tr>
+    {% if doc.amount_credited is defined and doc.amount_credited and doc.amount_credited > 0 %}
+    <tr><td class="muted">Credit notes</td><td class="num">− {{ money(doc.amount_credited) }}</td></tr>
+    {% endif %}
     {% if doc.amount_paid and doc.amount_paid > 0 %}
     <tr><td class="muted">Paid</td><td class="num">− {{ money(doc.amount_paid) }}</td></tr>
     {% endif %}

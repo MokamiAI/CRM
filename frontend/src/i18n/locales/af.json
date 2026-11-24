@@ -697,7 +697,8 @@
       "invoices": "Fakture",
       "payments": "Betalings",
       "products": "Produkte",
-      "quotes": "Kwotasies"
+      "quotes": "Kwotasies",
+      "credit_notes": "Kredietnotas"
     },
     "fields": {
       "billing_address": "Adres",
@@ -2004,7 +2005,9 @@
     "sendFailed": "Kon nie die staat stuur nie.",
     "sent": "Staat gestuur aan {{email}}",
     "title": "Staat",
-    "to": "Tot"
+    "to": "Tot",
+    "credited": "Kredietnotas",
+    "creditNote": "Kredietnota"
   },
   "status": {
     "accepted": "Aanvaar",
@@ -2174,7 +2177,9 @@
     "showMore_one": "Wys nog {{count}}",
     "showMore_other": "Wys nog {{count}}",
     "total": "Totaal {{amount}}",
-    "value": "Waarde {{amount}}"
+    "value": "Waarde {{amount}}",
+    "creditNote": "Kredietnota {{number}} op {{invoice}}",
+    "creditNoteVoid": "Kredietnota {{number}} op {{invoice}} · gekanselleer"
   },
   "tour": {
     "back": "Terug",
@@ -3657,5 +3662,30 @@
     "overdueValue": "{{value}} agterstallig",
     "onCosts": "Hierdie maand se geld in, uit en wins is in elke plan op die Uitgawes-blad.",
     "openCosts": "Maak Uitgawes oop"
+  },
+  "credit": {
+    "button": "Kredietnota",
+    "title": "Kredietnota vir {{number}}",
+    "body": "Haal 'n bedrag van hierdie faktuur af. Die faktuur bly soos die kliënt dit het; die kredietnota is sy eie genommerde dokument wat daarna verwys, met die BTW op dieselfde manier bereken.",
+    "amount": "Bedrag om af te haal (insl. BTW)",
+    "left": "Tot {{amount}} kan nog gekrediteer word",
+    "tooMuch": "Dis meer as wat oor is om te krediteer ({{amount}})",
+    "all": "Krediteer alles wat oor is ({{amount}})",
+    "reason": "Rede",
+    "reasonHint": "Word op die kredietnota gedruk, bv. \"Afslag ooreengekom\" of \"10 gaste minder\".",
+    "creditNotes": "Kredietnotas",
+    "refundDue": "Terugbetaling verskuldig",
+    "refundHint": "Die kliënt het meer betaal as wat die faktuur nou beloop. Betaal die verskil terug, of kom ooreen om dit as krediet te hou.",
+    "email": "E-pos die kredietnota aan {{email}}",
+    "issue": "Reik kredietnota uit",
+    "issued": "Kredietnota {{number}} uitgereik vir {{amount}}",
+    "sent": "Kredietnota {{number}} ge-e-pos",
+    "emailAgain": "E-pos",
+    "voided": "Kredietnota {{number}} gekanselleer",
+    "voidTitle": "Kanselleer {{number}}?",
+    "voidBody": "Vir 'n kredietnota wat per ongeluk uitgereik is. Dit bly op rekord, gemerk as gekanselleer, en {{amount}} gaan terug op die faktuur.",
+    "voidConfirm": "Kanselleer kredietnota",
+    "agreed": "Ooreengekom op die kwotasie",
+    "final": "Finale bedrag"
   }
 }

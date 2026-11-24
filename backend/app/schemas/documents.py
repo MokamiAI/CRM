@@ -53,7 +53,7 @@ class PreviewRequest(BaseModel):
 
 class StatementLine(BaseModel):
     date: date
-    kind: Literal["invoice", "payment"]
+    kind: Literal["invoice", "payment", "credit_note"]
     reference: str
     description: str
     debit: float = 0
@@ -78,6 +78,7 @@ class StatementOut(BaseModel):
     invoiced: float
     paid: float
     closing_balance: float
+    credited: float = 0
     lines: list[StatementLine]
     ageing: Ageing
 

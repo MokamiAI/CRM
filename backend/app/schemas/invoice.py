@@ -83,6 +83,7 @@ class QuoteBillingInvoice(BaseModel):
     status: InvoiceStatus
     total: Decimal
     amount_paid: Decimal
+    amount_credited: Decimal = Decimal("0")
 
 
 class QuoteBilling(BaseModel):
@@ -91,6 +92,10 @@ class QuoteBilling(BaseModel):
     total: Decimal
     invoiced: Decimal
     remaining: Decimal
+    # Taken off its invoices by credit notes, and what the work now comes to.
+    # The quote itself keeps the amount that was agreed.
+    credited: Decimal = Decimal("0")
+    final_total: Decimal | None = None
     invoices: list[QuoteBillingInvoice]
     # The one untouched draft that covers the whole quote, which invoicing
     # in parts would replace.
@@ -128,6 +133,10 @@ class InvoiceOut(BaseModel):
     tax_total: Decimal
     total: Decimal
     amount_paid: Decimal
+    # Credit notes against it; what's still to pay, and any overpayment to refund.
+    amount_credited: Decimal = Decimal("0")
+    amount_due: Decimal = Decimal("0")
+    refund_due: Decimal = Decimal("0")
     notes: str | None
     po_number: str | None = None
     reference: str | None = None

@@ -14,7 +14,7 @@ const IMPORTS = {
   deals: ["title", "customer", "value", "stage", "expected_close_date", "industry", "owner_email"],
 };
 const REQUIRED = { customers: ["name"], products: ["name", "unit_price"], deals: ["title", "customer"] };
-const EXPORTS = ["customers", "contacts", "products", "deals", "invoices", "quotes", "payments"];
+const EXPORTS = ["customers", "contacts", "products", "deals", "invoices", "quotes", "payments", "credit_notes"];
 const MAX_ROWS = 5000;
 
 // Column headings other systems (and people) use for each field.

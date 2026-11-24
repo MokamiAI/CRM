@@ -42,7 +42,7 @@ class ReportService:
         settings_row = await CompanySettingsRepository(self.db).get_current()
         today = company_today(settings_row.default_timezone)
         month_start = _month_start(today)
-        balance = Invoice.total - Invoice.amount_paid
+        balance = Invoice.balance_due
 
         # Pipeline by stage (open stages only, in board order).
         rows = await self.db.execute(
@@ -116,6 +116,18 @@ class ReportService:
             .group_by(issued_month)
         )
         invoiced_map = dict(rows.all())
+        # Less credit notes, in the month they were issued.
+        from app.models.credit_note import ISSUED, CreditNote
+
+        credit_month = cast(func.date_trunc("month", CreditNote.issue_date), Date)
+        for month, credited in (
+            await self.db.execute(
+                select(credit_month, func.sum(CreditNote.total))
+                .where(CreditNote.issue_date >= first, CreditNote.status == ISSUED)
+                .group_by(credit_month)
+            )
+        ).all():
+            invoiced_map[month] = invoiced_map.get(month, ZERO) - credited
         invoiced = [
             {"month": _month_start(today, back).isoformat(), "total": invoiced_map.get(_month_start(today, back), ZERO)}
             for back in range(MONTHS - 1, -1, -1)
@@ -221,7 +233,7 @@ class ReportService:
         1-30, 31-60, 61-90 and over 90 days."""
         settings_row = await CompanySettingsRepository(self.db).get_current()
         today = company_today(settings_row.default_timezone)
-        balance = Invoice.total - Invoice.amount_paid
+        balance = Invoice.balance_due
         late = literal(today) - Invoice.due_date  # whole days in PostgreSQL
         bucket = case(
             (late <= 0, "current"),
@@ -271,7 +283,7 @@ class ReportService:
             .scalar_subquery()
         )
         owed = (
-            select(func.coalesce(func.sum(Invoice.total - Invoice.amount_paid), 0))
+            select(func.coalesce(func.sum(Invoice.balance_due), 0))
             .where(Invoice.customer_id == Customer.id, Invoice.status.in_(OPEN_INVOICE))
             .scalar_subquery()
         )

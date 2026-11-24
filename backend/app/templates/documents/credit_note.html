@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+{# What SARS asks of a VAT credit note: the words "Credit note", both VAT
+   numbers, the tax invoice it reduces, why, and the VAT credited. #}
+{% from "_parts.html" import items_table, lines_of with context %}
+{% block title %}{{ (customer.name if customer else None, doc.credit_note_number)|filename }}{% endblock %}
+{% block doc_title %}Credit note{% if doc.status == "void" %} (void){% endif %}{% endblock %}
+{% block meta %}
+<table>
+  <tr><td>Number</td><td><strong>{{ doc.credit_note_number }}</strong></td></tr>
+  <tr><td>Date</td><td>{{ doc.issue_date.strftime("%d %b %Y") }}</td></tr>
+  <tr><td>{{ "Tax invoice" if (company.vat_registered is not defined or company.vat_registered) else "Invoice" }}</td><td>{{ invoice.invoice_number }}</td></tr>
+  <tr><td>Invoice date</td><td>{{ invoice.issue_date.strftime("%d %b %Y") }}</td></tr>
+  {% if invoice.po_number %}<tr><td>Order no.</td><td>{{ invoice.po_number }}</td></tr>{% endif %}
+  {% if invoice.reference %}<tr><td>Reference</td><td>{{ invoice.reference }}</td></tr>{% endif %}
+  {% if customer and customer.tax_number and not t.show_customer_tax_number %}<tr><td>Your {{ t.tax_label }}</td><td>{{ customer.tax_number }}</td></tr>{% endif %}
+</table>
+{% endblock %}
+{% block body %}
+{{ items_table(doc) }}
+<div class="terms" style="margin-top:14px;"><p class="label">Reason for the credit</p><p>{{ lines_of(doc.reason) }}</p></div>
+<div class="totals">
+  <table>
+    <tr><td class="muted">Credit excl. {{ tax_short }}</td><td class="num">{{ money(doc.subtotal) }}</td></tr>
+    <tr><td class="muted">{{ tax_short }} credited</td><td class="num">{{ money(doc.tax_total) }}</td></tr>
+    <tr class="grand"><td>Total credit</td><td class="num">{{ money(doc.total) }}</td></tr>
+  </table>
+</div>
+<div class="totals">
+  <table>
+    <tr><td class="muted">Invoice {{ invoice.invoice_number }} total</td><td class="num">{{ money(invoice.total) }}</td></tr>
+    <tr><td class="muted">Credit notes to date</td><td class="num">− {{ money(invoice.amount_credited) }}</td></tr>
+    {% if invoice.amount_paid and invoice.amount_paid > 0 %}
+    <tr><td class="muted">Paid</td><td class="num">− {{ money(invoice.amount_paid) }}</td></tr>
+    {% endif %}
+    {% if invoice.refund_due > 0 %}
+    <tr class="grand"><td>Owed to you (refund)</td><td class="num">{{ money(invoice.refund_due) }}</td></tr>
+    {% else %}
+    <tr class="grand"><td>Still to pay</td><td class="num">{{ money(invoice.amount_due) }}</td></tr>
+    {% endif %}
+  </table>
+</div>
+{% endblock %}

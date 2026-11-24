@@ -84,7 +84,7 @@ def pay_url(invoice_id: uuid.UUID) -> str:
 
 
 def amount_due(invoice: Invoice) -> Decimal:
-    return Decimal(invoice.total) - Decimal(invoice.amount_paid)
+    return Decimal(invoice.amount_due)
 
 
 def _cents(amount) -> int:

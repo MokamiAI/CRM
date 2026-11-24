@@ -19,10 +19,11 @@ _NOT_PAYABLE = {InvoiceStatus.DRAFT, InvoiceStatus.VOID, InvoiceStatus.PAID}
 
 
 def _recompute_status(invoice: Invoice) -> None:
-    if invoice.amount_paid <= 0:
-        invoice.status = InvoiceStatus.SENT
-    elif invoice.amount_paid >= invoice.total:
+    """Settled once payments cover the total less any credit notes."""
+    if invoice.balance_due <= 0:
         invoice.status = InvoiceStatus.PAID
+    elif invoice.amount_paid <= 0:
+        invoice.status = InvoiceStatus.SENT
     else:
         invoice.status = InvoiceStatus.PARTIALLY_PAID
 
@@ -49,7 +50,7 @@ class PaymentService:
                 "INVOICE_NOT_PAYABLE",
             )
 
-        remaining = invoice.total - invoice.amount_paid
+        remaining = invoice.amount_due
         if data.amount > remaining:
             raise ConflictError(
                 f"Payment amount {data.amount} exceeds the remaining balance {remaining}",

@@ -6,14 +6,14 @@ import { useAuth } from "../context/AuthContext";
 import { formatMoney, formatShortDate } from "../utils/format";
 
 function balanceOf(invoice) {
-  return Number(invoice.total) - Number(invoice.amount_paid);
+  return Number(invoice.amount_due ?? Number(invoice.total) - Number(invoice.amount_paid));
 }
 
 // "R 500,00 due" under the total, only when part of it has been paid.
 function PartPaid({ invoice }) {
   const { t } = useTranslation();
   const balance = balanceOf(invoice);
-  if (!(Number(invoice.amount_paid) > 0 && balance > 0)) return null;
+  if (!((Number(invoice.amount_paid) > 0 || Number(invoice.amount_credited) > 0) && balance > 0)) return null;
   return <p className="text-xs text-zinc-500">{t("invoices.amountDue", { amount: formatMoney(balance) })}</p>;
 }
 
@@ -26,7 +26,7 @@ export default function InvoiceList({ invoices, customers }) {
     if (user?.role === "viewer") return null;
     if (invoice.status === "draft") return `/invoices/${invoice.id}/edit`;
     const manager = ["admin", "manager"].includes(user?.role);
-    if (manager && ["sent", "overdue"].includes(invoice.status) && Number(invoice.amount_paid) === 0) return `/invoices/${invoice.id}?edit=1`;
+    if (manager && ["sent", "overdue"].includes(invoice.status) && Number(invoice.amount_paid) === 0 && !(Number(invoice.amount_credited) > 0)) return `/invoices/${invoice.id}?edit=1`;
     return null;
   };
   const { t } = useTranslation();

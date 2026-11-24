@@ -158,6 +158,20 @@ class TimelineService:
                 )
                 for p in await self._all(select(Payment).where(Payment.invoice_id.in_(ids)))
             ]
+            from app.models.credit_note import CreditNote
+
+            items += [
+                TimelineItem(
+                    kind="credit_note",
+                    at=c.created_at,
+                    title=f"Credit note {c.credit_note_number} · {numbers[c.invoice_id]}" + (" · void" if c.status == "void" else ""),
+                    params={"number": c.credit_note_number, "invoice": numbers[c.invoice_id], "amount": str(c.total), "status": c.status},
+                    detail=f"{_money(c.total)} · {c.reason}",
+                    ref_id=c.invoice_id,
+                    actor_id=c.created_by,
+                )
+                for c in await self._all(select(CreditNote).where(CreditNote.invoice_id.in_(ids)))
+            ]
             items += [
                 TimelineItem(
                     kind="reminder",

@@ -117,6 +117,8 @@ def _form(invoice, customer, company, error: str | None = None) -> HTMLResponse:
         else ""
     )
     paid_line = f"<dt>Already paid</dt><dd>{_money(company, invoice.amount_paid)}</dd>" if invoice.amount_paid and invoice.amount_paid > 0 else ""
+    if invoice.amount_credited and invoice.amount_credited > 0:
+        paid_line = f"<dt>Credit notes</dt><dd>− {_money(company, invoice.amount_credited)}</dd>" + paid_line
     error_line = f"<p class='warn'>{escape(error)}</p>" if error else ""
     body = f"""<h1>Pay invoice {escape(invoice.invoice_number)}</h1>
 <p class="muted" style="margin:0">Amount due</p><p class="amount">{_money(company, due)}</p>

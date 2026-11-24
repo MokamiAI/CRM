@@ -30,6 +30,7 @@
   <table>
     <tr><td class="muted">Opening balance</td><td class="num">{{ money(statement.opening_balance) }}</td></tr>
     <tr><td class="muted">Invoiced</td><td class="num">{{ money(statement.invoiced) }}</td></tr>
+    {% if statement.credited %}<tr><td class="muted">Credit notes</td><td class="num">− {{ money(statement.credited) }}</td></tr>{% endif %}
     <tr><td class="muted">Paid</td><td class="num">− {{ money(statement.paid) }}</td></tr>
     <tr class="grand"><td>Amount due</td><td class="num">{{ money(statement.closing_balance) }}</td></tr>
   </table>

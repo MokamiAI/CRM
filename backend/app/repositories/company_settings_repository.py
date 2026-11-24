@@ -52,6 +52,13 @@ class CompanySettingsRepository:
         await self.db.flush()
         return f"{row.invoice_prefix}{number:04d}"
 
+    async def reserve_next_credit_note_number(self) -> str:
+        row = await self.get_for(current_company_id(self.db), for_update=True)
+        number = row.next_credit_note_number
+        row.next_credit_note_number = number + 1
+        await self.db.flush()
+        return f"{row.credit_note_prefix}{number:04d}"
+
     async def save(self, row: CompanySettings) -> CompanySettings:
         await self.db.flush()
         return row

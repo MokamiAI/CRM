@@ -144,7 +144,11 @@ class InvoiceService:
         invoices = await self._quote_invoices(quote.id)
         invoiced = self._invoiced(invoices)
         draft, untouched = self._whole_draft(quote, invoices)
+        # Credit notes on its invoices lower what the work comes to; what's
+        # left to invoice stays as agreed (a credit isn't billed again).
+        credited = sum((Decimal(i.amount_credited or 0) for i in invoices), Decimal("0"))
         return {
+            "credited": credited, "final_total": Decimal(quote.total) - credited,
             "total": quote.total, "invoiced": invoiced, "remaining": max(Decimal("0"), Decimal(quote.total) - invoiced),
             "invoices": invoices,
             "draft_to_replace": draft if draft is not None and untouched else None,
@@ -277,6 +281,10 @@ class InvoiceService:
                 f"Cannot move invoice from {invoice.status.value} to {new_status.value}",
                 "INVOICE_INVALID_TRANSITION",
             )
+        if new_status == InvoiceStatus.VOID and Decimal(invoice.amount_credited or 0) > 0:
+            raise ConflictError(
+                "This invoice has credit notes. Void them first, or credit the rest instead of voiding.", "INVOICE_HAS_CREDIT_NOTES"
+            )
         invoice.status = new_status
         return await self.invoices.save(invoice)
 
@@ -288,7 +296,11 @@ class InvoiceService:
         the invoice it paid. The lock makes a double click one copy."""
         await self.invoices.get_for_update(invoice_id)
         invoice = await self.get_invoice(invoice_id)
-        if invoice.status not in (InvoiceStatus.SENT, InvoiceStatus.OVERDUE) or Decimal(invoice.amount_paid or 0) > 0:
+        if (
+            invoice.status not in (InvoiceStatus.SENT, InvoiceStatus.OVERDUE)
+            or Decimal(invoice.amount_paid or 0) > 0
+            or Decimal(invoice.amount_credited or 0) > 0
+        ):
             raise ConflictError("Only a sent invoice with no payments can be corrected", "INVOICE_NOT_CORRECTABLE")
         invoice.status = InvoiceStatus.VOID
         await self.invoices.save(invoice)

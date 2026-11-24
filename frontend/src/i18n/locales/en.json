@@ -728,7 +728,8 @@
       "invoices": "Invoices",
       "payments": "Payments",
       "products": "Products",
-      "quotes": "Quotes"
+      "quotes": "Quotes",
+      "credit_notes": "Credit notes"
     },
     "fields": {
       "billing_address": "Address",
@@ -2043,7 +2044,9 @@
     "sendFailed": "Couldn't send the statement.",
     "sent": "Statement sent to {{email}}",
     "title": "Statement",
-    "to": "To"
+    "to": "To",
+    "credited": "Credit notes",
+    "creditNote": "Credit note"
   },
   "status": {
     "accepted": "Accepted",
@@ -2214,7 +2217,9 @@
     "showMore_other": "Show {{count}} more",
     "total": "Total {{amount}}",
     "value": "Value {{amount}}",
-    "activityUpdate": "{{subject}} - {{status}}"
+    "activityUpdate": "{{subject}} - {{status}}",
+    "creditNote": "Credit note {{number}} on {{invoice}}",
+    "creditNoteVoid": "Credit note {{number}} on {{invoice}} · void"
   },
   "tour": {
     "back": "Back",
@@ -3826,5 +3831,30 @@
     "overdueValue": "{{value}} overdue",
     "onCosts": "This month's money in, out and profit are on the Costs page in every plan.",
     "openCosts": "Open Costs"
+  },
+  "credit": {
+    "button": "Credit note",
+    "title": "Credit note for {{number}}",
+    "body": "Takes an amount off this invoice. The invoice stays as the customer has it; the credit note is its own numbered document that names it, with the VAT worked out the same way.",
+    "amount": "Amount to take off (incl. VAT)",
+    "left": "Up to {{amount}} can still be credited",
+    "tooMuch": "That's more than is left to credit ({{amount}})",
+    "all": "Credit everything left ({{amount}})",
+    "reason": "Reason",
+    "reasonHint": "Printed on the credit note, e.g. \"Discount agreed\" or \"10 fewer guests\".",
+    "creditNotes": "Credit notes",
+    "refundDue": "Refund due",
+    "refundHint": "The customer has paid more than the invoice now comes to. Refund them the difference, or agree to keep it as credit.",
+    "email": "Email the credit note to {{email}}",
+    "issue": "Issue credit note",
+    "issued": "Credit note {{number}} issued for {{amount}}",
+    "sent": "Credit note {{number}} emailed",
+    "emailAgain": "Email",
+    "voided": "Credit note {{number}} voided",
+    "voidTitle": "Void {{number}}?",
+    "voidBody": "For a credit note issued by mistake. It stays on record, marked void, and {{amount}} goes back onto the invoice.",
+    "voidConfirm": "Void credit note",
+    "agreed": "Agreed on the quote",
+    "final": "Final amount"
   }
 }

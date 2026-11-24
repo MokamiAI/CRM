@@ -252,6 +252,7 @@ TimelineKind = Literal[
     "quote",
     "invoice",
     "payment",
+    "credit_note",
     "reminder",
     "message",
     "mcem",

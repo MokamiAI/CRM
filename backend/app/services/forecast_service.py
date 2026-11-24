@@ -50,9 +50,9 @@ class ForecastService:
         overdue_in = overdue_out = _ZERO
         overdue_in_count = overdue_out_count = 0
 
-        invoices = (await self.db.execute(select(Invoice.due_date, Invoice.total, Invoice.amount_paid).where(Invoice.status.in_(_OPEN)))).all()
-        for due, total, paid in invoices:
-            owed = Decimal(total) - Decimal(paid)
+        invoices = (await self.db.execute(select(Invoice.due_date, Invoice.balance_due).where(Invoice.status.in_(_OPEN)))).all()
+        for due, balance in invoices:
+            owed = Decimal(balance)
             if owed <= 0:
                 continue
             if due < today:

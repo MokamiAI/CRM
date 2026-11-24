@@ -8,6 +8,7 @@ from app.api.routes import (
     channels,
     company_settings,
     costs,
+    credit_notes,
     crm,
     meetings,
     meeting_public,
@@ -88,6 +89,7 @@ app.include_router(products.router, prefix=settings.API_V1_PREFIX)
 app.include_router(quotes.router, prefix=settings.API_V1_PREFIX)
 app.include_router(purchasing.router, prefix=settings.API_V1_PREFIX)
 app.include_router(invoices.router, prefix=settings.API_V1_PREFIX)
+app.include_router(credit_notes.router, prefix=settings.API_V1_PREFIX)
 app.include_router(recurring.router, prefix=settings.API_V1_PREFIX)
 app.include_router(costs.router, prefix=settings.API_V1_PREFIX)
 app.include_router(discovery.router, prefix=settings.API_V1_PREFIX)

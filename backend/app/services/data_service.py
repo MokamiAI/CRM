@@ -249,7 +249,7 @@ class ImportService:
 
 # ---------------------------------------------------------------- export
 
-EXPORTS = ("customers", "contacts", "products", "deals", "invoices", "quotes", "payments")
+EXPORTS = ("customers", "contacts", "products", "deals", "invoices", "quotes", "payments", "credit_notes")
 
 
 def _fmt(value) -> str:
@@ -298,9 +298,16 @@ async def export_csv(db: AsyncSession, entity: str) -> str:
              await db.scalars(select(Deal).order_by(Deal.created_at)),
              lambda d: [d.title, names.get(d.customer_id), d.value, d.stage, d.expected_close_date, d.industry, owners.get(d.owner_id), d.created_at, d.closed_at])
     elif entity == "invoices":
-        rows(["number", "customer", "po_number", "reference", "status", "issue_date", "due_date", "subtotal", "vat", "total", "paid", "balance"],
+        rows(["number", "customer", "po_number", "reference", "status", "issue_date", "due_date", "subtotal", "vat", "total", "credited", "paid", "balance"],
              await db.scalars(select(Invoice).order_by(Invoice.issue_date)),
-             lambda i: [i.invoice_number, names.get(i.customer_id), i.po_number, i.reference, i.status, i.issue_date, i.due_date, i.subtotal, i.tax_total, i.total, i.amount_paid, Decimal(str(i.total)) - Decimal(str(i.amount_paid))])
+             lambda i: [i.invoice_number, names.get(i.customer_id), i.po_number, i.reference, i.status, i.issue_date, i.due_date, i.subtotal, i.tax_total, i.total, i.amount_credited, i.amount_paid, i.balance_due])
+    elif entity == "credit_notes":
+        from app.models.credit_note import CreditNote
+
+        numbers = dict((await db.execute(select(Invoice.id, Invoice.invoice_number))).all())
+        rows(["number", "invoice", "customer", "status", "issue_date", "reason", "subtotal", "vat", "total"],
+             await db.scalars(select(CreditNote).order_by(CreditNote.issue_date, CreditNote.credit_note_number)),
+             lambda c: [c.credit_note_number, numbers.get(c.invoice_id), names.get(c.customer_id), c.status, c.issue_date, c.reason, c.subtotal, c.tax_total, c.total])
     elif entity == "quotes":
         rows(["number", "customer", "po_number", "reference", "status", "issue_date", "valid_until", "subtotal", "vat", "total"],
              await db.scalars(select(Quote).order_by(Quote.issue_date)),

@@ -103,11 +103,37 @@ class NotificationService:
             subject=f"Invoice {invoice.invoice_number} from {company.company_name}",
             customer=customer,
             invoice=invoice,
-            amount_due=invoice.total - invoice.amount_paid,
+            amount_due=invoice.amount_due,
             pay_url=await self._pay_url(invoice),
             **self._base_context(company),
         )
         return await self._attach(email, DocumentService(self.db).invoice_html(invoice.id), document_filename(customer.name, invoice.invoice_number))
+
+    async def compose_credit_note_sent(self, credit_note_id: uuid.UUID) -> OutgoingEmail | None:
+        from app.models.credit_note import CreditNote
+
+        note = await self.db.get(CreditNote, credit_note_id)
+        if note is None:
+            raise NotFoundError("Credit note not found", "CREDIT_NOTE_NOT_FOUND")
+        self._adopt(note)
+        from app.services.credit_note_service import CreditNoteService
+
+        note = await CreditNoteService(self.db).get(credit_note_id)
+        invoice = await self.invoices.get_by_id(note.invoice_id)
+        customer = await self.customers.get_by_id(note.customer_id)
+        if customer is None or not customer.recipient_email or invoice is None:
+            return None
+        company = await self.company_settings.get_current()
+        email = render_email(
+            "credit_note_sent",
+            to=customer.recipient_email,
+            subject=f"Credit note {note.credit_note_number} from {company.company_name}",
+            customer=customer,
+            note=note,
+            invoice=invoice,
+            **self._base_context(company),
+        )
+        return await self._attach(email, DocumentService(self.db).credit_note_html(note.id), document_filename(customer.name, note.credit_note_number))
 
     async def compose_quote_sent(self, quote_id: uuid.UUID) -> OutgoingEmail | None:
         quote = await self.quotes.get_by_id(quote_id)
@@ -172,7 +198,7 @@ class NotificationService:
             customer=customer,
             invoice=invoice,
             payment=payment,
-            balance=invoice.total - invoice.amount_paid,
+            balance=invoice.amount_due,
             pay_url=await self._pay_url(invoice),
             **self._base_context(company),
         )
@@ -206,7 +232,7 @@ class NotificationService:
             subject=subject,
             customer=customer,
             invoice=invoice,
-            amount_due=invoice.total - invoice.amount_paid,
+            amount_due=invoice.amount_due,
             days_past_due=days_past_due,
             pay_url=await self._pay_url(invoice),
             **self._base_context(company),

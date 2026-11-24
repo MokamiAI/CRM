@@ -9,6 +9,7 @@ import { useCustomerMap, useInvoice, usePayments, useReminders, useTeamMap } fro
 import { useAuth } from "../context/AuthContext";
 import Sheet from "../components/Sheet";
 import { DocumentViewer } from "../components/Documents";
+import { CREDITABLE, CreditNoteSheet, CreditNotesCard, useCreditNotes } from "../components/CreditNotes";
 import { BackLink, LineItems, SummaryCard, createdRow } from "../components/DocumentView";
 import { Button, ButtonLink, ErrorState, Field, ListSkeleton, PageHeader, StatusBadge } from "../components/ui";
 import { errorMessage, formatDate, formatMoney, todayISO } from "../utils/format";
@@ -56,7 +57,7 @@ function PayLinkCard({ invoice, customer, isAdmin }) {
       </section>
     );
   }
-  const amount = formatMoney(Number(invoice.total) - Number(invoice.amount_paid));
+  const amount = formatMoney(Number(invoice.amount_due));
   const message = t("payLink.whatsappText", {
     defaultValue: "Hi {{name}}, here is the link to pay invoice {{number}} ({{amount}}) online: {{url}}",
     name: customer?.name ?? "",
@@ -98,15 +99,16 @@ export default function InvoiceDetailPage() {
   const { data: invoice, isLoading, isError, refetch } = useInvoice(id);
   const { data: payments = [] } = usePayments(id);
   const { data: reminders = [] } = useReminders(id);
+  const { data: creditNotes = [] } = useCreditNotes(id);
   const customer = useCustomerMap().get(invoice?.customer_id);
   const team = useTeamMap();
 
-  const [sheet, setSheet] = useState(null); // "send" | "pay" | "void" | "delete" | "correct" | null
+  const [sheet, setSheet] = useState(null); // "send" | "pay" | "void" | "delete" | "correct" | "credit" | null
   // A row's pencil on a sent invoice arrives as ?edit=1: ask once.
   const [searchParams, setSearchParams] = useSearchParams();
   if (invoice && searchParams.get("edit") && !sheet) {
     setSearchParams({}, { replace: true });
-    if (canVoid && ["sent", "overdue"].includes(invoice.status) && Number(invoice.amount_paid) === 0) setSheet("correct");
+    if (canVoid && ["sent", "overdue"].includes(invoice.status) && Number(invoice.amount_paid) === 0 && !(Number(invoice.amount_credited) > 0)) setSheet("correct");
   }
   const close = () => setSheet(null);
 
@@ -116,6 +118,9 @@ export default function InvoiceDetailPage() {
     queryClient.invalidateQueries({ queryKey: ["payments", id] });
     queryClient.invalidateQueries({ queryKey: ["reminders", id] });
     queryClient.invalidateQueries({ queryKey: ["invoices"] });
+    queryClient.invalidateQueries({ queryKey: ["credit-notes", id] });
+    queryClient.invalidateQueries({ queryKey: ["document"] });
+    queryClient.invalidateQueries({ queryKey: ["quote-billing"] });
   };
   const onError = (error) => toast.error(errorMessage(error));
 
@@ -193,7 +198,12 @@ export default function InvoiceDetailPage() {
   if (isLoading) return <ListSkeleton rows={4} />;
   if (isError) return <ErrorState onRetry={refetch} />;
 
-  const balance = Number(invoice.total) - Number(invoice.amount_paid);
+  const balance = Number(invoice.amount_due);
+  const refund = Number(invoice.refund_due);
+  const credited = Number(invoice.amount_credited);
+  // Edit (void and copy) and void only before any payment or credit note.
+  const untouched = Number(invoice.amount_paid) === 0 && !(credited > 0);
+  const canCredit = canVoid && CREDITABLE.includes(invoice.status) && Number(invoice.total) - credited > 0;
   const hasEmail = Boolean(customer?.recipient_email);
 
   return (
@@ -223,12 +233,17 @@ export default function InvoiceDetailPage() {
                   </ButtonLink>
                 </>
               )}
-              {canVoid && ["sent", "overdue"].includes(invoice.status) && Number(invoice.amount_paid) === 0 && (
+              {canVoid && ["sent", "overdue"].includes(invoice.status) && untouched && (
                 <Button variant="secondary" onClick={() => setSheet("correct")}>
                   {t("common.edit")}
                 </Button>
               )}
-              {canVoid && VOIDABLE.includes(invoice.status) && (
+              {canCredit && (
+                <Button variant="secondary" onClick={() => setSheet("credit")}>
+                  {t("credit.button")}
+                </Button>
+              )}
+              {canVoid && VOIDABLE.includes(invoice.status) && !(credited > 0) && (
                 <Button variant="secondary" onClick={() => setSheet("void")}>
                   {t("invoice.void")}
                 </Button>
@@ -285,11 +300,15 @@ export default function InvoiceDetailPage() {
               ...(invoice.reference ? [[t("editor.reference"), invoice.reference]] : []),
               [t("invoices.col.due"), formatDate(invoice.due_date)],
               [t("document.totalIncl"), formatMoney(invoice.total)],
+              ...(credited > 0 ? [[t("credit.creditNotes"), `− ${formatMoney(credited)}`]] : []),
               [t("status.paid"), formatMoney(invoice.amount_paid)],
               createdRow(t, invoice, team, formatDate),
             ]}
-            emphasis={[t("invoice.balanceDue"), formatMoney(balance)]}
+            emphasis={refund > 0 ? [t("credit.refundDue"), formatMoney(refund)] : [t("invoice.balanceDue"), formatMoney(balance)]}
           />
+          {refund > 0 && <p className="-mt-4 rounded-lg bg-amber-50 p-3 text-xs text-amber-900 ring-1 ring-inset ring-amber-200">{t("credit.refundHint")}</p>}
+
+          <CreditNotesCard notes={creditNotes} canVoid={canVoid && invoice.status !== "void"} canSend={canWrite && hasEmail} customerName={customer?.name} onChanged={refresh} />
 
           {PAYABLE.includes(invoice.status) && <PayLinkCard invoice={invoice} customer={customer} isAdmin={isAdmin} />}
 
@@ -420,6 +439,8 @@ export default function InvoiceDetailPage() {
         customerEmail={customer?.recipient_email}
         onRecorded={refresh}
       />
+
+      <CreditNoteSheet open={sheet === "credit"} onClose={close} invoice={invoice} customerEmail={customer?.recipient_email} onIssued={refresh} />
 
       <Sheet
         open={sheet === "correct"}

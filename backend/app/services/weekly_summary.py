@@ -60,7 +60,7 @@ class WeeklySummary:
         waiting = (await self.db.execute(select(func.coalesce(func.sum(Quote.total), 0), func.count()).where(Quote.status == QuoteStatus.SENT))).one()
         owed_rows = (
             await self.db.execute(
-                select(Customer.name, Invoice.due_date, Invoice.total - Invoice.amount_paid).join(Customer, Customer.id == Invoice.customer_id).where(Invoice.status.in_(_OPEN))
+                select(Customer.name, Invoice.due_date, Invoice.balance_due).join(Customer, Customer.id == Invoice.customer_id).where(Invoice.status.in_(_OPEN))
             )
         ).all()
         owed = sum((Decimal(r[2]) for r in owed_rows if r[2] > 0), _ZERO)

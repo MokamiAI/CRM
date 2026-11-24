@@ -41,6 +41,22 @@ export default function QuoteBilling({ quote, canWrite }) {
         {t("staged.progress", { invoiced: formatMoney(invoiced), total: formatMoney(total) })}
         {remaining > 0 && <span className="block text-xs text-zinc-500">{t("staged.left", { amount: formatMoney(remaining) })}</span>}
       </p>
+      {Number(billing.credited) > 0 && (
+        <dl className="mt-3 space-y-1 rounded-lg bg-zinc-50 p-3 text-sm ring-1 ring-inset ring-zinc-200" data-testid="quote-final">
+          <div className="flex justify-between gap-4">
+            <dt className="text-zinc-500">{t("credit.agreed")}</dt>
+            <dd className="tabular-nums">{formatMoney(total)}</dd>
+          </div>
+          <div className="flex justify-between gap-4">
+            <dt className="text-zinc-500">{t("credit.creditNotes")}</dt>
+            <dd className="tabular-nums">− {formatMoney(billing.credited)}</dd>
+          </div>
+          <div className="flex justify-between gap-4 border-t border-zinc-200 pt-1 font-semibold text-zinc-900">
+            <dt>{t("credit.final")}</dt>
+            <dd className="tabular-nums">{formatMoney(billing.final_total)}</dd>
+          </div>
+        </dl>
+      )}
       {billing.invoices.length > 0 && (
         <ul className="mt-3 divide-y divide-zinc-100 rounded-lg ring-1 ring-zinc-200">
           {billing.invoices.map((inv) => (

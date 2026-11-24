@@ -287,7 +287,7 @@ class CostService:
 
         total_in = sum((m["money_in"] for m in series), ZERO)
         total_out = sum((m["money_out"] for m in series), ZERO)
-        balance = Invoice.total - Invoice.amount_paid
+        balance = Invoice.balance_due
         to_come_in = await self.db.scalar(select(func.coalesce(func.sum(balance), 0)).where(Invoice.status.in_(OPEN_INVOICE)))
         overdue_in = await self.db.scalar(
             select(func.coalesce(func.sum(balance), 0)).where(Invoice.status == InvoiceStatus.OVERDUE)

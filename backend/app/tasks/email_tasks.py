@@ -81,6 +81,14 @@ def send_invoice_email_task(invoice_id: str) -> bool:
     )
 
 
+@celery_app.task(name="app.tasks.email_tasks.send_credit_note_email_task", **_RETRY_OPTIONS)
+def send_credit_note_email_task(credit_note_id: str) -> bool:
+    return _deliver(
+        lambda service: service.compose_credit_note_sent(uuid.UUID(credit_note_id)),
+        f"credit note {credit_note_id}",
+    )
+
+
 @celery_app.task(name="app.tasks.email_tasks.send_quote_email_task", **_RETRY_OPTIONS)
 def send_quote_email_task(quote_id: str) -> bool:
     return _deliver(

@@ -1,0 +1,18 @@
+{% from "_signature.txt" import sign_off with context %}
+{% from "_items.html" import text_line_items with context %}
+Hi {{ customer.name }},
+
+Please find credit note {{ note.credit_note_number }} from {{ company.company_name }}, against invoice {{ invoice.invoice_number }}.
+
+Date:   {{ note.issue_date.strftime("%d %b %Y") }}
+Reason: {{ note.reason }}
+Credit: {{ money(note.total) }}
+{% if invoice.refund_due > 0 %}We owe you: {{ money(invoice.refund_due) }}
+{% else %}Still to pay on {{ invoice.invoice_number }}: {{ money(invoice.amount_due) }}
+{% endif %}
+
+{{ text_line_items(note, money) }}
+
+Please reply to this email if you have any questions.
+
+{{ sign_off("Thank you") }}

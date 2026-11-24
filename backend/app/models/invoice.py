@@ -1,8 +1,10 @@
 import uuid
 from datetime import date
+from decimal import Decimal
 
 from sqlalchemy import Date, Enum, ForeignKey, Index, Integer, Numeric, String, Text, UniqueConstraint, text
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
@@ -48,6 +50,9 @@ class Invoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     tax_total: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     total: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     amount_paid: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
+    # Taken off by credit notes (app/models/credit_note.py). The total stays
+    # as the customer's tax invoice says; what's owed is the balance below.
+    amount_credited: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0, server_default="0")
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     # The client's purchase order (order) number, quoted back on the document.
     po_number: Mapped[str | None] = mapped_column(String(60), nullable=True, index=True)
@@ -73,6 +78,30 @@ class Invoice(TenantMixin, UUIDPKMixin, TimestampMixin, Base):
     reminder_logs: Mapped[list["ReminderLog"]] = relationship(
         back_populates="invoice", cascade="all, delete-orphan"
     )
+    credit_notes: Mapped[list["CreditNote"]] = relationship(back_populates="invoice", lazy="raise")
+
+    @hybrid_property
+    def balance_due(self):
+        """Still owed: the total, less credit notes, less payments. Below
+        zero when a credit note took off more than was left to pay: that's
+        a refund owed to the customer (refund_due)."""
+        # A new invoice, not yet flushed, has no defaults filled in yet.
+        return Decimal(self.total or 0) - Decimal(self.amount_credited or 0) - Decimal(self.amount_paid or 0)
+
+    @balance_due.inplace.expression
+    @classmethod
+    def _balance_due_expression(cls):
+        return cls.total - cls.amount_credited - cls.amount_paid
+
+    @property
+    def amount_due(self):
+        """What the customer still has to pay, never below zero."""
+        return max(self.balance_due, 0)
+
+    @property
+    def refund_due(self):
+        """Paid more than the invoice now comes to (after credit notes)."""
+        return max(-self.balance_due, 0)
 
 
 class InvoiceItem(TenantMixin, UUIDPKMixin, Base):

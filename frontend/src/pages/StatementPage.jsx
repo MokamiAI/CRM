@@ -104,14 +104,15 @@ export default function StatementPage() {
         <ErrorState onRetry={refetch} />
       ) : data ? (
         <>
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <div className={`grid grid-cols-2 gap-3 ${data.credited ? "lg:grid-cols-5" : "lg:grid-cols-4"}`}>
             {[
               ["opening", data.opening_balance],
               ["invoiced", data.invoiced],
+              ...(data.credited ? [["credited", data.credited]] : []),
               ["paid", data.paid],
               ["closing", data.closing_balance],
             ].map(([key, value]) => (
-              <div key={key} className={`card p-4 ${key === "closing" ? "ring-2 ring-indigo-500/60" : ""}`}>
+              <div key={key} className={`card p-4 ${key === "closing" ? "ring-2 ring-indigo-500/60" : ""} ${key === "closing" && data.credited ? "col-span-2 lg:col-span-1" : ""}`}>
                 <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{t(`statement.${key}`)}</p>
                 <p className="mt-1 text-xl font-semibold tabular-nums tracking-tight text-zinc-900">{formatMoney(value)}</p>
               </div>
@@ -160,8 +161,8 @@ export default function StatementPage() {
                     <td className="whitespace-nowrap px-4 py-3 text-zinc-500">{formatDate(line.date)}</td>
                     <td className="px-4 py-3">
                       <span className="font-medium text-zinc-900">{line.reference}</span>{" "}
-                      <span className="text-zinc-500">· {line.kind === "invoice" ? t("statement.invoice") : line.description}</span>
-                      <span className={`block tabular-nums sm:hidden ${line.debit ? "text-zinc-700" : "text-emerald-700"}`}>
+                      <span className="text-zinc-500">· {line.kind === "invoice" ? t("statement.invoice") : line.kind === "credit_note" ? t("statement.creditNote") : line.description}</span>
+                      <span className={`block whitespace-nowrap tabular-nums sm:hidden ${line.debit ? "text-zinc-700" : "text-emerald-700"}`}>
                         {line.debit ? formatMoney(line.debit) : `− ${formatMoney(line.credit)}`}
                       </span>
                     </td>

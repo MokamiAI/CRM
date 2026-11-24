@@ -567,7 +567,7 @@ export function OwedList({ invoices, customers, today }) {
                 </span>
               </span>
               <span className="flex shrink-0 flex-col items-end gap-1">
-                <span className="text-sm font-semibold tabular-nums text-midnight">{formatMoney(Number(inv.total) - Number(inv.amount_paid))}</span>
+                <span className="text-sm font-semibold tabular-nums text-midnight">{formatMoney(Number(inv.amount_due))}</span>
                 <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ring-1 ring-inset ${OWE_STATUS[state]}`}>{t(`dashboard.owes.${state}`)}</span>
               </span>
             </Link>

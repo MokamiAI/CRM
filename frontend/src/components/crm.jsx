@@ -633,6 +633,7 @@ const KIND_ICON = {
   quote: "email",
   invoice: "email",
   payment: "task",
+  credit_note: "note",
   reminder: "email",
   message: "email",
 };
@@ -647,12 +648,13 @@ const KIND_TINT = {
   quote: "bg-sky-50 text-sky-700 ring-sky-200/70",
   invoice: "bg-sky-50 text-sky-700 ring-sky-200/70",
   payment: "bg-emerald-50 text-emerald-700 ring-emerald-200/70",
+  credit_note: "bg-rose-50 text-rose-700 ring-rose-200/70",
   reminder: "bg-zinc-100 text-zinc-600 ring-zinc-200",
   message: "bg-indigo-50 text-indigo-700 ring-indigo-200/70",
 };
 
 function linkFor(item) {
-  if (item.kind === "invoice" || item.kind === "payment" || item.kind === "reminder") return `/invoices/${item.ref_id}`;
+  if (item.kind === "invoice" || item.kind === "payment" || item.kind === "reminder" || item.kind === "credit_note") return `/invoices/${item.ref_id}`;
   if (item.kind === "activity" || item.kind === "activity_update") return `/activities?task=${item.ref_id}`;
   if (item.kind === "quote") return `/quotes/${item.ref_id}`;
   if (item.kind === "deal_created" || item.kind === "deal_closed" || item.kind === "mcem") return `/deals/${item.ref_id}`;
@@ -714,6 +716,11 @@ function describe(item) {
         ]
           .filter(Boolean)
           .join(" · "),
+      };
+    case "credit_note":
+      return {
+        title: t(p.status === "void" ? "timeline.creditNoteVoid" : "timeline.creditNote", { number: p.number, invoice: p.invoice }),
+        detail: item.detail,
       };
     case "reminder":
       return { title: t("timeline.reminder", { number: p.number }), detail: t(p.manual === "1" ? "timeline.reminderManual" : "timeline.reminderAuto") };

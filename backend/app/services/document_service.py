@@ -125,27 +125,40 @@ def render(kind: str, company, template: DocumentTemplate, **context) -> str:
     )
 
 
-def build_statement(customer, invoices, payments, start: date, end: date, tz: str) -> StatementOut:
+def build_statement(customer, invoices, payments, start: date, end: date, tz: str, credit_notes=()) -> StatementOut:
     """A client's account between two dates: what was owed going in, every
-    invoice and payment in the period with a running balance, what's owed
-    at the end, and how overdue that is. Drafts and void invoices don't count."""
+    invoice, credit note and payment in the period with a running balance,
+    what's owed at the end, and how overdue that is. Drafts, void invoices
+    and void credit notes don't count."""
     zone = ZoneInfo(tz)
     paid_on = lambda p: p.paid_at.astimezone(zone).date() if isinstance(p.paid_at, datetime) else p.paid_at  # noqa: E731
     opening = sum((Decimal(str(i.total)) for i in invoices if i.issue_date < start), Decimal(0))
     opening -= sum((Decimal(str(p.amount)) for p in payments if paid_on(p) < start), Decimal(0))
+    opening -= sum((Decimal(str(c.total)) for c in credit_notes if c.issue_date < start), Decimal(0))
 
     entries = [(i.issue_date, 0, "invoice", i) for i in invoices if start <= i.issue_date <= end]
-    entries += [(paid_on(p), 1, "payment", p) for p in payments if start <= paid_on(p) <= end]
+    entries += [(c.issue_date, 1, "credit_note", c) for c in credit_notes if start <= c.issue_date <= end]
+    entries += [(paid_on(p), 2, "payment", p) for p in payments if start <= paid_on(p) <= end]
     entries.sort(key=lambda e: (e[0], e[1]))
 
     number_of = {i.id: i.invoice_number for i in invoices}
-    balance, invoiced, paid, lines = opening, Decimal(0), Decimal(0), []
+    balance, invoiced, paid, credited, lines = opening, Decimal(0), Decimal(0), Decimal(0), []
     for day, _, kind, row in entries:
         if kind == "invoice":
             amount = Decimal(str(row.total))
             balance += amount
             invoiced += amount
             lines.append(StatementLine(date=day, kind=kind, reference=row.invoice_number, description="Invoice", debit=float(amount), balance=float(balance)))
+        elif kind == "credit_note":
+            amount = Decimal(str(row.total))
+            balance -= amount
+            credited += amount
+            lines.append(
+                StatementLine(
+                    date=day, kind=kind, reference=row.credit_note_number,
+                    description=f"Credit note on {number_of.get(row.invoice_id, '')}".strip(), credit=float(amount), balance=float(balance),
+                )
+            )
         else:
             amount = Decimal(str(row.amount))
             balance -= amount
@@ -163,11 +176,15 @@ def build_statement(customer, invoices, payments, start: date, end: date, tz: st
     for p in payments:
         if paid_on(p) <= end:
             paid_by_invoice[p.invoice_id] = paid_by_invoice.get(p.invoice_id, Decimal(0)) + Decimal(str(p.amount))
+    credited_by_invoice: dict[uuid.UUID, Decimal] = {}
+    for c in credit_notes:
+        if c.issue_date <= end:
+            credited_by_invoice[c.invoice_id] = credited_by_invoice.get(c.invoice_id, Decimal(0)) + Decimal(str(c.total))
     buckets = {"current": Decimal(0), "days_30": Decimal(0), "days_60": Decimal(0), "days_90": Decimal(0), "days_120": Decimal(0)}
     for inv in invoices:
         if inv.issue_date > end:
             continue
-        outstanding = Decimal(str(inv.total)) - paid_by_invoice.get(inv.id, Decimal(0))
+        outstanding = Decimal(str(inv.total)) - paid_by_invoice.get(inv.id, Decimal(0)) - credited_by_invoice.get(inv.id, Decimal(0))
         if outstanding <= 0:
             continue
         late = (end - inv.due_date).days
@@ -182,6 +199,7 @@ def build_statement(customer, invoices, payments, start: date, end: date, tz: st
         opening_balance=float(opening),
         invoiced=float(invoiced),
         paid=float(paid),
+        credited=float(credited),
         closing_balance=float(balance),
         lines=lines,
         ageing=Ageing(**{k: float(v) for k, v in buckets.items()}),
@@ -223,9 +241,19 @@ class DocumentService:
 
         link = await OnlinePaymentService(self.db).pay_url_for(invoice)
         return render(
-            "invoice", company, template, doc=invoice, customer=customer, amount_due=invoice.total - invoice.amount_paid,
+            "invoice", company, template, doc=invoice, customer=customer, amount_due=invoice.amount_due,
             pay_url=link, pay_qr=qr_data_uri(link) if link else None, **people,
         )
+
+    async def credit_note_html(self, credit_note_id: uuid.UUID) -> str:
+        from app.services.credit_note_service import CreditNoteService
+
+        note = await CreditNoteService(self.db).get(credit_note_id)
+        invoice = await InvoiceRepository(self.db).get_by_id(note.invoice_id)
+        customer = await CustomerRepository(self.db).get_by_id(note.customer_id)
+        company, template = await self._company()
+        people = await self._people(note.customer_id)
+        return render("credit_note", company, template, doc=note, invoice=invoice, customer=customer, **people)
 
     async def quote_html(self, quote_id: uuid.UUID) -> str:
         quote = await QuoteRepository(self.db).get_by_id(quote_id)
@@ -258,8 +286,17 @@ class DocumentService:
                 select(Payment).join(Invoice, Payment.invoice_id == Invoice.id).where(Invoice.customer_id == customer_id, Invoice.status.in_(_BILLED))
             )
         )
+        from app.models.credit_note import ISSUED, CreditNote
+
+        credit_notes = list(
+            await self.db.scalars(
+                select(CreditNote)
+                .join(Invoice, CreditNote.invoice_id == Invoice.id)
+                .where(CreditNote.customer_id == customer_id, CreditNote.status == ISSUED, Invoice.status.in_(_BILLED))
+            )
+        )
         company, template = await self._company()
-        return customer, company, template, build_statement(customer, invoices, payments, start, end, company.default_timezone)
+        return customer, company, template, build_statement(customer, invoices, payments, start, end, company.default_timezone, credit_notes)
 
     async def statement_html(self, customer_id: uuid.UUID, start: date, end: date) -> str:
         customer, company, template, statement = await self.statement(customer_id, start, end)
