@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
 import apiClient from "../services/apiClient";
-import { useCustomerMap, useInvoice, usePayments, useReminders, useTeamMap } from "../hooks/useApi";
+import { useCompany, useCountries, useCustomerMap, useInvoice, usePayments, useReminders, useTeamMap } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import Sheet from "../components/Sheet";
 import { DocumentViewer } from "../components/Documents";
@@ -30,11 +30,12 @@ const VOIDABLE = ["draft", "sent", "overdue"];
 // Already emailed: can be emailed again ("please resend").
 const RESENDABLE = ["sent", "partially_paid", "overdue", "paid"];
 
-// South African numbers as wa.me wants them: 082 123 4567 -> 27821234567.
-function whatsappNumber(raw) {
+// Numbers as wa.me wants them: a local 082 123 4567 gets the company's
+// dialling code (27821234567 in South Africa, 254... in Kenya).
+function whatsappNumber(raw, dial = "27") {
   const digits = (raw ?? "").replace(/\D/g, "");
   if (digits.startsWith("00")) return digits.slice(2);
-  if (digits.startsWith("0")) return `27${digits.slice(1)}`;
+  if (digits.startsWith("0")) return dial ? `${dial}${digits.slice(1)}` : "";
   return digits.length >= 8 ? digits : "";
 }
 
@@ -42,6 +43,9 @@ function whatsappNumber(raw) {
  *  online payments are on, a pointer to Settings for admins. */
 function PayLinkCard({ invoice, customer, isAdmin }) {
   const { t } = useTranslation();
+  const { data: company } = useCompany();
+  const { data: places } = useCountries();
+  const dial = places?.countries.find((c) => c.code === company?.country)?.dial ?? "27";
   const { data } = useQuery({
     queryKey: ["invoice", invoice.id, "pay-link"],
     queryFn: () => apiClient.get(`/invoices/${invoice.id}/pay-link`).then((r) => r.data),
@@ -65,7 +69,7 @@ function PayLinkCard({ invoice, customer, isAdmin }) {
     amount,
     url: data.url,
   });
-  const whatsapp = `https://wa.me/${whatsappNumber(customer?.phone)}?text=${encodeURIComponent(message)}`;
+  const whatsapp = `https://wa.me/${whatsappNumber(customer?.phone, dial)}?text=${encodeURIComponent(message)}`;
   return (
     <section className="card space-y-3 p-5 text-sm">
       <div>

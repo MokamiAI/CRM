@@ -34,8 +34,9 @@ export function computeTotals(items) {
 }
 
 let nextKey = 1;
-// New lines start at 15% VAT, or 0% on sales documents of a company not
-// registered for VAT (see DocumentEditor's `vatRate`).
+// New lines start at the company's standard rate (15% VAT in South Africa,
+// 16% in Kenya...), or 0% on sales documents of a company not registered
+// for VAT (see DocumentEditor's `vatRate`).
 let defaultVat = "15";
 const blankItem = () => ({ key: nextKey++, product_id: null, description: "", details: "", quantity: "1", unit_price: "", tax_rate: defaultVat });
 const isBlank = (item) => !item.description.trim() && !item.unit_price;
@@ -71,7 +72,7 @@ export default function DocumentEditor({ kind = "invoice", dateField, dateLabel,
   const purchase = kind === "purchaseOrder";
   const { data: company } = useCompany();
   const notVatRegistered = !purchase && company && !company.vat_registered;
-  defaultVat = notVatRegistered ? "0" : "15";
+  defaultVat = notVatRegistered ? "0" : String(Number(company?.default_tax_rate ?? 15));
   const { data: customers = [] } = useCustomers({ is_active: true });
   const { data: suppliers = [] } = useSuppliers();
   const { data: pipelineAccounts = [] } = usePipelineAccounts({ enabled: kind === "quote" });

@@ -25,7 +25,7 @@ from app.models.invoice import Invoice
 from app.models.messaging import ChannelConnection, Conversation
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.services import channel_providers as providers
-from app.services.channel_providers import ProviderError, normalize_phone
+from app.services.channel_providers import ProviderError, company_dial, normalize_phone
 from app.services.channel_service import ChannelService
 from app.services.online_payment_service import PAYABLE, OnlinePaymentService, amount_due, pay_token
 
@@ -158,7 +158,8 @@ class WhatsAppReminderService:
         if invoice is None or invoice.status not in PAYABLE or amount_due(invoice) <= 0:
             return "nothing due"
         customer = await self.db.get(Customer, invoice.customer_id)
-        phone = normalize_phone(customer.phone if customer else None)
+        company = await CompanySettingsRepository(self.db).get_current()
+        phone = normalize_phone(customer.phone if customer else None, company_dial(company))
         if not phone:
             return "no phone"
         link = await OnlinePaymentService(self.db).pay_url_for(invoice)
@@ -166,7 +167,6 @@ class WhatsAppReminderService:
         if not await self._approved(conn, name):
             await self.db.flush()
             return "template not approved"
-        company = await CompanySettingsRepository(self.db).get_current()
         currency = (company.default_currency or "ZAR").upper()
         values = [customer.name, company.company_name, invoice.invoice_number, _money(currency, amount_due(invoice)), f"{invoice.due_date:%d %b %Y}"]
         try:

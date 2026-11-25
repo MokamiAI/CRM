@@ -3,6 +3,7 @@ import hashlib
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
+from app.core.countries import country
 from app.core.crypto import encrypt
 from app.core.exceptions import AppError
 from app.models.company_settings import CompanySettings
@@ -56,7 +57,16 @@ class CompanySettingsService:
 
     async def update_settings(self, data: CompanySettingsUpdate) -> CompanySettings:
         row = await self.company_settings.get_current()
-        for field, value in data.model_dump(exclude_unset=True).items():
+        changes = data.model_dump(exclude_unset=True)
+        # A new country renames the tax number on documents ("VAT number" ->
+        # "KRA PIN"), unless the company typed its own label.
+        if changes.get("country") and changes["country"] != row.country:
+            template = dict(row.document_template or {})
+            label = template.get("tax_label") or "VAT number"
+            if label in (country(row.country).tax_id, "VAT number"):
+                template["tax_label"] = country(changes["country"]).tax_id
+                row.document_template = template
+        for field, value in changes.items():
             if field == "smtp_password" and value:
                 value = encrypt(value)  # stored encrypted; see app/core/crypto.py
             if field == "email_signature":

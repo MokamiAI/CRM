@@ -10,7 +10,7 @@ import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
 import { PlanNotice, useHasFeature } from "../components/Billing";
 import { EmptyState, ErrorState, FilterChips, ListSkeleton, PageHeader } from "../components/ui";
-import { formatMoney, formatMoneyFit } from "../utils/format";
+import { formatMoney, formatMoneyCompact, formatMoneyFit } from "../utils/format";
 import { barPath, niceMax } from "../components/dashboard";
 import { categoryLabel } from "./CostsPage";
 import { canViewCosts } from "../utils/costAccess";
@@ -49,7 +49,7 @@ function MoneyChart({ months }) {
   // A small loss gets its own line only when it's far enough below zero to read.
   const ticks = [...new Set([0, top / 2, top, ...(bottom < 0 && y(bottom) - y(0) >= 16 ? [bottom] : [])])];
   const label = (iso, long) => new Date(`${iso}T00:00:00`).toLocaleDateString(i18n.language, { month: long ? "long" : "short", ...(long ? { year: "numeric" } : {}) });
-  const compact = (v) => `${v < 0 ? "-" : ""}${Math.abs(v) >= 1e6 ? `R${(Math.abs(v) / 1e6).toFixed(1)}m` : Math.abs(v) >= 1e3 ? `R${Math.round(Math.abs(v) / 1e3)}k` : `R${Math.round(Math.abs(v))}`}`;
+  const compact = (v) => formatMoneyCompact(v);
   const every = Math.max(1, Math.ceil(months.length / Math.max(2, Math.floor((W - pad.l - pad.r) / 40))));
   const h = hover != null ? months[hover] : null;
   const line = months.map((m, i) => `${i ? "L" : "M"}${x(i)},${y(m.profit)}`).join(" ");

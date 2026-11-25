@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
@@ -6,9 +6,9 @@ import LanguagePicker from "../components/LanguagePicker";
 import GlowField from "../components/GlowField";
 import LoginShowcase from "../components/LoginShowcase";
 import { APP_FULL_NAME, APP_NAME, BrandMark } from "../components/Brand";
-import { usePlans } from "../hooks/useApi";
+import { useCountries, usePlans } from "../hooks/useApi";
 import { queueWelcome } from "../components/Startup";
-import { formatMoneyWhole } from "../utils/format";
+import { formatRandWhole as formatMoneyWhole } from "../utils/format";
 
 /** The sign-in screens' frame: brand, language, ambient colour and the
  *  product showcase; each screen supplies its own card contents. */
@@ -211,6 +211,21 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [form, setForm] = useState({ company_name: "", business_address: "", full_name: "", email: "", password: "" });
+  // Where the business is: sets its currency, tax and time zone. Guessed
+  // from the browser's time zone (Africa/Nairobi -> Kenya), else South Africa.
+  const { data: places } = useCountries();
+  const [country, setCountry] = useState("");
+  const guessed = useMemo(() => {
+    const zone = (() => {
+      try {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+      } catch {
+        return "";
+      }
+    })();
+    return places?.countries.find((c) => c.timezone === zone && c.code !== "ZZ")?.code ?? "ZA";
+  }, [places]);
+  const chosenCountry = country || guessed;
   // Each field's problem, shown under it (our words, not the browser's
   // bubble), after the person first tries to continue.
   const [invalid, setInvalid] = useState({});
@@ -261,7 +276,7 @@ export function RegisterPage() {
     }
     setIsSubmitting(true);
     try {
-      await register({ ...form, plan, marketing_opt_in: marketing, accept_terms: agreed });
+      await register({ ...form, country: chosenCountry, plan, marketing_opt_in: marketing, accept_terms: agreed });
       navigate("/", { replace: true });
     } catch (err) {
       const code = err?.response?.data?.error_code;
@@ -344,6 +359,18 @@ export function RegisterPage() {
                     />
                     {fieldError("business_address")}
                     <span className="mt-1.5 block text-xs text-zinc-500">{t("register.addressHint")}</span>
+                    <label className="label mt-4" htmlFor="country">
+                      {t("register.country")}
+                    </label>
+                    <select id="country" className="input" value={chosenCountry} onChange={(e) => setCountry(e.target.value)} autoComplete="country">
+                      {!places && <option value={chosenCountry}>{chosenCountry === "ZA" ? "South Africa" : chosenCountry}</option>}
+                      {places?.countries.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="mt-1.5 block text-xs text-zinc-500">{t("register.countryHint")}</span>
                   </div>
                 )}
               </div>

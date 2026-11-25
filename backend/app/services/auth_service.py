@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.config import settings
+from app.core.countries import country
 from app.core.exceptions import ConflictError, UnauthorizedError
 from app.core.tenancy import set_system
 from app.core.security import (
@@ -51,10 +51,18 @@ class AuthService:
         if await self.users.email_taken(data.email):
             raise ConflictError("An account with this email already exists", "USER_EMAIL_TAKEN")
         await ensure_deliverable(data.email)
+        place = country(data.country)
         company = CompanySettings(
             company_name=data.company_name.strip(),
-            default_currency=settings.DEFAULT_CURRENCY,
-            default_timezone=settings.DEFAULT_TIMEZONE,
+            country=place.code,
+            default_currency=place.currency,
+            default_timezone=place.timezone,
+            tax_name=place.tax_name,
+            default_tax_rate=place.tax_rate,
+            financial_year_start_month=place.fy_start,
+            # South Africa keeps the default "VAT number"; elsewhere the
+            # local name ("KRA PIN", "TIN") shows on documents.
+            document_template={} if place.code == "ZA" else {"tax_label": place.tax_id},
             sender_name=data.company_name.strip(),
             # Customer replies reach the founder until they set up email.
             sender_email=data.email.lower(),

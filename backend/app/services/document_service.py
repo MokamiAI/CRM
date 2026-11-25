@@ -120,7 +120,8 @@ def render(kind: str, company, template: DocumentTemplate, **context) -> str:
         t=template,
         money=money_formatter(company.default_currency),
         quantity=quantity,
-        tax_short="VAT" if "vat" in template.tax_label.lower() else "Tax",
+        # What the tax is called where the company trades: VAT, GST, Tax.
+        tax_short=getattr(company, "tax_name", None) or ("VAT" if "vat" in template.tax_label.lower() else "Tax"),
         **context,
     )
 

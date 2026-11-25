@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useBilling, usePlans } from "../hooks/useApi";
 import { AfterTrialNote } from "./Billing";
-import { errorMessage, formatMoneyWhole } from "../utils/format";
+import { errorMessage, formatRandWhole as formatMoneyWhole } from "../utils/format";
 import { Avatar, Button, StatusBadge } from "./ui";
 
 const ROLES = ["admin", "manager", "staff", "viewer"];

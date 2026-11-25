@@ -13,7 +13,8 @@ import { SignatureEditor } from "../components/Signature";
 import TeamManager from "../components/TeamManager";
 import { ConnectionCard, MAIL_PRESETS, WhatsAppTools } from "../components/ChannelSettings";
 import { ErrorState, FilterChips, ListSkeleton, PageHeader } from "../components/ui";
-import { errorMessage } from "../utils/format";
+import { currencyCode, errorMessage } from "../utils/format";
+import { useCountries } from "../hooks/useApi";
 import DeleteAccount from "../components/DeleteAccount";
 
 const EMPTY_FORM = {
@@ -22,6 +23,9 @@ const EMPTY_FORM = {
   phone: "",
   website: "",
   tax_number: "",
+  country: "ZA",
+  tax_name: "VAT",
+  default_tax_rate: "15",
   default_currency: "",
   default_timezone: "",
   logo_url: "",
@@ -45,6 +49,79 @@ const EMPTY_FORM = {
   vat_registered: false,
   financial_year_start_month: 3,
 };
+
+/** Where the company trades. Picking a country fills in its currency, tax,
+ *  time zone and financial year; each can still be changed by hand. */
+function RegionSettings({ form, update, setForm }) {
+  const { t } = useTranslation();
+  const { data } = useCountries();
+  const countries = data?.countries ?? [];
+  const currencies = data?.currencies ?? [];
+  const pickCountry = (code) => {
+    const c = countries.find((x) => x.code === code);
+    if (!c) return update("country", code);
+    setForm((prev) => ({
+      ...prev,
+      country: c.code,
+      default_currency: c.currency,
+      default_timezone: c.timezone,
+      tax_name: c.tax_name,
+      default_tax_rate: String(Number(c.tax_rate)),
+      financial_year_start_month: c.fy_start,
+    }));
+  };
+  const zones = [...new Set([form.default_timezone, ...countries.map((c) => c.timezone)].filter(Boolean))].sort();
+  return (
+    <section className="card p-4 sm:p-6" data-testid="region-settings">
+      <h2 className="mb-1 text-base font-semibold text-zinc-900">{t("settings.region.title")}</h2>
+      <p className="mb-4 text-sm text-zinc-500">{t("settings.region.intro")}</p>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Field label={t("settings.region.country")}>
+          <select className={inputClass} value={form.country} onChange={(e) => pickCountry(e.target.value)} data-testid="country">
+            {countries.length === 0 && <option value={form.country}>{form.country}</option>}
+            {countries.map((c) => (
+              <option key={c.code} value={c.code}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </Field>
+        <Field label={t("settings.company.currency")}>
+          <select className={inputClass} value={form.default_currency} onChange={(e) => update("default_currency", e.target.value)} data-testid="currency">
+            {[...new Set([form.default_currency, ...currencies].filter(Boolean))].map((code) => (
+              <option key={code} value={code}>
+                {code}
+              </option>
+            ))}
+          </select>
+        </Field>
+        <Field label={t("settings.region.taxName")} hint={t("settings.region.taxNameHint")}>
+          <input className={inputClass} maxLength={20} required value={form.tax_name ?? ""} onChange={(e) => update("tax_name", e.target.value)} data-testid="tax-name" />
+        </Field>
+        <Field label={t("settings.region.taxRate")} hint={t("settings.region.taxRateHint")}>
+          <input
+            className={`${inputClass} tabular-nums`}
+            inputMode="decimal"
+            pattern="\d{1,2}(\.\d{1,2})?"
+            required
+            value={form.default_tax_rate ?? ""}
+            onChange={(e) => update("default_tax_rate", e.target.value)}
+            data-testid="tax-rate"
+          />
+        </Field>
+        <Field label={t("settings.company.timezone")} hint={t("settings.region.timezoneHint")}>
+          <select className={inputClass} value={form.default_timezone} onChange={(e) => update("default_timezone", e.target.value)}>
+            {zones.map((z) => (
+              <option key={z} value={z}>
+                {z.replace(/_/g, " ")}
+              </option>
+            ))}
+          </select>
+        </Field>
+      </div>
+    </section>
+  );
+}
 
 // Days relative to the due date, offered as toggles. Any other value saved
 // through the API still shows (and can be switched off) below.
@@ -104,6 +181,7 @@ export default function SettingsPage() {
       smtp_port: data.smtp_port ?? "",
       email_signature: data.email_signature ?? "",
       annual_revenue_goal: data.annual_revenue_goal == null ? "" : String(Number(data.annual_revenue_goal)),
+      default_tax_rate: String(Number(data.default_tax_rate ?? 15)),
     });
   }, [data]);
 
@@ -112,6 +190,9 @@ export default function SettingsPage() {
     onSuccess: (updated) => {
       queryClient.setQueryData(["settings"], updated);
       queryClient.invalidateQueries({ queryKey: ["company"] });
+      // A new country can rename the tax number on documents ("KRA PIN").
+      queryClient.invalidateQueries({ queryKey: ["document-template"] });
+      queryClient.removeQueries({ queryKey: ["document"] });
       toast.success(t("settings.saved"));
     },
     onError: (error) => toast.error(errorMessage(error, t("settings.saveFailed"))),
@@ -195,33 +276,18 @@ export default function SettingsPage() {
             <Field label={t("settings.company.attachLogo")}>
               <LogoUpload onChanged={(saved) => update("logo_url", saved?.logo_url ?? "")} />
             </Field>
-            <Field label={t("settings.company.currency")}>
-              <input
-                className={inputClass}
-                value={form.default_currency}
-                onChange={(e) => update("default_currency", e.target.value)}
-                maxLength={10}
-                required
-              />
-            </Field>
-            <Field label={t("settings.company.timezone")}>
-              <input
-                className={inputClass}
-                value={form.default_timezone}
-                onChange={(e) => update("default_timezone", e.target.value)}
-                required
-              />
-            </Field>
           </div>
         </section>
         )}
+
+        {tab === "general" && <RegionSettings form={form} update={update} setForm={setForm} />}
 
         {tab === "general" && (
         <section className="card p-4 sm:p-6">
           <h2 className="mb-1 text-base font-semibold text-zinc-900">{t("goal.settingsTitle")}</h2>
           <p className="mb-4 text-sm text-zinc-500">{t("goal.settingsIntro")}</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Field label={t("goal.amount")}>
+            <Field label={t("goal.amount", { currency: currencyCode() })}>
               <input
                 type="number"
                 min={0}

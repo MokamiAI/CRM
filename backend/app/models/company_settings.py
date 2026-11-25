@@ -22,6 +22,13 @@ class CompanySettings(UUIDPKMixin, TimestampMixin, Base):
     # Registered for VAT? Off: documents say "Invoice", show no VAT number,
     # and new lines start at 0% VAT. Ticked when the company registers.
     vat_registered: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    # Where the company trades (app/core/countries.py): its defaults for
+    # currency, tax, dialling code, time zone and financial year.
+    country: Mapped[str] = mapped_column(String(2), nullable=False, default="ZA", server_default="ZA")
+    # What the tax is called on documents ("VAT", "GST") and the rate new
+    # lines start at (0% instead when not registered for it).
+    tax_name: Mapped[str] = mapped_column(String(20), nullable=False, default="VAT", server_default="VAT")
+    default_tax_rate: Mapped[float] = mapped_column(Numeric(5, 2), nullable=False, default=15, server_default="15")
     default_currency: Mapped[str] = mapped_column(String(10), nullable=False, default="ZAR")
     default_timezone: Mapped[str] = mapped_column(
         String(50), nullable=False, default="Africa/Johannesburg"

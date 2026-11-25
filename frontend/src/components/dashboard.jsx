@@ -7,7 +7,7 @@ import { Avatar } from "./ui";
 import { ActivityIcon, activityColor, EditActivityButton, PencilIcon, STAGE_LABELS } from "./crm";
 import { EditCustomerSheet } from "./CustomerFormSheet";
 import { useAuth } from "../context/AuthContext";
-import { formatMoney, formatMoneyFit, formatMoneyWhole, formatShortDate } from "../utils/format";
+import { formatMoney, formatMoneyCompact, formatMoneyFit, formatMoneyWhole, formatShortDate } from "../utils/format";
 import { celebrate, firstTime } from "../utils/motion";
 
 const Svg = ({ d, className = "h-5 w-5", ...props }) => (
@@ -417,7 +417,7 @@ export function RevenueChart({ months }) {
   const y = (v) => pad.t + (1 - v / max) * (H - pad.t - pad.b);
   const ticks = [0, 0.25, 0.5, 0.75, 1].map((f) => f * max);
   const label = (iso, long) => new Date(`${iso}T00:00:00`).toLocaleDateString(i18n.language, { month: long ? "long" : "short", ...(long ? { year: "numeric" } : {}) });
-  const compact = (v) => (v >= 1e6 ? `R${(v / 1e6).toFixed(1)}m` : v >= 1e3 ? `R${Math.round(v / 1e3)}k` : `R${Math.round(v)}`);
+  const compact = (v) => formatMoneyCompact(v);
   const every = Math.max(1, Math.ceil(months.length / Math.max(2, Math.floor((W - pad.l - pad.r) / 40))));
   const h = hover != null ? months[hover] : null;
 

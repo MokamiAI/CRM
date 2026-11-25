@@ -36,6 +36,18 @@ class RegisterRequest(BaseModel):
     annual_revenue_goal: Decimal | None = Field(default=None, ge=0, le=Decimal("999999999999"))
     # Where the business is: saved as the company's address (on its documents).
     business_address: str = Field(min_length=10, max_length=500)
+    # Where the business trades (ISO code; "ZZ" another country): sets its
+    # currency, tax, dialling code, time zone and financial year.
+    country: str = Field(default="ZA", min_length=2, max_length=2)
+
+    @field_validator("country")
+    @classmethod
+    def _country(cls, value: str) -> str:
+        from app.core.countries import COUNTRIES
+
+        if value.upper() not in COUNTRIES:
+            raise ValueError("Pick a country from the list")
+        return value.upper()
     # Ticked (never by default): YGT may send them tips, news and offers.
     marketing_opt_in: bool = False
     # Required: they agree to the terms and privacy policy (recorded).

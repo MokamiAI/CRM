@@ -19,6 +19,7 @@ import QuoteOfTheWeek from "../components/QuoteOfTheWeek";
 import { NotificationList, NotificationPopper, OPEN_BELL, PushToggle, useMyNotifications } from "../components/NotificationCenter";
 import { WelcomeSplash, welcomeQueued } from "../components/Startup";
 import { useActivityCounts, useCompany, useDiscoveryCounts, useInboxCounts } from "../hooks/useApi";
+import { setRegion } from "../utils/format";
 
 const Icon = ({ d, ...props }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
@@ -380,7 +381,10 @@ export default function AppLayout() {
   const actionCount = useActionCount();
   // The company's "Customers"/"Clients" choice; App remounts if it changed.
   useEffect(() => {
-    if (company) setCustomerTerm(company.customer_term);
+    if (company) {
+      setCustomerTerm(company.customer_term);
+      setRegion(company);
+    }
   }, [company]);
   const [moreOpen, setMoreOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);

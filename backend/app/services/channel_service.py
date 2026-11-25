@@ -21,7 +21,7 @@ from app.models.messaging import CONNECTION_KINDS, ChannelConnection, Conversati
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.services import channel_providers as providers
 from app.services import email_inbox
-from app.services.channel_providers import FieldSpec, InboundText, ProviderError, ProviderSpec, normalize_phone
+from app.services.channel_providers import FieldSpec, InboundText, ProviderError, ProviderSpec, company_dial, normalize_phone
 
 IMAP = ProviderSpec(
     kind="email_in",
@@ -119,10 +119,10 @@ class ChannelService:
             if kind == "email_in":
                 detail = await run_in_threadpool(email_inbox.test_mailbox, conn.settings, creds.get("password", ""))
             elif to and kind in ("whatsapp", "sms"):
-                phone = normalize_phone(to)
+                company = await CompanySettingsRepository(self.db).get_current()
+                phone = normalize_phone(to, company_dial(company))
                 if not phone:
                     raise ProviderError("That phone number doesn't look right")
-                company = await CompanySettingsRepository(self.db).get_current()
                 await providers.PROVIDERS[conn.provider]["send"](
                     conn.settings, creds, phone, f"Test message from {company.company_name}: your CRM is connected."
                 )
@@ -157,17 +157,18 @@ class ChannelService:
             set_tenant(self.db, conn.company_id)
         return conn
 
-    async def _customer_by_phone(self, phone: str) -> Customer | None:
+    async def _customer_by_phone(self, phone: str, dial: str = "27") -> Customer | None:
         candidates = (await self.db.scalars(select(Customer).where(Customer.phone.is_not(None)))).all()
-        return next((c for c in candidates if normalize_phone(c.phone) == phone), None)
+        return next((c for c in candidates if normalize_phone(c.phone, dial) == phone), None)
 
     async def receive_texts(self, conn: ChannelConnection, items: list[InboundText]) -> int:
         from app.services.messaging_service import MessagingService  # circular at import time
 
         filed = 0
         messaging = MessagingService(self.db)
+        dial = company_dial(await CompanySettingsRepository(self.db).get_current())
         for item in items:
-            phone = normalize_phone(item.from_phone)
+            phone = normalize_phone(item.from_phone, dial)
             if not phone or not item.text:
                 continue
             conversation = await self.db.scalar(
@@ -177,7 +178,7 @@ class ChannelService:
                 .limit(1)
             )
             if conversation is None:
-                customer = await self._customer_by_phone(phone)
+                customer = await self._customer_by_phone(phone, dial)
                 label = "WhatsApp" if conn.kind == "whatsapp" else "SMS"
                 conversation = await messaging.new_conversation(
                     channel=conn.kind,

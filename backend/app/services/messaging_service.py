@@ -19,7 +19,7 @@ from app.models.messaging import Conversation, Message, TeamChannel, TeamChannel
 from app.models.user import User
 from app.repositories.company_settings_repository import CompanySettingsRepository
 from app.schemas.messaging import ConversationCreate, ConversationUpdate, InboundEmail
-from app.services.channel_providers import normalize_phone
+from app.services.channel_providers import company_dial, normalize_phone
 from app.services.email_service import OutgoingEmail, render_email
 from app.services.signatures import signature_for
 
@@ -204,7 +204,8 @@ class MessagingService:
         else:
             if await ChannelService(self.db).enabled(data.channel) is None:
                 raise ChannelNotSetUpError(data.channel)
-            phone = normalize_phone(data.to_phone or customer.phone)
+            dial = company_dial(await CompanySettingsRepository(self.db).get_current())
+            phone = normalize_phone(data.to_phone or customer.phone, dial)
             if not phone:
                 raise CustomerNoPhoneError()
             label = "WhatsApp" if data.channel == "whatsapp" else "SMS"

@@ -1558,7 +1558,8 @@
     "testSent": "Test email sent",
     "unschedule": "Cancel schedule",
     "unscheduledToast": "Moved back to draft",
-    "untitled": "Untitled campaign"
+    "untitled": "Untitled campaign",
+    "consentNoteIntl": "Only active customers, and prospects who've agreed to marketing, with an email address and who haven't unsubscribed are included. Every email has an unsubscribe link, as data protection laws require."
   },
   "messages": {
     "addNote": "Add note",
@@ -1852,7 +1853,9 @@
       "password": "Use at least 8 characters.",
       "address": "Enter the street and town, e.g. 12 Church Street, Polokwane.",
       "agree": "Please tick this to create your account."
-    }
+    },
+    "country": "Where is your business?",
+    "countryHint": "Sets your currency, tax and time zone. You can change these later in Settings."
   },
   "role": {
     "admin": "Admin",
@@ -1967,6 +1970,16 @@
       "customerExample": "“New customer”, “Customer list”",
       "intro": "What do you call the businesses and people you sell to? The word changes throughout the app.",
       "title": "Wording"
+    },
+    "region": {
+      "title": "Country, currency and tax",
+      "intro": "Picking your country fills in its currency, tax, time zone and financial year. You can change any of them.",
+      "country": "Country",
+      "taxName": "Tax name on documents",
+      "taxNameHint": "For example VAT or GST.",
+      "taxRate": "Standard rate (%)",
+      "taxRateHint": "New lines and products start at this rate.",
+      "timezoneHint": "For due dates, reminders and the calendar."
     }
   },
   "showcase": {
@@ -2708,7 +2721,7 @@
     "signupHint": "We'll show how close the deals you win bring you. You can change it any time.",
     "settingsTitle": "Annual revenue goal",
     "settingsIntro": "Deals you win count towards it. The dashboard shows how far you are and the pace you need.",
-    "amount": "Goal for the year (R)",
+    "amount": "Goal for the year ({{currency}})",
     "yearStarts": "Your year starts in",
     "yearStartsHint": "Most South African businesses start in March.",
     "emptyTitle": "Set a revenue goal for the year",
@@ -3630,7 +3643,8 @@
     "messageHint": "Use {name} for their first name. Ask whether they'd like to hear from you, and save the offers for after they say yes.",
     "inviteAdds": "We add a \"Yes, keep me posted\" button, a \"No thanks\" link and the line \"We won't email you again unless you say yes.\"",
     "sendInvite": "Send invite",
-    "invited": "Invite sent to {{email}}"
+    "invited": "Invite sent to {{email}}",
+    "lawNoteIntl": "Data protection laws only let you send marketing to prospects once they've agreed to it. Tick \"Agreed to marketing\" when someone says yes, or send the one-time invite to ask them. Everyone who agrees joins your campaign audiences."
   },
   "consent": {
     "title": "May YGT send you tips, news and offers?",
@@ -3732,7 +3746,7 @@
     "resumed": "Recurring bill resumed",
     "description": "What was it for?",
     "descriptionHint": "e.g. Fuel for deliveries",
-    "amount": "Amount (R)",
+    "amount": "Amount ({{currency}})",
     "amountHint": "VAT included, as on the slip",
     "categoryLabel": "Category",
     "newCategory": "New category…",

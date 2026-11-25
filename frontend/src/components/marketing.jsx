@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
 import { useAudience, useCustomFields } from "../hooks/useApi";
-import { errorMessage } from "../utils/format";
+import { errorMessage, getRegion } from "../utils/format";
 import Sheet from "./Sheet";
 import { Button, Field } from "./ui";
 
@@ -254,7 +254,7 @@ export function AudienceSheet({ open, onClose, segment, onSaved }) {
           <span className="label">{t("marketing.rule.heading")}</span>
           <RulesEditor rules={rules} onChange={setRules} />
         </div>
-        <p className="text-xs text-zinc-500">{t("marketing.consentNote")}</p>
+        <p className="text-xs text-zinc-500">{t(getRegion().country === "ZA" ? "marketing.consentNote" : "marketing.consentNoteIntl")}</p>
       </form>
     </Sheet>
   );

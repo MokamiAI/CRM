@@ -9,7 +9,7 @@ import { Button, Field } from "./ui";
 import PartyCombobox from "./PartyCombobox";
 import { PRIORITIES, STAGES, industryFromCustomer, industryOptions } from "./crm";
 import { CustomFieldInputs, toFormValues } from "./CustomFields";
-import { CURRENCY, errorMessage } from "../utils/format";
+import { currencyCode, errorMessage } from "../utils/format";
 
 // The chosen priority button, in its own colour.
 const SELECTED = {
@@ -232,7 +232,7 @@ export default function DealFormSheet({ open, onClose, deal, customerId, initial
           </Field>
         </fieldset>
         <div className="grid grid-cols-2 gap-3">
-          <Field label={t("dealForm.value", { currency: CURRENCY })}>
+          <Field label={t("dealForm.value", { currency: currencyCode() })}>
             <input className="input tabular-nums" inputMode="decimal" pattern="\d+(\.\d{1,2})?" value={form.value} onChange={set("value")} placeholder="0" />
           </Field>
           <Field label={t("dealForm.expectedClose")}>

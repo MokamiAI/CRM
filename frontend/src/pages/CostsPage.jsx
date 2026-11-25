@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { useHasFeature } from "../components/Billing";
 import { canManageCosts, canViewCosts } from "../utils/costAccess";
 import { Button, EmptyState, ErrorState, Field, FilterChips, ListSkeleton, PageHeader, PlusIcon } from "../components/ui";
-import { errorMessage, formatDate, formatMoney } from "../utils/format";
+import { currencyCode, errorMessage, formatDate, formatMoney } from "../utils/format";
 
 export const PRESET_CATEGORIES = ["rent", "salaries", "stock", "transport", "marketing", "utilities", "software", "other"];
 const FREQUENCIES = ["weekly", "monthly", "quarterly", "yearly"];
@@ -259,7 +259,7 @@ function CostSheet({ open, cost: picked, onClose, readOnly }) {
           <input className="input" autoFocus={!editing} maxLength={255} placeholder={t("costs.descriptionHint")} value={form.description} onChange={(e) => set("description")(e.target.value)} />
         </Field>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label={t("costs.amount")} hint={t("costs.amountHint")}>
+          <Field label={t("costs.amount", { currency: currencyCode() })} hint={t("costs.amountHint")}>
             <input className="input tabular-nums" type="number" min="0.01" step="0.01" inputMode="decimal" value={form.amount} onChange={(e) => set("amount")(e.target.value)} />
           </Field>
           <Field label={t("costs.categoryLabel")}>
@@ -378,7 +378,7 @@ function RecurringSheet({ open, schedule, onClose, readOnly }) {
           <input className="input" autoFocus={!editing} maxLength={255} placeholder={t("costs.recurringHint")} value={form.description} onChange={(e) => set("description")(e.target.value)} />
         </Field>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label={t("costs.amount")} hint={t("costs.amountHint")}>
+          <Field label={t("costs.amount", { currency: currencyCode() })} hint={t("costs.amountHint")}>
             <input className="input tabular-nums" type="number" min="0.01" step="0.01" inputMode="decimal" value={form.amount} onChange={(e) => set("amount")(e.target.value)} />
           </Field>
           <Field label={t("costs.categoryLabel")}>

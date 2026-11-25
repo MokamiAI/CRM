@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
 import { useBilling, usePlans } from "../hooks/useApi";
-import { errorMessage, formatDate, formatMoney, formatMoneyWhole } from "../utils/format";
+import { errorMessage, formatDate, formatRand as formatMoney, formatRandWhole as formatMoneyWhole } from "../utils/format";
 import { celebrate } from "../utils/motion";
 import { Button } from "./ui";
 import { DocumentViewer } from "./Documents";

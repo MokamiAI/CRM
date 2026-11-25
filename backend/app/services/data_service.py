@@ -174,6 +174,16 @@ class ImportService:
                 )
         return outcome
 
+    async def _default_tax_rate(self) -> Decimal:
+        """No rate in the file: the company's standard rate (15% in South
+        Africa, 16% in Kenya...), as for a product added by hand."""
+        if getattr(self, "_tax_default", None) is None:
+            from app.models.company_settings import CompanySettings
+
+            company = await self.db.get(CompanySettings, self.company_id)
+            self._tax_default = Decimal(str(company.default_tax_rate)) if company else Decimal("15")
+        return self._tax_default
+
     async def _products(self, row: dict, update_existing: bool) -> str:
         name = _text(row, "name", 255)
         if not name:
@@ -186,7 +196,9 @@ class ImportService:
             raise RowError("VAT rate must be a percentage, e.g. 15")
         sku = _text(row, "sku", 100)
         existing = (self.products_by_sku.get(sku.casefold()) if sku else None) or self.products_by_name.get(name.casefold())
-        fields = {"name": name, "sku": sku, "unit_price": price, "tax_rate": tax if tax is not None else Decimal("15"), "description": _text(row, "description", 5000)}
+        if tax is None:
+            tax = await self._default_tax_rate()
+        fields = {"name": name, "sku": sku, "unit_price": price, "tax_rate": tax, "description": _text(row, "description", 5000)}
         if existing:
             if not update_existing:
                 return "skipped"

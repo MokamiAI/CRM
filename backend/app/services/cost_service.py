@@ -325,8 +325,14 @@ class CostService:
             select(User).where(User.is_active.is_(True), or_(User.is_account_owner.is_(True), User.cost_access == "manage"))
         )).all()
         sent = 0
+        from app.core.countries import format_money
+        from app.repositories.company_settings_repository import CompanySettingsRepository
+
+        company = await CompanySettingsRepository(self.db).get_current()
+        currency = company.default_currency if company else "ZAR"
         for bill in bills:
-            amount = f"R {Decimal(bill.amount):,.2f}".replace(",", " ")
+            # South Africa keeps "R 1 500.00"; elsewhere "KES 1,500.00".
+            amount = f"R {Decimal(bill.amount):,.2f}".replace(",", " ") if currency == "ZAR" else format_money(currency, bill.amount)
             if bill.due_date < today:
                 title = f"Overdue bill: {bill.description} ({amount}, due {bill.due_date:%d %b})"
             else:

@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getCustomerTerm } from "./i18n";
+import { getRegion } from "./utils/format";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { VisitTracker } from "./utils/visits";
 import PageMeta from "./components/PageMeta";
@@ -80,15 +81,21 @@ export default function App() {
   // formatted for that locale.
   const { i18n } = useTranslation();
   const [term, setTerm] = useState(getCustomerTerm);
+  // And on the company's country and currency, so every amount re-formats.
+  const [place, setPlace] = useState(() => `${getRegion().country}-${getRegion().currency}`);
   useEffect(() => {
     i18n.on("customerTermChanged", setTerm);
-    return () => i18n.off("customerTermChanged", setTerm);
+    i18n.on("regionChanged", setPlace);
+    return () => {
+      i18n.off("customerTermChanged", setTerm);
+      i18n.off("regionChanged", setPlace);
+    };
   }, [i18n]);
   return (
     <Suspense fallback={null}>
     <VisitTracker />
     <PageMeta />
-    <Routes key={`${i18n.language}-${term}`}>
+    <Routes key={`${i18n.language}-${term}-${place}`}>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/about" element={<AboutPage />} />

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
 import { useCompany, useProspects } from "../hooks/useApi";
-import { errorMessage, formatDate } from "../utils/format";
+import { errorMessage, formatDate, getRegion } from "../utils/format";
 import Sheet from "./Sheet";
 import { Button, EmptyState, ErrorState, Field, ListSkeleton } from "./ui";
 
@@ -43,7 +43,7 @@ export default function MarketingProspects({ adding, onAdded }) {
 
   return (
     <div className="space-y-3">
-      <p className="rounded-xl bg-indigo-50/70 p-3 text-sm text-indigo-950 ring-1 ring-inset ring-indigo-600/10">{t("prospects.lawNote")}</p>
+      <p className="rounded-xl bg-indigo-50/70 p-3 text-sm text-indigo-950 ring-1 ring-inset ring-indigo-600/10">{t(getRegion().country === "ZA" ? "prospects.lawNote" : "prospects.lawNoteIntl")}</p>
       {isLoading ? (
         <ListSkeleton />
       ) : isError ? (

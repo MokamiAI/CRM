@@ -48,17 +48,27 @@ class ProviderSpec:
         return [f.name for f in self.fields if f.secret]
 
 
-def normalize_phone(raw: str | None, default_country: str = "27") -> str | None:
+def normalize_phone(raw: str | None, default_country: str | None = "27") -> str | None:
     """International digits without '+', e.g. '082 123 4567' -> '27821234567'.
-    Local numbers starting with 0 get the default country code (South Africa)."""
+    Local numbers starting with 0 get the company's dialling code (see
+    company_dial); with none ("another country") they need a +code."""
     if not raw:
         return None
     digits = re.sub(r"\D", "", raw)
     if raw.strip().startswith("00"):
         digits = digits[2:]
     elif digits.startswith("0"):
+        if not default_country:
+            return None
         digits = default_country + digits[1:]
     return digits if 8 <= len(digits) <= 15 else None
+
+
+def company_dial(company) -> str:
+    """The dialling code for a company's local numbers: '27', '254', ''."""
+    from app.core.countries import country
+
+    return country(getattr(company, "country", None)).dial
 
 
 def _url(real: str) -> str:

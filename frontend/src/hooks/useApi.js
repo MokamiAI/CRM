@@ -12,6 +12,12 @@ export function useCompany() {
   return useQuery({ queryKey: ["company"], queryFn: () => get("/company"), staleTime: 5 * 60_000 });
 }
 
+/** Every country with its defaults (currency, tax, dialling code, time zone,
+ *  financial year) and the currencies a company can invoice in. Public. */
+export function useCountries() {
+  return useQuery({ queryKey: ["countries"], queryFn: () => get("/public/countries"), staleTime: Infinity });
+}
+
 export function usePipelineAccounts(options = {}) {
   return useQuery({ queryKey: ["pipeline-accounts"], queryFn: () => get("/pipeline/accounts", { limit: LIST_LIMIT }), ...options });
 }

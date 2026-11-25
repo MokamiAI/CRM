@@ -11,7 +11,7 @@ import Sheet from "../components/Sheet";
 import { AudienceCount, AudienceSheet } from "../components/marketing";
 import CampaignTemplates from "../components/CampaignTemplates";
 import { Button, ErrorState, Field, ListSkeleton, StatusBadge } from "../components/ui";
-import { errorMessage, formatDateTime, formatMoney } from "../utils/format";
+import { errorMessage, formatDateTime, formatMoney, getRegion } from "../utils/format";
 import { onSpecial } from "../utils/products";
 import { celebrate } from "../utils/motion";
 import { campaignDate } from "./MarketingPage";
@@ -336,7 +336,7 @@ function Editor({ campaign }) {
         <div className="mt-3">
           <AudienceCount audience={audience} loading={audienceLoading} />
         </div>
-        <p className="mt-4 text-xs text-zinc-500">{t("marketing.consentNote")}</p>
+        <p className="mt-4 text-xs text-zinc-500">{t(getRegion().country === "ZA" ? "marketing.consentNote" : "marketing.consentNoteIntl")}</p>
       </Sheet>
 
       <Sheet

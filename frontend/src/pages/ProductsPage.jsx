@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import apiClient from "../services/apiClient";
-import { useProducts } from "../hooks/useApi";
+import { useCompany, useProducts } from "../hooks/useApi";
 import { useAuth } from "../context/AuthContext";
 import Sheet from "../components/Sheet";
 import {
@@ -44,6 +44,7 @@ export default function ProductsPage() {
     ...(activeFilter !== "all" && { is_active: activeFilter }),
   });
 
+  const { data: company } = useCompany();
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(EMPTY);
   const queryClient = useQueryClient();
@@ -62,7 +63,7 @@ export default function ProductsPage() {
             special_price: product.special_price == null ? "" : String(Number(product.special_price)),
             special_until: product.special_until ?? "",
           }
-        : EMPTY
+        : { ...EMPTY, tax_rate: String(Number(company?.default_tax_rate ?? 15)) }
     );
   }
 

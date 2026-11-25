@@ -38,6 +38,16 @@ router = APIRouter(route_class=CommitBeforeResponseRoute, prefix="/public", tags
 _PIXEL = base64.b64decode("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7")
 
 
+@router.get("/countries", tags=["public"])
+async def list_countries():
+    """For the sign-up and settings pickers: every country with its default
+    currency, tax, dialling code, time zone and financial year, and every
+    currency a company can invoice in."""
+    from app.core.countries import COUNTRIES, CURRENCIES, as_dict
+
+    return {"countries": [as_dict(c) for c in COUNTRIES.values()], "currencies": list(CURRENCIES)}
+
+
 @router.get("/quotes/accept/{token}", response_class=HTMLResponse, include_in_schema=False)
 async def quote_acceptance_page(token: str, db: AsyncSession = Depends(get_db)):
     from app.services.quote_acceptance import linked_quote

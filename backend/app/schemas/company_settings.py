@@ -4,7 +4,11 @@ import uuid
 from datetime import datetime
 from typing import Literal
 
+from zoneinfo import ZoneInfo
+
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+
+from app.core.countries import COUNTRIES, CURRENCIES
 
 
 def clean_reply_to(value: str | None) -> str | None:
@@ -27,8 +31,45 @@ class CompanySettingsUpdate(BaseModel):
     website: str | None = Field(default=None, max_length=255)
     tax_number: str | None = Field(default=None, max_length=100)
     vat_registered: bool | None = None
+    country: str | None = Field(default=None, min_length=2, max_length=2)
+    tax_name: str | None = Field(default=None, min_length=1, max_length=20)
+    default_tax_rate: Decimal | None = Field(default=None, ge=0, le=50, decimal_places=2)
     default_currency: str | None = Field(default=None, min_length=3, max_length=10)
     default_timezone: str | None = Field(default=None, max_length=50)
+
+    @field_validator("country")
+    @classmethod
+    def _country(cls, value):
+        if value is None:
+            return value
+        if value.upper() not in COUNTRIES:
+            raise ValueError("Pick a country from the list")
+        return value.upper()
+
+    @field_validator("default_currency")
+    @classmethod
+    def _currency(cls, value):
+        if value is None:
+            return value
+        if value.strip().upper() not in CURRENCIES:
+            raise ValueError("Pick a currency from the list")
+        return value.strip().upper()
+
+    @field_validator("default_timezone")
+    @classmethod
+    def _timezone(cls, value):
+        if value is None:
+            return value
+        try:
+            ZoneInfo(value.strip())
+        except Exception:
+            raise ValueError("Use a time zone like Africa/Johannesburg or Africa/Nairobi")
+        return value.strip()
+
+    @field_validator("tax_name")
+    @classmethod
+    def _tax_name(cls, value):
+        return value.strip() if value else value
     logo_url: str | None = Field(default=None, max_length=500)
     invoice_prefix: str | None = Field(default=None, min_length=1, max_length=20)
     quote_prefix: str | None = Field(default=None, min_length=1, max_length=20)
@@ -82,6 +123,9 @@ class CompanySettingsOut(BaseModel):
     website: str | None = None
     tax_number: str | None
     vat_registered: bool = False
+    country: str = "ZA"
+    tax_name: str = "VAT"
+    default_tax_rate: Decimal = Decimal("15")
     default_currency: str
     default_timezone: str
     logo_url: str | None
@@ -139,6 +183,10 @@ class CompanyProfileOut(BaseModel):
     # Printed on every document anyway; a new purchase order delivers here.
     address: str | None = None
     vat_registered: bool = False
+    # Where the company trades and how its money and tax show.
+    country: str = "ZA"
+    tax_name: str = "VAT"
+    default_tax_rate: Decimal = Decimal("15")
     default_currency: str
     logo_url: str | None
     customer_term: str

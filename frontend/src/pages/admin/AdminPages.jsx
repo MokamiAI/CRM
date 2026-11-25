@@ -8,7 +8,7 @@ import { Button, ErrorState, ListSkeleton } from "../../components/ui";
 import Sheet from "../../components/Sheet";
 import TicketAttachments from "../../components/TicketAttachments";
 import TicketTemplates from "../../components/TicketTemplates";
-import { errorMessage, formatDate, formatDateTime, formatMoney } from "../../utils/format";
+import { errorMessage, formatDate, formatDateTime, formatRand as formatMoney } from "../../utils/format";
 
 // English only: the admin site is for YGT's own team.
 const get = (url, params) => apiClient.get(url, { params }).then((r) => r.data);
